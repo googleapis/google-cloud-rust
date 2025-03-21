@@ -12,52 +12,43 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Provides functionality for interacting with the Metadata Service (MDS) to obtain access token.
+//! [Metadata Service] Credentials type.
 //!
-//! This module defines the `MDSCredentialBuilder` struct for creating credentials
-//! that can retrieve access tokens from the Google Cloud Metadata Service.
+//! Google Cloud environments such as [Google Compute Engine (GCE)][gce-link],
+//! [Google Kubernetes Engine (GKE)][gke-link], or [Cloud Run] provide a metadata service.
+//! This is a local service to the VM (or pod) which (as the name implies) provides
+//! metadata information about the VM. The service also provides access
+//! tokens associated with the [default service account] for the corresponding
+//! VM.
 //!
-//! # Overview
+//! You can use this access token to securely authenticate with Google Cloud,
+//! without having to download secrets or other credentials. The types in this
+//! module allow you to retrieve these access tokens, and can be used with
+//! the Google Cloud client libraries for Rust.
 //!
-//! The Metadata Service is a component of Google Cloud environments that provides
-//! information about the running instance and its configuration. This module leverages
-//! the Metadata Service to dynamically obtain access tokens, which can then be used
-//! to authenticate with other Google Cloud services.
+//! While the Google Cloud client libraries for Rust default to
+//! using the types defined in this module. You may want to use said types directly
+//! to customize some of the properties of these credentials.
 //!
-//! # Key Components
-//!
-//! *   **`MDSCredentialBuilder`**: A builder pattern implementation for constructing
-//!     credentials that obtain tokens from the Metadata Service. It allows customization
-//!     of the Metadata Service endpoint, quota project id, scopes, and universe domain.
-//!
-//! If no value is provided for `endpoint`, `quota_project_id` or `universe_domain` the default will be used.
-//! If scopes are not provided we will try to obtain it from the metadata server.
-//! # Usage
-//!
-//! The `MDSCredentialBuilder` is the primary entry point for creating MDS credentials.
-//! Here's a basic example:
+//! Example usage:
 //!
 //! ```
 //! # use google_cloud_auth::credentials::mds_credential::MDSCredentialBuilder;
 //! # use google_cloud_auth::credentials::Credential;
-//! # async fn doc() -> Result<(), Box<dyn std::error::Error>>{
-//! // Create a new Credential that will use the Metadata Service with default settings.
-//! let credential: Credential = MDSCredentialBuilder::default().build();
-//!
-//! // Customize the credential with a specific endpoint and quota project ID.
-//! let credential_customized: Credential = MDSCredentialBuilder::default()
-//!     .endpoint("http://metadata.google.internal/computeMetadata/v1")
-//!     .quota_project_id("my-quota-project")
-//!     .build();
-//! # Ok(())
-//! # }
+//! # use google_cloud_auth::errors::CredentialError;
+//! # tokio_test::block_on(async {
+//! let credential: Credential = MDSCredentialBuilder::default().quota_project_id("my-quota-project").build();
+//! let token = credential.get_token().await?;
+//! println!("Token: {}", token.token);
+//! # Ok::<(), CredentialError>(())
+//! # });
 //! ```
 //!
-//! # Note
-//!
-//! This module is primarily intended for use within Google Cloud environments where
-//! the Metadata Service is available. Attempting to use it outside of such
-//! environments may result in errors.
+//! [Cloud Run]: https://cloud.google.com/run
+//! [default service account]: http://cloud/iam/docs/best-practices-service-accounts
+//! [gce-link]: https://cloud.google.com/products/compute
+//! [gke-link]: https://cloud.google.com/kubernetes-engine
+//! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 
 use crate::credentials::dynamic::CredentialTrait;
 use crate::credentials::{Credential, Result, DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY};
@@ -73,7 +64,7 @@ use std::time::Duration;
 
 const METADATA_FLAVOR_VALUE: &str = "Google";
 const METADATA_FLAVOR: &str = "metadata-flavor";
-const METADATA_ROOT: &str = "http://metadata.google.internal/computeMetadata/v1";
+const METADATA_ROOT: &str = "http://metadata.google.internal/";
 
 pub(crate) fn new() -> Credential {
     MDSCredentialBuilder::default().build()
@@ -89,11 +80,17 @@ where
     token_provider: T,
 }
 
-/// A builder for creating `MDSCredential` instances.
+/// Creates [Credential] instances backed by the [Metadata Service].
 ///
-/// This struct provides an interface for customizing the creation of
-/// `MDSCredential` instances. It allows you to specify the Metadata Service
-/// endpoint, quota project id, scopes, and universe domain.
+/// While the Google Cloud client libraries for Rust default to credentials
+/// backed by the metadata service, some applications may need to:
+/// * Customize the metadata service credentials in some way
+/// * Bypass the [Application Default Credentials] lookup and only
+///    use the metadata server credentials
+/// * Use the credentials directly outside the client libraries
+///
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
+/// [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 #[derive(Debug, Default)]
 pub struct MDSCredentialBuilder {
     endpoint: Option<String>,
@@ -105,45 +102,49 @@ pub struct MDSCredentialBuilder {
 #[allow(dead_code)]
 impl MDSCredentialBuilder {
     /// Sets the endpoint that this credential will use.
-    /// # Default
-    ///
-    /// if `endpoint` is not specified then  `http://metadata.google.internal/computeMetadata/v1` is used.
+    /// If not set, the credentials use `http://metadata.google.internal/`.
     pub fn endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
         self.endpoint = Some(endpoint.into());
         self
     }
 
-    /// Sets the quota project that this credential will use.
+    /// Sets the [quota project] that this credential will use.
+    /// In some services, you can use a service account in
+    /// one project for authentication and authorization, and charge
+    /// the usage to a different project. This may require that the
+    /// service account has serviceusage.services.use on the quota project.
+    /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
     pub fn quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
         self.quota_project_id = Some(quota_project_id.into());
         self
     }
 
     /// Sets the universe domain that this credential will use.
+    /// Client libraries use universe_domain to determine which
+    /// API endpoints to use for making requests.
+    /// If not set, then credentials use `googleapis.com`.`
     pub fn universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
         self.universe_domain = Some(universe_domain.into());
         self
     }
 
-    /// Sets the scopes that this credential will use.
-    /// # Default
-    ///
-    /// If scopes are not specified, they are fetched from the Metadata Server.
+    /// Sets the [scopes] that this credential will use.
+    /// Metadata server issues a token based on the requested scopes.
+    /// If no scopes are specified, the credential defaults to all
+    /// scopes configured for the [default service account] on the instance.
+    /// [default service account]: http://cloud/iam/docs/best-practices-service-accounts
+    /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
     pub fn scopes<S: Into<String>>(mut self, scopes: Vec<S>) -> Self {
         self.scopes = Some(scopes.into_iter().map(|s| s.into()).collect());
         self
     }
 
-    /// Builds and returns a `Credential` instance with the configured settings.
-    ///
-    /// # Returns
-    ///
-    /// A new `Credential` instance that will use Metadata Service.
+    /// Returns a [Credential] instance with the configured settings.
     pub fn build(self) -> Credential {
         let endpoint = self.endpoint.clone().unwrap_or(METADATA_ROOT.to_string());
 
         let token_provider = MDSAccessTokenProvider::builder()
-            .endpoint(endpoint.clone())
+            .endpoint(endpoint)
             .maybe_scopes(self.scopes.clone())
             .build();
 
@@ -217,7 +218,7 @@ impl MDSAccessTokenProvider {
     async fn get_service_account_info(&self, client: &Client) -> Result<ServiceAccountInfo> {
         let request = client
             .get(format!(
-                "{}/instance/service-accounts/default/",
+                "{}/computeMetadata/v1/instance/service-accounts/default/",
                 self.endpoint
             ))
             .query(&[("recursive", "true")])
@@ -250,7 +251,7 @@ impl TokenProvider for MDSAccessTokenProvider {
 
         let request = client
             .get(format!(
-                "{}/instance/service-accounts/default/token",
+                "{}/computeMetadata/v1/instance/service-accounts/default/token",
                 self.endpoint
             ))
             .query(&[("scopes", scopes)])
@@ -304,6 +305,7 @@ mod test {
     use tokio::task::JoinHandle;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+    const MDS_TOKEN_URI: &str = "/computeMetadata/v1/instance/service-accounts/default/token";
 
     // Define a struct to capture query parameters
     #[derive(Debug, Clone, Deserialize, PartialEq)]
@@ -435,7 +437,10 @@ mod test {
     #[tokio::test]
     async fn get_default_service_account_info_success() {
         let service_account = "default";
-        let path = format!("/instance/service-accounts/{}/", service_account);
+        let path = format!(
+            "/computeMetadata/v1/instance/service-accounts/{}/",
+            service_account
+        );
         let service_account_info = ServiceAccountInfo {
             email: "test@test.com".to_string(),
             scopes: Some(vec!["scope 1".to_string(), "scope 2".to_string()]),
@@ -466,7 +471,7 @@ mod test {
 
     #[tokio::test]
     async fn get_service_account_info_server_error() {
-        let path = "/instance/service-accounts/default/".to_string();
+        let path = "/computeMetadata/v1/instance/service-accounts/default/".to_string();
         let (endpoint, _server) = start(HashMap::from([(
             path,
             (
@@ -489,17 +494,16 @@ mod test {
 
     #[tokio::test]
     async fn get_headers_success_with_quota_project() {
-        let scopes = vec!["scope1".to_string()];
+        let scopes = vec!["scope1".to_string(), "scope2".to_string()];
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
             expires_in: Some(3600),
             token_type: "test-token-type".to_string(),
         };
         let response_body = serde_json::to_value(&response).unwrap();
-        let path = "/instance/service-accounts/default/token";
 
         let (endpoint, _server) = start(HashMap::from([(
-            path.to_string(),
+            MDS_TOKEN_URI.to_string(),
             (
                 StatusCode::OK,
                 response_body,
@@ -544,10 +548,9 @@ mod test {
             token_type: "test-token-type".to_string(),
         };
         let response_body = serde_json::to_value(&response).unwrap();
-        let path = "/instance/service-accounts/default/token";
 
         let (endpoint, _server) = start(HashMap::from([(
-            path.to_string(),
+            MDS_TOKEN_URI.to_string(),
             (
                 StatusCode::OK,
                 response_body,
@@ -577,7 +580,8 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_full_no_scopes() -> TestResult {
-        let service_account_info_path = "/instance/service-accounts/default/".to_string();
+        let service_account_info_path =
+            "/computeMetadata/v1/instance/service-accounts/default/".to_string();
         let scopes = vec!["scope 1".to_string(), "scope 2".to_string()];
         let service_account_info = ServiceAccountInfo {
             email: "test@test.com".to_string(),
@@ -592,7 +596,6 @@ mod test {
             token_type: "test-token-type".to_string(),
         };
         let response_body = serde_json::to_value(&response).unwrap();
-        let path = "/instance/service-accounts/default/token".to_string();
 
         let (endpoint, _server) = start(HashMap::from([
             (
@@ -607,7 +610,7 @@ mod test {
                 ),
             ),
             (
-                path,
+                MDS_TOKEN_URI.to_string(),
                 (
                     StatusCode::OK,
                     response_body,
@@ -642,9 +645,8 @@ mod test {
             token_type: "test-token-type".to_string(),
         };
         let response_body = serde_json::to_value(&response).unwrap();
-        let path = "/instance/service-accounts/default/token";
         let (endpoint, _server) = start(HashMap::from([(
-            path.to_string(),
+            MDS_TOKEN_URI.to_string(),
             (
                 StatusCode::OK,
                 response_body,
@@ -671,10 +673,9 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_retryable_error() -> TestResult {
-        let path = "/instance/service-accounts/default/token";
         let scopes = vec!["scope1".to_string()];
         let (endpoint, _server) = start(HashMap::from([(
-            path.to_string(),
+            MDS_TOKEN_URI.to_string(),
             (
                 StatusCode::SERVICE_UNAVAILABLE,
                 serde_json::to_value("try again")?,
@@ -699,10 +700,9 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_nonretryable_error() -> TestResult {
-        let path = "/instance/service-accounts/default/token";
         let scopes = vec!["scope1".to_string()];
         let (endpoint, _server) = start(HashMap::from([(
-            path.to_string(),
+            MDS_TOKEN_URI.to_string(),
             (
                 StatusCode::UNAUTHORIZED,
                 serde_json::to_value("epic fail".to_string())?,
@@ -728,10 +728,9 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_malformed_response_is_nonretryable() -> TestResult {
-        let path = "/instance/service-accounts/default/token";
         let scopes = vec!["scope1".to_string()];
         let (endpoint, _server) = start(HashMap::from([(
-            path.to_string(),
+            MDS_TOKEN_URI.to_string(),
             (
                 StatusCode::OK,
                 serde_json::to_value("bad json".to_string())?,
