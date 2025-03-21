@@ -278,8 +278,8 @@ pub mod execution {
         /// Sets the value of [position][crate::model::execution::StackTraceElement::position].
         pub fn set_position<
             T: std::convert::Into<
-                std::option::Option<crate::model::execution::stack_trace_element::Position>,
-            >,
+                    std::option::Option<crate::model::execution::stack_trace_element::Position>,
+                >,
         >(
             mut self,
             v: T,

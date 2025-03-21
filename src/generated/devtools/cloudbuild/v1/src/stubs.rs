@@ -178,8 +178,9 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ReceiveTriggerWebhookRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ReceiveTriggerWebhookResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ReceiveTriggerWebhookResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ReceiveTriggerWebhookResponse>>(Err(
             Error::other("unimplemented"),
         ))

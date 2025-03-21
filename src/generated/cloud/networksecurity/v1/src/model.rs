@@ -315,10 +315,10 @@ pub mod authorization_policy {
             /// Sets the value of [http_header_match][crate::model::authorization_policy::rule::Destination::http_header_match].
             pub fn set_http_header_match<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::authorization_policy::rule::destination::HttpHeaderMatch,
+                        std::option::Option<
+                            crate::model::authorization_policy::rule::destination::HttpHeaderMatch,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,

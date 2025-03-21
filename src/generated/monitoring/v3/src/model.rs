@@ -522,8 +522,8 @@ pub mod alert_policy {
         /// Sets the value of `condition`.
         pub fn set_condition<
             T: std::convert::Into<
-                std::option::Option<crate::model::alert_policy::condition::Condition>,
-            >,
+                    std::option::Option<crate::model::alert_policy::condition::Condition>,
+                >,
         >(
             mut self,
             v: T,
@@ -640,8 +640,8 @@ pub mod alert_policy {
         /// mutually exclusive.
         pub fn set_condition_threshold<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::alert_policy::condition::MetricThreshold>,
-            >,
+                    std::boxed::Box<crate::model::alert_policy::condition::MetricThreshold>,
+                >,
         >(
             mut self,
             v: T,
@@ -659,8 +659,8 @@ pub mod alert_policy {
         /// mutually exclusive.
         pub fn set_condition_absent<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::alert_policy::condition::MetricAbsence>,
-            >,
+                    std::boxed::Box<crate::model::alert_policy::condition::MetricAbsence>,
+                >,
         >(
             mut self,
             v: T,
@@ -695,10 +695,10 @@ pub mod alert_policy {
         /// mutually exclusive.
         pub fn set_condition_monitoring_query_language<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::alert_policy::condition::MonitoringQueryLanguageCondition,
+                    std::boxed::Box<
+                        crate::model::alert_policy::condition::MonitoringQueryLanguageCondition,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -718,10 +718,10 @@ pub mod alert_policy {
         /// mutually exclusive.
         pub fn set_condition_prometheus_query_language<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::alert_policy::condition::PrometheusQueryLanguageCondition,
+                    std::boxed::Box<
+                        crate::model::alert_policy::condition::PrometheusQueryLanguageCondition,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -741,8 +741,8 @@ pub mod alert_policy {
         /// mutually exclusive.
         pub fn set_condition_sql<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::alert_policy::condition::SqlCondition>,
-            >,
+                    std::boxed::Box<crate::model::alert_policy::condition::SqlCondition>,
+                >,
         >(
             mut self,
             v: T,
@@ -785,8 +785,8 @@ pub mod alert_policy {
             /// Sets the value of `r#type`.
             pub fn set_type<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::alert_policy::condition::trigger::Type>,
-                >,
+                        std::option::Option<crate::model::alert_policy::condition::trigger::Type>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -1002,16 +1002,7 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [forecast_options][crate::model::alert_policy::condition::MetricThreshold::forecast_options].
-            pub fn set_forecast_options<
-                T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::alert_policy::condition::metric_threshold::ForecastOptions,
-                    >,
-                >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_forecast_options<T: std::convert::Into<std::option::Option<crate::model::alert_policy::condition::metric_threshold::ForecastOptions>>>(mut self, v: T) -> Self{
                 self.forecast_options = v.into();
                 self
             }
@@ -1043,8 +1034,8 @@ pub mod alert_policy {
             /// Sets the value of [trigger][crate::model::alert_policy::condition::MetricThreshold::trigger].
             pub fn set_trigger<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::alert_policy::condition::Trigger>,
-                >,
+                        std::option::Option<crate::model::alert_policy::condition::Trigger>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -1218,8 +1209,8 @@ pub mod alert_policy {
             /// Sets the value of [trigger][crate::model::alert_policy::condition::MetricAbsence::trigger].
             pub fn set_trigger<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::alert_policy::condition::Trigger>,
-                >,
+                        std::option::Option<crate::model::alert_policy::condition::Trigger>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -1370,8 +1361,8 @@ pub mod alert_policy {
             /// Sets the value of [trigger][crate::model::alert_policy::condition::MonitoringQueryLanguageCondition::trigger].
             pub fn set_trigger<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::alert_policy::condition::Trigger>,
-                >,
+                        std::option::Option<crate::model::alert_policy::condition::Trigger>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -1641,10 +1632,10 @@ pub mod alert_policy {
             /// Sets the value of `schedule`.
             pub fn set_schedule<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::alert_policy::condition::sql_condition::Schedule,
+                        std::option::Option<
+                            crate::model::alert_policy::condition::sql_condition::Schedule,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -1711,8 +1702,10 @@ pub mod alert_policy {
             /// mutually exclusive.
             pub fn set_minutes<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Minutes>,
-                >,
+                        std::boxed::Box<
+                            crate::model::alert_policy::condition::sql_condition::Minutes,
+                        >,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -1732,8 +1725,10 @@ pub mod alert_policy {
             /// mutually exclusive.
             pub fn set_hourly<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Hourly>,
-                >,
+                        std::boxed::Box<
+                            crate::model::alert_policy::condition::sql_condition::Hourly,
+                        >,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -1753,8 +1748,10 @@ pub mod alert_policy {
             /// mutually exclusive.
             pub fn set_daily<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Daily>,
-                >,
+                        std::boxed::Box<
+                            crate::model::alert_policy::condition::sql_condition::Daily,
+                        >,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -1768,10 +1765,10 @@ pub mod alert_policy {
             /// Sets the value of `evaluate`.
             pub fn set_evaluate<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::alert_policy::condition::sql_condition::Evaluate,
+                        std::option::Option<
+                            crate::model::alert_policy::condition::sql_condition::Evaluate,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -1821,10 +1818,10 @@ pub mod alert_policy {
             /// mutually exclusive.
             pub fn set_row_count_test<
                 T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::alert_policy::condition::sql_condition::RowCountTest,
+                        std::boxed::Box<
+                            crate::model::alert_policy::condition::sql_condition::RowCountTest,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -1844,10 +1841,10 @@ pub mod alert_policy {
             /// mutually exclusive.
             pub fn set_boolean_test<
                 T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::alert_policy::condition::sql_condition::BooleanTest,
+                        std::boxed::Box<
+                            crate::model::alert_policy::condition::sql_condition::BooleanTest,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -2261,10 +2258,10 @@ pub mod alert_policy {
         /// Sets the value of [notification_rate_limit][crate::model::alert_policy::AlertStrategy::notification_rate_limit].
         pub fn set_notification_rate_limit<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::alert_policy::alert_strategy::NotificationRateLimit,
+                    std::option::Option<
+                        crate::model::alert_policy::alert_strategy::NotificationRateLimit,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -2298,8 +2295,8 @@ pub mod alert_policy {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::alert_policy::alert_strategy::NotificationChannelStrategy,
-            >,
+                    crate::model::alert_policy::alert_strategy::NotificationChannelStrategy,
+                >,
         {
             use std::iter::Iterator;
             self.notification_channel_strategy = v.into_iter().map(|i| i.into()).collect();
@@ -9850,8 +9847,10 @@ pub mod windows_based_sli {
         /// Sets the value of `r#type`.
         pub fn set_type<
             T: std::convert::Into<
-                std::option::Option<crate::model::windows_based_sli::performance_threshold::Type>,
-            >,
+                    std::option::Option<
+                        crate::model::windows_based_sli::performance_threshold::Type,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -11399,8 +11398,8 @@ impl SyntheticMonitorTarget {
     /// mutually exclusive.
     pub fn set_cloud_function_v2<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::synthetic_monitor_target::CloudFunctionV2Target>,
-        >,
+                std::boxed::Box<crate::model::synthetic_monitor_target::CloudFunctionV2Target>,
+            >,
     >(
         mut self,
         v: T,
@@ -11785,8 +11784,8 @@ impl UptimeCheckConfig {
     /// Sets the value of `check_request_type`.
     pub fn set_check_request_type<
         T: std::convert::Into<
-            std::option::Option<crate::model::uptime_check_config::CheckRequestType>,
-        >,
+                std::option::Option<crate::model::uptime_check_config::CheckRequestType>,
+            >,
     >(
         mut self,
         v: T,
@@ -12094,10 +12093,10 @@ pub mod uptime_check_config {
         /// Sets the value of [auth_info][crate::model::uptime_check_config::HttpCheck::auth_info].
         pub fn set_auth_info<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::uptime_check_config::http_check::BasicAuthentication,
+                    std::option::Option<
+                        crate::model::uptime_check_config::http_check::BasicAuthentication,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -12160,8 +12159,8 @@ pub mod uptime_check_config {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::uptime_check_config::http_check::ResponseStatusCode,
-            >,
+                    crate::model::uptime_check_config::http_check::ResponseStatusCode,
+                >,
         {
             use std::iter::Iterator;
             self.accepted_response_status_codes = v.into_iter().map(|i| i.into()).collect();
@@ -12183,8 +12182,8 @@ pub mod uptime_check_config {
         /// Sets the value of `auth_method`.
         pub fn set_auth_method<
             T: std::convert::Into<
-                std::option::Option<crate::model::uptime_check_config::http_check::AuthMethod>,
-            >,
+                    std::option::Option<crate::model::uptime_check_config::http_check::AuthMethod>,
+                >,
         >(
             mut self,
             v: T,
@@ -12217,10 +12216,10 @@ pub mod uptime_check_config {
         /// mutually exclusive.
         pub fn set_service_agent_authentication<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::uptime_check_config::http_check::ServiceAgentAuthentication,
+                    std::boxed::Box<
+                        crate::model::uptime_check_config::http_check::ServiceAgentAuthentication,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -12799,8 +12798,8 @@ pub mod uptime_check_config {
         /// Sets the value of [matcher][crate::model::uptime_check_config::ContentMatcher::matcher].
         pub fn set_matcher<
             T: std::convert::Into<
-                crate::model::uptime_check_config::content_matcher::ContentMatcherOption,
-            >,
+                    crate::model::uptime_check_config::content_matcher::ContentMatcherOption,
+                >,
         >(
             mut self,
             v: T,
@@ -12812,10 +12811,10 @@ pub mod uptime_check_config {
         /// Sets the value of `additional_matcher_info`.
         pub fn set_additional_matcher_info<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::uptime_check_config::content_matcher::AdditionalMatcherInfo,
+                    std::option::Option<
+                        crate::model::uptime_check_config::content_matcher::AdditionalMatcherInfo,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -12846,10 +12845,10 @@ pub mod uptime_check_config {
         /// mutually exclusive.
         pub fn set_json_path_matcher<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::uptime_check_config::content_matcher::JsonPathMatcher,
+                    std::boxed::Box<
+                        crate::model::uptime_check_config::content_matcher::JsonPathMatcher,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,

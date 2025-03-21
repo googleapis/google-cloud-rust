@@ -1761,8 +1761,8 @@ impl AwsS3CompatibleData {
     /// Sets the value of `data_provider`.
     pub fn set_data_provider<
         T: std::convert::Into<
-            std::option::Option<crate::model::aws_s_3_compatible_data::DataProvider>,
-        >,
+                std::option::Option<crate::model::aws_s_3_compatible_data::DataProvider>,
+            >,
     >(
         mut self,
         v: T,
@@ -2912,8 +2912,8 @@ impl TransferSpec {
     /// Sets the value of `intermediate_data_location`.
     pub fn set_intermediate_data_location<
         T: std::convert::Into<
-            std::option::Option<crate::model::transfer_spec::IntermediateDataLocation>,
-        >,
+                std::option::Option<crate::model::transfer_spec::IntermediateDataLocation>,
+            >,
     >(
         mut self,
         v: T,

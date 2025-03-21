@@ -70,8 +70,9 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::BatchGetAssetsHistoryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::BatchGetAssetsHistoryResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::BatchGetAssetsHistoryResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::BatchGetAssetsHistoryResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -143,7 +144,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         _req: crate::model::SearchAllIamPoliciesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::SearchAllIamPoliciesResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::SearchAllIamPoliciesResponse>>(Err(
             Error::other("unimplemented"),
         ))

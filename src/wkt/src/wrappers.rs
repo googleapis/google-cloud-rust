@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use base64::{engine::general_purpose::STANDARD, Engine};
+use base64::{Engine, engine::general_purpose::STANDARD};
 
 /// Implements the `google.cloud.DoubleValue` well-known type.
 ///
@@ -248,8 +248,8 @@ fn expected_string_value() -> crate::AnyError {
 #[cfg(test)]
 mod test {
     use super::*;
-    use crate::message::Message;
     use crate::Any;
+    use crate::message::Message;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
     use test_case::test_case;
 

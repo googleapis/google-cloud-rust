@@ -238,7 +238,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::SearchAllAssignmentsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::SearchAllAssignmentsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::SearchAllAssignmentsResponse>>(Err(
             Error::other("unimplemented"),
         ))

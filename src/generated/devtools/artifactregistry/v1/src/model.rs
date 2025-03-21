@@ -351,8 +351,8 @@ impl ImportAptArtifactsErrorInfo {
     /// Sets the value of `source`.
     pub fn set_source<
         T: std::convert::Into<
-            std::option::Option<crate::model::import_apt_artifacts_error_info::Source>,
-        >,
+                std::option::Option<crate::model::import_apt_artifacts_error_info::Source>,
+            >,
     >(
         mut self,
         v: T,
@@ -3321,8 +3321,8 @@ impl RemoteRepositoryConfig {
     /// Sets the value of [upstream_credentials][crate::model::RemoteRepositoryConfig::upstream_credentials].
     pub fn set_upstream_credentials<
         T: std::convert::Into<
-            std::option::Option<crate::model::remote_repository_config::UpstreamCredentials>,
-        >,
+                std::option::Option<crate::model::remote_repository_config::UpstreamCredentials>,
+            >,
     >(
         mut self,
         v: T,
@@ -3340,8 +3340,8 @@ impl RemoteRepositoryConfig {
     /// Sets the value of `remote_source`.
     pub fn set_remote_source<
         T: std::convert::Into<
-            std::option::Option<crate::model::remote_repository_config::RemoteSource>,
-        >,
+                std::option::Option<crate::model::remote_repository_config::RemoteSource>,
+            >,
     >(
         mut self,
         v: T,
@@ -3473,8 +3473,8 @@ impl RemoteRepositoryConfig {
     /// mutually exclusive.
     pub fn set_docker_repository<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::remote_repository_config::DockerRepository>,
-        >,
+                std::boxed::Box<crate::model::remote_repository_config::DockerRepository>,
+            >,
     >(
         mut self,
         v: T,
@@ -3492,8 +3492,8 @@ impl RemoteRepositoryConfig {
     /// mutually exclusive.
     pub fn set_maven_repository<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::remote_repository_config::MavenRepository>,
-        >,
+                std::boxed::Box<crate::model::remote_repository_config::MavenRepository>,
+            >,
     >(
         mut self,
         v: T,
@@ -3528,8 +3528,8 @@ impl RemoteRepositoryConfig {
     /// mutually exclusive.
     pub fn set_python_repository<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::remote_repository_config::PythonRepository>,
-        >,
+                std::boxed::Box<crate::model::remote_repository_config::PythonRepository>,
+            >,
     >(
         mut self,
         v: T,
@@ -3581,8 +3581,8 @@ impl RemoteRepositoryConfig {
     /// mutually exclusive.
     pub fn set_common_repository<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::remote_repository_config::CommonRemoteRepository>,
-        >,
+                std::boxed::Box<crate::model::remote_repository_config::CommonRemoteRepository>,
+            >,
     >(
         mut self,
         v: T,
@@ -3625,10 +3625,10 @@ pub mod remote_repository_config {
         /// Sets the value of `credentials`.
         pub fn set_credentials<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::remote_repository_config::upstream_credentials::Credentials,
+                    std::option::Option<
+                        crate::model::remote_repository_config::upstream_credentials::Credentials,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -3751,10 +3751,10 @@ pub mod remote_repository_config {
         /// Sets the value of `upstream`.
         pub fn set_upstream<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::remote_repository_config::docker_repository::Upstream,
+                    std::option::Option<
+                        crate::model::remote_repository_config::docker_repository::Upstream,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -3802,8 +3802,8 @@ pub mod remote_repository_config {
         /// mutually exclusive.
         pub fn set_public_repository<
             T: std::convert::Into<
-                crate::model::remote_repository_config::docker_repository::PublicRepository,
-            >,
+                    crate::model::remote_repository_config::docker_repository::PublicRepository,
+                >,
         >(
             mut self,
             v: T,
@@ -3823,10 +3823,10 @@ pub mod remote_repository_config {
         /// mutually exclusive.
         pub fn set_custom_repository<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::remote_repository_config::docker_repository::CustomRepository,
+                    std::boxed::Box<
+                        crate::model::remote_repository_config::docker_repository::CustomRepository,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -3975,10 +3975,10 @@ pub mod remote_repository_config {
         /// Sets the value of `upstream`.
         pub fn set_upstream<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::remote_repository_config::maven_repository::Upstream,
+                    std::option::Option<
+                        crate::model::remote_repository_config::maven_repository::Upstream,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -4026,8 +4026,8 @@ pub mod remote_repository_config {
         /// mutually exclusive.
         pub fn set_public_repository<
             T: std::convert::Into<
-                crate::model::remote_repository_config::maven_repository::PublicRepository,
-            >,
+                    crate::model::remote_repository_config::maven_repository::PublicRepository,
+                >,
         >(
             mut self,
             v: T,
@@ -4047,10 +4047,10 @@ pub mod remote_repository_config {
         /// mutually exclusive.
         pub fn set_custom_repository<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::remote_repository_config::maven_repository::CustomRepository,
+                    std::boxed::Box<
+                        crate::model::remote_repository_config::maven_repository::CustomRepository,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -4199,10 +4199,10 @@ pub mod remote_repository_config {
         /// Sets the value of `upstream`.
         pub fn set_upstream<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::remote_repository_config::npm_repository::Upstream,
+                    std::option::Option<
+                        crate::model::remote_repository_config::npm_repository::Upstream,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -4250,8 +4250,8 @@ pub mod remote_repository_config {
         /// mutually exclusive.
         pub fn set_public_repository<
             T: std::convert::Into<
-                crate::model::remote_repository_config::npm_repository::PublicRepository,
-            >,
+                    crate::model::remote_repository_config::npm_repository::PublicRepository,
+                >,
         >(
             mut self,
             v: T,
@@ -4271,10 +4271,10 @@ pub mod remote_repository_config {
         /// mutually exclusive.
         pub fn set_custom_repository<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::remote_repository_config::npm_repository::CustomRepository,
+                    std::boxed::Box<
+                        crate::model::remote_repository_config::npm_repository::CustomRepository,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -4423,10 +4423,10 @@ pub mod remote_repository_config {
         /// Sets the value of `upstream`.
         pub fn set_upstream<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::remote_repository_config::python_repository::Upstream,
+                    std::option::Option<
+                        crate::model::remote_repository_config::python_repository::Upstream,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -4474,8 +4474,8 @@ pub mod remote_repository_config {
         /// mutually exclusive.
         pub fn set_public_repository<
             T: std::convert::Into<
-                crate::model::remote_repository_config::python_repository::PublicRepository,
-            >,
+                    crate::model::remote_repository_config::python_repository::PublicRepository,
+                >,
         >(
             mut self,
             v: T,
@@ -4495,10 +4495,10 @@ pub mod remote_repository_config {
         /// mutually exclusive.
         pub fn set_custom_repository<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::remote_repository_config::python_repository::CustomRepository,
+                    std::boxed::Box<
+                        crate::model::remote_repository_config::python_repository::CustomRepository,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -4646,10 +4646,10 @@ pub mod remote_repository_config {
         /// Sets the value of `upstream`.
         pub fn set_upstream<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::remote_repository_config::apt_repository::Upstream,
+                    std::option::Option<
+                        crate::model::remote_repository_config::apt_repository::Upstream,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -4699,10 +4699,10 @@ pub mod remote_repository_config {
         /// mutually exclusive.
         pub fn set_public_repository<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::remote_repository_config::apt_repository::PublicRepository,
+                    std::boxed::Box<
+                        crate::model::remote_repository_config::apt_repository::PublicRepository,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -4722,10 +4722,10 @@ pub mod remote_repository_config {
         /// mutually exclusive.
         pub fn set_custom_repository<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::remote_repository_config::apt_repository::CustomRepository,
+                    std::boxed::Box<
+                        crate::model::remote_repository_config::apt_repository::CustomRepository,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -4934,10 +4934,10 @@ pub mod remote_repository_config {
         /// Sets the value of `upstream`.
         pub fn set_upstream<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::remote_repository_config::yum_repository::Upstream,
+                    std::option::Option<
+                        crate::model::remote_repository_config::yum_repository::Upstream,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -4987,10 +4987,10 @@ pub mod remote_repository_config {
         /// mutually exclusive.
         pub fn set_public_repository<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::remote_repository_config::yum_repository::PublicRepository,
+                    std::boxed::Box<
+                        crate::model::remote_repository_config::yum_repository::PublicRepository,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -5010,10 +5010,10 @@ pub mod remote_repository_config {
         /// mutually exclusive.
         pub fn set_custom_repository<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::remote_repository_config::yum_repository::CustomRepository,
+                    std::boxed::Box<
+                        crate::model::remote_repository_config::yum_repository::CustomRepository,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -5437,8 +5437,8 @@ impl Repository {
     /// Sets the value of [vulnerability_scanning_config][crate::model::Repository::vulnerability_scanning_config].
     pub fn set_vulnerability_scanning_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::repository::VulnerabilityScanningConfig>,
-        >,
+                std::option::Option<crate::model::repository::VulnerabilityScanningConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -5821,8 +5821,8 @@ pub mod repository {
         /// Sets the value of [enablement_config][crate::model::repository::VulnerabilityScanningConfig::enablement_config].
         pub fn set_enablement_config<
             T: std::convert::Into<
-                crate::model::repository::vulnerability_scanning_config::EnablementConfig,
-            >,
+                    crate::model::repository::vulnerability_scanning_config::EnablementConfig,
+                >,
         >(
             mut self,
             v: T,
@@ -5843,8 +5843,8 @@ pub mod repository {
         /// Sets the value of [enablement_state][crate::model::repository::VulnerabilityScanningConfig::enablement_state].
         pub fn set_enablement_state<
             T: std::convert::Into<
-                crate::model::repository::vulnerability_scanning_config::EnablementState,
-            >,
+                    crate::model::repository::vulnerability_scanning_config::EnablementState,
+                >,
         >(
             mut self,
             v: T,
@@ -8533,8 +8533,8 @@ impl ImportYumArtifactsErrorInfo {
     /// Sets the value of `source`.
     pub fn set_source<
         T: std::convert::Into<
-            std::option::Option<crate::model::import_yum_artifacts_error_info::Source>,
-        >,
+                std::option::Option<crate::model::import_yum_artifacts_error_info::Source>,
+            >,
     >(
         mut self,
         v: T,

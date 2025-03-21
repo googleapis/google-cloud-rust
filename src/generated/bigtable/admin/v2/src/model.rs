@@ -3524,10 +3524,10 @@ pub mod modify_column_families_request {
         /// Sets the value of `r#mod`.
         pub fn set_mod<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::modify_column_families_request::modification::Mod,
+                    std::option::Option<
+                        crate::model::modify_column_families_request::modification::Mod,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -6088,8 +6088,8 @@ pub mod cluster {
         /// Sets the value of [cluster_autoscaling_config][crate::model::cluster::ClusterConfig::cluster_autoscaling_config].
         pub fn set_cluster_autoscaling_config<
             T: std::convert::Into<
-                std::option::Option<crate::model::cluster::ClusterAutoscalingConfig>,
-            >,
+                    std::option::Option<crate::model::cluster::ClusterAutoscalingConfig>,
+                >,
         >(
             mut self,
             v: T,
@@ -6589,10 +6589,10 @@ pub mod app_profile {
         /// Sets the value of `affinity`.
         pub fn set_affinity<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::app_profile::multi_cluster_routing_use_any::Affinity,
+                    std::option::Option<
+                        crate::model::app_profile::multi_cluster_routing_use_any::Affinity,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -6625,10 +6625,10 @@ pub mod app_profile {
         /// mutually exclusive.
         pub fn set_row_affinity<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::app_profile::multi_cluster_routing_use_any::RowAffinity,
+                    std::boxed::Box<
+                        crate::model::app_profile::multi_cluster_routing_use_any::RowAffinity,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -6799,16 +6799,7 @@ pub mod app_profile {
         }
 
         /// Sets the value of [compute_billing_owner][crate::model::app_profile::DataBoostIsolationReadOnly::compute_billing_owner].
-        pub fn set_compute_billing_owner<
-            T: std::convert::Into<
-                std::option::Option<
-                    crate::model::app_profile::data_boost_isolation_read_only::ComputeBillingOwner,
-                >,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_compute_billing_owner<T: std::convert::Into<std::option::Option<crate::model::app_profile::data_boost_isolation_read_only::ComputeBillingOwner>>>(mut self, v: T) -> Self{
             self.compute_billing_owner = v.into();
             self
         }
@@ -9622,8 +9613,8 @@ pub mod r#type {
             /// Sets the value of `encoding`.
             pub fn set_encoding<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::r#type::bytes::encoding::Encoding>,
-                >,
+                        std::option::Option<crate::model::r#type::bytes::encoding::Encoding>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -9770,8 +9761,8 @@ pub mod r#type {
             /// Sets the value of `encoding`.
             pub fn set_encoding<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::r#type::string::encoding::Encoding>,
-                >,
+                        std::option::Option<crate::model::r#type::string::encoding::Encoding>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -9821,8 +9812,8 @@ pub mod r#type {
             /// mutually exclusive.
             pub fn set_utf8_raw<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::r#type::string::encoding::Utf8Raw>,
-                >,
+                        std::boxed::Box<crate::model::r#type::string::encoding::Utf8Raw>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -9840,8 +9831,8 @@ pub mod r#type {
             /// mutually exclusive.
             pub fn set_utf8_bytes<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::r#type::string::encoding::Utf8Bytes>,
-                >,
+                        std::boxed::Box<crate::model::r#type::string::encoding::Utf8Bytes>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -9987,8 +9978,8 @@ pub mod r#type {
             /// Sets the value of `encoding`.
             pub fn set_encoding<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::r#type::int_64::encoding::Encoding>,
-                >,
+                        std::option::Option<crate::model::r#type::int_64::encoding::Encoding>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -10038,8 +10029,8 @@ pub mod r#type {
             /// mutually exclusive.
             pub fn set_big_endian_bytes<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::r#type::int_64::encoding::BigEndianBytes>,
-                >,
+                        std::boxed::Box<crate::model::r#type::int_64::encoding::BigEndianBytes>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -10057,8 +10048,8 @@ pub mod r#type {
             /// mutually exclusive.
             pub fn set_ordered_code_bytes<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::r#type::int_64::encoding::OrderedCodeBytes>,
-                >,
+                        std::boxed::Box<crate::model::r#type::int_64::encoding::OrderedCodeBytes>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -10285,8 +10276,8 @@ pub mod r#type {
             /// Sets the value of `encoding`.
             pub fn set_encoding<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::r#type::timestamp::encoding::Encoding>,
-                >,
+                        std::option::Option<crate::model::r#type::timestamp::encoding::Encoding>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -10501,8 +10492,8 @@ pub mod r#type {
             /// Sets the value of `encoding`.
             pub fn set_encoding<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::r#type::r#struct::encoding::Encoding>,
-                >,
+                        std::option::Option<crate::model::r#type::r#struct::encoding::Encoding>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -10569,8 +10560,8 @@ pub mod r#type {
             /// mutually exclusive.
             pub fn set_singleton<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::r#type::r#struct::encoding::Singleton>,
-                >,
+                        std::boxed::Box<crate::model::r#type::r#struct::encoding::Singleton>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -10588,8 +10579,8 @@ pub mod r#type {
             /// mutually exclusive.
             pub fn set_delimited_bytes<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::r#type::r#struct::encoding::DelimitedBytes>,
-                >,
+                        std::boxed::Box<crate::model::r#type::r#struct::encoding::DelimitedBytes>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -10607,8 +10598,8 @@ pub mod r#type {
             /// mutually exclusive.
             pub fn set_ordered_code_bytes<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::r#type::r#struct::encoding::OrderedCodeBytes>,
-                >,
+                        std::boxed::Box<crate::model::r#type::r#struct::encoding::OrderedCodeBytes>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -11013,8 +11004,10 @@ pub mod r#type {
         /// mutually exclusive.
         pub fn set_hllpp_unique_count<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::r#type::aggregate::HyperLogLogPlusPlusUniqueCount>,
-            >,
+                    std::boxed::Box<
+                        crate::model::r#type::aggregate::HyperLogLogPlusPlusUniqueCount,
+                    >,
+                >,
         >(
             mut self,
             v: T,

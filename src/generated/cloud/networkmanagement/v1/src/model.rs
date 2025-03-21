@@ -7641,8 +7641,8 @@ impl LoadBalancerBackendInfo {
     /// Sets the value of [health_check_firewalls_config_state][crate::model::LoadBalancerBackendInfo::health_check_firewalls_config_state].
     pub fn set_health_check_firewalls_config_state<
         T: std::convert::Into<
-            crate::model::load_balancer_backend_info::HealthCheckFirewallsConfigState,
-        >,
+                crate::model::load_balancer_backend_info::HealthCheckFirewallsConfigState,
+            >,
     >(
         mut self,
         v: T,
@@ -8228,8 +8228,8 @@ impl VpcFlowLogsConfig {
     /// Sets the value of [aggregation_interval][crate::model::VpcFlowLogsConfig::aggregation_interval].
     pub fn set_aggregation_interval<
         T: std::convert::Into<
-            std::option::Option<crate::model::vpc_flow_logs_config::AggregationInterval>,
-        >,
+                std::option::Option<crate::model::vpc_flow_logs_config::AggregationInterval>,
+            >,
     >(
         mut self,
         v: T,
@@ -8270,8 +8270,8 @@ impl VpcFlowLogsConfig {
     /// Sets the value of [target_resource_state][crate::model::VpcFlowLogsConfig::target_resource_state].
     pub fn set_target_resource_state<
         T: std::convert::Into<
-            std::option::Option<crate::model::vpc_flow_logs_config::TargetResourceState>,
-        >,
+                std::option::Option<crate::model::vpc_flow_logs_config::TargetResourceState>,
+            >,
     >(
         mut self,
         v: T,

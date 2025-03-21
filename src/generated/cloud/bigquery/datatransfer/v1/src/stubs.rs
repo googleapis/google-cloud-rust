@@ -123,7 +123,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ScheduleTransferRunsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ScheduleTransferRunsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::ScheduleTransferRunsResponse>>(Err(
             Error::other("unimplemented"),
         ))

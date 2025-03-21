@@ -2317,8 +2317,8 @@ impl KeyOperationAttestation {
     /// Sets the value of [cert_chains][crate::model::KeyOperationAttestation::cert_chains].
     pub fn set_cert_chains<
         T: std::convert::Into<
-            std::option::Option<crate::model::key_operation_attestation::CertificateChains>,
-        >,
+                std::option::Option<crate::model::key_operation_attestation::CertificateChains>,
+            >,
     >(
         mut self,
         v: T,
@@ -5576,10 +5576,10 @@ impl ImportCryptoKeyVersionRequest {
     /// Sets the value of `wrapped_key_material`.
     pub fn set_wrapped_key_material<
         T: std::convert::Into<
-            std::option::Option<
-                crate::model::import_crypto_key_version_request::WrappedKeyMaterial,
+                std::option::Option<
+                    crate::model::import_crypto_key_version_request::WrappedKeyMaterial,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,

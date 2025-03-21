@@ -199,8 +199,9 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListConnectionProfilesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListConnectionProfilesResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListConnectionProfilesResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListConnectionProfilesResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -283,8 +284,9 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListPrivateConnectionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListPrivateConnectionsResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListPrivateConnectionsResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListPrivateConnectionsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -497,7 +499,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::SearchBackgroundJobsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::SearchBackgroundJobsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::SearchBackgroundJobsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -591,7 +593,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))

@@ -59,7 +59,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListOrgDataExchangesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ListOrgDataExchangesResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::ListOrgDataExchangesResponse>>(Err(
             Error::other("unimplemented"),
         ))

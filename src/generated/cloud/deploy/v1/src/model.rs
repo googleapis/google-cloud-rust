@@ -1365,10 +1365,10 @@ pub mod kubernetes_config {
         /// Sets the value of [route_destinations][crate::model::kubernetes_config::GatewayServiceMesh::route_destinations].
         pub fn set_route_destinations<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::kubernetes_config::gateway_service_mesh::RouteDestinations,
+                    std::option::Option<
+                        crate::model::kubernetes_config::gateway_service_mesh::RouteDestinations,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -3075,8 +3075,8 @@ impl ExecutionConfig {
     /// Sets the value of `execution_environment`.
     pub fn set_execution_environment<
         T: std::convert::Into<
-            std::option::Option<crate::model::execution_config::ExecutionEnvironment>,
-        >,
+                std::option::Option<crate::model::execution_config::ExecutionEnvironment>,
+            >,
     >(
         mut self,
         v: T,
@@ -6776,8 +6776,8 @@ pub mod release {
         /// Sets the value of [skaffold_supported_condition][crate::model::release::ReleaseCondition::skaffold_supported_condition].
         pub fn set_skaffold_supported_condition<
             T: std::convert::Into<
-                std::option::Option<crate::model::release::SkaffoldSupportedCondition>,
-            >,
+                    std::option::Option<crate::model::release::SkaffoldSupportedCondition>,
+                >,
         >(
             mut self,
             v: T,
@@ -13096,8 +13096,8 @@ impl AutomationRuleCondition {
     /// Sets the value of `rule_type_condition`.
     pub fn set_rule_type_condition<
         T: std::convert::Into<
-            std::option::Option<crate::model::automation_rule_condition::RuleTypeCondition>,
-        >,
+                std::option::Option<crate::model::automation_rule_condition::RuleTypeCondition>,
+            >,
     >(
         mut self,
         v: T,

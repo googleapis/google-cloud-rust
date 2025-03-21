@@ -14,10 +14,10 @@
 
 //! Types and functions to make LROs easier to use and to require less boilerplate.
 
+use gax::Result;
 use gax::error::Error;
 use gax::polling_backoff_policy::PollingBackoffPolicy;
 use gax::polling_policy::PollingPolicy;
-use gax::Result;
 use std::future::Future;
 use std::marker::PhantomData;
 use std::sync::Arc;

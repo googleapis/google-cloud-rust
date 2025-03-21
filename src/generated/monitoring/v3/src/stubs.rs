@@ -210,8 +210,9 @@ pub trait MetricService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListMetricDescriptorsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListMetricDescriptorsResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListMetricDescriptorsResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListMetricDescriptorsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -309,8 +310,9 @@ pub trait NotificationChannelService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetNotificationChannelDescriptorRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::NotificationChannelDescriptor>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::NotificationChannelDescriptor>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::NotificationChannelDescriptor>>(Err(
             Error::other("unimplemented"),
         ))
@@ -634,8 +636,9 @@ pub trait UptimeCheckService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListUptimeCheckConfigsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListUptimeCheckConfigsResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListUptimeCheckConfigsResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListUptimeCheckConfigsResponse>>(Err(
             Error::other("unimplemented"),
         ))

@@ -13,10 +13,10 @@
 // limitations under the License.
 
 use crate::credentials::dynamic::CredentialTrait;
-use crate::credentials::{Credential, Result, QUOTA_PROJECT_KEY};
-use crate::errors::{is_retryable, CredentialError};
+use crate::credentials::{Credential, QUOTA_PROJECT_KEY, Result};
+use crate::errors::{CredentialError, is_retryable};
 use crate::token::{Token, TokenProvider};
-use http::header::{HeaderName, HeaderValue, AUTHORIZATION, CONTENT_TYPE};
+use http::header::{AUTHORIZATION, CONTENT_TYPE, HeaderName, HeaderValue};
 use reqwest::{Client, Method};
 use std::sync::Arc;
 use std::time::Duration;

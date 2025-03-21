@@ -229,8 +229,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListBlueprintRevisionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListBlueprintRevisionsResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListBlueprintRevisionsResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListBlueprintRevisionsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -281,7 +282,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListPublicBlueprintsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ListPublicBlueprintsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::ListPublicBlueprintsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -492,7 +493,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))

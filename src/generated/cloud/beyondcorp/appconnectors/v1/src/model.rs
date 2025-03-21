@@ -160,8 +160,8 @@ impl NotificationConfig {
     /// mutually exclusive.
     pub fn set_pubsub_notification<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::notification_config::CloudPubSubNotificationConfig>,
-        >,
+                std::boxed::Box<crate::model::notification_config::CloudPubSubNotificationConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -930,8 +930,8 @@ pub mod app_connector {
         /// Sets the value of `r#type`.
         pub fn set_type<
             T: std::convert::Into<
-                std::option::Option<crate::model::app_connector::principal_info::Type>,
-            >,
+                    std::option::Option<crate::model::app_connector::principal_info::Type>,
+                >,
         >(
             mut self,
             v: T,
@@ -964,8 +964,8 @@ pub mod app_connector {
         /// mutually exclusive.
         pub fn set_service_account<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::app_connector::principal_info::ServiceAccount>,
-            >,
+                    std::boxed::Box<crate::model::app_connector::principal_info::ServiceAccount>,
+                >,
         >(
             mut self,
             v: T,

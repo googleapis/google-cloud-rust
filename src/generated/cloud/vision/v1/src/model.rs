@@ -5042,8 +5042,8 @@ impl ImportProductSetsInputConfig {
     /// Sets the value of `source`.
     pub fn set_source<
         T: std::convert::Into<
-            std::option::Option<crate::model::import_product_sets_input_config::Source>,
-        >,
+                std::option::Option<crate::model::import_product_sets_input_config::Source>,
+            >,
     >(
         mut self,
         v: T,

@@ -277,8 +277,9 @@ pub trait RowAccessPolicyService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListRowAccessPoliciesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListRowAccessPoliciesResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListRowAccessPoliciesResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListRowAccessPoliciesResponse>>(Err(
             Error::other("unimplemented"),
         ))

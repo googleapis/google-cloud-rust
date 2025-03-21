@@ -582,8 +582,8 @@ pub mod backup {
         /// Sets the value of `platform_version`.
         pub fn set_platform_version<
             T: std::convert::Into<
-                std::option::Option<crate::model::backup::cluster_metadata::PlatformVersion>,
-            >,
+                    std::option::Option<crate::model::backup::cluster_metadata::PlatformVersion>,
+                >,
         >(
             mut self,
             v: T,
@@ -1274,8 +1274,8 @@ pub mod backup_plan {
         /// Sets the value of `backup_scope`.
         pub fn set_backup_scope<
             T: std::convert::Into<
-                std::option::Option<crate::model::backup_plan::backup_config::BackupScope>,
-            >,
+                    std::option::Option<crate::model::backup_plan::backup_config::BackupScope>,
+                >,
         >(
             mut self,
             v: T,
@@ -4432,8 +4432,8 @@ impl RestoreConfig {
     /// Sets the value of [cluster_resource_restore_scope][crate::model::RestoreConfig::cluster_resource_restore_scope].
     pub fn set_cluster_resource_restore_scope<
         T: std::convert::Into<
-            std::option::Option<crate::model::restore_config::ClusterResourceRestoreScope>,
-        >,
+                std::option::Option<crate::model::restore_config::ClusterResourceRestoreScope>,
+            >,
     >(
         mut self,
         v: T,
@@ -4489,8 +4489,8 @@ impl RestoreConfig {
     /// Sets the value of `namespaced_resource_restore_scope`.
     pub fn set_namespaced_resource_restore_scope<
         T: std::convert::Into<
-            std::option::Option<crate::model::restore_config::NamespacedResourceRestoreScope>,
-        >,
+                std::option::Option<crate::model::restore_config::NamespacedResourceRestoreScope>,
+            >,
     >(
         mut self,
         v: T,
@@ -5258,10 +5258,10 @@ pub mod restore_config {
         /// Sets the value of `scope`.
         pub fn set_scope<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::restore_config::volume_data_restore_policy_binding::Scope,
+                    std::option::Option<
+                        crate::model::restore_config::volume_data_restore_policy_binding::Scope,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -5840,8 +5840,8 @@ impl VolumeDataRestorePolicyOverride {
     /// Sets the value of `scope`.
     pub fn set_scope<
         T: std::convert::Into<
-            std::option::Option<crate::model::volume_data_restore_policy_override::Scope>,
-        >,
+                std::option::Option<crate::model::volume_data_restore_policy_override::Scope>,
+            >,
     >(
         mut self,
         v: T,

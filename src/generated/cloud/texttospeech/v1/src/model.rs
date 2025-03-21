@@ -319,8 +319,8 @@ impl CustomPronunciationParams {
     /// Sets the value of [phonetic_encoding][crate::model::CustomPronunciationParams::phonetic_encoding].
     pub fn set_phonetic_encoding<
         T: std::convert::Into<
-            std::option::Option<crate::model::custom_pronunciation_params::PhoneticEncoding>,
-        >,
+                std::option::Option<crate::model::custom_pronunciation_params::PhoneticEncoding>,
+            >,
     >(
         mut self,
         v: T,
@@ -1184,8 +1184,8 @@ impl StreamingSynthesisInput {
     /// Sets the value of `input_source`.
     pub fn set_input_source<
         T: std::convert::Into<
-            std::option::Option<crate::model::streaming_synthesis_input::InputSource>,
-        >,
+                std::option::Option<crate::model::streaming_synthesis_input::InputSource>,
+            >,
     >(
         mut self,
         v: T,
@@ -1268,8 +1268,8 @@ impl StreamingSynthesizeRequest {
     /// Sets the value of `streaming_request`.
     pub fn set_streaming_request<
         T: std::convert::Into<
-            std::option::Option<crate::model::streaming_synthesize_request::StreamingRequest>,
-        >,
+                std::option::Option<crate::model::streaming_synthesize_request::StreamingRequest>,
+            >,
     >(
         mut self,
         v: T,

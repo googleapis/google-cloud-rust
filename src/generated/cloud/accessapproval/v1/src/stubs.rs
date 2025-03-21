@@ -46,7 +46,7 @@ pub trait AccessApproval: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListApprovalRequestsMessage,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ListApprovalRequestsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::ListApprovalRequestsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -139,7 +139,7 @@ pub trait AccessApproval: std::fmt::Debug + Send + Sync {
         _req: crate::model::GetAccessApprovalServiceAccountMessage,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::AccessApprovalServiceAccount>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::AccessApprovalServiceAccount>>(Err(
             Error::other("unimplemented"),
         ))

@@ -2709,8 +2709,10 @@ impl FraudPreventionAssessment {
     /// Sets the value of [stolen_instrument_verdict][crate::model::FraudPreventionAssessment::stolen_instrument_verdict].
     pub fn set_stolen_instrument_verdict<
         T: std::convert::Into<
-            std::option::Option<crate::model::fraud_prevention_assessment::StolenInstrumentVerdict>,
-        >,
+                std::option::Option<
+                    crate::model::fraud_prevention_assessment::StolenInstrumentVerdict,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -2722,8 +2724,8 @@ impl FraudPreventionAssessment {
     /// Sets the value of [card_testing_verdict][crate::model::FraudPreventionAssessment::card_testing_verdict].
     pub fn set_card_testing_verdict<
         T: std::convert::Into<
-            std::option::Option<crate::model::fraud_prevention_assessment::CardTestingVerdict>,
-        >,
+                std::option::Option<crate::model::fraud_prevention_assessment::CardTestingVerdict>,
+            >,
     >(
         mut self,
         v: T,
@@ -2735,8 +2737,10 @@ impl FraudPreventionAssessment {
     /// Sets the value of [behavioral_trust_verdict][crate::model::FraudPreventionAssessment::behavioral_trust_verdict].
     pub fn set_behavioral_trust_verdict<
         T: std::convert::Into<
-            std::option::Option<crate::model::fraud_prevention_assessment::BehavioralTrustVerdict>,
-        >,
+                std::option::Option<
+                    crate::model::fraud_prevention_assessment::BehavioralTrustVerdict,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -5269,8 +5273,8 @@ impl FirewallAction {
     /// mutually exclusive.
     pub fn set_include_recaptcha_script<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::firewall_action::IncludeRecaptchaScriptAction>,
-        >,
+                std::boxed::Box<crate::model::firewall_action::IncludeRecaptchaScriptAction>,
+            >,
     >(
         mut self,
         v: T,

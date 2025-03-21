@@ -760,8 +760,8 @@ pub mod document {
         /// Sets the value of [image_quality_scores][crate::model::document::Page::image_quality_scores].
         pub fn set_image_quality_scores<
             T: std::convert::Into<
-                std::option::Option<crate::model::document::page::ImageQualityScores>,
-            >,
+                    std::option::Option<crate::model::document::page::ImageQualityScores>,
+                >,
         >(
             mut self,
             v: T,
@@ -1511,8 +1511,8 @@ pub mod document {
             /// Sets the value of [detected_break][crate::model::document::page::Token::detected_break].
             pub fn set_detected_break<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::document::page::token::DetectedBreak>,
-                >,
+                        std::option::Option<crate::model::document::page::token::DetectedBreak>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -1535,8 +1535,8 @@ pub mod document {
             /// Sets the value of [style_info][crate::model::document::page::Token::style_info].
             pub fn set_style_info<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::document::page::token::StyleInfo>,
-                >,
+                        std::option::Option<crate::model::document::page::token::StyleInfo>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -2468,8 +2468,8 @@ pub mod document {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<
-                    crate::model::document::page::image_quality_scores::DetectedDefect,
-                >,
+                        crate::model::document::page::image_quality_scores::DetectedDefect,
+                    >,
             {
                 use std::iter::Iterator;
                 self.detected_defects = v.into_iter().map(|i| i.into()).collect();
@@ -2668,8 +2668,8 @@ pub mod document {
         /// Sets the value of [normalized_value][crate::model::document::Entity::normalized_value].
         pub fn set_normalized_value<
             T: std::convert::Into<
-                std::option::Option<crate::model::document::entity::NormalizedValue>,
-            >,
+                    std::option::Option<crate::model::document::entity::NormalizedValue>,
+                >,
         >(
             mut self,
             v: T,
@@ -2762,10 +2762,10 @@ pub mod document {
             /// Sets the value of `structured_value`.
             pub fn set_structured_value<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::document::entity::normalized_value::StructuredValue,
+                        std::option::Option<
+                            crate::model::document::entity::normalized_value::StructuredValue,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -4025,10 +4025,10 @@ pub mod document {
             /// Sets the value of `block`.
             pub fn set_block<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::document::document_layout::document_layout_block::Block,
+                        std::option::Option<
+                            crate::model::document::document_layout::document_layout_block::Block,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -4225,8 +4225,8 @@ pub mod document {
                 where
                     T: std::iter::IntoIterator<Item = V>,
                     V: std::convert::Into<
-                        crate::model::document::document_layout::DocumentLayoutBlock,
-                    >,
+                            crate::model::document::document_layout::DocumentLayoutBlock,
+                        >,
                 {
                     use std::iter::Iterator;
                     self.blocks = v.into_iter().map(|i| i.into()).collect();
@@ -4383,8 +4383,8 @@ pub mod document {
                 where
                     T: std::iter::IntoIterator<Item = V>,
                     V: std::convert::Into<
-                        crate::model::document::document_layout::DocumentLayoutBlock,
-                    >,
+                            crate::model::document::document_layout::DocumentLayoutBlock,
+                        >,
                 {
                     use std::iter::Iterator;
                     self.blocks = v.into_iter().map(|i| i.into()).collect();
@@ -4472,8 +4472,8 @@ pub mod document {
                 where
                     T: std::iter::IntoIterator<Item = V>,
                     V: std::convert::Into<
-                        crate::model::document::document_layout::DocumentLayoutBlock,
-                    >,
+                            crate::model::document::document_layout::DocumentLayoutBlock,
+                        >,
                 {
                     use std::iter::Iterator;
                     self.blocks = v.into_iter().map(|i| i.into()).collect();
@@ -4597,10 +4597,10 @@ pub mod document {
             /// Sets the value of [page_span][crate::model::document::chunked_document::Chunk::page_span].
             pub fn set_page_span<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::document::chunked_document::chunk::ChunkPageSpan,
+                        std::option::Option<
+                            crate::model::document::chunked_document::chunk::ChunkPageSpan,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -4625,8 +4625,8 @@ pub mod document {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<
-                    crate::model::document::chunked_document::chunk::ChunkPageHeader,
-                >,
+                        crate::model::document::chunked_document::chunk::ChunkPageHeader,
+                    >,
             {
                 use std::iter::Iterator;
                 self.page_headers = v.into_iter().map(|i| i.into()).collect();
@@ -4638,8 +4638,8 @@ pub mod document {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<
-                    crate::model::document::chunked_document::chunk::ChunkPageFooter,
-                >,
+                        crate::model::document::chunked_document::chunk::ChunkPageFooter,
+                    >,
             {
                 use std::iter::Iterator;
                 self.page_footers = v.into_iter().map(|i| i.into()).collect();
@@ -4729,10 +4729,10 @@ pub mod document {
                 /// Sets the value of [page_span][crate::model::document::chunked_document::chunk::ChunkPageHeader::page_span].
                 pub fn set_page_span<
                     T: std::convert::Into<
-                        std::option::Option<
-                            crate::model::document::chunked_document::chunk::ChunkPageSpan,
+                            std::option::Option<
+                                crate::model::document::chunked_document::chunk::ChunkPageSpan,
+                            >,
                         >,
-                    >,
                 >(
                     mut self,
                     v: T,
@@ -4782,10 +4782,10 @@ pub mod document {
                 /// Sets the value of [page_span][crate::model::document::chunked_document::chunk::ChunkPageFooter::page_span].
                 pub fn set_page_span<
                     T: std::convert::Into<
-                        std::option::Option<
-                            crate::model::document::chunked_document::chunk::ChunkPageSpan,
+                            std::option::Option<
+                                crate::model::document::chunked_document::chunk::ChunkPageSpan,
+                            >,
                         >,
-                    >,
                 >(
                     mut self,
                     v: T,
@@ -5209,10 +5209,10 @@ pub mod document_output_config {
         /// Sets the value of [sharding_config][crate::model::document_output_config::GcsOutputConfig::sharding_config].
         pub fn set_sharding_config<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::document_output_config::gcs_output_config::ShardingConfig,
+                    std::option::Option<
+                        crate::model::document_output_config::gcs_output_config::ShardingConfig,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -5700,8 +5700,10 @@ pub mod process_options {
         /// Sets the value of [chunking_config][crate::model::process_options::LayoutConfig::chunking_config].
         pub fn set_chunking_config<
             T: std::convert::Into<
-                std::option::Option<crate::model::process_options::layout_config::ChunkingConfig>,
-            >,
+                    std::option::Option<
+                        crate::model::process_options::layout_config::ChunkingConfig,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -7938,8 +7940,8 @@ impl TrainProcessorVersionRequest {
     /// Sets the value of [input_data][crate::model::TrainProcessorVersionRequest::input_data].
     pub fn set_input_data<
         T: std::convert::Into<
-            std::option::Option<crate::model::train_processor_version_request::InputData>,
-        >,
+                std::option::Option<crate::model::train_processor_version_request::InputData>,
+            >,
     >(
         mut self,
         v: T,
@@ -7960,8 +7962,8 @@ impl TrainProcessorVersionRequest {
     /// Sets the value of `processor_flags`.
     pub fn set_processor_flags<
         T: std::convert::Into<
-            std::option::Option<crate::model::train_processor_version_request::ProcessorFlags>,
-        >,
+                std::option::Option<crate::model::train_processor_version_request::ProcessorFlags>,
+            >,
     >(
         mut self,
         v: T,
@@ -8011,10 +8013,10 @@ impl TrainProcessorVersionRequest {
     /// mutually exclusive.
     pub fn set_custom_document_extraction_options<
         T: std::convert::Into<
-            std::boxed::Box<
-                crate::model::train_processor_version_request::CustomDocumentExtractionOptions,
+                std::boxed::Box<
+                    crate::model::train_processor_version_request::CustomDocumentExtractionOptions,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -8034,10 +8036,10 @@ impl TrainProcessorVersionRequest {
     /// mutually exclusive.
     pub fn set_foundation_model_tuning_options<
         T: std::convert::Into<
-            std::boxed::Box<
-                crate::model::train_processor_version_request::FoundationModelTuningOptions,
+                std::boxed::Box<
+                    crate::model::train_processor_version_request::FoundationModelTuningOptions,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -8341,8 +8343,10 @@ impl TrainProcessorVersionMetadata {
     /// Sets the value of [training_dataset_validation][crate::model::TrainProcessorVersionMetadata::training_dataset_validation].
     pub fn set_training_dataset_validation<
         T: std::convert::Into<
-            std::option::Option<crate::model::train_processor_version_metadata::DatasetValidation>,
-        >,
+                std::option::Option<
+                    crate::model::train_processor_version_metadata::DatasetValidation,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -8354,8 +8358,10 @@ impl TrainProcessorVersionMetadata {
     /// Sets the value of [test_dataset_validation][crate::model::TrainProcessorVersionMetadata::test_dataset_validation].
     pub fn set_test_dataset_validation<
         T: std::convert::Into<
-            std::option::Option<crate::model::train_processor_version_metadata::DatasetValidation>,
-        >,
+                std::option::Option<
+                    crate::model::train_processor_version_metadata::DatasetValidation,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -9245,8 +9251,8 @@ pub mod document_schema {
         /// Sets the value of `value_source`.
         pub fn set_value_source<
             T: std::convert::Into<
-                std::option::Option<crate::model::document_schema::entity_type::ValueSource>,
-            >,
+                    std::option::Option<crate::model::document_schema::entity_type::ValueSource>,
+                >,
         >(
             mut self,
             v: T,
@@ -9279,8 +9285,8 @@ pub mod document_schema {
         /// mutually exclusive.
         pub fn set_enum_values<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::document_schema::entity_type::EnumValues>,
-            >,
+                    std::boxed::Box<crate::model::document_schema::entity_type::EnumValues>,
+                >,
         >(
             mut self,
             v: T,
@@ -9395,8 +9401,8 @@ pub mod document_schema {
             /// Sets the value of [occurrence_type][crate::model::document_schema::entity_type::Property::occurrence_type].
             pub fn set_occurrence_type<
                 T: std::convert::Into<
-                    crate::model::document_schema::entity_type::property::OccurrenceType,
-                >,
+                        crate::model::document_schema::entity_type::property::OccurrenceType,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -10707,8 +10713,10 @@ pub mod processor_version {
         /// Sets the value of `model_info`.
         pub fn set_model_info<
             T: std::convert::Into<
-                std::option::Option<crate::model::processor_version::gen_ai_model_info::ModelInfo>,
-            >,
+                    std::option::Option<
+                        crate::model::processor_version::gen_ai_model_info::ModelInfo,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -10756,16 +10764,7 @@ pub mod processor_version {
         ///
         /// Note that all the setters affecting `model_info` are
         /// mutually exclusive.
-        pub fn set_foundation_gen_ai_model_info<
-            T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::processor_version::gen_ai_model_info::FoundationGenAiModelInfo,
-                >,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_foundation_gen_ai_model_info<T: std::convert::Into<std::boxed::Box<crate::model::processor_version::gen_ai_model_info::FoundationGenAiModelInfo>>>(mut self, v: T) -> Self{
             self.model_info = std::option::Option::Some(
                 crate::model::processor_version::gen_ai_model_info::ModelInfo::FoundationGenAiModelInfo(
                     v.into()
@@ -10781,10 +10780,10 @@ pub mod processor_version {
         /// mutually exclusive.
         pub fn set_custom_gen_ai_model_info<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::processor_version::gen_ai_model_info::CustomGenAiModelInfo,
+                    std::boxed::Box<
+                        crate::model::processor_version::gen_ai_model_info::CustomGenAiModelInfo,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,

@@ -2472,8 +2472,8 @@ impl VirtualClusterConfig {
     /// Sets the value of `infrastructure_config`.
     pub fn set_infrastructure_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::virtual_cluster_config::InfrastructureConfig>,
-        >,
+                std::option::Option<crate::model::virtual_cluster_config::InfrastructureConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -3762,8 +3762,10 @@ impl InstanceFlexibilityPolicy {
     /// Sets the value of [provisioning_model_mix][crate::model::InstanceFlexibilityPolicy::provisioning_model_mix].
     pub fn set_provisioning_model_mix<
         T: std::convert::Into<
-            std::option::Option<crate::model::instance_flexibility_policy::ProvisioningModelMix>,
-        >,
+                std::option::Option<
+                    crate::model::instance_flexibility_policy::ProvisioningModelMix,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -13731,8 +13733,10 @@ impl GkeNodePoolConfig {
     /// Sets the value of [autoscaling][crate::model::GkeNodePoolConfig::autoscaling].
     pub fn set_autoscaling<
         T: std::convert::Into<
-            std::option::Option<crate::model::gke_node_pool_config::GkeNodePoolAutoscalingConfig>,
-        >,
+                std::option::Option<
+                    crate::model::gke_node_pool_config::GkeNodePoolAutoscalingConfig,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -14557,8 +14561,8 @@ impl WorkflowTemplatePlacement {
     /// Sets the value of `placement`.
     pub fn set_placement<
         T: std::convert::Into<
-            std::option::Option<crate::model::workflow_template_placement::Placement>,
-        >,
+                std::option::Option<crate::model::workflow_template_placement::Placement>,
+            >,
     >(
         mut self,
         v: T,

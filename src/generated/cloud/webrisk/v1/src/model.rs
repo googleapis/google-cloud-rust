@@ -81,8 +81,8 @@ impl ComputeThreatListDiffRequest {
     /// Sets the value of [constraints][crate::model::ComputeThreatListDiffRequest::constraints].
     pub fn set_constraints<
         T: std::convert::Into<
-            std::option::Option<crate::model::compute_threat_list_diff_request::Constraints>,
-        >,
+                std::option::Option<crate::model::compute_threat_list_diff_request::Constraints>,
+            >,
     >(
         mut self,
         v: T,
@@ -247,8 +247,8 @@ impl ComputeThreatListDiffResponse {
     /// Sets the value of [checksum][crate::model::ComputeThreatListDiffResponse::checksum].
     pub fn set_checksum<
         T: std::convert::Into<
-            std::option::Option<crate::model::compute_threat_list_diff_response::Checksum>,
-        >,
+                std::option::Option<crate::model::compute_threat_list_diff_response::Checksum>,
+            >,
     >(
         mut self,
         v: T,
@@ -1231,8 +1231,8 @@ pub mod threat_info {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::threat_info::threat_justification::JustificationLabel,
-            >,
+                    crate::model::threat_info::threat_justification::JustificationLabel,
+                >,
         {
             use std::iter::Iterator;
             self.labels = v.into_iter().map(|i| i.into()).collect();

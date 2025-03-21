@@ -180,7 +180,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListFindingTypeStatsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ListFindingTypeStatsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::ListFindingTypeStatsResponse>>(Err(
             Error::other("unimplemented"),
         ))

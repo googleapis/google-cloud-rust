@@ -529,8 +529,8 @@ pub mod instance {
         /// Sets the value of `connection`.
         pub fn set_connection<
             T: std::convert::Into<
-                std::option::Option<crate::model::instance::connection_detail::Connection>,
-            >,
+                    std::option::Option<crate::model::instance::connection_detail::Connection>,
+                >,
         >(
             mut self,
             v: T,
@@ -2269,8 +2269,8 @@ impl CertificateAuthority {
     /// mutually exclusive.
     pub fn set_managed_server_ca<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::certificate_authority::ManagedCertificateAuthority>,
-        >,
+                std::boxed::Box<crate::model::certificate_authority::ManagedCertificateAuthority>,
+            >,
     >(
         mut self,
         v: T,
@@ -2316,8 +2316,8 @@ pub mod certificate_authority {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::certificate_authority::managed_certificate_authority::CertChain,
-            >,
+                    crate::model::certificate_authority::managed_certificate_authority::CertChain,
+                >,
         {
             use std::iter::Iterator;
             self.ca_certs = v.into_iter().map(|i| i.into()).collect();

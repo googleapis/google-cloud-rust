@@ -6677,8 +6677,8 @@ pub mod injected_solution_constraint {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::injected_solution_constraint::constraint_relaxation::Relaxation,
-            >,
+                    crate::model::injected_solution_constraint::constraint_relaxation::Relaxation,
+                >,
         {
             use std::iter::Iterator;
             self.relaxations = v.into_iter().map(|i| i.into()).collect();
@@ -7305,10 +7305,12 @@ pub mod optimize_tours_validation_error {
         /// Sets the value of [sub_field][crate::model::optimize_tours_validation_error::FieldReference::sub_field].
         pub fn set_sub_field<
             T: std::convert::Into<
-                std::option::Option<
-                    std::boxed::Box<crate::model::optimize_tours_validation_error::FieldReference>,
+                    std::option::Option<
+                        std::boxed::Box<
+                            crate::model::optimize_tours_validation_error::FieldReference,
+                        >,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -7320,10 +7322,10 @@ pub mod optimize_tours_validation_error {
         /// Sets the value of `index_or_key`.
         pub fn set_index_or_key<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::optimize_tours_validation_error::field_reference::IndexOrKey,
+                    std::option::Option<
+                        crate::model::optimize_tours_validation_error::field_reference::IndexOrKey,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,

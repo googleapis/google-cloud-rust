@@ -177,8 +177,9 @@ pub trait PrincipalAccessBoundaryPolicies: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetPrincipalAccessBoundaryPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::PrincipalAccessBoundaryPolicy>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::PrincipalAccessBoundaryPolicy>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::PrincipalAccessBoundaryPolicy>>(Err(
             Error::other("unimplemented"),
         ))

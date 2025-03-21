@@ -548,8 +548,8 @@ pub mod inventory {
         /// Sets the value of `details`.
         pub fn set_details<
             T: std::convert::Into<
-                std::option::Option<crate::model::inventory::software_package::Details>,
-            >,
+                    std::option::Option<crate::model::inventory::software_package::Details>,
+                >,
         >(
             mut self,
             v: T,
@@ -811,8 +811,8 @@ pub mod inventory {
         /// mutually exclusive.
         pub fn set_qfe_package<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::inventory::WindowsQuickFixEngineeringPackage>,
-            >,
+                    std::boxed::Box<crate::model::inventory::WindowsQuickFixEngineeringPackage>,
+                >,
         >(
             mut self,
             v: T,
@@ -1126,8 +1126,8 @@ pub mod inventory {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::inventory::windows_update_package::WindowsUpdateCategory,
-            >,
+                    crate::model::inventory::windows_update_package::WindowsUpdateCategory,
+                >,
         {
             use std::iter::Iterator;
             self.categories = v.into_iter().map(|i| i.into()).collect();
@@ -1718,8 +1718,8 @@ pub mod os_policy {
         /// Sets the value of `resource_type`.
         pub fn set_resource_type<
             T: std::convert::Into<
-                std::option::Option<crate::model::os_policy::resource::ResourceType>,
-            >,
+                    std::option::Option<crate::model::os_policy::resource::ResourceType>,
+                >,
         >(
             mut self,
             v: T,
@@ -1817,8 +1817,8 @@ pub mod os_policy {
         /// mutually exclusive.
         pub fn set_repository<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::os_policy::resource::RepositoryResource>,
-            >,
+                    std::boxed::Box<crate::model::os_policy::resource::RepositoryResource>,
+                >,
         >(
             mut self,
             v: T,
@@ -1907,8 +1907,8 @@ pub mod os_policy {
             /// Sets the value of `r#type`.
             pub fn set_type<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::os_policy::resource::file::Type>,
-                >,
+                        std::option::Option<crate::model::os_policy::resource::file::Type>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -1970,8 +1970,8 @@ pub mod os_policy {
             /// mutually exclusive.
             pub fn set_remote<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::os_policy::resource::file::Remote>,
-                >,
+                        std::boxed::Box<crate::model::os_policy::resource::file::Remote>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -2162,8 +2162,8 @@ pub mod os_policy {
             /// Sets the value of [desired_state][crate::model::os_policy::resource::PackageResource::desired_state].
             pub fn set_desired_state<
                 T: std::convert::Into<
-                    crate::model::os_policy::resource::package_resource::DesiredState,
-                >,
+                        crate::model::os_policy::resource::package_resource::DesiredState,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -2175,10 +2175,10 @@ pub mod os_policy {
             /// Sets the value of `system_package`.
             pub fn set_system_package<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::os_policy::resource::package_resource::SystemPackage,
+                        std::option::Option<
+                            crate::model::os_policy::resource::package_resource::SystemPackage,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -2313,8 +2313,8 @@ pub mod os_policy {
             /// mutually exclusive.
             pub fn set_apt<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::os_policy::resource::package_resource::Apt>,
-                >,
+                        std::boxed::Box<crate::model::os_policy::resource::package_resource::Apt>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -2334,8 +2334,8 @@ pub mod os_policy {
             /// mutually exclusive.
             pub fn set_deb<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::os_policy::resource::package_resource::Deb>,
-                >,
+                        std::boxed::Box<crate::model::os_policy::resource::package_resource::Deb>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -2355,8 +2355,8 @@ pub mod os_policy {
             /// mutually exclusive.
             pub fn set_yum<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::os_policy::resource::package_resource::Yum>,
-                >,
+                        std::boxed::Box<crate::model::os_policy::resource::package_resource::Yum>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -2376,8 +2376,10 @@ pub mod os_policy {
             /// mutually exclusive.
             pub fn set_zypper<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::os_policy::resource::package_resource::Zypper>,
-                >,
+                        std::boxed::Box<
+                            crate::model::os_policy::resource::package_resource::Zypper,
+                        >,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -2397,8 +2399,8 @@ pub mod os_policy {
             /// mutually exclusive.
             pub fn set_rpm<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::os_policy::resource::package_resource::Rpm>,
-                >,
+                        std::boxed::Box<crate::model::os_policy::resource::package_resource::Rpm>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -2418,8 +2420,10 @@ pub mod os_policy {
             /// mutually exclusive.
             pub fn set_googet<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::os_policy::resource::package_resource::GooGet>,
-                >,
+                        std::boxed::Box<
+                            crate::model::os_policy::resource::package_resource::GooGet,
+                        >,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -2439,8 +2443,8 @@ pub mod os_policy {
             /// mutually exclusive.
             pub fn set_msi<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::os_policy::resource::package_resource::Msi>,
-                >,
+                        std::boxed::Box<crate::model::os_policy::resource::package_resource::Msi>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -2491,8 +2495,8 @@ pub mod os_policy {
                 /// Sets the value of [source][crate::model::os_policy::resource::package_resource::Deb::source].
                 pub fn set_source<
                     T: std::convert::Into<
-                        std::option::Option<crate::model::os_policy::resource::File>,
-                    >,
+                            std::option::Option<crate::model::os_policy::resource::File>,
+                        >,
                 >(
                     mut self,
                     v: T,
@@ -2575,8 +2579,8 @@ pub mod os_policy {
                 /// Sets the value of [source][crate::model::os_policy::resource::package_resource::Rpm::source].
                 pub fn set_source<
                     T: std::convert::Into<
-                        std::option::Option<crate::model::os_policy::resource::File>,
-                    >,
+                            std::option::Option<crate::model::os_policy::resource::File>,
+                        >,
                 >(
                     mut self,
                     v: T,
@@ -2729,8 +2733,8 @@ pub mod os_policy {
                 /// Sets the value of [source][crate::model::os_policy::resource::package_resource::Msi::source].
                 pub fn set_source<
                     T: std::convert::Into<
-                        std::option::Option<crate::model::os_policy::resource::File>,
-                    >,
+                            std::option::Option<crate::model::os_policy::resource::File>,
+                        >,
                 >(
                     mut self,
                     v: T,
@@ -2864,10 +2868,10 @@ pub mod os_policy {
             /// Sets the value of `repository`.
             pub fn set_repository<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::os_policy::resource::repository_resource::Repository,
+                        std::option::Option<
+                            crate::model::os_policy::resource::repository_resource::Repository,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -2959,10 +2963,10 @@ pub mod os_policy {
             /// mutually exclusive.
             pub fn set_apt<
                 T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::os_policy::resource::repository_resource::AptRepository,
+                        std::boxed::Box<
+                            crate::model::os_policy::resource::repository_resource::AptRepository,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -2982,10 +2986,10 @@ pub mod os_policy {
             /// mutually exclusive.
             pub fn set_yum<
                 T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::os_policy::resource::repository_resource::YumRepository,
+                        std::boxed::Box<
+                            crate::model::os_policy::resource::repository_resource::YumRepository,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -3003,16 +3007,7 @@ pub mod os_policy {
             ///
             /// Note that all the setters affecting `repository` are
             /// mutually exclusive.
-            pub fn set_zypper<
-                T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::os_policy::resource::repository_resource::ZypperRepository,
-                    >,
-                >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_zypper<T: std::convert::Into<std::boxed::Box<crate::model::os_policy::resource::repository_resource::ZypperRepository>>>(mut self, v: T) -> Self{
                 self.repository = std::option::Option::Some(
                     crate::model::os_policy::resource::repository_resource::Repository::Zypper(
                         v.into(),
@@ -3028,10 +3023,10 @@ pub mod os_policy {
             /// mutually exclusive.
             pub fn set_goo<
                 T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::os_policy::resource::repository_resource::GooRepository,
+                        std::boxed::Box<
+                            crate::model::os_policy::resource::repository_resource::GooRepository,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -3486,8 +3481,8 @@ pub mod os_policy {
             /// Sets the value of [validate][crate::model::os_policy::resource::ExecResource::validate].
             pub fn set_validate<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::os_policy::resource::exec_resource::Exec>,
-                >,
+                        std::option::Option<crate::model::os_policy::resource::exec_resource::Exec>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -3499,8 +3494,8 @@ pub mod os_policy {
             /// Sets the value of [enforce][crate::model::os_policy::resource::ExecResource::enforce].
             pub fn set_enforce<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::os_policy::resource::exec_resource::Exec>,
-                >,
+                        std::option::Option<crate::model::os_policy::resource::exec_resource::Exec>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -3559,8 +3554,8 @@ pub mod os_policy {
                 /// Sets the value of [interpreter][crate::model::os_policy::resource::exec_resource::Exec::interpreter].
                 pub fn set_interpreter<
                     T: std::convert::Into<
-                        crate::model::os_policy::resource::exec_resource::exec::Interpreter,
-                    >,
+                            crate::model::os_policy::resource::exec_resource::exec::Interpreter,
+                        >,
                 >(
                     mut self,
                     v: T,
@@ -3592,10 +3587,10 @@ pub mod os_policy {
                 /// Sets the value of `source`.
                 pub fn set_source<
                     T: std::convert::Into<
-                        std::option::Option<
-                            crate::model::os_policy::resource::exec_resource::exec::Source,
+                            std::option::Option<
+                                crate::model::os_policy::resource::exec_resource::exec::Source,
+                            >,
                         >,
-                    >,
                 >(
                     mut self,
                     v: T,
@@ -3833,8 +3828,10 @@ pub mod os_policy {
             /// Sets the value of `source`.
             pub fn set_source<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::os_policy::resource::file_resource::Source>,
-                >,
+                        std::option::Option<
+                            crate::model::os_policy::resource::file_resource::Source,
+                        >,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -4481,14 +4478,7 @@ pub mod os_policy_assignment_report {
         }
 
         /// Sets the value of [compliance_state][crate::model::os_policy_assignment_report::OSPolicyCompliance::compliance_state].
-        pub fn set_compliance_state<
-            T: std::convert::Into<
-                crate::model::os_policy_assignment_report::os_policy_compliance::ComplianceState,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_compliance_state<T: std::convert::Into<crate::model::os_policy_assignment_report::os_policy_compliance::ComplianceState>>(mut self, v: T) -> Self{
             self.compliance_state = v.into();
             self
         }
@@ -9906,8 +9896,8 @@ pub mod vulnerability_report {
         /// Sets the value of [details][crate::model::vulnerability_report::Vulnerability::details].
         pub fn set_details<
             T: std::convert::Into<
-                std::option::Option<crate::model::vulnerability_report::vulnerability::Details>,
-            >,
+                    std::option::Option<crate::model::vulnerability_report::vulnerability::Details>,
+                >,
         >(
             mut self,
             v: T,
@@ -10064,8 +10054,8 @@ pub mod vulnerability_report {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<
-                    crate::model::vulnerability_report::vulnerability::details::Reference,
-                >,
+                        crate::model::vulnerability_report::vulnerability::details::Reference,
+                    >,
             {
                 use std::iter::Iterator;
                 self.references = v.into_iter().map(|i| i.into()).collect();

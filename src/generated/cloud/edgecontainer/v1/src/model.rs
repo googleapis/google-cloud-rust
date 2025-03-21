@@ -721,8 +721,8 @@ pub mod cluster {
         /// Sets the value of [ingress][crate::model::cluster::SystemAddonsConfig::ingress].
         pub fn set_ingress<
             T: std::convert::Into<
-                std::option::Option<crate::model::cluster::system_addons_config::Ingress>,
-            >,
+                    std::option::Option<crate::model::cluster::system_addons_config::Ingress>,
+                >,
         >(
             mut self,
             v: T,
@@ -734,8 +734,10 @@ pub mod cluster {
         /// Sets the value of [vm_service_config][crate::model::cluster::SystemAddonsConfig::vm_service_config].
         pub fn set_vm_service_config<
             T: std::convert::Into<
-                std::option::Option<crate::model::cluster::system_addons_config::VMServiceConfig>,
-            >,
+                    std::option::Option<
+                        crate::model::cluster::system_addons_config::VMServiceConfig,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -2375,8 +2377,8 @@ pub mod vpn_connection {
         /// Sets the value of [cloud_router][crate::model::vpn_connection::Details::cloud_router].
         pub fn set_cloud_router<
             T: std::convert::Into<
-                std::option::Option<crate::model::vpn_connection::details::CloudRouter>,
-            >,
+                    std::option::Option<crate::model::vpn_connection::details::CloudRouter>,
+                >,
         >(
             mut self,
             v: T,

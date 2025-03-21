@@ -119,8 +119,9 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListWorkstationConfigsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListWorkstationConfigsResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListWorkstationConfigsResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListWorkstationConfigsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -203,8 +204,9 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListUsableWorkstationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListUsableWorkstationsResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListUsableWorkstationsResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListUsableWorkstationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -322,7 +324,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))

@@ -1151,8 +1151,8 @@ impl ObjectMetadataReportOptions {
     /// Sets the value of `filter`.
     pub fn set_filter<
         T: std::convert::Into<
-            std::option::Option<crate::model::object_metadata_report_options::Filter>,
-        >,
+                std::option::Option<crate::model::object_metadata_report_options::Filter>,
+            >,
     >(
         mut self,
         v: T,
@@ -1196,8 +1196,10 @@ impl ObjectMetadataReportOptions {
     /// Sets the value of `destination_options`.
     pub fn set_destination_options<
         T: std::convert::Into<
-            std::option::Option<crate::model::object_metadata_report_options::DestinationOptions>,
-        >,
+                std::option::Option<
+                    crate::model::object_metadata_report_options::DestinationOptions,
+                >,
+            >,
     >(
         mut self,
         v: T,

@@ -954,10 +954,10 @@ pub mod compensation_info {
         /// Sets the value of `compensation_amount`.
         pub fn set_compensation_amount<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::compensation_info::compensation_entry::CompensationAmount,
+                    std::option::Option<
+                        crate::model::compensation_info::compensation_entry::CompensationAmount,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -5622,8 +5622,8 @@ impl SearchJobsRequest {
     /// Sets the value of [custom_ranking_info][crate::model::SearchJobsRequest::custom_ranking_info].
     pub fn set_custom_ranking_info<
         T: std::convert::Into<
-            std::option::Option<crate::model::search_jobs_request::CustomRankingInfo>,
-        >,
+                std::option::Option<crate::model::search_jobs_request::CustomRankingInfo>,
+            >,
     >(
         mut self,
         v: T,
@@ -5739,8 +5739,8 @@ pub mod search_jobs_request {
         /// Sets the value of [importance_level][crate::model::search_jobs_request::CustomRankingInfo::importance_level].
         pub fn set_importance_level<
             T: std::convert::Into<
-                crate::model::search_jobs_request::custom_ranking_info::ImportanceLevel,
-            >,
+                    crate::model::search_jobs_request::custom_ranking_info::ImportanceLevel,
+                >,
         >(
             mut self,
             v: T,
@@ -6453,8 +6453,8 @@ pub mod search_jobs_response {
         /// Sets the value of [commute_info][crate::model::search_jobs_response::MatchingJob::commute_info].
         pub fn set_commute_info<
             T: std::convert::Into<
-                std::option::Option<crate::model::search_jobs_response::CommuteInfo>,
-            >,
+                    std::option::Option<crate::model::search_jobs_response::CommuteInfo>,
+                >,
         >(
             mut self,
             v: T,

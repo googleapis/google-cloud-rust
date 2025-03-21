@@ -471,8 +471,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListProvisioningQuotasRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListProvisioningQuotasResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListProvisioningQuotasResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListProvisioningQuotasResponse>>(Err(
             Error::other("unimplemented"),
         ))

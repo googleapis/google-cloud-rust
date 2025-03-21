@@ -782,8 +782,8 @@ pub mod agent {
         /// Sets the value of `git_settings`.
         pub fn set_git_settings<
             T: std::convert::Into<
-                std::option::Option<crate::model::agent::git_integration_settings::GitSettings>,
-            >,
+                    std::option::Option<crate::model::agent::git_integration_settings::GitSettings>,
+                >,
         >(
             mut self,
             v: T,
@@ -816,8 +816,8 @@ pub mod agent {
         /// mutually exclusive.
         pub fn set_github_settings<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::agent::git_integration_settings::GithubSettings>,
-            >,
+                    std::boxed::Box<crate::model::agent::git_integration_settings::GithubSettings>,
+                >,
         >(
             mut self,
             v: T,
@@ -3209,10 +3209,10 @@ impl DataStoreConnectionSignals {
     /// Sets the value of [rewriter_model_call_signals][crate::model::DataStoreConnectionSignals::rewriter_model_call_signals].
     pub fn set_rewriter_model_call_signals<
         T: std::convert::Into<
-            std::option::Option<
-                crate::model::data_store_connection_signals::RewriterModelCallSignals,
+                std::option::Option<
+                    crate::model::data_store_connection_signals::RewriterModelCallSignals,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -3230,10 +3230,10 @@ impl DataStoreConnectionSignals {
     /// Sets the value of [answer_generation_model_call_signals][crate::model::DataStoreConnectionSignals::answer_generation_model_call_signals].
     pub fn set_answer_generation_model_call_signals<
         T: std::convert::Into<
-            std::option::Option<
-                crate::model::data_store_connection_signals::AnswerGenerationModelCallSignals,
+                std::option::Option<
+                    crate::model::data_store_connection_signals::AnswerGenerationModelCallSignals,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -3251,8 +3251,8 @@ impl DataStoreConnectionSignals {
     /// Sets the value of [grounding_signals][crate::model::DataStoreConnectionSignals::grounding_signals].
     pub fn set_grounding_signals<
         T: std::convert::Into<
-            std::option::Option<crate::model::data_store_connection_signals::GroundingSignals>,
-        >,
+                std::option::Option<crate::model::data_store_connection_signals::GroundingSignals>,
+            >,
     >(
         mut self,
         v: T,
@@ -3264,8 +3264,8 @@ impl DataStoreConnectionSignals {
     /// Sets the value of [safety_signals][crate::model::DataStoreConnectionSignals::safety_signals].
     pub fn set_safety_signals<
         T: std::convert::Into<
-            std::option::Option<crate::model::data_store_connection_signals::SafetySignals>,
-        >,
+                std::option::Option<crate::model::data_store_connection_signals::SafetySignals>,
+            >,
     >(
         mut self,
         v: T,
@@ -3553,8 +3553,8 @@ pub mod data_store_connection_signals {
         /// Sets the value of [search_snippet][crate::model::data_store_connection_signals::CitedSnippet::search_snippet].
         pub fn set_search_snippet<
             T: std::convert::Into<
-                std::option::Option<crate::model::data_store_connection_signals::SearchSnippet>,
-            >,
+                    std::option::Option<crate::model::data_store_connection_signals::SearchSnippet>,
+                >,
         >(
             mut self,
             v: T,
@@ -3597,14 +3597,7 @@ pub mod data_store_connection_signals {
         }
 
         /// Sets the value of [decision][crate::model::data_store_connection_signals::GroundingSignals::decision].
-        pub fn set_decision<
-            T: std::convert::Into<
-                crate::model::data_store_connection_signals::grounding_signals::GroundingDecision,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_decision<T: std::convert::Into<crate::model::data_store_connection_signals::grounding_signals::GroundingDecision>>(mut self, v: T) -> Self{
             self.decision = v.into();
             self
         }
@@ -3792,8 +3785,8 @@ pub mod data_store_connection_signals {
         /// Sets the value of [decision][crate::model::data_store_connection_signals::SafetySignals::decision].
         pub fn set_decision<
             T: std::convert::Into<
-                crate::model::data_store_connection_signals::safety_signals::SafetyDecision,
-            >,
+                    crate::model::data_store_connection_signals::safety_signals::SafetyDecision,
+                >,
         >(
             mut self,
             v: T,
@@ -3805,8 +3798,8 @@ pub mod data_store_connection_signals {
         /// Sets the value of [banned_phrase_match][crate::model::data_store_connection_signals::SafetySignals::banned_phrase_match].
         pub fn set_banned_phrase_match<
             T: std::convert::Into<
-                crate::model::data_store_connection_signals::safety_signals::BannedPhraseMatch,
-            >,
+                    crate::model::data_store_connection_signals::safety_signals::BannedPhraseMatch,
+                >,
         >(
             mut self,
             v: T,
@@ -4809,8 +4802,8 @@ impl ExportEntityTypesRequest {
     /// Sets the value of `destination`.
     pub fn set_destination<
         T: std::convert::Into<
-            std::option::Option<crate::model::export_entity_types_request::Destination>,
-        >,
+                std::option::Option<crate::model::export_entity_types_request::Destination>,
+            >,
     >(
         mut self,
         v: T,
@@ -4989,8 +4982,10 @@ impl ExportEntityTypesResponse {
     /// Sets the value of `exported_entity_types`.
     pub fn set_exported_entity_types<
         T: std::convert::Into<
-            std::option::Option<crate::model::export_entity_types_response::ExportedEntityTypes>,
-        >,
+                std::option::Option<
+                    crate::model::export_entity_types_response::ExportedEntityTypes,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -5188,8 +5183,8 @@ impl ImportEntityTypesRequest {
     /// Sets the value of `entity_types`.
     pub fn set_entity_types<
         T: std::convert::Into<
-            std::option::Option<crate::model::import_entity_types_request::EntityTypes>,
-        >,
+                std::option::Option<crate::model::import_entity_types_request::EntityTypes>,
+            >,
     >(
         mut self,
         v: T,
@@ -5400,8 +5395,10 @@ impl ImportEntityTypesResponse {
     /// Sets the value of [conflicting_resources][crate::model::ImportEntityTypesResponse::conflicting_resources].
     pub fn set_conflicting_resources<
         T: std::convert::Into<
-            std::option::Option<crate::model::import_entity_types_response::ConflictingResources>,
-        >,
+                std::option::Option<
+                    crate::model::import_entity_types_response::ConflictingResources,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -7556,8 +7553,8 @@ pub mod experiment {
             /// Sets the value of [confidence_interval][crate::model::experiment::result::Metric::confidence_interval].
             pub fn set_confidence_interval<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::experiment::result::ConfidenceInterval>,
-                >,
+                        std::option::Option<crate::model::experiment::result::ConfidenceInterval>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -7569,8 +7566,8 @@ pub mod experiment {
             /// Sets the value of `value`.
             pub fn set_value<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::experiment::result::metric::Value>,
-                >,
+                        std::option::Option<crate::model::experiment::result::metric::Value>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -10445,8 +10442,8 @@ pub mod fulfillment {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<
-                    crate::model::fulfillment::conditional_cases::case::CaseContent,
-                >,
+                        crate::model::fulfillment::conditional_cases::case::CaseContent,
+                    >,
             {
                 use std::iter::Iterator;
                 self.case_content = v.into_iter().map(|i| i.into()).collect();
@@ -10544,8 +10541,8 @@ pub mod fulfillment {
                 /// mutually exclusive.
                 pub fn set_additional_cases<
                     T: std::convert::Into<
-                        std::boxed::Box<crate::model::fulfillment::ConditionalCases>,
-                    >,
+                            std::boxed::Box<crate::model::fulfillment::ConditionalCases>,
+                        >,
                 >(
                     mut self,
                     v: T,
@@ -10660,8 +10657,8 @@ impl GenerativeSettings {
     /// Sets the value of [fallback_settings][crate::model::GenerativeSettings::fallback_settings].
     pub fn set_fallback_settings<
         T: std::convert::Into<
-            std::option::Option<crate::model::generative_settings::FallbackSettings>,
-        >,
+                std::option::Option<crate::model::generative_settings::FallbackSettings>,
+            >,
     >(
         mut self,
         v: T,
@@ -10684,8 +10681,8 @@ impl GenerativeSettings {
     /// Sets the value of [knowledge_connector_settings][crate::model::GenerativeSettings::knowledge_connector_settings].
     pub fn set_knowledge_connector_settings<
         T: std::convert::Into<
-            std::option::Option<crate::model::generative_settings::KnowledgeConnectorSettings>,
-        >,
+                std::option::Option<crate::model::generative_settings::KnowledgeConnectorSettings>,
+            >,
     >(
         mut self,
         v: T,
@@ -10748,8 +10745,8 @@ pub mod generative_settings {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::generative_settings::fallback_settings::PromptTemplate,
-            >,
+                    crate::model::generative_settings::fallback_settings::PromptTemplate,
+                >,
         {
             use std::iter::Iterator;
             self.prompt_templates = v.into_iter().map(|i| i.into()).collect();
@@ -12559,8 +12556,8 @@ impl ImportIntentsResponse {
     /// Sets the value of [conflicting_resources][crate::model::ImportIntentsResponse::conflicting_resources].
     pub fn set_conflicting_resources<
         T: std::convert::Into<
-            std::option::Option<crate::model::import_intents_response::ConflictingResources>,
-        >,
+                std::option::Option<crate::model::import_intents_response::ConflictingResources>,
+            >,
     >(
         mut self,
         v: T,
@@ -15060,8 +15057,8 @@ pub mod response_message {
         /// Sets the value of `source`.
         pub fn set_source<
             T: std::convert::Into<
-                std::option::Option<crate::model::response_message::output_audio_text::Source>,
-            >,
+                    std::option::Option<crate::model::response_message::output_audio_text::Source>,
+                >,
         >(
             mut self,
             v: T,
@@ -15291,10 +15288,10 @@ pub mod response_message {
             /// Sets the value of `content`.
             pub fn set_content<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::response_message::mixed_audio::segment::Content,
+                        std::option::Option<
+                            crate::model::response_message::mixed_audio::segment::Content,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -15401,10 +15398,10 @@ pub mod response_message {
         /// Sets the value of `endpoint`.
         pub fn set_endpoint<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::response_message::telephony_transfer_call::Endpoint,
+                    std::option::Option<
+                        crate::model::response_message::telephony_transfer_call::Endpoint,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -16156,8 +16153,8 @@ impl SecuritySettings {
     /// Sets the value of [audio_export_settings][crate::model::SecuritySettings::audio_export_settings].
     pub fn set_audio_export_settings<
         T: std::convert::Into<
-            std::option::Option<crate::model::security_settings::AudioExportSettings>,
-        >,
+                std::option::Option<crate::model::security_settings::AudioExportSettings>,
+            >,
     >(
         mut self,
         v: T,
@@ -16169,8 +16166,8 @@ impl SecuritySettings {
     /// Sets the value of [insights_export_settings][crate::model::SecuritySettings::insights_export_settings].
     pub fn set_insights_export_settings<
         T: std::convert::Into<
-            std::option::Option<crate::model::security_settings::InsightsExportSettings>,
-        >,
+                std::option::Option<crate::model::security_settings::InsightsExportSettings>,
+            >,
     >(
         mut self,
         v: T,
@@ -17664,8 +17661,8 @@ impl StreamingDetectIntentResponse {
     /// Sets the value of `response`.
     pub fn set_response<
         T: std::convert::Into<
-            std::option::Option<crate::model::streaming_detect_intent_response::Response>,
-        >,
+                std::option::Option<crate::model::streaming_detect_intent_response::Response>,
+            >,
     >(
         mut self,
         v: T,
@@ -18487,10 +18484,10 @@ pub mod boost_spec {
         /// Sets the value of [boost_control_spec][crate::model::boost_spec::ConditionBoostSpec::boost_control_spec].
         pub fn set_boost_control_spec<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::boost_spec::condition_boost_spec::BoostControlSpec,
+                    std::option::Option<
+                        crate::model::boost_spec::condition_boost_spec::BoostControlSpec,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -21239,8 +21236,8 @@ impl ConversationTurn {
     /// Sets the value of [virtual_agent_output][crate::model::ConversationTurn::virtual_agent_output].
     pub fn set_virtual_agent_output<
         T: std::convert::Into<
-            std::option::Option<crate::model::conversation_turn::VirtualAgentOutput>,
-        >,
+                std::option::Option<crate::model::conversation_turn::VirtualAgentOutput>,
+            >,
     >(
         mut self,
         v: T,
@@ -21656,8 +21653,8 @@ pub mod transition_coverage {
         /// Sets the value of `kind`.
         pub fn set_kind<
             T: std::convert::Into<
-                std::option::Option<crate::model::transition_coverage::transition_node::Kind>,
-            >,
+                    std::option::Option<crate::model::transition_coverage::transition_node::Kind>,
+                >,
         >(
             mut self,
             v: T,
@@ -21786,8 +21783,8 @@ pub mod transition_coverage {
         /// Sets the value of [source][crate::model::transition_coverage::Transition::source].
         pub fn set_source<
             T: std::convert::Into<
-                std::option::Option<crate::model::transition_coverage::TransitionNode>,
-            >,
+                    std::option::Option<crate::model::transition_coverage::TransitionNode>,
+                >,
         >(
             mut self,
             v: T,
@@ -21805,8 +21802,8 @@ pub mod transition_coverage {
         /// Sets the value of [target][crate::model::transition_coverage::Transition::target].
         pub fn set_target<
             T: std::convert::Into<
-                std::option::Option<crate::model::transition_coverage::TransitionNode>,
-            >,
+                    std::option::Option<crate::model::transition_coverage::TransitionNode>,
+                >,
         >(
             mut self,
             v: T,
@@ -21824,8 +21821,8 @@ pub mod transition_coverage {
         /// Sets the value of `detail`.
         pub fn set_detail<
             T: std::convert::Into<
-                std::option::Option<crate::model::transition_coverage::transition::Detail>,
-            >,
+                    std::option::Option<crate::model::transition_coverage::transition::Detail>,
+                >,
         >(
             mut self,
             v: T,
@@ -22021,8 +22018,8 @@ pub mod transition_route_group_coverage {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::transition_route_group_coverage::coverage::Transition,
-            >,
+                    crate::model::transition_route_group_coverage::coverage::Transition,
+                >,
         {
             use std::iter::Iterator;
             self.transitions = v.into_iter().map(|i| i.into()).collect();
@@ -22327,8 +22324,8 @@ impl CalculateCoverageResponse {
     /// Sets the value of `coverage_type`.
     pub fn set_coverage_type<
         T: std::convert::Into<
-            std::option::Option<crate::model::calculate_coverage_response::CoverageType>,
-        >,
+                std::option::Option<crate::model::calculate_coverage_response::CoverageType>,
+            >,
     >(
         mut self,
         v: T,
@@ -23447,8 +23444,8 @@ impl ExportTestCasesRequest {
     /// Sets the value of `destination`.
     pub fn set_destination<
         T: std::convert::Into<
-            std::option::Option<crate::model::export_test_cases_request::Destination>,
-        >,
+                std::option::Option<crate::model::export_test_cases_request::Destination>,
+            >,
     >(
         mut self,
         v: T,
@@ -23594,8 +23591,8 @@ impl ExportTestCasesResponse {
     /// Sets the value of `destination`.
     pub fn set_destination<
         T: std::convert::Into<
-            std::option::Option<crate::model::export_test_cases_response::Destination>,
-        >,
+                std::option::Option<crate::model::export_test_cases_response::Destination>,
+            >,
     >(
         mut self,
         v: T,
@@ -25582,8 +25579,8 @@ pub mod webhook {
         /// Sets the value of [oauth_config][crate::model::webhook::GenericWebService::oauth_config].
         pub fn set_oauth_config<
             T: std::convert::Into<
-                std::option::Option<crate::model::webhook::generic_web_service::OAuthConfig>,
-            >,
+                    std::option::Option<crate::model::webhook::generic_web_service::OAuthConfig>,
+                >,
         >(
             mut self,
             v: T,
@@ -26481,8 +26478,8 @@ impl WebhookRequest {
     /// Sets the value of [sentiment_analysis_result][crate::model::WebhookRequest::sentiment_analysis_result].
     pub fn set_sentiment_analysis_result<
         T: std::convert::Into<
-            std::option::Option<crate::model::webhook_request::SentimentAnalysisResult>,
-        >,
+                std::option::Option<crate::model::webhook_request::SentimentAnalysisResult>,
+            >,
     >(
         mut self,
         v: T,
@@ -26940,8 +26937,8 @@ impl WebhookResponse {
     /// Sets the value of [fulfillment_response][crate::model::WebhookResponse::fulfillment_response].
     pub fn set_fulfillment_response<
         T: std::convert::Into<
-            std::option::Option<crate::model::webhook_response::FulfillmentResponse>,
-        >,
+                std::option::Option<crate::model::webhook_response::FulfillmentResponse>,
+            >,
     >(
         mut self,
         v: T,
@@ -27397,8 +27394,8 @@ pub mod page_info {
             /// Sets the value of [state][crate::model::page_info::form_info::ParameterInfo::state].
             pub fn set_state<
                 T: std::convert::Into<
-                    crate::model::page_info::form_info::parameter_info::ParameterState,
-                >,
+                        crate::model::page_info::form_info::parameter_info::ParameterState,
+                    >,
             >(
                 mut self,
                 v: T,

@@ -773,8 +773,8 @@ impl PollAirflowCommandResponse {
     /// Sets the value of [exit_info][crate::model::PollAirflowCommandResponse::exit_info].
     pub fn set_exit_info<
         T: std::convert::Into<
-            std::option::Option<crate::model::poll_airflow_command_response::ExitInfo>,
-        >,
+                std::option::Option<crate::model::poll_airflow_command_response::ExitInfo>,
+            >,
     >(
         mut self,
         v: T,
@@ -1660,8 +1660,10 @@ pub mod list_workloads_response {
         /// Sets the value of [status][crate::model::list_workloads_response::ComposerWorkload::status].
         pub fn set_status<
             T: std::convert::Into<
-                std::option::Option<crate::model::list_workloads_response::ComposerWorkloadStatus>,
-            >,
+                    std::option::Option<
+                        crate::model::list_workloads_response::ComposerWorkloadStatus,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -3307,8 +3309,8 @@ impl IPAllocationPolicy {
     /// Sets the value of `cluster_ip_allocation`.
     pub fn set_cluster_ip_allocation<
         T: std::convert::Into<
-            std::option::Option<crate::model::ip_allocation_policy::ClusterIpAllocation>,
-        >,
+                std::option::Option<crate::model::ip_allocation_policy::ClusterIpAllocation>,
+            >,
     >(
         mut self,
         v: T,
@@ -3378,8 +3380,8 @@ impl IPAllocationPolicy {
     /// Sets the value of `services_ip_allocation`.
     pub fn set_services_ip_allocation<
         T: std::convert::Into<
-            std::option::Option<crate::model::ip_allocation_policy::ServicesIpAllocation>,
-        >,
+                std::option::Option<crate::model::ip_allocation_policy::ServicesIpAllocation>,
+            >,
     >(
         mut self,
         v: T,
@@ -4226,8 +4228,8 @@ impl WorkloadsConfig {
     /// Sets the value of [dag_processor][crate::model::WorkloadsConfig::dag_processor].
     pub fn set_dag_processor<
         T: std::convert::Into<
-            std::option::Option<crate::model::workloads_config::DagProcessorResource>,
-        >,
+                std::option::Option<crate::model::workloads_config::DagProcessorResource>,
+            >,
     >(
         mut self,
         v: T,

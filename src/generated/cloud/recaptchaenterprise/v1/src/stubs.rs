@@ -197,7 +197,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListFirewallPoliciesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ListFirewallPoliciesResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::ListFirewallPoliciesResponse>>(Err(
             Error::other("unimplemented"),
         ))

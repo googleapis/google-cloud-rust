@@ -244,8 +244,8 @@ impl CertificateAuthority {
     /// Sets the value of [key_spec][crate::model::CertificateAuthority::key_spec].
     pub fn set_key_spec<
         T: std::convert::Into<
-            std::option::Option<crate::model::certificate_authority::KeyVersionSpec>,
-        >,
+                std::option::Option<crate::model::certificate_authority::KeyVersionSpec>,
+            >,
     >(
         mut self,
         v: T,
@@ -463,10 +463,10 @@ pub mod certificate_authority {
         /// Sets the value of `key_version`.
         pub fn set_key_version<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::certificate_authority::key_version_spec::KeyVersion,
+                    std::option::Option<
+                        crate::model::certificate_authority::key_version_spec::KeyVersion,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -1243,8 +1243,8 @@ pub mod ca_pool {
         /// Sets the value of [allowed_issuance_modes][crate::model::ca_pool::IssuancePolicy::allowed_issuance_modes].
         pub fn set_allowed_issuance_modes<
             T: std::convert::Into<
-                std::option::Option<crate::model::ca_pool::issuance_policy::IssuanceModes>,
-            >,
+                    std::option::Option<crate::model::ca_pool::issuance_policy::IssuanceModes>,
+                >,
         >(
             mut self,
             v: T,
@@ -1338,10 +1338,10 @@ pub mod ca_pool {
             /// Sets the value of `key_type`.
             pub fn set_key_type<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::ca_pool::issuance_policy::allowed_key_type::KeyType,
+                        std::option::Option<
+                            crate::model::ca_pool::issuance_policy::allowed_key_type::KeyType,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -1393,10 +1393,10 @@ pub mod ca_pool {
             /// mutually exclusive.
             pub fn set_rsa<
                 T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::ca_pool::issuance_policy::allowed_key_type::RsaKeyType,
+                        std::boxed::Box<
+                            crate::model::ca_pool::issuance_policy::allowed_key_type::RsaKeyType,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -1416,10 +1416,10 @@ pub mod ca_pool {
             /// mutually exclusive.
             pub fn set_elliptic_curve<
                 T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::ca_pool::issuance_policy::allowed_key_type::EcKeyType,
+                        std::boxed::Box<
+                            crate::model::ca_pool::issuance_policy::allowed_key_type::EcKeyType,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -3007,8 +3007,8 @@ impl SubordinateConfig {
     /// Sets the value of `subordinate_config`.
     pub fn set_subordinate_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::subordinate_config::SubordinateConfig>,
-        >,
+                std::option::Option<crate::model::subordinate_config::SubordinateConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -3069,8 +3069,8 @@ impl SubordinateConfig {
     /// mutually exclusive.
     pub fn set_pem_issuer_chain<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::subordinate_config::SubordinateConfigChain>,
-        >,
+                std::boxed::Box<crate::model::subordinate_config::SubordinateConfigChain>,
+            >,
     >(
         mut self,
         v: T,
@@ -3510,8 +3510,8 @@ impl CertificateDescription {
     /// Sets the value of [subject_description][crate::model::CertificateDescription::subject_description].
     pub fn set_subject_description<
         T: std::convert::Into<
-            std::option::Option<crate::model::certificate_description::SubjectDescription>,
-        >,
+                std::option::Option<crate::model::certificate_description::SubjectDescription>,
+            >,
     >(
         mut self,
         v: T,
@@ -3565,8 +3565,8 @@ impl CertificateDescription {
     /// Sets the value of [cert_fingerprint][crate::model::CertificateDescription::cert_fingerprint].
     pub fn set_cert_fingerprint<
         T: std::convert::Into<
-            std::option::Option<crate::model::certificate_description::CertificateFingerprint>,
-        >,
+                std::option::Option<crate::model::certificate_description::CertificateFingerprint>,
+            >,
     >(
         mut self,
         v: T,
@@ -4462,8 +4462,8 @@ impl CertificateExtensionConstraints {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<
-            crate::model::certificate_extension_constraints::KnownCertificateExtension,
-        >,
+                crate::model::certificate_extension_constraints::KnownCertificateExtension,
+            >,
     {
         use std::iter::Iterator;
         self.known_extensions = v.into_iter().map(|i| i.into()).collect();

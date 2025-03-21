@@ -1878,8 +1878,8 @@ impl StartManualTransferRunsRequest {
     /// Sets the value of `time`.
     pub fn set_time<
         T: std::convert::Into<
-            std::option::Option<crate::model::start_manual_transfer_runs_request::Time>,
-        >,
+                std::option::Option<crate::model::start_manual_transfer_runs_request::Time>,
+            >,
     >(
         mut self,
         v: T,
@@ -1925,8 +1925,8 @@ impl StartManualTransferRunsRequest {
     /// mutually exclusive.
     pub fn set_requested_time_range<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::start_manual_transfer_runs_request::TimeRange>,
-        >,
+                std::boxed::Box<crate::model::start_manual_transfer_runs_request::TimeRange>,
+            >,
     >(
         mut self,
         v: T,

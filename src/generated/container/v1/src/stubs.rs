@@ -397,8 +397,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListUsableSubnetworksRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListUsableSubnetworksResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListUsableSubnetworksResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListUsableSubnetworksResponse>>(Err(
             Error::other("unimplemented"),
         ))
