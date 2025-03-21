@@ -27,7 +27,7 @@ import (
 var dartTemplates embed.FS
 
 func Generate(model *api.API, outdir string, cfg *config.Config) error {
-	annotate := NewAnnotateModel(model)
+	annotate := newAnnotateModel(model)
 	_, err := annotate.annotateModel(cfg.Codec)
 	if err != nil {
 		return err

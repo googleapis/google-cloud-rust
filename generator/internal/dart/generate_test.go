@@ -25,7 +25,7 @@ import (
 
 func TestGeneratedFiles(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
-	annotate := NewAnnotateModel(model)
+	annotate := newAnnotateModel(model)
 	annotate.annotateModel(map[string]string{})
 	files := generatedFiles(model)
 	if len(files) == 0 {

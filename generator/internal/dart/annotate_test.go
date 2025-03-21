@@ -24,7 +24,7 @@ import (
 
 func TestAnnotateModel(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
-	annotate := NewAnnotateModel(model)
+	annotate := newAnnotateModel(model)
 	_, err := annotate.annotateModel(map[string]string{})
 	if err != nil {
 		t.Fatal(err)
@@ -42,7 +42,7 @@ func TestAnnotateModel(t *testing.T) {
 
 func TestAnnotateModel_Options(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
-	annotate := NewAnnotateModel(model)
+	annotate := newAnnotateModel(model)
 	_, err := annotate.annotateModel(map[string]string{
 		"version":   "1.0.0",
 		"part-file": "src/test.p.dart",
@@ -78,7 +78,7 @@ func TestAnnotateMethod(t *testing.T) {
 		[]*api.Service{service},
 	)
 	api.Validate(model)
-	annotate := NewAnnotateModel(model)
+	annotate := newAnnotateModel(model)
 	_, err := annotate.annotateModel(map[string]string{})
 	if err != nil {
 		t.Fatal(err)
@@ -186,7 +186,7 @@ func TestAnnotateMessageToString(t *testing.T) {
 		[]*api.Enum{sample.EnumState()},
 		[]*api.Service{},
 	)
-	annotate := NewAnnotateModel(model)
+	annotate := newAnnotateModel(model)
 	annotate.annotateModel(map[string]string{})
 
 	for _, test := range []struct {

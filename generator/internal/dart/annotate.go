@@ -135,8 +135,8 @@ type annotateModel struct {
 	requiredFields map[string]*api.Field
 }
 
-func NewAnnotateModel(model *api.API) *AnnotateModel {
-	return &AnnotateModel{
+func newAnnotateModel(model *api.API) *annotateModel {
+	return &annotateModel{
 		model:          model,
 		state:          model.State,
 		imports:        map[string]string{},
@@ -148,7 +148,7 @@ func NewAnnotateModel(model *api.API) *AnnotateModel {
 // Fields and methods defined in this struct directly correspond to Mustache
 // tags. For example, the Mustache tag {{#Services}} uses the
 // [Template.Services] field.
-func (annotate *AnnotateModel) annotateModel(options map[string]string) (*modelAnnotations, error) {
+func (annotate *annotateModel) annotateModel(options map[string]string) (*modelAnnotations, error) {
 	var (
 		packageNameOverride string
 		generationYear      string
@@ -329,7 +329,7 @@ func calculateImports(imports map[string]string) []string {
 	return results
 }
 
-func (annotate AnnotateModel) annotateService(s *api.Service) {
+func (annotate *annotateModel) annotateService(s *api.Service) {
 	// Add a package:http import if we're generating a service.
 	annotate.imports["http"] = httpImport
 
@@ -352,7 +352,7 @@ func (annotate AnnotateModel) annotateService(s *api.Service) {
 	s.Codec = ann
 }
 
-func (annotate AnnotateModel) annotateMessage(m *api.Message, imports map[string]string) {
+func (annotate *annotateModel) annotateMessage(m *api.Message, imports map[string]string) {
 	// Add the import for the common JSON helpers.
 	imports["cloud_gax_helpers"] = commonHelpersImport
 
@@ -419,7 +419,7 @@ func createToStringLines(message *api.Message) []string {
 	return lines
 }
 
-func (annotate AnnotateModel) annotateMethod(method *api.Method) {
+func (annotate *annotateModel) annotateMethod(method *api.Method) {
 	// Ignore imports added from the input and output messages.
 	tempImports := map[string]string{}
 	if method.InputType.Codec == nil {
@@ -459,14 +459,14 @@ func (annotate AnnotateModel) annotateMethod(method *api.Method) {
 	method.Codec = annotation
 }
 
-func (annotate AnnotateModel) annotateOneOf(field *api.OneOf) {
+func (annotate *annotateModel) annotateOneOf(field *api.OneOf) {
 	field.Codec = &oneOfAnnotation{
 		Name:     strcase.ToLowerCamel(field.Name),
 		DocLines: formatDocComments(field.Documentation, annotate.state),
 	}
 }
 
-func (annotate AnnotateModel) annotateField(field *api.Field) {
+func (annotate *annotateModel) annotateField(field *api.Field) {
 	_, required := annotate.requiredFields[field.ID]
 	state := annotate.state
 
@@ -571,7 +571,7 @@ func createToJsonLine(field *api.Field, state *api.APIState, required bool) stri
 	}
 }
 
-func (annotate AnnotateModel) annotateEnum(enum *api.Enum) {
+func (annotate *annotateModel) annotateEnum(enum *api.Enum) {
 	for _, ev := range enum.Values {
 		annotate.annotateEnumValue(ev)
 	}
@@ -581,14 +581,14 @@ func (annotate AnnotateModel) annotateEnum(enum *api.Enum) {
 	}
 }
 
-func (annotate AnnotateModel) annotateEnumValue(ev *api.EnumValue) {
+func (annotate *annotateModel) annotateEnumValue(ev *api.EnumValue) {
 	ev.Codec = &enumValueAnnotation{
 		Name:     enumValueName(ev),
 		DocLines: formatDocComments(ev.Documentation, annotate.state),
 	}
 }
 
-func (annotate AnnotateModel) fieldType(f *api.Field) string {
+func (annotate *annotateModel) fieldType(f *api.Field) string {
 	var out string
 
 	switch f.Typez {
@@ -644,7 +644,7 @@ func (annotate AnnotateModel) fieldType(f *api.Field) string {
 	return out
 }
 
-func (annotate AnnotateModel) resolveTypeName(message *api.Message) string {
+func (annotate *annotateModel) resolveTypeName(message *api.Message) string {
 	if message == nil {
 		slog.Error("unable to lookup type")
 		return ""

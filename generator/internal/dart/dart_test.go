@@ -34,7 +34,7 @@ func TestMessageNames(t *testing.T) {
 		[]*api.Enum{},
 		[]*api.Service{})
 	model.PackageName = "test"
-	annotate := NewAnnotateModel(model)
+	annotate := newAnnotateModel(model)
 	annotate.annotateModel(map[string]string{})
 
 	for _, test := range []struct {
@@ -86,7 +86,7 @@ func TestEnumNames(t *testing.T) {
 		[]*api.Enum{nested, non_nested},
 		[]*api.Service{})
 	model.PackageName = "test"
-	annotate := NewAnnotateModel(model)
+	annotate := newAnnotateModel(model)
 	annotate.annotateModel(map[string]string{})
 
 	for _, test := range []struct {
@@ -119,7 +119,7 @@ func TestEnumValues(t *testing.T) {
 	}
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{someEnum}, []*api.Service{})
 	model.PackageName = "test"
-	annotate := NewAnnotateModel(model)
+	annotate := newAnnotateModel(model)
 	annotate.annotateModel(map[string]string{})
 
 	for _, test := range []struct {
@@ -151,7 +151,7 @@ func TestResolveTypeName(t *testing.T) {
 		},
 	}, []*api.Enum{}, []*api.Service{})
 
-	annotate := NewAnnotateModel(model)
+	annotate := newAnnotateModel(model)
 	annotate.annotateModel(map[string]string{})
 	state := model.State
 
@@ -187,7 +187,7 @@ func TestResolveTypeName_Imports(t *testing.T) {
 		},
 	}, []*api.Enum{}, []*api.Service{})
 
-	annotate := NewAnnotateModel(model)
+	annotate := newAnnotateModel(model)
 	annotate.annotateModel(map[string]string{})
 	state := model.State
 
@@ -242,7 +242,7 @@ func TestFieldType(t *testing.T) {
 			Fields:        []*api.Field{field},
 		}
 		model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
-		annotate := NewAnnotateModel(model)
+		annotate := newAnnotateModel(model)
 		annotate.annotateModel(map[string]string{})
 
 		got := annotate.fieldType(field)
@@ -279,7 +279,7 @@ func TestFieldType(t *testing.T) {
 		[]*api.Enum{sampleEnum},
 		[]*api.Service{},
 	)
-	annotate := NewAnnotateModel(model)
+	annotate := newAnnotateModel(model)
 	annotate.annotateModel(map[string]string{})
 
 	got := annotate.fieldType(field1)
@@ -318,7 +318,7 @@ func TestFieldType_Maps(t *testing.T) {
 		TypezID:  map1.ID,
 	}
 	model := api.NewTestAPI([]*api.Message{map1}, []*api.Enum{}, []*api.Service{})
-	annotate := NewAnnotateModel(model)
+	annotate := newAnnotateModel(model)
 	annotate.annotateModel(map[string]string{})
 
 	got := annotate.fieldType(field)
@@ -341,7 +341,7 @@ func TestFieldType_Bytes(t *testing.T) {
 		Fields: []*api.Field{field},
 	}
 	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
-	annotate := NewAnnotateModel(model)
+	annotate := newAnnotateModel(model)
 	annotate.annotateModel(map[string]string{})
 	annotate.imports = map[string]string{}
 
@@ -393,7 +393,7 @@ func TestFieldType_Repeated(t *testing.T) {
 			Fields:        []*api.Field{field},
 		}
 		model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
-		annotate := NewAnnotateModel(model)
+		annotate := newAnnotateModel(model)
 		annotate.annotateModel(map[string]string{})
 
 		got := annotate.fieldType(field)
@@ -432,7 +432,7 @@ func TestFieldType_Repeated(t *testing.T) {
 		[]*api.Enum{sampleEnum},
 		[]*api.Service{},
 	)
-	annotate := NewAnnotateModel(model)
+	annotate := newAnnotateModel(model)
 	annotate.annotateModel(map[string]string{})
 
 	got := annotate.fieldType(field1)
