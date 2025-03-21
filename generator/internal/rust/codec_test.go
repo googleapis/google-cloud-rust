@@ -152,7 +152,7 @@ func TestParseOptionsTemplateOverride(t *testing.T) {
 		"version":               "1.2.3",
 		"package-name-override": "test-only",
 		"copyright-year":        "2038",
-		"template-override":     "templates/mod-prost",
+		"template-override":     "templates/fancy-templates",
 	}
 	got, err := newCodec(false, options)
 	if err != nil {
@@ -169,7 +169,7 @@ func TestParseOptionsTemplateOverride(t *testing.T) {
 		systemParameters: []systemParameter{
 			{Name: "$alt", Value: "json"},
 		},
-		templateOverride: "templates/mod-prost",
+		templateOverride: "templates/fancy-templates",
 	}
 	sort.Slice(want.extraPackages, func(i, j int) bool {
 		return want.extraPackages[i].name < want.extraPackages[j].name
