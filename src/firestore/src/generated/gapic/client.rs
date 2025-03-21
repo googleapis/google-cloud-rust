@@ -19,7 +19,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// Implements a client for the .
+/// Implements a client for the Cloud Firestore API.
 ///
 /// # Service Description
 ///
