@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use super::*;
-use gaxi::ReqwestClient;
+use gaxi::http::ReqwestClient;
 pub struct Client {
     // A sidekick-generated client contains a `Arc<dyn T>`. The code
     // in this test skips some layers of abstraction.

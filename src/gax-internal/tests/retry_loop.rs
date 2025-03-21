@@ -32,7 +32,7 @@ mod test {
     use gax::options::*;
     use gax::retry_policy::{LimitedAttemptCount, RetryPolicy};
     use gax::retry_throttler::{CircuitBreaker, RetryThrottler};
-    use google_cloud_gax_internal::ReqwestClient;
+    use google_cloud_gax_internal::http::ReqwestClient;
     use serde_json::json;
     use std::sync::{Arc, Mutex};
     use std::time::{Duration, Instant};

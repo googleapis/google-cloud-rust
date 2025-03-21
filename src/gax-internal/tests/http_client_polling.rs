@@ -15,7 +15,7 @@
 #[cfg(test)]
 mod test {
     use gax::options::ClientConfig;
-    use google_cloud_gax_internal::ReqwestClient;
+    use google_cloud_gax_internal::http::ReqwestClient;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 

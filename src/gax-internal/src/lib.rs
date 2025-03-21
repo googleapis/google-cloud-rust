@@ -32,9 +32,3 @@ pub mod query_parameter;
 
 #[doc(hidden)]
 pub mod http;
-
-// TODO(#1539) - remove these once all the generated clients use http::
-#[doc(hidden)]
-pub use http::NoBody;
-#[doc(hidden)]
-pub use http::ReqwestClient;

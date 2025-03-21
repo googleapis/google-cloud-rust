@@ -26,10 +26,10 @@ use gax::error::Error;
 
 {{/Codec.HasServices}}
 {{#Codec.Services}}
-/// Implements [{{Codec.Name}}](super::stubs::{{Codec.Name}}) using a [gaxi::ReqwestClient].
+/// Implements [{{Codec.Name}}](super::stubs::{{Codec.Name}}) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct {{Codec.Name}} {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for {{Codec.Name}} {
@@ -42,7 +42,7 @@ impl std::fmt::Debug for {{Codec.Name}} {
 
 impl {{Codec.Name}} {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -81,7 +81,7 @@ impl super::stubs::{{Codec.Name}} for {{Codec.Name}} {
         self.inner.execute(
             builder,
             {{#PathInfo.Codec.HasBody}}Some(req{{Codec.BodyAccessor}}){{/PathInfo.Codec.HasBody}}
-            {{^PathInfo.Codec.HasBody}}None::<gaxi::NoBody>{{/PathInfo.Codec.HasBody}},
+            {{^PathInfo.Codec.HasBody}}None::<gaxi::http::NoBody>{{/PathInfo.Codec.HasBody}},
             options,
         ).await
     }
