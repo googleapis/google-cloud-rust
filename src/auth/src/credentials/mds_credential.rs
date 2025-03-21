@@ -45,7 +45,7 @@
 //! ```
 //!
 //! [Cloud Run]: https://cloud.google.com/run
-//! [default service account]: http://cloud/iam/docs/best-practices-service-accounts
+//! [default service account]: https://cloud.google.com/iam/docs/service-account-types#default
 //! [gce-link]: https://cloud.google.com/products/compute
 //! [gke-link]: https://cloud.google.com/kubernetes-engine
 //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
@@ -99,40 +99,41 @@ pub struct MDSCredentialBuilder {
     universe_domain: Option<String>,
 }
 
-#[allow(dead_code)]
 impl MDSCredentialBuilder {
-    /// Sets the endpoint that this credential will use.
+    /// Sets the endpoint for this credential.
     /// If not set, the credentials use `http://metadata.google.internal/`.
     pub fn endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
         self.endpoint = Some(endpoint.into());
         self
     }
 
-    /// Sets the [quota project] that this credential will use.
+    /// Set the [quota project] for this credential.
     /// In some services, you can use a service account in
     /// one project for authentication and authorization, and charge
     /// the usage to a different project. This may require that the
     /// service account has serviceusage.services.use on the quota project.
+    /// 
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
     pub fn quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
         self.quota_project_id = Some(quota_project_id.into());
         self
     }
 
-    /// Sets the universe domain that this credential will use.
-    /// Client libraries use universe_domain to determine which
-    /// API endpoints to use for making requests.
-    /// If not set, then credentials use `googleapis.com`.`
+    /// Sets the universe_domain for this credential.
+    /// Client libraries use `universe_domain` to determine
+    /// the API endpoints to use for making requests.
+    /// If not set, then credentials use `googleapis.com`.
     pub fn universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
         self.universe_domain = Some(universe_domain.into());
         self
     }
 
-    /// Sets the [scopes] that this credential will use.
-    /// Metadata server issues a token based on the requested scopes.
+    /// Sets the [scopes] for this credential.
+    /// Metadata server issues tokens based on the requested scopes.
     /// If no scopes are specified, the credential defaults to all
     /// scopes configured for the [default service account] on the instance.
-    /// [default service account]: http://cloud/iam/docs/best-practices-service-accounts
+    /// 
+    /// [default service account]: https://cloud.google.com/iam/docs/service-account-types#default
     /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
     pub fn scopes<S: Into<String>>(mut self, scopes: Vec<S>) -> Self {
         self.scopes = Some(scopes.into_iter().map(|s| s.into()).collect());
@@ -145,11 +146,11 @@ impl MDSCredentialBuilder {
 
         let token_provider = MDSAccessTokenProvider::builder()
             .endpoint(endpoint)
-            .maybe_scopes(self.scopes.clone())
+            .maybe_scopes(self.scopes)
             .build();
 
         let mdsc = MDSCredential {
-            quota_project_id: self.quota_project_id.clone(),
+            quota_project_id: self.quota_project_id,
             token_provider,
             universe_domain: self.universe_domain,
         };
@@ -751,5 +752,27 @@ mod test {
         assert!(!e.is_retryable());
 
         Ok(())
+    }
+
+    #[tokio::test]
+    async fn get_default_universe_domain_success() {
+        let universe_domain_response = MDSCredentialBuilder::default()
+            .build()
+            .get_universe_domain()
+            .await
+            .unwrap();
+        assert_eq!(universe_domain_response, DEFAULT_UNIVERSE_DOMAIN);
+    }
+
+    #[tokio::test]
+    async fn get_custom_universe_domain_success() {
+        let universe_domain = "test-universe";
+        let universe_domain_response = MDSCredentialBuilder::default()
+            .universe_domain(universe_domain)
+            .build()
+            .get_universe_domain()
+            .await
+            .unwrap();
+        assert_eq!(universe_domain_response, universe_domain);
     }
 }
