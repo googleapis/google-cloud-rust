@@ -1,4 +1,4 @@
-// Copyright 2024 Google LLC
+// Copyright 2025 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 use crate::token::{Token, TokenProvider};
 use crate::Result;
 use tokio::sync::watch;
-use tokio::time::{sleep, sleep_until, Duration, Instant};
+use tokio::time::{sleep_until, Duration, Instant};
 
 const FIVE_MINUTES: Duration = Duration::from_secs(300);
 const TEN_SECONDS: Duration = Duration::from_secs(10);
@@ -38,7 +38,7 @@ impl<T: TokenProvider> Clone for TokenCache<T> {
     }
 }
 
-// TODO 1552: Use the token cache in all creds
+// TODO(#1552): Use the token cache in all creds
 #[allow(dead_code)]
 impl<T> TokenCache<T>
 where
@@ -74,7 +74,7 @@ where
                     Some(e) => {
                         if e < Instant::now().into_std() {
                             // Expired token, wait for refresh
-                            return get_token_from_channel(rx).await;
+                            return wait_for_next_token(rx).await;
                         } else {
                             // valid token
                             return Ok(token);
@@ -85,15 +85,14 @@ where
                 Err(e) => Err(e),
             }
         } else {
-            get_token_from_channel(rx).await
+            wait_for_next_token(rx).await
         }
     }
 }
 
-async fn get_token_from_channel(
+async fn wait_for_next_token(
     mut rx_token: watch::Receiver<Option<Result<Token>>>,
 ) -> Result<Token> {
-    // We have already checked the current token in the channel, wait for new one
     rx_token.changed().await.unwrap();
     let token_result = rx_token.borrow().clone();
 
@@ -123,10 +122,13 @@ where
                         let time_to_sleep = Instant::now() + time_until_expiry - TEN_SECONDS;
                         sleep_until(time_to_sleep).await;
                     }
+                    else{
+                        // We were given a token that is expired, or expires in less than 10 seconds. We will immediately restart the loop, and fetch a new token.
+                    }
                 } else {
-                    // Handle case where expiry is not available
-                    // TODO 1553: Validate that all auth backends provide expiry and make expiry not optional.
-                    sleep(FIVE_MINUTES).await;
+                    // If there is no expiry, the token is valid forever, so no need to refresh
+                    // TODO(#1553): Validate that all auth backends provide expiry and make expiry not optional.
+                    break;
                 }
             }
             Err(_) => {
