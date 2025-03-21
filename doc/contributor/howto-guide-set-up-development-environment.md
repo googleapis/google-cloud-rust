@@ -27,6 +27,7 @@ lines of code), this can be rather slow. We recommend you override these
 defaults in your `settings.json` file:
 
 ```json
+{
     "rust-analyzer.cargo.buildScripts.overrideCommand": [
         "cargo",
         "check",
@@ -34,7 +35,9 @@ defaults in your `settings.json` file:
         "--message-format=json",
         "--keep-going"
     ],
-    "rust-analyzer.check.workspace": false,
+    "rust-analyzer.cargo.features": ["proc-macro"],
+    "rust-analyzer.check.workspace": false
+}
 ```
 
 ## Compile the Code
