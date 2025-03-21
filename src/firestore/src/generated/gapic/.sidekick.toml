@@ -18,4 +18,4 @@ specification-source = 'google/firestore/v1'
 
 [codec]
 copyright-year    = '2025'
-template-override = 'templates/mod-prost'
+template-override = 'templates/grpc-client'
