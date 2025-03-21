@@ -2207,6 +2207,7 @@ dependencies = [
 name = "google-cloud-firestore"
 version = "0.0.0"
 dependencies = [
+ "async-trait",
  "bytes",
  "google-cloud-auth",
  "google-cloud-gax",
@@ -2220,6 +2221,7 @@ dependencies = [
  "serde_with",
  "tokio",
  "tonic",
+ "tracing",
 ]
 
 [[package]]

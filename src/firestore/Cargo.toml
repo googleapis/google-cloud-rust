@@ -27,6 +27,7 @@ repository.workspace   = true
 rust-version.workspace = true
 
 [dependencies]
+async-trait = { version = "0.1" }
 bytes       = { version = "1", features = ["serde"] }
 prost       = "0.13"
 prost-types = "0.13"
@@ -35,6 +36,7 @@ serde_json  = { version = "1" }
 serde_with  = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
 tonic       = "0.12"
 tokio       = { version = "1", features = ["macros", "rt-multi-thread"] }
+tracing     = { version = "0.1" }
 # Local crates
 auth  = { version = "0.18", path = "../auth", package = "google-cloud-auth" }
 gax   = { version = "0.21", path = "../gax", package = "google-cloud-gax", features = ["unstable-sdk-client"] }
