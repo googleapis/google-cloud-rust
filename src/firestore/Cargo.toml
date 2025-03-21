@@ -18,12 +18,13 @@ publish     = false
 version     = "0.0.0"
 description = "Google Cloud Client Libraries for Rust - Firestore"
 # Inherit other attributes from the workspace.
-authors.workspace    = true
-categories.workspace = true
-edition.workspace    = true
-keywords.workspace   = true
-license.workspace    = true
-repository.workspace = true
+authors.workspace      = true
+categories.workspace   = true
+edition.workspace      = true
+keywords.workspace     = true
+license.workspace      = true
+repository.workspace   = true
+rust-version.workspace = true
 
 [dependencies]
 bytes       = { version = "1", features = ["serde"] }

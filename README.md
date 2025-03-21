@@ -15,8 +15,12 @@ client libraries for Rust.
 
 ## Supported Rust Versions
 
-We have not defined policies with respect to the Minimum Supported Rust Version
-or Minimum Supported Rust Edition.
+We require Rust >= 1.85, as we anticipate this will be at least six months old
+by the time this project is stabilized (GA may be even later).
+
+However, we have not defined a policy as to how often we will update this
+minimum version. We do intend to publish our policy before declaring that the
+project is generally available.
 
 ## Contributing
 
