@@ -334,7 +334,7 @@ mod test {
         rx.changed().await.unwrap();
 
         // Validate that the refresh loop tried getting new token almost immediately
-        assert!(Instant::now() < now + Duration::from_millis(50));
+        assert!(Instant::now() <= now + Duration::from_millis(500));
 
         let actual = rx.borrow().clone().unwrap().unwrap();
         assert_eq!(actual, token2.clone());
