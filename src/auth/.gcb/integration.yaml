@@ -34,7 +34,7 @@ steps:
         tar -C /workspace/.bin -zxf - --strip-components=1
       chmod 755 /workspace/.bin/sccache
   - id: 'Run auth integration tests'
-    name: 'rust:1.84-bookworm'
+    name: 'rust:1.85-bookworm'
     script: |
       #!/usr/bin/env bash
       set -e
