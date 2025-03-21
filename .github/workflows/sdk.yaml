@@ -83,7 +83,7 @@ jobs:
       - name: Display rustc version
         run: rustup show active-toolchain -v
       - run: |
-          cargo tarpaulin --out xml \
+          cargo tarpaulin --out xml --all-features \
             --package google-cloud-auth \
             --package google-cloud-gax \
             --package google-cloud-gax-internal \

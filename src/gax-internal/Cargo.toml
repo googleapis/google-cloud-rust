@@ -26,20 +26,31 @@ repository.workspace   = true
 rust-version.workspace = true
 
 [features]
-_internal_http_client = ["_internal_common"]
+_internal_http_client = [
+  "_internal_common",
+  "dep:auth",
+  "dep:gax",
+  "dep:reqwest",
+  "dep:rpc",
+  "dep:serde",
+  "dep:serde_json",
+  "dep:tokio",
+]
 _internal_grpc_client = ["_internal_common"]
-_internal_common      = []
+_internal_common = ["dep:gax", "dep:thiserror"]
 
 [dependencies]
-reqwest    = "0.12"
-serde      = "1"
-serde_json = "1"
-thiserror  = "2"
-tokio      = { version = "1", features = ["macros", "rt-multi-thread"] }
+reqwest    = { version = "0.12", optional = true }
+serde      = { version = "1", optional = true }
+serde_json = { version = "1", optional = true }
+thiserror  = { version = "2", optional = true }
+tokio      = { version = "1", features = ["macros", "rt-multi-thread"], optional = true }
 # Local crates
-auth = { version = "0.18", path = "../auth", package = "google-cloud-auth" }
-gax  = { version = "0.21", path = "../gax", package = "google-cloud-gax", features = ["unstable-sdk-client"] }
-rpc  = { version = "0.2", path = "../generated/rpc/types", package = "google-cloud-rpc" }
+auth = { version = "0.18", path = "../auth", package = "google-cloud-auth", optional = true }
+gax = { version = "0.21", path = "../gax", package = "google-cloud-gax", features = [
+  "unstable-sdk-client",
+], optional = true }
+rpc = { version = "0.2", path = "../generated/rpc/types", package = "google-cloud-rpc", optional = true }
 
 [dev-dependencies]
 axum        = "0.8"

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(test)]
+#[cfg(all(test, feature = "_internal_http_client"))]
 mod test {
     use gax::options::ClientConfig;
     use google_cloud_gax_internal::http::ReqwestClient;
