@@ -4536,8 +4536,8 @@ impl RestoreDatabaseMetadata {
     /// Sets the value of `source_info`.
     pub fn set_source_info<
         T: std::convert::Into<
-            std::option::Option<crate::model::restore_database_metadata::SourceInfo>,
-        >,
+                std::option::Option<crate::model::restore_database_metadata::SourceInfo>,
+            >,
     >(
         mut self,
         v: T,

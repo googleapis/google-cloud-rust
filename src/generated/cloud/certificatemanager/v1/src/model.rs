@@ -384,10 +384,10 @@ impl CertificateIssuanceConfig {
     /// Sets the value of [certificate_authority_config][crate::model::CertificateIssuanceConfig::certificate_authority_config].
     pub fn set_certificate_authority_config<
         T: std::convert::Into<
-            std::option::Option<
-                crate::model::certificate_issuance_config::CertificateAuthorityConfig,
+                std::option::Option<
+                    crate::model::certificate_issuance_config::CertificateAuthorityConfig,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -465,16 +465,8 @@ pub mod certificate_issuance_config {
         }
 
         /// Sets the value of `kind`.
-        pub fn set_kind<
-            T: std::convert::Into<
-                std::option::Option<
-                    crate::model::certificate_issuance_config::certificate_authority_config::Kind,
-                >,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::certificate_issuance_config::certificate_authority_config::Kind>>>(mut self, v: T) -> Self
+        {
             self.kind = v.into();
             self
         }
@@ -2307,10 +2299,10 @@ pub mod certificate {
         /// Sets the value of [provisioning_issue][crate::model::certificate::ManagedCertificate::provisioning_issue].
         pub fn set_provisioning_issue<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::certificate::managed_certificate::ProvisioningIssue,
+                    std::option::Option<
+                        crate::model::certificate::managed_certificate::ProvisioningIssue,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -2346,8 +2338,8 @@ pub mod certificate {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::certificate::managed_certificate::AuthorizationAttemptInfo,
-            >,
+                    crate::model::certificate::managed_certificate::AuthorizationAttemptInfo,
+                >,
         {
             use std::iter::Iterator;
             self.authorization_attempt_info = v.into_iter().map(|i| i.into()).collect();
@@ -2390,8 +2382,8 @@ pub mod certificate {
             /// Sets the value of [reason][crate::model::certificate::managed_certificate::ProvisioningIssue::reason].
             pub fn set_reason<
                 T: std::convert::Into<
-                    crate::model::certificate::managed_certificate::provisioning_issue::Reason,
-                >,
+                        crate::model::certificate::managed_certificate::provisioning_issue::Reason,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -2964,8 +2956,8 @@ pub mod certificate_map {
         /// Sets the value of `target_proxy`.
         pub fn set_target_proxy<
             T: std::convert::Into<
-                std::option::Option<crate::model::certificate_map::gclb_target::TargetProxy>,
-            >,
+                    std::option::Option<crate::model::certificate_map::gclb_target::TargetProxy>,
+                >,
         >(
             mut self,
             v: T,
@@ -4140,8 +4132,8 @@ pub mod trust_config {
         /// Sets the value of `kind`.
         pub fn set_kind<
             T: std::convert::Into<
-                std::option::Option<crate::model::trust_config::intermediate_ca::Kind>,
-            >,
+                    std::option::Option<crate::model::trust_config::intermediate_ca::Kind>,
+                >,
         >(
             mut self,
             v: T,

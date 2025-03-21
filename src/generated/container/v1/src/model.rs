@@ -1456,8 +1456,8 @@ impl NodeNetworkConfig {
     /// Sets the value of [network_performance_config][crate::model::NodeNetworkConfig::network_performance_config].
     pub fn set_network_performance_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::node_network_config::NetworkPerformanceConfig>,
-        >,
+                std::option::Option<crate::model::node_network_config::NetworkPerformanceConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -1538,10 +1538,10 @@ pub mod node_network_config {
         /// Sets the value of [total_egress_bandwidth_tier][crate::model::node_network_config::NetworkPerformanceConfig::total_egress_bandwidth_tier].
         pub fn set_total_egress_bandwidth_tier<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::node_network_config::network_performance_config::Tier,
+                    std::option::Option<
+                        crate::model::node_network_config::network_performance_config::Tier,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -2198,8 +2198,8 @@ impl ContainerdConfig {
     /// Sets the value of [private_registry_access_config][crate::model::ContainerdConfig::private_registry_access_config].
     pub fn set_private_registry_access_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::containerd_config::PrivateRegistryAccessConfig>,
-        >,
+                std::option::Option<crate::model::containerd_config::PrivateRegistryAccessConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -3361,8 +3361,8 @@ impl PrivateClusterConfig {
     /// Sets the value of [master_global_access_config][crate::model::PrivateClusterConfig::master_global_access_config].
     pub fn set_master_global_access_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::PrivateClusterMasterGlobalAccessConfig>,
-        >,
+                std::option::Option<crate::model::PrivateClusterMasterGlobalAccessConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -6169,8 +6169,8 @@ impl SecurityPostureConfig {
     /// Sets the value of [vulnerability_mode][crate::model::SecurityPostureConfig::vulnerability_mode].
     pub fn set_vulnerability_mode<
         T: std::convert::Into<
-            std::option::Option<crate::model::security_posture_config::VulnerabilityMode>,
-        >,
+                std::option::Option<crate::model::security_posture_config::VulnerabilityMode>,
+            >,
     >(
         mut self,
         v: T,
@@ -7386,8 +7386,8 @@ impl ClusterUpdate {
     /// Sets the value of [desired_network_performance_config][crate::model::ClusterUpdate::desired_network_performance_config].
     pub fn set_desired_network_performance_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::network_config::ClusterNetworkPerformanceConfig>,
-        >,
+                std::option::Option<crate::model::network_config::ClusterNetworkPerformanceConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -8337,8 +8337,8 @@ pub mod operation_progress {
         /// Sets the value of `value`.
         pub fn set_value<
             T: std::convert::Into<
-                std::option::Option<crate::model::operation_progress::metric::Value>,
-            >,
+                    std::option::Option<crate::model::operation_progress::metric::Value>,
+                >,
         >(
             mut self,
             v: T,
@@ -10851,8 +10851,8 @@ impl BlueGreenSettings {
     /// mutually exclusive.
     pub fn set_standard_rollout_policy<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::blue_green_settings::StandardRolloutPolicy>,
-        >,
+                std::boxed::Box<crate::model::blue_green_settings::StandardRolloutPolicy>,
+            >,
     >(
         mut self,
         v: T,
@@ -10911,10 +10911,10 @@ pub mod blue_green_settings {
         /// Sets the value of `update_batch_size`.
         pub fn set_update_batch_size<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::blue_green_settings::standard_rollout_policy::UpdateBatchSize,
+                    std::option::Option<
+                        crate::model::blue_green_settings::standard_rollout_policy::UpdateBatchSize,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -11476,8 +11476,8 @@ pub mod node_pool {
         /// Sets the value of [blue_green_info][crate::model::node_pool::UpdateInfo::blue_green_info].
         pub fn set_blue_green_info<
             T: std::convert::Into<
-                std::option::Option<crate::model::node_pool::update_info::BlueGreenInfo>,
-            >,
+                    std::option::Option<crate::model::node_pool::update_info::BlueGreenInfo>,
+                >,
         >(
             mut self,
             v: T,
@@ -13906,8 +13906,8 @@ impl GPUSharingConfig {
     /// Sets the value of [gpu_sharing_strategy][crate::model::GPUSharingConfig::gpu_sharing_strategy].
     pub fn set_gpu_sharing_strategy<
         T: std::convert::Into<
-            std::option::Option<crate::model::gpu_sharing_config::GPUSharingStrategy>,
-        >,
+                std::option::Option<crate::model::gpu_sharing_config::GPUSharingStrategy>,
+            >,
     >(
         mut self,
         v: T,
@@ -14009,8 +14009,8 @@ impl GPUDriverInstallationConfig {
     /// Sets the value of [gpu_driver_version][crate::model::GPUDriverInstallationConfig::gpu_driver_version].
     pub fn set_gpu_driver_version<
         T: std::convert::Into<
-            std::option::Option<crate::model::gpu_driver_installation_config::GPUDriverVersion>,
-        >,
+                std::option::Option<crate::model::gpu_driver_installation_config::GPUDriverVersion>,
+            >,
     >(
         mut self,
         v: T,
@@ -14688,8 +14688,8 @@ impl NetworkConfig {
     /// Sets the value of [network_performance_config][crate::model::NetworkConfig::network_performance_config].
     pub fn set_network_performance_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::network_config::ClusterNetworkPerformanceConfig>,
-        >,
+                std::option::Option<crate::model::network_config::ClusterNetworkPerformanceConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -14771,10 +14771,10 @@ pub mod network_config {
         /// Sets the value of [total_egress_bandwidth_tier][crate::model::network_config::ClusterNetworkPerformanceConfig::total_egress_bandwidth_tier].
         pub fn set_total_egress_bandwidth_tier<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::network_config::cluster_network_performance_config::Tier,
+                    std::option::Option<
+                        crate::model::network_config::cluster_network_performance_config::Tier,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -16750,8 +16750,10 @@ impl ResourceUsageExportConfig {
     /// Sets the value of [bigquery_destination][crate::model::ResourceUsageExportConfig::bigquery_destination].
     pub fn set_bigquery_destination<
         T: std::convert::Into<
-            std::option::Option<crate::model::resource_usage_export_config::BigQueryDestination>,
-        >,
+                std::option::Option<
+                    crate::model::resource_usage_export_config::BigQueryDestination,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -16769,10 +16771,10 @@ impl ResourceUsageExportConfig {
     /// Sets the value of [consumption_metering_config][crate::model::ResourceUsageExportConfig::consumption_metering_config].
     pub fn set_consumption_metering_config<
         T: std::convert::Into<
-            std::option::Option<
-                crate::model::resource_usage_export_config::ConsumptionMeteringConfig,
+                std::option::Option<
+                    crate::model::resource_usage_export_config::ConsumptionMeteringConfig,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -18592,8 +18594,10 @@ impl ControlPlaneEndpointsConfig {
     /// Sets the value of [dns_endpoint_config][crate::model::ControlPlaneEndpointsConfig::dns_endpoint_config].
     pub fn set_dns_endpoint_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::control_plane_endpoints_config::DNSEndpointConfig>,
-        >,
+                std::option::Option<
+                    crate::model::control_plane_endpoints_config::DNSEndpointConfig,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -18605,8 +18609,10 @@ impl ControlPlaneEndpointsConfig {
     /// Sets the value of [ip_endpoints_config][crate::model::ControlPlaneEndpointsConfig::ip_endpoints_config].
     pub fn set_ip_endpoints_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::control_plane_endpoints_config::IPEndpointsConfig>,
-        >,
+                std::option::Option<
+                    crate::model::control_plane_endpoints_config::IPEndpointsConfig,
+                >,
+            >,
     >(
         mut self,
         v: T,

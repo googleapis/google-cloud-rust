@@ -582,7 +582,7 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::error::{rpc::Status, ServiceError};
+    use crate::error::{ServiceError, rpc::Status};
 
     // Verify `RetryPolicyArg` can be converted from the desired types.
     #[test]
@@ -604,47 +604,58 @@ mod tests {
         assert!(p.on_throttle(now, 0).is_none());
 
         assert!(p.on_error(now, 0, true, permission_denied()).is_permanent());
-        assert!(p
-            .on_error(now, 0, false, permission_denied())
-            .is_permanent());
+        assert!(
+            p.on_error(now, 0, false, permission_denied())
+                .is_permanent()
+        );
 
         assert!(p.on_error(now, 0, true, http_unavailable()).is_continue());
         assert!(p.on_error(now, 0, false, http_unavailable()).is_permanent());
         assert!(p.on_throttle(now, 0).is_none());
 
-        assert!(p
-            .on_error(now, 0, true, http_permission_denied())
-            .is_permanent());
-        assert!(p
-            .on_error(now, 0, false, http_permission_denied())
-            .is_permanent());
+        assert!(
+            p.on_error(now, 0, true, http_permission_denied())
+                .is_permanent()
+        );
+        assert!(
+            p.on_error(now, 0, false, http_permission_denied())
+                .is_permanent()
+        );
 
-        assert!(p
-            .on_error(now, 0, true, Error::io("err".to_string()))
-            .is_continue());
-        assert!(p
-            .on_error(now, 0, false, Error::io("err".to_string()))
-            .is_permanent());
+        assert!(
+            p.on_error(now, 0, true, Error::io("err".to_string()))
+                .is_continue()
+        );
+        assert!(
+            p.on_error(now, 0, false, Error::io("err".to_string()))
+                .is_permanent()
+        );
 
-        assert!(p
-            .on_error(now, 0, true, Error::authentication("err".to_string()))
-            .is_continue());
-        assert!(p
-            .on_error(now, 0, false, Error::authentication("err".to_string()))
-            .is_continue());
+        assert!(
+            p.on_error(now, 0, true, Error::authentication("err".to_string()))
+                .is_continue()
+        );
+        assert!(
+            p.on_error(now, 0, false, Error::authentication("err".to_string()))
+                .is_continue()
+        );
 
-        assert!(p
-            .on_error(now, 0, true, Error::serde("err".to_string()))
-            .is_permanent());
-        assert!(p
-            .on_error(now, 0, false, Error::serde("err".to_string()))
-            .is_permanent());
-        assert!(p
-            .on_error(now, 0, true, Error::other("err".to_string()))
-            .is_permanent());
-        assert!(p
-            .on_error(now, 0, false, Error::other("err".to_string()))
-            .is_permanent());
+        assert!(
+            p.on_error(now, 0, true, Error::serde("err".to_string()))
+                .is_permanent()
+        );
+        assert!(
+            p.on_error(now, 0, false, Error::serde("err".to_string()))
+                .is_permanent()
+        );
+        assert!(
+            p.on_error(now, 0, true, Error::other("err".to_string()))
+                .is_permanent()
+        );
+        assert!(
+            p.on_error(now, 0, false, Error::other("err".to_string()))
+                .is_permanent()
+        );
 
         assert!(p.remaining_time(now, 0).is_none());
     }
@@ -690,12 +701,14 @@ mod tests {
         assert!(p.on_error(now, 0, true, unavailable()).is_exhausted());
         assert!(p.on_error(now, 0, false, unavailable()).is_exhausted());
 
-        assert!(p
-            .on_error(now, 0, true, http_permission_denied())
-            .is_exhausted());
-        assert!(p
-            .on_error(now, 0, false, http_permission_denied())
-            .is_exhausted());
+        assert!(
+            p.on_error(now, 0, true, http_permission_denied())
+                .is_exhausted()
+        );
+        assert!(
+            p.on_error(now, 0, false, http_permission_denied())
+                .is_exhausted()
+        );
     }
 
     #[test_case::test_case(true, Error::io("err"))]
@@ -951,15 +964,21 @@ mod tests {
 
         let now = std::time::Instant::now();
         let policy = LimitedAttemptCount::custom(mock, 3);
-        assert!(policy
-            .on_error(now, 1, true, Error::other("err".to_string()))
-            .is_continue());
-        assert!(policy
-            .on_error(now, 2, true, Error::other("err".to_string()))
-            .is_continue());
-        assert!(policy
-            .on_error(now, 3, true, Error::other("err".to_string()))
-            .is_exhausted());
+        assert!(
+            policy
+                .on_error(now, 1, true, Error::other("err".to_string()))
+                .is_continue()
+        );
+        assert!(
+            policy
+                .on_error(now, 2, true, Error::other("err".to_string()))
+                .is_continue()
+        );
+        assert!(
+            policy
+                .on_error(now, 3, true, Error::other("err".to_string()))
+                .is_exhausted()
+        );
     }
 
     #[test]

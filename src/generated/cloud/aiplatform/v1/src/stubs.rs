@@ -327,7 +327,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -546,7 +546,7 @@ pub trait DeploymentResourcePoolService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -798,7 +798,7 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -956,7 +956,7 @@ pub trait EvaluationService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -1167,7 +1167,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListFeatureViewSyncsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ListFeatureViewSyncsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::ListFeatureViewSyncsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -1236,7 +1236,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -1336,8 +1336,9 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SearchNearestEntitiesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::SearchNearestEntitiesResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::SearchNearestEntitiesResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::SearchNearestEntitiesResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -1406,7 +1407,7 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -1660,7 +1661,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -1830,7 +1831,7 @@ pub trait FeaturestoreOnlineServingService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -2201,7 +2202,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -2401,7 +2402,7 @@ pub trait GenAiCacheService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -2580,7 +2581,7 @@ pub trait GenAiTuningService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -2820,7 +2821,7 @@ pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -3047,7 +3048,7 @@ pub trait IndexService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -3215,7 +3216,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListDataLabelingJobsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ListDataLabelingJobsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::ListDataLabelingJobsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -3442,7 +3443,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         _req: crate::model::CreateModelDeploymentMonitoringJobRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ModelDeploymentMonitoringJob>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::ModelDeploymentMonitoringJob>>(Err(
             Error::other("unimplemented"),
         ))
@@ -3467,7 +3468,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         _req: crate::model::GetModelDeploymentMonitoringJobRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ModelDeploymentMonitoringJob>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::ModelDeploymentMonitoringJob>>(Err(
             Error::other("unimplemented"),
         ))
@@ -3591,7 +3592,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -3761,7 +3762,7 @@ pub trait LlmUtilityService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -3909,7 +3910,7 @@ pub trait MatchService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -4185,8 +4186,9 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RemoveContextChildrenRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::RemoveContextChildrenResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::RemoveContextChildrenResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::RemoveContextChildrenResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -4406,7 +4408,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -4577,7 +4579,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -4734,7 +4736,7 @@ pub trait ModelGardenService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -4987,7 +4989,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListModelEvaluationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ListModelEvaluationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::ListModelEvaluationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -5081,7 +5083,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -5255,7 +5257,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListNotebookRuntimesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ListNotebookRuntimesResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::ListNotebookRuntimesResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -5421,7 +5423,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -5640,7 +5642,7 @@ pub trait PersistentResourceService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -5752,8 +5754,9 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListTrainingPipelinesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListTrainingPipelinesResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListTrainingPipelinesResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListTrainingPipelinesResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -5922,7 +5925,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -6139,7 +6142,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -6206,7 +6209,7 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
         _req: crate::model::QueryReasoningEngineRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::QueryReasoningEngineResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::QueryReasoningEngineResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -6275,7 +6278,7 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -6366,7 +6369,7 @@ pub trait ReasoningEngineService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListReasoningEnginesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ListReasoningEnginesResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::ListReasoningEnginesResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -6459,7 +6462,7 @@ pub trait ReasoningEngineService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -6680,7 +6683,7 @@ pub trait ScheduleService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -6885,7 +6888,7 @@ pub trait SpecialistPoolService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -7033,7 +7036,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ReadTensorboardUsageRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ReadTensorboardUsageResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::ReadTensorboardUsageResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -7384,7 +7387,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -7648,7 +7651,7 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -7830,7 +7833,7 @@ pub trait VertexRagService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -8104,7 +8107,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))

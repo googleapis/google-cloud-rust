@@ -1991,8 +1991,8 @@ impl TranslationConfigDetails {
     /// Sets the value of `source_location`.
     pub fn set_source_location<
         T: std::convert::Into<
-            std::option::Option<crate::model::translation_config_details::SourceLocation>,
-        >,
+                std::option::Option<crate::model::translation_config_details::SourceLocation>,
+            >,
     >(
         mut self,
         v: T,
@@ -2029,8 +2029,8 @@ impl TranslationConfigDetails {
     /// Sets the value of `target_location`.
     pub fn set_target_location<
         T: std::convert::Into<
-            std::option::Option<crate::model::translation_config_details::TargetLocation>,
-        >,
+                std::option::Option<crate::model::translation_config_details::TargetLocation>,
+            >,
     >(
         mut self,
         v: T,
@@ -2067,8 +2067,8 @@ impl TranslationConfigDetails {
     /// Sets the value of `output_name_mapping`.
     pub fn set_output_name_mapping<
         T: std::convert::Into<
-            std::option::Option<crate::model::translation_config_details::OutputNameMapping>,
-        >,
+                std::option::Option<crate::model::translation_config_details::OutputNameMapping>,
+            >,
     >(
         mut self,
         v: T,

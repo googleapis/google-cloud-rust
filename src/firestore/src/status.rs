@@ -252,11 +252,11 @@ mod test {
                     .set_reason("reason")
                     .set_domain("domain"),
             ),
-            Any::try_from(
-                &Help::default().set_links(vec![rpc::model::help::Link::default()
-                    .set_description("desc")
-                    .set_url("url")]),
-            ),
+            Any::try_from(&Help::default().set_links(vec![
+                    rpc::model::help::Link::default()
+                        .set_description("desc")
+                        .set_url("url"),
+                ])),
             Any::try_from(
                 &LocalizedMessage::default()
                     .set_locale("locale")

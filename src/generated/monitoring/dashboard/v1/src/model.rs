@@ -2629,8 +2629,8 @@ impl TimeSeriesFilterRatio {
     /// Sets the value of `output_filter`.
     pub fn set_output_filter<
         T: std::convert::Into<
-            std::option::Option<crate::model::time_series_filter_ratio::OutputFilter>,
-        >,
+                std::option::Option<crate::model::time_series_filter_ratio::OutputFilter>,
+            >,
     >(
         mut self,
         v: T,

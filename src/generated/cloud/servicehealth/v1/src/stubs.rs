@@ -66,8 +66,9 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListOrganizationEventsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListOrganizationEventsResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListOrganizationEventsResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListOrganizationEventsResponse>>(Err(
             Error::other("unimplemented"),
         ))

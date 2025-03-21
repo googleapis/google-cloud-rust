@@ -295,8 +295,8 @@ pub mod auth_config {
         /// Sets the value of [jwt_claims][crate::model::auth_config::Oauth2JwtBearer::jwt_claims].
         pub fn set_jwt_claims<
             T: std::convert::Into<
-                std::option::Option<crate::model::auth_config::oauth_2_jwt_bearer::JwtClaims>,
-            >,
+                    std::option::Option<crate::model::auth_config::oauth_2_jwt_bearer::JwtClaims>,
+                >,
         >(
             mut self,
             v: T,

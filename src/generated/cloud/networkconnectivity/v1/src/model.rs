@@ -4659,8 +4659,8 @@ impl PolicyBasedRoute {
     /// mutually exclusive.
     pub fn set_interconnect_attachment<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::policy_based_route::InterconnectAttachment>,
-        >,
+                std::boxed::Box<crate::model::policy_based_route::InterconnectAttachment>,
+            >,
     >(
         mut self,
         v: T,

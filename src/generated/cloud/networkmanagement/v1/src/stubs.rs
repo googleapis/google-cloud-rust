@@ -46,8 +46,9 @@ pub trait ReachabilityService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListConnectivityTestsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListConnectivityTestsResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListConnectivityTestsResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListConnectivityTestsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -176,7 +177,7 @@ pub trait ReachabilityService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -252,8 +253,9 @@ pub trait VpcFlowLogsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListVpcFlowLogsConfigsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListVpcFlowLogsConfigsResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListVpcFlowLogsConfigsResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListVpcFlowLogsConfigsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -370,7 +372,7 @@ pub trait VpcFlowLogsService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))

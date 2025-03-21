@@ -77,8 +77,8 @@ impl BigQueryConnectionSpec {
     /// Sets the value of `connection_spec`.
     pub fn set_connection_spec<
         T: std::convert::Into<
-            std::option::Option<crate::model::big_query_connection_spec::ConnectionSpec>,
-        >,
+                std::option::Option<crate::model::big_query_connection_spec::ConnectionSpec>,
+            >,
     >(
         mut self,
         v: T,
@@ -2660,8 +2660,8 @@ impl DatabaseTableSpec {
     /// Sets the value of [database_view_spec][crate::model::DatabaseTableSpec::database_view_spec].
     pub fn set_database_view_spec<
         T: std::convert::Into<
-            std::option::Option<crate::model::database_table_spec::DatabaseViewSpec>,
-        >,
+                std::option::Option<crate::model::database_table_spec::DatabaseViewSpec>,
+            >,
     >(
         mut self,
         v: T,
@@ -2717,10 +2717,10 @@ pub mod database_table_spec {
         /// Sets the value of `source_definition`.
         pub fn set_source_definition<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::database_table_spec::database_view_spec::SourceDefinition,
+                    std::option::Option<
+                        crate::model::database_table_spec::database_view_spec::SourceDefinition,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -8805,8 +8805,8 @@ impl ExportTaxonomiesRequest {
     /// Sets the value of `destination`.
     pub fn set_destination<
         T: std::convert::Into<
-            std::option::Option<crate::model::export_taxonomies_request::Destination>,
-        >,
+                std::option::Option<crate::model::export_taxonomies_request::Destination>,
+            >,
     >(
         mut self,
         v: T,

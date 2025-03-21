@@ -1011,8 +1011,8 @@ pub mod policy_spec {
         /// mutually exclusive.
         pub fn set_values<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::policy_spec::policy_rule::StringValues>,
-            >,
+                    std::boxed::Box<crate::model::policy_spec::policy_rule::StringValues>,
+                >,
         >(
             mut self,
             v: T,

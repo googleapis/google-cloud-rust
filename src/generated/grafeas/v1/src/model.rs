@@ -2476,8 +2476,8 @@ impl DiscoveryOccurrence {
     /// Sets the value of [analysis_completed][crate::model::DiscoveryOccurrence::analysis_completed].
     pub fn set_analysis_completed<
         T: std::convert::Into<
-            std::option::Option<crate::model::discovery_occurrence::AnalysisCompleted>,
-        >,
+                std::option::Option<crate::model::discovery_occurrence::AnalysisCompleted>,
+            >,
     >(
         mut self,
         v: T,
@@ -2535,8 +2535,8 @@ impl DiscoveryOccurrence {
     /// Sets the value of [vulnerability_attestation][crate::model::DiscoveryOccurrence::vulnerability_attestation].
     pub fn set_vulnerability_attestation<
         T: std::convert::Into<
-            std::option::Option<crate::model::discovery_occurrence::VulnerabilityAttestation>,
-        >,
+                std::option::Option<crate::model::discovery_occurrence::VulnerabilityAttestation>,
+            >,
     >(
         mut self,
         v: T,
@@ -3083,8 +3083,8 @@ impl DSSEAttestationOccurrence {
     /// Sets the value of `decoded_payload`.
     pub fn set_decoded_payload<
         T: std::convert::Into<
-            std::option::Option<crate::model::dsse_attestation_occurrence::DecodedPayload>,
-        >,
+                std::option::Option<crate::model::dsse_attestation_occurrence::DecodedPayload>,
+            >,
     >(
         mut self,
         v: T,
@@ -5827,8 +5827,8 @@ impl InTotoSlsaProvenanceV1 {
     /// Sets the value of [predicate][crate::model::InTotoSlsaProvenanceV1::predicate].
     pub fn set_predicate<
         T: std::convert::Into<
-            std::option::Option<crate::model::in_toto_slsa_provenance_v_1::SlsaProvenanceV1>,
-        >,
+                std::option::Option<crate::model::in_toto_slsa_provenance_v_1::SlsaProvenanceV1>,
+            >,
     >(
         mut self,
         v: T,
@@ -5884,8 +5884,8 @@ pub mod in_toto_slsa_provenance_v_1 {
         /// Sets the value of [build_definition][crate::model::in_toto_slsa_provenance_v_1::SlsaProvenanceV1::build_definition].
         pub fn set_build_definition<
             T: std::convert::Into<
-                std::option::Option<crate::model::in_toto_slsa_provenance_v_1::BuildDefinition>,
-            >,
+                    std::option::Option<crate::model::in_toto_slsa_provenance_v_1::BuildDefinition>,
+                >,
         >(
             mut self,
             v: T,
@@ -5897,8 +5897,8 @@ pub mod in_toto_slsa_provenance_v_1 {
         /// Sets the value of [run_details][crate::model::in_toto_slsa_provenance_v_1::SlsaProvenanceV1::run_details].
         pub fn set_run_details<
             T: std::convert::Into<
-                std::option::Option<crate::model::in_toto_slsa_provenance_v_1::RunDetails>,
-            >,
+                    std::option::Option<crate::model::in_toto_slsa_provenance_v_1::RunDetails>,
+                >,
         >(
             mut self,
             v: T,
@@ -6102,8 +6102,10 @@ pub mod in_toto_slsa_provenance_v_1 {
         /// Sets the value of [builder][crate::model::in_toto_slsa_provenance_v_1::RunDetails::builder].
         pub fn set_builder<
             T: std::convert::Into<
-                std::option::Option<crate::model::in_toto_slsa_provenance_v_1::ProvenanceBuilder>,
-            >,
+                    std::option::Option<
+                        crate::model::in_toto_slsa_provenance_v_1::ProvenanceBuilder,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -6115,8 +6117,8 @@ pub mod in_toto_slsa_provenance_v_1 {
         /// Sets the value of [metadata][crate::model::in_toto_slsa_provenance_v_1::RunDetails::metadata].
         pub fn set_metadata<
             T: std::convert::Into<
-                std::option::Option<crate::model::in_toto_slsa_provenance_v_1::BuildMetadata>,
-            >,
+                    std::option::Option<crate::model::in_toto_slsa_provenance_v_1::BuildMetadata>,
+                >,
         >(
             mut self,
             v: T,
@@ -8551,8 +8553,8 @@ pub mod slsa_provenance {
         /// Sets the value of [completeness][crate::model::slsa_provenance::SlsaMetadata::completeness].
         pub fn set_completeness<
             T: std::convert::Into<
-                std::option::Option<crate::model::slsa_provenance::SlsaCompleteness>,
-            >,
+                    std::option::Option<crate::model::slsa_provenance::SlsaCompleteness>,
+                >,
         >(
             mut self,
             v: T,
@@ -8676,8 +8678,8 @@ impl SlsaProvenanceZeroTwo {
     /// Sets the value of [builder][crate::model::SlsaProvenanceZeroTwo::builder].
     pub fn set_builder<
         T: std::convert::Into<
-            std::option::Option<crate::model::slsa_provenance_zero_two::SlsaBuilder>,
-        >,
+                std::option::Option<crate::model::slsa_provenance_zero_two::SlsaBuilder>,
+            >,
     >(
         mut self,
         v: T,
@@ -8695,8 +8697,8 @@ impl SlsaProvenanceZeroTwo {
     /// Sets the value of [invocation][crate::model::SlsaProvenanceZeroTwo::invocation].
     pub fn set_invocation<
         T: std::convert::Into<
-            std::option::Option<crate::model::slsa_provenance_zero_two::SlsaInvocation>,
-        >,
+                std::option::Option<crate::model::slsa_provenance_zero_two::SlsaInvocation>,
+            >,
     >(
         mut self,
         v: T,
@@ -8717,8 +8719,8 @@ impl SlsaProvenanceZeroTwo {
     /// Sets the value of [metadata][crate::model::SlsaProvenanceZeroTwo::metadata].
     pub fn set_metadata<
         T: std::convert::Into<
-            std::option::Option<crate::model::slsa_provenance_zero_two::SlsaMetadata>,
-        >,
+                std::option::Option<crate::model::slsa_provenance_zero_two::SlsaMetadata>,
+            >,
     >(
         mut self,
         v: T,
@@ -8848,8 +8850,8 @@ pub mod slsa_provenance_zero_two {
         /// Sets the value of [config_source][crate::model::slsa_provenance_zero_two::SlsaInvocation::config_source].
         pub fn set_config_source<
             T: std::convert::Into<
-                std::option::Option<crate::model::slsa_provenance_zero_two::SlsaConfigSource>,
-            >,
+                    std::option::Option<crate::model::slsa_provenance_zero_two::SlsaConfigSource>,
+                >,
         >(
             mut self,
             v: T,
@@ -8993,8 +8995,8 @@ pub mod slsa_provenance_zero_two {
         /// Sets the value of [completeness][crate::model::slsa_provenance_zero_two::SlsaMetadata::completeness].
         pub fn set_completeness<
             T: std::convert::Into<
-                std::option::Option<crate::model::slsa_provenance_zero_two::SlsaCompleteness>,
-            >,
+                    std::option::Option<crate::model::slsa_provenance_zero_two::SlsaCompleteness>,
+                >,
         >(
             mut self,
             v: T,
@@ -9557,8 +9559,8 @@ impl VulnerabilityAssessmentNote {
     /// Sets the value of [publisher][crate::model::VulnerabilityAssessmentNote::publisher].
     pub fn set_publisher<
         T: std::convert::Into<
-            std::option::Option<crate::model::vulnerability_assessment_note::Publisher>,
-        >,
+                std::option::Option<crate::model::vulnerability_assessment_note::Publisher>,
+            >,
     >(
         mut self,
         v: T,
@@ -9570,8 +9572,8 @@ impl VulnerabilityAssessmentNote {
     /// Sets the value of [product][crate::model::VulnerabilityAssessmentNote::product].
     pub fn set_product<
         T: std::convert::Into<
-            std::option::Option<crate::model::vulnerability_assessment_note::Product>,
-        >,
+                std::option::Option<crate::model::vulnerability_assessment_note::Product>,
+            >,
     >(
         mut self,
         v: T,
@@ -9583,8 +9585,8 @@ impl VulnerabilityAssessmentNote {
     /// Sets the value of [assessment][crate::model::VulnerabilityAssessmentNote::assessment].
     pub fn set_assessment<
         T: std::convert::Into<
-            std::option::Option<crate::model::vulnerability_assessment_note::Assessment>,
-        >,
+                std::option::Option<crate::model::vulnerability_assessment_note::Assessment>,
+            >,
     >(
         mut self,
         v: T,
@@ -9713,10 +9715,10 @@ pub mod vulnerability_assessment_note {
         /// Sets the value of `identifier`.
         pub fn set_identifier<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::vulnerability_assessment_note::product::Identifier,
+                    std::option::Option<
+                        crate::model::vulnerability_assessment_note::product::Identifier,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -9880,10 +9882,10 @@ pub mod vulnerability_assessment_note {
         /// Sets the value of [justification][crate::model::vulnerability_assessment_note::Assessment::justification].
         pub fn set_justification<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::vulnerability_assessment_note::assessment::Justification,
+                    std::option::Option<
+                        crate::model::vulnerability_assessment_note::assessment::Justification,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -9919,8 +9921,8 @@ pub mod vulnerability_assessment_note {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::vulnerability_assessment_note::assessment::Remediation,
-            >,
+                    crate::model::vulnerability_assessment_note::assessment::Remediation,
+                >,
         {
             use std::iter::Iterator;
             self.remediations = v.into_iter().map(|i| i.into()).collect();
@@ -10912,8 +10914,8 @@ impl VulnerabilityOccurrence {
     /// Sets the value of [vex_assessment][crate::model::VulnerabilityOccurrence::vex_assessment].
     pub fn set_vex_assessment<
         T: std::convert::Into<
-            std::option::Option<crate::model::vulnerability_occurrence::VexAssessment>,
-        >,
+                std::option::Option<crate::model::vulnerability_occurrence::VexAssessment>,
+            >,
     >(
         mut self,
         v: T,
@@ -11213,10 +11215,10 @@ pub mod vulnerability_occurrence {
         /// Sets the value of [justification][crate::model::vulnerability_occurrence::VexAssessment::justification].
         pub fn set_justification<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::vulnerability_assessment_note::assessment::Justification,
+                    std::option::Option<
+                        crate::model::vulnerability_assessment_note::assessment::Justification,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -11252,8 +11254,8 @@ pub mod vulnerability_occurrence {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::vulnerability_assessment_note::assessment::Remediation,
-            >,
+                    crate::model::vulnerability_assessment_note::assessment::Remediation,
+                >,
         {
             use std::iter::Iterator;
             self.remediations = v.into_iter().map(|i| i.into()).collect();

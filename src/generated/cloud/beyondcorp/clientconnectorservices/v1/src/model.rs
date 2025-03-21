@@ -171,8 +171,10 @@ pub mod client_connector_service {
         /// Sets the value of `ingress_config`.
         pub fn set_ingress_config<
             T: std::convert::Into<
-                std::option::Option<crate::model::client_connector_service::ingress::IngressConfig>,
-            >,
+                    std::option::Option<
+                        crate::model::client_connector_service::ingress::IngressConfig,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -205,8 +207,8 @@ pub mod client_connector_service {
         /// mutually exclusive.
         pub fn set_config<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::client_connector_service::ingress::Config>,
-            >,
+                    std::boxed::Box<crate::model::client_connector_service::ingress::Config>,
+                >,
         >(
             mut self,
             v: T,
@@ -255,8 +257,8 @@ pub mod client_connector_service {
             /// Sets the value of [transport_protocol][crate::model::client_connector_service::ingress::Config::transport_protocol].
             pub fn set_transport_protocol<
                 T: std::convert::Into<
-                    crate::model::client_connector_service::ingress::config::TransportProtocol,
-                >,
+                        crate::model::client_connector_service::ingress::config::TransportProtocol,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -270,8 +272,8 @@ pub mod client_connector_service {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<
-                    crate::model::client_connector_service::ingress::config::DestinationRoute,
-                >,
+                        crate::model::client_connector_service::ingress::config::DestinationRoute,
+                    >,
             {
                 use std::iter::Iterator;
                 self.destination_routes = v.into_iter().map(|i| i.into()).collect();
@@ -423,10 +425,10 @@ pub mod client_connector_service {
         /// Sets the value of `destination_type`.
         pub fn set_destination_type<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::client_connector_service::egress::DestinationType,
+                    std::option::Option<
+                        crate::model::client_connector_service::egress::DestinationType,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -459,8 +461,8 @@ pub mod client_connector_service {
         /// mutually exclusive.
         pub fn set_peered_vpc<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::client_connector_service::egress::PeeredVpc>,
-            >,
+                    std::boxed::Box<crate::model::client_connector_service::egress::PeeredVpc>,
+                >,
         >(
             mut self,
             v: T,

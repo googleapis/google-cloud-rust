@@ -1379,8 +1379,8 @@ pub mod interconnect_diagnostics {
         /// Sets the value of [lacp_status][crate::model::interconnect_diagnostics::LinkStatus::lacp_status].
         pub fn set_lacp_status<
             T: std::convert::Into<
-                std::option::Option<crate::model::interconnect_diagnostics::LinkLACPStatus>,
-            >,
+                    std::option::Option<crate::model::interconnect_diagnostics::LinkLACPStatus>,
+                >,
         >(
             mut self,
             v: T,
@@ -1392,8 +1392,8 @@ pub mod interconnect_diagnostics {
         /// Sets the value of [packet_counts][crate::model::interconnect_diagnostics::LinkStatus::packet_counts].
         pub fn set_packet_counts<
             T: std::convert::Into<
-                std::option::Option<crate::model::interconnect_diagnostics::PacketCounts>,
-            >,
+                    std::option::Option<crate::model::interconnect_diagnostics::PacketCounts>,
+                >,
         >(
             mut self,
             v: T,
@@ -3902,8 +3902,8 @@ impl DiagnoseNetworkResponse {
     /// Sets the value of [result][crate::model::DiagnoseNetworkResponse::result].
     pub fn set_result<
         T: std::convert::Into<
-            std::option::Option<crate::model::diagnose_network_response::NetworkStatus>,
-        >,
+                std::option::Option<crate::model::diagnose_network_response::NetworkStatus>,
+            >,
     >(
         mut self,
         v: T,
@@ -3948,8 +3948,8 @@ pub mod diagnose_network_response {
         /// Sets the value of [macsec_status_internal_links][crate::model::diagnose_network_response::NetworkStatus::macsec_status_internal_links].
         pub fn set_macsec_status_internal_links<
             T: std::convert::Into<
-                crate::model::diagnose_network_response::network_status::MacsecStatus,
-            >,
+                    crate::model::diagnose_network_response::network_status::MacsecStatus,
+                >,
         >(
             mut self,
             v: T,

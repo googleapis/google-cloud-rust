@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::Result;
-use rand::{distr::Alphanumeric, Rng};
+use rand::{Rng, distr::Alphanumeric};
 
 async fn new_client(
     config: Option<gax::options::ClientConfig>,

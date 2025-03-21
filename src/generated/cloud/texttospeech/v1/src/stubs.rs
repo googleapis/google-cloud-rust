@@ -71,7 +71,7 @@ pub trait TextToSpeech: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -120,7 +120,7 @@ pub trait TextToSpeechLongAudioSynthesize: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))

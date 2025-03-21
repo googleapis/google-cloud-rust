@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use auth::credentials::{create_access_token_credential, Credential};
+use auth::credentials::{Credential, create_access_token_credential};
+use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
 use gax::error::Error;
 use gax::error::HttpError;
@@ -24,7 +25,6 @@ use gax::polling_policy::Aip194Strict;
 use gax::polling_policy::PollingPolicy;
 use gax::retry_policy::RetryPolicy;
 use gax::retry_throttler::SharedRetryThrottler;
-use gax::Result;
 use std::sync::Arc;
 
 #[doc(hidden)]
@@ -383,8 +383,8 @@ mod test {
 
     #[tokio::test]
     async fn client_error_with_status() -> TestResult {
-        use gax::error::rpc::*;
         use gax::error::ServiceError;
+        use gax::error::rpc::*;
         let status = Status::default()
             .set_code(404)
             .set_message("The thing is not there, oh noes!")

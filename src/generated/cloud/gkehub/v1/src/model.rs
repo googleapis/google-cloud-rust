@@ -695,8 +695,8 @@ impl MembershipFeatureState {
     /// Sets the value of `feature_state`.
     pub fn set_feature_state<
         T: std::convert::Into<
-            std::option::Option<crate::model::membership_feature_state::FeatureState>,
-        >,
+                std::option::Option<crate::model::membership_feature_state::FeatureState>,
+            >,
     >(
         mut self,
         v: T,

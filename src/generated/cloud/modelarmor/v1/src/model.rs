@@ -888,8 +888,8 @@ impl PiAndJailbreakFilterSettings {
     /// Sets the value of [filter_enforcement][crate::model::PiAndJailbreakFilterSettings::filter_enforcement].
     pub fn set_filter_enforcement<
         T: std::convert::Into<
-            crate::model::pi_and_jailbreak_filter_settings::PiAndJailbreakFilterEnforcement,
-        >,
+                crate::model::pi_and_jailbreak_filter_settings::PiAndJailbreakFilterEnforcement,
+            >,
     >(
         mut self,
         v: T,
@@ -1002,8 +1002,8 @@ impl MaliciousUriFilterSettings {
     /// Sets the value of [filter_enforcement][crate::model::MaliciousUriFilterSettings::filter_enforcement].
     pub fn set_filter_enforcement<
         T: std::convert::Into<
-            crate::model::malicious_uri_filter_settings::MaliciousUriFilterEnforcement,
-        >,
+                crate::model::malicious_uri_filter_settings::MaliciousUriFilterEnforcement,
+            >,
     >(
         mut self,
         v: T,
@@ -1193,8 +1193,8 @@ impl SdpFilterSettings {
     /// Sets the value of `sdp_configuration`.
     pub fn set_sdp_configuration<
         T: std::convert::Into<
-            std::option::Option<crate::model::sdp_filter_settings::SdpConfiguration>,
-        >,
+                std::option::Option<crate::model::sdp_filter_settings::SdpConfiguration>,
+            >,
     >(
         mut self,
         v: T,
@@ -1689,8 +1689,8 @@ impl SanitizationResult {
     /// Sets the value of [sanitization_metadata][crate::model::SanitizationResult::sanitization_metadata].
     pub fn set_sanitization_metadata<
         T: std::convert::Into<
-            std::option::Option<crate::model::sanitization_result::SanitizationMetadata>,
-        >,
+                std::option::Option<crate::model::sanitization_result::SanitizationMetadata>,
+            >,
     >(
         mut self,
         v: T,

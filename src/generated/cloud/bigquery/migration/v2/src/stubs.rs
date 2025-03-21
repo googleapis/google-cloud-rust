@@ -69,8 +69,9 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListMigrationWorkflowsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListMigrationWorkflowsResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListMigrationWorkflowsResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListMigrationWorkflowsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -111,8 +112,9 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListMigrationSubtasksRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListMigrationSubtasksResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListMigrationSubtasksResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListMigrationSubtasksResponse>>(Err(
             Error::other("unimplemented"),
         ))

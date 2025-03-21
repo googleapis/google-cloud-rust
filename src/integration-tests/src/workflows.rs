@@ -15,7 +15,7 @@
 use crate::Result;
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::{error::Error, options::RequestOptionsBuilder};
-use rand::{distr::Alphanumeric, Rng};
+use rand::{Rng, distr::Alphanumeric};
 use std::time::Duration;
 use wf::Poller;
 

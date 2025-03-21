@@ -812,8 +812,8 @@ impl ReplicaComputeCapacity {
     /// Sets the value of `compute_capacity`.
     pub fn set_compute_capacity<
         T: std::convert::Into<
-            std::option::Option<crate::model::replica_compute_capacity::ComputeCapacity>,
-        >,
+                std::option::Option<crate::model::replica_compute_capacity::ComputeCapacity>,
+            >,
     >(
         mut self,
         v: T,
@@ -944,8 +944,8 @@ impl AutoscalingConfig {
     /// Sets the value of [autoscaling_limits][crate::model::AutoscalingConfig::autoscaling_limits].
     pub fn set_autoscaling_limits<
         T: std::convert::Into<
-            std::option::Option<crate::model::autoscaling_config::AutoscalingLimits>,
-        >,
+                std::option::Option<crate::model::autoscaling_config::AutoscalingLimits>,
+            >,
     >(
         mut self,
         v: T,
@@ -957,8 +957,8 @@ impl AutoscalingConfig {
     /// Sets the value of [autoscaling_targets][crate::model::AutoscalingConfig::autoscaling_targets].
     pub fn set_autoscaling_targets<
         T: std::convert::Into<
-            std::option::Option<crate::model::autoscaling_config::AutoscalingTargets>,
-        >,
+                std::option::Option<crate::model::autoscaling_config::AutoscalingTargets>,
+            >,
     >(
         mut self,
         v: T,
@@ -1021,8 +1021,10 @@ pub mod autoscaling_config {
         /// Sets the value of `min_limit`.
         pub fn set_min_limit<
             T: std::convert::Into<
-                std::option::Option<crate::model::autoscaling_config::autoscaling_limits::MinLimit>,
-            >,
+                    std::option::Option<
+                        crate::model::autoscaling_config::autoscaling_limits::MinLimit,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -1084,8 +1086,10 @@ pub mod autoscaling_config {
         /// Sets the value of `max_limit`.
         pub fn set_max_limit<
             T: std::convert::Into<
-                std::option::Option<crate::model::autoscaling_config::autoscaling_limits::MaxLimit>,
-            >,
+                    std::option::Option<
+                        crate::model::autoscaling_config::autoscaling_limits::MaxLimit,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -1314,8 +1318,8 @@ pub mod autoscaling_config {
             /// Sets the value of [autoscaling_limits][crate::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides::autoscaling_limits].
             pub fn set_autoscaling_limits<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::autoscaling_config::AutoscalingLimits>,
-                >,
+                        std::option::Option<crate::model::autoscaling_config::AutoscalingLimits>,
+                    >,
             >(
                 mut self,
                 v: T,

@@ -984,8 +984,10 @@ impl AllowBindingExplanation {
     /// Sets the value of [combined_membership][crate::model::AllowBindingExplanation::combined_membership].
     pub fn set_combined_membership<
         T: std::convert::Into<
-            std::option::Option<crate::model::allow_binding_explanation::AnnotatedAllowMembership>,
-        >,
+                std::option::Option<
+                    crate::model::allow_binding_explanation::AnnotatedAllowMembership,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -1495,8 +1497,10 @@ impl DenyRuleExplanation {
     /// Sets the value of [combined_denied_permission][crate::model::DenyRuleExplanation::combined_denied_permission].
     pub fn set_combined_denied_permission<
         T: std::convert::Into<
-            std::option::Option<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>,
-        >,
+                std::option::Option<
+                    crate::model::deny_rule_explanation::AnnotatedPermissionMatching,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -1508,8 +1512,10 @@ impl DenyRuleExplanation {
     /// Sets the value of [combined_exception_permission][crate::model::DenyRuleExplanation::combined_exception_permission].
     pub fn set_combined_exception_permission<
         T: std::convert::Into<
-            std::option::Option<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>,
-        >,
+                std::option::Option<
+                    crate::model::deny_rule_explanation::AnnotatedPermissionMatching,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -1521,10 +1527,10 @@ impl DenyRuleExplanation {
     /// Sets the value of [combined_denied_principal][crate::model::DenyRuleExplanation::combined_denied_principal].
     pub fn set_combined_denied_principal<
         T: std::convert::Into<
-            std::option::Option<
-                crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching,
+                std::option::Option<
+                    crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -1536,10 +1542,10 @@ impl DenyRuleExplanation {
     /// Sets the value of [combined_exception_principal][crate::model::DenyRuleExplanation::combined_exception_principal].
     pub fn set_combined_exception_principal<
         T: std::convert::Into<
-            std::option::Option<
-                crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching,
+                std::option::Option<
+                    crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,

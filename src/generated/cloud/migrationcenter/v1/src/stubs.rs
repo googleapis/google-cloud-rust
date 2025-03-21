@@ -118,8 +118,9 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::AggregateAssetsValuesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AggregateAssetsValuesResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::AggregateAssetsValuesResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::AggregateAssetsValuesResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -623,7 +624,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))

@@ -110,8 +110,9 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UndeleteServiceAccountRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::UndeleteServiceAccountResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::UndeleteServiceAccountResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::UndeleteServiceAccountResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -140,8 +141,9 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListServiceAccountKeysRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListServiceAccountKeysResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListServiceAccountKeysResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListServiceAccountKeysResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -355,8 +357,9 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::QueryAuditableServicesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::QueryAuditableServicesResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::QueryAuditableServicesResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::QueryAuditableServicesResponse>>(Err(
             Error::other("unimplemented"),
         ))

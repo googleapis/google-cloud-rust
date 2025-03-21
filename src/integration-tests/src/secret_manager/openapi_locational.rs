@@ -14,7 +14,7 @@
 
 use crate::Result;
 use gax::error::Error;
-use rand::{distr::Alphanumeric, Rng};
+use rand::{Rng, distr::Alphanumeric};
 
 pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually

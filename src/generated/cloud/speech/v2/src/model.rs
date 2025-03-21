@@ -2117,8 +2117,10 @@ pub mod speech_adaptation {
         /// Sets the value of `value`.
         pub fn set_value<
             T: std::convert::Into<
-                std::option::Option<crate::model::speech_adaptation::adaptation_phrase_set::Value>,
-            >,
+                    std::option::Option<
+                        crate::model::speech_adaptation::adaptation_phrase_set::Value,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -3003,8 +3005,10 @@ impl StreamingRecognitionFeatures {
     /// Sets the value of [voice_activity_timeout][crate::model::StreamingRecognitionFeatures::voice_activity_timeout].
     pub fn set_voice_activity_timeout<
         T: std::convert::Into<
-            std::option::Option<crate::model::streaming_recognition_features::VoiceActivityTimeout>,
-        >,
+                std::option::Option<
+                    crate::model::streaming_recognition_features::VoiceActivityTimeout,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -3220,8 +3224,8 @@ impl StreamingRecognizeRequest {
     /// Sets the value of `streaming_request`.
     pub fn set_streaming_request<
         T: std::convert::Into<
-            std::option::Option<crate::model::streaming_recognize_request::StreamingRequest>,
-        >,
+                std::option::Option<crate::model::streaming_recognize_request::StreamingRequest>,
+            >,
     >(
         mut self,
         v: T,
@@ -4374,8 +4378,8 @@ impl BatchRecognizeFileMetadata {
     /// Sets the value of `audio_source`.
     pub fn set_audio_source<
         T: std::convert::Into<
-            std::option::Option<crate::model::batch_recognize_file_metadata::AudioSource>,
-        >,
+                std::option::Option<crate::model::batch_recognize_file_metadata::AudioSource>,
+            >,
     >(
         mut self,
         v: T,

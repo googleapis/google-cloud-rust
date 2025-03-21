@@ -9373,8 +9373,8 @@ impl DailyResourceUsageAggregation {
     /// Sets the value of [cpu][crate::model::DailyResourceUsageAggregation::cpu].
     pub fn set_cpu<
         T: std::convert::Into<
-            std::option::Option<crate::model::daily_resource_usage_aggregation::Cpu>,
-        >,
+                std::option::Option<crate::model::daily_resource_usage_aggregation::Cpu>,
+            >,
     >(
         mut self,
         v: T,
@@ -9386,8 +9386,8 @@ impl DailyResourceUsageAggregation {
     /// Sets the value of [memory][crate::model::DailyResourceUsageAggregation::memory].
     pub fn set_memory<
         T: std::convert::Into<
-            std::option::Option<crate::model::daily_resource_usage_aggregation::Memory>,
-        >,
+                std::option::Option<crate::model::daily_resource_usage_aggregation::Memory>,
+            >,
     >(
         mut self,
         v: T,
@@ -9399,8 +9399,8 @@ impl DailyResourceUsageAggregation {
     /// Sets the value of [network][crate::model::DailyResourceUsageAggregation::network].
     pub fn set_network<
         T: std::convert::Into<
-            std::option::Option<crate::model::daily_resource_usage_aggregation::Network>,
-        >,
+                std::option::Option<crate::model::daily_resource_usage_aggregation::Network>,
+            >,
     >(
         mut self,
         v: T,
@@ -9412,8 +9412,8 @@ impl DailyResourceUsageAggregation {
     /// Sets the value of [disk][crate::model::DailyResourceUsageAggregation::disk].
     pub fn set_disk<
         T: std::convert::Into<
-            std::option::Option<crate::model::daily_resource_usage_aggregation::Disk>,
-        >,
+                std::option::Option<crate::model::daily_resource_usage_aggregation::Disk>,
+            >,
     >(
         mut self,
         v: T,
@@ -9509,8 +9509,8 @@ pub mod daily_resource_usage_aggregation {
         /// Sets the value of [utilization_percentage][crate::model::daily_resource_usage_aggregation::Cpu::utilization_percentage].
         pub fn set_utilization_percentage<
             T: std::convert::Into<
-                std::option::Option<crate::model::daily_resource_usage_aggregation::Stats>,
-            >,
+                    std::option::Option<crate::model::daily_resource_usage_aggregation::Stats>,
+                >,
         >(
             mut self,
             v: T,
@@ -9546,8 +9546,8 @@ pub mod daily_resource_usage_aggregation {
         /// Sets the value of [utilization_percentage][crate::model::daily_resource_usage_aggregation::Memory::utilization_percentage].
         pub fn set_utilization_percentage<
             T: std::convert::Into<
-                std::option::Option<crate::model::daily_resource_usage_aggregation::Stats>,
-            >,
+                    std::option::Option<crate::model::daily_resource_usage_aggregation::Stats>,
+                >,
         >(
             mut self,
             v: T,
@@ -9586,8 +9586,8 @@ pub mod daily_resource_usage_aggregation {
         /// Sets the value of [ingress_bps][crate::model::daily_resource_usage_aggregation::Network::ingress_bps].
         pub fn set_ingress_bps<
             T: std::convert::Into<
-                std::option::Option<crate::model::daily_resource_usage_aggregation::Stats>,
-            >,
+                    std::option::Option<crate::model::daily_resource_usage_aggregation::Stats>,
+                >,
         >(
             mut self,
             v: T,
@@ -9599,8 +9599,8 @@ pub mod daily_resource_usage_aggregation {
         /// Sets the value of [egress_bps][crate::model::daily_resource_usage_aggregation::Network::egress_bps].
         pub fn set_egress_bps<
             T: std::convert::Into<
-                std::option::Option<crate::model::daily_resource_usage_aggregation::Stats>,
-            >,
+                    std::option::Option<crate::model::daily_resource_usage_aggregation::Stats>,
+                >,
         >(
             mut self,
             v: T,
@@ -9635,8 +9635,8 @@ pub mod daily_resource_usage_aggregation {
         /// Sets the value of [iops][crate::model::daily_resource_usage_aggregation::Disk::iops].
         pub fn set_iops<
             T: std::convert::Into<
-                std::option::Option<crate::model::daily_resource_usage_aggregation::Stats>,
-            >,
+                    std::option::Option<crate::model::daily_resource_usage_aggregation::Stats>,
+                >,
         >(
             mut self,
             v: T,
@@ -12429,8 +12429,8 @@ pub mod report_summary {
         /// Sets the value of [memory_utilization_chart][crate::model::report_summary::AssetAggregateStats::memory_utilization_chart].
         pub fn set_memory_utilization_chart<
             T: std::convert::Into<
-                std::option::Option<crate::model::report_summary::UtilizationChartData>,
-            >,
+                    std::option::Option<crate::model::report_summary::UtilizationChartData>,
+                >,
         >(
             mut self,
             v: T,
@@ -12442,8 +12442,8 @@ pub mod report_summary {
         /// Sets the value of [storage_utilization_chart][crate::model::report_summary::AssetAggregateStats::storage_utilization_chart].
         pub fn set_storage_utilization_chart<
             T: std::convert::Into<
-                std::option::Option<crate::model::report_summary::UtilizationChartData>,
-            >,
+                    std::option::Option<crate::model::report_summary::UtilizationChartData>,
+                >,
         >(
             mut self,
             v: T,
@@ -12466,8 +12466,8 @@ pub mod report_summary {
         /// Sets the value of [core_count_histogram][crate::model::report_summary::AssetAggregateStats::core_count_histogram].
         pub fn set_core_count_histogram<
             T: std::convert::Into<
-                std::option::Option<crate::model::report_summary::HistogramChartData>,
-            >,
+                    std::option::Option<crate::model::report_summary::HistogramChartData>,
+                >,
         >(
             mut self,
             v: T,
@@ -12479,8 +12479,8 @@ pub mod report_summary {
         /// Sets the value of [memory_bytes_histogram][crate::model::report_summary::AssetAggregateStats::memory_bytes_histogram].
         pub fn set_memory_bytes_histogram<
             T: std::convert::Into<
-                std::option::Option<crate::model::report_summary::HistogramChartData>,
-            >,
+                    std::option::Option<crate::model::report_summary::HistogramChartData>,
+                >,
         >(
             mut self,
             v: T,
@@ -12492,8 +12492,8 @@ pub mod report_summary {
         /// Sets the value of [storage_bytes_histogram][crate::model::report_summary::AssetAggregateStats::storage_bytes_histogram].
         pub fn set_storage_bytes_histogram<
             T: std::convert::Into<
-                std::option::Option<crate::model::report_summary::HistogramChartData>,
-            >,
+                    std::option::Option<crate::model::report_summary::HistogramChartData>,
+                >,
         >(
             mut self,
             v: T,
@@ -13044,8 +13044,8 @@ pub mod report_summary {
         /// Sets the value of [compute_engine_finding][crate::model::report_summary::GroupPreferenceSetFinding::compute_engine_finding].
         pub fn set_compute_engine_finding<
             T: std::convert::Into<
-                std::option::Option<crate::model::report_summary::ComputeEngineFinding>,
-            >,
+                    std::option::Option<crate::model::report_summary::ComputeEngineFinding>,
+                >,
         >(
             mut self,
             v: T,
@@ -13057,8 +13057,8 @@ pub mod report_summary {
         /// Sets the value of [vmware_engine_finding][crate::model::report_summary::GroupPreferenceSetFinding::vmware_engine_finding].
         pub fn set_vmware_engine_finding<
             T: std::convert::Into<
-                std::option::Option<crate::model::report_summary::VmwareEngineFinding>,
-            >,
+                    std::option::Option<crate::model::report_summary::VmwareEngineFinding>,
+                >,
         >(
             mut self,
             v: T,
@@ -13070,8 +13070,8 @@ pub mod report_summary {
         /// Sets the value of [sole_tenant_finding][crate::model::report_summary::GroupPreferenceSetFinding::sole_tenant_finding].
         pub fn set_sole_tenant_finding<
             T: std::convert::Into<
-                std::option::Option<crate::model::report_summary::SoleTenantFinding>,
-            >,
+                    std::option::Option<crate::model::report_summary::SoleTenantFinding>,
+                >,
         >(
             mut self,
             v: T,
@@ -13139,8 +13139,8 @@ pub mod report_summary {
         /// Sets the value of [asset_aggregate_stats][crate::model::report_summary::GroupFinding::asset_aggregate_stats].
         pub fn set_asset_aggregate_stats<
             T: std::convert::Into<
-                std::option::Option<crate::model::report_summary::AssetAggregateStats>,
-            >,
+                    std::option::Option<crate::model::report_summary::AssetAggregateStats>,
+                >,
         >(
             mut self,
             v: T,

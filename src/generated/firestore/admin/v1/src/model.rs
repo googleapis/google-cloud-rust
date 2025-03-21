@@ -757,8 +757,8 @@ pub mod database {
         /// Sets the value of `encryption_type`.
         pub fn set_encryption_type<
             T: std::convert::Into<
-                std::option::Option<crate::model::database::encryption_config::EncryptionType>,
-            >,
+                    std::option::Option<crate::model::database::encryption_config::EncryptionType>,
+                >,
         >(
             mut self,
             v: T,
@@ -825,10 +825,10 @@ pub mod database {
         /// mutually exclusive.
         pub fn set_google_default_encryption<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::database::encryption_config::GoogleDefaultEncryptionOptions,
+                    std::boxed::Box<
+                        crate::model::database::encryption_config::GoogleDefaultEncryptionOptions,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -848,8 +848,10 @@ pub mod database {
         /// mutually exclusive.
         pub fn set_use_source_encryption<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::database::encryption_config::SourceEncryptionOptions>,
-            >,
+                    std::boxed::Box<
+                        crate::model::database::encryption_config::SourceEncryptionOptions,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -869,10 +871,10 @@ pub mod database {
         /// mutually exclusive.
         pub fn set_customer_managed_encryption<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::database::encryption_config::CustomerManagedEncryptionOptions,
+                    std::boxed::Box<
+                        crate::model::database::encryption_config::CustomerManagedEncryptionOptions,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -3519,8 +3521,8 @@ pub mod index {
             /// Sets the value of `r#type`.
             pub fn set_type<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::index::index_field::vector_config::Type>,
-                >,
+                        std::option::Option<crate::model::index::index_field::vector_config::Type>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -3553,8 +3555,8 @@ pub mod index {
             /// mutually exclusive.
             pub fn set_flat<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::index::index_field::vector_config::FlatIndex>,
-                >,
+                        std::boxed::Box<crate::model::index::index_field::vector_config::FlatIndex>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -4170,8 +4172,8 @@ impl FieldOperationMetadata {
     /// Sets the value of [ttl_config_delta][crate::model::FieldOperationMetadata::ttl_config_delta].
     pub fn set_ttl_config_delta<
         T: std::convert::Into<
-            std::option::Option<crate::model::field_operation_metadata::TtlConfigDelta>,
-        >,
+                std::option::Option<crate::model::field_operation_metadata::TtlConfigDelta>,
+            >,
     >(
         mut self,
         v: T,
@@ -4225,8 +4227,8 @@ pub mod field_operation_metadata {
         /// Sets the value of [change_type][crate::model::field_operation_metadata::IndexConfigDelta::change_type].
         pub fn set_change_type<
             T: std::convert::Into<
-                crate::model::field_operation_metadata::index_config_delta::ChangeType,
-            >,
+                    crate::model::field_operation_metadata::index_config_delta::ChangeType,
+                >,
         >(
             mut self,
             v: T,
@@ -4334,8 +4336,8 @@ pub mod field_operation_metadata {
         /// Sets the value of [change_type][crate::model::field_operation_metadata::TtlConfigDelta::change_type].
         pub fn set_change_type<
             T: std::convert::Into<
-                crate::model::field_operation_metadata::ttl_config_delta::ChangeType,
-            >,
+                    crate::model::field_operation_metadata::ttl_config_delta::ChangeType,
+                >,
         >(
             mut self,
             v: T,

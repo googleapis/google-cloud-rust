@@ -88,8 +88,9 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::BatchCreateOccurrencesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::BatchCreateOccurrencesResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::BatchCreateOccurrencesResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::BatchCreateOccurrencesResponse>>(Err(
             Error::other("unimplemented"),
         ))

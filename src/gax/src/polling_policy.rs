@@ -494,7 +494,7 @@ impl std::error::Error for Exhausted {}
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::error::{rpc::Status, Error, ServiceError};
+    use crate::error::{Error, ServiceError, rpc::Status};
     use std::time::{Duration, Instant};
 
     mockall::mock! {
@@ -527,20 +527,24 @@ mod tests {
         assert!(p.on_error(now, 0, http_unavailable()).is_continue());
         assert!(p.on_error(now, 0, http_permission_denied()).is_permanent());
 
-        assert!(p
-            .on_error(now, 0, Error::io("err".to_string()))
-            .is_continue());
+        assert!(
+            p.on_error(now, 0, Error::io("err".to_string()))
+                .is_continue()
+        );
 
-        assert!(p
-            .on_error(now, 0, Error::authentication("err".to_string()))
-            .is_continue());
+        assert!(
+            p.on_error(now, 0, Error::authentication("err".to_string()))
+                .is_continue()
+        );
 
-        assert!(p
-            .on_error(now, 0, Error::serde("err".to_string()))
-            .is_permanent());
-        assert!(p
-            .on_error(now, 0, Error::other("err".to_string()))
-            .is_permanent());
+        assert!(
+            p.on_error(now, 0, Error::serde("err".to_string()))
+                .is_permanent()
+        );
+        assert!(
+            p.on_error(now, 0, Error::other("err".to_string()))
+                .is_permanent()
+        );
     }
 
     #[test]
@@ -832,15 +836,21 @@ mod tests {
 
         let now = std::time::Instant::now();
         let policy = LimitedAttemptCount::custom(mock, 3);
-        assert!(policy
-            .on_error(now, 1, Error::other("err".to_string()))
-            .is_continue());
-        assert!(policy
-            .on_error(now, 2, Error::other("err".to_string()))
-            .is_continue());
-        assert!(policy
-            .on_error(now, 3, Error::other("err".to_string()))
-            .is_exhausted());
+        assert!(
+            policy
+                .on_error(now, 1, Error::other("err".to_string()))
+                .is_continue()
+        );
+        assert!(
+            policy
+                .on_error(now, 2, Error::other("err".to_string()))
+                .is_continue()
+        );
+        assert!(
+            policy
+                .on_error(now, 3, Error::other("err".to_string()))
+                .is_exhausted()
+        );
     }
 
     #[test]

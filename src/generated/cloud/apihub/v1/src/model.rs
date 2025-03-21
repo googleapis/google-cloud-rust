@@ -6265,8 +6265,8 @@ impl DependencyEntityReference {
     /// Sets the value of `identifier`.
     pub fn set_identifier<
         T: std::convert::Into<
-            std::option::Option<crate::model::dependency_entity_reference::Identifier>,
-        >,
+                std::option::Option<crate::model::dependency_entity_reference::Identifier>,
+            >,
     >(
         mut self,
         v: T,

@@ -689,8 +689,8 @@ impl GenerateSshScriptRequest {
     /// Sets the value of `vm_config`.
     pub fn set_vm_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::generate_ssh_script_request::VmConfig>,
-        >,
+                std::option::Option<crate::model::generate_ssh_script_request::VmConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -2330,8 +2330,8 @@ impl ApplyConversionWorkspaceRequest {
     /// Sets the value of `destination`.
     pub fn set_destination<
         T: std::convert::Into<
-            std::option::Option<crate::model::apply_conversion_workspace_request::Destination>,
-        >,
+                std::option::Option<crate::model::apply_conversion_workspace_request::Destination>,
+            >,
     >(
         mut self,
         v: T,
@@ -2584,8 +2584,8 @@ impl SeedConversionWorkspaceRequest {
     /// Sets the value of `seed_from`.
     pub fn set_seed_from<
         T: std::convert::Into<
-            std::option::Option<crate::model::seed_conversion_workspace_request::SeedFrom>,
-        >,
+                std::option::Option<crate::model::seed_conversion_workspace_request::SeedFrom>,
+            >,
     >(
         mut self,
         v: T,
@@ -3845,8 +3845,8 @@ impl PostgreSqlConnectionProfile {
     /// Sets the value of `connectivity`.
     pub fn set_connectivity<
         T: std::convert::Into<
-            std::option::Option<crate::model::postgre_sql_connection_profile::Connectivity>,
-        >,
+                std::option::Option<crate::model::postgre_sql_connection_profile::Connectivity>,
+            >,
     >(
         mut self,
         v: T,
@@ -4050,8 +4050,8 @@ impl OracleConnectionProfile {
     /// Sets the value of `connectivity`.
     pub fn set_connectivity<
         T: std::convert::Into<
-            std::option::Option<crate::model::oracle_connection_profile::Connectivity>,
-        >,
+                std::option::Option<crate::model::oracle_connection_profile::Connectivity>,
+            >,
     >(
         mut self,
         v: T,
@@ -5220,8 +5220,8 @@ impl AlloyDbSettings {
     /// Sets the value of [primary_instance_settings][crate::model::AlloyDbSettings::primary_instance_settings].
     pub fn set_primary_instance_settings<
         T: std::convert::Into<
-            std::option::Option<crate::model::alloy_db_settings::PrimaryInstanceSettings>,
-        >,
+                std::option::Option<crate::model::alloy_db_settings::PrimaryInstanceSettings>,
+            >,
     >(
         mut self,
         v: T,
@@ -5363,10 +5363,10 @@ pub mod alloy_db_settings {
         /// Sets the value of [machine_config][crate::model::alloy_db_settings::PrimaryInstanceSettings::machine_config].
         pub fn set_machine_config<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::alloy_db_settings::primary_instance_settings::MachineConfig,
+                    std::option::Option<
+                        crate::model::alloy_db_settings::primary_instance_settings::MachineConfig,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -5684,10 +5684,10 @@ impl ForwardSshTunnelConnectivity {
     /// Sets the value of `authentication_method`.
     pub fn set_authentication_method<
         T: std::convert::Into<
-            std::option::Option<
-                crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod,
+                std::option::Option<
+                    crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -6903,8 +6903,8 @@ impl ConnectionProfile {
     /// Sets the value of `connection_profile`.
     pub fn set_connection_profile<
         T: std::convert::Into<
-            std::option::Option<crate::model::connection_profile::ConnectionProfile>,
-        >,
+                std::option::Option<crate::model::connection_profile::ConnectionProfile>,
+            >,
     >(
         mut self,
         v: T,
@@ -8154,8 +8154,8 @@ impl BackgroundJobLogEntry {
     /// mutually exclusive.
     pub fn set_import_rules_job_details<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::background_job_log_entry::ImportRulesJobDetails>,
-        >,
+                std::boxed::Box<crate::model::background_job_log_entry::ImportRulesJobDetails>,
+            >,
     >(
         mut self,
         v: T,
@@ -8173,8 +8173,8 @@ impl BackgroundJobLogEntry {
     /// mutually exclusive.
     pub fn set_convert_job_details<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::background_job_log_entry::ConvertJobDetails>,
-        >,
+                std::boxed::Box<crate::model::background_job_log_entry::ConvertJobDetails>,
+            >,
     >(
         mut self,
         v: T,
@@ -8192,8 +8192,8 @@ impl BackgroundJobLogEntry {
     /// mutually exclusive.
     pub fn set_apply_job_details<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::background_job_log_entry::ApplyJobDetails>,
-        >,
+                std::boxed::Box<crate::model::background_job_log_entry::ApplyJobDetails>,
+            >,
     >(
         mut self,
         v: T,
@@ -9542,8 +9542,8 @@ impl MultiColumnDatatypeChange {
     /// Sets the value of `source_filter`.
     pub fn set_source_filter<
         T: std::convert::Into<
-            std::option::Option<crate::model::multi_column_datatype_change::SourceFilter>,
-        >,
+                std::option::Option<crate::model::multi_column_datatype_change::SourceFilter>,
+            >,
     >(
         mut self,
         v: T,
@@ -9806,8 +9806,8 @@ impl ConditionalColumnSetValue {
     /// Sets the value of `source_filter`.
     pub fn set_source_filter<
         T: std::convert::Into<
-            std::option::Option<crate::model::conditional_column_set_value::SourceFilter>,
-        >,
+                std::option::Option<crate::model::conditional_column_set_value::SourceFilter>,
+            >,
     >(
         mut self,
         v: T,

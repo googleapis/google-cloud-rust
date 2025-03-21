@@ -197,8 +197,9 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListExternalAddressesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListExternalAddressesResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListExternalAddressesResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListExternalAddressesResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -600,8 +601,9 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListHcxActivationKeysRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListHcxActivationKeysResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListHcxActivationKeysResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListHcxActivationKeysResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -841,8 +843,9 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListPrivateConnectionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListPrivateConnectionsResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListPrivateConnectionsResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListPrivateConnectionsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -984,7 +987,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))

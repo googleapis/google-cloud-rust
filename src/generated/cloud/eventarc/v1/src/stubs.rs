@@ -199,8 +199,9 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListChannelConnectionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListChannelConnectionsResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListChannelConnectionsResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListChannelConnectionsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -462,7 +463,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListGoogleApiSourcesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ListGoogleApiSourcesResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::ListGoogleApiSourcesResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -567,7 +568,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))

@@ -1837,8 +1837,8 @@ impl TransferOperationMetadata {
     /// Sets the value of `destination`.
     pub fn set_destination<
         T: std::convert::Into<
-            std::option::Option<crate::model::transfer_operation_metadata::Destination>,
-        >,
+                std::option::Option<crate::model::transfer_operation_metadata::Destination>,
+            >,
     >(
         mut self,
         v: T,

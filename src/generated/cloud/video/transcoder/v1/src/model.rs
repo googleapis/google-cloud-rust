@@ -2096,8 +2096,8 @@ pub mod overlay {
         /// Sets the value of `animation_type`.
         pub fn set_animation_type<
             T: std::convert::Into<
-                std::option::Option<crate::model::overlay::animation::AnimationType>,
-            >,
+                    std::option::Option<crate::model::overlay::animation::AnimationType>,
+                >,
         >(
             mut self,
             v: T,
@@ -2749,10 +2749,10 @@ pub mod preprocessing_config {
         /// Sets the value of `deinterlacing_filter`.
         pub fn set_deinterlacing_filter<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::preprocessing_config::deinterlace::DeinterlacingFilter,
+                    std::option::Option<
+                        crate::model::preprocessing_config::deinterlace::DeinterlacingFilter,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -2802,8 +2802,8 @@ pub mod preprocessing_config {
         /// mutually exclusive.
         pub fn set_yadif<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::preprocessing_config::deinterlace::YadifConfig>,
-            >,
+                    std::boxed::Box<crate::model::preprocessing_config::deinterlace::YadifConfig>,
+                >,
         >(
             mut self,
             v: T,
@@ -2823,8 +2823,8 @@ pub mod preprocessing_config {
         /// mutually exclusive.
         pub fn set_bwdif<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::preprocessing_config::deinterlace::BwdifConfig>,
-            >,
+                    std::boxed::Box<crate::model::preprocessing_config::deinterlace::BwdifConfig>,
+                >,
         >(
             mut self,
             v: T,
@@ -3392,8 +3392,8 @@ pub mod video_stream {
         /// Sets the value of `gop_mode`.
         pub fn set_gop_mode<
             T: std::convert::Into<
-                std::option::Option<crate::model::video_stream::h_264_codec_settings::GopMode>,
-            >,
+                    std::option::Option<crate::model::video_stream::h_264_codec_settings::GopMode>,
+                >,
         >(
             mut self,
             v: T,
@@ -3752,8 +3752,8 @@ pub mod video_stream {
         /// Sets the value of `gop_mode`.
         pub fn set_gop_mode<
             T: std::convert::Into<
-                std::option::Option<crate::model::video_stream::h_265_codec_settings::GopMode>,
-            >,
+                    std::option::Option<crate::model::video_stream::h_265_codec_settings::GopMode>,
+                >,
         >(
             mut self,
             v: T,
@@ -3996,8 +3996,8 @@ pub mod video_stream {
         /// Sets the value of `gop_mode`.
         pub fn set_gop_mode<
             T: std::convert::Into<
-                std::option::Option<crate::model::video_stream::vp_9_codec_settings::GopMode>,
-            >,
+                    std::option::Option<crate::model::video_stream::vp_9_codec_settings::GopMode>,
+                >,
         >(
             mut self,
             v: T,

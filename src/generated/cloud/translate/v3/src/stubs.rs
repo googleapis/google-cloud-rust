@@ -323,8 +323,9 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListAdaptiveMtDatasetsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListAdaptiveMtDatasetsResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListAdaptiveMtDatasetsResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListAdaptiveMtDatasetsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -368,7 +369,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ImportAdaptiveMtFileRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ImportAdaptiveMtFileResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::ImportAdaptiveMtFileResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -509,7 +510,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))

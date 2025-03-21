@@ -99,8 +99,9 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListParameterVersionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListParameterVersionsResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListParameterVersionsResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListParameterVersionsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -123,8 +124,9 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RenderParameterVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::RenderParameterVersionResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::RenderParameterVersionResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::RenderParameterVersionResponse>>(Err(
             Error::other("unimplemented"),
         ))

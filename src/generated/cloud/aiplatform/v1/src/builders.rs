@@ -11227,8 +11227,8 @@ pub mod featurestore_service {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::batch_read_feature_values_request::PassThroughField,
-            >,
+                    crate::model::batch_read_feature_values_request::PassThroughField,
+                >,
         {
             use std::iter::Iterator;
             self.0.request.pass_through_fields = v.into_iter().map(|i| i.into()).collect();

@@ -865,8 +865,10 @@ pub mod workload {
         /// Sets the value of [setup_status][crate::model::workload::SaaEnrollmentResponse::setup_status].
         pub fn set_setup_status<
             T: std::convert::Into<
-                std::option::Option<crate::model::workload::saa_enrollment_response::SetupState>,
-            >,
+                    std::option::Option<
+                        crate::model::workload::saa_enrollment_response::SetupState,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -1998,8 +2000,8 @@ pub mod violation {
         /// Sets the value of [instructions][crate::model::violation::Remediation::instructions].
         pub fn set_instructions<
             T: std::convert::Into<
-                std::option::Option<crate::model::violation::remediation::Instructions>,
-            >,
+                    std::option::Option<crate::model::violation::remediation::Instructions>,
+                >,
         >(
             mut self,
             v: T,
@@ -2067,8 +2069,10 @@ pub mod violation {
             /// Sets the value of [gcloud_instructions][crate::model::violation::remediation::Instructions::gcloud_instructions].
             pub fn set_gcloud_instructions<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::violation::remediation::instructions::Gcloud>,
-                >,
+                        std::option::Option<
+                            crate::model::violation::remediation::instructions::Gcloud,
+                        >,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -2080,10 +2084,10 @@ pub mod violation {
             /// Sets the value of [console_instructions][crate::model::violation::remediation::Instructions::console_instructions].
             pub fn set_console_instructions<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::violation::remediation::instructions::Console,
+                        std::option::Option<
+                            crate::model::violation::remediation::instructions::Console,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,

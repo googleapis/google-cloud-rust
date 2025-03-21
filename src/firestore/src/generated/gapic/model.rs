@@ -490,10 +490,10 @@ pub mod transaction_options {
         /// Sets the value of `consistency_selector`.
         pub fn set_consistency_selector<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::transaction_options::read_only::ConsistencySelector,
+                    std::option::Option<
+                        crate::model::transaction_options::read_only::ConsistencySelector,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -1223,8 +1223,8 @@ impl GetDocumentRequest {
     /// Sets the value of `consistency_selector`.
     pub fn set_consistency_selector<
         T: std::convert::Into<
-            std::option::Option<crate::model::get_document_request::ConsistencySelector>,
-        >,
+                std::option::Option<crate::model::get_document_request::ConsistencySelector>,
+            >,
     >(
         mut self,
         v: T,
@@ -1462,8 +1462,8 @@ impl ListDocumentsRequest {
     /// Sets the value of `consistency_selector`.
     pub fn set_consistency_selector<
         T: std::convert::Into<
-            std::option::Option<crate::model::list_documents_request::ConsistencySelector>,
-        >,
+                std::option::Option<crate::model::list_documents_request::ConsistencySelector>,
+            >,
     >(
         mut self,
         v: T,
@@ -1920,8 +1920,8 @@ impl BatchGetDocumentsRequest {
     /// Sets the value of `consistency_selector`.
     pub fn set_consistency_selector<
         T: std::convert::Into<
-            std::option::Option<crate::model::batch_get_documents_request::ConsistencySelector>,
-        >,
+                std::option::Option<crate::model::batch_get_documents_request::ConsistencySelector>,
+            >,
     >(
         mut self,
         v: T,
@@ -2560,8 +2560,8 @@ impl RunQueryRequest {
     /// Sets the value of `consistency_selector`.
     pub fn set_consistency_selector<
         T: std::convert::Into<
-            std::option::Option<crate::model::run_query_request::ConsistencySelector>,
-        >,
+                std::option::Option<crate::model::run_query_request::ConsistencySelector>,
+            >,
     >(
         mut self,
         v: T,
@@ -2829,8 +2829,8 @@ impl RunQueryResponse {
     /// Sets the value of `continuation_selector`.
     pub fn set_continuation_selector<
         T: std::convert::Into<
-            std::option::Option<crate::model::run_query_response::ContinuationSelector>,
-        >,
+                std::option::Option<crate::model::run_query_response::ContinuationSelector>,
+            >,
     >(
         mut self,
         v: T,
@@ -2952,8 +2952,8 @@ impl RunAggregationQueryRequest {
     /// Sets the value of `query_type`.
     pub fn set_query_type<
         T: std::convert::Into<
-            std::option::Option<crate::model::run_aggregation_query_request::QueryType>,
-        >,
+                std::option::Option<crate::model::run_aggregation_query_request::QueryType>,
+            >,
     >(
         mut self,
         v: T,
@@ -2999,8 +2999,10 @@ impl RunAggregationQueryRequest {
     /// Sets the value of `consistency_selector`.
     pub fn set_consistency_selector<
         T: std::convert::Into<
-            std::option::Option<crate::model::run_aggregation_query_request::ConsistencySelector>,
-        >,
+                std::option::Option<
+                    crate::model::run_aggregation_query_request::ConsistencySelector,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -3396,8 +3398,8 @@ impl PartitionQueryRequest {
     /// Sets the value of `consistency_selector`.
     pub fn set_consistency_selector<
         T: std::convert::Into<
-            std::option::Option<crate::model::partition_query_request::ConsistencySelector>,
-        >,
+                std::option::Option<crate::model::partition_query_request::ConsistencySelector>,
+            >,
     >(
         mut self,
         v: T,
@@ -4819,8 +4821,8 @@ impl ListCollectionIdsRequest {
     /// Sets the value of `consistency_selector`.
     pub fn set_consistency_selector<
         T: std::convert::Into<
-            std::option::Option<crate::model::list_collection_ids_request::ConsistencySelector>,
-        >,
+                std::option::Option<crate::model::list_collection_ids_request::ConsistencySelector>,
+            >,
     >(
         mut self,
         v: T,
@@ -5367,8 +5369,8 @@ pub mod structured_query {
         /// Sets the value of `filter_type`.
         pub fn set_filter_type<
             T: std::convert::Into<
-                std::option::Option<crate::model::structured_query::filter::FilterType>,
-            >,
+                    std::option::Option<crate::model::structured_query::filter::FilterType>,
+                >,
         >(
             mut self,
             v: T,
@@ -5886,8 +5888,8 @@ pub mod structured_query {
         /// Sets the value of `operand_type`.
         pub fn set_operand_type<
             T: std::convert::Into<
-                std::option::Option<crate::model::structured_query::unary_filter::OperandType>,
-            >,
+                    std::option::Option<crate::model::structured_query::unary_filter::OperandType>,
+                >,
         >(
             mut self,
             v: T,
@@ -6461,8 +6463,8 @@ impl StructuredAggregationQuery {
     /// Sets the value of `query_type`.
     pub fn set_query_type<
         T: std::convert::Into<
-            std::option::Option<crate::model::structured_aggregation_query::QueryType>,
-        >,
+                std::option::Option<crate::model::structured_aggregation_query::QueryType>,
+            >,
     >(
         mut self,
         v: T,
@@ -6581,10 +6583,10 @@ pub mod structured_aggregation_query {
         /// Sets the value of `operator`.
         pub fn set_operator<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::structured_aggregation_query::aggregation::Operator,
+                    std::option::Option<
+                        crate::model::structured_aggregation_query::aggregation::Operator,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -6651,8 +6653,8 @@ pub mod structured_aggregation_query {
         /// mutually exclusive.
         pub fn set_count<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Count>,
-            >,
+                    std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Count>,
+                >,
         >(
             mut self,
             v: T,
@@ -6670,8 +6672,8 @@ pub mod structured_aggregation_query {
         /// mutually exclusive.
         pub fn set_sum<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Sum>,
-            >,
+                    std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Sum>,
+                >,
         >(
             mut self,
             v: T,
@@ -6689,8 +6691,8 @@ pub mod structured_aggregation_query {
         /// mutually exclusive.
         pub fn set_avg<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Avg>,
-            >,
+                    std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Avg>,
+                >,
         >(
             mut self,
             v: T,
@@ -6805,8 +6807,8 @@ pub mod structured_aggregation_query {
             /// Sets the value of [field][crate::model::structured_aggregation_query::aggregation::Sum::field].
             pub fn set_field<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::structured_query::FieldReference>,
-                >,
+                        std::option::Option<crate::model::structured_query::FieldReference>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -6852,8 +6854,8 @@ pub mod structured_aggregation_query {
             /// Sets the value of [field][crate::model::structured_aggregation_query::aggregation::Avg::field].
             pub fn set_field<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::structured_query::FieldReference>,
-                >,
+                        std::option::Option<crate::model::structured_query::FieldReference>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -7472,10 +7474,10 @@ pub mod document_transform {
         /// Sets the value of `transform_type`.
         pub fn set_transform_type<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::document_transform::field_transform::TransformType,
+                    std::option::Option<
+                        crate::model::document_transform::field_transform::TransformType,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,

@@ -142,7 +142,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListInspectTemplatesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ListInspectTemplatesResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::ListInspectTemplatesResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -334,7 +334,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListDiscoveryConfigsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ListDiscoveryConfigsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::ListDiscoveryConfigsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -473,8 +473,9 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListTableDataProfilesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListTableDataProfilesResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListTableDataProfilesResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListTableDataProfilesResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -485,8 +486,9 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListColumnDataProfilesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListColumnDataProfilesResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListColumnDataProfilesResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListColumnDataProfilesResponse>>(Err(
             Error::other("unimplemented"),
         ))

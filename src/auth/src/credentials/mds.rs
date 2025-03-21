@@ -52,11 +52,11 @@
 
 use crate::credentials::dynamic::CredentialTrait;
 use crate::credentials::{Credential, Result, DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY};
-use crate::errors::{is_retryable, CredentialError};
+use crate::errors::{CredentialError, is_retryable};
 use crate::token::{Token, TokenProvider};
 use async_trait::async_trait;
 use bon::Builder;
-use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
+use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
 use reqwest::Client;
 use std::default::Default;
 use std::sync::Arc;
@@ -306,8 +306,8 @@ mod test {
     use crate::token::test::MockTokenProvider;
     use axum::extract::Query;
     use axum::response::IntoResponse;
-    use reqwest::header::HeaderMap;
     use reqwest::StatusCode;
+    use reqwest::header::HeaderMap;
     use serde::Deserialize;
     use serde_json::Value;
     use std::collections::HashMap;
@@ -578,9 +578,11 @@ mod test {
         let token = mdsc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
-        assert!(token
-            .expires_at
-            .is_some_and(|d| d >= now + Duration::from_secs(3600)));
+        assert!(
+            token
+                .expires_at
+                .is_some_and(|d| d >= now + Duration::from_secs(3600))
+        );
 
         Ok(())
     }
@@ -636,9 +638,11 @@ mod test {
         let token = mdsc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
-        assert!(token
-            .expires_at
-            .is_some_and(|d| d >= now + Duration::from_secs(3600)));
+        assert!(
+            token
+                .expires_at
+                .is_some_and(|d| d >= now + Duration::from_secs(3600))
+        );
 
         Ok(())
     }

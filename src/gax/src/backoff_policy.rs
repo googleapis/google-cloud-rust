@@ -58,7 +58,7 @@ pub trait BackoffPolicy: Send + Sync + std::fmt::Debug {
     /// * `attempt_count` - the number of attempts. This method is always called
     ///    after the first attempt.
     fn on_failure(&self, loop_start: std::time::Instant, attempt_count: u32)
-        -> std::time::Duration;
+    -> std::time::Duration;
 }
 
 /// A helper type to use [BackoffPolicy] in client and request options.

@@ -1717,8 +1717,8 @@ impl PythonSettings {
     /// Sets the value of [experimental_features][crate::model::PythonSettings::experimental_features].
     pub fn set_experimental_features<
         T: std::convert::Into<
-            std::option::Option<crate::model::python_settings::ExperimentalFeatures>,
-        >,
+                std::option::Option<crate::model::python_settings::ExperimentalFeatures>,
+            >,
     >(
         mut self,
         v: T,
@@ -3035,8 +3035,8 @@ pub mod distribution {
         /// Sets the value of `options`.
         pub fn set_options<
             T: std::convert::Into<
-                std::option::Option<crate::model::distribution::bucket_options::Options>,
-            >,
+                    std::option::Option<crate::model::distribution::bucket_options::Options>,
+                >,
         >(
             mut self,
             v: T,
@@ -3119,8 +3119,8 @@ pub mod distribution {
         /// mutually exclusive.
         pub fn set_exponential_buckets<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::distribution::bucket_options::Exponential>,
-            >,
+                    std::boxed::Box<crate::model::distribution::bucket_options::Exponential>,
+                >,
         >(
             mut self,
             v: T,
@@ -3138,8 +3138,8 @@ pub mod distribution {
         /// mutually exclusive.
         pub fn set_explicit_buckets<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::distribution::bucket_options::Explicit>,
-            >,
+                    std::boxed::Box<crate::model::distribution::bucket_options::Explicit>,
+                >,
         >(
             mut self,
             v: T,
@@ -5281,8 +5281,8 @@ impl MetricDescriptor {
     /// Sets the value of [metadata][crate::model::MetricDescriptor::metadata].
     pub fn set_metadata<
         T: std::convert::Into<
-            std::option::Option<crate::model::metric_descriptor::MetricDescriptorMetadata>,
-        >,
+                std::option::Option<crate::model::metric_descriptor::MetricDescriptorMetadata>,
+            >,
     >(
         mut self,
         v: T,

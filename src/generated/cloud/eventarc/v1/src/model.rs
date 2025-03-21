@@ -4451,8 +4451,8 @@ pub mod pipeline {
         /// Sets the value of `kind`.
         pub fn set_kind<
             T: std::convert::Into<
-                std::option::Option<crate::model::pipeline::message_payload_format::Kind>,
-            >,
+                    std::option::Option<crate::model::pipeline::message_payload_format::Kind>,
+                >,
         >(
             mut self,
             v: T,
@@ -4519,8 +4519,8 @@ pub mod pipeline {
         /// mutually exclusive.
         pub fn set_protobuf<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::pipeline::message_payload_format::ProtobufFormat>,
-            >,
+                    std::boxed::Box<crate::model::pipeline::message_payload_format::ProtobufFormat>,
+                >,
         >(
             mut self,
             v: T,
@@ -4538,8 +4538,8 @@ pub mod pipeline {
         /// mutually exclusive.
         pub fn set_avro<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::pipeline::message_payload_format::AvroFormat>,
-            >,
+                    std::boxed::Box<crate::model::pipeline::message_payload_format::AvroFormat>,
+                >,
         >(
             mut self,
             v: T,
@@ -4557,8 +4557,8 @@ pub mod pipeline {
         /// mutually exclusive.
         pub fn set_json<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::pipeline::message_payload_format::JsonFormat>,
-            >,
+                    std::boxed::Box<crate::model::pipeline::message_payload_format::JsonFormat>,
+                >,
         >(
             mut self,
             v: T,
@@ -4725,8 +4725,8 @@ pub mod pipeline {
         /// Sets the value of [network_config][crate::model::pipeline::Destination::network_config].
         pub fn set_network_config<
             T: std::convert::Into<
-                std::option::Option<crate::model::pipeline::destination::NetworkConfig>,
-            >,
+                    std::option::Option<crate::model::pipeline::destination::NetworkConfig>,
+                >,
         >(
             mut self,
             v: T,
@@ -4738,8 +4738,8 @@ pub mod pipeline {
         /// Sets the value of [authentication_config][crate::model::pipeline::Destination::authentication_config].
         pub fn set_authentication_config<
             T: std::convert::Into<
-                std::option::Option<crate::model::pipeline::destination::AuthenticationConfig>,
-            >,
+                    std::option::Option<crate::model::pipeline::destination::AuthenticationConfig>,
+                >,
         >(
             mut self,
             v: T,
@@ -4762,8 +4762,8 @@ pub mod pipeline {
         /// Sets the value of `destination_descriptor`.
         pub fn set_destination_descriptor<
             T: std::convert::Into<
-                std::option::Option<crate::model::pipeline::destination::DestinationDescriptor>,
-            >,
+                    std::option::Option<crate::model::pipeline::destination::DestinationDescriptor>,
+                >,
         >(
             mut self,
             v: T,
@@ -5206,10 +5206,10 @@ pub mod pipeline {
             /// mutually exclusive.
             pub fn set_google_oidc<
                 T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::pipeline::destination::authentication_config::OidcToken,
+                        std::boxed::Box<
+                            crate::model::pipeline::destination::authentication_config::OidcToken,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -5229,10 +5229,10 @@ pub mod pipeline {
             /// mutually exclusive.
             pub fn set_oauth_token<
                 T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::pipeline::destination::authentication_config::OAuthToken,
+                        std::boxed::Box<
+                            crate::model::pipeline::destination::authentication_config::OAuthToken,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -5445,8 +5445,8 @@ pub mod pipeline {
         /// Sets the value of `mediation_descriptor`.
         pub fn set_mediation_descriptor<
             T: std::convert::Into<
-                std::option::Option<crate::model::pipeline::mediation::MediationDescriptor>,
-            >,
+                    std::option::Option<crate::model::pipeline::mediation::MediationDescriptor>,
+                >,
         >(
             mut self,
             v: T,

@@ -176,8 +176,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListServicePerimetersRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListServicePerimetersResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListServicePerimetersResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListServicePerimetersResponse>>(Err(
             Error::other("unimplemented"),
         ))
