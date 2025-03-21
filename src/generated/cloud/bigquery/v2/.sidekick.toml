@@ -31,5 +31,5 @@ session_info.proto,\
 
 [codec]
 copyright-year = '2025'
-package-name-override = 'google-cloud-bigquery-admin-v2'
+package-name-override = 'google-cloud-bigquery-v2'
 not-for-publication = 'true'

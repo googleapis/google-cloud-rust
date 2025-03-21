@@ -1,7 +1,7 @@
 {
     "api_id": "bigquery.googleapis.com",
     "api_shortname": "bigquery",
-    "client_documentation": "https://docs.rs/google-cloud-bigquery-admin-v2/latest",
+    "client_documentation": "https://docs.rs/google-cloud-bigquery-v2/latest",
     "distribution_name": "google-cloud-rust",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
