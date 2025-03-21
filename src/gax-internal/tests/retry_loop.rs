@@ -21,7 +21,7 @@
 //! sequence is specific to each test, intended to drive the retry loop as
 //! needed for that test.
 
-#[cfg(test)]
+#[cfg(all(test, feature = "_internal_http_client"))]
 mod test {
     use axum::extract::State;
     use axum::http::StatusCode;

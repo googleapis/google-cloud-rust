@@ -24,11 +24,14 @@
 //! This is intentional, as they are not intended for general use and will be
 //! changed without notice.
 
+#[cfg(feature = "_internal_common")]
 #[doc(hidden)]
 pub mod path_parameter;
 
+#[cfg(feature = "_internal_http_client")]
 #[doc(hidden)]
 pub mod query_parameter;
 
+#[cfg(feature = "_internal_http_client")]
 #[doc(hidden)]
 pub mod http;
