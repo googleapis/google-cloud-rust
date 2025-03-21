@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use google_cloud_auth::credentials::mds::Builder;
 use google_cloud_auth::credentials::testing::test_credentials;
 use google_cloud_auth::credentials::{
     ApiKeyOptions, Credential, CredentialTrait, create_access_token_credential,
@@ -176,6 +177,23 @@ mod test {
         assert_eq!(creds.get_token().await?.token, "test-only-token");
         assert!(creds.get_headers().await?.is_empty());
         assert_eq!(creds.get_universe_domain().await, None);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn get_mds_credential_from_builder() -> Result<()> {
+        let test_quota_project = "test-quota-project";
+        let test_universe_domain = "test-universe-domain";
+        let default_metadata_server = "http://metadata.google.internal";
+        let mdcs = Builder::default()
+            .quota_project_id(test_quota_project)
+            .universe_domain(test_universe_domain)
+            .build();
+        let fmt = format!("{:?}", mdcs);
+        assert!(fmt.contains("MDSCredential"));
+        assert!(fmt.contains(test_quota_project));
+        assert!(fmt.contains(test_universe_domain));
+        assert!(fmt.contains(default_metadata_server));
         Ok(())
     }
 }

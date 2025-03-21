@@ -17,7 +17,7 @@ mod api_key_credential;
 pub use api_key_credential::ApiKeyOptions;
 pub use api_key_credential::create_api_key_credential;
 
-pub(crate) mod mds_credential;
+pub mod mds;
 mod service_account_credential;
 pub(crate) mod user_credential;
 
@@ -28,6 +28,7 @@ use std::future::Future;
 use std::sync::Arc;
 
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
+pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
 /// An implementation of [crate::credentials::CredentialTrait].
 ///
@@ -255,7 +256,7 @@ pub(crate) mod dynamic {
 pub async fn create_access_token_credential() -> Result<Credential> {
     let contents = match load_adc()? {
         AdcContents::Contents(contents) => contents,
-        AdcContents::FallbackToMds => return Ok(mds_credential::new()),
+        AdcContents::FallbackToMds => return Ok(mds::new()),
     };
     let js: serde_json::Value =
         serde_json::from_str(&contents).map_err(CredentialError::non_retryable)?;
