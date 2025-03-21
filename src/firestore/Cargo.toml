@@ -29,6 +29,8 @@ rust-version.workspace = true
 [dependencies]
 async-trait = { version = "0.1" }
 bytes       = { version = "1", features = ["serde"] }
+http        = "1"
+lazy_static = "1"
 prost       = "0.13"
 prost-types = "0.13"
 serde       = { version = "1", features = ["serde_derive"] }
@@ -36,10 +38,14 @@ serde_json  = { version = "1" }
 serde_with  = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
 tonic       = "0.12"
 tokio       = { version = "1", features = ["macros", "rt-multi-thread"] }
-tracing     = { version = "0.1" }
+tracing     = "0.1"
 # Local crates
 auth  = { version = "0.18", path = "../auth", package = "google-cloud-auth" }
 gax   = { version = "0.21", path = "../gax", package = "google-cloud-gax", features = ["unstable-sdk-client"] }
+gaxi  = { version = "0.1", path = "../gax-internal", package = "google-cloud-gax-internal", features = ["_internal_grpc_client", "_internal_common"] }
 gtype = { version = "0.2", path = "../generated/type", package = "google-cloud-type" }
 rpc   = { version = "0.2", path = "../generated/rpc/types", package = "google-cloud-rpc" }
 wkt   = { version = "0.3", path = "../wkt", package = "google-cloud-wkt", features = ["prost"] }
+
+[dev-dependencies]
+tokio = { version = "1", features = ["full", "macros"] }
