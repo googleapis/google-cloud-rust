@@ -26,6 +26,17 @@ import (
 //go:embed templates
 var dartTemplates embed.FS
 
+func Generate(model *api.API, outdir string, cfg *config.Config) error {
+	annotate := NewAnnotateModel(model)
+	_, err := annotate.annotateModel(cfg.Codec)
+	if err != nil {
+		return err
+	}
+	provider := templatesProvider()
+	// TODO(#1564): Walk the generated files; 'dart format' Dart ones.
+	return language.GenerateFromRoot(outdir, model, provider, generatedFiles(model))
+}
+
 func templatesProvider() language.TemplateProvider {
 	return func(name string) (string, error) {
 		contents, err := dartTemplates.ReadFile(name)
@@ -34,16 +45,6 @@ func templatesProvider() language.TemplateProvider {
 		}
 		return string(contents), nil
 	}
-}
-
-func Generate(model *api.API, outdir string, cfg *config.Config) error {
-	_, err := annotateModel(model, cfg.Codec)
-	if err != nil {
-		return err
-	}
-	provider := templatesProvider()
-	// TODO(#1564): Walk the generated files; dartfmt Dart ones.
-	return language.GenerateFromRoot(outdir, model, provider, generatedFiles(model))
 }
 
 func generatedFiles(model *api.API) []language.GeneratedFile {

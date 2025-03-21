@@ -25,7 +25,8 @@ import (
 
 func TestGeneratedFiles(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
-	annotateModel(model, map[string]string{})
+	annotate := NewAnnotateModel(model)
+	annotate.annotateModel(map[string]string{})
 	files := generatedFiles(model)
 	if len(files) == 0 {
 		t.Errorf("expected a non-empty list of template files from generatedFiles()")
