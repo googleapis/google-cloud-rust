@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ServiceController](super::stubs::ServiceController) using a [gaxi::ReqwestClient].
+/// Implements [ServiceController](super::stubs::ServiceController) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ServiceController {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for ServiceController {
@@ -34,7 +34,7 @@ impl std::fmt::Debug for ServiceController {
 
 impl ServiceController {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }

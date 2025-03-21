@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [OsConfigService](super::stubs::OsConfigService) using a [gaxi::ReqwestClient].
+/// Implements [OsConfigService](super::stubs::OsConfigService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct OsConfigService {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for OsConfigService {
@@ -34,7 +34,7 @@ impl std::fmt::Debug for OsConfigService {
 
 impl OsConfigService {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -75,7 +75,7 @@ impl super::stubs::OsConfigService for OsConfigService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -117,7 +117,7 @@ impl super::stubs::OsConfigService for OsConfigService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -142,7 +142,7 @@ impl super::stubs::OsConfigService for OsConfigService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -184,7 +184,7 @@ impl super::stubs::OsConfigService for OsConfigService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -208,7 +208,7 @@ impl super::stubs::OsConfigService for OsConfigService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -227,7 +227,7 @@ impl super::stubs::OsConfigService for OsConfigService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -318,7 +318,7 @@ impl super::stubs::OsConfigService for OsConfigService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -340,10 +340,10 @@ impl super::stubs::OsConfigService for OsConfigService {
     }
 }
 
-/// Implements [OsConfigZonalService](super::stubs::OsConfigZonalService) using a [gaxi::ReqwestClient].
+/// Implements [OsConfigZonalService](super::stubs::OsConfigZonalService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct OsConfigZonalService {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for OsConfigZonalService {
@@ -356,7 +356,7 @@ impl std::fmt::Debug for OsConfigZonalService {
 
 impl OsConfigZonalService {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -438,7 +438,7 @@ impl super::stubs::OsConfigZonalService for OsConfigZonalService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -462,7 +462,7 @@ impl super::stubs::OsConfigZonalService for OsConfigZonalService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -486,7 +486,7 @@ impl super::stubs::OsConfigZonalService for OsConfigZonalService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -505,7 +505,7 @@ impl super::stubs::OsConfigZonalService for OsConfigZonalService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -524,7 +524,7 @@ impl super::stubs::OsConfigZonalService for OsConfigZonalService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -546,7 +546,7 @@ impl super::stubs::OsConfigZonalService for OsConfigZonalService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -566,7 +566,7 @@ impl super::stubs::OsConfigZonalService for OsConfigZonalService {
             );
         let builder = builder.query(&[("view", &req.view.value())]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -592,7 +592,7 @@ impl super::stubs::OsConfigZonalService for OsConfigZonalService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -611,7 +611,7 @@ impl super::stubs::OsConfigZonalService for OsConfigZonalService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -636,7 +636,7 @@ impl super::stubs::OsConfigZonalService for OsConfigZonalService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -655,7 +655,7 @@ impl super::stubs::OsConfigZonalService for OsConfigZonalService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

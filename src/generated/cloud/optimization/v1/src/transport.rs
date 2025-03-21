@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [FleetRouting](super::stubs::FleetRouting) using a [gaxi::ReqwestClient].
+/// Implements [FleetRouting](super::stubs::FleetRouting) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct FleetRouting {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for FleetRouting {
@@ -34,7 +34,7 @@ impl std::fmt::Debug for FleetRouting {
 
 impl FleetRouting {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -95,7 +95,7 @@ impl super::stubs::FleetRouting for FleetRouting {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

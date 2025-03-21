@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [LicenseManagementService](super::stubs::LicenseManagementService) using a [gaxi::ReqwestClient].
+/// Implements [LicenseManagementService](super::stubs::LicenseManagementService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct LicenseManagementService {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for LicenseManagementService {
@@ -34,7 +34,7 @@ impl std::fmt::Debug for LicenseManagementService {
 
 impl LicenseManagementService {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -55,7 +55,7 @@ impl super::stubs::LicenseManagementService for LicenseManagementService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -154,7 +154,7 @@ impl super::stubs::LicenseManagementService for LicenseManagementService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -173,15 +173,15 @@ impl super::stubs::LicenseManagementService for LicenseManagementService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 }
 
-/// Implements [ConsumerProcurementService](super::stubs::ConsumerProcurementService) using a [gaxi::ReqwestClient].
+/// Implements [ConsumerProcurementService](super::stubs::ConsumerProcurementService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ConsumerProcurementService {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for ConsumerProcurementService {
@@ -194,7 +194,7 @@ impl std::fmt::Debug for ConsumerProcurementService {
 
 impl ConsumerProcurementService {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -235,7 +235,7 @@ impl super::stubs::ConsumerProcurementService for ConsumerProcurementService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -257,7 +257,7 @@ impl super::stubs::ConsumerProcurementService for ConsumerProcurementService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -310,7 +310,7 @@ impl super::stubs::ConsumerProcurementService for ConsumerProcurementService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

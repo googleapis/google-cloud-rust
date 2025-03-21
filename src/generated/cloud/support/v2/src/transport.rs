@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CaseAttachmentService](super::stubs::CaseAttachmentService) using a [gaxi::ReqwestClient].
+/// Implements [CaseAttachmentService](super::stubs::CaseAttachmentService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CaseAttachmentService {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for CaseAttachmentService {
@@ -34,7 +34,7 @@ impl std::fmt::Debug for CaseAttachmentService {
 
 impl CaseAttachmentService {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -60,15 +60,15 @@ impl super::stubs::CaseAttachmentService for CaseAttachmentService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 }
 
-/// Implements [CaseService](super::stubs::CaseService) using a [gaxi::ReqwestClient].
+/// Implements [CaseService](super::stubs::CaseService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CaseService {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for CaseService {
@@ -81,7 +81,7 @@ impl std::fmt::Debug for CaseService {
 
 impl CaseService {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -102,7 +102,7 @@ impl super::stubs::CaseService for CaseService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -124,7 +124,7 @@ impl super::stubs::CaseService for CaseService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -149,7 +149,7 @@ impl super::stubs::CaseService for CaseService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -261,15 +261,15 @@ impl super::stubs::CaseService for CaseService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 }
 
-/// Implements [CommentService](super::stubs::CommentService) using a [gaxi::ReqwestClient].
+/// Implements [CommentService](super::stubs::CommentService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CommentService {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for CommentService {
@@ -282,7 +282,7 @@ impl std::fmt::Debug for CommentService {
 
 impl CommentService {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -305,7 +305,7 @@ impl super::stubs::CommentService for CommentService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

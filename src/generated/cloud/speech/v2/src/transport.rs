@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Speech](super::stubs::Speech) using a [gaxi::ReqwestClient].
+/// Implements [Speech](super::stubs::Speech) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Speech {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for Speech {
@@ -34,7 +34,7 @@ impl std::fmt::Debug for Speech {
 
 impl Speech {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -85,7 +85,7 @@ impl super::stubs::Speech for Speech {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("showDeleted", &req.show_deleted)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -104,7 +104,7 @@ impl super::stubs::Speech for Speech {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -165,7 +165,7 @@ impl super::stubs::Speech for Speech {
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -241,7 +241,7 @@ impl super::stubs::Speech for Speech {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -326,7 +326,7 @@ impl super::stubs::Speech for Speech {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("showDeleted", &req.show_deleted)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -345,7 +345,7 @@ impl super::stubs::Speech for Speech {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -406,7 +406,7 @@ impl super::stubs::Speech for Speech {
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -472,7 +472,7 @@ impl super::stubs::Speech for Speech {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("showDeleted", &req.show_deleted)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -491,7 +491,7 @@ impl super::stubs::Speech for Speech {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -552,7 +552,7 @@ impl super::stubs::Speech for Speech {
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -591,7 +591,7 @@ impl super::stubs::Speech for Speech {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -610,7 +610,7 @@ impl super::stubs::Speech for Speech {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -632,7 +632,7 @@ impl super::stubs::Speech for Speech {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -651,7 +651,7 @@ impl super::stubs::Speech for Speech {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -670,7 +670,7 @@ impl super::stubs::Speech for Speech {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [VmwareEngine](super::stubs::VmwareEngine) using a [gaxi::ReqwestClient].
+/// Implements [VmwareEngine](super::stubs::VmwareEngine) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct VmwareEngine {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for VmwareEngine {
@@ -34,7 +34,7 @@ impl std::fmt::Debug for VmwareEngine {
 
 impl VmwareEngine {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -62,7 +62,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -81,7 +81,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -170,7 +170,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("delayHours", p)]));
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -210,7 +210,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -229,7 +229,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -314,7 +314,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -335,7 +335,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -354,7 +354,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -380,7 +380,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -404,7 +404,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -423,7 +423,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -506,7 +506,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -527,7 +527,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -546,7 +546,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -608,7 +608,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -627,7 +627,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -710,7 +710,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -736,7 +736,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -755,7 +755,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -838,7 +838,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -863,7 +863,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -882,7 +882,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -904,7 +904,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -927,7 +927,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
             );
         let builder = builder.query(&[("username", &req.username)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -986,7 +986,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1044,7 +1044,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1070,7 +1070,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1114,7 +1114,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1178,7 +1178,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1226,7 +1226,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1245,7 +1245,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1264,7 +1264,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1290,7 +1290,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1373,7 +1373,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1399,7 +1399,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1418,7 +1418,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1506,7 +1506,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1607,7 +1607,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
         let builder = builder.query(&[("requestId", &req.request_id)]);
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1626,7 +1626,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1652,7 +1652,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1695,7 +1695,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1721,7 +1721,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1780,7 +1780,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1804,7 +1804,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1840,7 +1840,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1879,7 +1879,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1898,7 +1898,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1950,7 +1950,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1992,7 +1992,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -2011,7 +2011,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -2030,7 +2030,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

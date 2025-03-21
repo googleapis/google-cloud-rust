@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [HubService](super::stubs::HubService) using a [gaxi::ReqwestClient].
+/// Implements [HubService](super::stubs::HubService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct HubService {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for HubService {
@@ -34,7 +34,7 @@ impl std::fmt::Debug for HubService {
 
 impl HubService {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -59,7 +59,7 @@ impl super::stubs::HubService for HubService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -78,7 +78,7 @@ impl super::stubs::HubService for HubService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -154,7 +154,7 @@ impl super::stubs::HubService for HubService {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -181,7 +181,7 @@ impl super::stubs::HubService for HubService {
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("view", &req.view.value())]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -208,7 +208,7 @@ impl super::stubs::HubService for HubService {
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("groupBy", &req.group_by)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -231,7 +231,7 @@ impl super::stubs::HubService for HubService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -250,7 +250,7 @@ impl super::stubs::HubService for HubService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -366,7 +366,7 @@ impl super::stubs::HubService for HubService {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -385,7 +385,7 @@ impl super::stubs::HubService for HubService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -404,7 +404,7 @@ impl super::stubs::HubService for HubService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -427,7 +427,7 @@ impl super::stubs::HubService for HubService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -453,7 +453,7 @@ impl super::stubs::HubService for HubService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -472,7 +472,7 @@ impl super::stubs::HubService for HubService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -495,7 +495,7 @@ impl super::stubs::HubService for HubService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -554,7 +554,7 @@ impl super::stubs::HubService for HubService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -573,7 +573,7 @@ impl super::stubs::HubService for HubService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -625,7 +625,7 @@ impl super::stubs::HubService for HubService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -667,7 +667,7 @@ impl super::stubs::HubService for HubService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -686,7 +686,7 @@ impl super::stubs::HubService for HubService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -705,7 +705,7 @@ impl super::stubs::HubService for HubService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -741,10 +741,10 @@ impl super::stubs::HubService for HubService {
     }
 }
 
-/// Implements [PolicyBasedRoutingService](super::stubs::PolicyBasedRoutingService) using a [gaxi::ReqwestClient].
+/// Implements [PolicyBasedRoutingService](super::stubs::PolicyBasedRoutingService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct PolicyBasedRoutingService {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for PolicyBasedRoutingService {
@@ -757,7 +757,7 @@ impl std::fmt::Debug for PolicyBasedRoutingService {
 
 impl PolicyBasedRoutingService {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -785,7 +785,7 @@ impl super::stubs::PolicyBasedRoutingService for PolicyBasedRoutingService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -804,7 +804,7 @@ impl super::stubs::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -848,7 +848,7 @@ impl super::stubs::PolicyBasedRoutingService for PolicyBasedRoutingService {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -870,7 +870,7 @@ impl super::stubs::PolicyBasedRoutingService for PolicyBasedRoutingService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -889,7 +889,7 @@ impl super::stubs::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -941,7 +941,7 @@ impl super::stubs::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -983,7 +983,7 @@ impl super::stubs::PolicyBasedRoutingService for PolicyBasedRoutingService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1002,7 +1002,7 @@ impl super::stubs::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1021,7 +1021,7 @@ impl super::stubs::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

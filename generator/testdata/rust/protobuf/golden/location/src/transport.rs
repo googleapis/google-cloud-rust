@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Locations](super::stubs::Locations) using a [gaxi::ReqwestClient].
+/// Implements [Locations](super::stubs::Locations) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Locations {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for Locations {
@@ -34,7 +34,7 @@ impl std::fmt::Debug for Locations {
 
 impl Locations {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -62,7 +62,7 @@ impl super::stubs::Locations for Locations {
         self.inner.execute(
             builder,
             
-            None::<gaxi::NoBody>,
+            None::<gaxi::http::NoBody>,
             options,
         ).await
     }
@@ -86,7 +86,7 @@ impl super::stubs::Locations for Locations {
         self.inner.execute(
             builder,
             
-            None::<gaxi::NoBody>,
+            None::<gaxi::http::NoBody>,
             options,
         ).await
     }

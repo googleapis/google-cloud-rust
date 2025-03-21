@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [PolicyTroubleshooter](super::stubs::PolicyTroubleshooter) using a [gaxi::ReqwestClient].
+/// Implements [PolicyTroubleshooter](super::stubs::PolicyTroubleshooter) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct PolicyTroubleshooter {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for PolicyTroubleshooter {
@@ -34,7 +34,7 @@ impl std::fmt::Debug for PolicyTroubleshooter {
 
 impl PolicyTroubleshooter {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }

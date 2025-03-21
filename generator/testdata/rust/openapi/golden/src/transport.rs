@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [SecretManagerService](super::stubs::SecretManagerService) using a [gaxi::ReqwestClient].
+/// Implements [SecretManagerService](super::stubs::SecretManagerService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct SecretManagerService {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for SecretManagerService {
@@ -34,7 +34,7 @@ impl std::fmt::Debug for SecretManagerService {
 
 impl SecretManagerService {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -62,7 +62,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gaxi::NoBody>,
+            None::<gaxi::http::NoBody>,
             options,
         ).await
     }
@@ -87,7 +87,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gaxi::NoBody>,
+            None::<gaxi::http::NoBody>,
             options,
         ).await
     }
@@ -114,7 +114,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gaxi::NoBody>,
+            None::<gaxi::http::NoBody>,
             options,
         ).await
     }
@@ -167,7 +167,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gaxi::NoBody>,
+            None::<gaxi::http::NoBody>,
             options,
         ).await
     }
@@ -269,7 +269,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gaxi::NoBody>,
+            None::<gaxi::http::NoBody>,
             options,
         ).await
     }
@@ -295,7 +295,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gaxi::NoBody>,
+            None::<gaxi::http::NoBody>,
             options,
         ).await
     }
@@ -347,7 +347,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gaxi::NoBody>,
+            None::<gaxi::http::NoBody>,
             options,
         ).await
     }
@@ -374,7 +374,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gaxi::NoBody>,
+            None::<gaxi::http::NoBody>,
             options,
         ).await
     }
@@ -429,7 +429,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gaxi::NoBody>,
+            None::<gaxi::http::NoBody>,
             options,
         ).await
     }
@@ -458,7 +458,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gaxi::NoBody>,
+            None::<gaxi::http::NoBody>,
             options,
         ).await
     }
@@ -484,7 +484,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gaxi::NoBody>,
+            None::<gaxi::http::NoBody>,
             options,
         ).await
     }
@@ -511,7 +511,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gaxi::NoBody>,
+            None::<gaxi::http::NoBody>,
             options,
         ).await
     }
@@ -537,7 +537,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gaxi::NoBody>,
+            None::<gaxi::http::NoBody>,
             options,
         ).await
     }
@@ -564,7 +564,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gaxi::NoBody>,
+            None::<gaxi::http::NoBody>,
             options,
         ).await
     }
@@ -800,7 +800,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gaxi::NoBody>,
+            None::<gaxi::http::NoBody>,
             options,
         ).await
     }
@@ -827,7 +827,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gaxi::NoBody>,
+            None::<gaxi::http::NoBody>,
             options,
         ).await
     }

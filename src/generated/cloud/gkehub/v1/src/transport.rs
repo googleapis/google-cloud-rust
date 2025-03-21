@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [GkeHub](super::stubs::GkeHub) using a [gaxi::ReqwestClient].
+/// Implements [GkeHub](super::stubs::GkeHub) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct GkeHub {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for GkeHub {
@@ -34,7 +34,7 @@ impl std::fmt::Debug for GkeHub {
 
 impl GkeHub {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -62,7 +62,7 @@ impl super::stubs::GkeHub for GkeHub {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -85,7 +85,7 @@ impl super::stubs::GkeHub for GkeHub {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -104,7 +104,7 @@ impl super::stubs::GkeHub for GkeHub {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -123,7 +123,7 @@ impl super::stubs::GkeHub for GkeHub {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -192,7 +192,7 @@ impl super::stubs::GkeHub for GkeHub {
         let builder = builder.query(&[("requestId", &req.request_id)]);
         let builder = builder.query(&[("force", &req.force)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -213,7 +213,7 @@ impl super::stubs::GkeHub for GkeHub {
         let builder = builder.query(&[("force", &req.force)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -301,7 +301,7 @@ impl super::stubs::GkeHub for GkeHub {
         let builder = builder.query(&[("registry", &req.registry)]);
         let builder = builder.query(&[("imagePullSecretContent", &req.image_pull_secret_content)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -323,7 +323,7 @@ impl super::stubs::GkeHub for GkeHub {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -342,7 +342,7 @@ impl super::stubs::GkeHub for GkeHub {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -361,7 +361,7 @@ impl super::stubs::GkeHub for GkeHub {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

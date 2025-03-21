@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CloudBuild](super::stubs::CloudBuild) using a [gaxi::ReqwestClient].
+/// Implements [CloudBuild](super::stubs::CloudBuild) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudBuild {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for CloudBuild {
@@ -34,7 +34,7 @@ impl std::fmt::Debug for CloudBuild {
 
 impl CloudBuild {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -80,7 +80,7 @@ impl super::stubs::CloudBuild for CloudBuild {
             );
         let builder = builder.query(&[("name", &req.name)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -106,7 +106,7 @@ impl super::stubs::CloudBuild for CloudBuild {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -212,7 +212,7 @@ impl super::stubs::CloudBuild for CloudBuild {
             );
         let builder = builder.query(&[("name", &req.name)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -237,7 +237,7 @@ impl super::stubs::CloudBuild for CloudBuild {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -263,7 +263,7 @@ impl super::stubs::CloudBuild for CloudBuild {
             );
         let builder = builder.query(&[("name", &req.name)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -390,7 +390,7 @@ impl super::stubs::CloudBuild for CloudBuild {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -412,7 +412,7 @@ impl super::stubs::CloudBuild for CloudBuild {
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -475,7 +475,7 @@ impl super::stubs::CloudBuild for CloudBuild {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -494,7 +494,7 @@ impl super::stubs::CloudBuild for CloudBuild {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AdvisoryNotificationsService](super::stubs::AdvisoryNotificationsService) using a [gaxi::ReqwestClient].
+/// Implements [AdvisoryNotificationsService](super::stubs::AdvisoryNotificationsService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct AdvisoryNotificationsService {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for AdvisoryNotificationsService {
@@ -34,7 +34,7 @@ impl std::fmt::Debug for AdvisoryNotificationsService {
 
 impl AdvisoryNotificationsService {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -62,7 +62,7 @@ impl super::stubs::AdvisoryNotificationsService for AdvisoryNotificationsService
         let builder = builder.query(&[("view", &req.view.value())]);
         let builder = builder.query(&[("languageCode", &req.language_code)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -82,7 +82,7 @@ impl super::stubs::AdvisoryNotificationsService for AdvisoryNotificationsService
             );
         let builder = builder.query(&[("languageCode", &req.language_code)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -101,7 +101,7 @@ impl super::stubs::AdvisoryNotificationsService for AdvisoryNotificationsService
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
