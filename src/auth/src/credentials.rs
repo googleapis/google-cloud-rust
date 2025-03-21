@@ -14,15 +14,15 @@
 
 mod api_key_credential;
 // Export API Key factory function and options
-pub use api_key_credential::create_api_key_credential;
 pub use api_key_credential::ApiKeyOptions;
+pub use api_key_credential::create_api_key_credential;
 
 pub(crate) mod mds_credential;
 mod service_account_credential;
 pub(crate) mod user_credential;
 
-use crate::errors::CredentialError;
 use crate::Result;
+use crate::errors::CredentialError;
 use http::header::{HeaderName, HeaderValue};
 use std::future::Future;
 use std::sync::Arc;
@@ -287,10 +287,9 @@ enum AdcContents {
 }
 
 fn path_not_found(path: String) -> CredentialError {
-    CredentialError::non_retryable_from_str(
-        format!(
-            "Failed to load Application Default Credentials (ADC) from {path}. Check that the `GOOGLE_APPLICATION_CREDENTIALS` environment variable points to a valid file."
-        ))
+    CredentialError::non_retryable_from_str(format!(
+        "Failed to load Application Default Credentials (ADC) from {path}. Check that the `GOOGLE_APPLICATION_CREDENTIALS` environment variable points to a valid file."
+    ))
 }
 
 fn load_adc() -> Result<AdcContents> {
@@ -348,10 +347,10 @@ fn adc_well_known_path() -> Option<String> {
 /// external developers (i.e. consumers, not developers of `google-cloud-rust`)
 /// may find it useful.
 pub mod testing {
-    use crate::credentials::dynamic::CredentialTrait;
-    use crate::credentials::Credential;
-    use crate::token::Token;
     use crate::Result;
+    use crate::credentials::Credential;
+    use crate::credentials::dynamic::CredentialTrait;
+    use crate::token::Token;
     use http::header::{HeaderName, HeaderValue};
     use std::sync::Arc;
 

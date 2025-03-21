@@ -227,7 +227,7 @@ members = [
 ]
 
 [workspace.package]
-edition      = "2021"
+edition      = "2024"
 authors      = ["Google LLC"]
 description  = "Google Cloud Client Libraries for Rust"
 license      = "Apache-2.0"

@@ -95,8 +95,8 @@ impl VulnerabilityOccurrencesSummary {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<
-            crate::model::vulnerability_occurrences_summary::FixableTotalByDigest,
-        >,
+                crate::model::vulnerability_occurrences_summary::FixableTotalByDigest,
+            >,
     {
         use std::iter::Iterator;
         self.counts = v.into_iter().map(|i| i.into()).collect();

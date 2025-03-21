@@ -188,8 +188,8 @@ impl SharingEnvironmentConfig {
     /// Sets the value of `environment`.
     pub fn set_environment<
         T: std::convert::Into<
-            std::option::Option<crate::model::sharing_environment_config::Environment>,
-        >,
+                std::option::Option<crate::model::sharing_environment_config::Environment>,
+            >,
     >(
         mut self,
         v: T,
@@ -239,8 +239,8 @@ impl SharingEnvironmentConfig {
     /// mutually exclusive.
     pub fn set_default_exchange_config<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::sharing_environment_config::DefaultExchangeConfig>,
-        >,
+                std::boxed::Box<crate::model::sharing_environment_config::DefaultExchangeConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -258,8 +258,8 @@ impl SharingEnvironmentConfig {
     /// mutually exclusive.
     pub fn set_dcr_exchange_config<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::sharing_environment_config::DcrExchangeConfig>,
-        >,
+                std::boxed::Box<crate::model::sharing_environment_config::DcrExchangeConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -872,10 +872,10 @@ pub mod listing {
         /// Sets the value of [restricted_export_policy][crate::model::listing::BigQueryDatasetSource::restricted_export_policy].
         pub fn set_restricted_export_policy<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::listing::big_query_dataset_source::RestrictedExportPolicy,
+                    std::option::Option<
+                        crate::model::listing::big_query_dataset_source::RestrictedExportPolicy,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -889,8 +889,8 @@ pub mod listing {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::listing::big_query_dataset_source::SelectedResource,
-            >,
+                    crate::model::listing::big_query_dataset_source::SelectedResource,
+                >,
         {
             use std::iter::Iterator;
             self.selected_resources = v.into_iter().map(|i| i.into()).collect();
@@ -1510,8 +1510,8 @@ pub mod subscription {
         /// Sets the value of `reference`.
         pub fn set_reference<
             T: std::convert::Into<
-                std::option::Option<crate::model::subscription::linked_resource::Reference>,
-            >,
+                    std::option::Option<crate::model::subscription::linked_resource::Reference>,
+                >,
         >(
             mut self,
             v: T,
@@ -2338,8 +2338,8 @@ impl SubscribeListingRequest {
     /// Sets the value of `destination`.
     pub fn set_destination<
         T: std::convert::Into<
-            std::option::Option<crate::model::subscribe_listing_request::Destination>,
-        >,
+                std::option::Option<crate::model::subscribe_listing_request::Destination>,
+            >,
     >(
         mut self,
         v: T,

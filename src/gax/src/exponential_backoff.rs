@@ -20,8 +20,8 @@
 //! [BackoffPolicy]: crate::backoff_policy::BackoffPolicy
 //! [PollingBackoffPolicy]: crate::polling_backoff_policy::PollingBackoffPolicy
 
-use crate::error::Error;
 use crate::Result;
+use crate::error::Error;
 use std::time::Duration;
 
 /// Implements truncated exponential backoff with jitter.

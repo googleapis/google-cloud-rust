@@ -1215,8 +1215,8 @@ pub mod scan_config {
         /// Sets the value of `authentication`.
         pub fn set_authentication<
             T: std::convert::Into<
-                std::option::Option<crate::model::scan_config::authentication::Authentication>,
-            >,
+                    std::option::Option<crate::model::scan_config::authentication::Authentication>,
+                >,
         >(
             mut self,
             v: T,
@@ -1283,8 +1283,8 @@ pub mod scan_config {
         /// mutually exclusive.
         pub fn set_google_account<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::scan_config::authentication::GoogleAccount>,
-            >,
+                    std::boxed::Box<crate::model::scan_config::authentication::GoogleAccount>,
+                >,
         >(
             mut self,
             v: T,
@@ -1302,8 +1302,8 @@ pub mod scan_config {
         /// mutually exclusive.
         pub fn set_custom_account<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::scan_config::authentication::CustomAccount>,
-            >,
+                    std::boxed::Box<crate::model::scan_config::authentication::CustomAccount>,
+                >,
         >(
             mut self,
             v: T,
@@ -1321,8 +1321,8 @@ pub mod scan_config {
         /// mutually exclusive.
         pub fn set_iap_credential<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::scan_config::authentication::IapCredential>,
-            >,
+                    std::boxed::Box<crate::model::scan_config::authentication::IapCredential>,
+                >,
         >(
             mut self,
             v: T,
@@ -1469,16 +1469,8 @@ pub mod scan_config {
             }
 
             /// Sets the value of `iap_credentials`.
-            pub fn set_iap_credentials<
-                T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::scan_config::authentication::iap_credential::IapCredentials,
-                    >,
-                >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_iap_credentials<T: std::convert::Into<std::option::Option<crate::model::scan_config::authentication::iap_credential::IapCredentials>>>(mut self, v: T) -> Self
+            {
                 self.iap_credentials = v.into();
                 self
             }

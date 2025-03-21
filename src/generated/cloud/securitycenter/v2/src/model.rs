@@ -644,8 +644,8 @@ pub mod attack_path {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::attack_path::attack_path_node::PathNodeAssociatedFinding,
-            >,
+                    crate::model::attack_path::attack_path_node::PathNodeAssociatedFinding,
+                >,
         {
             use std::iter::Iterator;
             self.associated_findings = v.into_iter().map(|i| i.into()).collect();
@@ -4890,8 +4890,8 @@ pub mod indicator {
         /// Sets the value of `signature`.
         pub fn set_signature<
             T: std::convert::Into<
-                std::option::Option<crate::model::indicator::process_signature::Signature>,
-            >,
+                    std::option::Option<crate::model::indicator::process_signature::Signature>,
+                >,
         >(
             mut self,
             v: T,
@@ -4941,8 +4941,10 @@ pub mod indicator {
         /// mutually exclusive.
         pub fn set_memory_hash_signature<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::indicator::process_signature::MemoryHashSignature>,
-            >,
+                    std::boxed::Box<
+                        crate::model::indicator::process_signature::MemoryHashSignature,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -4962,8 +4964,8 @@ pub mod indicator {
         /// mutually exclusive.
         pub fn set_yara_rule_signature<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::indicator::process_signature::YaraRuleSignature>,
-            >,
+                    std::boxed::Box<crate::model::indicator::process_signature::YaraRuleSignature>,
+                >,
         >(
             mut self,
             v: T,
@@ -5022,9 +5024,7 @@ pub mod indicator {
             pub fn set_detections<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<
-                    crate::model::indicator::process_signature::memory_hash_signature::Detection,
-                >,
+                V: std::convert::Into<crate::model::indicator::process_signature::memory_hash_signature::Detection>
             {
                 use std::iter::Iterator;
                 self.detections = v.into_iter().map(|i| i.into()).collect();
@@ -8859,10 +8859,10 @@ impl ResourceValueConfig {
     /// Sets the value of [sensitive_data_protection_mapping][crate::model::ResourceValueConfig::sensitive_data_protection_mapping].
     pub fn set_sensitive_data_protection_mapping<
         T: std::convert::Into<
-            std::option::Option<
-                crate::model::resource_value_config::SensitiveDataProtectionMapping,
+                std::option::Option<
+                    crate::model::resource_value_config::SensitiveDataProtectionMapping,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -10988,10 +10988,10 @@ pub mod list_findings_response {
         /// Sets the value of [resource][crate::model::list_findings_response::ListFindingsResult::resource].
         pub fn set_resource<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::list_findings_response::list_findings_result::Resource,
+                    std::option::Option<
+                        crate::model::list_findings_response::list_findings_result::Resource,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,

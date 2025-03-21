@@ -1209,8 +1209,8 @@ pub mod batch_prediction_job {
         /// Sets the value of `source`.
         pub fn set_source<
             T: std::convert::Into<
-                std::option::Option<crate::model::batch_prediction_job::input_config::Source>,
-            >,
+                    std::option::Option<crate::model::batch_prediction_job::input_config::Source>,
+                >,
         >(
             mut self,
             v: T,
@@ -1521,8 +1521,10 @@ pub mod batch_prediction_job {
         /// Sets the value of `destination`.
         pub fn set_destination<
             T: std::convert::Into<
-                std::option::Option<crate::model::batch_prediction_job::output_config::Destination>,
-            >,
+                    std::option::Option<
+                        crate::model::batch_prediction_job::output_config::Destination,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -1710,10 +1712,10 @@ pub mod batch_prediction_job {
         /// Sets the value of `output_location`.
         pub fn set_output_location<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::batch_prediction_job::output_info::OutputLocation,
+                    std::option::Option<
+                        crate::model::batch_prediction_job::output_info::OutputLocation,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -2888,8 +2890,10 @@ pub mod generation_config {
         /// Sets the value of `routing_config`.
         pub fn set_routing_config<
             T: std::convert::Into<
-                std::option::Option<crate::model::generation_config::routing_config::RoutingConfig>,
-            >,
+                    std::option::Option<
+                        crate::model::generation_config::routing_config::RoutingConfig,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -2939,8 +2943,10 @@ pub mod generation_config {
         /// mutually exclusive.
         pub fn set_auto_mode<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::generation_config::routing_config::AutoRoutingMode>,
-            >,
+                    std::boxed::Box<
+                        crate::model::generation_config::routing_config::AutoRoutingMode,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -2958,8 +2964,10 @@ pub mod generation_config {
         /// mutually exclusive.
         pub fn set_manual_mode<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::generation_config::routing_config::ManualRoutingMode>,
-            >,
+                    std::boxed::Box<
+                        crate::model::generation_config::routing_config::ManualRoutingMode,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -6281,8 +6289,8 @@ impl ActiveLearningConfig {
     /// Sets the value of `human_labeling_budget`.
     pub fn set_human_labeling_budget<
         T: std::convert::Into<
-            std::option::Option<crate::model::active_learning_config::HumanLabelingBudget>,
-        >,
+                std::option::Option<crate::model::active_learning_config::HumanLabelingBudget>,
+            >,
     >(
         mut self,
         v: T,
@@ -6411,8 +6419,8 @@ impl SampleConfig {
     /// Sets the value of `initial_batch_sample_size`.
     pub fn set_initial_batch_sample_size<
         T: std::convert::Into<
-            std::option::Option<crate::model::sample_config::InitialBatchSampleSize>,
-        >,
+                std::option::Option<crate::model::sample_config::InitialBatchSampleSize>,
+            >,
     >(
         mut self,
         v: T,
@@ -6449,8 +6457,8 @@ impl SampleConfig {
     /// Sets the value of `following_batch_sample_size`.
     pub fn set_following_batch_sample_size<
         T: std::convert::Into<
-            std::option::Option<crate::model::sample_config::FollowingBatchSampleSize>,
-        >,
+                std::option::Option<crate::model::sample_config::FollowingBatchSampleSize>,
+            >,
     >(
         mut self,
         v: T,
@@ -8966,8 +8974,8 @@ impl SearchDataItemsRequest {
     /// mutually exclusive.
     pub fn set_order_by_annotation<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::search_data_items_request::OrderByAnnotation>,
-        >,
+                std::boxed::Box<crate::model::search_data_items_request::OrderByAnnotation>,
+            >,
     >(
         mut self,
         v: T,
@@ -11471,8 +11479,8 @@ impl SpeculativeDecodingSpec {
     /// Sets the value of `speculation`.
     pub fn set_speculation<
         T: std::convert::Into<
-            std::option::Option<crate::model::speculative_decoding_spec::Speculation>,
-        >,
+                std::option::Option<crate::model::speculative_decoding_spec::Speculation>,
+            >,
     >(
         mut self,
         v: T,
@@ -11522,8 +11530,8 @@ impl SpeculativeDecodingSpec {
     /// mutually exclusive.
     pub fn set_draft_model_speculation<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::speculative_decoding_spec::DraftModelSpeculation>,
-        >,
+                std::boxed::Box<crate::model::speculative_decoding_spec::DraftModelSpeculation>,
+            >,
     >(
         mut self,
         v: T,
@@ -11541,8 +11549,8 @@ impl SpeculativeDecodingSpec {
     /// mutually exclusive.
     pub fn set_ngram_speculation<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::speculative_decoding_spec::NgramSpeculation>,
-        >,
+                std::boxed::Box<crate::model::speculative_decoding_spec::NgramSpeculation>,
+            >,
     >(
         mut self,
         v: T,
@@ -13389,8 +13397,8 @@ impl EvaluateInstancesRequest {
     /// Sets the value of `metric_inputs`.
     pub fn set_metric_inputs<
         T: std::convert::Into<
-            std::option::Option<crate::model::evaluate_instances_request::MetricInputs>,
-        >,
+                std::option::Option<crate::model::evaluate_instances_request::MetricInputs>,
+            >,
     >(
         mut self,
         v: T,
@@ -14305,8 +14313,8 @@ impl EvaluateInstancesResponse {
     /// Sets the value of `evaluation_results`.
     pub fn set_evaluation_results<
         T: std::convert::Into<
-            std::option::Option<crate::model::evaluate_instances_response::EvaluationResults>,
-        >,
+                std::option::Option<crate::model::evaluate_instances_response::EvaluationResults>,
+            >,
     >(
         mut self,
         v: T,
@@ -17683,8 +17691,8 @@ impl PairwiseQuestionAnsweringQualityInput {
     /// Sets the value of [instance][crate::model::PairwiseQuestionAnsweringQualityInput::instance].
     pub fn set_instance<
         T: std::convert::Into<
-            std::option::Option<crate::model::PairwiseQuestionAnsweringQualityInstance>,
-        >,
+                std::option::Option<crate::model::PairwiseQuestionAnsweringQualityInstance>,
+            >,
     >(
         mut self,
         v: T,
@@ -21427,8 +21435,8 @@ impl SmoothGradConfig {
     /// Sets the value of `gradient_noise_sigma`.
     pub fn set_gradient_noise_sigma<
         T: std::convert::Into<
-            std::option::Option<crate::model::smooth_grad_config::GradientNoiseSigma>,
-        >,
+                std::option::Option<crate::model::smooth_grad_config::GradientNoiseSigma>,
+            >,
     >(
         mut self,
         v: T,
@@ -22769,10 +22777,10 @@ pub mod explanation_metadata {
         /// Sets the value of [feature_value_domain][crate::model::explanation_metadata::InputMetadata::feature_value_domain].
         pub fn set_feature_value_domain<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::explanation_metadata::input_metadata::FeatureValueDomain,
+                    std::option::Option<
+                        crate::model::explanation_metadata::input_metadata::FeatureValueDomain,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -22811,10 +22819,10 @@ pub mod explanation_metadata {
         /// Sets the value of [visualization][crate::model::explanation_metadata::InputMetadata::visualization].
         pub fn set_visualization<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::explanation_metadata::input_metadata::Visualization,
+                    std::option::Option<
+                        crate::model::explanation_metadata::input_metadata::Visualization,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -23005,8 +23013,8 @@ pub mod explanation_metadata {
             /// Sets the value of [r#type][crate::model::explanation_metadata::input_metadata::Visualization::type].
             pub fn set_type<
                 T: std::convert::Into<
-                    crate::model::explanation_metadata::input_metadata::visualization::Type,
-                >,
+                        crate::model::explanation_metadata::input_metadata::visualization::Type,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -23018,8 +23026,8 @@ pub mod explanation_metadata {
             /// Sets the value of [polarity][crate::model::explanation_metadata::input_metadata::Visualization::polarity].
             pub fn set_polarity<
                 T: std::convert::Into<
-                    crate::model::explanation_metadata::input_metadata::visualization::Polarity,
-                >,
+                        crate::model::explanation_metadata::input_metadata::visualization::Polarity,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -23031,8 +23039,8 @@ pub mod explanation_metadata {
             /// Sets the value of [color_map][crate::model::explanation_metadata::input_metadata::Visualization::color_map].
             pub fn set_color_map<
                 T: std::convert::Into<
-                    crate::model::explanation_metadata::input_metadata::visualization::ColorMap,
-                >,
+                        crate::model::explanation_metadata::input_metadata::visualization::ColorMap,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -23054,14 +23062,7 @@ pub mod explanation_metadata {
             }
 
             /// Sets the value of [overlay_type][crate::model::explanation_metadata::input_metadata::Visualization::overlay_type].
-            pub fn set_overlay_type<
-                T: std::convert::Into<
-                    crate::model::explanation_metadata::input_metadata::visualization::OverlayType,
-                >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_overlay_type<T: std::convert::Into<crate::model::explanation_metadata::input_metadata::visualization::OverlayType>>(mut self, v: T) -> Self{
                 self.overlay_type = v.into();
                 self
             }
@@ -23541,10 +23542,10 @@ pub mod explanation_metadata {
         /// Sets the value of `display_name_mapping`.
         pub fn set_display_name_mapping<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::explanation_metadata::output_metadata::DisplayNameMapping,
+                    std::option::Option<
+                        crate::model::explanation_metadata::output_metadata::DisplayNameMapping,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -24314,8 +24315,8 @@ pub mod feature_group {
         /// Sets the value of [time_series][crate::model::feature_group::BigQuery::time_series].
         pub fn set_time_series<
             T: std::convert::Into<
-                std::option::Option<crate::model::feature_group::big_query::TimeSeries>,
-            >,
+                    std::option::Option<crate::model::feature_group::big_query::TimeSeries>,
+                >,
         >(
             mut self,
             v: T,
@@ -24645,8 +24646,8 @@ impl FeatureOnlineStore {
     /// Sets the value of [dedicated_serving_endpoint][crate::model::FeatureOnlineStore::dedicated_serving_endpoint].
     pub fn set_dedicated_serving_endpoint<
         T: std::convert::Into<
-            std::option::Option<crate::model::feature_online_store::DedicatedServingEndpoint>,
-        >,
+                std::option::Option<crate::model::feature_online_store::DedicatedServingEndpoint>,
+            >,
     >(
         mut self,
         v: T,
@@ -24796,8 +24797,8 @@ pub mod feature_online_store {
         /// Sets the value of [auto_scaling][crate::model::feature_online_store::Bigtable::auto_scaling].
         pub fn set_auto_scaling<
             T: std::convert::Into<
-                std::option::Option<crate::model::feature_online_store::bigtable::AutoScaling>,
-            >,
+                    std::option::Option<crate::model::feature_online_store::bigtable::AutoScaling>,
+                >,
         >(
             mut self,
             v: T,
@@ -26460,8 +26461,8 @@ impl FetchFeatureValuesResponse {
     /// Sets the value of `format`.
     pub fn set_format<
         T: std::convert::Into<
-            std::option::Option<crate::model::fetch_feature_values_response::Format>,
-        >,
+                std::option::Option<crate::model::fetch_feature_values_response::Format>,
+            >,
     >(
         mut self,
         v: T,
@@ -26507,8 +26508,10 @@ impl FetchFeatureValuesResponse {
     /// mutually exclusive.
     pub fn set_key_values<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::fetch_feature_values_response::FeatureNameValuePairList>,
-        >,
+                std::boxed::Box<
+                    crate::model::fetch_feature_values_response::FeatureNameValuePairList,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -26993,8 +26996,10 @@ pub mod nearest_neighbor_query {
         /// Sets the value of [op][crate::model::nearest_neighbor_query::NumericFilter::op].
         pub fn set_op<
             T: std::convert::Into<
-                std::option::Option<crate::model::nearest_neighbor_query::numeric_filter::Operator>,
-            >,
+                    std::option::Option<
+                        crate::model::nearest_neighbor_query::numeric_filter::Operator,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -27006,8 +27011,10 @@ pub mod nearest_neighbor_query {
         /// Sets the value of `value`.
         pub fn set_value<
             T: std::convert::Into<
-                std::option::Option<crate::model::nearest_neighbor_query::numeric_filter::Value>,
-            >,
+                    std::option::Option<
+                        crate::model::nearest_neighbor_query::numeric_filter::Value,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -28535,8 +28542,8 @@ pub mod feature_view {
         /// Sets the value of `algorithm_config`.
         pub fn set_algorithm_config<
             T: std::convert::Into<
-                std::option::Option<crate::model::feature_view::index_config::AlgorithmConfig>,
-            >,
+                    std::option::Option<crate::model::feature_view::index_config::AlgorithmConfig>,
+                >,
         >(
             mut self,
             v: T,
@@ -28586,8 +28593,8 @@ pub mod feature_view {
         /// mutually exclusive.
         pub fn set_tree_ah_config<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::feature_view::index_config::TreeAHConfig>,
-            >,
+                    std::boxed::Box<crate::model::feature_view::index_config::TreeAHConfig>,
+                >,
         >(
             mut self,
             v: T,
@@ -28605,8 +28612,8 @@ pub mod feature_view {
         /// mutually exclusive.
         pub fn set_brute_force_config<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::feature_view::index_config::BruteForceConfig>,
-            >,
+                    std::boxed::Box<crate::model::feature_view::index_config::BruteForceConfig>,
+                >,
         >(
             mut self,
             v: T,
@@ -28815,8 +28822,8 @@ pub mod feature_view {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::feature_view::feature_registry_source::FeatureGroup,
-            >,
+                    crate::model::feature_view::feature_registry_source::FeatureGroup,
+                >,
         {
             use std::iter::Iterator;
             self.feature_groups = v.into_iter().map(|i| i.into()).collect();
@@ -29435,8 +29442,8 @@ pub mod featurestore {
         /// Sets the value of [scaling][crate::model::featurestore::OnlineServingConfig::scaling].
         pub fn set_scaling<
             T: std::convert::Into<
-                std::option::Option<crate::model::featurestore::online_serving_config::Scaling>,
-            >,
+                    std::option::Option<crate::model::featurestore::online_serving_config::Scaling>,
+                >,
         >(
             mut self,
             v: T,
@@ -29630,8 +29637,8 @@ impl FeaturestoreMonitoringConfig {
     /// Sets the value of [snapshot_analysis][crate::model::FeaturestoreMonitoringConfig::snapshot_analysis].
     pub fn set_snapshot_analysis<
         T: std::convert::Into<
-            std::option::Option<crate::model::featurestore_monitoring_config::SnapshotAnalysis>,
-        >,
+                std::option::Option<crate::model::featurestore_monitoring_config::SnapshotAnalysis>,
+            >,
     >(
         mut self,
         v: T,
@@ -29643,10 +29650,10 @@ impl FeaturestoreMonitoringConfig {
     /// Sets the value of [import_features_analysis][crate::model::FeaturestoreMonitoringConfig::import_features_analysis].
     pub fn set_import_features_analysis<
         T: std::convert::Into<
-            std::option::Option<
-                crate::model::featurestore_monitoring_config::ImportFeaturesAnalysis,
+                std::option::Option<
+                    crate::model::featurestore_monitoring_config::ImportFeaturesAnalysis,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -29658,8 +29665,8 @@ impl FeaturestoreMonitoringConfig {
     /// Sets the value of [numerical_threshold_config][crate::model::FeaturestoreMonitoringConfig::numerical_threshold_config].
     pub fn set_numerical_threshold_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::featurestore_monitoring_config::ThresholdConfig>,
-        >,
+                std::option::Option<crate::model::featurestore_monitoring_config::ThresholdConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -29671,8 +29678,8 @@ impl FeaturestoreMonitoringConfig {
     /// Sets the value of [categorical_threshold_config][crate::model::FeaturestoreMonitoringConfig::categorical_threshold_config].
     pub fn set_categorical_threshold_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::featurestore_monitoring_config::ThresholdConfig>,
-        >,
+                std::option::Option<crate::model::featurestore_monitoring_config::ThresholdConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -29785,8 +29792,8 @@ pub mod featurestore_monitoring_config {
         /// Sets the value of [state][crate::model::featurestore_monitoring_config::ImportFeaturesAnalysis::state].
         pub fn set_state<
             T: std::convert::Into<
-                crate::model::featurestore_monitoring_config::import_features_analysis::State,
-            >,
+                    crate::model::featurestore_monitoring_config::import_features_analysis::State,
+                >,
         >(
             mut self,
             v: T,
@@ -29796,14 +29803,7 @@ pub mod featurestore_monitoring_config {
         }
 
         /// Sets the value of [anomaly_detection_baseline][crate::model::featurestore_monitoring_config::ImportFeaturesAnalysis::anomaly_detection_baseline].
-        pub fn set_anomaly_detection_baseline<
-            T: std::convert::Into<
-                crate::model::featurestore_monitoring_config::import_features_analysis::Baseline,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_anomaly_detection_baseline<T: std::convert::Into<crate::model::featurestore_monitoring_config::import_features_analysis::Baseline>>(mut self, v: T) -> Self{
             self.anomaly_detection_baseline = v.into();
             self
         }
@@ -29987,10 +29987,10 @@ pub mod featurestore_monitoring_config {
         /// Sets the value of `threshold`.
         pub fn set_threshold<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::featurestore_monitoring_config::threshold_config::Threshold,
+                    std::option::Option<
+                        crate::model::featurestore_monitoring_config::threshold_config::Threshold,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -30279,8 +30279,8 @@ impl ReadFeatureValuesResponse {
     /// Sets the value of [entity_view][crate::model::ReadFeatureValuesResponse::entity_view].
     pub fn set_entity_view<
         T: std::convert::Into<
-            std::option::Option<crate::model::read_feature_values_response::EntityView>,
-        >,
+                std::option::Option<crate::model::read_feature_values_response::EntityView>,
+            >,
     >(
         mut self,
         v: T,
@@ -30464,10 +30464,10 @@ pub mod read_feature_values_response {
             /// Sets the value of `data`.
             pub fn set_data<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::read_feature_values_response::entity_view::data::Data,
+                        std::option::Option<
+                            crate::model::read_feature_values_response::entity_view::data::Data,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -31619,8 +31619,8 @@ impl ImportFeatureValuesRequest {
     /// Sets the value of `source`.
     pub fn set_source<
         T: std::convert::Into<
-            std::option::Option<crate::model::import_feature_values_request::Source>,
-        >,
+                std::option::Option<crate::model::import_feature_values_request::Source>,
+            >,
     >(
         mut self,
         v: T,
@@ -31722,8 +31722,8 @@ impl ImportFeatureValuesRequest {
     /// Sets the value of `feature_time_source`.
     pub fn set_feature_time_source<
         T: std::convert::Into<
-            std::option::Option<crate::model::import_feature_values_request::FeatureTimeSource>,
-        >,
+                std::option::Option<crate::model::import_feature_values_request::FeatureTimeSource>,
+            >,
     >(
         mut self,
         v: T,
@@ -32046,8 +32046,8 @@ impl BatchReadFeatureValuesRequest {
     /// Sets the value of `read_option`.
     pub fn set_read_option<
         T: std::convert::Into<
-            std::option::Option<crate::model::batch_read_feature_values_request::ReadOption>,
-        >,
+                std::option::Option<crate::model::batch_read_feature_values_request::ReadOption>,
+            >,
     >(
         mut self,
         v: T,
@@ -32398,8 +32398,8 @@ impl ExportFeatureValuesRequest {
     /// mutually exclusive.
     pub fn set_snapshot_export<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::export_feature_values_request::SnapshotExport>,
-        >,
+                std::boxed::Box<crate::model::export_feature_values_request::SnapshotExport>,
+            >,
     >(
         mut self,
         v: T,
@@ -32417,8 +32417,8 @@ impl ExportFeatureValuesRequest {
     /// mutually exclusive.
     pub fn set_full_export<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::export_feature_values_request::FullExport>,
-        >,
+                std::boxed::Box<crate::model::export_feature_values_request::FullExport>,
+            >,
     >(
         mut self,
         v: T,
@@ -32617,8 +32617,8 @@ impl FeatureValueDestination {
     /// Sets the value of `destination`.
     pub fn set_destination<
         T: std::convert::Into<
-            std::option::Option<crate::model::feature_value_destination::Destination>,
-        >,
+                std::option::Option<crate::model::feature_value_destination::Destination>,
+            >,
     >(
         mut self,
         v: T,
@@ -34360,8 +34360,8 @@ impl DeleteFeatureValuesRequest {
     /// Sets the value of `delete_option`.
     pub fn set_delete_option<
         T: std::convert::Into<
-            std::option::Option<crate::model::delete_feature_values_request::DeleteOption>,
-        >,
+                std::option::Option<crate::model::delete_feature_values_request::DeleteOption>,
+            >,
     >(
         mut self,
         v: T,
@@ -34409,8 +34409,8 @@ impl DeleteFeatureValuesRequest {
     /// mutually exclusive.
     pub fn set_select_entity<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::delete_feature_values_request::SelectEntity>,
-        >,
+                std::boxed::Box<crate::model::delete_feature_values_request::SelectEntity>,
+            >,
     >(
         mut self,
         v: T,
@@ -34428,8 +34428,10 @@ impl DeleteFeatureValuesRequest {
     /// mutually exclusive.
     pub fn set_select_time_range_and_feature<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::delete_feature_values_request::SelectTimeRangeAndFeature>,
-        >,
+                std::boxed::Box<
+                    crate::model::delete_feature_values_request::SelectTimeRangeAndFeature,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -34596,8 +34598,8 @@ impl DeleteFeatureValuesResponse {
     /// Sets the value of `response`.
     pub fn set_response<
         T: std::convert::Into<
-            std::option::Option<crate::model::delete_feature_values_response::Response>,
-        >,
+                std::option::Option<crate::model::delete_feature_values_response::Response>,
+            >,
     >(
         mut self,
         v: T,
@@ -34647,8 +34649,8 @@ impl DeleteFeatureValuesResponse {
     /// mutually exclusive.
     pub fn set_select_entity<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::delete_feature_values_response::SelectEntity>,
-        >,
+                std::boxed::Box<crate::model::delete_feature_values_response::SelectEntity>,
+            >,
     >(
         mut self,
         v: T,
@@ -34666,10 +34668,10 @@ impl DeleteFeatureValuesResponse {
     /// mutually exclusive.
     pub fn set_select_time_range_and_feature<
         T: std::convert::Into<
-            std::boxed::Box<
-                crate::model::delete_feature_values_response::SelectTimeRangeAndFeature,
+                std::boxed::Box<
+                    crate::model::delete_feature_values_response::SelectTimeRangeAndFeature,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -36386,8 +36388,8 @@ pub mod index_datapoint {
         /// Sets the value of `value`.
         pub fn set_value<
             T: std::convert::Into<
-                std::option::Option<crate::model::index_datapoint::numeric_restriction::Value>,
-            >,
+                    std::option::Option<crate::model::index_datapoint::numeric_restriction::Value>,
+                >,
         >(
             mut self,
             v: T,
@@ -37214,8 +37216,8 @@ impl DeployedIndexAuthConfig {
     /// Sets the value of [auth_provider][crate::model::DeployedIndexAuthConfig::auth_provider].
     pub fn set_auth_provider<
         T: std::convert::Into<
-            std::option::Option<crate::model::deployed_index_auth_config::AuthProvider>,
-        >,
+                std::option::Option<crate::model::deployed_index_auth_config::AuthProvider>,
+            >,
     >(
         mut self,
         v: T,
@@ -38204,8 +38206,8 @@ impl CreateIndexOperationMetadata {
     /// Sets the value of [nearest_neighbor_search_operation_metadata][crate::model::CreateIndexOperationMetadata::nearest_neighbor_search_operation_metadata].
     pub fn set_nearest_neighbor_search_operation_metadata<
         T: std::convert::Into<
-            std::option::Option<crate::model::NearestNeighborSearchOperationMetadata>,
-        >,
+                std::option::Option<crate::model::NearestNeighborSearchOperationMetadata>,
+            >,
     >(
         mut self,
         v: T,
@@ -38493,8 +38495,8 @@ impl UpdateIndexOperationMetadata {
     /// Sets the value of [nearest_neighbor_search_operation_metadata][crate::model::UpdateIndexOperationMetadata::nearest_neighbor_search_operation_metadata].
     pub fn set_nearest_neighbor_search_operation_metadata<
         T: std::convert::Into<
-            std::option::Option<crate::model::NearestNeighborSearchOperationMetadata>,
-        >,
+                std::option::Option<crate::model::NearestNeighborSearchOperationMetadata>,
+            >,
     >(
         mut self,
         v: T,
@@ -38745,8 +38747,8 @@ impl NearestNeighborSearchOperationMetadata {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<
-            crate::model::nearest_neighbor_search_operation_metadata::ContentValidationStats,
-        >,
+                crate::model::nearest_neighbor_search_operation_metadata::ContentValidationStats,
+            >,
     {
         use std::iter::Iterator;
         self.content_validation_stats = v.into_iter().map(|i| i.into()).collect();
@@ -39069,8 +39071,8 @@ pub mod nearest_neighbor_search_operation_metadata {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::nearest_neighbor_search_operation_metadata::RecordError,
-            >,
+                    crate::model::nearest_neighbor_search_operation_metadata::RecordError,
+                >,
         {
             use std::iter::Iterator;
             self.partial_errors = v.into_iter().map(|i| i.into()).collect();
@@ -39977,10 +39979,10 @@ pub mod share_point_sources {
         /// Sets the value of `folder_source`.
         pub fn set_folder_source<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::share_point_sources::share_point_source::FolderSource,
+                    std::option::Option<
+                        crate::model::share_point_sources::share_point_source::FolderSource,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -40048,10 +40050,10 @@ pub mod share_point_sources {
         /// Sets the value of `drive_source`.
         pub fn set_drive_source<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::share_point_sources::share_point_source::DriveSource,
+                    std::option::Option<
+                        crate::model::share_point_sources::share_point_source::DriveSource,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -43664,8 +43666,8 @@ pub mod find_neighbors_request {
         /// Sets the value of `ranking`.
         pub fn set_ranking<
             T: std::convert::Into<
-                std::option::Option<crate::model::find_neighbors_request::query::Ranking>,
-            >,
+                    std::option::Option<crate::model::find_neighbors_request::query::Ranking>,
+                >,
         >(
             mut self,
             v: T,
@@ -47144,8 +47146,8 @@ impl MigratableResource {
     /// mutually exclusive.
     pub fn set_ml_engine_model_version<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::migratable_resource::MlEngineModelVersion>,
-        >,
+                std::boxed::Box<crate::model::migratable_resource::MlEngineModelVersion>,
+            >,
     >(
         mut self,
         v: T,
@@ -47783,10 +47785,10 @@ impl MigrateResourceRequest {
     /// mutually exclusive.
     pub fn set_migrate_ml_engine_model_version_config<
         T: std::convert::Into<
-            std::boxed::Box<
-                crate::model::migrate_resource_request::MigrateMlEngineModelVersionConfig,
+                std::boxed::Box<
+                    crate::model::migrate_resource_request::MigrateMlEngineModelVersionConfig,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -47806,8 +47808,8 @@ impl MigrateResourceRequest {
     /// mutually exclusive.
     pub fn set_migrate_automl_model_config<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::migrate_resource_request::MigrateAutomlModelConfig>,
-        >,
+                std::boxed::Box<crate::model::migrate_resource_request::MigrateAutomlModelConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -47825,8 +47827,8 @@ impl MigrateResourceRequest {
     /// mutually exclusive.
     pub fn set_migrate_automl_dataset_config<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::migrate_resource_request::MigrateAutomlDatasetConfig>,
-        >,
+                std::boxed::Box<crate::model::migrate_resource_request::MigrateAutomlDatasetConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -47844,10 +47846,10 @@ impl MigrateResourceRequest {
     /// mutually exclusive.
     pub fn set_migrate_data_labeling_dataset_config<
         T: std::convert::Into<
-            std::boxed::Box<
-                crate::model::migrate_resource_request::MigrateDataLabelingDatasetConfig,
+                std::boxed::Box<
+                    crate::model::migrate_resource_request::MigrateDataLabelingDatasetConfig,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -48239,8 +48241,8 @@ impl MigrateResourceResponse {
     /// Sets the value of `migrated_resource`.
     pub fn set_migrated_resource<
         T: std::convert::Into<
-            std::option::Option<crate::model::migrate_resource_response::MigratedResource>,
-        >,
+                std::option::Option<crate::model::migrate_resource_response::MigratedResource>,
+            >,
     >(
         mut self,
         v: T,
@@ -48363,8 +48365,8 @@ impl BatchMigrateResourcesOperationMetadata {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<
-            crate::model::batch_migrate_resources_operation_metadata::PartialResult,
-        >,
+                crate::model::batch_migrate_resources_operation_metadata::PartialResult,
+            >,
     {
         use std::iter::Iterator;
         self.partial_results = v.into_iter().map(|i| i.into()).collect();
@@ -51167,10 +51169,10 @@ impl ModelDeploymentMonitoringJob {
     /// Sets the value of [latest_monitoring_pipeline_metadata][crate::model::ModelDeploymentMonitoringJob::latest_monitoring_pipeline_metadata].
     pub fn set_latest_monitoring_pipeline_metadata<
         T: std::convert::Into<
-            std::option::Option<
-                crate::model::model_deployment_monitoring_job::LatestMonitoringPipelineMetadata,
+                std::option::Option<
+                    crate::model::model_deployment_monitoring_job::LatestMonitoringPipelineMetadata,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -51182,8 +51184,8 @@ impl ModelDeploymentMonitoringJob {
     /// Sets the value of [model_deployment_monitoring_schedule_config][crate::model::ModelDeploymentMonitoringJob::model_deployment_monitoring_schedule_config].
     pub fn set_model_deployment_monitoring_schedule_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::ModelDeploymentMonitoringScheduleConfig>,
-        >,
+                std::option::Option<crate::model::ModelDeploymentMonitoringScheduleConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -51850,8 +51852,8 @@ impl ModelMonitoringStatsAnomalies {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<
-            crate::model::model_monitoring_stats_anomalies::FeatureHistoricStatsAnomalies,
-        >,
+                crate::model::model_monitoring_stats_anomalies::FeatureHistoricStatsAnomalies,
+            >,
     {
         use std::iter::Iterator;
         self.feature_stats = v.into_iter().map(|i| i.into()).collect();
@@ -52384,8 +52386,8 @@ pub mod model_evaluation_slice {
         /// Sets the value of [slice_spec][crate::model::model_evaluation_slice::Slice::slice_spec].
         pub fn set_slice_spec<
             T: std::convert::Into<
-                std::option::Option<crate::model::model_evaluation_slice::slice::SliceSpec>,
-            >,
+                    std::option::Option<crate::model::model_evaluation_slice::slice::SliceSpec>,
+                >,
         >(
             mut self,
             v: T,
@@ -52434,8 +52436,8 @@ pub mod model_evaluation_slice {
                 T: std::iter::IntoIterator<Item = (K, V)>,
                 K: std::convert::Into<std::string::String>,
                 V: std::convert::Into<
-                    crate::model::model_evaluation_slice::slice::slice_spec::SliceConfig,
-                >,
+                        crate::model::model_evaluation_slice::slice::slice_spec::SliceConfig,
+                    >,
             {
                 use std::iter::Iterator;
                 self.configs = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
@@ -52596,10 +52598,10 @@ pub mod model_evaluation_slice {
                 /// mutually exclusive.
                 pub fn set_value<
                     T: std::convert::Into<
-                        std::boxed::Box<
-                            crate::model::model_evaluation_slice::slice::slice_spec::Value,
+                            std::boxed::Box<
+                                crate::model::model_evaluation_slice::slice::slice_spec::Value,
+                            >,
                         >,
-                    >,
                 >(
                     mut self,
                     v: T,
@@ -52619,10 +52621,10 @@ pub mod model_evaluation_slice {
                 /// mutually exclusive.
                 pub fn set_range<
                     T: std::convert::Into<
-                        std::boxed::Box<
-                            crate::model::model_evaluation_slice::slice::slice_spec::Range,
+                            std::boxed::Box<
+                                crate::model::model_evaluation_slice::slice::slice_spec::Range,
+                            >,
                         >,
-                    >,
                 >(
                     mut self,
                     v: T,
@@ -52746,16 +52748,8 @@ pub mod model_evaluation_slice {
                 }
 
                 /// Sets the value of `kind`.
-                pub fn set_kind<
-                    T: std::convert::Into<
-                        std::option::Option<
-                            crate::model::model_evaluation_slice::slice::slice_spec::value::Kind,
-                        >,
-                    >,
-                >(
-                    mut self,
-                    v: T,
-                ) -> Self {
+                pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::model_evaluation_slice::slice::slice_spec::value::Kind>>>(mut self, v: T) -> Self
+                {
                     self.kind = v.into();
                     self
                 }
@@ -52958,8 +52952,10 @@ impl ModelMonitoringObjectiveConfig {
     /// Sets the value of [training_dataset][crate::model::ModelMonitoringObjectiveConfig::training_dataset].
     pub fn set_training_dataset<
         T: std::convert::Into<
-            std::option::Option<crate::model::model_monitoring_objective_config::TrainingDataset>,
-        >,
+                std::option::Option<
+                    crate::model::model_monitoring_objective_config::TrainingDataset,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -52977,10 +52973,10 @@ impl ModelMonitoringObjectiveConfig {
     /// Sets the value of [prediction_drift_detection_config][crate::model::ModelMonitoringObjectiveConfig::prediction_drift_detection_config].
     pub fn set_prediction_drift_detection_config<
         T: std::convert::Into<
-            std::option::Option<
-                crate::model::model_monitoring_objective_config::PredictionDriftDetectionConfig,
+                std::option::Option<
+                    crate::model::model_monitoring_objective_config::PredictionDriftDetectionConfig,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -52992,8 +52988,10 @@ impl ModelMonitoringObjectiveConfig {
     /// Sets the value of [explanation_config][crate::model::ModelMonitoringObjectiveConfig::explanation_config].
     pub fn set_explanation_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::model_monitoring_objective_config::ExplanationConfig>,
-        >,
+                std::option::Option<
+                    crate::model::model_monitoring_objective_config::ExplanationConfig,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -53083,16 +53081,8 @@ pub mod model_monitoring_objective_config {
         }
 
         /// Sets the value of `data_source`.
-        pub fn set_data_source<
-            T: std::convert::Into<
-                std::option::Option<
-                    crate::model::model_monitoring_objective_config::training_dataset::DataSource,
-                >,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_data_source<T: std::convert::Into<std::option::Option<crate::model::model_monitoring_objective_config::training_dataset::DataSource>>>(mut self, v: T) -> Self
+        {
             self.data_source = v.into();
             self
         }
@@ -53681,8 +53671,8 @@ impl ModelMonitoringAlertConfig {
     /// mutually exclusive.
     pub fn set_email_alert_config<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::model_monitoring_alert_config::EmailAlertConfig>,
-        >,
+                std::boxed::Box<crate::model::model_monitoring_alert_config::EmailAlertConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -53848,8 +53838,8 @@ impl SamplingStrategy {
     /// Sets the value of [random_sample_config][crate::model::SamplingStrategy::random_sample_config].
     pub fn set_random_sample_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::sampling_strategy::RandomSampleConfig>,
-        >,
+                std::option::Option<crate::model::sampling_strategy::RandomSampleConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -55111,8 +55101,8 @@ impl ExportModelOperationMetadata {
     /// Sets the value of [output_info][crate::model::ExportModelOperationMetadata::output_info].
     pub fn set_output_info<
         T: std::convert::Into<
-            std::option::Option<crate::model::export_model_operation_metadata::OutputInfo>,
-        >,
+                std::option::Option<crate::model::export_model_operation_metadata::OutputInfo>,
+            >,
     >(
         mut self,
         v: T,
@@ -56483,8 +56473,8 @@ pub mod nas_job_spec {
         /// Sets the value of [multi_trial_algorithm][crate::model::nas_job_spec::MultiTrialAlgorithmSpec::multi_trial_algorithm].
         pub fn set_multi_trial_algorithm<
             T: std::convert::Into<
-                crate::model::nas_job_spec::multi_trial_algorithm_spec::MultiTrialAlgorithm,
-            >,
+                    crate::model::nas_job_spec::multi_trial_algorithm_spec::MultiTrialAlgorithm,
+                >,
         >(
             mut self,
             v: T,
@@ -56496,10 +56486,10 @@ pub mod nas_job_spec {
         /// Sets the value of [metric][crate::model::nas_job_spec::MultiTrialAlgorithmSpec::metric].
         pub fn set_metric<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::nas_job_spec::multi_trial_algorithm_spec::MetricSpec,
+                    std::option::Option<
+                        crate::model::nas_job_spec::multi_trial_algorithm_spec::MetricSpec,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -56511,10 +56501,10 @@ pub mod nas_job_spec {
         /// Sets the value of [search_trial_spec][crate::model::nas_job_spec::MultiTrialAlgorithmSpec::search_trial_spec].
         pub fn set_search_trial_spec<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::nas_job_spec::multi_trial_algorithm_spec::SearchTrialSpec,
+                    std::option::Option<
+                        crate::model::nas_job_spec::multi_trial_algorithm_spec::SearchTrialSpec,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -56526,10 +56516,10 @@ pub mod nas_job_spec {
         /// Sets the value of [train_trial_spec][crate::model::nas_job_spec::MultiTrialAlgorithmSpec::train_trial_spec].
         pub fn set_train_trial_spec<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::nas_job_spec::multi_trial_algorithm_spec::TrainTrialSpec,
+                    std::option::Option<
+                        crate::model::nas_job_spec::multi_trial_algorithm_spec::TrainTrialSpec,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -56579,14 +56569,7 @@ pub mod nas_job_spec {
             }
 
             /// Sets the value of [goal][crate::model::nas_job_spec::multi_trial_algorithm_spec::MetricSpec::goal].
-            pub fn set_goal<
-                T: std::convert::Into<
-                    crate::model::nas_job_spec::multi_trial_algorithm_spec::metric_spec::GoalType,
-                >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_goal<T: std::convert::Into<crate::model::nas_job_spec::multi_trial_algorithm_spec::metric_spec::GoalType>>(mut self, v: T) -> Self{
                 self.goal = v.into();
                 self
             }
@@ -57456,8 +57439,8 @@ impl NotebookExecutionJob {
     /// Sets the value of `notebook_source`.
     pub fn set_notebook_source<
         T: std::convert::Into<
-            std::option::Option<crate::model::notebook_execution_job::NotebookSource>,
-        >,
+                std::option::Option<crate::model::notebook_execution_job::NotebookSource>,
+            >,
     >(
         mut self,
         v: T,
@@ -57524,8 +57507,8 @@ impl NotebookExecutionJob {
     /// mutually exclusive.
     pub fn set_dataform_repository_source<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::notebook_execution_job::DataformRepositorySource>,
-        >,
+                std::boxed::Box<crate::model::notebook_execution_job::DataformRepositorySource>,
+            >,
     >(
         mut self,
         v: T,
@@ -57545,8 +57528,8 @@ impl NotebookExecutionJob {
     /// mutually exclusive.
     pub fn set_gcs_notebook_source<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::notebook_execution_job::GcsNotebookSource>,
-        >,
+                std::boxed::Box<crate::model::notebook_execution_job::GcsNotebookSource>,
+            >,
     >(
         mut self,
         v: T,
@@ -57564,8 +57547,8 @@ impl NotebookExecutionJob {
     /// mutually exclusive.
     pub fn set_direct_notebook_source<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::notebook_execution_job::DirectNotebookSource>,
-        >,
+                std::boxed::Box<crate::model::notebook_execution_job::DirectNotebookSource>,
+            >,
     >(
         mut self,
         v: T,
@@ -57579,8 +57562,8 @@ impl NotebookExecutionJob {
     /// Sets the value of `environment_spec`.
     pub fn set_environment_spec<
         T: std::convert::Into<
-            std::option::Option<crate::model::notebook_execution_job::EnvironmentSpec>,
-        >,
+                std::option::Option<crate::model::notebook_execution_job::EnvironmentSpec>,
+            >,
     >(
         mut self,
         v: T,
@@ -57645,8 +57628,8 @@ impl NotebookExecutionJob {
     /// mutually exclusive.
     pub fn set_custom_environment_spec<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::notebook_execution_job::CustomEnvironmentSpec>,
-        >,
+                std::boxed::Box<crate::model::notebook_execution_job::CustomEnvironmentSpec>,
+            >,
     >(
         mut self,
         v: T,
@@ -57660,8 +57643,8 @@ impl NotebookExecutionJob {
     /// Sets the value of `execution_sink`.
     pub fn set_execution_sink<
         T: std::convert::Into<
-            std::option::Option<crate::model::notebook_execution_job::ExecutionSink>,
-        >,
+                std::option::Option<crate::model::notebook_execution_job::ExecutionSink>,
+            >,
     >(
         mut self,
         v: T,
@@ -57698,8 +57681,8 @@ impl NotebookExecutionJob {
     /// Sets the value of `execution_identity`.
     pub fn set_execution_identity<
         T: std::convert::Into<
-            std::option::Option<crate::model::notebook_execution_job::ExecutionIdentity>,
-        >,
+                std::option::Option<crate::model::notebook_execution_job::ExecutionIdentity>,
+            >,
     >(
         mut self,
         v: T,
@@ -57761,8 +57744,8 @@ impl NotebookExecutionJob {
     /// Sets the value of `runtime_environment`.
     pub fn set_runtime_environment<
         T: std::convert::Into<
-            std::option::Option<crate::model::notebook_execution_job::RuntimeEnvironment>,
-        >,
+                std::option::Option<crate::model::notebook_execution_job::RuntimeEnvironment>,
+            >,
     >(
         mut self,
         v: T,
@@ -62813,10 +62796,10 @@ pub mod pipeline_job {
             /// Sets the value of `kind`.
             pub fn set_kind<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::pipeline_job::runtime_config::input_artifact::Kind,
+                        std::option::Option<
+                            crate::model::pipeline_job::runtime_config::input_artifact::Kind,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -63402,8 +63385,8 @@ impl PipelineTaskExecutorDetail {
     /// Sets the value of `details`.
     pub fn set_details<
         T: std::convert::Into<
-            std::option::Option<crate::model::pipeline_task_executor_detail::Details>,
-        >,
+                std::option::Option<crate::model::pipeline_task_executor_detail::Details>,
+            >,
     >(
         mut self,
         v: T,
@@ -63453,8 +63436,8 @@ impl PipelineTaskExecutorDetail {
     /// mutually exclusive.
     pub fn set_container_detail<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::pipeline_task_executor_detail::ContainerDetail>,
-        >,
+                std::boxed::Box<crate::model::pipeline_task_executor_detail::ContainerDetail>,
+            >,
     >(
         mut self,
         v: T,
@@ -63472,8 +63455,8 @@ impl PipelineTaskExecutorDetail {
     /// mutually exclusive.
     pub fn set_custom_job_detail<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::pipeline_task_executor_detail::CustomJobDetail>,
-        >,
+                std::boxed::Box<crate::model::pipeline_task_executor_detail::CustomJobDetail>,
+            >,
     >(
         mut self,
         v: T,
@@ -66127,8 +66110,8 @@ impl GenerateContentResponse {
     /// Sets the value of [prompt_feedback][crate::model::GenerateContentResponse::prompt_feedback].
     pub fn set_prompt_feedback<
         T: std::convert::Into<
-            std::option::Option<crate::model::generate_content_response::PromptFeedback>,
-        >,
+                std::option::Option<crate::model::generate_content_response::PromptFeedback>,
+            >,
     >(
         mut self,
         v: T,
@@ -66140,8 +66123,8 @@ impl GenerateContentResponse {
     /// Sets the value of [usage_metadata][crate::model::GenerateContentResponse::usage_metadata].
     pub fn set_usage_metadata<
         T: std::convert::Into<
-            std::option::Option<crate::model::generate_content_response::UsageMetadata>,
-        >,
+                std::option::Option<crate::model::generate_content_response::UsageMetadata>,
+            >,
     >(
         mut self,
         v: T,
@@ -66199,8 +66182,8 @@ pub mod generate_content_response {
         /// Sets the value of [block_reason][crate::model::generate_content_response::PromptFeedback::block_reason].
         pub fn set_block_reason<
             T: std::convert::Into<
-                crate::model::generate_content_response::prompt_feedback::BlockedReason,
-            >,
+                    crate::model::generate_content_response::prompt_feedback::BlockedReason,
+                >,
         >(
             mut self,
             v: T,
@@ -66585,8 +66568,10 @@ pub mod publisher_model {
         /// Sets the value of `reference`.
         pub fn set_reference<
             T: std::convert::Into<
-                std::option::Option<crate::model::publisher_model::resource_reference::Reference>,
-            >,
+                    std::option::Option<
+                        crate::model::publisher_model::resource_reference::Reference,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -66855,8 +66840,8 @@ pub mod publisher_model {
         /// Sets the value of [view_rest_api][crate::model::publisher_model::CallToAction::view_rest_api].
         pub fn set_view_rest_api<
             T: std::convert::Into<
-                std::option::Option<crate::model::publisher_model::call_to_action::ViewRestApi>,
-            >,
+                    std::option::Option<crate::model::publisher_model::call_to_action::ViewRestApi>,
+                >,
         >(
             mut self,
             v: T,
@@ -66868,10 +66853,10 @@ pub mod publisher_model {
         /// Sets the value of [open_notebook][crate::model::publisher_model::CallToAction::open_notebook].
         pub fn set_open_notebook<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::publisher_model::call_to_action::RegionalResourceReferences,
+                    std::option::Option<
+                        crate::model::publisher_model::call_to_action::RegionalResourceReferences,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -66883,8 +66868,10 @@ pub mod publisher_model {
         /// Sets the value of [open_notebooks][crate::model::publisher_model::CallToAction::open_notebooks].
         pub fn set_open_notebooks<
             T: std::convert::Into<
-                std::option::Option<crate::model::publisher_model::call_to_action::OpenNotebooks>,
-            >,
+                    std::option::Option<
+                        crate::model::publisher_model::call_to_action::OpenNotebooks,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -66896,10 +66883,10 @@ pub mod publisher_model {
         /// Sets the value of [create_application][crate::model::publisher_model::CallToAction::create_application].
         pub fn set_create_application<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::publisher_model::call_to_action::RegionalResourceReferences,
+                    std::option::Option<
+                        crate::model::publisher_model::call_to_action::RegionalResourceReferences,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -66911,10 +66898,10 @@ pub mod publisher_model {
         /// Sets the value of [open_fine_tuning_pipeline][crate::model::publisher_model::CallToAction::open_fine_tuning_pipeline].
         pub fn set_open_fine_tuning_pipeline<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::publisher_model::call_to_action::RegionalResourceReferences,
+                    std::option::Option<
+                        crate::model::publisher_model::call_to_action::RegionalResourceReferences,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -66926,10 +66913,10 @@ pub mod publisher_model {
         /// Sets the value of [open_fine_tuning_pipelines][crate::model::publisher_model::CallToAction::open_fine_tuning_pipelines].
         pub fn set_open_fine_tuning_pipelines<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::publisher_model::call_to_action::OpenFineTuningPipelines,
+                    std::option::Option<
+                        crate::model::publisher_model::call_to_action::OpenFineTuningPipelines,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -66941,10 +66928,10 @@ pub mod publisher_model {
         /// Sets the value of [open_prompt_tuning_pipeline][crate::model::publisher_model::CallToAction::open_prompt_tuning_pipeline].
         pub fn set_open_prompt_tuning_pipeline<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::publisher_model::call_to_action::RegionalResourceReferences,
+                    std::option::Option<
+                        crate::model::publisher_model::call_to_action::RegionalResourceReferences,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -66956,10 +66943,10 @@ pub mod publisher_model {
         /// Sets the value of [open_genie][crate::model::publisher_model::CallToAction::open_genie].
         pub fn set_open_genie<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::publisher_model::call_to_action::RegionalResourceReferences,
+                    std::option::Option<
+                        crate::model::publisher_model::call_to_action::RegionalResourceReferences,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -66971,8 +66958,8 @@ pub mod publisher_model {
         /// Sets the value of [deploy][crate::model::publisher_model::CallToAction::deploy].
         pub fn set_deploy<
             T: std::convert::Into<
-                std::option::Option<crate::model::publisher_model::call_to_action::Deploy>,
-            >,
+                    std::option::Option<crate::model::publisher_model::call_to_action::Deploy>,
+                >,
         >(
             mut self,
             v: T,
@@ -66984,8 +66971,8 @@ pub mod publisher_model {
         /// Sets the value of [deploy_gke][crate::model::publisher_model::CallToAction::deploy_gke].
         pub fn set_deploy_gke<
             T: std::convert::Into<
-                std::option::Option<crate::model::publisher_model::call_to_action::DeployGke>,
-            >,
+                    std::option::Option<crate::model::publisher_model::call_to_action::DeployGke>,
+                >,
         >(
             mut self,
             v: T,
@@ -66997,10 +66984,10 @@ pub mod publisher_model {
         /// Sets the value of [open_generation_ai_studio][crate::model::publisher_model::CallToAction::open_generation_ai_studio].
         pub fn set_open_generation_ai_studio<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::publisher_model::call_to_action::RegionalResourceReferences,
+                    std::option::Option<
+                        crate::model::publisher_model::call_to_action::RegionalResourceReferences,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -67012,10 +66999,10 @@ pub mod publisher_model {
         /// Sets the value of [request_access][crate::model::publisher_model::CallToAction::request_access].
         pub fn set_request_access<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::publisher_model::call_to_action::RegionalResourceReferences,
+                    std::option::Option<
+                        crate::model::publisher_model::call_to_action::RegionalResourceReferences,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -67027,10 +67014,10 @@ pub mod publisher_model {
         /// Sets the value of [open_evaluation_pipeline][crate::model::publisher_model::CallToAction::open_evaluation_pipeline].
         pub fn set_open_evaluation_pipeline<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::publisher_model::call_to_action::RegionalResourceReferences,
+                    std::option::Option<
+                        crate::model::publisher_model::call_to_action::RegionalResourceReferences,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -67212,8 +67199,8 @@ pub mod publisher_model {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<
-                    crate::model::publisher_model::call_to_action::RegionalResourceReferences,
-                >,
+                        crate::model::publisher_model::call_to_action::RegionalResourceReferences,
+                    >,
             {
                 use std::iter::Iterator;
                 self.notebooks = v.into_iter().map(|i| i.into()).collect();
@@ -67250,8 +67237,8 @@ pub mod publisher_model {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<
-                    crate::model::publisher_model::call_to_action::RegionalResourceReferences,
-                >,
+                        crate::model::publisher_model::call_to_action::RegionalResourceReferences,
+                    >,
             {
                 use std::iter::Iterator;
                 self.fine_tuning_pipelines = v.into_iter().map(|i| i.into()).collect();
@@ -67378,10 +67365,10 @@ pub mod publisher_model {
             /// Sets the value of [deploy_metadata][crate::model::publisher_model::call_to_action::Deploy::deploy_metadata].
             pub fn set_deploy_metadata<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::publisher_model::call_to_action::deploy::DeployMetadata,
+                        std::option::Option<
+                            crate::model::publisher_model::call_to_action::deploy::DeployMetadata,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -67406,16 +67393,8 @@ pub mod publisher_model {
             }
 
             /// Sets the value of `prediction_resources`.
-            pub fn set_prediction_resources<
-                T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::publisher_model::call_to_action::deploy::PredictionResources,
-                    >,
-                >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_prediction_resources<T: std::convert::Into<std::option::Option<crate::model::publisher_model::call_to_action::deploy::PredictionResources>>>(mut self, v: T) -> Self
+            {
                 self.prediction_resources = v.into();
                 self
             }
@@ -67896,8 +67875,8 @@ impl ReasoningEngineSpec {
     /// Sets the value of [deployment_spec][crate::model::ReasoningEngineSpec::deployment_spec].
     pub fn set_deployment_spec<
         T: std::convert::Into<
-            std::option::Option<crate::model::reasoning_engine_spec::DeploymentSpec>,
-        >,
+                std::option::Option<crate::model::reasoning_engine_spec::DeploymentSpec>,
+            >,
     >(
         mut self,
         v: T,
@@ -71373,8 +71352,8 @@ impl StudySpec {
     /// mutually exclusive.
     pub fn set_decay_curve_stopping_spec<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::study_spec::DecayCurveAutomatedStoppingSpec>,
-        >,
+                std::boxed::Box<crate::model::study_spec::DecayCurveAutomatedStoppingSpec>,
+            >,
     >(
         mut self,
         v: T,
@@ -71475,8 +71454,8 @@ pub mod study_spec {
         /// Sets the value of [safety_config][crate::model::study_spec::MetricSpec::safety_config].
         pub fn set_safety_config<
             T: std::convert::Into<
-                std::option::Option<crate::model::study_spec::metric_spec::SafetyMetricConfig>,
-            >,
+                    std::option::Option<crate::model::study_spec::metric_spec::SafetyMetricConfig>,
+                >,
         >(
             mut self,
             v: T,
@@ -71665,8 +71644,8 @@ pub mod study_spec {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::study_spec::parameter_spec::ConditionalParameterSpec,
-            >,
+                    crate::model::study_spec::parameter_spec::ConditionalParameterSpec,
+                >,
         {
             use std::iter::Iterator;
             self.conditional_parameter_specs = v.into_iter().map(|i| i.into()).collect();
@@ -71676,8 +71655,10 @@ pub mod study_spec {
         /// Sets the value of `parameter_value_spec`.
         pub fn set_parameter_value_spec<
             T: std::convert::Into<
-                std::option::Option<crate::model::study_spec::parameter_spec::ParameterValueSpec>,
-            >,
+                    std::option::Option<
+                        crate::model::study_spec::parameter_spec::ParameterValueSpec,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -71759,8 +71740,8 @@ pub mod study_spec {
         /// mutually exclusive.
         pub fn set_double_value_spec<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::study_spec::parameter_spec::DoubleValueSpec>,
-            >,
+                    std::boxed::Box<crate::model::study_spec::parameter_spec::DoubleValueSpec>,
+                >,
         >(
             mut self,
             v: T,
@@ -71780,8 +71761,8 @@ pub mod study_spec {
         /// mutually exclusive.
         pub fn set_integer_value_spec<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::study_spec::parameter_spec::IntegerValueSpec>,
-            >,
+                    std::boxed::Box<crate::model::study_spec::parameter_spec::IntegerValueSpec>,
+                >,
         >(
             mut self,
             v: T,
@@ -71801,8 +71782,8 @@ pub mod study_spec {
         /// mutually exclusive.
         pub fn set_categorical_value_spec<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::study_spec::parameter_spec::CategoricalValueSpec>,
-            >,
+                    std::boxed::Box<crate::model::study_spec::parameter_spec::CategoricalValueSpec>,
+                >,
         >(
             mut self,
             v: T,
@@ -71822,8 +71803,8 @@ pub mod study_spec {
         /// mutually exclusive.
         pub fn set_discrete_value_spec<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::study_spec::parameter_spec::DiscreteValueSpec>,
-            >,
+                    std::boxed::Box<crate::model::study_spec::parameter_spec::DiscreteValueSpec>,
+                >,
         >(
             mut self,
             v: T,
@@ -72096,8 +72077,10 @@ pub mod study_spec {
             /// Sets the value of [parameter_spec][crate::model::study_spec::parameter_spec::ConditionalParameterSpec::parameter_spec].
             pub fn set_parameter_spec<
                 T: std::convert::Into<
-                    std::option::Option<std::boxed::Box<crate::model::study_spec::ParameterSpec>>,
-                >,
+                        std::option::Option<
+                            std::boxed::Box<crate::model::study_spec::ParameterSpec>,
+                        >,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -77958,8 +77941,10 @@ pub mod rag_retrieval_config {
         /// Sets the value of `vector_db_threshold`.
         pub fn set_vector_db_threshold<
             T: std::convert::Into<
-                std::option::Option<crate::model::rag_retrieval_config::filter::VectorDbThreshold>,
-            >,
+                    std::option::Option<
+                        crate::model::rag_retrieval_config::filter::VectorDbThreshold,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -78065,8 +78050,8 @@ pub mod rag_retrieval_config {
         /// Sets the value of `ranking_config`.
         pub fn set_ranking_config<
             T: std::convert::Into<
-                std::option::Option<crate::model::rag_retrieval_config::ranking::RankingConfig>,
-            >,
+                    std::option::Option<crate::model::rag_retrieval_config::ranking::RankingConfig>,
+                >,
         >(
             mut self,
             v: T,
@@ -78116,8 +78101,8 @@ pub mod rag_retrieval_config {
         /// mutually exclusive.
         pub fn set_rank_service<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::rag_retrieval_config::ranking::RankService>,
-            >,
+                    std::boxed::Box<crate::model::rag_retrieval_config::ranking::RankService>,
+                >,
         >(
             mut self,
             v: T,
@@ -78135,8 +78120,8 @@ pub mod rag_retrieval_config {
         /// mutually exclusive.
         pub fn set_llm_ranker<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::rag_retrieval_config::ranking::LlmRanker>,
-            >,
+                    std::boxed::Box<crate::model::rag_retrieval_config::ranking::LlmRanker>,
+                >,
         >(
             mut self,
             v: T,
@@ -81315,8 +81300,8 @@ impl RagEmbeddingModelConfig {
     /// Sets the value of `model_config`.
     pub fn set_model_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::rag_embedding_model_config::ModelConfig>,
-        >,
+                std::option::Option<crate::model::rag_embedding_model_config::ModelConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -81349,8 +81334,8 @@ impl RagEmbeddingModelConfig {
     /// mutually exclusive.
     pub fn set_vertex_prediction_endpoint<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::rag_embedding_model_config::VertexPredictionEndpoint>,
-        >,
+                std::boxed::Box<crate::model::rag_embedding_model_config::VertexPredictionEndpoint>,
+            >,
     >(
         mut self,
         v: T,
@@ -82427,8 +82412,8 @@ impl RagFileChunkingConfig {
     /// Sets the value of `chunking_config`.
     pub fn set_chunking_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::rag_file_chunking_config::ChunkingConfig>,
-        >,
+                std::option::Option<crate::model::rag_file_chunking_config::ChunkingConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -82461,8 +82446,8 @@ impl RagFileChunkingConfig {
     /// mutually exclusive.
     pub fn set_fixed_length_chunking<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::rag_file_chunking_config::FixedLengthChunking>,
-        >,
+                std::boxed::Box<crate::model::rag_file_chunking_config::FixedLengthChunking>,
+            >,
     >(
         mut self,
         v: T,
@@ -82809,8 +82794,8 @@ impl ImportRagFilesConfig {
     /// Sets the value of `import_source`.
     pub fn set_import_source<
         T: std::convert::Into<
-            std::option::Option<crate::model::import_rag_files_config::ImportSource>,
-        >,
+                std::option::Option<crate::model::import_rag_files_config::ImportSource>,
+            >,
     >(
         mut self,
         v: T,
@@ -82974,8 +82959,8 @@ impl ImportRagFilesConfig {
     /// Sets the value of `partial_failure_sink`.
     pub fn set_partial_failure_sink<
         T: std::convert::Into<
-            std::option::Option<crate::model::import_rag_files_config::PartialFailureSink>,
-        >,
+                std::option::Option<crate::model::import_rag_files_config::PartialFailureSink>,
+            >,
     >(
         mut self,
         v: T,
@@ -83635,8 +83620,8 @@ impl ImportRagFilesResponse {
     /// Sets the value of `partial_failure_sink`.
     pub fn set_partial_failure_sink<
         T: std::convert::Into<
-            std::option::Option<crate::model::import_rag_files_response::PartialFailureSink>,
-        >,
+                std::option::Option<crate::model::import_rag_files_response::PartialFailureSink>,
+            >,
     >(
         mut self,
         v: T,
@@ -84237,8 +84222,8 @@ impl RetrieveContextsRequest {
     /// Sets the value of `data_source`.
     pub fn set_data_source<
         T: std::convert::Into<
-            std::option::Option<crate::model::retrieve_contexts_request::DataSource>,
-        >,
+                std::option::Option<crate::model::retrieve_contexts_request::DataSource>,
+            >,
     >(
         mut self,
         v: T,
@@ -84271,8 +84256,8 @@ impl RetrieveContextsRequest {
     /// mutually exclusive.
     pub fn set_vertex_rag_store<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::retrieve_contexts_request::VertexRagStore>,
-        >,
+                std::boxed::Box<crate::model::retrieve_contexts_request::VertexRagStore>,
+            >,
     >(
         mut self,
         v: T,
@@ -84334,8 +84319,8 @@ pub mod retrieve_contexts_request {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::retrieve_contexts_request::vertex_rag_store::RagResource,
-            >,
+                    crate::model::retrieve_contexts_request::vertex_rag_store::RagResource,
+                >,
         {
             use std::iter::Iterator;
             self.rag_resources = v.into_iter().map(|i| i.into()).collect();
@@ -84829,8 +84814,8 @@ impl CorroborateContentRequest {
     /// Sets the value of [parameters][crate::model::CorroborateContentRequest::parameters].
     pub fn set_parameters<
         T: std::convert::Into<
-            std::option::Option<crate::model::corroborate_content_request::Parameters>,
-        >,
+                std::option::Option<crate::model::corroborate_content_request::Parameters>,
+            >,
     >(
         mut self,
         v: T,

@@ -73,8 +73,8 @@ impl DiscoverConnectionProfileRequest {
     /// Sets the value of `target`.
     pub fn set_target<
         T: std::convert::Into<
-            std::option::Option<crate::model::discover_connection_profile_request::Target>,
-        >,
+                std::option::Option<crate::model::discover_connection_profile_request::Target>,
+            >,
     >(
         mut self,
         v: T,
@@ -148,8 +148,8 @@ impl DiscoverConnectionProfileRequest {
     /// Sets the value of `hierarchy`.
     pub fn set_hierarchy<
         T: std::convert::Into<
-            std::option::Option<crate::model::discover_connection_profile_request::Hierarchy>,
-        >,
+                std::option::Option<crate::model::discover_connection_profile_request::Hierarchy>,
+            >,
     >(
         mut self,
         v: T,
@@ -211,8 +211,8 @@ impl DiscoverConnectionProfileRequest {
     /// Sets the value of `data_object`.
     pub fn set_data_object<
         T: std::convert::Into<
-            std::option::Option<crate::model::discover_connection_profile_request::DataObject>,
-        >,
+                std::option::Option<crate::model::discover_connection_profile_request::DataObject>,
+            >,
     >(
         mut self,
         v: T,
@@ -418,8 +418,8 @@ impl DiscoverConnectionProfileResponse {
     /// Sets the value of `data_object`.
     pub fn set_data_object<
         T: std::convert::Into<
-            std::option::Option<crate::model::discover_connection_profile_response::DataObject>,
-        >,
+                std::option::Option<crate::model::discover_connection_profile_response::DataObject>,
+            >,
     >(
         mut self,
         v: T,
@@ -3211,10 +3211,10 @@ impl ForwardSshTunnelConnectivity {
     /// Sets the value of `authentication_method`.
     pub fn set_authentication_method<
         T: std::convert::Into<
-            std::option::Option<
-                crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod,
+                std::option::Option<
+                    crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -3824,8 +3824,8 @@ impl PostgresqlSslConfig {
     /// Sets the value of `encryption_setting`.
     pub fn set_encryption_setting<
         T: std::convert::Into<
-            std::option::Option<crate::model::postgresql_ssl_config::EncryptionSetting>,
-        >,
+                std::option::Option<crate::model::postgresql_ssl_config::EncryptionSetting>,
+            >,
     >(
         mut self,
         v: T,
@@ -3875,8 +3875,8 @@ impl PostgresqlSslConfig {
     /// mutually exclusive.
     pub fn set_server_verification<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::postgresql_ssl_config::ServerVerification>,
-        >,
+                std::boxed::Box<crate::model::postgresql_ssl_config::ServerVerification>,
+            >,
     >(
         mut self,
         v: T,
@@ -3894,8 +3894,8 @@ impl PostgresqlSslConfig {
     /// mutually exclusive.
     pub fn set_server_and_client_verification<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::postgresql_ssl_config::ServerAndClientVerification>,
-        >,
+                std::boxed::Box<crate::model::postgresql_ssl_config::ServerAndClientVerification>,
+            >,
     >(
         mut self,
         v: T,
@@ -4777,8 +4777,8 @@ impl OracleSourceConfig {
     /// Sets the value of `large_objects_handling`.
     pub fn set_large_objects_handling<
         T: std::convert::Into<
-            std::option::Option<crate::model::oracle_source_config::LargeObjectsHandling>,
-        >,
+                std::option::Option<crate::model::oracle_source_config::LargeObjectsHandling>,
+            >,
     >(
         mut self,
         v: T,
@@ -5019,10 +5019,10 @@ pub mod oracle_source_config {
         /// Sets the value of `log_file_access`.
         pub fn set_log_file_access<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::oracle_source_config::binary_log_parser::LogFileAccess,
+                    std::option::Option<
+                        crate::model::oracle_source_config::binary_log_parser::LogFileAccess,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -5070,16 +5070,7 @@ pub mod oracle_source_config {
         ///
         /// Note that all the setters affecting `log_file_access` are
         /// mutually exclusive.
-        pub fn set_oracle_asm_log_file_access<
-            T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::oracle_source_config::binary_log_parser::OracleAsmLogFileAccess,
-                >,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_oracle_asm_log_file_access<T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::binary_log_parser::OracleAsmLogFileAccess>>>(mut self, v: T) -> Self{
             self.log_file_access = std::option::Option::Some(
                 crate::model::oracle_source_config::binary_log_parser::LogFileAccess::OracleAsmLogFileAccess(
                     v.into()
@@ -5095,10 +5086,10 @@ pub mod oracle_source_config {
         /// mutually exclusive.
         pub fn set_log_file_directories<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::oracle_source_config::binary_log_parser::LogFileDirectories,
+                    std::boxed::Box<
+                        crate::model::oracle_source_config::binary_log_parser::LogFileDirectories,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -6955,8 +6946,8 @@ impl BigQueryDestinationConfig {
     /// Sets the value of `dataset_config`.
     pub fn set_dataset_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::big_query_destination_config::DatasetConfig>,
-        >,
+                std::option::Option<crate::model::big_query_destination_config::DatasetConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -7006,8 +6997,8 @@ impl BigQueryDestinationConfig {
     /// mutually exclusive.
     pub fn set_single_target_dataset<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::big_query_destination_config::SingleTargetDataset>,
-        >,
+                std::boxed::Box<crate::model::big_query_destination_config::SingleTargetDataset>,
+            >,
     >(
         mut self,
         v: T,
@@ -7027,8 +7018,10 @@ impl BigQueryDestinationConfig {
     /// mutually exclusive.
     pub fn set_source_hierarchy_datasets<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::big_query_destination_config::SourceHierarchyDatasets>,
-        >,
+                std::boxed::Box<
+                    crate::model::big_query_destination_config::SourceHierarchyDatasets,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -7044,8 +7037,8 @@ impl BigQueryDestinationConfig {
     /// Sets the value of `write_mode`.
     pub fn set_write_mode<
         T: std::convert::Into<
-            std::option::Option<crate::model::big_query_destination_config::WriteMode>,
-        >,
+                std::option::Option<crate::model::big_query_destination_config::WriteMode>,
+            >,
     >(
         mut self,
         v: T,
@@ -7369,8 +7362,8 @@ impl DestinationConfig {
     /// Sets the value of `destination_stream_config`.
     pub fn set_destination_stream_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::destination_config::DestinationStreamConfig>,
-        >,
+                std::option::Option<crate::model::destination_config::DestinationStreamConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -7739,8 +7732,10 @@ pub mod stream {
         /// Sets the value of `excluded_objects`.
         pub fn set_excluded_objects<
             T: std::convert::Into<
-                std::option::Option<crate::model::stream::backfill_all_strategy::ExcludedObjects>,
-            >,
+                    std::option::Option<
+                        crate::model::stream::backfill_all_strategy::ExcludedObjects,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -8158,8 +8153,8 @@ impl SourceObjectIdentifier {
     /// Sets the value of `source_identifier`.
     pub fn set_source_identifier<
         T: std::convert::Into<
-            std::option::Option<crate::model::source_object_identifier::SourceIdentifier>,
-        >,
+                std::option::Option<crate::model::source_object_identifier::SourceIdentifier>,
+            >,
     >(
         mut self,
         v: T,
@@ -8243,8 +8238,8 @@ impl SourceObjectIdentifier {
     /// mutually exclusive.
     pub fn set_oracle_identifier<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::source_object_identifier::OracleObjectIdentifier>,
-        >,
+                std::boxed::Box<crate::model::source_object_identifier::OracleObjectIdentifier>,
+            >,
     >(
         mut self,
         v: T,
@@ -8262,8 +8257,8 @@ impl SourceObjectIdentifier {
     /// mutually exclusive.
     pub fn set_mysql_identifier<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::source_object_identifier::MysqlObjectIdentifier>,
-        >,
+                std::boxed::Box<crate::model::source_object_identifier::MysqlObjectIdentifier>,
+            >,
     >(
         mut self,
         v: T,
@@ -8281,8 +8276,8 @@ impl SourceObjectIdentifier {
     /// mutually exclusive.
     pub fn set_postgresql_identifier<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::source_object_identifier::PostgresqlObjectIdentifier>,
-        >,
+                std::boxed::Box<crate::model::source_object_identifier::PostgresqlObjectIdentifier>,
+            >,
     >(
         mut self,
         v: T,
@@ -8302,8 +8297,8 @@ impl SourceObjectIdentifier {
     /// mutually exclusive.
     pub fn set_sql_server_identifier<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::source_object_identifier::SqlServerObjectIdentifier>,
-        >,
+                std::boxed::Box<crate::model::source_object_identifier::SqlServerObjectIdentifier>,
+            >,
     >(
         mut self,
         v: T,
@@ -9321,8 +9316,10 @@ pub mod cdc_strategy {
         /// Sets the value of `position`.
         pub fn set_position<
             T: std::convert::Into<
-                std::option::Option<crate::model::cdc_strategy::specific_start_position::Position>,
-            >,
+                    std::option::Option<
+                        crate::model::cdc_strategy::specific_start_position::Position,
+                    >,
+                >,
         >(
             mut self,
             v: T,

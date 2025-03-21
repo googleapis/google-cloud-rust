@@ -979,8 +979,8 @@ impl IngestConversationsRequest {
     /// Sets the value of [conversation_config][crate::model::IngestConversationsRequest::conversation_config].
     pub fn set_conversation_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::ingest_conversations_request::ConversationConfig>,
-        >,
+                std::option::Option<crate::model::ingest_conversations_request::ConversationConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -1067,8 +1067,8 @@ impl IngestConversationsRequest {
     /// Sets the value of `object_config`.
     pub fn set_object_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::ingest_conversations_request::ObjectConfig>,
-        >,
+                std::option::Option<crate::model::ingest_conversations_request::ObjectConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -1101,8 +1101,8 @@ impl IngestConversationsRequest {
     /// mutually exclusive.
     pub fn set_transcript_object_config<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::ingest_conversations_request::TranscriptObjectConfig>,
-        >,
+                std::boxed::Box<crate::model::ingest_conversations_request::TranscriptObjectConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -1173,8 +1173,8 @@ pub mod ingest_conversations_request {
         /// Sets the value of [bucket_object_type][crate::model::ingest_conversations_request::GcsSource::bucket_object_type].
         pub fn set_bucket_object_type<
             T: std::convert::Into<
-                crate::model::ingest_conversations_request::gcs_source::BucketObjectType,
-            >,
+                    crate::model::ingest_conversations_request::gcs_source::BucketObjectType,
+                >,
         >(
             mut self,
             v: T,
@@ -1450,10 +1450,10 @@ impl IngestConversationsMetadata {
     /// Sets the value of [ingest_conversations_stats][crate::model::IngestConversationsMetadata::ingest_conversations_stats].
     pub fn set_ingest_conversations_stats<
         T: std::convert::Into<
-            std::option::Option<
-                crate::model::ingest_conversations_metadata::IngestConversationsStats,
+                std::option::Option<
+                    crate::model::ingest_conversations_metadata::IngestConversationsStats,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -2213,8 +2213,8 @@ impl ExportInsightsDataRequest {
     /// Sets the value of `destination`.
     pub fn set_destination<
         T: std::convert::Into<
-            std::option::Option<crate::model::export_insights_data_request::Destination>,
-        >,
+                std::option::Option<crate::model::export_insights_data_request::Destination>,
+            >,
     >(
         mut self,
         v: T,
@@ -2247,8 +2247,8 @@ impl ExportInsightsDataRequest {
     /// mutually exclusive.
     pub fn set_big_query_destination<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::export_insights_data_request::BigQueryDestination>,
-        >,
+                std::boxed::Box<crate::model::export_insights_data_request::BigQueryDestination>,
+            >,
     >(
         mut self,
         v: T,
@@ -3065,8 +3065,8 @@ impl ExportIssueModelRequest {
     /// Sets the value of `destination`.
     pub fn set_destination<
         T: std::convert::Into<
-            std::option::Option<crate::model::export_issue_model_request::Destination>,
-        >,
+                std::option::Option<crate::model::export_issue_model_request::Destination>,
+            >,
     >(
         mut self,
         v: T,
@@ -3099,8 +3099,8 @@ impl ExportIssueModelRequest {
     /// mutually exclusive.
     pub fn set_gcs_destination<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::export_issue_model_request::GcsDestination>,
-        >,
+                std::boxed::Box<crate::model::export_issue_model_request::GcsDestination>,
+            >,
     >(
         mut self,
         v: T,
@@ -4876,8 +4876,8 @@ impl Dimension {
     /// mutually exclusive.
     pub fn set_qa_question_answer_dimension_metadata<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::dimension::QaQuestionAnswerDimensionMetadata>,
-        >,
+                std::boxed::Box<crate::model::dimension::QaQuestionAnswerDimensionMetadata>,
+            >,
     >(
         mut self,
         v: T,
@@ -5559,8 +5559,8 @@ pub mod query_metrics_response {
         /// Sets the value of [total][crate::model::query_metrics_response::Slice::total].
         pub fn set_total<
             T: std::convert::Into<
-                std::option::Option<crate::model::query_metrics_response::slice::DataPoint>,
-            >,
+                    std::option::Option<crate::model::query_metrics_response::slice::DataPoint>,
+                >,
         >(
             mut self,
             v: T,
@@ -5572,8 +5572,8 @@ pub mod query_metrics_response {
         /// Sets the value of [time_series][crate::model::query_metrics_response::Slice::time_series].
         pub fn set_time_series<
             T: std::convert::Into<
-                std::option::Option<crate::model::query_metrics_response::slice::TimeSeries>,
-            >,
+                    std::option::Option<crate::model::query_metrics_response::slice::TimeSeries>,
+                >,
         >(
             mut self,
             v: T,
@@ -5646,10 +5646,10 @@ pub mod query_metrics_response {
             /// Sets the value of `measure`.
             pub fn set_measure<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::query_metrics_response::slice::data_point::Measure,
+                        std::option::Option<
+                            crate::model::query_metrics_response::slice::data_point::Measure,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -6693,9 +6693,7 @@ impl TuneQaScorecardRevisionMetadata {
     pub fn set_qa_question_dataset_validation_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<
-            crate::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetValidationResult,
-        >,
+        V: std::convert::Into<crate::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetValidationResult>
     {
         use std::iter::Iterator;
         self.qa_question_dataset_validation_results = v.into_iter().map(|i| i.into()).collect();
@@ -6707,8 +6705,8 @@ impl TuneQaScorecardRevisionMetadata {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<
-            crate::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetTuningMetrics,
-        >,
+                crate::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetTuningMetrics,
+            >,
     {
         use std::iter::Iterator;
         self.qa_question_dataset_tuning_metrics = v.into_iter().map(|i| i.into()).collect();
@@ -7665,8 +7663,8 @@ impl BulkUploadFeedbackLabelsRequest {
     /// Sets the value of `source`.
     pub fn set_source<
         T: std::convert::Into<
-            std::option::Option<crate::model::bulk_upload_feedback_labels_request::Source>,
-        >,
+                std::option::Option<crate::model::bulk_upload_feedback_labels_request::Source>,
+            >,
     >(
         mut self,
         v: T,
@@ -7699,8 +7697,8 @@ impl BulkUploadFeedbackLabelsRequest {
     /// mutually exclusive.
     pub fn set_gcs_source<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::bulk_upload_feedback_labels_request::GcsSource>,
-        >,
+                std::boxed::Box<crate::model::bulk_upload_feedback_labels_request::GcsSource>,
+            >,
     >(
         mut self,
         v: T,
@@ -7746,8 +7744,8 @@ pub mod bulk_upload_feedback_labels_request {
         /// Sets the value of [format][crate::model::bulk_upload_feedback_labels_request::GcsSource::format].
         pub fn set_format<
             T: std::convert::Into<
-                crate::model::bulk_upload_feedback_labels_request::gcs_source::Format,
-            >,
+                    crate::model::bulk_upload_feedback_labels_request::gcs_source::Format,
+                >,
         >(
             mut self,
             v: T,
@@ -7928,8 +7926,10 @@ impl BulkUploadFeedbackLabelsMetadata {
     /// Sets the value of [upload_stats][crate::model::BulkUploadFeedbackLabelsMetadata::upload_stats].
     pub fn set_upload_stats<
         T: std::convert::Into<
-            std::option::Option<crate::model::bulk_upload_feedback_labels_metadata::UploadStats>,
-        >,
+                std::option::Option<
+                    crate::model::bulk_upload_feedback_labels_metadata::UploadStats,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -8119,8 +8119,10 @@ impl BulkDownloadFeedbackLabelsRequest {
     /// Sets the value of `destination`.
     pub fn set_destination<
         T: std::convert::Into<
-            std::option::Option<crate::model::bulk_download_feedback_labels_request::Destination>,
-        >,
+                std::option::Option<
+                    crate::model::bulk_download_feedback_labels_request::Destination,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -8153,8 +8155,10 @@ impl BulkDownloadFeedbackLabelsRequest {
     /// mutually exclusive.
     pub fn set_gcs_destination<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::bulk_download_feedback_labels_request::GcsDestination>,
-        >,
+                std::boxed::Box<
+                    crate::model::bulk_download_feedback_labels_request::GcsDestination,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -8219,8 +8223,8 @@ pub mod bulk_download_feedback_labels_request {
         /// Sets the value of [format][crate::model::bulk_download_feedback_labels_request::GcsDestination::format].
         pub fn set_format<
             T: std::convert::Into<
-                crate::model::bulk_download_feedback_labels_request::gcs_destination::Format,
-            >,
+                    crate::model::bulk_download_feedback_labels_request::gcs_destination::Format,
+                >,
         >(
             mut self,
             v: T,
@@ -8485,10 +8489,10 @@ impl BulkDownloadFeedbackLabelsMetadata {
     /// Sets the value of [download_stats][crate::model::BulkDownloadFeedbackLabelsMetadata::download_stats].
     pub fn set_download_stats<
         T: std::convert::Into<
-            std::option::Option<
-                crate::model::bulk_download_feedback_labels_metadata::DownloadStats,
+                std::option::Option<
+                    crate::model::bulk_download_feedback_labels_metadata::DownloadStats,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -8814,8 +8818,8 @@ impl Conversation {
     /// Sets the value of [latest_summary][crate::model::Conversation::latest_summary].
     pub fn set_latest_summary<
         T: std::convert::Into<
-            std::option::Option<crate::model::ConversationSummarizationSuggestionData>,
-        >,
+                std::option::Option<crate::model::ConversationSummarizationSuggestionData>,
+            >,
     >(
         mut self,
         v: T,
@@ -9335,8 +9339,8 @@ pub mod conversation {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<
-                    crate::model::conversation::transcript::transcript_segment::WordInfo,
-                >,
+                        crate::model::conversation::transcript::transcript_segment::WordInfo,
+                    >,
             {
                 use std::iter::Iterator;
                 self.words = v.into_iter().map(|i| i.into()).collect();
@@ -10771,8 +10775,8 @@ impl AnnotationBoundary {
     /// Sets the value of `detailed_boundary`.
     pub fn set_detailed_boundary<
         T: std::convert::Into<
-            std::option::Option<crate::model::annotation_boundary::DetailedBoundary>,
-        >,
+                std::option::Option<crate::model::annotation_boundary::DetailedBoundary>,
+            >,
     >(
         mut self,
         v: T,
@@ -14137,8 +14141,8 @@ impl ConversationParticipant {
     /// Sets the value of `participant`.
     pub fn set_participant<
         T: std::convert::Into<
-            std::option::Option<crate::model::conversation_participant::Participant>,
-        >,
+                std::option::Option<crate::model::conversation_participant::Participant>,
+            >,
     >(
         mut self,
         v: T,
@@ -14486,8 +14490,8 @@ impl AnnotatorSelector {
     /// Sets the value of [summarization_config][crate::model::AnnotatorSelector::summarization_config].
     pub fn set_summarization_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::annotator_selector::SummarizationConfig>,
-        >,
+                std::option::Option<crate::model::annotator_selector::SummarizationConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -14569,10 +14573,10 @@ pub mod annotator_selector {
         /// Sets the value of `model_source`.
         pub fn set_model_source<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::annotator_selector::summarization_config::ModelSource,
+                    std::option::Option<
+                        crate::model::annotator_selector::summarization_config::ModelSource,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -14631,8 +14635,8 @@ pub mod annotator_selector {
         /// mutually exclusive.
         pub fn set_summarization_model<
             T: std::convert::Into<
-                crate::model::annotator_selector::summarization_config::SummarizationModel,
-            >,
+                    crate::model::annotator_selector::summarization_config::SummarizationModel,
+                >,
         >(
             mut self,
             v: T,
@@ -14754,8 +14758,10 @@ pub mod annotator_selector {
         /// Sets the value of `scorecard_source`.
         pub fn set_scorecard_source<
             T: std::convert::Into<
-                std::option::Option<crate::model::annotator_selector::qa_config::ScorecardSource>,
-            >,
+                    std::option::Option<
+                        crate::model::annotator_selector::qa_config::ScorecardSource,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -14788,8 +14794,8 @@ pub mod annotator_selector {
         /// mutually exclusive.
         pub fn set_scorecard_list<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::annotator_selector::qa_config::ScorecardList>,
-            >,
+                    std::boxed::Box<crate::model::annotator_selector::qa_config::ScorecardList>,
+                >,
         >(
             mut self,
             v: T,
@@ -15072,8 +15078,8 @@ pub mod qa_question {
         /// Sets the value of `value`.
         pub fn set_value<
             T: std::convert::Into<
-                std::option::Option<crate::model::qa_question::answer_choice::Value>,
-            >,
+                    std::option::Option<crate::model::qa_question::answer_choice::Value>,
+                >,
         >(
             mut self,
             v: T,

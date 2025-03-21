@@ -1012,8 +1012,8 @@ impl ReplicationStatus {
     /// Sets the value of `replication_status`.
     pub fn set_replication_status<
         T: std::convert::Into<
-            std::option::Option<crate::model::replication_status::ReplicationStatus>,
-        >,
+                std::option::Option<crate::model::replication_status::ReplicationStatus>,
+            >,
     >(
         mut self,
         v: T,
@@ -1180,8 +1180,8 @@ pub mod replication_status {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::replication_status::user_managed_status::ReplicaStatus,
-            >,
+                    crate::model::replication_status::user_managed_status::ReplicaStatus,
+                >,
         {
             use std::iter::Iterator;
             self.replicas = v.into_iter().map(|i| i.into()).collect();
@@ -1241,8 +1241,8 @@ pub mod replication_status {
             /// Sets the value of [customer_managed_encryption][crate::model::replication_status::user_managed_status::ReplicaStatus::customer_managed_encryption].
             pub fn set_customer_managed_encryption<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
-                >,
+                        std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
+                    >,
             >(
                 mut self,
                 v: T,

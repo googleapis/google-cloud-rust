@@ -2338,8 +2338,8 @@ impl IamPolicyAnalysisQuery {
     /// Sets the value of [resource_selector][crate::model::IamPolicyAnalysisQuery::resource_selector].
     pub fn set_resource_selector<
         T: std::convert::Into<
-            std::option::Option<crate::model::iam_policy_analysis_query::ResourceSelector>,
-        >,
+                std::option::Option<crate::model::iam_policy_analysis_query::ResourceSelector>,
+            >,
     >(
         mut self,
         v: T,
@@ -2351,8 +2351,8 @@ impl IamPolicyAnalysisQuery {
     /// Sets the value of [identity_selector][crate::model::IamPolicyAnalysisQuery::identity_selector].
     pub fn set_identity_selector<
         T: std::convert::Into<
-            std::option::Option<crate::model::iam_policy_analysis_query::IdentitySelector>,
-        >,
+                std::option::Option<crate::model::iam_policy_analysis_query::IdentitySelector>,
+            >,
     >(
         mut self,
         v: T,
@@ -2364,8 +2364,8 @@ impl IamPolicyAnalysisQuery {
     /// Sets the value of [access_selector][crate::model::IamPolicyAnalysisQuery::access_selector].
     pub fn set_access_selector<
         T: std::convert::Into<
-            std::option::Option<crate::model::iam_policy_analysis_query::AccessSelector>,
-        >,
+                std::option::Option<crate::model::iam_policy_analysis_query::AccessSelector>,
+            >,
     >(
         mut self,
         v: T,
@@ -2388,8 +2388,8 @@ impl IamPolicyAnalysisQuery {
     /// Sets the value of [condition_context][crate::model::IamPolicyAnalysisQuery::condition_context].
     pub fn set_condition_context<
         T: std::convert::Into<
-            std::option::Option<crate::model::iam_policy_analysis_query::ConditionContext>,
-        >,
+                std::option::Option<crate::model::iam_policy_analysis_query::ConditionContext>,
+            >,
     >(
         mut self,
         v: T,
@@ -2730,10 +2730,10 @@ pub mod iam_policy_analysis_query {
         /// Sets the value of `time_context`.
         pub fn set_time_context<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::iam_policy_analysis_query::condition_context::TimeContext,
+                    std::option::Option<
+                        crate::model::iam_policy_analysis_query::condition_context::TimeContext,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -2923,8 +2923,8 @@ impl AnalyzeIamPolicyResponse {
     /// Sets the value of [main_analysis][crate::model::AnalyzeIamPolicyResponse::main_analysis].
     pub fn set_main_analysis<
         T: std::convert::Into<
-            std::option::Option<crate::model::analyze_iam_policy_response::IamPolicyAnalysis>,
-        >,
+                std::option::Option<crate::model::analyze_iam_policy_response::IamPolicyAnalysis>,
+            >,
     >(
         mut self,
         v: T,
@@ -3064,8 +3064,8 @@ impl IamPolicyAnalysisOutputConfig {
     /// Sets the value of `destination`.
     pub fn set_destination<
         T: std::convert::Into<
-            std::option::Option<crate::model::iam_policy_analysis_output_config::Destination>,
-        >,
+                std::option::Option<crate::model::iam_policy_analysis_output_config::Destination>,
+            >,
     >(
         mut self,
         v: T,
@@ -3115,8 +3115,8 @@ impl IamPolicyAnalysisOutputConfig {
     /// mutually exclusive.
     pub fn set_gcs_destination<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::iam_policy_analysis_output_config::GcsDestination>,
-        >,
+                std::boxed::Box<crate::model::iam_policy_analysis_output_config::GcsDestination>,
+            >,
     >(
         mut self,
         v: T,
@@ -3134,8 +3134,10 @@ impl IamPolicyAnalysisOutputConfig {
     /// mutually exclusive.
     pub fn set_bigquery_destination<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::iam_policy_analysis_output_config::BigQueryDestination>,
-        >,
+                std::boxed::Box<
+                    crate::model::iam_policy_analysis_output_config::BigQueryDestination,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -3620,8 +3622,8 @@ pub mod saved_query {
         /// Sets the value of `query_content`.
         pub fn set_query_content<
             T: std::convert::Into<
-                std::option::Option<crate::model::saved_query::query_content::QueryContent>,
-            >,
+                    std::option::Option<crate::model::saved_query::query_content::QueryContent>,
+                >,
         >(
             mut self,
             v: T,
@@ -4389,8 +4391,8 @@ impl QueryAssetsOutputConfig {
     /// Sets the value of [bigquery_destination][crate::model::QueryAssetsOutputConfig::bigquery_destination].
     pub fn set_bigquery_destination<
         T: std::convert::Into<
-            std::option::Option<crate::model::query_assets_output_config::BigQueryDestination>,
-        >,
+                std::option::Option<crate::model::query_assets_output_config::BigQueryDestination>,
+            >,
     >(
         mut self,
         v: T,
@@ -5216,8 +5218,8 @@ impl BatchGetEffectiveIamPoliciesResponse {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<
-            crate::model::batch_get_effective_iam_policies_response::EffectiveIamPolicy,
-        >,
+                crate::model::batch_get_effective_iam_policies_response::EffectiveIamPolicy,
+            >,
     {
         use std::iter::Iterator;
         self.policy_results = v.into_iter().map(|i| i.into()).collect();
@@ -5620,8 +5622,8 @@ pub mod analyzer_org_policy {
         /// mutually exclusive.
         pub fn set_values<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::analyzer_org_policy::rule::StringValues>,
-            >,
+                    std::boxed::Box<crate::model::analyzer_org_policy::rule::StringValues>,
+                >,
         >(
             mut self,
             v: T,
@@ -5769,8 +5771,10 @@ impl AnalyzerOrgPolicyConstraint {
     /// Sets the value of `constraint_definition`.
     pub fn set_constraint_definition<
         T: std::convert::Into<
-            std::option::Option<crate::model::analyzer_org_policy_constraint::ConstraintDefinition>,
-        >,
+                std::option::Option<
+                    crate::model::analyzer_org_policy_constraint::ConstraintDefinition,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -5816,8 +5820,8 @@ impl AnalyzerOrgPolicyConstraint {
     /// mutually exclusive.
     pub fn set_google_defined_constraint<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::analyzer_org_policy_constraint::Constraint>,
-        >,
+                std::boxed::Box<crate::model::analyzer_org_policy_constraint::Constraint>,
+            >,
     >(
         mut self,
         v: T,
@@ -5837,8 +5841,8 @@ impl AnalyzerOrgPolicyConstraint {
     /// mutually exclusive.
     pub fn set_custom_constraint<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::analyzer_org_policy_constraint::CustomConstraint>,
-        >,
+                std::boxed::Box<crate::model::analyzer_org_policy_constraint::CustomConstraint>,
+            >,
     >(
         mut self,
         v: T,
@@ -5928,8 +5932,8 @@ pub mod analyzer_org_policy_constraint {
         /// Sets the value of [constraint_default][crate::model::analyzer_org_policy_constraint::Constraint::constraint_default].
         pub fn set_constraint_default<
             T: std::convert::Into<
-                crate::model::analyzer_org_policy_constraint::constraint::ConstraintDefault,
-            >,
+                    crate::model::analyzer_org_policy_constraint::constraint::ConstraintDefault,
+                >,
         >(
             mut self,
             v: T,
@@ -5941,10 +5945,10 @@ pub mod analyzer_org_policy_constraint {
         /// Sets the value of `constraint_type`.
         pub fn set_constraint_type<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::analyzer_org_policy_constraint::constraint::ConstraintType,
+                    std::option::Option<
+                        crate::model::analyzer_org_policy_constraint::constraint::ConstraintType,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -5994,10 +5998,10 @@ pub mod analyzer_org_policy_constraint {
         /// mutually exclusive.
         pub fn set_list_constraint<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::analyzer_org_policy_constraint::constraint::ListConstraint,
+                    std::boxed::Box<
+                        crate::model::analyzer_org_policy_constraint::constraint::ListConstraint,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -6017,10 +6021,10 @@ pub mod analyzer_org_policy_constraint {
         /// mutually exclusive.
         pub fn set_boolean_constraint<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::analyzer_org_policy_constraint::constraint::BooleanConstraint,
+                    std::boxed::Box<
+                        crate::model::analyzer_org_policy_constraint::constraint::BooleanConstraint,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -6264,8 +6268,8 @@ pub mod analyzer_org_policy_constraint {
         /// Sets the value of [action_type][crate::model::analyzer_org_policy_constraint::CustomConstraint::action_type].
         pub fn set_action_type<
             T: std::convert::Into<
-                crate::model::analyzer_org_policy_constraint::custom_constraint::ActionType,
-            >,
+                    crate::model::analyzer_org_policy_constraint::custom_constraint::ActionType,
+                >,
         >(
             mut self,
             v: T,
@@ -6305,8 +6309,8 @@ pub mod analyzer_org_policy_constraint {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::analyzer_org_policy_constraint::custom_constraint::MethodType,
-            >,
+                    crate::model::analyzer_org_policy_constraint::custom_constraint::MethodType,
+                >,
         {
             use std::iter::Iterator;
             self.method_types = v.into_iter().map(|i| i.into()).collect();
@@ -6904,8 +6908,8 @@ impl AnalyzeOrgPolicyGovernedContainersResponse {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<
-            crate::model::analyze_org_policy_governed_containers_response::GovernedContainer,
-        >,
+                crate::model::analyze_org_policy_governed_containers_response::GovernedContainer,
+            >,
     {
         use std::iter::Iterator;
         self.governed_containers = v.into_iter().map(|i| i.into()).collect();
@@ -7258,8 +7262,8 @@ impl AnalyzeOrgPolicyGovernedAssetsResponse {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<
-            crate::model::analyze_org_policy_governed_assets_response::GovernedAsset,
-        >,
+                crate::model::analyze_org_policy_governed_assets_response::GovernedAsset,
+            >,
     {
         use std::iter::Iterator;
         self.governed_assets = v.into_iter().map(|i| i.into()).collect();
@@ -7644,10 +7648,10 @@ pub mod analyze_org_policy_governed_assets_response {
         /// mutually exclusive.
         pub fn set_governed_resource<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::analyze_org_policy_governed_assets_response::GovernedResource,
+                    std::boxed::Box<
+                        crate::model::analyze_org_policy_governed_assets_response::GovernedResource,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -7665,16 +7669,7 @@ pub mod analyze_org_policy_governed_assets_response {
         ///
         /// Note that all the setters affecting `governed_asset` are
         /// mutually exclusive.
-        pub fn set_governed_iam_policy<
-            T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy,
-                >,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_governed_iam_policy<T: std::convert::Into<std::boxed::Box<crate::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy>>>(mut self, v: T) -> Self{
             self.governed_asset = std::option::Option::Some(
                 crate::model::analyze_org_policy_governed_assets_response::governed_asset::GovernedAsset::GovernedIamPolicy(
                     v.into()
@@ -9686,8 +9681,8 @@ impl IamPolicySearchResult {
     /// Sets the value of [explanation][crate::model::IamPolicySearchResult::explanation].
     pub fn set_explanation<
         T: std::convert::Into<
-            std::option::Option<crate::model::iam_policy_search_result::Explanation>,
-        >,
+                std::option::Option<crate::model::iam_policy_search_result::Explanation>,
+            >,
     >(
         mut self,
         v: T,
@@ -10027,8 +10022,8 @@ impl IamPolicyAnalysisResult {
     /// Sets the value of [identity_list][crate::model::IamPolicyAnalysisResult::identity_list].
     pub fn set_identity_list<
         T: std::convert::Into<
-            std::option::Option<crate::model::iam_policy_analysis_result::IdentityList>,
-        >,
+                std::option::Option<crate::model::iam_policy_analysis_result::IdentityList>,
+            >,
     >(
         mut self,
         v: T,
@@ -10148,8 +10143,10 @@ pub mod iam_policy_analysis_result {
         /// Sets the value of `oneof_access`.
         pub fn set_oneof_access<
             T: std::convert::Into<
-                std::option::Option<crate::model::iam_policy_analysis_result::access::OneofAccess>,
-            >,
+                    std::option::Option<
+                        crate::model::iam_policy_analysis_result::access::OneofAccess,
+                    >,
+                >,
         >(
             mut self,
             v: T,

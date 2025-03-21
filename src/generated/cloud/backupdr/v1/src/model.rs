@@ -4217,8 +4217,8 @@ impl DataSourceGcpResource {
     /// Sets the value of `gcp_resource_properties`.
     pub fn set_gcp_resource_properties<
         T: std::convert::Into<
-            std::option::Option<crate::model::data_source_gcp_resource::GcpResourceProperties>,
-        >,
+                std::option::Option<crate::model::data_source_gcp_resource::GcpResourceProperties>,
+            >,
     >(
         mut self,
         v: T,
@@ -4468,8 +4468,8 @@ impl BackupApplianceLockInfo {
     /// Sets the value of `lock_source`.
     pub fn set_lock_source<
         T: std::convert::Into<
-            std::option::Option<crate::model::backup_appliance_lock_info::LockSource>,
-        >,
+                std::option::Option<crate::model::backup_appliance_lock_info::LockSource>,
+            >,
     >(
         mut self,
         v: T,
@@ -6530,8 +6530,8 @@ impl RestoreBackupRequest {
     /// Sets the value of `target_environment`.
     pub fn set_target_environment<
         T: std::convert::Into<
-            std::option::Option<crate::model::restore_backup_request::TargetEnvironment>,
-        >,
+                std::option::Option<crate::model::restore_backup_request::TargetEnvironment>,
+            >,
     >(
         mut self,
         v: T,
@@ -6575,8 +6575,8 @@ impl RestoreBackupRequest {
     /// Sets the value of `instance_properties`.
     pub fn set_instance_properties<
         T: std::convert::Into<
-            std::option::Option<crate::model::restore_backup_request::InstanceProperties>,
-        >,
+                std::option::Option<crate::model::restore_backup_request::InstanceProperties>,
+            >,
     >(
         mut self,
         v: T,
@@ -7424,16 +7424,7 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [private_ipv6_google_access][crate::model::ComputeInstanceRestoreProperties::private_ipv6_google_access].
-    pub fn set_private_ipv6_google_access<
-        T: std::convert::Into<
-            std::option::Option<
-                crate::model::compute_instance_restore_properties::InstancePrivateIpv6GoogleAccess,
-            >,
-        >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_private_ipv6_google_access<T: std::convert::Into<std::option::Option<crate::model::compute_instance_restore_properties::InstancePrivateIpv6GoogleAccess>>>(mut self, v: T) -> Self{
         self.private_ipv6_google_access = v.into();
         self
     }
@@ -9257,8 +9248,8 @@ impl Scheduling {
     /// Sets the value of [instance_termination_action][crate::model::Scheduling::instance_termination_action].
     pub fn set_instance_termination_action<
         T: std::convert::Into<
-            std::option::Option<crate::model::scheduling::InstanceTerminationAction>,
-        >,
+                std::option::Option<crate::model::scheduling::InstanceTerminationAction>,
+            >,
     >(
         mut self,
         v: T,
@@ -9338,8 +9329,8 @@ pub mod scheduling {
         /// Sets the value of [operator][crate::model::scheduling::NodeAffinity::operator].
         pub fn set_operator<
             T: std::convert::Into<
-                std::option::Option<crate::model::scheduling::node_affinity::Operator>,
-            >,
+                    std::option::Option<crate::model::scheduling::node_affinity::Operator>,
+                >,
         >(
             mut self,
             v: T,

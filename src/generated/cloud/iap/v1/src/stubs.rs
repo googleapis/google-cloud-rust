@@ -102,7 +102,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListTunnelDestGroupsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ListTunnelDestGroupsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::ListTunnelDestGroupsResponse>>(Err(
             Error::other("unimplemented"),
         ))

@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::credentials::dynamic::CredentialTrait;
-use crate::credentials::{Credential, Result, QUOTA_PROJECT_KEY};
+use crate::credentials::{Credential, QUOTA_PROJECT_KEY, Result};
 use crate::errors::CredentialError;
 use crate::token::{Token, TokenProvider};
 use http::header::{HeaderName, HeaderValue};

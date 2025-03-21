@@ -91,8 +91,9 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::EnumerateLicensedUsersRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::EnumerateLicensedUsersResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::EnumerateLicensedUsersResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::EnumerateLicensedUsersResponse>>(Err(
             Error::other("unimplemented"),
         ))

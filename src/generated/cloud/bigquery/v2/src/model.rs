@@ -3393,8 +3393,8 @@ impl ExternalDataConfiguration {
     /// Sets the value of [object_metadata][crate::model::ExternalDataConfiguration::object_metadata].
     pub fn set_object_metadata<
         T: std::convert::Into<
-            std::option::Option<crate::model::external_data_configuration::ObjectMetadata>,
-        >,
+                std::option::Option<crate::model::external_data_configuration::ObjectMetadata>,
+            >,
     >(
         mut self,
         v: T,
@@ -5235,8 +5235,8 @@ pub mod model {
         /// Sets the value of [aggregate_classification_metrics][crate::model::model::BinaryClassificationMetrics::aggregate_classification_metrics].
         pub fn set_aggregate_classification_metrics<
             T: std::convert::Into<
-                std::option::Option<crate::model::model::AggregateClassificationMetrics>,
-            >,
+                    std::option::Option<crate::model::model::AggregateClassificationMetrics>,
+                >,
         >(
             mut self,
             v: T,
@@ -5268,8 +5268,8 @@ pub mod model {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::model::binary_classification_metrics::BinaryConfusionMatrix,
-            >,
+                    crate::model::model::binary_classification_metrics::BinaryConfusionMatrix,
+                >,
         {
             use std::iter::Iterator;
             self.binary_confusion_matrix_list = v.into_iter().map(|i| i.into()).collect();
@@ -5466,8 +5466,8 @@ pub mod model {
         /// Sets the value of [aggregate_classification_metrics][crate::model::model::MultiClassClassificationMetrics::aggregate_classification_metrics].
         pub fn set_aggregate_classification_metrics<
             T: std::convert::Into<
-                std::option::Option<crate::model::model::AggregateClassificationMetrics>,
-            >,
+                    std::option::Option<crate::model::model::AggregateClassificationMetrics>,
+                >,
         >(
             mut self,
             v: T,
@@ -5481,8 +5481,8 @@ pub mod model {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::model::multi_class_classification_metrics::ConfusionMatrix,
-            >,
+                    crate::model::model::multi_class_classification_metrics::ConfusionMatrix,
+                >,
         {
             use std::iter::Iterator;
             self.confusion_matrix_list = v.into_iter().map(|i| i.into()).collect();
@@ -5539,9 +5539,7 @@ pub mod model {
             pub fn set_rows<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<
-                    crate::model::model::multi_class_classification_metrics::confusion_matrix::Row,
-                >,
+                V: std::convert::Into<crate::model::model::multi_class_classification_metrics::confusion_matrix::Row>
             {
                 use std::iter::Iterator;
                 self.rows = v.into_iter().map(|i| i.into()).collect();
@@ -5775,8 +5773,8 @@ pub mod model {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<
-                    crate::model::model::clustering_metrics::cluster::FeatureValue,
-                >,
+                        crate::model::model::clustering_metrics::cluster::FeatureValue,
+                    >,
             {
                 use std::iter::Iterator;
                 self.feature_values = v.into_iter().map(|i| i.into()).collect();
@@ -5827,16 +5825,8 @@ pub mod model {
                 }
 
                 /// Sets the value of `value`.
-                pub fn set_value<
-                    T: std::convert::Into<
-                        std::option::Option<
-                            crate::model::model::clustering_metrics::cluster::feature_value::Value,
-                        >,
-                    >,
-                >(
-                    mut self,
-                    v: T,
-                ) -> Self {
+                pub fn set_value<T: std::convert::Into<std::option::Option<crate::model::model::clustering_metrics::cluster::feature_value::Value>>>(mut self, v: T) -> Self
+                {
                     self.value = v.into();
                     self
                 }
@@ -6130,9 +6120,7 @@ pub mod model {
         pub fn set_arima_single_model_forecasting_metrics<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<
-                crate::model::model::arima_forecasting_metrics::ArimaSingleModelForecastingMetrics,
-            >,
+            V: std::convert::Into<crate::model::model::arima_forecasting_metrics::ArimaSingleModelForecastingMetrics>
         {
             use std::iter::Iterator;
             self.arima_single_model_forecasting_metrics = v.into_iter().map(|i| i.into()).collect();
@@ -6370,8 +6358,8 @@ pub mod model {
         /// Sets the value of `metrics`.
         pub fn set_metrics<
             T: std::convert::Into<
-                std::option::Option<crate::model::model::evaluation_metrics::Metrics>,
-            >,
+                    std::option::Option<crate::model::model::evaluation_metrics::Metrics>,
+                >,
         >(
             mut self,
             v: T,
@@ -6530,8 +6518,8 @@ pub mod model {
         /// mutually exclusive.
         pub fn set_multi_class_classification_metrics<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::model::MultiClassClassificationMetrics>,
-            >,
+                    std::boxed::Box<crate::model::model::MultiClassClassificationMetrics>,
+                >,
         >(
             mut self,
             v: T,
@@ -6602,8 +6590,8 @@ pub mod model {
         /// mutually exclusive.
         pub fn set_dimensionality_reduction_metrics<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::model::DimensionalityReductionMetrics>,
-            >,
+                    std::boxed::Box<crate::model::model::DimensionalityReductionMetrics>,
+                >,
         >(
             mut self,
             v: T,
@@ -7261,8 +7249,8 @@ pub mod model {
         /// Sets the value of [training_options][crate::model::model::TrainingRun::training_options].
         pub fn set_training_options<
             T: std::convert::Into<
-                std::option::Option<crate::model::model::training_run::TrainingOptions>,
-            >,
+                    std::option::Option<crate::model::model::training_run::TrainingOptions>,
+                >,
         >(
             mut self,
             v: T,
@@ -8034,8 +8022,8 @@ pub mod model {
             /// Sets the value of [dart_normalize_type][crate::model::model::training_run::TrainingOptions::dart_normalize_type].
             pub fn set_dart_normalize_type<
                 T: std::convert::Into<
-                    crate::model::model::boosted_tree_option_enums::DartNormalizeType,
-                >,
+                        crate::model::model::boosted_tree_option_enums::DartNormalizeType,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -8618,8 +8606,8 @@ pub mod model {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<
-                    crate::model::model::hparam_tuning_enums::HparamTuningObjective,
-                >,
+                        crate::model::model::hparam_tuning_enums::HparamTuningObjective,
+                    >,
             {
                 use std::iter::Iterator;
                 self.hparam_tuning_objectives = v.into_iter().map(|i| i.into()).collect();
@@ -8764,10 +8752,10 @@ pub mod model {
             /// Sets the value of [arima_result][crate::model::model::training_run::IterationResult::arima_result].
             pub fn set_arima_result<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::model::training_run::iteration_result::ArimaResult,
+                        std::option::Option<
+                            crate::model::model::training_run::iteration_result::ArimaResult,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -8781,8 +8769,8 @@ pub mod model {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<
-                    crate::model::model::training_run::iteration_result::ClusterInfo,
-                >,
+                        crate::model::model::training_run::iteration_result::ClusterInfo,
+                    >,
             {
                 use std::iter::Iterator;
                 self.cluster_infos = v.into_iter().map(|i| i.into()).collect();
@@ -8794,8 +8782,8 @@ pub mod model {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<
-                    crate::model::model::training_run::iteration_result::PrincipalComponentInfo,
-                >,
+                        crate::model::model::training_run::iteration_result::PrincipalComponentInfo,
+                    >,
             {
                 use std::iter::Iterator;
                 self.principal_component_infos = v.into_iter().map(|i| i.into()).collect();
@@ -9089,8 +9077,8 @@ pub mod model {
                     /// Sets the value of [arima_fitting_metrics][crate::model::model::training_run::iteration_result::arima_result::ArimaModelInfo::arima_fitting_metrics].
                     pub fn set_arima_fitting_metrics<
                         T: std::convert::Into<
-                            std::option::Option<crate::model::model::ArimaFittingMetrics>,
-                        >,
+                                std::option::Option<crate::model::model::ArimaFittingMetrics>,
+                            >,
                     >(
                         mut self,
                         v: T,
@@ -9168,8 +9156,8 @@ pub mod model {
                     where
                         T: std::iter::IntoIterator<Item = V>,
                         V: std::convert::Into<
-                            crate::model::model::seasonal_period::SeasonalPeriodType,
-                        >,
+                                crate::model::model::seasonal_period::SeasonalPeriodType,
+                            >,
                     {
                         use std::iter::Iterator;
                         self.seasonal_periods = v.into_iter().map(|i| i.into()).collect();
@@ -9290,8 +9278,10 @@ pub mod model {
         /// Sets the value of `search_space`.
         pub fn set_search_space<
             T: std::convert::Into<
-                std::option::Option<crate::model::model::double_hparam_search_space::SearchSpace>,
-            >,
+                    std::option::Option<
+                        crate::model::model::double_hparam_search_space::SearchSpace,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -9341,8 +9331,8 @@ pub mod model {
         /// mutually exclusive.
         pub fn set_range<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::model::double_hparam_search_space::DoubleRange>,
-            >,
+                    std::boxed::Box<crate::model::model::double_hparam_search_space::DoubleRange>,
+                >,
         >(
             mut self,
             v: T,
@@ -9360,8 +9350,10 @@ pub mod model {
         /// mutually exclusive.
         pub fn set_candidates<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::model::double_hparam_search_space::DoubleCandidates>,
-            >,
+                    std::boxed::Box<
+                        crate::model::model::double_hparam_search_space::DoubleCandidates,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -9497,8 +9489,8 @@ pub mod model {
         /// Sets the value of `search_space`.
         pub fn set_search_space<
             T: std::convert::Into<
-                std::option::Option<crate::model::model::int_hparam_search_space::SearchSpace>,
-            >,
+                    std::option::Option<crate::model::model::int_hparam_search_space::SearchSpace>,
+                >,
         >(
             mut self,
             v: T,
@@ -9548,8 +9540,8 @@ pub mod model {
         /// mutually exclusive.
         pub fn set_range<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::model::int_hparam_search_space::IntRange>,
-            >,
+                    std::boxed::Box<crate::model::model::int_hparam_search_space::IntRange>,
+                >,
         >(
             mut self,
             v: T,
@@ -9567,8 +9559,8 @@ pub mod model {
         /// mutually exclusive.
         pub fn set_candidates<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::model::int_hparam_search_space::IntCandidates>,
-            >,
+                    std::boxed::Box<crate::model::model::int_hparam_search_space::IntCandidates>,
+                >,
         >(
             mut self,
             v: T,
@@ -10228,8 +10220,8 @@ pub mod model {
         /// Sets the value of [hparams][crate::model::model::HparamTuningTrial::hparams].
         pub fn set_hparams<
             T: std::convert::Into<
-                std::option::Option<crate::model::model::training_run::TrainingOptions>,
-            >,
+                    std::option::Option<crate::model::model::training_run::TrainingOptions>,
+                >,
         >(
             mut self,
             v: T,
@@ -12143,8 +12135,8 @@ impl JoinRestrictionPolicy {
     /// Sets the value of [join_condition][crate::model::JoinRestrictionPolicy::join_condition].
     pub fn set_join_condition<
         T: std::convert::Into<
-            std::option::Option<crate::model::join_restriction_policy::JoinCondition>,
-        >,
+                std::option::Option<crate::model::join_restriction_policy::JoinCondition>,
+            >,
     >(
         mut self,
         v: T,

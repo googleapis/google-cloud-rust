@@ -140,10 +140,10 @@ pub mod check_onboarding_status_response {
         /// Sets the value of `finding_type`.
         pub fn set_finding_type<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::check_onboarding_status_response::finding::FindingType,
+                    std::option::Option<
+                        crate::model::check_onboarding_status_response::finding::FindingType,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -176,10 +176,10 @@ pub mod check_onboarding_status_response {
         /// mutually exclusive.
         pub fn set_iam_access_denied<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::check_onboarding_status_response::finding::IAMAccessDenied,
+                    std::boxed::Box<
+                        crate::model::check_onboarding_status_response::finding::IAMAccessDenied,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -395,8 +395,8 @@ impl Entitlement {
     /// Sets the value of [requester_justification_config][crate::model::Entitlement::requester_justification_config].
     pub fn set_requester_justification_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::entitlement::RequesterJustificationConfig>,
-        >,
+                std::option::Option<crate::model::entitlement::RequesterJustificationConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -408,8 +408,8 @@ impl Entitlement {
     /// Sets the value of [additional_notification_targets][crate::model::Entitlement::additional_notification_targets].
     pub fn set_additional_notification_targets<
         T: std::convert::Into<
-            std::option::Option<crate::model::entitlement::AdditionalNotificationTargets>,
-        >,
+                std::option::Option<crate::model::entitlement::AdditionalNotificationTargets>,
+            >,
     >(
         mut self,
         v: T,
@@ -468,16 +468,8 @@ pub mod entitlement {
         }
 
         /// Sets the value of `justification_type`.
-        pub fn set_justification_type<
-            T: std::convert::Into<
-                std::option::Option<
-                    crate::model::entitlement::requester_justification_config::JustificationType,
-                >,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_justification_type<T: std::convert::Into<std::option::Option<crate::model::entitlement::requester_justification_config::JustificationType>>>(mut self, v: T) -> Self
+        {
             self.justification_type = v.into();
             self
         }
@@ -523,10 +515,10 @@ pub mod entitlement {
         /// mutually exclusive.
         pub fn set_not_mandatory<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::entitlement::requester_justification_config::NotMandatory,
+                    std::boxed::Box<
+                        crate::model::entitlement::requester_justification_config::NotMandatory,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -546,10 +538,10 @@ pub mod entitlement {
         /// mutually exclusive.
         pub fn set_unstructured<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::entitlement::requester_justification_config::Unstructured,
+                    std::boxed::Box<
+                        crate::model::entitlement::requester_justification_config::Unstructured,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -2038,8 +2030,8 @@ pub mod grant {
             /// Sets the value of `event`.
             pub fn set_event<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::grant::timeline::event::Event>,
-                >,
+                        std::option::Option<crate::model::grant::timeline::event::Event>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -2220,8 +2212,8 @@ pub mod grant {
             /// mutually exclusive.
             pub fn set_requested<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::grant::timeline::event::Requested>,
-                >,
+                        std::boxed::Box<crate::model::grant::timeline::event::Requested>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -2290,8 +2282,8 @@ pub mod grant {
             /// mutually exclusive.
             pub fn set_scheduled<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::grant::timeline::event::Scheduled>,
-                >,
+                        std::boxed::Box<crate::model::grant::timeline::event::Scheduled>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -2309,8 +2301,8 @@ pub mod grant {
             /// mutually exclusive.
             pub fn set_activated<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::grant::timeline::event::Activated>,
-                >,
+                        std::boxed::Box<crate::model::grant::timeline::event::Activated>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -2328,8 +2320,8 @@ pub mod grant {
             /// mutually exclusive.
             pub fn set_activation_failed<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::grant::timeline::event::ActivationFailed>,
-                >,
+                        std::boxed::Box<crate::model::grant::timeline::event::ActivationFailed>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -2381,8 +2373,8 @@ pub mod grant {
             /// mutually exclusive.
             pub fn set_externally_modified<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::grant::timeline::event::ExternallyModified>,
-                >,
+                        std::boxed::Box<crate::model::grant::timeline::event::ExternallyModified>,
+                    >,
             >(
                 mut self,
                 v: T,

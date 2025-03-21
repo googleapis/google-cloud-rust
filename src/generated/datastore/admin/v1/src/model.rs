@@ -1495,8 +1495,8 @@ impl MigrationProgressEvent {
     /// Sets the value of `step_details`.
     pub fn set_step_details<
         T: std::convert::Into<
-            std::option::Option<crate::model::migration_progress_event::StepDetails>,
-        >,
+                std::option::Option<crate::model::migration_progress_event::StepDetails>,
+            >,
     >(
         mut self,
         v: T,
@@ -1546,8 +1546,8 @@ impl MigrationProgressEvent {
     /// mutually exclusive.
     pub fn set_prepare_step_details<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::migration_progress_event::PrepareStepDetails>,
-        >,
+                std::boxed::Box<crate::model::migration_progress_event::PrepareStepDetails>,
+            >,
     >(
         mut self,
         v: T,
@@ -1565,8 +1565,8 @@ impl MigrationProgressEvent {
     /// mutually exclusive.
     pub fn set_redirect_writes_step_details<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::migration_progress_event::RedirectWritesStepDetails>,
-        >,
+                std::boxed::Box<crate::model::migration_progress_event::RedirectWritesStepDetails>,
+            >,
     >(
         mut self,
         v: T,

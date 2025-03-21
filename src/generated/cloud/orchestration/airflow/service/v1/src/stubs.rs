@@ -105,8 +105,9 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ExecuteAirflowCommandRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ExecuteAirflowCommandResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ExecuteAirflowCommandResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ExecuteAirflowCommandResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -331,7 +332,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -411,7 +412,7 @@ pub trait ImageVersions: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))

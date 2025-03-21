@@ -604,8 +604,8 @@ impl DataMaskingPolicy {
     /// Sets the value of `masking_expression`.
     pub fn set_masking_expression<
         T: std::convert::Into<
-            std::option::Option<crate::model::data_masking_policy::MaskingExpression>,
-        >,
+                std::option::Option<crate::model::data_masking_policy::MaskingExpression>,
+            >,
     >(
         mut self,
         v: T,

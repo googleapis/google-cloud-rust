@@ -2599,8 +2599,8 @@ pub mod dependency {
         /// Sets the value of `repotype`.
         pub fn set_repotype<
             T: std::convert::Into<
-                std::option::Option<crate::model::dependency::git_source_repository::Repotype>,
-            >,
+                    std::option::Option<crate::model::dependency::git_source_repository::Repotype>,
+                >,
         >(
             mut self,
             v: T,
@@ -7871,8 +7871,8 @@ impl PrivatePoolV1Config {
     /// Sets the value of [worker_config][crate::model::PrivatePoolV1Config::worker_config].
     pub fn set_worker_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::private_pool_v_1_config::WorkerConfig>,
-        >,
+                std::option::Option<crate::model::private_pool_v_1_config::WorkerConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -7884,8 +7884,8 @@ impl PrivatePoolV1Config {
     /// Sets the value of [network_config][crate::model::PrivatePoolV1Config::network_config].
     pub fn set_network_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::private_pool_v_1_config::NetworkConfig>,
-        >,
+                std::option::Option<crate::model::private_pool_v_1_config::NetworkConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -7897,8 +7897,8 @@ impl PrivatePoolV1Config {
     /// Sets the value of [private_service_connect][crate::model::PrivatePoolV1Config::private_service_connect].
     pub fn set_private_service_connect<
         T: std::convert::Into<
-            std::option::Option<crate::model::private_pool_v_1_config::PrivateServiceConnect>,
-        >,
+                std::option::Option<crate::model::private_pool_v_1_config::PrivateServiceConnect>,
+            >,
     >(
         mut self,
         v: T,

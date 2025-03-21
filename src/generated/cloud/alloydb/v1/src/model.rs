@@ -902,8 +902,8 @@ impl AutomatedBackupPolicy {
     /// mutually exclusive.
     pub fn set_time_based_retention<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::automated_backup_policy::TimeBasedRetention>,
-        >,
+                std::boxed::Box<crate::model::automated_backup_policy::TimeBasedRetention>,
+            >,
     >(
         mut self,
         v: T,
@@ -921,8 +921,8 @@ impl AutomatedBackupPolicy {
     /// mutually exclusive.
     pub fn set_quantity_based_retention<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::automated_backup_policy::QuantityBasedRetention>,
-        >,
+                std::boxed::Box<crate::model::automated_backup_policy::QuantityBasedRetention>,
+            >,
     >(
         mut self,
         v: T,
@@ -2668,8 +2668,8 @@ impl Instance {
     /// Sets the value of [query_insights_config][crate::model::Instance::query_insights_config].
     pub fn set_query_insights_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::instance::QueryInsightsInstanceConfig>,
-        >,
+                std::option::Option<crate::model::instance::QueryInsightsInstanceConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -3168,8 +3168,8 @@ pub mod instance {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::instance::instance_network_config::AuthorizedNetwork,
-            >,
+                    crate::model::instance::instance_network_config::AuthorizedNetwork,
+                >,
         {
             use std::iter::Iterator;
             self.authorized_external_networks = v.into_iter().map(|i| i.into()).collect();
@@ -4129,8 +4129,8 @@ impl SupportedDatabaseFlag {
     /// Sets the value of `restrictions`.
     pub fn set_restrictions<
         T: std::convert::Into<
-            std::option::Option<crate::model::supported_database_flag::Restrictions>,
-        >,
+                std::option::Option<crate::model::supported_database_flag::Restrictions>,
+            >,
     >(
         mut self,
         v: T,
@@ -4180,8 +4180,8 @@ impl SupportedDatabaseFlag {
     /// mutually exclusive.
     pub fn set_string_restrictions<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::supported_database_flag::StringRestrictions>,
-        >,
+                std::boxed::Box<crate::model::supported_database_flag::StringRestrictions>,
+            >,
     >(
         mut self,
         v: T,
@@ -4199,8 +4199,8 @@ impl SupportedDatabaseFlag {
     /// mutually exclusive.
     pub fn set_integer_restrictions<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::supported_database_flag::IntegerRestrictions>,
-        >,
+                std::boxed::Box<crate::model::supported_database_flag::IntegerRestrictions>,
+            >,
     >(
         mut self,
         v: T,

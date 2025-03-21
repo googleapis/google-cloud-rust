@@ -5403,8 +5403,8 @@ impl OperationMetadataV1 {
     /// Sets the value of `method_metadata`.
     pub fn set_method_metadata<
         T: std::convert::Into<
-            std::option::Option<crate::model::operation_metadata_v_1::MethodMetadata>,
-        >,
+                std::option::Option<crate::model::operation_metadata_v_1::MethodMetadata>,
+            >,
     >(
         mut self,
         v: T,

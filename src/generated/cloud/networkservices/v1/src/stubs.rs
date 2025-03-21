@@ -107,8 +107,9 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListLbRouteExtensionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListLbRouteExtensionsResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListLbRouteExtensionsResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListLbRouteExtensionsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -225,7 +226,7 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -302,7 +303,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListEndpointPoliciesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ListEndpointPoliciesResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::ListEndpointPoliciesResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -817,7 +818,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))

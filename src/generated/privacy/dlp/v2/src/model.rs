@@ -113,8 +113,8 @@ impl ExcludeByHotword {
     /// Sets the value of [proximity][crate::model::ExcludeByHotword::proximity].
     pub fn set_proximity<
         T: std::convert::Into<
-            std::option::Option<crate::model::custom_info_type::detection_rule::Proximity>,
-        >,
+                std::option::Option<crate::model::custom_info_type::detection_rule::Proximity>,
+            >,
     >(
         mut self,
         v: T,
@@ -380,8 +380,8 @@ impl InspectionRule {
     /// mutually exclusive.
     pub fn set_hotword_rule<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::custom_info_type::detection_rule::HotwordRule>,
-        >,
+                std::boxed::Box<crate::model::custom_info_type::detection_rule::HotwordRule>,
+            >,
     >(
         mut self,
         v: T,
@@ -2460,10 +2460,10 @@ pub mod redact_image_request {
         /// Sets the value of `target`.
         pub fn set_target<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::redact_image_request::image_redaction_config::Target,
+                    std::option::Option<
+                        crate::model::redact_image_request::image_redaction_config::Target,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -3433,8 +3433,8 @@ impl InspectDataSourceDetails {
     /// Sets the value of [requested_options][crate::model::InspectDataSourceDetails::requested_options].
     pub fn set_requested_options<
         T: std::convert::Into<
-            std::option::Option<crate::model::inspect_data_source_details::RequestedOptions>,
-        >,
+                std::option::Option<crate::model::inspect_data_source_details::RequestedOptions>,
+            >,
     >(
         mut self,
         v: T,
@@ -3619,8 +3619,8 @@ impl DataProfileBigQueryRowSchema {
     /// Sets the value of `data_profile`.
     pub fn set_data_profile<
         T: std::convert::Into<
-            std::option::Option<crate::model::data_profile_big_query_row_schema::DataProfile>,
-        >,
+                std::option::Option<crate::model::data_profile_big_query_row_schema::DataProfile>,
+            >,
     >(
         mut self,
         v: T,
@@ -3967,10 +3967,10 @@ impl DeidentifyDataSourceDetails {
     /// Sets the value of [requested_options][crate::model::DeidentifyDataSourceDetails::requested_options].
     pub fn set_requested_options<
         T: std::convert::Into<
-            std::option::Option<
-                crate::model::deidentify_data_source_details::RequestedDeidentifyOptions,
+                std::option::Option<
+                    crate::model::deidentify_data_source_details::RequestedDeidentifyOptions,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -5481,8 +5481,8 @@ impl PrivacyMetric {
     /// mutually exclusive.
     pub fn set_delta_presence_estimation_config<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::privacy_metric::DeltaPresenceEstimationConfig>,
-        >,
+                std::boxed::Box<crate::model::privacy_metric::DeltaPresenceEstimationConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -5733,8 +5733,8 @@ pub mod privacy_metric {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::privacy_metric::k_map_estimation_config::TaggedField,
-            >,
+                    crate::model::privacy_metric::k_map_estimation_config::TaggedField,
+                >,
         {
             use std::iter::Iterator;
             self.quasi_ids = v.into_iter().map(|i| i.into()).collect();
@@ -5746,8 +5746,8 @@ pub mod privacy_metric {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::privacy_metric::k_map_estimation_config::AuxiliaryTable,
-            >,
+                    crate::model::privacy_metric::k_map_estimation_config::AuxiliaryTable,
+                >,
         {
             use std::iter::Iterator;
             self.auxiliary_tables = v.into_iter().map(|i| i.into()).collect();
@@ -5800,16 +5800,8 @@ pub mod privacy_metric {
             }
 
             /// Sets the value of `tag`.
-            pub fn set_tag<
-                T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::privacy_metric::k_map_estimation_config::tagged_field::Tag,
-                    >,
-                >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_tag<T: std::convert::Into<std::option::Option<crate::model::privacy_metric::k_map_estimation_config::tagged_field::Tag>>>(mut self, v: T) -> Self
+            {
                 self.tag = v.into();
                 self
             }
@@ -6208,10 +6200,10 @@ impl AnalyzeDataSourceRiskDetails {
     /// Sets the value of [requested_options][crate::model::AnalyzeDataSourceRiskDetails::requested_options].
     pub fn set_requested_options<
         T: std::convert::Into<
-            std::option::Option<
-                crate::model::analyze_data_source_risk_details::RequestedRiskAnalysisOptions,
+                std::option::Option<
+                    crate::model::analyze_data_source_risk_details::RequestedRiskAnalysisOptions,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -6223,8 +6215,8 @@ impl AnalyzeDataSourceRiskDetails {
     /// Sets the value of `result`.
     pub fn set_result<
         T: std::convert::Into<
-            std::option::Option<crate::model::analyze_data_source_risk_details::Result>,
-        >,
+                std::option::Option<crate::model::analyze_data_source_risk_details::Result>,
+            >,
     >(
         mut self,
         v: T,
@@ -6342,8 +6334,10 @@ impl AnalyzeDataSourceRiskDetails {
     /// mutually exclusive.
     pub fn set_numerical_stats_result<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::analyze_data_source_risk_details::NumericalStatsResult>,
-        >,
+                std::boxed::Box<
+                    crate::model::analyze_data_source_risk_details::NumericalStatsResult,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -6361,8 +6355,10 @@ impl AnalyzeDataSourceRiskDetails {
     /// mutually exclusive.
     pub fn set_categorical_stats_result<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::analyze_data_source_risk_details::CategoricalStatsResult>,
-        >,
+                std::boxed::Box<
+                    crate::model::analyze_data_source_risk_details::CategoricalStatsResult,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -6382,8 +6378,8 @@ impl AnalyzeDataSourceRiskDetails {
     /// mutually exclusive.
     pub fn set_k_anonymity_result<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::analyze_data_source_risk_details::KAnonymityResult>,
-        >,
+                std::boxed::Box<crate::model::analyze_data_source_risk_details::KAnonymityResult>,
+            >,
     >(
         mut self,
         v: T,
@@ -6401,8 +6397,8 @@ impl AnalyzeDataSourceRiskDetails {
     /// mutually exclusive.
     pub fn set_l_diversity_result<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::analyze_data_source_risk_details::LDiversityResult>,
-        >,
+                std::boxed::Box<crate::model::analyze_data_source_risk_details::LDiversityResult>,
+            >,
     >(
         mut self,
         v: T,
@@ -6420,8 +6416,10 @@ impl AnalyzeDataSourceRiskDetails {
     /// mutually exclusive.
     pub fn set_k_map_estimation_result<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::analyze_data_source_risk_details::KMapEstimationResult>,
-        >,
+                std::boxed::Box<
+                    crate::model::analyze_data_source_risk_details::KMapEstimationResult,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -6439,10 +6437,10 @@ impl AnalyzeDataSourceRiskDetails {
     /// mutually exclusive.
     pub fn set_delta_presence_estimation_result<
         T: std::convert::Into<
-            std::boxed::Box<
-                crate::model::analyze_data_source_risk_details::DeltaPresenceEstimationResult,
+                std::boxed::Box<
+                    crate::model::analyze_data_source_risk_details::DeltaPresenceEstimationResult,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -8158,10 +8156,10 @@ pub mod image_transformations {
         /// Sets the value of `target`.
         pub fn set_target<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::image_transformations::image_transformation::Target,
+                    std::option::Option<
+                        crate::model::image_transformations::image_transformation::Target,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -8228,16 +8226,7 @@ pub mod image_transformations {
         ///
         /// Note that all the setters affecting `target` are
         /// mutually exclusive.
-        pub fn set_selected_info_types<
-            T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::image_transformations::image_transformation::SelectedInfoTypes,
-                >,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_selected_info_types<T: std::convert::Into<std::boxed::Box<crate::model::image_transformations::image_transformation::SelectedInfoTypes>>>(mut self, v: T) -> Self{
             self.target = std::option::Option::Some(
                 crate::model::image_transformations::image_transformation::Target::SelectedInfoTypes(
                     v.into()
@@ -8253,10 +8242,10 @@ pub mod image_transformations {
         /// mutually exclusive.
         pub fn set_all_info_types<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::image_transformations::image_transformation::AllInfoTypes,
+                    std::boxed::Box<
+                        crate::model::image_transformations::image_transformation::AllInfoTypes,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -8276,8 +8265,10 @@ pub mod image_transformations {
         /// mutually exclusive.
         pub fn set_all_text<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::image_transformations::image_transformation::AllText>,
-            >,
+                    std::boxed::Box<
+                        crate::model::image_transformations::image_transformation::AllText,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -8478,8 +8469,8 @@ impl TransformationErrorHandling {
     /// mutually exclusive.
     pub fn set_throw_error<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::transformation_error_handling::ThrowError>,
-        >,
+                std::boxed::Box<crate::model::transformation_error_handling::ThrowError>,
+            >,
     >(
         mut self,
         v: T,
@@ -8497,8 +8488,8 @@ impl TransformationErrorHandling {
     /// mutually exclusive.
     pub fn set_leave_untransformed<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::transformation_error_handling::LeaveUntransformed>,
-        >,
+                std::boxed::Box<crate::model::transformation_error_handling::LeaveUntransformed>,
+            >,
     >(
         mut self,
         v: T,
@@ -8595,8 +8586,8 @@ impl PrimitiveTransformation {
     /// Sets the value of `transformation`.
     pub fn set_transformation<
         T: std::convert::Into<
-            std::option::Option<crate::model::primitive_transformation::Transformation>,
-        >,
+                std::option::Option<crate::model::primitive_transformation::Transformation>,
+            >,
     >(
         mut self,
         v: T,
@@ -10054,8 +10045,8 @@ impl CryptoReplaceFfxFpeConfig {
     /// Sets the value of `alphabet`.
     pub fn set_alphabet<
         T: std::convert::Into<
-            std::option::Option<crate::model::crypto_replace_ffx_fpe_config::Alphabet>,
-        >,
+                std::option::Option<crate::model::crypto_replace_ffx_fpe_config::Alphabet>,
+            >,
     >(
         mut self,
         v: T,
@@ -11160,8 +11151,8 @@ pub mod record_condition {
         /// Sets the value of `r#type`.
         pub fn set_type<
             T: std::convert::Into<
-                std::option::Option<crate::model::record_condition::expressions::Type>,
-            >,
+                    std::option::Option<crate::model::record_condition::expressions::Type>,
+                >,
         >(
             mut self,
             v: T,
@@ -11780,8 +11771,8 @@ impl TransformationLocation {
     /// Sets the value of `location_type`.
     pub fn set_location_type<
         T: std::convert::Into<
-            std::option::Option<crate::model::transformation_location::LocationType>,
-        >,
+                std::option::Option<crate::model::transformation_location::LocationType>,
+            >,
     >(
         mut self,
         v: T,
@@ -11999,8 +11990,8 @@ impl TransformationDetailsStorageConfig {
     /// Sets the value of `r#type`.
     pub fn set_type<
         T: std::convert::Into<
-            std::option::Option<crate::model::transformation_details_storage_config::Type>,
-        >,
+                std::option::Option<crate::model::transformation_details_storage_config::Type>,
+            >,
     >(
         mut self,
         v: T,
@@ -13039,8 +13030,8 @@ impl Action {
     /// mutually exclusive.
     pub fn set_publish_findings_to_cloud_data_catalog<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::action::PublishFindingsToCloudDataCatalog>,
-        >,
+                std::boxed::Box<crate::model::action::PublishFindingsToCloudDataCatalog>,
+            >,
     >(
         mut self,
         v: T,
@@ -13319,8 +13310,8 @@ pub mod action {
         /// Sets the value of [transformation_details_storage_config][crate::model::action::Deidentify::transformation_details_storage_config].
         pub fn set_transformation_details_storage_config<
             T: std::convert::Into<
-                std::option::Option<crate::model::TransformationDetailsStorageConfig>,
-            >,
+                    std::option::Option<crate::model::TransformationDetailsStorageConfig>,
+                >,
         >(
             mut self,
             v: T,
@@ -15090,8 +15081,8 @@ impl DataProfileAction {
     /// mutually exclusive.
     pub fn set_publish_to_scc<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::data_profile_action::PublishToSecurityCommandCenter>,
-        >,
+                std::boxed::Box<crate::model::data_profile_action::PublishToSecurityCommandCenter>,
+            >,
     >(
         mut self,
         v: T,
@@ -15253,8 +15244,8 @@ pub mod data_profile_action {
         /// Sets the value of [detail_of_message][crate::model::data_profile_action::PubSubNotification::detail_of_message].
         pub fn set_detail_of_message<
             T: std::convert::Into<
-                crate::model::data_profile_action::pub_sub_notification::DetailLevel,
-            >,
+                    crate::model::data_profile_action::pub_sub_notification::DetailLevel,
+                >,
         >(
             mut self,
             v: T,
@@ -15487,8 +15478,10 @@ pub mod data_profile_action {
             /// Sets the value of [tag][crate::model::data_profile_action::tag_resources::TagCondition::tag].
             pub fn set_tag<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::data_profile_action::tag_resources::TagValue>,
-                >,
+                        std::option::Option<
+                            crate::model::data_profile_action::tag_resources::TagValue,
+                        >,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -15500,10 +15493,10 @@ pub mod data_profile_action {
             /// Sets the value of `r#type`.
             pub fn set_type<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::data_profile_action::tag_resources::tag_condition::Type,
+                        std::option::Option<
+                            crate::model::data_profile_action::tag_resources::tag_condition::Type,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -15588,10 +15581,10 @@ pub mod data_profile_action {
             /// Sets the value of `format`.
             pub fn set_format<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::data_profile_action::tag_resources::tag_value::Format,
+                        std::option::Option<
+                            crate::model::data_profile_action::tag_resources::tag_value::Format,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -16759,8 +16752,8 @@ impl BigQueryDiscoveryTarget {
     /// Sets the value of `frequency`.
     pub fn set_frequency<
         T: std::convert::Into<
-            std::option::Option<crate::model::big_query_discovery_target::Frequency>,
-        >,
+                std::option::Option<crate::model::big_query_discovery_target::Frequency>,
+            >,
     >(
         mut self,
         v: T,
@@ -16960,8 +16953,8 @@ impl DiscoveryBigQueryFilter {
     /// mutually exclusive.
     pub fn set_other_tables<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::discovery_big_query_filter::AllOtherBigQueryTables>,
-        >,
+                std::boxed::Box<crate::model::discovery_big_query_filter::AllOtherBigQueryTables>,
+            >,
     >(
         mut self,
         v: T,
@@ -17177,8 +17170,8 @@ impl DiscoveryBigQueryConditions {
     /// Sets the value of [or_conditions][crate::model::DiscoveryBigQueryConditions::or_conditions].
     pub fn set_or_conditions<
         T: std::convert::Into<
-            std::option::Option<crate::model::discovery_big_query_conditions::OrConditions>,
-        >,
+                std::option::Option<crate::model::discovery_big_query_conditions::OrConditions>,
+            >,
     >(
         mut self,
         v: T,
@@ -17190,8 +17183,8 @@ impl DiscoveryBigQueryConditions {
     /// Sets the value of `included_types`.
     pub fn set_included_types<
         T: std::convert::Into<
-            std::option::Option<crate::model::discovery_big_query_conditions::IncludedTypes>,
-        >,
+                std::option::Option<crate::model::discovery_big_query_conditions::IncludedTypes>,
+            >,
     >(
         mut self,
         v: T,
@@ -17389,8 +17382,8 @@ impl DiscoveryGenerationCadence {
     /// Sets the value of [inspect_template_modified_cadence][crate::model::DiscoveryGenerationCadence::inspect_template_modified_cadence].
     pub fn set_inspect_template_modified_cadence<
         T: std::convert::Into<
-            std::option::Option<crate::model::DiscoveryInspectTemplateModifiedCadence>,
-        >,
+                std::option::Option<crate::model::DiscoveryInspectTemplateModifiedCadence>,
+            >,
     >(
         mut self,
         v: T,
@@ -17876,8 +17869,8 @@ impl DatabaseResourceCollection {
     /// Sets the value of `pattern`.
     pub fn set_pattern<
         T: std::convert::Into<
-            std::option::Option<crate::model::database_resource_collection::Pattern>,
-        >,
+                std::option::Option<crate::model::database_resource_collection::Pattern>,
+            >,
     >(
         mut self,
         v: T,
@@ -18362,10 +18355,10 @@ impl DiscoveryCloudSqlGenerationCadence {
     /// Sets the value of [schema_modified_cadence][crate::model::DiscoveryCloudSqlGenerationCadence::schema_modified_cadence].
     pub fn set_schema_modified_cadence<
         T: std::convert::Into<
-            std::option::Option<
-                crate::model::discovery_cloud_sql_generation_cadence::SchemaModifiedCadence,
+                std::option::Option<
+                    crate::model::discovery_cloud_sql_generation_cadence::SchemaModifiedCadence,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -18388,8 +18381,8 @@ impl DiscoveryCloudSqlGenerationCadence {
     /// Sets the value of [inspect_template_modified_cadence][crate::model::DiscoveryCloudSqlGenerationCadence::inspect_template_modified_cadence].
     pub fn set_inspect_template_modified_cadence<
         T: std::convert::Into<
-            std::option::Option<crate::model::DiscoveryInspectTemplateModifiedCadence>,
-        >,
+                std::option::Option<crate::model::DiscoveryInspectTemplateModifiedCadence>,
+            >,
     >(
         mut self,
         v: T,
@@ -18608,8 +18601,8 @@ impl CloudStorageDiscoveryTarget {
     /// Sets the value of `cadence`.
     pub fn set_cadence<
         T: std::convert::Into<
-            std::option::Option<crate::model::cloud_storage_discovery_target::Cadence>,
-        >,
+                std::option::Option<crate::model::cloud_storage_discovery_target::Cadence>,
+            >,
     >(
         mut self,
         v: T,
@@ -18729,8 +18722,8 @@ impl DiscoveryCloudStorageFilter {
     /// Sets the value of `filter`.
     pub fn set_filter<
         T: std::convert::Into<
-            std::option::Option<crate::model::discovery_cloud_storage_filter::Filter>,
-        >,
+                std::option::Option<crate::model::discovery_cloud_storage_filter::Filter>,
+            >,
     >(
         mut self,
         v: T,
@@ -19202,8 +19195,8 @@ impl DiscoveryCloudStorageGenerationCadence {
     /// Sets the value of [inspect_template_modified_cadence][crate::model::DiscoveryCloudStorageGenerationCadence::inspect_template_modified_cadence].
     pub fn set_inspect_template_modified_cadence<
         T: std::convert::Into<
-            std::option::Option<crate::model::DiscoveryInspectTemplateModifiedCadence>,
-        >,
+                std::option::Option<crate::model::DiscoveryInspectTemplateModifiedCadence>,
+            >,
     >(
         mut self,
         v: T,
@@ -19255,8 +19248,8 @@ impl DiscoveryCloudStorageConditions {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<
-            crate::model::discovery_cloud_storage_conditions::CloudStorageObjectAttribute,
-        >,
+                crate::model::discovery_cloud_storage_conditions::CloudStorageObjectAttribute,
+            >,
     {
         use std::iter::Iterator;
         self.included_object_attributes = v.into_iter().map(|i| i.into()).collect();
@@ -19268,8 +19261,8 @@ impl DiscoveryCloudStorageConditions {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<
-            crate::model::discovery_cloud_storage_conditions::CloudStorageBucketAttribute,
-        >,
+                crate::model::discovery_cloud_storage_conditions::CloudStorageBucketAttribute,
+            >,
     {
         use std::iter::Iterator;
         self.included_bucket_attributes = v.into_iter().map(|i| i.into()).collect();
@@ -19511,8 +19504,8 @@ impl DiscoveryFileStoreConditions {
     /// Sets the value of `conditions`.
     pub fn set_conditions<
         T: std::convert::Into<
-            std::option::Option<crate::model::discovery_file_store_conditions::Conditions>,
-        >,
+                std::option::Option<crate::model::discovery_file_store_conditions::Conditions>,
+            >,
     >(
         mut self,
         v: T,
@@ -19649,8 +19642,8 @@ impl OtherCloudDiscoveryTarget {
     /// Sets the value of `cadence`.
     pub fn set_cadence<
         T: std::convert::Into<
-            std::option::Option<crate::model::other_cloud_discovery_target::Cadence>,
-        >,
+                std::option::Option<crate::model::other_cloud_discovery_target::Cadence>,
+            >,
     >(
         mut self,
         v: T,
@@ -19922,8 +19915,8 @@ impl OtherCloudResourceCollection {
     /// Sets the value of `pattern`.
     pub fn set_pattern<
         T: std::convert::Into<
-            std::option::Option<crate::model::other_cloud_resource_collection::Pattern>,
-        >,
+                std::option::Option<crate::model::other_cloud_resource_collection::Pattern>,
+            >,
     >(
         mut self,
         v: T,
@@ -20047,8 +20040,8 @@ impl OtherCloudResourceRegex {
     /// Sets the value of `resource_regex`.
     pub fn set_resource_regex<
         T: std::convert::Into<
-            std::option::Option<crate::model::other_cloud_resource_regex::ResourceRegex>,
-        >,
+                std::option::Option<crate::model::other_cloud_resource_regex::ResourceRegex>,
+            >,
     >(
         mut self,
         v: T,
@@ -20212,8 +20205,8 @@ impl OtherCloudSingleResourceReference {
     /// Sets the value of `resource`.
     pub fn set_resource<
         T: std::convert::Into<
-            std::option::Option<crate::model::other_cloud_single_resource_reference::Resource>,
-        >,
+                std::option::Option<crate::model::other_cloud_single_resource_reference::Resource>,
+            >,
     >(
         mut self,
         v: T,
@@ -20381,8 +20374,8 @@ impl DiscoveryOtherCloudConditions {
     /// Sets the value of `conditions`.
     pub fn set_conditions<
         T: std::convert::Into<
-            std::option::Option<crate::model::discovery_other_cloud_conditions::Conditions>,
-        >,
+                std::option::Option<crate::model::discovery_other_cloud_conditions::Conditions>,
+            >,
     >(
         mut self,
         v: T,
@@ -20677,8 +20670,8 @@ impl DiscoveryOtherCloudGenerationCadence {
     /// Sets the value of [inspect_template_modified_cadence][crate::model::DiscoveryOtherCloudGenerationCadence::inspect_template_modified_cadence].
     pub fn set_inspect_template_modified_cadence<
         T: std::convert::Into<
-            std::option::Option<crate::model::DiscoveryInspectTemplateModifiedCadence>,
-        >,
+                std::option::Option<crate::model::DiscoveryInspectTemplateModifiedCadence>,
+            >,
     >(
         mut self,
         v: T,
@@ -20714,8 +20707,8 @@ impl DiscoveryStartingLocation {
     /// Sets the value of `location`.
     pub fn set_location<
         T: std::convert::Into<
-            std::option::Option<crate::model::discovery_starting_location::Location>,
-        >,
+                std::option::Option<crate::model::discovery_starting_location::Location>,
+            >,
     >(
         mut self,
         v: T,
@@ -20818,8 +20811,10 @@ impl OtherCloudDiscoveryStartingLocation {
     /// Sets the value of `location`.
     pub fn set_location<
         T: std::convert::Into<
-            std::option::Option<crate::model::other_cloud_discovery_starting_location::Location>,
-        >,
+                std::option::Option<
+                    crate::model::other_cloud_discovery_starting_location::Location,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -20852,16 +20847,7 @@ impl OtherCloudDiscoveryStartingLocation {
     ///
     /// Note that all the setters affecting `location` are
     /// mutually exclusive.
-    pub fn set_aws_location<
-        T: std::convert::Into<
-            std::boxed::Box<
-                crate::model::other_cloud_discovery_starting_location::AwsDiscoveryStartingLocation,
-            >,
-        >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_aws_location<T: std::convert::Into<std::boxed::Box<crate::model::other_cloud_discovery_starting_location::AwsDiscoveryStartingLocation>>>(mut self, v: T) -> Self{
         self.location = std::option::Option::Some(
             crate::model::other_cloud_discovery_starting_location::Location::AwsLocation(v.into()),
         );
@@ -21066,8 +21052,8 @@ impl VertexDatasetDiscoveryTarget {
     /// Sets the value of `cadence`.
     pub fn set_cadence<
         T: std::convert::Into<
-            std::option::Option<crate::model::vertex_dataset_discovery_target::Cadence>,
-        >,
+                std::option::Option<crate::model::vertex_dataset_discovery_target::Cadence>,
+            >,
     >(
         mut self,
         v: T,
@@ -21187,8 +21173,8 @@ impl DiscoveryVertexDatasetFilter {
     /// Sets the value of `filter`.
     pub fn set_filter<
         T: std::convert::Into<
-            std::option::Option<crate::model::discovery_vertex_dataset_filter::Filter>,
-        >,
+                std::option::Option<crate::model::discovery_vertex_dataset_filter::Filter>,
+            >,
     >(
         mut self,
         v: T,
@@ -21599,8 +21585,8 @@ impl DiscoveryVertexDatasetGenerationCadence {
     /// Sets the value of [inspect_template_modified_cadence][crate::model::DiscoveryVertexDatasetGenerationCadence::inspect_template_modified_cadence].
     pub fn set_inspect_template_modified_cadence<
         T: std::convert::Into<
-            std::option::Option<crate::model::DiscoveryInspectTemplateModifiedCadence>,
-        >,
+                std::option::Option<crate::model::DiscoveryInspectTemplateModifiedCadence>,
+            >,
     >(
         mut self,
         v: T,
@@ -22669,8 +22655,8 @@ impl LargeCustomDictionaryConfig {
     /// Sets the value of `source`.
     pub fn set_source<
         T: std::convert::Into<
-            std::option::Option<crate::model::large_custom_dictionary_config::Source>,
-        >,
+                std::option::Option<crate::model::large_custom_dictionary_config::Source>,
+            >,
     >(
         mut self,
         v: T,
@@ -26828,8 +26814,10 @@ impl DataProfilePubSubCondition {
     /// Sets the value of [expressions][crate::model::DataProfilePubSubCondition::expressions].
     pub fn set_expressions<
         T: std::convert::Into<
-            std::option::Option<crate::model::data_profile_pub_sub_condition::PubSubExpressions>,
-        >,
+                std::option::Option<
+                    crate::model::data_profile_pub_sub_condition::PubSubExpressions,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -26871,10 +26859,10 @@ pub mod data_profile_pub_sub_condition {
         /// Sets the value of `value`.
         pub fn set_value<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::data_profile_pub_sub_condition::pub_sub_condition::Value,
+                    std::option::Option<
+                        crate::model::data_profile_pub_sub_condition::pub_sub_condition::Value,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -28285,8 +28273,8 @@ impl ProcessingLocation {
     /// Sets the value of [image_fallback_location][crate::model::ProcessingLocation::image_fallback_location].
     pub fn set_image_fallback_location<
         T: std::convert::Into<
-            std::option::Option<crate::model::processing_location::ImageFallbackLocation>,
-        >,
+                std::option::Option<crate::model::processing_location::ImageFallbackLocation>,
+            >,
     >(
         mut self,
         v: T,
@@ -28373,8 +28361,8 @@ pub mod processing_location {
         /// Sets the value of [multi_region_processing][crate::model::processing_location::ImageFallbackLocation::multi_region_processing].
         pub fn set_multi_region_processing<
             T: std::convert::Into<
-                std::option::Option<crate::model::processing_location::MultiRegionProcessing>,
-            >,
+                    std::option::Option<crate::model::processing_location::MultiRegionProcessing>,
+                >,
         >(
             mut self,
             v: T,
@@ -28386,8 +28374,8 @@ pub mod processing_location {
         /// Sets the value of [global_processing][crate::model::processing_location::ImageFallbackLocation::global_processing].
         pub fn set_global_processing<
             T: std::convert::Into<
-                std::option::Option<crate::model::processing_location::GlobalProcessing>,
-            >,
+                    std::option::Option<crate::model::processing_location::GlobalProcessing>,
+                >,
         >(
             mut self,
             v: T,
@@ -28903,8 +28891,8 @@ pub mod custom_info_type {
         /// Sets the value of `source`.
         pub fn set_source<
             T: std::convert::Into<
-                std::option::Option<crate::model::custom_info_type::dictionary::Source>,
-            >,
+                    std::option::Option<crate::model::custom_info_type::dictionary::Source>,
+                >,
         >(
             mut self,
             v: T,
@@ -28952,8 +28940,8 @@ pub mod custom_info_type {
         /// mutually exclusive.
         pub fn set_word_list<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::custom_info_type::dictionary::WordList>,
-            >,
+                    std::boxed::Box<crate::model::custom_info_type::dictionary::WordList>,
+                >,
         >(
             mut self,
             v: T,
@@ -29137,8 +29125,8 @@ pub mod custom_info_type {
         /// Sets the value of `r#type`.
         pub fn set_type<
             T: std::convert::Into<
-                std::option::Option<crate::model::custom_info_type::detection_rule::Type>,
-            >,
+                    std::option::Option<crate::model::custom_info_type::detection_rule::Type>,
+                >,
         >(
             mut self,
             v: T,
@@ -29171,8 +29159,8 @@ pub mod custom_info_type {
         /// mutually exclusive.
         pub fn set_hotword_rule<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::custom_info_type::detection_rule::HotwordRule>,
-            >,
+                    std::boxed::Box<crate::model::custom_info_type::detection_rule::HotwordRule>,
+                >,
         >(
             mut self,
             v: T,
@@ -29401,8 +29389,10 @@ pub mod custom_info_type {
             /// Sets the value of [proximity][crate::model::custom_info_type::detection_rule::HotwordRule::proximity].
             pub fn set_proximity<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::custom_info_type::detection_rule::Proximity>,
-                >,
+                        std::option::Option<
+                            crate::model::custom_info_type::detection_rule::Proximity,
+                        >,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -29414,10 +29404,10 @@ pub mod custom_info_type {
             /// Sets the value of [likelihood_adjustment][crate::model::custom_info_type::detection_rule::HotwordRule::likelihood_adjustment].
             pub fn set_likelihood_adjustment<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::custom_info_type::detection_rule::LikelihoodAdjustment,
+                        std::option::Option<
+                            crate::model::custom_info_type::detection_rule::LikelihoodAdjustment,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,

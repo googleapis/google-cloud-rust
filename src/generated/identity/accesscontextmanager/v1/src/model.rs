@@ -2546,8 +2546,8 @@ impl ServicePerimeterConfig {
     /// Sets the value of [vpc_accessible_services][crate::model::ServicePerimeterConfig::vpc_accessible_services].
     pub fn set_vpc_accessible_services<
         T: std::convert::Into<
-            std::option::Option<crate::model::service_perimeter_config::VpcAccessibleServices>,
-        >,
+                std::option::Option<crate::model::service_perimeter_config::VpcAccessibleServices>,
+            >,
     >(
         mut self,
         v: T,
@@ -2692,8 +2692,10 @@ pub mod service_perimeter_config {
         /// Sets the value of `kind`.
         pub fn set_kind<
             T: std::convert::Into<
-                std::option::Option<crate::model::service_perimeter_config::method_selector::Kind>,
-            >,
+                    std::option::Option<
+                        crate::model::service_perimeter_config::method_selector::Kind,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -2864,8 +2866,10 @@ pub mod service_perimeter_config {
         /// Sets the value of `source`.
         pub fn set_source<
             T: std::convert::Into<
-                std::option::Option<crate::model::service_perimeter_config::ingress_source::Source>,
-            >,
+                    std::option::Option<
+                        crate::model::service_perimeter_config::ingress_source::Source,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -3169,8 +3173,8 @@ pub mod service_perimeter_config {
         /// Sets the value of [ingress_from][crate::model::service_perimeter_config::IngressPolicy::ingress_from].
         pub fn set_ingress_from<
             T: std::convert::Into<
-                std::option::Option<crate::model::service_perimeter_config::IngressFrom>,
-            >,
+                    std::option::Option<crate::model::service_perimeter_config::IngressFrom>,
+                >,
         >(
             mut self,
             v: T,
@@ -3182,8 +3186,8 @@ pub mod service_perimeter_config {
         /// Sets the value of [ingress_to][crate::model::service_perimeter_config::IngressPolicy::ingress_to].
         pub fn set_ingress_to<
             T: std::convert::Into<
-                std::option::Option<crate::model::service_perimeter_config::IngressTo>,
-            >,
+                    std::option::Option<crate::model::service_perimeter_config::IngressTo>,
+                >,
         >(
             mut self,
             v: T,
@@ -3412,8 +3416,8 @@ pub mod service_perimeter_config {
         /// Sets the value of [egress_from][crate::model::service_perimeter_config::EgressPolicy::egress_from].
         pub fn set_egress_from<
             T: std::convert::Into<
-                std::option::Option<crate::model::service_perimeter_config::EgressFrom>,
-            >,
+                    std::option::Option<crate::model::service_perimeter_config::EgressFrom>,
+                >,
         >(
             mut self,
             v: T,
@@ -3425,8 +3429,8 @@ pub mod service_perimeter_config {
         /// Sets the value of [egress_to][crate::model::service_perimeter_config::EgressPolicy::egress_to].
         pub fn set_egress_to<
             T: std::convert::Into<
-                std::option::Option<crate::model::service_perimeter_config::EgressTo>,
-            >,
+                    std::option::Option<crate::model::service_perimeter_config::EgressTo>,
+                >,
         >(
             mut self,
             v: T,

@@ -126,7 +126,9 @@ impl Any {
         if got == want {
             return Ok(());
         }
-        Err(Error::deser(format!("mismatched typenames extracting from Any, the any has {got}, the target type is {want}")))
+        Err(Error::deser(format!(
+            "mismatched typenames extracting from Any, the any has {got}, the target type is {want}"
+        )))
     }
 }
 

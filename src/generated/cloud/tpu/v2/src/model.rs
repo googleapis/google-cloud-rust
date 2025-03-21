@@ -1437,10 +1437,10 @@ pub mod queued_resource {
             /// Sets the value of `name_strategy`.
             pub fn set_name_strategy<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::queued_resource::tpu::node_spec::NameStrategy,
+                        std::option::Option<
+                            crate::model::queued_resource::tpu::node_spec::NameStrategy,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -1496,10 +1496,10 @@ pub mod queued_resource {
             /// mutually exclusive.
             pub fn set_multislice_params<
                 T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::queued_resource::tpu::node_spec::MultisliceParams,
+                        std::boxed::Box<
+                            crate::model::queued_resource::tpu::node_spec::MultisliceParams,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -1667,10 +1667,10 @@ pub mod queued_resource {
         /// Sets the value of `start_timing_constraints`.
         pub fn set_start_timing_constraints<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::queued_resource::queueing_policy::StartTimingConstraints,
+                    std::option::Option<
+                        crate::model::queued_resource::queueing_policy::StartTimingConstraints,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,

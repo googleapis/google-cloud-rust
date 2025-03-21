@@ -99,8 +99,8 @@ impl AssignmentProtocol {
     /// mutually exclusive.
     pub fn set_manual_assignment_type<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::assignment_protocol::ManualAssignmentType>,
-        >,
+                std::boxed::Box<crate::model::assignment_protocol::ManualAssignmentType>,
+            >,
     >(
         mut self,
         v: T,

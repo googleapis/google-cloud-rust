@@ -295,14 +295,7 @@ pub mod endpoint_matcher {
         }
 
         /// Sets the value of [metadata_label_match_criteria][crate::model::endpoint_matcher::MetadataLabelMatcher::metadata_label_match_criteria].
-        pub fn set_metadata_label_match_criteria<
-            T: std::convert::Into<
-                crate::model::endpoint_matcher::metadata_label_matcher::MetadataLabelMatchCriteria,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_metadata_label_match_criteria<T: std::convert::Into<crate::model::endpoint_matcher::metadata_label_matcher::MetadataLabelMatchCriteria>>(mut self, v: T) -> Self{
             self.metadata_label_match_criteria = v.into();
             self
         }
@@ -312,8 +305,8 @@ pub mod endpoint_matcher {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::endpoint_matcher::metadata_label_matcher::MetadataLabels,
-            >,
+                    crate::model::endpoint_matcher::metadata_label_matcher::MetadataLabels,
+                >,
         {
             use std::iter::Iterator;
             self.metadata_labels = v.into_iter().map(|i| i.into()).collect();
@@ -3367,8 +3360,8 @@ pub mod grpc_route {
         /// Sets the value of `destination_type`.
         pub fn set_destination_type<
             T: std::convert::Into<
-                std::option::Option<crate::model::grpc_route::destination::DestinationType>,
-            >,
+                    std::option::Option<crate::model::grpc_route::destination::DestinationType>,
+                >,
         >(
             mut self,
             v: T,
@@ -3456,8 +3449,8 @@ pub mod grpc_route {
         /// Sets the value of [delay][crate::model::grpc_route::FaultInjectionPolicy::delay].
         pub fn set_delay<
             T: std::convert::Into<
-                std::option::Option<crate::model::grpc_route::fault_injection_policy::Delay>,
-            >,
+                    std::option::Option<crate::model::grpc_route::fault_injection_policy::Delay>,
+                >,
         >(
             mut self,
             v: T,
@@ -3469,8 +3462,8 @@ pub mod grpc_route {
         /// Sets the value of [abort][crate::model::grpc_route::FaultInjectionPolicy::abort].
         pub fn set_abort<
             T: std::convert::Into<
-                std::option::Option<crate::model::grpc_route::fault_injection_policy::Abort>,
-            >,
+                    std::option::Option<crate::model::grpc_route::fault_injection_policy::Abort>,
+                >,
         >(
             mut self,
             v: T,
@@ -4300,8 +4293,8 @@ pub mod http_route {
         /// Sets the value of `match_type`.
         pub fn set_match_type<
             T: std::convert::Into<
-                std::option::Option<crate::model::http_route::header_match::MatchType>,
-            >,
+                    std::option::Option<crate::model::http_route::header_match::MatchType>,
+                >,
         >(
             mut self,
             v: T,
@@ -4465,8 +4458,8 @@ pub mod http_route {
         /// mutually exclusive.
         pub fn set_range_match<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::http_route::header_match::IntegerRange>,
-            >,
+                    std::boxed::Box<crate::model::http_route::header_match::IntegerRange>,
+                >,
         >(
             mut self,
             v: T,
@@ -4582,8 +4575,8 @@ pub mod http_route {
         /// Sets the value of `match_type`.
         pub fn set_match_type<
             T: std::convert::Into<
-                std::option::Option<crate::model::http_route::query_parameter_match::MatchType>,
-            >,
+                    std::option::Option<crate::model::http_route::query_parameter_match::MatchType>,
+                >,
         >(
             mut self,
             v: T,
@@ -4765,8 +4758,8 @@ pub mod http_route {
         /// Sets the value of `path_match`.
         pub fn set_path_match<
             T: std::convert::Into<
-                std::option::Option<crate::model::http_route::route_match::PathMatch>,
-            >,
+                    std::option::Option<crate::model::http_route::route_match::PathMatch>,
+                >,
         >(
             mut self,
             v: T,
@@ -5174,8 +5167,8 @@ pub mod http_route {
         /// Sets the value of [delay][crate::model::http_route::FaultInjectionPolicy::delay].
         pub fn set_delay<
             T: std::convert::Into<
-                std::option::Option<crate::model::http_route::fault_injection_policy::Delay>,
-            >,
+                    std::option::Option<crate::model::http_route::fault_injection_policy::Delay>,
+                >,
         >(
             mut self,
             v: T,
@@ -5187,8 +5180,8 @@ pub mod http_route {
         /// Sets the value of [abort][crate::model::http_route::FaultInjectionPolicy::abort].
         pub fn set_abort<
             T: std::convert::Into<
-                std::option::Option<crate::model::http_route::fault_injection_policy::Abort>,
-            >,
+                    std::option::Option<crate::model::http_route::fault_injection_policy::Abort>,
+                >,
         >(
             mut self,
             v: T,

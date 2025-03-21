@@ -1313,8 +1313,8 @@ pub mod instance {
         /// Sets the value of `mode`.
         pub fn set_mode<
             T: std::convert::Into<
-                std::option::Option<crate::model::instance::performance_config::Mode>,
-            >,
+                    std::option::Option<crate::model::instance::performance_config::Mode>,
+                >,
         >(
             mut self,
             v: T,

@@ -46,8 +46,9 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListDeliveryPipelinesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListDeliveryPipelinesResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListDeliveryPipelinesResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListDeliveryPipelinesResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -177,8 +178,9 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListCustomTargetTypesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListCustomTargetTypesResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListCustomTargetTypesResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListCustomTargetTypesResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -636,7 +638,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))

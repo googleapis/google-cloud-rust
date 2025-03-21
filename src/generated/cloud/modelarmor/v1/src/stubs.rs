@@ -133,8 +133,9 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SanitizeModelResponseRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::SanitizeModelResponseResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::SanitizeModelResponseResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::SanitizeModelResponseResponse>>(Err(
             Error::other("unimplemented"),
         ))

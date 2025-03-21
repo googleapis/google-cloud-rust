@@ -1083,8 +1083,8 @@ pub mod video_stream {
         /// Sets the value of `gop_mode`.
         pub fn set_gop_mode<
             T: std::convert::Into<
-                std::option::Option<crate::model::video_stream::h_264_codec_settings::GopMode>,
-            >,
+                    std::option::Option<crate::model::video_stream::h_264_codec_settings::GopMode>,
+                >,
         >(
             mut self,
             v: T,

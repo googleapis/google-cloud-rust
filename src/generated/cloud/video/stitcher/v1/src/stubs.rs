@@ -128,7 +128,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListVodStitchDetailsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ListVodStitchDetailsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::ListVodStitchDetailsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -175,7 +175,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListLiveAdTagDetailsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ListLiveAdTagDetailsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<crate::model::ListLiveAdTagDetailsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -396,7 +396,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))

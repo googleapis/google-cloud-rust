@@ -260,8 +260,8 @@ impl VerifyAttestationRequest {
     /// Sets the value of `tee_attestation`.
     pub fn set_tee_attestation<
         T: std::convert::Into<
-            std::option::Option<crate::model::verify_attestation_request::TeeAttestation>,
-        >,
+                std::option::Option<crate::model::verify_attestation_request::TeeAttestation>,
+            >,
     >(
         mut self,
         v: T,
@@ -684,16 +684,7 @@ pub mod token_options {
         }
 
         /// Sets the value of [allowed_principal_tags][crate::model::token_options::AwsPrincipalTagsOptions::allowed_principal_tags].
-        pub fn set_allowed_principal_tags<
-            T: std::convert::Into<
-                std::option::Option<
-                    crate::model::token_options::aws_principal_tags_options::AllowedPrincipalTags,
-                >,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_allowed_principal_tags<T: std::convert::Into<std::option::Option<crate::model::token_options::aws_principal_tags_options::AllowedPrincipalTags>>>(mut self, v: T) -> Self{
             self.allowed_principal_tags = v.into();
             self
         }

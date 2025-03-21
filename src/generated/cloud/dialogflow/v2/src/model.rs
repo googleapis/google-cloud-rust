@@ -1766,8 +1766,8 @@ impl AgentAssistantFeedback {
     /// Sets the value of [summarization_feedback][crate::model::AgentAssistantFeedback::summarization_feedback].
     pub fn set_summarization_feedback<
         T: std::convert::Into<
-            std::option::Option<crate::model::agent_assistant_feedback::SummarizationFeedback>,
-        >,
+                std::option::Option<crate::model::agent_assistant_feedback::SummarizationFeedback>,
+            >,
     >(
         mut self,
         v: T,
@@ -1779,8 +1779,10 @@ impl AgentAssistantFeedback {
     /// Sets the value of [knowledge_search_feedback][crate::model::AgentAssistantFeedback::knowledge_search_feedback].
     pub fn set_knowledge_search_feedback<
         T: std::convert::Into<
-            std::option::Option<crate::model::agent_assistant_feedback::KnowledgeSearchFeedback>,
-        >,
+                std::option::Option<
+                    crate::model::agent_assistant_feedback::KnowledgeSearchFeedback,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -1792,8 +1794,10 @@ impl AgentAssistantFeedback {
     /// Sets the value of [knowledge_assist_feedback][crate::model::AgentAssistantFeedback::knowledge_assist_feedback].
     pub fn set_knowledge_assist_feedback<
         T: std::convert::Into<
-            std::option::Option<crate::model::agent_assistant_feedback::KnowledgeAssistFeedback>,
-        >,
+                std::option::Option<
+                    crate::model::agent_assistant_feedback::KnowledgeAssistFeedback,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -3645,8 +3649,8 @@ impl Conversation {
     /// Sets the value of [telephony_connection_info][crate::model::Conversation::telephony_connection_info].
     pub fn set_telephony_connection_info<
         T: std::convert::Into<
-            std::option::Option<crate::model::conversation::TelephonyConnectionInfo>,
-        >,
+                std::option::Option<crate::model::conversation::TelephonyConnectionInfo>,
+            >,
     >(
         mut self,
         v: T,
@@ -3743,8 +3747,8 @@ pub mod conversation {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::conversation::telephony_connection_info::MimeContent,
-            >,
+                    crate::model::conversation::telephony_connection_info::MimeContent,
+                >,
         {
             use std::iter::Iterator;
             self.extra_mime_contents = v.into_iter().map(|i| i.into()).collect();
@@ -3959,14 +3963,7 @@ pub mod conversation {
             }
 
             /// Sets the value of [content_format][crate::model::conversation::context_reference::ContextContent::content_format].
-            pub fn set_content_format<
-                T: std::convert::Into<
-                    crate::model::conversation::context_reference::context_content::ContentFormat,
-                >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_content_format<T: std::convert::Into<crate::model::conversation::context_reference::context_content::ContentFormat>>(mut self, v: T) -> Self{
                 self.content_format = v.into();
                 self
             }
@@ -4888,8 +4885,8 @@ impl SuggestConversationSummaryResponse {
     /// Sets the value of [summary][crate::model::SuggestConversationSummaryResponse::summary].
     pub fn set_summary<
         T: std::convert::Into<
-            std::option::Option<crate::model::suggest_conversation_summary_response::Summary>,
-        >,
+                std::option::Option<crate::model::suggest_conversation_summary_response::Summary>,
+            >,
     >(
         mut self,
         v: T,
@@ -5040,10 +5037,10 @@ impl GenerateStatelessSummaryRequest {
     /// Sets the value of [stateless_conversation][crate::model::GenerateStatelessSummaryRequest::stateless_conversation].
     pub fn set_stateless_conversation<
         T: std::convert::Into<
-            std::option::Option<
-                crate::model::generate_stateless_summary_request::MinimalConversation,
+                std::option::Option<
+                    crate::model::generate_stateless_summary_request::MinimalConversation,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -5177,8 +5174,8 @@ impl GenerateStatelessSummaryResponse {
     /// Sets the value of [summary][crate::model::GenerateStatelessSummaryResponse::summary].
     pub fn set_summary<
         T: std::convert::Into<
-            std::option::Option<crate::model::generate_stateless_summary_response::Summary>,
-        >,
+                std::option::Option<crate::model::generate_stateless_summary_response::Summary>,
+            >,
     >(
         mut self,
         v: T,
@@ -5360,10 +5357,10 @@ impl GenerateStatelessSuggestionRequest {
     /// Sets the value of `generator_resource`.
     pub fn set_generator_resource<
         T: std::convert::Into<
-            std::option::Option<
-                crate::model::generate_stateless_suggestion_request::GeneratorResource,
+                std::option::Option<
+                    crate::model::generate_stateless_suggestion_request::GeneratorResource,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -5639,8 +5636,8 @@ impl SearchKnowledgeRequest {
     /// Sets the value of [search_config][crate::model::SearchKnowledgeRequest::search_config].
     pub fn set_search_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::search_knowledge_request::SearchConfig>,
-        >,
+                std::option::Option<crate::model::search_knowledge_request::SearchConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -5703,8 +5700,8 @@ pub mod search_knowledge_request {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::search_knowledge_request::search_config::BoostSpecs,
-            >,
+                    crate::model::search_knowledge_request::search_config::BoostSpecs,
+                >,
         {
             use std::iter::Iterator;
             self.boost_specs = v.into_iter().map(|i| i.into()).collect();
@@ -5716,8 +5713,8 @@ pub mod search_knowledge_request {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::search_knowledge_request::search_config::FilterSpecs,
-            >,
+                    crate::model::search_knowledge_request::search_config::FilterSpecs,
+                >,
         {
             use std::iter::Iterator;
             self.filter_specs = v.into_iter().map(|i| i.into()).collect();
@@ -5776,9 +5773,7 @@ pub mod search_knowledge_request {
             pub fn set_spec<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<
-                    crate::model::search_knowledge_request::search_config::boost_specs::BoostSpec,
-                >,
+                V: std::convert::Into<crate::model::search_knowledge_request::search_config::boost_specs::BoostSpec>
             {
                 use std::iter::Iterator;
                 self.spec = v.into_iter().map(|i| i.into()).collect();
@@ -8059,8 +8054,8 @@ impl ConversationModelEvaluation {
     /// Sets the value of `metrics`.
     pub fn set_metrics<
         T: std::convert::Into<
-            std::option::Option<crate::model::conversation_model_evaluation::Metrics>,
-        >,
+                std::option::Option<crate::model::conversation_model_evaluation::Metrics>,
+            >,
     >(
         mut self,
         v: T,
@@ -8158,8 +8153,8 @@ impl EvaluationConfig {
     /// Sets the value of `model_specific_config`.
     pub fn set_model_specific_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::evaluation_config::ModelSpecificConfig>,
-        >,
+                std::option::Option<crate::model::evaluation_config::ModelSpecificConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -9405,8 +9400,8 @@ impl CreateConversationModelEvaluationOperationMetadata {
     /// Sets the value of [state][crate::model::CreateConversationModelEvaluationOperationMetadata::state].
     pub fn set_state<
         T: std::convert::Into<
-            crate::model::create_conversation_model_evaluation_operation_metadata::State,
-        >,
+                crate::model::create_conversation_model_evaluation_operation_metadata::State,
+            >,
     >(
         mut self,
         v: T,
@@ -10168,8 +10163,8 @@ impl HumanAgentAssistantConfig {
     /// Sets the value of [human_agent_suggestion_config][crate::model::HumanAgentAssistantConfig::human_agent_suggestion_config].
     pub fn set_human_agent_suggestion_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::human_agent_assistant_config::SuggestionConfig>,
-        >,
+                std::option::Option<crate::model::human_agent_assistant_config::SuggestionConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -10181,8 +10176,8 @@ impl HumanAgentAssistantConfig {
     /// Sets the value of [end_user_suggestion_config][crate::model::HumanAgentAssistantConfig::end_user_suggestion_config].
     pub fn set_end_user_suggestion_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::human_agent_assistant_config::SuggestionConfig>,
-        >,
+                std::option::Option<crate::model::human_agent_assistant_config::SuggestionConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -10194,8 +10189,10 @@ impl HumanAgentAssistantConfig {
     /// Sets the value of [message_analysis_config][crate::model::HumanAgentAssistantConfig::message_analysis_config].
     pub fn set_message_analysis_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::human_agent_assistant_config::MessageAnalysisConfig>,
-        >,
+                std::option::Option<
+                    crate::model::human_agent_assistant_config::MessageAnalysisConfig,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -10380,10 +10377,10 @@ pub mod human_agent_assistant_config {
         /// Sets the value of [suggestion_trigger_settings][crate::model::human_agent_assistant_config::SuggestionFeatureConfig::suggestion_trigger_settings].
         pub fn set_suggestion_trigger_settings<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::human_agent_assistant_config::SuggestionTriggerSettings,
+                    std::option::Option<
+                        crate::model::human_agent_assistant_config::SuggestionTriggerSettings,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -10395,10 +10392,10 @@ pub mod human_agent_assistant_config {
         /// Sets the value of [query_config][crate::model::human_agent_assistant_config::SuggestionFeatureConfig::query_config].
         pub fn set_query_config<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::human_agent_assistant_config::SuggestionQueryConfig,
+                    std::option::Option<
+                        crate::model::human_agent_assistant_config::SuggestionQueryConfig,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -10410,10 +10407,10 @@ pub mod human_agent_assistant_config {
         /// Sets the value of [conversation_model_config][crate::model::human_agent_assistant_config::SuggestionFeatureConfig::conversation_model_config].
         pub fn set_conversation_model_config<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::human_agent_assistant_config::ConversationModelConfig,
+                    std::option::Option<
+                        crate::model::human_agent_assistant_config::ConversationModelConfig,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -10425,10 +10422,10 @@ pub mod human_agent_assistant_config {
         /// Sets the value of [conversation_process_config][crate::model::human_agent_assistant_config::SuggestionFeatureConfig::conversation_process_config].
         pub fn set_conversation_process_config<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::human_agent_assistant_config::ConversationProcessConfig,
+                    std::option::Option<
+                        crate::model::human_agent_assistant_config::ConversationProcessConfig,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -10508,8 +10505,8 @@ pub mod human_agent_assistant_config {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::human_agent_assistant_config::SuggestionFeatureConfig,
-            >,
+                    crate::model::human_agent_assistant_config::SuggestionFeatureConfig,
+                >,
         {
             use std::iter::Iterator;
             self.feature_configs = v.into_iter().map(|i| i.into()).collect();
@@ -10610,16 +10607,7 @@ pub mod human_agent_assistant_config {
         }
 
         /// Sets the value of [sections][crate::model::human_agent_assistant_config::SuggestionQueryConfig::sections].
-        pub fn set_sections<
-            T: std::convert::Into<
-                std::option::Option<
-                    crate::model::human_agent_assistant_config::suggestion_query_config::Sections,
-                >,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_sections<T: std::convert::Into<std::option::Option<crate::model::human_agent_assistant_config::suggestion_query_config::Sections>>>(mut self, v: T) -> Self{
             self.sections = v.into();
             self
         }
@@ -11273,8 +11261,8 @@ impl HumanAgentHandoffConfig {
     /// Sets the value of `agent_service`.
     pub fn set_agent_service<
         T: std::convert::Into<
-            std::option::Option<crate::model::human_agent_handoff_config::AgentService>,
-        >,
+                std::option::Option<crate::model::human_agent_handoff_config::AgentService>,
+            >,
     >(
         mut self,
         v: T,
@@ -11324,8 +11312,8 @@ impl HumanAgentHandoffConfig {
     /// mutually exclusive.
     pub fn set_live_person_config<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::human_agent_handoff_config::LivePersonConfig>,
-        >,
+                std::boxed::Box<crate::model::human_agent_handoff_config::LivePersonConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -11343,8 +11331,10 @@ impl HumanAgentHandoffConfig {
     /// mutually exclusive.
     pub fn set_salesforce_live_agent_config<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::human_agent_handoff_config::SalesforceLiveAgentConfig>,
-        >,
+                std::boxed::Box<
+                    crate::model::human_agent_handoff_config::SalesforceLiveAgentConfig,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -11819,10 +11809,10 @@ impl SetSuggestionFeatureConfigRequest {
     /// Sets the value of [suggestion_feature_config][crate::model::SetSuggestionFeatureConfigRequest::suggestion_feature_config].
     pub fn set_suggestion_feature_config<
         T: std::convert::Into<
-            std::option::Option<
-                crate::model::human_agent_assistant_config::SuggestionFeatureConfig,
+                std::option::Option<
+                    crate::model::human_agent_assistant_config::SuggestionFeatureConfig,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -13354,8 +13344,8 @@ impl KnowledgeOperationMetadata {
     /// Sets the value of `operation_metadata`.
     pub fn set_operation_metadata<
         T: std::convert::Into<
-            std::option::Option<crate::model::knowledge_operation_metadata::OperationMetadata>,
-        >,
+                std::option::Option<crate::model::knowledge_operation_metadata::OperationMetadata>,
+            >,
     >(
         mut self,
         v: T,
@@ -14344,8 +14334,10 @@ impl BatchUpdateEntityTypesRequest {
     /// Sets the value of `entity_type_batch`.
     pub fn set_entity_type_batch<
         T: std::convert::Into<
-            std::option::Option<crate::model::batch_update_entity_types_request::EntityTypeBatch>,
-        >,
+                std::option::Option<
+                    crate::model::batch_update_entity_types_request::EntityTypeBatch,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -19174,10 +19166,10 @@ pub mod intent {
                 /// Sets the value of [open_uri_action][crate::model::intent::message::basic_card::Button::open_uri_action].
                 pub fn set_open_uri_action<
                     T: std::convert::Into<
-                        std::option::Option<
-                            crate::model::intent::message::basic_card::button::OpenUriAction,
+                            std::option::Option<
+                                crate::model::intent::message::basic_card::button::OpenUriAction,
+                            >,
                         >,
-                    >,
                 >(
                     mut self,
                     v: T,
@@ -19435,8 +19427,8 @@ pub mod intent {
                 /// Sets the value of [info][crate::model::intent::message::list_select::Item::info].
                 pub fn set_info<
                     T: std::convert::Into<
-                        std::option::Option<crate::model::intent::message::SelectItemInfo>,
-                    >,
+                            std::option::Option<crate::model::intent::message::SelectItemInfo>,
+                        >,
                 >(
                     mut self,
                     v: T,
@@ -19552,8 +19544,8 @@ pub mod intent {
                 /// Sets the value of [info][crate::model::intent::message::carousel_select::Item::info].
                 pub fn set_info<
                     T: std::convert::Into<
-                        std::option::Option<crate::model::intent::message::SelectItemInfo>,
-                    >,
+                            std::option::Option<crate::model::intent::message::SelectItemInfo>,
+                        >,
                 >(
                     mut self,
                     v: T,
@@ -19682,8 +19674,8 @@ pub mod intent {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<
-                    crate::model::intent::message::media_content::ResponseMediaObject,
-                >,
+                        crate::model::intent::message::media_content::ResponseMediaObject,
+                    >,
             {
                 use std::iter::Iterator;
                 self.media_objects = v.into_iter().map(|i| i.into()).collect();
@@ -19942,8 +19934,8 @@ pub mod intent {
             /// Sets the value of [image_display_options][crate::model::intent::message::BrowseCarouselCard::image_display_options].
             pub fn set_image_display_options<
                 T: std::convert::Into<
-                    crate::model::intent::message::browse_carousel_card::ImageDisplayOptions,
-                >,
+                        crate::model::intent::message::browse_carousel_card::ImageDisplayOptions,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -19957,8 +19949,8 @@ pub mod intent {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<
-                    crate::model::intent::message::browse_carousel_card::BrowseCarouselCardItem,
-                >,
+                        crate::model::intent::message::browse_carousel_card::BrowseCarouselCardItem,
+                    >,
             {
                 use std::iter::Iterator;
                 self.items = v.into_iter().map(|i| i.into()).collect();
@@ -20399,8 +20391,8 @@ pub mod intent {
             /// Sets the value of [horizontal_alignment][crate::model::intent::message::ColumnProperties::horizontal_alignment].
             pub fn set_horizontal_alignment<
                 T: std::convert::Into<
-                    crate::model::intent::message::column_properties::HorizontalAlignment,
-                >,
+                        crate::model::intent::message::column_properties::HorizontalAlignment,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -21261,8 +21253,8 @@ impl BatchUpdateIntentsRequest {
     /// Sets the value of `intent_batch`.
     pub fn set_intent_batch<
         T: std::convert::Into<
-            std::option::Option<crate::model::batch_update_intents_request::IntentBatch>,
-        >,
+                std::option::Option<crate::model::batch_update_intents_request::IntentBatch>,
+            >,
     >(
         mut self,
         v: T,
@@ -23133,8 +23125,8 @@ impl StreamingAnalyzeContentRequest {
     /// Sets the value of `config`.
     pub fn set_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::streaming_analyze_content_request::Config>,
-        >,
+                std::option::Option<crate::model::streaming_analyze_content_request::Config>,
+            >,
     >(
         mut self,
         v: T,
@@ -23210,8 +23202,8 @@ impl StreamingAnalyzeContentRequest {
     /// Sets the value of `input`.
     pub fn set_input<
         T: std::convert::Into<
-            std::option::Option<crate::model::streaming_analyze_content_request::Input>,
-        >,
+                std::option::Option<crate::model::streaming_analyze_content_request::Input>,
+            >,
     >(
         mut self,
         v: T,
@@ -23883,8 +23875,8 @@ impl GenerateSuggestionsResponse {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<
-            crate::model::generate_suggestions_response::GeneratorSuggestionAnswer,
-        >,
+                crate::model::generate_suggestions_response::GeneratorSuggestionAnswer,
+            >,
     {
         use std::iter::Iterator;
         self.generator_suggestion_answers = v.into_iter().map(|i| i.into()).collect();
@@ -24840,8 +24832,8 @@ impl SuggestionResult {
     /// Sets the value of `suggestion_response`.
     pub fn set_suggestion_response<
         T: std::convert::Into<
-            std::option::Option<crate::model::suggestion_result::SuggestionResponse>,
-        >,
+                std::option::Option<crate::model::suggestion_result::SuggestionResponse>,
+            >,
     >(
         mut self,
         v: T,
@@ -25481,8 +25473,8 @@ impl KnowledgeAssistAnswer {
     /// Sets the value of [suggested_query][crate::model::KnowledgeAssistAnswer::suggested_query].
     pub fn set_suggested_query<
         T: std::convert::Into<
-            std::option::Option<crate::model::knowledge_assist_answer::SuggestedQuery>,
-        >,
+                std::option::Option<crate::model::knowledge_assist_answer::SuggestedQuery>,
+            >,
     >(
         mut self,
         v: T,
@@ -25494,8 +25486,8 @@ impl KnowledgeAssistAnswer {
     /// Sets the value of [suggested_query_answer][crate::model::KnowledgeAssistAnswer::suggested_query_answer].
     pub fn set_suggested_query_answer<
         T: std::convert::Into<
-            std::option::Option<crate::model::knowledge_assist_answer::KnowledgeAnswer>,
-        >,
+                std::option::Option<crate::model::knowledge_assist_answer::KnowledgeAnswer>,
+            >,
     >(
         mut self,
         v: T,
@@ -25582,10 +25574,10 @@ pub mod knowledge_assist_answer {
         /// Sets the value of `source`.
         pub fn set_source<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::knowledge_assist_answer::knowledge_answer::Source,
+                    std::option::Option<
+                        crate::model::knowledge_assist_answer::knowledge_answer::Source,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -25635,8 +25627,10 @@ pub mod knowledge_assist_answer {
         /// mutually exclusive.
         pub fn set_faq_source<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::knowledge_assist_answer::knowledge_answer::FaqSource>,
-            >,
+                    std::boxed::Box<
+                        crate::model::knowledge_assist_answer::knowledge_answer::FaqSource,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -25656,10 +25650,10 @@ pub mod knowledge_assist_answer {
         /// mutually exclusive.
         pub fn set_generative_source<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::knowledge_assist_answer::knowledge_answer::GenerativeSource,
+                    std::boxed::Box<
+                        crate::model::knowledge_assist_answer::knowledge_answer::GenerativeSource,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,

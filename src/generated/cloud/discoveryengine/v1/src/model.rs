@@ -377,8 +377,8 @@ pub mod answer {
         /// mutually exclusive.
         pub fn set_unstructured_document_info<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::answer::reference::UnstructuredDocumentInfo>,
-            >,
+                    std::boxed::Box<crate::model::answer::reference::UnstructuredDocumentInfo>,
+                >,
         >(
             mut self,
             v: T,
@@ -413,8 +413,8 @@ pub mod answer {
         /// mutually exclusive.
         pub fn set_structured_document_info<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::answer::reference::StructuredDocumentInfo>,
-            >,
+                    std::boxed::Box<crate::model::answer::reference::StructuredDocumentInfo>,
+                >,
         >(
             mut self,
             v: T,
@@ -507,8 +507,8 @@ pub mod answer {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<
-                    crate::model::answer::reference::unstructured_document_info::ChunkContent,
-                >,
+                        crate::model::answer::reference::unstructured_document_info::ChunkContent,
+                    >,
             {
                 use std::iter::Iterator;
                 self.chunk_contents = v.into_iter().map(|i| i.into()).collect();
@@ -647,10 +647,10 @@ pub mod answer {
             /// Sets the value of [document_metadata][crate::model::answer::reference::ChunkInfo::document_metadata].
             pub fn set_document_metadata<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::answer::reference::chunk_info::DocumentMetadata,
+                        std::option::Option<
+                            crate::model::answer::reference::chunk_info::DocumentMetadata,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -911,8 +911,8 @@ pub mod answer {
             /// Sets the value of [observation][crate::model::answer::step::Action::observation].
             pub fn set_observation<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::answer::step::action::Observation>,
-                >,
+                        std::option::Option<crate::model::answer::step::action::Observation>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -956,8 +956,8 @@ pub mod answer {
             /// mutually exclusive.
             pub fn set_search_action<
                 T: std::convert::Into<
-                    std::boxed::Box<crate::model::answer::step::action::SearchAction>,
-                >,
+                        std::boxed::Box<crate::model::answer::step::action::SearchAction>,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -1035,8 +1035,8 @@ pub mod answer {
                 where
                     T: std::iter::IntoIterator<Item = V>,
                     V: std::convert::Into<
-                        crate::model::answer::step::action::observation::SearchResult,
-                    >,
+                            crate::model::answer::step::action::observation::SearchResult,
+                        >,
                 {
                     use std::iter::Iterator;
                     self.search_results = v.into_iter().map(|i| i.into()).collect();
@@ -1383,8 +1383,8 @@ pub mod answer {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::answer::query_understanding_info::QueryClassificationInfo,
-            >,
+                    crate::model::answer::query_understanding_info::QueryClassificationInfo,
+                >,
         {
             use std::iter::Iterator;
             self.query_classification_info = v.into_iter().map(|i| i.into()).collect();
@@ -1424,14 +1424,7 @@ pub mod answer {
             }
 
             /// Sets the value of [r#type][crate::model::answer::query_understanding_info::QueryClassificationInfo::type].
-            pub fn set_type<
-                T: std::convert::Into<
-                    crate::model::answer::query_understanding_info::query_classification_info::Type,
-                >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_type<T: std::convert::Into<crate::model::answer::query_understanding_info::query_classification_info::Type>>(mut self, v: T) -> Self{
                 self.r#type = v.into();
                 self
             }
@@ -1840,8 +1833,8 @@ impl Chunk {
     /// Sets the value of [chunk_metadata][crate::model::Chunk::chunk_metadata].
     pub fn set_chunk_metadata<
         T: std::convert::Into<
-            std::option::Option<std::boxed::Box<crate::model::chunk::ChunkMetadata>>,
-        >,
+                std::option::Option<std::boxed::Box<crate::model::chunk::ChunkMetadata>>,
+            >,
     >(
         mut self,
         v: T,
@@ -4285,8 +4278,8 @@ impl ConverseConversationRequest {
     /// Sets the value of [summary_spec][crate::model::ConverseConversationRequest::summary_spec].
     pub fn set_summary_spec<
         T: std::convert::Into<
-            std::option::Option<crate::model::search_request::content_search_spec::SummarySpec>,
-        >,
+                std::option::Option<crate::model::search_request::content_search_spec::SummarySpec>,
+            >,
     >(
         mut self,
         v: T,
@@ -4845,8 +4838,8 @@ impl AnswerQueryRequest {
     /// Sets the value of [related_questions_spec][crate::model::AnswerQueryRequest::related_questions_spec].
     pub fn set_related_questions_spec<
         T: std::convert::Into<
-            std::option::Option<crate::model::answer_query_request::RelatedQuestionsSpec>,
-        >,
+                std::option::Option<crate::model::answer_query_request::RelatedQuestionsSpec>,
+            >,
     >(
         mut self,
         v: T,
@@ -4858,8 +4851,8 @@ impl AnswerQueryRequest {
     /// Sets the value of [answer_generation_spec][crate::model::AnswerQueryRequest::answer_generation_spec].
     pub fn set_answer_generation_spec<
         T: std::convert::Into<
-            std::option::Option<crate::model::answer_query_request::AnswerGenerationSpec>,
-        >,
+                std::option::Option<crate::model::answer_query_request::AnswerGenerationSpec>,
+            >,
     >(
         mut self,
         v: T,
@@ -4882,8 +4875,8 @@ impl AnswerQueryRequest {
     /// Sets the value of [query_understanding_spec][crate::model::AnswerQueryRequest::query_understanding_spec].
     pub fn set_query_understanding_spec<
         T: std::convert::Into<
-            std::option::Option<crate::model::answer_query_request::QueryUnderstandingSpec>,
-        >,
+                std::option::Option<crate::model::answer_query_request::QueryUnderstandingSpec>,
+            >,
     >(
         mut self,
         v: T,
@@ -5065,10 +5058,10 @@ pub mod answer_query_request {
         /// Sets the value of [model_spec][crate::model::answer_query_request::AnswerGenerationSpec::model_spec].
         pub fn set_model_spec<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::answer_query_request::answer_generation_spec::ModelSpec,
+                    std::option::Option<
+                        crate::model::answer_query_request::answer_generation_spec::ModelSpec,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -5080,10 +5073,10 @@ pub mod answer_query_request {
         /// Sets the value of [prompt_spec][crate::model::answer_query_request::AnswerGenerationSpec::prompt_spec].
         pub fn set_prompt_spec<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::answer_query_request::answer_generation_spec::PromptSpec,
+                    std::option::Option<
+                        crate::model::answer_query_request::answer_generation_spec::PromptSpec,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -5235,8 +5228,8 @@ pub mod answer_query_request {
         /// Sets the value of `input`.
         pub fn set_input<
             T: std::convert::Into<
-                std::option::Option<crate::model::answer_query_request::search_spec::Input>,
-            >,
+                    std::option::Option<crate::model::answer_query_request::search_spec::Input>,
+                >,
         >(
             mut self,
             v: T,
@@ -5286,8 +5279,8 @@ pub mod answer_query_request {
         /// mutually exclusive.
         pub fn set_search_params<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::answer_query_request::search_spec::SearchParams>,
-            >,
+                    std::boxed::Box<crate::model::answer_query_request::search_spec::SearchParams>,
+                >,
         >(
             mut self,
             v: T,
@@ -5305,8 +5298,10 @@ pub mod answer_query_request {
         /// mutually exclusive.
         pub fn set_search_result_list<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::answer_query_request::search_spec::SearchResultList>,
-            >,
+                    std::boxed::Box<
+                        crate::model::answer_query_request::search_spec::SearchResultList,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -5432,8 +5427,8 @@ pub mod answer_query_request {
             /// Sets the value of [search_result_mode][crate::model::answer_query_request::search_spec::SearchParams::search_result_mode].
             pub fn set_search_result_mode<
                 T: std::convert::Into<
-                    crate::model::search_request::content_search_spec::SearchResultMode,
-                >,
+                        crate::model::search_request::content_search_spec::SearchResultMode,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -8354,8 +8349,8 @@ impl DocumentProcessingConfig {
     /// Sets the value of [chunking_config][crate::model::DocumentProcessingConfig::chunking_config].
     pub fn set_chunking_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::document_processing_config::ChunkingConfig>,
-        >,
+                std::option::Option<crate::model::document_processing_config::ChunkingConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -8367,8 +8362,8 @@ impl DocumentProcessingConfig {
     /// Sets the value of [default_parsing_config][crate::model::DocumentProcessingConfig::default_parsing_config].
     pub fn set_default_parsing_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::document_processing_config::ParsingConfig>,
-        >,
+                std::option::Option<crate::model::document_processing_config::ParsingConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -8422,10 +8417,10 @@ pub mod document_processing_config {
         /// Sets the value of `chunk_mode`.
         pub fn set_chunk_mode<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::document_processing_config::chunking_config::ChunkMode,
+                    std::option::Option<
+                        crate::model::document_processing_config::chunking_config::ChunkMode,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -8546,16 +8541,8 @@ pub mod document_processing_config {
         }
 
         /// Sets the value of `type_dedicated_config`.
-        pub fn set_type_dedicated_config<
-            T: std::convert::Into<
-                std::option::Option<
-                    crate::model::document_processing_config::parsing_config::TypeDedicatedConfig,
-                >,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_type_dedicated_config<T: std::convert::Into<std::option::Option<crate::model::document_processing_config::parsing_config::TypeDedicatedConfig>>>(mut self, v: T) -> Self
+        {
             self.type_dedicated_config = v.into();
             self
         }
@@ -8616,16 +8603,7 @@ pub mod document_processing_config {
         ///
         /// Note that all the setters affecting `type_dedicated_config` are
         /// mutually exclusive.
-        pub fn set_digital_parsing_config<
-            T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::document_processing_config::parsing_config::DigitalParsingConfig,
-                >,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_digital_parsing_config<T: std::convert::Into<std::boxed::Box<crate::model::document_processing_config::parsing_config::DigitalParsingConfig>>>(mut self, v: T) -> Self{
             self.type_dedicated_config = std::option::Option::Some(
                 crate::model::document_processing_config::parsing_config::TypeDedicatedConfig::DigitalParsingConfig(
                     v.into()
@@ -8641,10 +8619,10 @@ pub mod document_processing_config {
         /// mutually exclusive.
         pub fn set_ocr_parsing_config<
             T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::document_processing_config::parsing_config::OcrParsingConfig,
+                    std::boxed::Box<
+                        crate::model::document_processing_config::parsing_config::OcrParsingConfig,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -8662,16 +8640,7 @@ pub mod document_processing_config {
         ///
         /// Note that all the setters affecting `type_dedicated_config` are
         /// mutually exclusive.
-        pub fn set_layout_parsing_config<
-            T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::document_processing_config::parsing_config::LayoutParsingConfig,
-                >,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_layout_parsing_config<T: std::convert::Into<std::boxed::Box<crate::model::document_processing_config::parsing_config::LayoutParsingConfig>>>(mut self, v: T) -> Self{
             self.type_dedicated_config = std::option::Option::Some(
                 crate::model::document_processing_config::parsing_config::TypeDedicatedConfig::LayoutParsingConfig(
                     v.into()
@@ -9231,8 +9200,8 @@ impl BatchGetDocumentsMetadataRequest {
     /// Sets the value of [matcher][crate::model::BatchGetDocumentsMetadataRequest::matcher].
     pub fn set_matcher<
         T: std::convert::Into<
-            std::option::Option<crate::model::batch_get_documents_metadata_request::Matcher>,
-        >,
+                std::option::Option<crate::model::batch_get_documents_metadata_request::Matcher>,
+            >,
     >(
         mut self,
         v: T,
@@ -9355,10 +9324,10 @@ pub mod batch_get_documents_metadata_request {
         /// Sets the value of `matcher`.
         pub fn set_matcher<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::batch_get_documents_metadata_request::matcher::Matcher,
+                    std::option::Option<
+                        crate::model::batch_get_documents_metadata_request::matcher::Matcher,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -9404,8 +9373,10 @@ pub mod batch_get_documents_metadata_request {
         /// mutually exclusive.
         pub fn set_uris_matcher<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::batch_get_documents_metadata_request::UrisMatcher>,
-            >,
+                    std::boxed::Box<
+                        crate::model::batch_get_documents_metadata_request::UrisMatcher,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -9425,8 +9396,10 @@ pub mod batch_get_documents_metadata_request {
         /// mutually exclusive.
         pub fn set_fhir_matcher<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::batch_get_documents_metadata_request::FhirMatcher>,
-            >,
+                    std::boxed::Box<
+                        crate::model::batch_get_documents_metadata_request::FhirMatcher,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -9498,8 +9471,8 @@ impl BatchGetDocumentsMetadataResponse {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<
-            crate::model::batch_get_documents_metadata_response::DocumentMetadata,
-        >,
+                crate::model::batch_get_documents_metadata_response::DocumentMetadata,
+            >,
     {
         use std::iter::Iterator;
         self.documents_metadata = v.into_iter().map(|i| i.into()).collect();
@@ -10209,8 +10182,10 @@ pub mod engine {
         /// Sets the value of [agent_creation_config][crate::model::engine::ChatEngineConfig::agent_creation_config].
         pub fn set_agent_creation_config<
             T: std::convert::Into<
-                std::option::Option<crate::model::engine::chat_engine_config::AgentCreationConfig>,
-            >,
+                    std::option::Option<
+                        crate::model::engine::chat_engine_config::AgentCreationConfig,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -10951,8 +10926,8 @@ pub mod grounded_generation_content {
         /// Sets the value of `data`.
         pub fn set_data<
             T: std::convert::Into<
-                std::option::Option<crate::model::grounded_generation_content::part::Data>,
-            >,
+                    std::option::Option<crate::model::grounded_generation_content::part::Data>,
+                >,
         >(
             mut self,
             v: T,
@@ -11095,8 +11070,10 @@ impl GenerateGroundedContentRequest {
     /// Sets the value of [generation_spec][crate::model::GenerateGroundedContentRequest::generation_spec].
     pub fn set_generation_spec<
         T: std::convert::Into<
-            std::option::Option<crate::model::generate_grounded_content_request::GenerationSpec>,
-        >,
+                std::option::Option<
+                    crate::model::generate_grounded_content_request::GenerationSpec,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -11108,8 +11085,8 @@ impl GenerateGroundedContentRequest {
     /// Sets the value of [grounding_spec][crate::model::GenerateGroundedContentRequest::grounding_spec].
     pub fn set_grounding_spec<
         T: std::convert::Into<
-            std::option::Option<crate::model::generate_grounded_content_request::GroundingSpec>,
-        >,
+                std::option::Option<crate::model::generate_grounded_content_request::GroundingSpec>,
+            >,
     >(
         mut self,
         v: T,
@@ -11428,10 +11405,10 @@ pub mod generate_grounded_content_request {
         /// Sets the value of `source`.
         pub fn set_source<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::generate_grounded_content_request::grounding_source::Source,
+                    std::option::Option<
+                        crate::model::generate_grounded_content_request::grounding_source::Source,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -11490,16 +11467,7 @@ pub mod generate_grounded_content_request {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_inline_source<
-            T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::generate_grounded_content_request::grounding_source::InlineSource,
-                >,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_inline_source<T: std::convert::Into<std::boxed::Box<crate::model::generate_grounded_content_request::grounding_source::InlineSource>>>(mut self, v: T) -> Self{
             self.source = std::option::Option::Some(
                 crate::model::generate_grounded_content_request::grounding_source::Source::InlineSource(
                     v.into()
@@ -11513,16 +11481,7 @@ pub mod generate_grounded_content_request {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_search_source<
-            T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::generate_grounded_content_request::grounding_source::SearchSource,
-                >,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_search_source<T: std::convert::Into<std::boxed::Box<crate::model::generate_grounded_content_request::grounding_source::SearchSource>>>(mut self, v: T) -> Self{
             self.source = std::option::Option::Some(
                 crate::model::generate_grounded_content_request::grounding_source::Source::SearchSource(
                     v.into()
@@ -11856,16 +11815,7 @@ pub mod generate_grounded_content_response {
         }
 
         /// Sets the value of [grounding_metadata][crate::model::generate_grounded_content_response::Candidate::grounding_metadata].
-        pub fn set_grounding_metadata<
-            T: std::convert::Into<
-                std::option::Option<
-                    crate::model::generate_grounded_content_response::candidate::GroundingMetadata,
-                >,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_grounding_metadata<T: std::convert::Into<std::option::Option<crate::model::generate_grounded_content_response::candidate::GroundingMetadata>>>(mut self, v: T) -> Self{
             self.grounding_metadata = v.into();
             self
         }
@@ -15029,8 +14979,10 @@ impl ImportSuggestionDenyListEntriesRequest {
     /// Sets the value of `source`.
     pub fn set_source<
         T: std::convert::Into<
-            std::option::Option<crate::model::import_suggestion_deny_list_entries_request::Source>,
-        >,
+                std::option::Option<
+                    crate::model::import_suggestion_deny_list_entries_request::Source,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -15076,10 +15028,10 @@ impl ImportSuggestionDenyListEntriesRequest {
     /// mutually exclusive.
     pub fn set_inline_source<
         T: std::convert::Into<
-            std::boxed::Box<
-                crate::model::import_suggestion_deny_list_entries_request::InlineSource,
+                std::boxed::Box<
+                    crate::model::import_suggestion_deny_list_entries_request::InlineSource,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -15333,8 +15285,8 @@ impl ImportCompletionSuggestionsRequest {
     /// Sets the value of `source`.
     pub fn set_source<
         T: std::convert::Into<
-            std::option::Option<crate::model::import_completion_suggestions_request::Source>,
-        >,
+                std::option::Option<crate::model::import_completion_suggestions_request::Source>,
+            >,
     >(
         mut self,
         v: T,
@@ -15395,8 +15347,8 @@ impl ImportCompletionSuggestionsRequest {
     /// mutually exclusive.
     pub fn set_inline_source<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::import_completion_suggestions_request::InlineSource>,
-        >,
+                std::boxed::Box<crate::model::import_completion_suggestions_request::InlineSource>,
+            >,
     >(
         mut self,
         v: T,
@@ -18562,8 +18514,8 @@ pub mod search_request {
         /// Sets the value of `image`.
         pub fn set_image<
             T: std::convert::Into<
-                std::option::Option<crate::model::search_request::image_query::Image>,
-            >,
+                    std::option::Option<crate::model::search_request::image_query::Image>,
+                >,
         >(
             mut self,
             v: T,
@@ -18758,8 +18710,8 @@ pub mod search_request {
         /// Sets the value of [facet_key][crate::model::search_request::FacetSpec::facet_key].
         pub fn set_facet_key<
             T: std::convert::Into<
-                std::option::Option<crate::model::search_request::facet_spec::FacetKey>,
-            >,
+                    std::option::Option<crate::model::search_request::facet_spec::FacetKey>,
+                >,
         >(
             mut self,
             v: T,
@@ -19629,8 +19581,10 @@ pub mod search_request {
         /// Sets the value of [snippet_spec][crate::model::search_request::ContentSearchSpec::snippet_spec].
         pub fn set_snippet_spec<
             T: std::convert::Into<
-                std::option::Option<crate::model::search_request::content_search_spec::SnippetSpec>,
-            >,
+                    std::option::Option<
+                        crate::model::search_request::content_search_spec::SnippetSpec,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -19642,8 +19596,10 @@ pub mod search_request {
         /// Sets the value of [summary_spec][crate::model::search_request::ContentSearchSpec::summary_spec].
         pub fn set_summary_spec<
             T: std::convert::Into<
-                std::option::Option<crate::model::search_request::content_search_spec::SummarySpec>,
-            >,
+                    std::option::Option<
+                        crate::model::search_request::content_search_spec::SummarySpec,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -19655,10 +19611,10 @@ pub mod search_request {
         /// Sets the value of [extractive_content_spec][crate::model::search_request::ContentSearchSpec::extractive_content_spec].
         pub fn set_extractive_content_spec<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::search_request::content_search_spec::ExtractiveContentSpec,
+                    std::option::Option<
+                        crate::model::search_request::content_search_spec::ExtractiveContentSpec,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -19681,8 +19637,10 @@ pub mod search_request {
         /// Sets the value of [chunk_spec][crate::model::search_request::ContentSearchSpec::chunk_spec].
         pub fn set_chunk_spec<
             T: std::convert::Into<
-                std::option::Option<crate::model::search_request::content_search_spec::ChunkSpec>,
-            >,
+                    std::option::Option<
+                        crate::model::search_request::content_search_spec::ChunkSpec,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -19938,16 +19896,7 @@ pub mod search_request {
             }
 
             /// Sets the value of [model_spec][crate::model::search_request::content_search_spec::SummarySpec::model_spec].
-            pub fn set_model_spec<
-                T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::search_request::content_search_spec::summary_spec::ModelSpec,
-                    >,
-                >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_model_spec<T: std::convert::Into<std::option::Option<crate::model::search_request::content_search_spec::summary_spec::ModelSpec>>>(mut self, v: T) -> Self{
                 self.model_spec = v.into();
                 self
             }
@@ -20824,10 +20773,10 @@ pub mod search_response {
             /// Sets the value of `facet_value`.
             pub fn set_facet_value<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::search_response::facet::facet_value::FacetValue,
+                        std::option::Option<
+                            crate::model::search_response::facet::facet_value::FacetValue,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -20967,8 +20916,8 @@ pub mod search_response {
         /// Sets the value of [safety_attributes][crate::model::search_response::Summary::safety_attributes].
         pub fn set_safety_attributes<
             T: std::convert::Into<
-                std::option::Option<crate::model::search_response::summary::SafetyAttributes>,
-            >,
+                    std::option::Option<crate::model::search_response::summary::SafetyAttributes>,
+                >,
         >(
             mut self,
             v: T,
@@ -20980,8 +20929,10 @@ pub mod search_response {
         /// Sets the value of [summary_with_metadata][crate::model::search_response::Summary::summary_with_metadata].
         pub fn set_summary_with_metadata<
             T: std::convert::Into<
-                std::option::Option<crate::model::search_response::summary::SummaryWithMetadata>,
-            >,
+                    std::option::Option<
+                        crate::model::search_response::summary::SummaryWithMetadata,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -21243,8 +21194,8 @@ pub mod search_response {
             where
                 T: std::iter::IntoIterator<Item = V>,
                 V: std::convert::Into<
-                    crate::model::search_response::summary::reference::ChunkContent,
-                >,
+                        crate::model::search_response::summary::reference::ChunkContent,
+                    >,
             {
                 use std::iter::Iterator;
                 self.chunk_contents = v.into_iter().map(|i| i.into()).collect();
@@ -21343,8 +21294,10 @@ pub mod search_response {
             /// Sets the value of [citation_metadata][crate::model::search_response::summary::SummaryWithMetadata::citation_metadata].
             pub fn set_citation_metadata<
                 T: std::convert::Into<
-                    std::option::Option<crate::model::search_response::summary::CitationMetadata>,
-                >,
+                        std::option::Option<
+                            crate::model::search_response::summary::CitationMetadata,
+                        >,
+                    >,
             >(
                 mut self,
                 v: T,
@@ -21770,8 +21723,8 @@ impl TrainCustomModelRequest {
     /// Sets the value of `training_input`.
     pub fn set_training_input<
         T: std::convert::Into<
-            std::option::Option<crate::model::train_custom_model_request::TrainingInput>,
-        >,
+                std::option::Option<crate::model::train_custom_model_request::TrainingInput>,
+            >,
     >(
         mut self,
         v: T,
@@ -21804,8 +21757,8 @@ impl TrainCustomModelRequest {
     /// mutually exclusive.
     pub fn set_gcs_training_input<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::train_custom_model_request::GcsTrainingInput>,
-        >,
+                std::boxed::Box<crate::model::train_custom_model_request::GcsTrainingInput>,
+            >,
     >(
         mut self,
         v: T,
@@ -22554,8 +22507,8 @@ pub mod target_site {
         /// Sets the value of `failure`.
         pub fn set_failure<
             T: std::convert::Into<
-                std::option::Option<crate::model::target_site::failure_reason::Failure>,
-            >,
+                    std::option::Option<crate::model::target_site::failure_reason::Failure>,
+                >,
         >(
             mut self,
             v: T,
@@ -22588,8 +22541,8 @@ pub mod target_site {
         /// mutually exclusive.
         pub fn set_quota_failure<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::target_site::failure_reason::QuotaFailure>,
-            >,
+                    std::boxed::Box<crate::model::target_site::failure_reason::QuotaFailure>,
+                >,
         >(
             mut self,
             v: T,
@@ -23998,14 +23951,7 @@ pub mod recrawl_uris_response {
             }
 
             /// Sets the value of [corpus_type][crate::model::recrawl_uris_response::failure_info::FailureReason::corpus_type].
-            pub fn set_corpus_type<
-                T: std::convert::Into<
-                    crate::model::recrawl_uris_response::failure_info::failure_reason::CorpusType,
-                >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_corpus_type<T: std::convert::Into<crate::model::recrawl_uris_response::failure_info::failure_reason::CorpusType>>(mut self, v: T) -> Self{
                 self.corpus_type = v.into();
                 self
             }

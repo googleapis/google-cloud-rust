@@ -1785,8 +1785,8 @@ impl AutomatedBackupConfig {
     /// mutually exclusive.
     pub fn set_fixed_frequency_schedule<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::automated_backup_config::FixedFrequencySchedule>,
-        >,
+                std::boxed::Box<crate::model::automated_backup_config::FixedFrequencySchedule>,
+            >,
     >(
         mut self,
         v: T,
@@ -2467,8 +2467,8 @@ impl CrossClusterReplicationConfig {
     /// Sets the value of [primary_cluster][crate::model::CrossClusterReplicationConfig::primary_cluster].
     pub fn set_primary_cluster<
         T: std::convert::Into<
-            std::option::Option<crate::model::cross_cluster_replication_config::RemoteCluster>,
-        >,
+                std::option::Option<crate::model::cross_cluster_replication_config::RemoteCluster>,
+            >,
     >(
         mut self,
         v: T,
@@ -2489,8 +2489,8 @@ impl CrossClusterReplicationConfig {
     /// Sets the value of [membership][crate::model::CrossClusterReplicationConfig::membership].
     pub fn set_membership<
         T: std::convert::Into<
-            std::option::Option<crate::model::cross_cluster_replication_config::Membership>,
-        >,
+                std::option::Option<crate::model::cross_cluster_replication_config::Membership>,
+            >,
     >(
         mut self,
         v: T,
@@ -2591,8 +2591,10 @@ pub mod cross_cluster_replication_config {
         /// Sets the value of [primary_cluster][crate::model::cross_cluster_replication_config::Membership::primary_cluster].
         pub fn set_primary_cluster<
             T: std::convert::Into<
-                std::option::Option<crate::model::cross_cluster_replication_config::RemoteCluster>,
-            >,
+                    std::option::Option<
+                        crate::model::cross_cluster_replication_config::RemoteCluster,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -3486,8 +3488,8 @@ impl CertificateAuthority {
     /// mutually exclusive.
     pub fn set_managed_server_ca<
         T: std::convert::Into<
-            std::boxed::Box<crate::model::certificate_authority::ManagedCertificateAuthority>,
-        >,
+                std::boxed::Box<crate::model::certificate_authority::ManagedCertificateAuthority>,
+            >,
     >(
         mut self,
         v: T,
@@ -3533,8 +3535,8 @@ pub mod certificate_authority {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::certificate_authority::managed_certificate_authority::CertChain,
-            >,
+                    crate::model::certificate_authority::managed_certificate_authority::CertChain,
+                >,
         {
             use std::iter::Iterator;
             self.ca_certs = v.into_iter().map(|i| i.into()).collect();
@@ -3635,8 +3637,8 @@ impl ClusterPersistenceConfig {
     /// Sets the value of [rdb_config][crate::model::ClusterPersistenceConfig::rdb_config].
     pub fn set_rdb_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::cluster_persistence_config::RDBConfig>,
-        >,
+                std::option::Option<crate::model::cluster_persistence_config::RDBConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -3648,8 +3650,8 @@ impl ClusterPersistenceConfig {
     /// Sets the value of [aof_config][crate::model::ClusterPersistenceConfig::aof_config].
     pub fn set_aof_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::cluster_persistence_config::AOFConfig>,
-        >,
+                std::option::Option<crate::model::cluster_persistence_config::AOFConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -3695,8 +3697,8 @@ pub mod cluster_persistence_config {
         /// Sets the value of [rdb_snapshot_period][crate::model::cluster_persistence_config::RDBConfig::rdb_snapshot_period].
         pub fn set_rdb_snapshot_period<
             T: std::convert::Into<
-                crate::model::cluster_persistence_config::rdb_config::SnapshotPeriod,
-            >,
+                    crate::model::cluster_persistence_config::rdb_config::SnapshotPeriod,
+                >,
         >(
             mut self,
             v: T,

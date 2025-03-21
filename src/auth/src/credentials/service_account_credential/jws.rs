@@ -60,7 +60,7 @@ impl JwsClaims {
             )));
         }
 
-        use base64::prelude::{Engine as _, BASE64_URL_SAFE_NO_PAD};
+        use base64::prelude::{BASE64_URL_SAFE_NO_PAD, Engine as _};
         let json = serde_json::to_string(&self).map_err(CredentialError::non_retryable)?;
         Ok(BASE64_URL_SAFE_NO_PAD.encode(json.as_bytes()))
     }
@@ -77,7 +77,7 @@ pub struct JwsHeader<'a> {
 
 impl JwsHeader<'_> {
     pub fn encode(&self) -> Result<String> {
-        use base64::prelude::{Engine as _, BASE64_URL_SAFE_NO_PAD};
+        use base64::prelude::{BASE64_URL_SAFE_NO_PAD, Engine as _};
         let json = serde_json::to_string(&self).map_err(CredentialError::non_retryable)?;
         Ok(BASE64_URL_SAFE_NO_PAD.encode(json.as_bytes()))
     }
@@ -170,9 +170,11 @@ mod tests {
             sub: None,
         };
         let expected_error_message = "must be later than issued time";
-        assert!(claims
-            .encode()
-            .is_err_and(|e| e.to_string().contains(expected_error_message)));
+        assert!(
+            claims
+                .encode()
+                .is_err_and(|e| e.to_string().contains(expected_error_message))
+        );
     }
 
     #[test]
@@ -190,9 +192,11 @@ mod tests {
             sub: None,
         };
         let expected_error_message = "expecting only 1 of them to be set";
-        assert!(claims
-            .encode()
-            .is_err_and(|e| e.to_string().contains(expected_error_message)));
+        assert!(
+            claims
+                .encode()
+                .is_err_and(|e| e.to_string().contains(expected_error_message))
+        );
     }
 
     #[test]

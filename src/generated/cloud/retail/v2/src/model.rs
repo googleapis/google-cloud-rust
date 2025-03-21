@@ -430,8 +430,8 @@ pub mod catalog_attribute {
         /// Sets the value of [merged_facet][crate::model::catalog_attribute::FacetConfig::merged_facet].
         pub fn set_merged_facet<
             T: std::convert::Into<
-                std::option::Option<crate::model::catalog_attribute::facet_config::MergedFacet>,
-            >,
+                    std::option::Option<crate::model::catalog_attribute::facet_config::MergedFacet>,
+                >,
         >(
             mut self,
             v: T,
@@ -443,8 +443,10 @@ pub mod catalog_attribute {
         /// Sets the value of [rerank_config][crate::model::catalog_attribute::FacetConfig::rerank_config].
         pub fn set_rerank_config<
             T: std::convert::Into<
-                std::option::Option<crate::model::catalog_attribute::facet_config::RerankConfig>,
-            >,
+                    std::option::Option<
+                        crate::model::catalog_attribute::facet_config::RerankConfig,
+                    >,
+                >,
         >(
             mut self,
             v: T,
@@ -469,8 +471,8 @@ pub mod catalog_attribute {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::catalog_attribute::facet_config::IgnoredFacetValues,
-            >,
+                    crate::model::catalog_attribute::facet_config::IgnoredFacetValues,
+                >,
         {
             use std::iter::Iterator;
             self.ignored_facet_values = v.into_iter().map(|i| i.into()).collect();
@@ -3210,8 +3212,8 @@ pub mod rule {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::rule::force_return_facet_action::FacetPositionAdjustment,
-            >,
+                    crate::model::rule::force_return_facet_action::FacetPositionAdjustment,
+                >,
         {
             use std::iter::Iterator;
             self.facet_position_adjustments = v.into_iter().map(|i| i.into()).collect();
@@ -8255,10 +8257,10 @@ pub mod model {
         /// Sets the value of `type_dedicated_config`.
         pub fn set_type_dedicated_config<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::model::model_features_config::TypeDedicatedConfig,
+                    std::option::Option<
+                        crate::model::model::model_features_config::TypeDedicatedConfig,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -8289,8 +8291,8 @@ pub mod model {
         /// mutually exclusive.
         pub fn set_frequently_bought_together_config<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::model::FrequentlyBoughtTogetherFeaturesConfig>,
-            >,
+                    std::boxed::Box<crate::model::model::FrequentlyBoughtTogetherFeaturesConfig>,
+                >,
         >(
             mut self,
             v: T,
@@ -13080,8 +13082,8 @@ impl SearchRequest {
     /// Sets the value of [conversational_search_spec][crate::model::SearchRequest::conversational_search_spec].
     pub fn set_conversational_search_spec<
         T: std::convert::Into<
-            std::option::Option<crate::model::search_request::ConversationalSearchSpec>,
-        >,
+                std::option::Option<crate::model::search_request::ConversationalSearchSpec>,
+            >,
     >(
         mut self,
         v: T,
@@ -13247,8 +13249,8 @@ pub mod search_request {
         /// Sets the value of [facet_key][crate::model::search_request::FacetSpec::facet_key].
         pub fn set_facet_key<
             T: std::convert::Into<
-                std::option::Option<crate::model::search_request::facet_spec::FacetKey>,
-            >,
+                    std::option::Option<crate::model::search_request::facet_spec::FacetKey>,
+                >,
         >(
             mut self,
             v: T,
@@ -14193,10 +14195,10 @@ pub mod search_request {
         /// Sets the value of [user_answer][crate::model::search_request::ConversationalSearchSpec::user_answer].
         pub fn set_user_answer<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::search_request::conversational_search_spec::UserAnswer,
+                    std::option::Option<
+                        crate::model::search_request::conversational_search_spec::UserAnswer,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -14238,16 +14240,8 @@ pub mod search_request {
             }
 
             /// Sets the value of `r#type`.
-            pub fn set_type<
-                T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::search_request::conversational_search_spec::user_answer::Type,
-                    >,
-                >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::search_request::conversational_search_spec::user_answer::Type>>>(mut self, v: T) -> Self
+            {
                 self.r#type = v.into();
                 self
             }
@@ -14683,8 +14677,8 @@ impl SearchResponse {
     /// Sets the value of [conversational_search_result][crate::model::SearchResponse::conversational_search_result].
     pub fn set_conversational_search_result<
         T: std::convert::Into<
-            std::option::Option<crate::model::search_response::ConversationalSearchResult>,
-        >,
+                std::option::Option<crate::model::search_response::ConversationalSearchResult>,
+            >,
     >(
         mut self,
         v: T,
@@ -14696,8 +14690,8 @@ impl SearchResponse {
     /// Sets the value of [tile_navigation_result][crate::model::SearchResponse::tile_navigation_result].
     pub fn set_tile_navigation_result<
         T: std::convert::Into<
-            std::option::Option<crate::model::search_response::TileNavigationResult>,
-        >,
+                std::option::Option<crate::model::search_response::TileNavigationResult>,
+            >,
     >(
         mut self,
         v: T,
@@ -15104,10 +15098,10 @@ pub mod search_response {
             /// Sets the value of `facet_value`.
             pub fn set_facet_value<
                 T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::search_response::facet::facet_value::FacetValue,
+                        std::option::Option<
+                            crate::model::search_response::facet::facet_value::FacetValue,
+                        >,
                     >,
-                >,
             >(
                 mut self,
                 v: T,
@@ -15337,16 +15331,7 @@ pub mod search_response {
         }
 
         /// Sets the value of [additional_filter][crate::model::search_response::ConversationalSearchResult::additional_filter].
-        pub fn set_additional_filter<
-            T: std::convert::Into<
-                std::option::Option<
-                    crate::model::search_response::conversational_search_result::AdditionalFilter,
-                >,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_additional_filter<T: std::convert::Into<std::option::Option<crate::model::search_response::conversational_search_result::AdditionalFilter>>>(mut self, v: T) -> Self{
             self.additional_filter = v.into();
             self
         }
@@ -15356,8 +15341,8 @@ pub mod search_response {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::search_response::conversational_search_result::AdditionalFilter,
-            >,
+                    crate::model::search_response::conversational_search_result::AdditionalFilter,
+                >,
         {
             use std::iter::Iterator;
             self.additional_filters = v.into_iter().map(|i| i.into()).collect();
@@ -15369,8 +15354,8 @@ pub mod search_response {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::search_response::conversational_search_result::SuggestedAnswer,
-            >,
+                    crate::model::search_response::conversational_search_result::SuggestedAnswer,
+                >,
         {
             use std::iter::Iterator;
             self.suggested_answers = v.into_iter().map(|i| i.into()).collect();
@@ -17390,8 +17375,8 @@ impl CollectUserEventRequest {
     /// Sets the value of `conversion_rule`.
     pub fn set_conversion_rule<
         T: std::convert::Into<
-            std::option::Option<crate::model::collect_user_event_request::ConversionRule>,
-        >,
+                std::option::Option<crate::model::collect_user_event_request::ConversionRule>,
+            >,
     >(
         mut self,
         v: T,

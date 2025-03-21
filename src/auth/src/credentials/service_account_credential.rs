@@ -20,8 +20,8 @@ use crate::errors::CredentialError;
 use crate::token::{Token, TokenProvider};
 use async_trait::async_trait;
 use derive_builder::Builder;
-use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
-use jws::{JwsClaims, JwsHeader, CLOCK_SKEW_FUDGE, DEFAULT_TOKEN_TIMEOUT};
+use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
+use jws::{CLOCK_SKEW_FUDGE, DEFAULT_TOKEN_TIMEOUT, JwsClaims, JwsHeader};
 use rustls::crypto::CryptoProvider;
 use rustls::sign::Signer;
 use rustls_pemfile::Item;
@@ -109,7 +109,7 @@ impl TokenProvider for ServiceAccountTokenProvider {
         let sig = signer
             .sign(encoded_header_claims.as_bytes())
             .map_err(CredentialError::non_retryable)?;
-        use base64::prelude::{Engine as _, BASE64_URL_SAFE_NO_PAD};
+        use base64::prelude::{BASE64_URL_SAFE_NO_PAD, Engine as _};
         let token = format!(
             "{}.{}",
             encoded_header_claims,
@@ -185,10 +185,10 @@ mod test {
     use crate::credentials::test::HV;
     use crate::token::test::MockTokenProvider;
     use base64::Engine;
+    use rsa::RsaPrivateKey;
     use rsa::pkcs1::EncodeRsaPrivateKey;
     use rsa::pkcs8::EncodePrivateKey;
     use rsa::pkcs8::LineEnding;
-    use rsa::RsaPrivateKey;
     use rustls_pemfile::Item;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
@@ -314,10 +314,12 @@ mod test {
             service_account_info,
         };
         let expected_error_message = "expected key to be in form of PKCS8, found Pkcs1Key";
-        assert!(token_provider
-            .get_token()
-            .await
-            .is_err_and(|e| e.to_string().contains(expected_error_message)));
+        assert!(
+            token_provider
+                .get_token()
+                .await
+                .is_err_and(|e| e.to_string().contains(expected_error_message))
+        );
         Ok(())
     }
 

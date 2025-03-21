@@ -487,8 +487,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListCryptoKeyVersionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListCryptoKeyVersionsResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListCryptoKeyVersionsResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListCryptoKeyVersionsResponse>>(Err(
             Error::other("unimplemented"),
         ))

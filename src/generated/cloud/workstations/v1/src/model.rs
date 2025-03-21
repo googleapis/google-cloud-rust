@@ -212,8 +212,8 @@ impl WorkstationCluster {
     /// Sets the value of [private_cluster_config][crate::model::WorkstationCluster::private_cluster_config].
     pub fn set_private_cluster_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::workstation_cluster::PrivateClusterConfig>,
-        >,
+                std::option::Option<crate::model::workstation_cluster::PrivateClusterConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -627,8 +627,8 @@ impl WorkstationConfig {
     /// Sets the value of [encryption_key][crate::model::WorkstationConfig::encryption_key].
     pub fn set_encryption_key<
         T: std::convert::Into<
-            std::option::Option<crate::model::workstation_config::CustomerEncryptionKey>,
-        >,
+                std::option::Option<crate::model::workstation_config::CustomerEncryptionKey>,
+            >,
     >(
         mut self,
         v: T,
@@ -774,8 +774,8 @@ pub mod workstation_config {
         /// mutually exclusive.
         pub fn set_gce_instance<
             T: std::convert::Into<
-                std::boxed::Box<crate::model::workstation_config::host::GceInstance>,
-            >,
+                    std::boxed::Box<crate::model::workstation_config::host::GceInstance>,
+                >,
         >(
             mut self,
             v: T,
@@ -1152,10 +1152,10 @@ pub mod workstation_config {
         /// Sets the value of `directory_type`.
         pub fn set_directory_type<
             T: std::convert::Into<
-                std::option::Option<
-                    crate::model::workstation_config::persistent_directory::DirectoryType,
+                    std::option::Option<
+                        crate::model::workstation_config::persistent_directory::DirectoryType,
+                    >,
                 >,
-            >,
         >(
             mut self,
             v: T,
@@ -3266,8 +3266,8 @@ impl GenerateAccessTokenRequest {
     /// Sets the value of `expiration`.
     pub fn set_expiration<
         T: std::convert::Into<
-            std::option::Option<crate::model::generate_access_token_request::Expiration>,
-        >,
+                std::option::Option<crate::model::generate_access_token_request::Expiration>,
+            >,
     >(
         mut self,
         v: T,

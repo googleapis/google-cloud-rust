@@ -421,10 +421,10 @@ impl AdaptiveMtTranslateRequest {
     /// Sets the value of [reference_sentence_config][crate::model::AdaptiveMtTranslateRequest::reference_sentence_config].
     pub fn set_reference_sentence_config<
         T: std::convert::Into<
-            std::option::Option<
-                crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig,
+                std::option::Option<
+                    crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig,
+                >,
             >,
-        >,
     >(
         mut self,
         v: T,
@@ -436,8 +436,8 @@ impl AdaptiveMtTranslateRequest {
     /// Sets the value of [glossary_config][crate::model::AdaptiveMtTranslateRequest::glossary_config].
     pub fn set_glossary_config<
         T: std::convert::Into<
-            std::option::Option<crate::model::adaptive_mt_translate_request::GlossaryConfig>,
-        >,
+                std::option::Option<crate::model::adaptive_mt_translate_request::GlossaryConfig>,
+            >,
     >(
         mut self,
         v: T,
@@ -536,8 +536,8 @@ pub mod adaptive_mt_translate_request {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::adaptive_mt_translate_request::ReferenceSentencePair,
-            >,
+                    crate::model::adaptive_mt_translate_request::ReferenceSentencePair,
+                >,
         {
             use std::iter::Iterator;
             self.reference_sentence_pairs = v.into_iter().map(|i| i.into()).collect();
@@ -602,8 +602,8 @@ pub mod adaptive_mt_translate_request {
         where
             T: std::iter::IntoIterator<Item = V>,
             V: std::convert::Into<
-                crate::model::adaptive_mt_translate_request::ReferenceSentencePairList,
-            >,
+                    crate::model::adaptive_mt_translate_request::ReferenceSentencePairList,
+                >,
         {
             use std::iter::Iterator;
             self.reference_sentence_pair_lists = v.into_iter().map(|i| i.into()).collect();
@@ -931,8 +931,8 @@ impl ImportAdaptiveMtFileRequest {
     /// Sets the value of `source`.
     pub fn set_source<
         T: std::convert::Into<
-            std::option::Option<crate::model::import_adaptive_mt_file_request::Source>,
-        >,
+                std::option::Option<crate::model::import_adaptive_mt_file_request::Source>,
+            >,
     >(
         mut self,
         v: T,
@@ -1480,8 +1480,8 @@ pub mod dataset_input_config {
         /// Sets the value of `source`.
         pub fn set_source<
             T: std::convert::Into<
-                std::option::Option<crate::model::dataset_input_config::input_file::Source>,
-            >,
+                    std::option::Option<crate::model::dataset_input_config::input_file::Source>,
+                >,
         >(
             mut self,
             v: T,
@@ -2358,8 +2358,8 @@ impl BatchTransferResourcesResponse {
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<
-            crate::model::batch_transfer_resources_response::TransferResourceResponse,
-        >,
+                crate::model::batch_transfer_resources_response::TransferResourceResponse,
+            >,
     {
         use std::iter::Iterator;
         self.responses = v.into_iter().map(|i| i.into()).collect();
@@ -7421,8 +7421,8 @@ impl BatchDocumentOutputConfig {
     /// Sets the value of `destination`.
     pub fn set_destination<
         T: std::convert::Into<
-            std::option::Option<crate::model::batch_document_output_config::Destination>,
-        >,
+                std::option::Option<crate::model::batch_document_output_config::Destination>,
+            >,
     >(
         mut self,
         v: T,

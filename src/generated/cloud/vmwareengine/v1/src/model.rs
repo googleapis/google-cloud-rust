@@ -8181,8 +8181,8 @@ pub mod external_access_rule {
         /// Sets the value of `ip_range`.
         pub fn set_ip_range<
             T: std::convert::Into<
-                std::option::Option<crate::model::external_access_rule::ip_range::IpRange>,
-            >,
+                    std::option::Option<crate::model::external_access_rule::ip_range::IpRange>,
+                >,
         >(
             mut self,
             v: T,
@@ -10889,8 +10889,8 @@ impl ManagementDnsZoneBinding {
     /// Sets the value of `bind_network`.
     pub fn set_bind_network<
         T: std::convert::Into<
-            std::option::Option<crate::model::management_dns_zone_binding::BindNetwork>,
-        >,
+                std::option::Option<crate::model::management_dns_zone_binding::BindNetwork>,
+            >,
     >(
         mut self,
         v: T,

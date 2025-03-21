@@ -1134,8 +1134,8 @@ pub mod server_network_template {
         /// Sets the value of [r#type][crate::model::server_network_template::LogicalInterface::type].
         pub fn set_type<
             T: std::convert::Into<
-                crate::model::server_network_template::logical_interface::InterfaceType,
-            >,
+                    crate::model::server_network_template::logical_interface::InterfaceType,
+                >,
         >(
             mut self,
             v: T,
@@ -5244,8 +5244,8 @@ pub mod volume_config {
         /// Sets the value of `client`.
         pub fn set_client<
             T: std::convert::Into<
-                std::option::Option<crate::model::volume_config::nfs_export::Client>,
-            >,
+                    std::option::Option<crate::model::volume_config::nfs_export::Client>,
+                >,
         >(
             mut self,
             v: T,

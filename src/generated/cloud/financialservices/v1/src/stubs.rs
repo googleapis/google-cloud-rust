@@ -351,8 +351,9 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListPredictionResultsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListPredictionResultsResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListPredictionResultsResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListPredictionResultsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -518,7 +519,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))

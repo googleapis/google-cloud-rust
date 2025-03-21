@@ -1180,8 +1180,8 @@ pub mod network_config {
         /// Sets the value of `vpc_resource`.
         pub fn set_vpc_resource<
             T: std::convert::Into<
-                std::option::Option<crate::model::network_config::consumer::VpcResource>,
-            >,
+                    std::option::Option<crate::model::network_config::consumer::VpcResource>,
+                >,
         >(
             mut self,
             v: T,

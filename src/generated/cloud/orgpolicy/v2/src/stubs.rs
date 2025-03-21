@@ -158,8 +158,9 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListCustomConstraintsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListCustomConstraintsResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListCustomConstraintsResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListCustomConstraintsResponse>>(Err(
             Error::other("unimplemented"),
         ))

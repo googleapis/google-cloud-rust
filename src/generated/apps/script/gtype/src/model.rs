@@ -285,8 +285,8 @@ impl UniversalActionExtensionPoint {
     /// Sets the value of `action_type`.
     pub fn set_action_type<
         T: std::convert::Into<
-            std::option::Option<crate::model::universal_action_extension_point::ActionType>,
-        >,
+                std::option::Option<crate::model::universal_action_extension_point::ActionType>,
+            >,
     >(
         mut self,
         v: T,

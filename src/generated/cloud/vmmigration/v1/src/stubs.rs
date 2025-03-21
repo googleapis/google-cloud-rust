@@ -117,8 +117,9 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListUtilizationReportsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListUtilizationReportsResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListUtilizationReportsResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListUtilizationReportsResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -567,8 +568,9 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListReplicationCyclesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListReplicationCyclesResponse>>
-           + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListReplicationCyclesResponse>,
+    > + Send {
         std::future::ready::<crate::Result<crate::model::ListReplicationCyclesResponse>>(Err(
             Error::other("unimplemented"),
         ))
@@ -615,7 +617,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-           + Send {
+    + Send {
         std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
             Error::other("unimplemented"),
         ))
