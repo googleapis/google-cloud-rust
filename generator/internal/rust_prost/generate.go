@@ -46,7 +46,7 @@ func Generate(model *api.API, outdir string, cfg *config.Config) error {
 	codec.annotateModel(model, cfg)
 	provider := templatesProvider()
 	generatedFiles := language.WalkTemplatesDir(templates, "templates/prost")
-	if err := language.GenerateFromRoot(outdir, model, provider, generatedFiles); err != nil {
+	if err := language.GenerateFromModel(outdir, model, provider, generatedFiles); err != nil {
 		return err
 	}
 	return buildRS(googleapisRoot, outdir)
