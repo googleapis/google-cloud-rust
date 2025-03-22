@@ -326,7 +326,7 @@ class Secret extends Message {
     this.annotations,
     this.versionDestroyTtl,
     this.customerManagedEncryption,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory Secret.fromJson(Map<String, dynamic> json) {
     return Secret(
@@ -443,7 +443,7 @@ class SecretVersion extends Message {
     this.clientSpecifiedPayloadChecksum,
     this.scheduledDestroyTime,
     this.customerManagedEncryption,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory SecretVersion.fromJson(Map<String, dynamic> json) {
     return SecretVersion(
@@ -536,7 +536,7 @@ class Replication extends Message {
   Replication({
     this.automatic,
     this.userManaged,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory Replication.fromJson(Map<String, dynamic> json) {
     return Replication(
@@ -576,7 +576,7 @@ class Replication$Automatic extends Message {
 
   Replication$Automatic({
     this.customerManagedEncryption,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory Replication$Automatic.fromJson(Map<String, dynamic> json) {
     return Replication$Automatic(
@@ -609,7 +609,7 @@ class Replication$UserManaged extends Message {
 
   Replication$UserManaged({
     this.replicas,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory Replication$UserManaged.fromJson(Map<String, dynamic> json) {
     return Replication$UserManaged(
@@ -651,7 +651,7 @@ class Replication$UserManaged$Replica extends Message {
   Replication$UserManaged$Replica({
     this.location,
     this.customerManagedEncryption,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory Replication$UserManaged$Replica.fromJson(Map<String, dynamic> json) {
     return Replication$UserManaged$Replica(
@@ -699,7 +699,7 @@ class CustomerManagedEncryption extends Message {
 
   CustomerManagedEncryption({
     this.kmsKeyName,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory CustomerManagedEncryption.fromJson(Map<String, dynamic> json) {
     return CustomerManagedEncryption(
@@ -749,7 +749,7 @@ class ReplicationStatus extends Message {
   ReplicationStatus({
     this.automatic,
     this.userManaged,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory ReplicationStatus.fromJson(Map<String, dynamic> json) {
     return ReplicationStatus(
@@ -786,7 +786,7 @@ class ReplicationStatus$AutomaticStatus extends Message {
 
   ReplicationStatus$AutomaticStatus({
     this.customerManagedEncryption,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory ReplicationStatus$AutomaticStatus.fromJson(Map<String, dynamic> json) {
     return ReplicationStatus$AutomaticStatus(
@@ -820,7 +820,7 @@ class ReplicationStatus$UserManagedStatus extends Message {
 
   ReplicationStatus$UserManagedStatus({
     this.replicas,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory ReplicationStatus$UserManagedStatus.fromJson(Map<String, dynamic> json) {
     return ReplicationStatus$UserManagedStatus(
@@ -856,7 +856,7 @@ class ReplicationStatus$UserManagedStatus$ReplicaStatus extends Message {
   ReplicationStatus$UserManagedStatus$ReplicaStatus({
     this.location,
     this.customerManagedEncryption,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory ReplicationStatus$UserManagedStatus$ReplicaStatus.fromJson(Map<String, dynamic> json) {
     return ReplicationStatus$UserManagedStatus$ReplicaStatus(
@@ -893,7 +893,7 @@ class CustomerManagedEncryptionStatus extends Message {
 
   CustomerManagedEncryptionStatus({
     this.kmsKeyVersionName,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory CustomerManagedEncryptionStatus.fromJson(Map<String, dynamic> json) {
     return CustomerManagedEncryptionStatus(
@@ -931,7 +931,7 @@ class Topic extends Message {
 
   Topic({
     this.name,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory Topic.fromJson(Map<String, dynamic> json) {
     return Topic(
@@ -990,7 +990,7 @@ class Rotation extends Message {
   Rotation({
     this.nextRotationTime,
     this.rotationPeriod,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory Rotation.fromJson(Map<String, dynamic> json) {
     return Rotation(
@@ -1041,7 +1041,7 @@ class SecretPayload extends Message {
   SecretPayload({
     this.data,
     this.dataCrc32C,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory SecretPayload.fromJson(Map<String, dynamic> json) {
     return SecretPayload(
@@ -1099,7 +1099,7 @@ class ListSecretsRequest extends Message {
     this.pageSize,
     this.pageToken,
     this.filter,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory ListSecretsRequest.fromJson(Map<String, dynamic> json) {
     return ListSecretsRequest(
@@ -1156,7 +1156,7 @@ class ListSecretsResponse extends Message {
     this.secrets,
     this.nextPageToken,
     this.totalSize,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory ListSecretsResponse.fromJson(Map<String, dynamic> json) {
     return ListSecretsResponse(
@@ -1210,7 +1210,7 @@ class CreateSecretRequest extends Message {
     required this.parent,
     this.secretId,
     required this.secret,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory CreateSecretRequest.fromJson(Map<String, dynamic> json) {
     return CreateSecretRequest(
@@ -1257,7 +1257,7 @@ class AddSecretVersionRequest extends Message {
   AddSecretVersionRequest({
     required this.parent,
     this.payload,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory AddSecretVersionRequest.fromJson(Map<String, dynamic> json) {
     return AddSecretVersionRequest(
@@ -1295,7 +1295,7 @@ class GetSecretRequest extends Message {
 
   GetSecretRequest({
     required this.name,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory GetSecretRequest.fromJson(Map<String, dynamic> json) {
     return GetSecretRequest(
@@ -1351,7 +1351,7 @@ class ListSecretVersionsRequest extends Message {
     this.pageSize,
     this.pageToken,
     this.filter,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory ListSecretVersionsRequest.fromJson(Map<String, dynamic> json) {
     return ListSecretVersionsRequest(
@@ -1409,7 +1409,7 @@ class ListSecretVersionsResponse extends Message {
     this.versions,
     this.nextPageToken,
     this.totalSize,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory ListSecretVersionsResponse.fromJson(Map<String, dynamic> json) {
     return ListSecretVersionsResponse(
@@ -1456,7 +1456,7 @@ class GetSecretVersionRequest extends Message {
 
   GetSecretVersionRequest({
     required this.name,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory GetSecretVersionRequest.fromJson(Map<String, dynamic> json) {
     return GetSecretVersionRequest(
@@ -1495,7 +1495,7 @@ class UpdateSecretRequest extends Message {
   UpdateSecretRequest({
     required this.secret,
     this.updateMask,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory UpdateSecretRequest.fromJson(Map<String, dynamic> json) {
     return UpdateSecretRequest(
@@ -1534,7 +1534,7 @@ class AccessSecretVersionRequest extends Message {
 
   AccessSecretVersionRequest({
     required this.name,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory AccessSecretVersionRequest.fromJson(Map<String, dynamic> json) {
     return AccessSecretVersionRequest(
@@ -1575,7 +1575,7 @@ class AccessSecretVersionResponse extends Message {
   AccessSecretVersionResponse({
     this.name,
     this.payload,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory AccessSecretVersionResponse.fromJson(Map<String, dynamic> json) {
     return AccessSecretVersionResponse(
@@ -1619,7 +1619,7 @@ class DeleteSecretRequest extends Message {
   DeleteSecretRequest({
     required this.name,
     this.etag,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory DeleteSecretRequest.fromJson(Map<String, dynamic> json) {
     return DeleteSecretRequest(
@@ -1666,7 +1666,7 @@ class DisableSecretVersionRequest extends Message {
   DisableSecretVersionRequest({
     required this.name,
     this.etag,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory DisableSecretVersionRequest.fromJson(Map<String, dynamic> json) {
     return DisableSecretVersionRequest(
@@ -1713,7 +1713,7 @@ class EnableSecretVersionRequest extends Message {
   EnableSecretVersionRequest({
     required this.name,
     this.etag,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory EnableSecretVersionRequest.fromJson(Map<String, dynamic> json) {
     return EnableSecretVersionRequest(
@@ -1760,7 +1760,7 @@ class DestroySecretVersionRequest extends Message {
   DestroySecretVersionRequest({
     required this.name,
     this.etag,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory DestroySecretVersionRequest.fromJson(Map<String, dynamic> json) {
     return DestroySecretVersionRequest(

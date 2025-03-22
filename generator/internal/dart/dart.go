@@ -15,6 +15,9 @@
 package dart
 
 import (
+	"errors"
+	"fmt"
+	"os/exec"
 	"strings"
 	"unicode"
 
@@ -138,4 +141,23 @@ func shouldGenerateMethod(m *api.Method) bool {
 	// for them.
 	// TODO(#499) Switch to explicitly excluding such functions.
 	return !m.ClientSideStreaming && !m.ServerSideStreaming && m.PathInfo != nil && len(m.PathInfo.PathTemplate) != 0
+}
+
+func formatDirectory(dir string) error {
+	if err := runExternalCommand("dart", "format", dir); err != nil {
+		return fmt.Errorf("got an error trying to run `dart format`; perhaps try https://dart.dev/get-dart (%w)", err)
+	}
+	return nil
+}
+
+func runExternalCommand(c string, arg ...string) error {
+	cmd := exec.Command(c, arg...)
+	cmd.Dir = "."
+	if output, err := cmd.CombinedOutput(); err != nil {
+		if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
+			return fmt.Errorf("%v: %v\n%s", cmd, err, ee.Stderr)
+		}
+		return fmt.Errorf("%v: %v\n%s", cmd, err, output)
+	}
+	return nil
 }

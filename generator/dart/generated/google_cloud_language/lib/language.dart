@@ -38,7 +38,8 @@ class LanguageService {
       : _client = ServiceClient(httpClient: httpClient);
 
   /// Analyzes the sentiment of the provided text.
-  Future<AnalyzeSentimentResponse> analyzeSentiment(AnalyzeSentimentRequest request) async {
+  Future<AnalyzeSentimentResponse> analyzeSentiment(
+      AnalyzeSentimentRequest request) async {
     final url = Uri.https(_host, '/v2/documents:analyzeSentiment');
     final response = await _client.post(url, body: request);
     return AnalyzeSentimentResponse.fromJson(response);
@@ -47,7 +48,8 @@ class LanguageService {
   /// Finds named entities (currently proper names and common nouns) in the text
   /// along with entity types, probability, mentions for each entity, and
   /// other properties.
-  Future<AnalyzeEntitiesResponse> analyzeEntities(AnalyzeEntitiesRequest request) async {
+  Future<AnalyzeEntitiesResponse> analyzeEntities(
+      AnalyzeEntitiesRequest request) async {
     final url = Uri.https(_host, '/v2/documents:analyzeEntities');
     final response = await _client.post(url, body: request);
     return AnalyzeEntitiesResponse.fromJson(response);
@@ -113,7 +115,7 @@ class Document extends Message {
     this.content,
     this.gcsContentUri,
     this.languageCode,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory Document.fromJson(Map<String, dynamic> json) {
     return Document(
@@ -184,7 +186,7 @@ class Sentence extends Message {
   Sentence({
     this.text,
     this.sentiment,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory Sentence.fromJson(Map<String, dynamic> json) {
     return Sentence(
@@ -239,7 +241,7 @@ class Entity extends Message {
     this.metadata,
     this.mentions,
     this.sentiment,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory Entity.fromJson(Map<String, dynamic> json) {
     return Entity(
@@ -378,7 +380,7 @@ class Sentiment extends Message {
   Sentiment({
     this.magnitude,
     this.score,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory Sentiment.fromJson(Map<String, dynamic> json) {
     return Sentiment(
@@ -408,7 +410,8 @@ class Sentiment extends Message {
 /// Represents a mention for an entity in the text. Currently, proper noun
 /// mentions are supported.
 class EntityMention extends Message {
-  static const String fullyQualifiedName = 'google.cloud.language.v2.EntityMention';
+  static const String fullyQualifiedName =
+      'google.cloud.language.v2.EntityMention';
 
   /// The mention text.
   final TextSpan? text;
@@ -433,7 +436,7 @@ class EntityMention extends Message {
     this.type,
     this.sentiment,
     this.probability,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory EntityMention.fromJson(Map<String, dynamic> json) {
     return EntityMention(
@@ -503,7 +506,7 @@ class TextSpan extends Message {
   TextSpan({
     this.content,
     this.beginOffset,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory TextSpan.fromJson(Map<String, dynamic> json) {
     return TextSpan(
@@ -532,7 +535,8 @@ class TextSpan extends Message {
 
 /// Represents a category returned from the text classifier.
 class ClassificationCategory extends Message {
-  static const String fullyQualifiedName = 'google.cloud.language.v2.ClassificationCategory';
+  static const String fullyQualifiedName =
+      'google.cloud.language.v2.ClassificationCategory';
 
   /// The name of the category representing the document.
   final String? name;
@@ -550,7 +554,7 @@ class ClassificationCategory extends Message {
     this.name,
     this.confidence,
     this.severity,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory ClassificationCategory.fromJson(Map<String, dynamic> json) {
     return ClassificationCategory(
@@ -582,7 +586,8 @@ class ClassificationCategory extends Message {
 
 /// The sentiment analysis request message.
 class AnalyzeSentimentRequest extends Message {
-  static const String fullyQualifiedName = 'google.cloud.language.v2.AnalyzeSentimentRequest';
+  static const String fullyQualifiedName =
+      'google.cloud.language.v2.AnalyzeSentimentRequest';
 
   /// Required. Input document.
   final Document? document;
@@ -593,7 +598,7 @@ class AnalyzeSentimentRequest extends Message {
   AnalyzeSentimentRequest({
     this.document,
     this.encodingType,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory AnalyzeSentimentRequest.fromJson(Map<String, dynamic> json) {
     return AnalyzeSentimentRequest(
@@ -621,7 +626,8 @@ class AnalyzeSentimentRequest extends Message {
 
 /// The sentiment analysis response message.
 class AnalyzeSentimentResponse extends Message {
-  static const String fullyQualifiedName = 'google.cloud.language.v2.AnalyzeSentimentResponse';
+  static const String fullyQualifiedName =
+      'google.cloud.language.v2.AnalyzeSentimentResponse';
 
   /// The overall sentiment of the input document.
   final Sentiment? documentSentiment;
@@ -644,7 +650,7 @@ class AnalyzeSentimentResponse extends Message {
     this.languageCode,
     this.sentences,
     this.languageSupported,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory AnalyzeSentimentResponse.fromJson(Map<String, dynamic> json) {
     return AnalyzeSentimentResponse(
@@ -658,7 +664,8 @@ class AnalyzeSentimentResponse extends Message {
   @override
   Object toJson() {
     return {
-      if (documentSentiment != null) 'documentSentiment': documentSentiment!.toJson(),
+      if (documentSentiment != null)
+        'documentSentiment': documentSentiment!.toJson(),
       if (languageCode != null) 'languageCode': languageCode,
       if (sentences != null) 'sentences': encodeList(sentences),
       if (languageSupported != null) 'languageSupported': languageSupported,
@@ -677,7 +684,8 @@ class AnalyzeSentimentResponse extends Message {
 
 /// The entity analysis request message.
 class AnalyzeEntitiesRequest extends Message {
-  static const String fullyQualifiedName = 'google.cloud.language.v2.AnalyzeEntitiesRequest';
+  static const String fullyQualifiedName =
+      'google.cloud.language.v2.AnalyzeEntitiesRequest';
 
   /// Required. Input document.
   final Document? document;
@@ -688,7 +696,7 @@ class AnalyzeEntitiesRequest extends Message {
   AnalyzeEntitiesRequest({
     this.document,
     this.encodingType,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory AnalyzeEntitiesRequest.fromJson(Map<String, dynamic> json) {
     return AnalyzeEntitiesRequest(
@@ -716,7 +724,8 @@ class AnalyzeEntitiesRequest extends Message {
 
 /// The entity analysis response message.
 class AnalyzeEntitiesResponse extends Message {
-  static const String fullyQualifiedName = 'google.cloud.language.v2.AnalyzeEntitiesResponse';
+  static const String fullyQualifiedName =
+      'google.cloud.language.v2.AnalyzeEntitiesResponse';
 
   /// The recognized entities in the input document.
   final List<Entity>? entities;
@@ -735,7 +744,7 @@ class AnalyzeEntitiesResponse extends Message {
     this.entities,
     this.languageCode,
     this.languageSupported,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory AnalyzeEntitiesResponse.fromJson(Map<String, dynamic> json) {
     return AnalyzeEntitiesResponse(
@@ -766,14 +775,15 @@ class AnalyzeEntitiesResponse extends Message {
 
 /// The document classification request message.
 class ClassifyTextRequest extends Message {
-  static const String fullyQualifiedName = 'google.cloud.language.v2.ClassifyTextRequest';
+  static const String fullyQualifiedName =
+      'google.cloud.language.v2.ClassifyTextRequest';
 
   /// Required. Input document.
   final Document? document;
 
   ClassifyTextRequest({
     this.document,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory ClassifyTextRequest.fromJson(Map<String, dynamic> json) {
     return ClassifyTextRequest(
@@ -794,7 +804,8 @@ class ClassifyTextRequest extends Message {
 
 /// The document classification response message.
 class ClassifyTextResponse extends Message {
-  static const String fullyQualifiedName = 'google.cloud.language.v2.ClassifyTextResponse';
+  static const String fullyQualifiedName =
+      'google.cloud.language.v2.ClassifyTextResponse';
 
   /// Categories representing the input document.
   final List<ClassificationCategory>? categories;
@@ -813,11 +824,12 @@ class ClassifyTextResponse extends Message {
     this.categories,
     this.languageCode,
     this.languageSupported,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory ClassifyTextResponse.fromJson(Map<String, dynamic> json) {
     return ClassifyTextResponse(
-      categories: decodeList(json['categories'], ClassificationCategory.fromJson),
+      categories:
+          decodeList(json['categories'], ClassificationCategory.fromJson),
       languageCode: json['languageCode'],
       languageSupported: json['languageSupported'],
     );
@@ -844,7 +856,8 @@ class ClassifyTextResponse extends Message {
 
 /// The document moderation request message.
 class ModerateTextRequest extends Message {
-  static const String fullyQualifiedName = 'google.cloud.language.v2.ModerateTextRequest';
+  static const String fullyQualifiedName =
+      'google.cloud.language.v2.ModerateTextRequest';
 
   /// Required. Input document.
   final Document? document;
@@ -855,12 +868,13 @@ class ModerateTextRequest extends Message {
   ModerateTextRequest({
     this.document,
     this.modelVersion,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory ModerateTextRequest.fromJson(Map<String, dynamic> json) {
     return ModerateTextRequest(
       document: decode(json['document'], Document.fromJson),
-      modelVersion: decode(json['modelVersion'], ModerateTextRequest$ModelVersion.fromJson),
+      modelVersion: decode(
+          json['modelVersion'], ModerateTextRequest$ModelVersion.fromJson),
     );
   }
 
@@ -884,21 +898,25 @@ class ModerateTextRequest extends Message {
 /// The model version to use for ModerateText.
 class ModerateTextRequest$ModelVersion extends Enum {
   /// The default model version.
-  static const modelVersionUnspecified = ModerateTextRequest$ModelVersion('MODEL_VERSION_UNSPECIFIED');
+  static const modelVersionUnspecified =
+      ModerateTextRequest$ModelVersion('MODEL_VERSION_UNSPECIFIED');
 
   /// Use the v1 model, this model is used by default when not provided.
   /// The v1 model only returns probability (confidence) score for each
   /// category.
-  static const modelVersion1 = ModerateTextRequest$ModelVersion('MODEL_VERSION_1');
+  static const modelVersion1 =
+      ModerateTextRequest$ModelVersion('MODEL_VERSION_1');
 
   /// Use the v2 model.
   /// The v2 model only returns probability (confidence) score for each
   /// category, and returns severity score for a subset of the categories.
-  static const modelVersion2 = ModerateTextRequest$ModelVersion('MODEL_VERSION_2');
+  static const modelVersion2 =
+      ModerateTextRequest$ModelVersion('MODEL_VERSION_2');
 
   const ModerateTextRequest$ModelVersion(super.value);
 
-  factory ModerateTextRequest$ModelVersion.fromJson(String json) => ModerateTextRequest$ModelVersion(json);
+  factory ModerateTextRequest$ModelVersion.fromJson(String json) =>
+      ModerateTextRequest$ModelVersion(json);
 
   @override
   bool operator ==(Object other) =>
@@ -910,7 +928,8 @@ class ModerateTextRequest$ModelVersion extends Enum {
 
 /// The document moderation response message.
 class ModerateTextResponse extends Message {
-  static const String fullyQualifiedName = 'google.cloud.language.v2.ModerateTextResponse';
+  static const String fullyQualifiedName =
+      'google.cloud.language.v2.ModerateTextResponse';
 
   /// Harmful and sensitive categories representing the input document.
   final List<ClassificationCategory>? moderationCategories;
@@ -929,11 +948,12 @@ class ModerateTextResponse extends Message {
     this.moderationCategories,
     this.languageCode,
     this.languageSupported,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory ModerateTextResponse.fromJson(Map<String, dynamic> json) {
     return ModerateTextResponse(
-      moderationCategories: decodeList(json['moderationCategories'], ClassificationCategory.fromJson),
+      moderationCategories: decodeList(
+          json['moderationCategories'], ClassificationCategory.fromJson),
       languageCode: json['languageCode'],
       languageSupported: json['languageSupported'],
     );
@@ -942,7 +962,8 @@ class ModerateTextResponse extends Message {
   @override
   Object toJson() {
     return {
-      if (moderationCategories != null) 'moderationCategories': encodeList(moderationCategories),
+      if (moderationCategories != null)
+        'moderationCategories': encodeList(moderationCategories),
       if (languageCode != null) 'languageCode': languageCode,
       if (languageSupported != null) 'languageSupported': languageSupported,
     };
@@ -961,7 +982,8 @@ class ModerateTextResponse extends Message {
 /// The request message for the text annotation API, which can perform multiple
 /// analysis types in one call.
 class AnnotateTextRequest extends Message {
-  static const String fullyQualifiedName = 'google.cloud.language.v2.AnnotateTextRequest';
+  static const String fullyQualifiedName =
+      'google.cloud.language.v2.AnnotateTextRequest';
 
   /// Required. Input document.
   final Document? document;
@@ -976,7 +998,7 @@ class AnnotateTextRequest extends Message {
     this.document,
     this.features,
     this.encodingType,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory AnnotateTextRequest.fromJson(Map<String, dynamic> json) {
     return AnnotateTextRequest(
@@ -1007,7 +1029,8 @@ class AnnotateTextRequest extends Message {
 /// All available features.
 /// Setting each one to true will enable that specific analysis for the input.
 class AnnotateTextRequest$Features extends Message {
-  static const String fullyQualifiedName = 'google.cloud.language.v2.AnnotateTextRequest.Features';
+  static const String fullyQualifiedName =
+      'google.cloud.language.v2.AnnotateTextRequest.Features';
 
   /// Optional. Extract entities.
   final bool? extractEntities;
@@ -1026,7 +1049,7 @@ class AnnotateTextRequest$Features extends Message {
     this.extractDocumentSentiment,
     this.classifyText,
     this.moderateText,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory AnnotateTextRequest$Features.fromJson(Map<String, dynamic> json) {
     return AnnotateTextRequest$Features(
@@ -1041,7 +1064,8 @@ class AnnotateTextRequest$Features extends Message {
   Object toJson() {
     return {
       if (extractEntities != null) 'extractEntities': extractEntities,
-      if (extractDocumentSentiment != null) 'extractDocumentSentiment': extractDocumentSentiment,
+      if (extractDocumentSentiment != null)
+        'extractDocumentSentiment': extractDocumentSentiment,
       if (classifyText != null) 'classifyText': classifyText,
       if (moderateText != null) 'moderateText': moderateText,
     };
@@ -1051,7 +1075,8 @@ class AnnotateTextRequest$Features extends Message {
   String toString() {
     final contents = [
       if (extractEntities != null) 'extractEntities=$extractEntities',
-      if (extractDocumentSentiment != null) 'extractDocumentSentiment=$extractDocumentSentiment',
+      if (extractDocumentSentiment != null)
+        'extractDocumentSentiment=$extractDocumentSentiment',
       if (classifyText != null) 'classifyText=$classifyText',
       if (moderateText != null) 'moderateText=$moderateText',
     ].join(',');
@@ -1061,7 +1086,8 @@ class AnnotateTextRequest$Features extends Message {
 
 /// The text annotations response message.
 class AnnotateTextResponse extends Message {
-  static const String fullyQualifiedName = 'google.cloud.language.v2.AnnotateTextResponse';
+  static const String fullyQualifiedName =
+      'google.cloud.language.v2.AnnotateTextResponse';
 
   /// Sentences in the input document. Populated if the user enables
   /// [AnnotateTextRequest.Features.extract_document_sentiment][google.cloud.language.v2.AnnotateTextRequest.Features.extract_document_sentiment].
@@ -1102,7 +1128,7 @@ class AnnotateTextResponse extends Message {
     this.categories,
     this.moderationCategories,
     this.languageSupported,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory AnnotateTextResponse.fromJson(Map<String, dynamic> json) {
     return AnnotateTextResponse(
@@ -1110,8 +1136,10 @@ class AnnotateTextResponse extends Message {
       entities: decodeList(json['entities'], Entity.fromJson),
       documentSentiment: decode(json['documentSentiment'], Sentiment.fromJson),
       languageCode: json['languageCode'],
-      categories: decodeList(json['categories'], ClassificationCategory.fromJson),
-      moderationCategories: decodeList(json['moderationCategories'], ClassificationCategory.fromJson),
+      categories:
+          decodeList(json['categories'], ClassificationCategory.fromJson),
+      moderationCategories: decodeList(
+          json['moderationCategories'], ClassificationCategory.fromJson),
       languageSupported: json['languageSupported'],
     );
   }
@@ -1121,10 +1149,12 @@ class AnnotateTextResponse extends Message {
     return {
       if (sentences != null) 'sentences': encodeList(sentences),
       if (entities != null) 'entities': encodeList(entities),
-      if (documentSentiment != null) 'documentSentiment': documentSentiment!.toJson(),
+      if (documentSentiment != null)
+        'documentSentiment': documentSentiment!.toJson(),
       if (languageCode != null) 'languageCode': languageCode,
       if (categories != null) 'categories': encodeList(categories),
-      if (moderationCategories != null) 'moderationCategories': encodeList(moderationCategories),
+      if (moderationCategories != null)
+        'moderationCategories': encodeList(moderationCategories),
       if (languageSupported != null) 'languageSupported': languageSupported,
     };
   }

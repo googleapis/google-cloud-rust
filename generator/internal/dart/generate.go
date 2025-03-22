@@ -17,6 +17,7 @@ package dart
 import (
 	"embed"
 	"path/filepath"
+	"strconv"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/googleapis/google-cloud-rust/generator/internal/config"
@@ -26,15 +27,25 @@ import (
 //go:embed templates
 var dartTemplates embed.FS
 
-func Generate(model *api.API, outdir string, cfg *config.Config) error {
+func Generate(model *api.API, outdir string, config *config.Config) error {
 	annotate := newAnnotateModel(model)
-	_, err := annotate.annotateModel(cfg.Codec)
+	_, err := annotate.annotateModel(config.Codec)
 	if err != nil {
 		return err
 	}
+
 	provider := templatesProvider()
-	// TODO(#1564): Walk the generated files; 'dart format' Dart ones.
-	return language.GenerateFromRoot(outdir, model, provider, generatedFiles(model))
+	err = language.GenerateFromRoot(outdir, model, provider, generatedFiles(model))
+	if err == nil {
+		// Check if we're configured to skip formatting.
+		skipFormat := config.Codec["skip-format"]
+		value, _ := strconv.ParseBool(skipFormat)
+		if skipFormat == "" || !value {
+			err = formatDirectory(outdir)
+		}
+	}
+
+	return err
 }
 
 func templatesProvider() language.TemplateProvider {

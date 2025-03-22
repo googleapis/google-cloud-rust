@@ -80,7 +80,7 @@ class Expr extends Message {
     this.title,
     this.description,
     this.location,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory Expr.fromJson(Map<String, dynamic> json) {
     return Expr(
