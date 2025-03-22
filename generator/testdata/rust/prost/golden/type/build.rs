@@ -33,6 +33,7 @@ fn main() {
         config.out_dir(".");
         tonic_build::configure()
             .bytes(&["."])
+            .build_client(false)
             .build_server(false)
             .out_dir(".")
             .compile_protos_with_config(config, files, includes)
