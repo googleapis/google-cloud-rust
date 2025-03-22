@@ -45,6 +45,7 @@ fn main() {
             .disable_comments("{{Codec.ID}}")
             {{/Methods}}
             {{/Services}}
+            .build_client(false)
             .build_server(false)
             .out_dir(".")
             .compile_protos_with_config(config, files, includes)
