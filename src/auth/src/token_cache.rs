@@ -327,9 +327,6 @@ mod test {
 
         let (tx, mut rx) = watch::channel::<Option<Result<Token>>>(None);
 
-        // Wait to make sure the first token expires.
-        sleep(Duration::from_millis(10)).await;
-
         tokio::spawn(async move {
             refresh_task(mock, tx).await;
         });
