@@ -303,7 +303,7 @@ mod test {
         let token1 = Token {
             token: "token1".to_string(),
             token_type: "Bearer".to_string(),
-            expires_at: Some((now - TOKEN_VALID_DURATION).into_std()),
+            expires_at: Some(now.into_std()),
             metadata: None,
         };
         let token1_clone = token1.clone();
@@ -327,12 +327,15 @@ mod test {
 
         let (tx, mut rx) = watch::channel::<Option<Result<Token>>>(None);
 
+        // Wait to make sure the first token expires.
+        sleep(Duration::from_millis(10)).await;
+
         tokio::spawn(async move {
             refresh_task(mock, tx).await;
         });
 
         // Give the refresh task a chance to run
-        sleep(Duration::from_millis(100));
+        sleep(Duration::from_millis(100)).await;
 
         rx.changed().await.unwrap();
 
