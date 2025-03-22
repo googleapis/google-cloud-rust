@@ -36,5 +36,5 @@ func Generate(model *api.API, outdir string, cfg *config.Config) error {
 	}
 	// The list of files to generate, just load them from the embedded templates.
 	generatedFiles := language.WalkTemplatesDir(templates, "templates/readme")
-	return language.GenerateFromRoot(outdir, model, provider, generatedFiles)
+	return language.GenerateFromModel(outdir, model, provider, generatedFiles)
 }

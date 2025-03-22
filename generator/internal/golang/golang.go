@@ -41,7 +41,7 @@ func Generate(model *api.API, outdir string, cfg *config.Config) error {
 		return err
 	}
 	provider := templatesProvider()
-	return language.GenerateFromRoot(outdir, model, provider, generatedFiles())
+	return language.GenerateFromModel(outdir, model, provider, generatedFiles())
 }
 
 func generatedFiles() []language.GeneratedFile {

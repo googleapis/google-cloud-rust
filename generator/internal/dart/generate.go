@@ -35,7 +35,7 @@ func Generate(model *api.API, outdir string, config *config.Config) error {
 	}
 
 	provider := templatesProvider()
-	err = language.GenerateFromRoot(outdir, model, provider, generatedFiles(model))
+	err = language.GenerateFromModel(outdir, model, provider, generatedFiles(model))
 	if err == nil {
 		// Check if we're configured to skip formatting.
 		skipFormat := config.Codec["skip-format"]

@@ -33,7 +33,7 @@ func Generate(model *api.API, outdir string, cfg *config.Config) error {
 	annotations := annotateModel(model, codec, outdir)
 	provider := templatesProvider()
 	generatedFiles := codec.generatedFiles(annotations.HasServices)
-	return language.GenerateFromRoot(outdir, model, provider, generatedFiles)
+	return language.GenerateFromModel(outdir, model, provider, generatedFiles)
 }
 
 func templatesProvider() language.TemplateProvider {
