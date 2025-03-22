@@ -36,15 +36,22 @@ _internal_http_client = [
   "dep:serde_json",
   "dep:tokio",
 ]
-_internal_grpc_client = ["_internal_common"]
+_internal_grpc_client = ["_internal_common", "dep:auth", "dep:gax", "dep:rpc", "dep:tokio", "dep:tonic"]
 _internal_common = ["dep:gax", "dep:thiserror"]
 
 [dependencies]
-reqwest    = { version = "0.12", optional = true }
-serde      = { version = "1", optional = true }
+http = "1"
+prost = "0.13"
+reqwest = { version = "0.12", optional = true }
+serde = { version = "1", optional = true }
 serde_json = { version = "1", optional = true }
-thiserror  = { version = "2", optional = true }
-tokio      = { version = "1", features = ["macros", "rt-multi-thread"], optional = true }
+thiserror = { version = "2", optional = true }
+tokio = { version = "1", features = ["macros", "rt-multi-thread"], optional = true }
+tonic = { version = "0.13", default-features = false, features = [
+  "prost",
+  "tls-native-roots",
+  "tls-ring",
+], optional = true }
 # Local crates
 auth = { version = "0.18", path = "../auth", package = "google-cloud-auth", optional = true }
 gax = { version = "0.21", path = "../gax", package = "google-cloud-gax", features = [
@@ -53,9 +60,9 @@ gax = { version = "0.21", path = "../gax", package = "google-cloud-gax", feature
 rpc = { version = "0.2", path = "../generated/rpc/types", package = "google-cloud-rpc", optional = true }
 
 [dev-dependencies]
+anyhow      = "1"
 axum        = "0.8"
 bytes       = "1"
-http        = "1"
 mockall     = "0.13"
 serde_with  = "3"
 serial_test = "3"
@@ -63,4 +70,5 @@ test-case   = "3"
 tokio       = { version = "1", features = ["test-util"] }
 # Local crates
 echo-server = { path = "echo-server" }
+grpc-server = { path = "grpc-server" }
 wkt         = { version = "0.3", path = "../wkt", package = "google-cloud-wkt" }
