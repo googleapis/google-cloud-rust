@@ -95,7 +95,7 @@ impl Firestore {
     async fn make_headers(
         &self,
         options: &gax::options::RequestOptions,
-        request_params: &String,
+        request_params: &str,
     ) -> Result<http::header::HeaderMap> {
         let mut headers = self
             .cred
@@ -215,7 +215,7 @@ impl Firestore {
         call: &F,
         req: Request,
         options: &gax::options::RequestOptions,
-        request_params: &String,
+        request_params: &str,
         _remaining_time: Option<std::time::Duration>,
     ) -> Result<Response>
     where
@@ -427,12 +427,11 @@ impl super::stubs::Firestore for Firestore {
             );
             let mut inner = inner.clone();
             inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<()> = inner
+            let _: tonic::Response<()> = inner
                 .unary(request, path, codec)
                 .await
                 .map_err(Error::rpc)?;
-            let response = response.into_inner();
-            Ok(response.cnv())
+            Ok(wkt::Empty::default())
         };
         let x_goog_request_params = [format!("name={}", req.name)]
             .into_iter()
@@ -543,12 +542,11 @@ impl super::stubs::Firestore for Firestore {
                 http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/Rollback");
             let mut inner = inner.clone();
             inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<()> = inner
+            let _: tonic::Response<()> = inner
                 .unary(request, path, codec)
                 .await
                 .map_err(Error::rpc)?;
-            let response = response.into_inner();
-            Ok(response.cnv())
+            Ok(wkt::Empty::default())
         };
         let x_goog_request_params = [format!("database={}", req.database)]
             .into_iter()

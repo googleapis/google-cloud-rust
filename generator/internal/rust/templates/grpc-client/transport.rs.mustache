@@ -98,7 +98,7 @@ impl {{Codec.Name}} {
     async fn make_headers(
         &self,
         options: &gax::options::RequestOptions,
-        request_params: &String,
+        request_params: &str,
     ) -> Result<http::header::HeaderMap> {
         let mut headers = self
             .cred
@@ -212,7 +212,7 @@ impl {{Codec.Name}} {
         call: &F,
         req: Request,
         options: &gax::options::RequestOptions,
-        request_params: &String,
+        request_params: &str,
         _remaining_time: Option<std::time::Duration>,
     ) -> Result<Response>
     where
@@ -298,15 +298,16 @@ impl super::stubs::{{Codec.Name}} for {{Codec.Name}} {
             let mut inner = inner.clone();
             inner.ready().await.map_err(Error::rpc)?;
             {{#ReturnsEmpty}}
-            let response : tonic::Response<()> =
+            let _ : tonic::Response<()> =
                 inner.unary(request, path, codec).await.map_err(Error::rpc)?;
+            Ok(wkt::Empty::default())
             {{/ReturnsEmpty}}
             {{^ReturnsEmpty}}
             let response : tonic::Response<crate::{{Service.Codec.PackageModuleName}}::{{OutputType.Codec.RelativeName}}> =
                 inner.unary(request, path, codec).await.map_err(Error::rpc)?;
-            {{/ReturnsEmpty}}
             let response = response.into_inner();
             Ok(response.cnv())
+            {{/ReturnsEmpty}}
         };
         let x_goog_request_params = [
             {{#PathInfo.Codec.PathArgs}}
