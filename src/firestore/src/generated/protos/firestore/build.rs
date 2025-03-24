@@ -32,35 +32,12 @@ fn main() {
         let includes = &[
             &root
         ];
-        let mut config = tonic_build::Config::new();
+        let mut config = prost_build::Config::new();
         config.bytes(&["."]);
         config.disable_comments(&["."]);
         config.enable_type_names();
         config.type_name_domain(&["."], "type.googleapis.com");
         config.out_dir(".");
-        tonic_build::configure()
-            .bytes(&["."])
-            .disable_comments("google.firestore.v1.Firestore")
-            .disable_comments("google.firestore.v1.Firestore.GetDocument")
-            .disable_comments("google.firestore.v1.Firestore.ListDocuments")
-            .disable_comments("google.firestore.v1.Firestore.UpdateDocument")
-            .disable_comments("google.firestore.v1.Firestore.DeleteDocument")
-            .disable_comments("google.firestore.v1.Firestore.BatchGetDocuments")
-            .disable_comments("google.firestore.v1.Firestore.BeginTransaction")
-            .disable_comments("google.firestore.v1.Firestore.Commit")
-            .disable_comments("google.firestore.v1.Firestore.Rollback")
-            .disable_comments("google.firestore.v1.Firestore.RunQuery")
-            .disable_comments("google.firestore.v1.Firestore.RunAggregationQuery")
-            .disable_comments("google.firestore.v1.Firestore.PartitionQuery")
-            .disable_comments("google.firestore.v1.Firestore.Write")
-            .disable_comments("google.firestore.v1.Firestore.Listen")
-            .disable_comments("google.firestore.v1.Firestore.ListCollectionIds")
-            .disable_comments("google.firestore.v1.Firestore.BatchWrite")
-            .disable_comments("google.firestore.v1.Firestore.CreateDocument")
-            .build_client(false)
-            .build_server(false)
-            .out_dir(".")
-            .compile_protos_with_config(config, files, includes)
-            .unwrap();
+        config.compile_protos(files, includes).expect("error compiling protos");
     }
 }

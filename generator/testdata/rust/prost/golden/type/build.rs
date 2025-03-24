@@ -25,18 +25,12 @@ fn main() {
         let includes = &[
             &root
         ];
-        let mut config = tonic_build::Config::new();
+        let mut config = prost_build::Config::new();
         config.bytes(&["."]);
         config.disable_comments(&["."]);
         config.enable_type_names();
         config.type_name_domain(&["."], "type.googleapis.com");
         config.out_dir(".");
-        tonic_build::configure()
-            .bytes(&["."])
-            .build_client(false)
-            .build_server(false)
-            .out_dir(".")
-            .compile_protos_with_config(config, files, includes)
-            .unwrap();
+        config.compile_protos(files, includes).expect("error compiling protos");
     }
 }
