@@ -23,9 +23,16 @@ import (
 	"cloud.google.com/go/longrunning/autogen/longrunningpb"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
-	"google.golang.org/genproto/googleapis/cloud/location"
+	locationpb "google.golang.org/genproto/googleapis/cloud/location"
+	statuspb "google.golang.org/genproto/googleapis/rpc/status"
+	exprpb "google.golang.org/genproto/googleapis/type/expr"
 	"google.golang.org/protobuf/reflect/protodesc"
+	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/types/descriptorpb"
+	"google.golang.org/protobuf/types/known/anypb"
+	"google.golang.org/protobuf/types/known/durationpb"
+	"google.golang.org/protobuf/types/known/emptypb"
+	"google.golang.org/protobuf/types/known/fieldmaskpb"
 )
 
 const (
@@ -59,16 +66,32 @@ func loadMixins(serviceConfig *serviceconfig.Service, withLongrunning bool) (mix
 	if len(apiNames) < 2 {
 		return enabledMixinMethods, files
 	}
+	known := map[string]bool{}
+	appendIfNew := func(desc protoreflect.FileDescriptor) {
+		file := protodesc.ToFileDescriptorProto(desc)
+		if _, ok := known[file.GetName()]; ok {
+			return
+		}
+		known[file.GetName()] = true
+		files = append(files, file)
+	}
 	for _, apiName := range apiNames {
 		switch apiName {
 		case locationService:
-			files = append(files, protodesc.ToFileDescriptorProto(location.File_google_cloud_location_locations_proto))
+			appendIfNew(anypb.File_google_protobuf_any_proto)
+			appendIfNew(locationpb.File_google_cloud_location_locations_proto)
 		case iamService:
-			files = append(files, protodesc.ToFileDescriptorProto(iampb.File_google_iam_v1_iam_policy_proto),
-				protodesc.ToFileDescriptorProto(iampb.File_google_iam_v1_policy_proto),
-				protodesc.ToFileDescriptorProto(iampb.File_google_iam_v1_options_proto))
+			appendIfNew(fieldmaskpb.File_google_protobuf_field_mask_proto)
+			appendIfNew(exprpb.File_google_type_expr_proto)
+			appendIfNew(iampb.File_google_iam_v1_iam_policy_proto)
+			appendIfNew(iampb.File_google_iam_v1_policy_proto)
+			appendIfNew(iampb.File_google_iam_v1_options_proto)
 		case longrunningService:
-			files = append(files, protodesc.ToFileDescriptorProto(longrunningpb.File_google_longrunning_operations_proto))
+			appendIfNew(anypb.File_google_protobuf_any_proto)
+			appendIfNew(durationpb.File_google_protobuf_duration_proto)
+			appendIfNew(emptypb.File_google_protobuf_empty_proto)
+			appendIfNew(statuspb.File_google_rpc_status_proto)
+			appendIfNew(longrunningpb.File_google_longrunning_operations_proto)
 		}
 	}
 	enabledMixinMethods = loadMixinMethods(serviceConfig)

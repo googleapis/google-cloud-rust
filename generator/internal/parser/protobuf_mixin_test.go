@@ -208,6 +208,93 @@ func TestProtobuf_OperationMixin(t *testing.T) {
 	})
 }
 
+func TestProtobuf_OperationMixinNoEmpty(t *testing.T) {
+	var serviceConfig = &serviceconfig.Service{
+		Name:  "test.googleapis.com",
+		Title: "Test API",
+		Documentation: &serviceconfig.Documentation{
+			Summary:  "Used for testing generation.",
+			Overview: "Test Overview",
+			Rules: []*serviceconfig.DocumentationRule{
+				{
+					Selector:    "google.longrunning.Operations.GetOperation",
+					Description: "Custom docs.",
+				},
+				{
+					Selector:    "google.longrunning.Operations.CancelOperation",
+					Description: "Custom docs.",
+				},
+			},
+		},
+		Apis: []*apipb.Api{
+			{
+				Name: "google.longrunning.Operations",
+			},
+			{
+				Name: "test.googleapis.com.TestService",
+			},
+		},
+		Http: &annotations.Http{
+			Rules: []*annotations.HttpRule{
+				{
+					Selector: "google.longrunning.Operations.GetOperation",
+					Pattern: &annotations.HttpRule_Get{
+						Get: "/v2/{name=operations/*}",
+					},
+					Body: "*",
+				},
+				{
+					Selector: "google.longrunning.Operations.CancelOperation",
+					Pattern: &annotations.HttpRule_Delete{
+						Delete: "/v2/{name=operations/*}",
+					},
+					Body: "*",
+				},
+			},
+		},
+	}
+	test := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "test_noempty_mixin.proto"))
+	for _, service := range test.Services {
+		if service.ID == ".google.longrunning.Operations" {
+			t.Fatalf("Mixin %s should not be in list of services to generate", service.ID)
+		}
+	}
+	service, ok := test.State.ServiceByID[".test.TestService"]
+	if !ok {
+		t.Fatalf("Cannot find service %s in API State", ".test.TestService")
+	}
+	if _, ok := test.State.MethodByID[".test.TestService.GetOperation"]; !ok {
+		t.Fatal("Cannot find .test.TestService.GetOperation")
+	}
+
+	checkMethod(t, service, "CancelOperation", &api.Method{
+		Documentation: "Custom docs.",
+		Name:          "CancelOperation",
+		ID:            ".test.TestService.CancelOperation",
+		InputTypeID:   ".google.longrunning.CancelOperationRequest",
+		OutputTypeID:  ".google.protobuf.Empty",
+		ReturnsEmpty:  true,
+		PathInfo: &api.PathInfo{
+			Verb: "DELETE",
+			PathTemplate: []api.PathSegment{
+				api.NewLiteralPathSegment("v2"),
+				api.NewFieldPathPathSegment("name"),
+			},
+			QueryParameters: map[string]bool{},
+			BodyFieldPath:   "*",
+		},
+	})
+	got, ok := test.State.MessageByID[".google.protobuf.Empty"]
+	if !ok {
+		t.Fatal("Cannot find .google.protobuf.Empty")
+	}
+	checkMessage(t, got, &api.Message{
+		Name:    "Empty",
+		ID:      ".google.protobuf.Empty",
+		Package: "google.protobuf",
+	})
+}
+
 func TestProtobuf_DuplicateMixin(t *testing.T) {
 	var serviceConfig = &serviceconfig.Service{
 		Name:  "test.googleapis.com",
