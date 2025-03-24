@@ -55,12 +55,6 @@ impl Convert<prost_types::Duration> for crate::Duration {
     }
 }
 
-impl Convert<crate::Empty> for () {
-    fn cnv(self) -> crate::Empty {
-        crate::Empty::default()
-    }
-}
-
 impl Convert<crate::FieldMask> for prost_types::FieldMask {
     fn cnv(self) -> crate::FieldMask {
         crate::FieldMask::default().set_paths(self.paths)
@@ -296,10 +290,5 @@ mod test {
         let convert: prost_types::Value = input.clone().cnv();
         let got: crate::Value = convert.cnv();
         assert_eq!(got, input);
-    }
-
-    #[test]
-    fn empty_from_unit() {
-        let _: crate::Empty = ().cnv();
     }
 }
