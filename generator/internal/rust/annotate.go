@@ -62,7 +62,7 @@ type serviceAnnotations struct {
 	// `IAMService` can stay unchanged.
 	Name string
 	// The source specification package name mapped to Rust modules. That is,
-	// `google.service.v1` becomes `google::service::v2`.
+	// `google.service.v1` becomes `google::service::v1`.
 	PackageModuleName string
 	// For each service we generate a module containing all its builders.
 	// The Rust naming conventions required this to be `snake_case` format.
