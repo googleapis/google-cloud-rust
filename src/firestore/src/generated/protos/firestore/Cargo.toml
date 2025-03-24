@@ -24,10 +24,9 @@ edition     = "2021"
 
 [build-dependencies]
 prost-build = { version = "0.13", optional = true }
-tonic-build = { version = "0.12", optional = true }
 
 [features]
-_generate-protos = ["dep:prost-build", "dep:tonic-build"]
+_generate-protos = ["dep:prost-build"]
 
 # This is unrelated to the top-level workspace
 [workspace]
