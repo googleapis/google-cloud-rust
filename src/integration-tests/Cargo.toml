@@ -38,6 +38,10 @@ tracing            = "0.1"
 tracing-subscriber = "0.3"
 wkt                = { path = "../../src/wkt", package = "google-cloud-wkt" }
 
+[dependencies.firestore]
+package = "google-cloud-firestore"
+path    = "../../src/firestore"
+
 [dependencies.sm]
 package = "google-cloud-secretmanager-v1"
 path    = "../../src/generated/cloud/secretmanager/v1"
