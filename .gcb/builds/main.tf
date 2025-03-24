@@ -37,6 +37,7 @@ module "services" {
 module "resources" {
   source  = "./resources"
   project = var.project
+  region  = var.region
 }
 
 # Create the service account needed for GCB and grant it the necessary

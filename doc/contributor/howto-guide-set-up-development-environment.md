@@ -143,17 +143,26 @@ project.
 
 ### One time set up
 
-We use [Secret Manager] to run integration tests. Follow the
-[Enable the Secret Manager API] guide to, as it says, enable the API and make
-sure that billing is enabled in your projects.
+We use [Secret Manager], [Workflows], and [Firestore] to run integration tests.
+Follow the [Enable the Secret Manager API] guide to, as it says, enable the API
+and make sure that billing is enabled in your projects. To enable the Workflows
+and Firestore API you can run this command:
+
+```bash
+gcloud services enable workflows.googleapis.com firestore.googleapis.com
+```
 
 Verify this is working with something like:
 
 ```bash
+gcloud firestore databases list
 gcloud secrets list
+gcloud workflows list
 ```
 
 It is fine if the list is empty, you just don't want an error.
+
+### Create a service account
 
 The integration tests need a service account in your project. This service
 account is used to:
@@ -175,6 +184,24 @@ For extra safety, disable the service account:
 ```bash
 GOOGLE_CLOUD_PROJECT="$(gcloud config get project)"
 gcloud iam service-accounts disable rust-sdk-test@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com
+```
+
+### Create a database
+
+The integration tests need the default Firestore database in your project.
+You can create this database using:
+
+```bash
+gcloud firestore databases create --location=us-central1
+```
+
+If the database already exists you should verify that this is a Firestore native
+database:
+
+```bash
+gcloud firestore databases describe --format='value(type)'
+# Expected output:
+# FIRESTORE_NATIVE
 ```
 
 ### Running
@@ -268,9 +295,11 @@ files using:
 git ls-files -z -- '*.tf' ':!:**/testdata/**' | xargs -0 terraform fmt
 ```
 
-[enable the secret manager api]: docs/configuring-secret-manager
+[enable the secret manager api]: https://cloud.google.com/secret-manager/docs/configuring-secret-manager
+[firestore]: https://cloud.google.com/firestore/
 [getting-started-rust]: https://www.rust-lang.org/learn/get-started
 [golang-install]: https://go.dev/doc/install
 [google cloud cli]: https://cloud.google.com/cli
 [install terraform]: https://developer.hashicorp.com/terraform/install
 [secret manager]: https://cloud.google.com/secret-manager/
+[workflows]: https://cloud.google.com/workflows/
