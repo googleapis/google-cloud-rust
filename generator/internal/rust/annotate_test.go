@@ -42,19 +42,19 @@ func TestPackageNames(t *testing.T) {
 func TestServiceAnnotations(t *testing.T) {
 	request := &api.Message{
 		Name:    "Request",
-		Package: "test",
-		ID:      ".test.Request",
+		Package: "test.v1",
+		ID:      ".test.v1.Request",
 	}
 	response := &api.Message{
 		Name:    "Response",
-		Package: "test",
-		ID:      ".test.Response",
+		Package: "test.v1",
+		ID:      ".test.v1.Response",
 	}
 	method := &api.Method{
 		Name:         "GetResource",
-		ID:           ".test.Service.GetResource",
-		InputTypeID:  ".test.Request",
-		OutputTypeID: ".test.Response",
+		ID:           ".test.v1.Service.GetResource",
+		InputTypeID:  ".test.v1.Request",
+		OutputTypeID: ".test.v1.Response",
 		PathInfo: &api.PathInfo{
 			Verb: "GET",
 			PathTemplate: []api.PathSegment{
@@ -64,14 +64,14 @@ func TestServiceAnnotations(t *testing.T) {
 	}
 	noHttpMethod := &api.Method{
 		Name:         "DoAThing",
-		ID:           ".test.Service.DoAThing",
-		InputTypeID:  ".test.Request",
-		OutputTypeID: ".test.Response",
+		ID:           ".test.v1.Service.DoAThing",
+		InputTypeID:  ".test.v1.Request",
+		OutputTypeID: ".test.v1.Response",
 	}
 	service := &api.Service{
 		Name:    "ResourceService",
-		ID:      ".test.ResourceService",
-		Package: "test",
+		ID:      ".test.v1.ResourceService",
+		Package: "test.v1",
 		Methods: []*api.Method{method, noHttpMethod},
 	}
 
@@ -86,9 +86,10 @@ func TestServiceAnnotations(t *testing.T) {
 	}
 	annotateModel(model, codec, "")
 	wantService := &serviceAnnotations{
-		Name:       "ResourceService",
-		ModuleName: "resource_service",
-		HasLROs:    false,
+		Name:              "ResourceService",
+		PackageModuleName: "test::v1",
+		ModuleName:        "resource_service",
+		HasLROs:           false,
 	}
 	if diff := cmp.Diff(wantService, service.Codec, cmpopts.IgnoreFields(serviceAnnotations{}, "Methods")); diff != "" {
 		t.Errorf("mismatch in service annotations (-want, +got)\n:%s", diff)

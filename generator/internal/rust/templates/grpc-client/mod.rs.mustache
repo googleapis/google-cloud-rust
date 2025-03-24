@@ -22,14 +22,18 @@ limitations under the License.
 #[allow(clippy::module_inception)]
 pub mod model;
 
-// TODO(#1549) - enable the warning once all the code is generated.
-#[allow(dead_code)]
-pub mod builders;
-
-// TODO(#1549) - enable the warning once all the code is generated.
-#[allow(dead_code)]
+{{! We use explicit links because it is easier to generate the code with them. }}
+#[allow(rustdoc::redundant_explicit_links)]
 pub mod stubs;
 
-// TODO(#1549) - enable the warning once all the code is generated.
-#[allow(dead_code)]
-pub mod tracing;
+/// Request builders.
+pub mod builders;
+
+/// The client(s) for this client library.
+pub mod client;
+
+#[doc(hidden)]
+pub(crate) mod tracing;
+
+#[doc(hidden)]
+pub(crate) mod transport;

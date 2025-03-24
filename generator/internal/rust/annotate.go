@@ -61,6 +61,9 @@ type serviceAnnotations struct {
 	// in `PascalCase`. Notably, names like `IAM` *must* become `Iam`, but
 	// `IAMService` can stay unchanged.
 	Name string
+	// The source specification package name mapped to Rust modules. That is,
+	// `google.service.v1` becomes `google::service::v1`.
+	PackageModuleName string
 	// For each service we generate a module containing all its builders.
 	// The Rust naming conventions required this to be `snake_case` format.
 	ModuleName string
@@ -310,9 +313,14 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 			break
 		}
 	}
+	components := strings.Split(s.Package, ".")
+	for i, c := range components {
+		components[i] = toSnake(c)
+	}
 	ann := &serviceAnnotations{
-		Name:       toPascal(s.Name),
-		ModuleName: toSnake(s.Name),
+		Name:              toPascal(s.Name),
+		PackageModuleName: strings.Join(components, "::"),
+		ModuleName:        toSnake(s.Name),
 		DocLines: formatDocComments(
 			s.Documentation, s.ID, model.State, c.modulePath, []string{s.ID, s.Package}, c.packageMapping),
 		Methods:     methods,
