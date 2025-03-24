@@ -20,7 +20,7 @@ pub mod security_posture {
 
     /// Common implementation for [super::super::client::SecurityPosture] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>,
         request: R,
         options: gax::options::RequestOptions,

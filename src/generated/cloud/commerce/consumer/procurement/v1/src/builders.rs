@@ -20,7 +20,7 @@ pub mod license_management_service {
 
     /// Common implementation for [super::super::client::LicenseManagementService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::LicenseManagementService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -376,7 +376,7 @@ pub mod consumer_procurement_service {
 
     /// Common implementation for [super::super::client::ConsumerProcurementService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::ConsumerProcurementService>,
         request: R,
         options: gax::options::RequestOptions,

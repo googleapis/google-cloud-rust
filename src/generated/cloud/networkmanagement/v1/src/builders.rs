@@ -20,7 +20,7 @@ pub mod reachability_service {
 
     /// Common implementation for [super::super::client::ReachabilityService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::ReachabilityService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -1051,7 +1051,7 @@ pub mod vpc_flow_logs_service {
 
     /// Common implementation for [super::super::client::VpcFlowLogsService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::VpcFlowLogsService>,
         request: R,
         options: gax::options::RequestOptions,

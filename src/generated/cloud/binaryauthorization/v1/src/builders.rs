@@ -20,7 +20,7 @@ pub mod binauthz_management_service_v_1 {
 
     /// Common implementation for [super::super::client::BinauthzManagementServiceV1] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::BinauthzManagementServiceV1>,
         request: R,
         options: gax::options::RequestOptions,
@@ -397,7 +397,7 @@ pub mod system_policy_v_1 {
 
     /// Common implementation for [super::super::client::SystemPolicyV1] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::SystemPolicyV1>,
         request: R,
         options: gax::options::RequestOptions,
@@ -464,7 +464,7 @@ pub mod validation_helper_v_1 {
 
     /// Common implementation for [super::super::client::ValidationHelperV1] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::ValidationHelperV1>,
         request: R,
         options: gax::options::RequestOptions,

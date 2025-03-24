@@ -20,7 +20,7 @@ pub mod iam_policy {
 
     /// Common implementation for [super::super::client::IAMPolicy] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::IAMPolicy>,
         request: R,
         options: gax::options::RequestOptions,

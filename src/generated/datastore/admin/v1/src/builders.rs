@@ -20,7 +20,7 @@ pub mod datastore_admin {
 
     /// Common implementation for [super::super::client::DatastoreAdmin] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::DatastoreAdmin>,
         request: R,
         options: gax::options::RequestOptions,

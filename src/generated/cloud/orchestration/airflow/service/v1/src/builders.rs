@@ -20,7 +20,7 @@ pub mod environments {
 
     /// Common implementation for [super::super::client::Environments] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Environments>,
         request: R,
         options: gax::options::RequestOptions,
@@ -1831,7 +1831,7 @@ pub mod image_versions {
 
     /// Common implementation for [super::super::client::ImageVersions] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::ImageVersions>,
         request: R,
         options: gax::options::RequestOptions,

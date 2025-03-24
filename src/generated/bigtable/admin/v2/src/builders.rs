@@ -20,7 +20,7 @@ pub mod bigtable_instance_admin {
 
     /// Common implementation for [super::super::client::BigtableInstanceAdmin] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
         request: R,
         options: gax::options::RequestOptions,
@@ -2491,7 +2491,7 @@ pub mod bigtable_table_admin {
 
     /// Common implementation for [super::super::client::BigtableTableAdmin] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>,
         request: R,
         options: gax::options::RequestOptions,

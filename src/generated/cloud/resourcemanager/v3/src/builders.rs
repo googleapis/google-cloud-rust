@@ -20,7 +20,7 @@ pub mod folders {
 
     /// Common implementation for [super::super::client::Folders] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Folders>,
         request: R,
         options: gax::options::RequestOptions,
@@ -852,7 +852,7 @@ pub mod organizations {
 
     /// Common implementation for [super::super::client::Organizations] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Organizations>,
         request: R,
         options: gax::options::RequestOptions,
@@ -1198,7 +1198,7 @@ pub mod projects {
 
     /// Common implementation for [super::super::client::Projects] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Projects>,
         request: R,
         options: gax::options::RequestOptions,
@@ -2032,7 +2032,7 @@ pub mod tag_bindings {
 
     /// Common implementation for [super::super::client::TagBindings] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::TagBindings>,
         request: R,
         options: gax::options::RequestOptions,
@@ -2414,7 +2414,7 @@ pub mod tag_holds {
 
     /// Common implementation for [super::super::client::TagHolds] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::TagHolds>,
         request: R,
         options: gax::options::RequestOptions,
@@ -2734,7 +2734,7 @@ pub mod tag_keys {
 
     /// Common implementation for [super::super::client::TagKeys] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::TagKeys>,
         request: R,
         options: gax::options::RequestOptions,
@@ -3397,7 +3397,7 @@ pub mod tag_values {
 
     /// Common implementation for [super::super::client::TagValues] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::TagValues>,
         request: R,
         options: gax::options::RequestOptions,

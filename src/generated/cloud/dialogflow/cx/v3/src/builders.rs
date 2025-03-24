@@ -20,7 +20,7 @@ pub mod agents {
 
     /// Common implementation for [super::super::client::Agents] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Agents>,
         request: R,
         options: gax::options::RequestOptions,
@@ -999,7 +999,7 @@ pub mod changelogs {
 
     /// Common implementation for [super::super::client::Changelogs] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Changelogs>,
         request: R,
         options: gax::options::RequestOptions,
@@ -1423,7 +1423,7 @@ pub mod deployments {
 
     /// Common implementation for [super::super::client::Deployments] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Deployments>,
         request: R,
         options: gax::options::RequestOptions,
@@ -1841,7 +1841,7 @@ pub mod entity_types {
 
     /// Common implementation for [super::super::client::EntityTypes] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::EntityTypes>,
         request: R,
         options: gax::options::RequestOptions,
@@ -2679,7 +2679,7 @@ pub mod environments {
 
     /// Common implementation for [super::super::client::Environments] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Environments>,
         request: R,
         options: gax::options::RequestOptions,
@@ -3646,7 +3646,7 @@ pub mod experiments {
 
     /// Common implementation for [super::super::client::Experiments] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Experiments>,
         request: R,
         options: gax::options::RequestOptions,
@@ -4299,7 +4299,7 @@ pub mod flows {
 
     /// Common implementation for [super::super::client::Flows] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Flows>,
         request: R,
         options: gax::options::RequestOptions,
@@ -5252,7 +5252,7 @@ pub mod generators {
 
     /// Common implementation for [super::super::client::Generators] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Generators>,
         request: R,
         options: gax::options::RequestOptions,
@@ -5844,7 +5844,7 @@ pub mod intents {
 
     /// Common implementation for [super::super::client::Intents] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Intents>,
         request: R,
         options: gax::options::RequestOptions,
@@ -6649,7 +6649,7 @@ pub mod pages {
 
     /// Common implementation for [super::super::client::Pages] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Pages>,
         request: R,
         options: gax::options::RequestOptions,
@@ -7234,7 +7234,7 @@ pub mod security_settings_service {
 
     /// Common implementation for [super::super::client::SecuritySettingsService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::SecuritySettingsService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -7837,7 +7837,7 @@ pub mod sessions {
 
     /// Common implementation for [super::super::client::Sessions] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Sessions>,
         request: R,
         options: gax::options::RequestOptions,
@@ -8415,7 +8415,7 @@ pub mod session_entity_types {
 
     /// Common implementation for [super::super::client::SessionEntityTypes] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::SessionEntityTypes>,
         request: R,
         options: gax::options::RequestOptions,
@@ -9004,7 +9004,7 @@ pub mod test_cases {
 
     /// Common implementation for [super::super::client::TestCases] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::TestCases>,
         request: R,
         options: gax::options::RequestOptions,
@@ -10154,7 +10154,7 @@ pub mod transition_route_groups {
 
     /// Common implementation for [super::super::client::TransitionRouteGroups] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::TransitionRouteGroups>,
         request: R,
         options: gax::options::RequestOptions,
@@ -10799,7 +10799,7 @@ pub mod versions {
 
     /// Common implementation for [super::super::client::Versions] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Versions>,
         request: R,
         options: gax::options::RequestOptions,
@@ -11535,7 +11535,7 @@ pub mod webhooks {
 
     /// Common implementation for [super::super::client::Webhooks] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Webhooks>,
         request: R,
         options: gax::options::RequestOptions,

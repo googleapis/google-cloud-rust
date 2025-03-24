@@ -20,7 +20,7 @@ pub mod transcoder_service {
 
     /// Common implementation for [super::super::client::TranscoderService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::TranscoderService>,
         request: R,
         options: gax::options::RequestOptions,

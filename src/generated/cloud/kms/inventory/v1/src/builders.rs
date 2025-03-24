@@ -20,7 +20,7 @@ pub mod key_dashboard_service {
 
     /// Common implementation for [super::super::client::KeyDashboardService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::KeyDashboardService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -118,7 +118,7 @@ pub mod key_tracking_service {
 
     /// Common implementation for [super::super::client::KeyTrackingService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::KeyTrackingService>,
         request: R,
         options: gax::options::RequestOptions,

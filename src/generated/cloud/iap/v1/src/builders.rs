@@ -20,7 +20,7 @@ pub mod identity_aware_proxy_admin_service {
 
     /// Common implementation for [super::super::client::IdentityAwareProxyAdminService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::IdentityAwareProxyAdminService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -607,7 +607,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
     /// Common implementation for [super::super::client::IdentityAwareProxyOAuthService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::IdentityAwareProxyOAuthService>,
         request: R,
         options: gax::options::RequestOptions,

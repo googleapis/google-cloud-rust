@@ -30,7 +30,7 @@ protobuf-subdir             = "src"
 [codec]
 # The default version for all crates. This can be overridden in the crate's
 # `.sidekick.toml` file.
-version = "0.3.0"
+version = "0.2.0"
 # The default release level for all crates.
 release-level = "preview"
 # Disable a number of warnings.

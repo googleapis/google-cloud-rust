@@ -20,7 +20,7 @@ pub mod dataset_service {
 
     /// Common implementation for [super::super::client::DatasetService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::DatasetService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -2102,7 +2102,7 @@ pub mod deployment_resource_pool_service {
 
     /// Common implementation for [super::super::client::DeploymentResourcePoolService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::DeploymentResourcePoolService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -3188,7 +3188,7 @@ pub mod endpoint_service {
 
     /// Common implementation for [super::super::client::EndpointService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::EndpointService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -4510,7 +4510,7 @@ pub mod evaluation_service {
 
     /// Common implementation for [super::super::client::EvaluationService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::EvaluationService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -5132,7 +5132,7 @@ pub mod feature_online_store_admin_service {
 
     /// Common implementation for [super::super::client::FeatureOnlineStoreAdminService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::FeatureOnlineStoreAdminService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -6748,7 +6748,7 @@ pub mod feature_online_store_service {
 
     /// Common implementation for [super::super::client::FeatureOnlineStoreService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::FeatureOnlineStoreService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -7462,7 +7462,7 @@ pub mod feature_registry_service {
 
     /// Common implementation for [super::super::client::FeatureRegistryService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::FeatureRegistryService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -8977,7 +8977,7 @@ pub mod featurestore_online_serving_service {
 
     /// Common implementation for [super::super::client::FeaturestoreOnlineServingService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::FeaturestoreOnlineServingService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -9684,7 +9684,7 @@ pub mod featurestore_service {
 
     /// Common implementation for [super::super::client::FeaturestoreService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::FeaturestoreService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -12137,7 +12137,7 @@ pub mod gen_ai_cache_service {
 
     /// Common implementation for [super::super::client::GenAiCacheService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::GenAiCacheService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -12972,7 +12972,7 @@ pub mod gen_ai_tuning_service {
 
     /// Common implementation for [super::super::client::GenAiTuningService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::GenAiTuningService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -13865,7 +13865,7 @@ pub mod index_endpoint_service {
 
     /// Common implementation for [super::super::client::IndexEndpointService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::IndexEndpointService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -15107,7 +15107,7 @@ pub mod index_service {
 
     /// Common implementation for [super::super::client::IndexService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::IndexService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -16171,7 +16171,7 @@ pub mod job_service {
 
     /// Common implementation for [super::super::client::JobService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::JobService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -18958,7 +18958,7 @@ pub mod llm_utility_service {
 
     /// Common implementation for [super::super::client::LlmUtilityService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::LlmUtilityService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -19694,7 +19694,7 @@ pub mod match_service {
 
     /// Common implementation for [super::super::client::MatchService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::MatchService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -20386,7 +20386,7 @@ pub mod metadata_service {
 
     /// Common implementation for [super::super::client::MetadataService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::MetadataService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -23064,7 +23064,7 @@ pub mod migration_service {
 
     /// Common implementation for [super::super::client::MigrationService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::MigrationService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -23810,7 +23810,7 @@ pub mod model_garden_service {
 
     /// Common implementation for [super::super::client::ModelGardenService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::ModelGardenService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -24445,7 +24445,7 @@ pub mod model_service {
 
     /// Common implementation for [super::super::client::ModelService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::ModelService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -26405,7 +26405,7 @@ pub mod notebook_service {
 
     /// Common implementation for [super::super::client::NotebookService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::NotebookService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -28274,7 +28274,7 @@ pub mod persistent_resource_service {
 
     /// Common implementation for [super::super::client::PersistentResourceService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::PersistentResourceService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -29373,7 +29373,7 @@ pub mod pipeline_service {
 
     /// Common implementation for [super::super::client::PipelineService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::PipelineService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -30757,7 +30757,7 @@ pub mod prediction_service {
 
     /// Common implementation for [super::super::client::PredictionService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::PredictionService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -31740,7 +31740,7 @@ pub mod reasoning_engine_execution_service {
 
     /// Common implementation for [super::super::client::ReasoningEngineExecutionService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::ReasoningEngineExecutionService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -32387,7 +32387,7 @@ pub mod reasoning_engine_service {
 
     /// Common implementation for [super::super::client::ReasoningEngineService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::ReasoningEngineService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -33381,7 +33381,7 @@ pub mod schedule_service {
 
     /// Common implementation for [super::super::client::ScheduleService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::ScheduleService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -34336,7 +34336,7 @@ pub mod specialist_pool_service {
 
     /// Common implementation for [super::super::client::SpecialistPoolService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::SpecialistPoolService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -35336,7 +35336,7 @@ pub mod tensorboard_service {
 
     /// Common implementation for [super::super::client::TensorboardService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::TensorboardService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -37839,7 +37839,7 @@ pub mod vertex_rag_data_service {
 
     /// Common implementation for [super::super::client::VertexRagDataService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::VertexRagDataService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -39156,7 +39156,7 @@ pub mod vertex_rag_service {
 
     /// Common implementation for [super::super::client::VertexRagService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::VertexRagService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -39936,7 +39936,7 @@ pub mod vizier_service {
 
     /// Common implementation for [super::super::client::VizierService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::VizierService>,
         request: R,
         options: gax::options::RequestOptions,
