@@ -89,7 +89,7 @@ pub async fn basic(config: Option<gax::options::ClientConfig>) -> Result<()> {
         let doc = doc?;
         println!("  ITEM = {doc:?}");
     }
-    println!("SUCCESS on list_documents: {response:?}");
+    println!("SUCCESS on list_documents:");
 
     let response = client
         .update_document(
@@ -156,7 +156,7 @@ async fn cleanup_stale_documents() -> Result<()> {
         .await
         .into_iter()
         .zip(stale_documents)
-        .for_each(|(r, name)| println!("{name} = {r:?}"));
+        .for_each(|(r, name)| println!("Deleting stale document {name} = {r:?}"));
 
     Ok(())
 }
