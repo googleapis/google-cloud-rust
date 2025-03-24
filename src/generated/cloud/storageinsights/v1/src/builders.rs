@@ -20,7 +20,7 @@ pub mod storage_insights {
 
     /// Common implementation for [super::super::client::StorageInsights] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::StorageInsights>,
         request: R,
         options: gax::options::RequestOptions,

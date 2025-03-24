@@ -20,7 +20,7 @@ pub mod text_to_speech {
 
     /// Common implementation for [super::super::client::TextToSpeech] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::TextToSpeech>,
         request: R,
         options: gax::options::RequestOptions,
@@ -284,7 +284,7 @@ pub mod text_to_speech_long_audio_synthesize {
 
     /// Common implementation for [super::super::client::TextToSpeechLongAudioSynthesize] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::TextToSpeechLongAudioSynthesize>,
         request: R,
         options: gax::options::RequestOptions,

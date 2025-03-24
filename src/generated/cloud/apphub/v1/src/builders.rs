@@ -20,7 +20,7 @@ pub mod app_hub {
 
     /// Common implementation for [super::super::client::AppHub] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::AppHub>,
         request: R,
         options: gax::options::RequestOptions,

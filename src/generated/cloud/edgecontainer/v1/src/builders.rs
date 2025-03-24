@@ -20,7 +20,7 @@ pub mod edge_container {
 
     /// Common implementation for [super::super::client::EdgeContainer] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>,
         request: R,
         options: gax::options::RequestOptions,

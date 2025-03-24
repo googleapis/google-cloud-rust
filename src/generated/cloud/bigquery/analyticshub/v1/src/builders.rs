@@ -20,7 +20,7 @@ pub mod analytics_hub_service {
 
     /// Common implementation for [super::super::client::AnalyticsHubService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::AnalyticsHubService>,
         request: R,
         options: gax::options::RequestOptions,

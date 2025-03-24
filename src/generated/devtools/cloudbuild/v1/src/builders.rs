@@ -20,7 +20,7 @@ pub mod cloud_build {
 
     /// Common implementation for [super::super::client::CloudBuild] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>,
         request: R,
         options: gax::options::RequestOptions,

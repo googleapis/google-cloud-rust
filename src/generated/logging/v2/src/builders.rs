@@ -20,7 +20,7 @@ pub mod logging_service_v_2 {
 
     /// Common implementation for [super::super::client::LoggingServiceV2] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::LoggingServiceV2>,
         request: R,
         options: gax::options::RequestOptions,
@@ -554,7 +554,7 @@ pub mod config_service_v_2 {
 
     /// Common implementation for [super::super::client::ConfigServiceV2] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::ConfigServiceV2>,
         request: R,
         options: gax::options::RequestOptions,
@@ -2602,7 +2602,7 @@ pub mod metrics_service_v_2 {
 
     /// Common implementation for [super::super::client::MetricsServiceV2] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::MetricsServiceV2>,
         request: R,
         options: gax::options::RequestOptions,

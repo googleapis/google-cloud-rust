@@ -20,7 +20,7 @@ pub mod app_connections_service {
 
     /// Common implementation for [super::super::client::AppConnectionsService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::AppConnectionsService>,
         request: R,
         options: gax::options::RequestOptions,

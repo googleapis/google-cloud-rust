@@ -20,7 +20,7 @@ pub mod dashboards_service {
 
     /// Common implementation for [super::super::client::DashboardsService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::DashboardsService>,
         request: R,
         options: gax::options::RequestOptions,

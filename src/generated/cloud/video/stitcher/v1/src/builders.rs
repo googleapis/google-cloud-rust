@@ -20,7 +20,7 @@ pub mod video_stitcher_service {
 
     /// Common implementation for [super::super::client::VideoStitcherService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
         request: R,
         options: gax::options::RequestOptions,

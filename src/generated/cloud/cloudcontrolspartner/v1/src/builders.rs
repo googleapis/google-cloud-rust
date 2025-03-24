@@ -20,7 +20,7 @@ pub mod cloud_controls_partner_core {
 
     /// Common implementation for [super::super::client::CloudControlsPartnerCore] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::CloudControlsPartnerCore>,
         request: R,
         options: gax::options::RequestOptions,
@@ -522,7 +522,7 @@ pub mod cloud_controls_partner_monitoring {
 
     /// Common implementation for [super::super::client::CloudControlsPartnerMonitoring] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::CloudControlsPartnerMonitoring>,
         request: R,
         options: gax::options::RequestOptions,

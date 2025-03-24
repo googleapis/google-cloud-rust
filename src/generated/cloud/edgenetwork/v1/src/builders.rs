@@ -20,7 +20,7 @@ pub mod edge_network {
 
     /// Common implementation for [super::super::client::EdgeNetwork] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>,
         request: R,
         options: gax::options::RequestOptions,

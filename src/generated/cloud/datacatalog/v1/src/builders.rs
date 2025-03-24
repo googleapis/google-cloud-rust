@@ -20,7 +20,7 @@ pub mod data_catalog {
 
     /// Common implementation for [super::super::client::DataCatalog] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::DataCatalog>,
         request: R,
         options: gax::options::RequestOptions,
@@ -2331,7 +2331,7 @@ pub mod policy_tag_manager {
 
     /// Common implementation for [super::super::client::PolicyTagManager] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::PolicyTagManager>,
         request: R,
         options: gax::options::RequestOptions,
@@ -3242,7 +3242,7 @@ pub mod policy_tag_manager_serialization {
 
     /// Common implementation for [super::super::client::PolicyTagManagerSerialization] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::PolicyTagManagerSerialization>,
         request: R,
         options: gax::options::RequestOptions,

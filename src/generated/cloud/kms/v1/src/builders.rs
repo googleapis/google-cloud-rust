@@ -20,7 +20,7 @@ pub mod autokey {
 
     /// Common implementation for [super::super::client::Autokey] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Autokey>,
         request: R,
         options: gax::options::RequestOptions,
@@ -582,7 +582,7 @@ pub mod autokey_admin {
 
     /// Common implementation for [super::super::client::AutokeyAdmin] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::AutokeyAdmin>,
         request: R,
         options: gax::options::RequestOptions,
@@ -1080,7 +1080,7 @@ pub mod ekm_service {
 
     /// Common implementation for [super::super::client::EkmService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::EkmService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -1812,7 +1812,7 @@ pub mod key_management_service {
 
     /// Common implementation for [super::super::client::KeyManagementService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::KeyManagementService>,
         request: R,
         options: gax::options::RequestOptions,

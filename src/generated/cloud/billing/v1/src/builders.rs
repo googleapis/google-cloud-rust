@@ -20,7 +20,7 @@ pub mod cloud_billing {
 
     /// Common implementation for [super::super::client::CloudBilling] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::CloudBilling>,
         request: R,
         options: gax::options::RequestOptions,
@@ -670,7 +670,7 @@ pub mod cloud_catalog {
 
     /// Common implementation for [super::super::client::CloudCatalog] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::CloudCatalog>,
         request: R,
         options: gax::options::RequestOptions,

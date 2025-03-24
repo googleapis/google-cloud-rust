@@ -20,7 +20,7 @@ pub mod livestream_service {
 
     /// Common implementation for [super::super::client::LivestreamService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>,
         request: R,
         options: gax::options::RequestOptions,

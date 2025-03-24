@@ -20,7 +20,7 @@ pub mod trace_service {
 
     /// Common implementation for [super::super::client::TraceService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::TraceService>,
         request: R,
         options: gax::options::RequestOptions,

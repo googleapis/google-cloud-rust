@@ -20,7 +20,7 @@ pub mod parallelstore {
 
     /// Common implementation for [super::super::client::Parallelstore] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Parallelstore>,
         request: R,
         options: gax::options::RequestOptions,

@@ -20,7 +20,7 @@ pub mod lookup_service {
 
     /// Common implementation for [super::super::client::LookupService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::LookupService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -217,7 +217,7 @@ pub mod registration_service {
 
     /// Common implementation for [super::super::client::RegistrationService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
         request: R,
         options: gax::options::RequestOptions,

@@ -20,7 +20,7 @@ pub mod case_attachment_service {
 
     /// Common implementation for [super::super::client::CaseAttachmentService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::CaseAttachmentService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -118,7 +118,7 @@ pub mod case_service {
 
     /// Common implementation for [super::super::client::CaseService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::CaseService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -595,7 +595,7 @@ pub mod comment_service {
 
     /// Common implementation for [super::super::client::CommentService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::CommentService>,
         request: R,
         options: gax::options::RequestOptions,
