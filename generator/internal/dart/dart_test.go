@@ -15,6 +15,7 @@
 package dart
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -517,6 +518,59 @@ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
 	got := formatDocComments(input, state)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestFormatDocCommentsRewriteReferences(t *testing.T) {
+	state := &api.APIState{}
+
+	for _, test := range []struct {
+		testName string
+		input    string
+		output   string
+	}{
+		{
+			testName: "regular api ref",
+			input:    "foo [Code][google.rpc.Code] bar",
+			output:   "/// foo `Code` bar",
+		},
+		{
+			testName: "implicit api ref",
+			input:    "foo [google.rpc.Code][] bar",
+			output:   "/// foo `google.rpc.Code` bar",
+		},
+		{
+			testName: "two on a line",
+			input:    "foo [Code][google.rpc.Code] and [AnalyzeSentiment][] bar",
+			output:   "/// foo `Code` and `AnalyzeSentiment` bar",
+		},
+		{
+			testName: "multi-line",
+			input: `For calls to [AnalyzeSentiment][] or if
+[AnnotateTextRequest.Features.extract_document_sentiment][google.cloud.language.v2.AnnotateTextRequest.Features.extract_document_sentiment]
+is set to true, this field will contain the sentiment for the sentence.`,
+			output: "/// For calls to `AnalyzeSentiment` or if\n" +
+				"/// `AnnotateTextRequest.Features.extract_document_sentiment`\n" +
+				"/// is set to true, this field will contain the sentiment for the sentence.",
+		},
+		{
+			testName: "no match - spaces",
+			input:    "foo [Code ref][google.rpc.Code] bar",
+			output:   "/// foo [Code ref][google.rpc.Code] bar",
+		},
+		{
+			testName: "no match - missing brackets",
+			input:    "foo [google.rpc.Code] bar",
+			output:   "/// foo [google.rpc.Code] bar",
+		},
+	} {
+		t.Run(test.testName, func(t *testing.T) {
+			gotLines := formatDocComments(test.input, state)
+			got := strings.Join(gotLines, "\n")
+			if diff := cmp.Diff(test.output, got); diff != "" {
+				t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+			}
+		})
 	}
 }
 

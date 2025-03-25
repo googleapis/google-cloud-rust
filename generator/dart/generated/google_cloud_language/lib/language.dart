@@ -178,8 +178,8 @@ class Sentence extends Message {
   /// The sentence text.
   final TextSpan? text;
 
-  /// For calls to [AnalyzeSentiment][] or if
-  /// [AnnotateTextRequest.Features.extract_document_sentiment][google.cloud.language.v2.AnnotateTextRequest.Features.extract_document_sentiment]
+  /// For calls to `AnalyzeSentiment` or if
+  /// `AnnotateTextRequest.Features.extract_document_sentiment`
   /// is set to true, this field will contain the sentiment for the sentence.
   final Sentiment? sentiment;
 
@@ -229,8 +229,8 @@ class Entity extends Message {
   /// supports proper noun mentions.
   final List<EntityMention>? mentions;
 
-  /// For calls to [AnalyzeEntitySentiment][] or if
-  /// [AnnotateTextRequest.Features.extract_entity_sentiment][google.cloud.language.v2.AnnotateTextRequest.Features.extract_entity_sentiment]
+  /// For calls to `AnalyzeEntitySentiment` or if
+  /// `AnnotateTextRequest.Features.extract_entity_sentiment`
   /// is set to true, this field will contain the aggregate sentiment expressed
   /// for this entity in the provided document.
   final Sentiment? sentiment;
@@ -419,8 +419,8 @@ class EntityMention extends Message {
   /// The type of the entity mention.
   final EntityMention$Type? type;
 
-  /// For calls to [AnalyzeEntitySentiment][] or if
-  /// [AnnotateTextRequest.Features.extract_entity_sentiment][google.cloud.language.v2.AnnotateTextRequest.Features.extract_entity_sentiment]
+  /// For calls to `AnalyzeEntitySentiment` or if
+  /// `AnnotateTextRequest.Features.extract_entity_sentiment`
   /// is set to true, this field will contain the sentiment expressed for this
   /// mention of the entity in the provided document.
   final Sentiment? sentiment;
@@ -499,7 +499,7 @@ class TextSpan extends Message {
 
   /// The API calculates the beginning offset of the content in the original
   /// document according to the
-  /// [EncodingType][google.cloud.language.v2.EncodingType] specified in the API
+  /// `EncodingType` specified in the API
   /// request.
   final int? beginOffset;
 
@@ -634,7 +634,7 @@ class AnalyzeSentimentResponse extends Message {
 
   /// The language of the text, which will be the same as the language specified
   /// in the request or, if not specified, the automatically-detected language.
-  /// See [Document.language][] field for more details.
+  /// See `Document.language` field for more details.
   final String? languageCode;
 
   /// The sentiment for all the sentences in the document.
@@ -732,7 +732,7 @@ class AnalyzeEntitiesResponse extends Message {
 
   /// The language of the text, which will be the same as the language specified
   /// in the request or, if not specified, the automatically-detected language.
-  /// See [Document.language][] field for more details.
+  /// See `Document.language` field for more details.
   final String? languageCode;
 
   /// Whether the language is officially supported. The API may still return a
@@ -812,7 +812,7 @@ class ClassifyTextResponse extends Message {
 
   /// The language of the text, which will be the same as the language specified
   /// in the request or, if not specified, the automatically-detected language.
-  /// See [Document.language][] field for more details.
+  /// See `Document.language` field for more details.
   final String? languageCode;
 
   /// Whether the language is officially supported. The API may still return a
@@ -936,7 +936,7 @@ class ModerateTextResponse extends Message {
 
   /// The language of the text, which will be the same as the language specified
   /// in the request or, if not specified, the automatically-detected language.
-  /// See [Document.language][] field for more details.
+  /// See `Document.language` field for more details.
   final String? languageCode;
 
   /// Whether the language is officially supported. The API may still return a
@@ -1090,23 +1090,23 @@ class AnnotateTextResponse extends Message {
       'google.cloud.language.v2.AnnotateTextResponse';
 
   /// Sentences in the input document. Populated if the user enables
-  /// [AnnotateTextRequest.Features.extract_document_sentiment][google.cloud.language.v2.AnnotateTextRequest.Features.extract_document_sentiment].
+  /// `AnnotateTextRequest.Features.extract_document_sentiment`.
   final List<Sentence>? sentences;
 
   /// Entities, along with their semantic information, in the input document.
   /// Populated if the user enables
-  /// [AnnotateTextRequest.Features.extract_entities][google.cloud.language.v2.AnnotateTextRequest.Features.extract_entities]
+  /// `AnnotateTextRequest.Features.extract_entities`
   /// or
-  /// [AnnotateTextRequest.Features.extract_entity_sentiment][google.cloud.language.v2.AnnotateTextRequest.Features.extract_entity_sentiment].
+  /// `AnnotateTextRequest.Features.extract_entity_sentiment`.
   final List<Entity>? entities;
 
   /// The overall sentiment for the document. Populated if the user enables
-  /// [AnnotateTextRequest.Features.extract_document_sentiment][google.cloud.language.v2.AnnotateTextRequest.Features.extract_document_sentiment].
+  /// `AnnotateTextRequest.Features.extract_document_sentiment`.
   final Sentiment? documentSentiment;
 
   /// The language of the text, which will be the same as the language specified
   /// in the request or, if not specified, the automatically-detected language.
-  /// See [Document.language][] field for more details.
+  /// See `Document.language` field for more details.
   final String? languageCode;
 
   /// Categories identified in the input document.

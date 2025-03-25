@@ -552,7 +552,7 @@ class ResourceInfo extends Message {
   /// The name of the resource being accessed.  For example, a shared calendar
   /// name: "example.com_4fghdhgsrgh@group.calendar.google.com", if the current
   /// error is
-  /// [google.rpc.Code.PERMISSION_DENIED][google.rpc.Code.PERMISSION_DENIED].
+  /// `google.rpc.Code.PERMISSION_DENIED`.
   final String? resourceName;
 
   /// The owner of the resource (optional).
@@ -877,12 +877,12 @@ class Status extends Message {
   static const String fullyQualifiedName = 'google.rpc.Status';
 
   /// The status code, which should be an enum value of
-  /// [google.rpc.Code][google.rpc.Code].
+  /// `google.rpc.Code`.
   final int? code;
 
   /// A developer-facing error message, which should be in English. Any
   /// user-facing error message should be localized and sent in the
-  /// [google.rpc.Status.details][google.rpc.Status.details] field, or localized
+  /// `google.rpc.Status.details` field, or localized
   /// by the client.
   final String? message;
 
