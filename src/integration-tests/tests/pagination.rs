@@ -114,7 +114,7 @@ mod mocking {
             .paginator()
             .await
             .items()
-            .to_stream();
+            .into_stream();
         let mut names = Vec::new();
         while let Some(response) = stream.next().await {
             names.push(response?.name);
