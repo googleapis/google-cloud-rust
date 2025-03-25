@@ -96,7 +96,7 @@ impl Credential {
         self.inner.get_headers().await
     }
 
-    pub async fn get_universe_domain(&self) -> Option<String> {
+    pub async fn get_universe_domain(&self) -> Result<String> {
         self.inner.get_universe_domain().await
     }
 }
@@ -158,7 +158,7 @@ pub trait CredentialTrait: std::fmt::Debug {
     fn get_headers(&self) -> impl Future<Output = Result<Vec<(HeaderName, HeaderValue)>>> + Send;
 
     /// Retrieves the universe domain associated with the credential, if any.
-    fn get_universe_domain(&self) -> impl Future<Output = Option<String>> + Send;
+    fn get_universe_domain(&self) -> impl Future<Output = Result<String>> + Send;
 }
 
 pub(crate) mod dynamic {
@@ -184,8 +184,8 @@ pub(crate) mod dynamic {
         async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>>;
 
         /// Retrieves the universe domain associated with the credential, if any.
-        async fn get_universe_domain(&self) -> Option<String> {
-            Some("googleapis.com".to_string())
+        async fn get_universe_domain(&self) -> Result<String> {
+            Ok("googleapis.com".to_string())
         }
     }
 
@@ -201,7 +201,7 @@ pub(crate) mod dynamic {
         async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
             T::get_headers(self).await
         }
-        async fn get_universe_domain(&self) -> Option<String> {
+        async fn get_universe_domain(&self) -> Result<String> {
             T::get_universe_domain(self).await
         }
     }
@@ -350,6 +350,7 @@ fn adc_well_known_path() -> Option<String> {
 pub mod testing {
     use crate::Result;
     use crate::credentials::Credential;
+    use crate::credentials::DEFAULT_UNIVERSE_DOMAIN;
     use crate::credentials::dynamic::CredentialTrait;
     use crate::token::Token;
     use http::header::{HeaderName, HeaderValue};
@@ -382,8 +383,8 @@ pub mod testing {
             Ok(Vec::new())
         }
 
-        async fn get_universe_domain(&self) -> Option<String> {
-            None
+        async fn get_universe_domain(&self) -> Result<String> {
+            Ok(DEFAULT_UNIVERSE_DOMAIN.to_string())
         }
     }
 }

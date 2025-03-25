@@ -22,6 +22,7 @@ use google_cloud_auth::errors::CredentialError;
 use google_cloud_auth::token::Token;
 
 type Result<T> = std::result::Result<T, CredentialError>;
+pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
 #[cfg(test)]
 mod test {
@@ -145,7 +146,7 @@ mod test {
         impl CredentialTrait for Credential {
             async fn get_token(&self) -> Result<Token>;
             async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>>;
-            async fn get_universe_domain(&self) -> Option<String>;
+            async fn get_universe_domain(&self) -> Result<String>;
         }
     }
 
@@ -161,12 +162,13 @@ mod test {
             })
         });
         mock.expect_get_headers().return_once(|| Ok(Vec::new()));
-        mock.expect_get_universe_domain().return_once(|| None);
+        mock.expect_get_universe_domain()
+            .return_once(|| Ok(DEFAULT_UNIVERSE_DOMAIN.to_string()));
 
         let creds = Credential::from(mock);
         assert_eq!(creds.get_token().await?.token, "test-token");
         assert!(creds.get_headers().await?.is_empty());
-        assert_eq!(creds.get_universe_domain().await, None);
+        assert_eq!(creds.get_universe_domain().await?, DEFAULT_UNIVERSE_DOMAIN);
 
         Ok(())
     }
@@ -176,7 +178,7 @@ mod test {
         let creds = test_credentials();
         assert_eq!(creds.get_token().await?.token, "test-only-token");
         assert!(creds.get_headers().await?.is_empty());
-        assert_eq!(creds.get_universe_domain().await, None);
+        assert_eq!(creds.get_universe_domain().await?, DEFAULT_UNIVERSE_DOMAIN);
         Ok(())
     }
 

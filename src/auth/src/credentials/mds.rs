@@ -57,10 +57,11 @@ use crate::token::{Token, TokenProvider};
 use async_trait::async_trait;
 use bon::Builder;
 use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
-use reqwest::Client;
+use reqwest::{Client, StatusCode};
 use std::default::Default;
 use std::sync::Arc;
 use std::time::Duration;
+use tokio::sync::{Notify, watch};
 
 const METADATA_FLAVOR_VALUE: &str = "Google";
 const METADATA_FLAVOR: &str = "metadata-flavor";
@@ -76,7 +77,8 @@ where
     T: TokenProvider,
 {
     quota_project_id: Option<String>,
-    universe_domain: Option<String>,
+    universe_domain_receiver: watch::Receiver<Option<Result<String>>>,
+    wakeup_signal: Arc<Notify>,
     token_provider: T,
 }
 
@@ -154,19 +156,84 @@ impl Builder {
         let endpoint = self.endpoint.clone().unwrap_or(METADATA_ROOT.to_string());
 
         let token_provider = MDSAccessTokenProvider::builder()
-            .endpoint(endpoint)
+            .endpoint(endpoint.clone())
             .maybe_scopes(self.scopes)
             .build();
+
+        let (universe_domain_transmitter, universe_domain_receiver) =
+            match self.universe_domain.clone() {
+                Some(universe_domain) => watch::channel(Some(Ok(universe_domain))),
+                None => watch::channel(None),
+            };
+
+        let notify = Arc::new(Notify::new());
 
         let mdsc = MDSCredential {
             quota_project_id: self.quota_project_id,
             token_provider,
-            universe_domain: self.universe_domain,
+            universe_domain_receiver,
+            wakeup_signal: notify.clone(),
         };
+
+        if self.universe_domain.is_none() {
+            tokio::spawn(async move {
+                universe_domain_background_task(endpoint, universe_domain_transmitter, notify)
+                    .await;
+            });
+        }
         Credential {
             inner: Arc::new(mdsc),
         }
     }
+}
+
+async fn get_universe_domain_from_mds(endpoint: &String) -> Result<String> {
+    let client = Client::new();
+    let request = client
+        .get(format!("{}/universe/universe-domain", endpoint))
+        .header(
+            METADATA_FLAVOR,
+            HeaderValue::from_static(METADATA_FLAVOR_VALUE),
+        );
+
+    let response = request.send().await.map_err(CredentialError::retryable)?;
+
+    if !response.status().is_success() {
+        let status = response.status();
+        if status == StatusCode::NOT_FOUND {
+            return Ok(DEFAULT_UNIVERSE_DOMAIN.to_string());
+        }
+        let body = response
+            .text()
+            .await
+            .map_err(|e| CredentialError::new(is_retryable(status), e))?;
+        return Err(CredentialError::from_str(
+            is_retryable(status),
+            format!("Failed to fetch universe domain. {body}"),
+        ));
+    }
+    let universe_domain = response.text().await.map_err(CredentialError::retryable)?;
+
+    /* Earlier versions of MDS that supports universe_domain return empty string instead of GDU. */
+    if universe_domain.is_empty() {
+        return Ok(DEFAULT_UNIVERSE_DOMAIN.to_string());
+    }
+    Ok(universe_domain)
+}
+
+async fn universe_domain_background_task(
+    endpoint: String,
+    universe_domain_transmitter: watch::Sender<Option<Result<String>>>,
+    wakeup_signal: Arc<Notify>,
+) {
+    // Wait to be woken up
+    let _ = wakeup_signal.notified().await;
+
+    // Obtain the universe domain from the MDS.
+    let universe_domain = get_universe_domain_from_mds(&endpoint).await;
+
+    // Push it onto the watch channel.
+    let _ = universe_domain_transmitter.send(Some(universe_domain.clone())); // We ignore the error if the receiver is dropped.
 }
 
 #[async_trait::async_trait]
@@ -193,11 +260,18 @@ where
         Ok(headers)
     }
 
-    async fn get_universe_domain(&self) -> Option<String> {
-        if self.universe_domain.is_some() {
-            return self.universe_domain.clone();
+    async fn get_universe_domain(&self) -> Result<String> {
+        let mut universe_domain_receiver = self.universe_domain_receiver.clone();
+
+        if universe_domain_receiver.borrow_and_update().is_none() {
+            self.wakeup_signal.notify_one();
+
+            universe_domain_receiver.changed().await.map_err(|_| {
+                CredentialError::non_retryable_from_str("Failed to receive universe domain update.")
+            })?;
         }
-        return Some(DEFAULT_UNIVERSE_DOMAIN.to_string());
+
+        return universe_domain_receiver.borrow().clone().unwrap();
     }
 }
 
@@ -305,23 +379,32 @@ mod test {
     use crate::credentials::test::HV;
     use crate::token::test::MockTokenProvider;
     use axum::extract::Query;
+    use axum::extract::State;
     use axum::response::IntoResponse;
+    use axum::routing::get;
     use reqwest::StatusCode;
     use reqwest::header::HeaderMap;
     use serde::Deserialize;
-    use serde_json::Value;
     use std::collections::HashMap;
     use std::error::Error;
+    use std::sync::atomic::AtomicUsize;
+    use std::sync::atomic::Ordering;
     use tokio::task::JoinHandle;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
     const MDS_TOKEN_URI: &str = "/computeMetadata/v1/instance/service-accounts/default/token";
+    const UNIVERSE_DOMAIN_URI: &str = "/universe/universe-domain";
 
     // Define a struct to capture query parameters
     #[derive(Debug, Clone, Deserialize, PartialEq)]
     struct TokenQueryParams {
         scopes: Option<String>,
         recursive: Option<String>,
+    }
+
+    #[derive(Clone)] // State needs to be Clone
+    struct AppState {
+        target_endpoint_counter: Arc<AtomicUsize>,
     }
 
     #[tokio::test]
@@ -339,9 +422,12 @@ mod test {
             .times(1)
             .return_once(|| Ok(expected_clone));
 
+        let (_, universe_domain_receiver) = watch::channel(None);
+
         let mdsc = MDSCredential {
             quota_project_id: None,
-            universe_domain: None,
+            universe_domain_receiver,
+            wakeup_signal: Arc::new(Notify::new()),
             token_provider: mock,
         };
         let actual = mdsc.get_token().await.unwrap();
@@ -355,9 +441,12 @@ mod test {
             .times(1)
             .return_once(|| Err(CredentialError::non_retryable_from_str("fail")));
 
+        let (_, universe_domain_receiver) = watch::channel(None);
+
         let mdsc = MDSCredential {
             quota_project_id: None,
-            universe_domain: None,
+            universe_domain_receiver,
+            wakeup_signal: Arc::new(Notify::new()),
             token_provider: mock,
         };
         assert!(mdsc.get_token().await.is_err());
@@ -375,9 +464,12 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token().times(1).return_once(|| Ok(token));
 
+        let (_, universe_domain_receiver) = watch::channel(None);
+
         let mdsc = MDSCredential {
             quota_project_id: None,
-            universe_domain: None,
+            universe_domain_receiver,
+            wakeup_signal: Arc::new(Notify::new()),
             token_provider: mock,
         };
         let headers: Vec<HV> = HV::from(mdsc.get_headers().await.unwrap());
@@ -399,47 +491,70 @@ mod test {
             .times(1)
             .return_once(|| Err(CredentialError::non_retryable_from_str("fail")));
 
+        let (_, universe_domain_receiver) = watch::channel(None);
         let mdsc = MDSCredential {
             quota_project_id: None,
-            universe_domain: None,
+            universe_domain_receiver,
+            wakeup_signal: Arc::new(Notify::new()),
             token_provider: mock,
         };
         assert!(mdsc.get_headers().await.is_err());
     }
 
+    // Handler to get the current count
+    async fn get_count_handler(
+        State(state): State<AppState>, // Extract the shared state
+    ) -> impl IntoResponse {
+        // Read the current value of the counter atomically
+        let current_count = state.target_endpoint_counter.load(Ordering::Relaxed);
+
+        // Return the count directly as a string
+        (StatusCode::OK, current_count.to_string())
+    }
+
     fn handle_token_factory(
         response_code: StatusCode,
         response_headers: HeaderMap,
-        response_body: Value,
+        response_body: String,
     ) -> impl IntoResponse {
-        (response_code, response_headers, response_body.to_string()).into_response()
+        (response_code, response_headers, response_body).into_response()
     }
 
     // Starts a server running locally that responds on multiple paths.
     // Returns an (endpoint, server) pair.
     async fn start(
-        path_handlers: HashMap<String, (StatusCode, Value, TokenQueryParams)>,
+        path_handlers: HashMap<String, (StatusCode, String, TokenQueryParams)>,
     ) -> (String, JoinHandle<()>) {
         let mut app = axum::Router::new();
-
         for (path, (code, body, expected_query)) in path_handlers {
             let header_map = HeaderMap::new();
-            let handler = move |Query(query): Query<TokenQueryParams>| {
+            let handler = move |Query(query): Query<TokenQueryParams>,
+                                State(state): State<AppState>| {
                 let code = code.clone();
                 let body = body.clone();
                 let header_map = header_map.clone();
+                state
+                    .target_endpoint_counter
+                    .fetch_add(1, Ordering::Relaxed);
                 async move {
                     assert_eq!(expected_query, query);
                     handle_token_factory(code, header_map, body)
                 }
             };
-            app = app.route(&path, axum::routing::get(handler));
+            app = app.route(&path, get(handler));
         }
+        let shared_state = AppState {
+            target_endpoint_counter: Arc::new(AtomicUsize::new(0)), // Start counter at 0
+        };
+        let final_router = app
+            .route("/count", get(get_count_handler))
+            // Provide the shared state to all routes
+            .with_state(shared_state);
 
         let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
         let addr = listener.local_addr().unwrap();
         let server = tokio::spawn(async move {
-            axum::serve(listener, app).await.unwrap();
+            axum::serve(listener, final_router).await.unwrap();
         });
         (format!("http://{}:{}", addr.ip(), addr.port()), server)
     }
@@ -456,12 +571,12 @@ mod test {
             scopes: Some(vec!["scope 1".to_string(), "scope 2".to_string()]),
             aliases: None,
         };
-        let service_account_info_json = serde_json::to_value(service_account_info.clone()).unwrap();
+        let service_account_info_response = serde_json::to_string(&service_account_info).unwrap();
         let (endpoint, _server) = start(HashMap::from([(
             path,
             (
                 StatusCode::OK,
-                service_account_info_json,
+                service_account_info_response,
                 TokenQueryParams {
                     scopes: None,
                     recursive: Some("true".to_string()),
@@ -486,7 +601,7 @@ mod test {
             path,
             (
                 StatusCode::SERVICE_UNAVAILABLE,
-                serde_json::to_value("try again").unwrap(),
+                serde_json::to_string("try again").unwrap(),
                 TokenQueryParams {
                     scopes: None,
                     recursive: Some("true".to_string()),
@@ -510,7 +625,7 @@ mod test {
             expires_in: Some(3600),
             token_type: "test-token-type".to_string(),
         };
-        let response_body = serde_json::to_value(&response).unwrap();
+        let response_body = serde_json::to_string(&response).unwrap();
 
         let (endpoint, _server) = start(HashMap::from([(
             MDS_TOKEN_URI.to_string(),
@@ -557,7 +672,7 @@ mod test {
             expires_in: Some(3600),
             token_type: "test-token-type".to_string(),
         };
-        let response_body = serde_json::to_value(&response).unwrap();
+        let response_body = serde_json::to_string(&response).unwrap();
 
         let (endpoint, _server) = start(HashMap::from([(
             MDS_TOKEN_URI.to_string(),
@@ -597,21 +712,21 @@ mod test {
             scopes: Some(scopes.clone()),
             aliases: None,
         };
-        let service_account_info_json = serde_json::to_value(service_account_info.clone()).unwrap();
+        let service_account_info_response = serde_json::to_string(&service_account_info).unwrap();
 
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
             expires_in: Some(3600),
             token_type: "test-token-type".to_string(),
         };
-        let response_body = serde_json::to_value(&response).unwrap();
+        let response_body = serde_json::to_string(&response).unwrap();
 
         let (endpoint, _server) = start(HashMap::from([
             (
                 service_account_info_path,
                 (
                     StatusCode::OK,
-                    service_account_info_json,
+                    service_account_info_response,
                     TokenQueryParams {
                         scopes: None,
                         recursive: Some("true".to_string()),
@@ -655,7 +770,7 @@ mod test {
             expires_in: None,
             token_type: "test-token-type".to_string(),
         };
-        let response_body = serde_json::to_value(&response).unwrap();
+        let response_body = serde_json::to_string(&response).unwrap();
         let (endpoint, _server) = start(HashMap::from([(
             MDS_TOKEN_URI.to_string(),
             (
@@ -686,7 +801,7 @@ mod test {
             MDS_TOKEN_URI.to_string(),
             (
                 StatusCode::SERVICE_UNAVAILABLE,
-                serde_json::to_value("try again")?,
+                "try again".to_string(),
                 TokenQueryParams {
                     scopes: Some(scopes.join(",")),
                     recursive: None,
@@ -710,7 +825,7 @@ mod test {
             MDS_TOKEN_URI.to_string(),
             (
                 StatusCode::UNAUTHORIZED,
-                serde_json::to_value("epic fail".to_string())?,
+                "epic fail".to_string(),
                 TokenQueryParams {
                     scopes: Some(scopes.join(",")),
                     recursive: None,
@@ -735,7 +850,7 @@ mod test {
             MDS_TOKEN_URI.to_string(),
             (
                 StatusCode::OK,
-                serde_json::to_value("bad json".to_string())?,
+                "bad json".to_string(),
                 TokenQueryParams {
                     scopes: Some(scopes.join(",")),
                     recursive: None,
@@ -753,17 +868,31 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_default_universe_domain_success() {
+    async fn get_default_universe_domain_success() -> TestResult {
+        let (endpoint, _server) = start(HashMap::from([(
+            UNIVERSE_DOMAIN_URI.to_string(),
+            (
+                StatusCode::NOT_FOUND,
+                "not found".to_string(),
+                TokenQueryParams {
+                    scopes: None,
+                    recursive: None,
+                },
+            ),
+        )]))
+        .await;
         let universe_domain_response = Builder::default()
+            .endpoint(endpoint)
             .build()
             .get_universe_domain()
             .await
             .unwrap();
         assert_eq!(universe_domain_response, DEFAULT_UNIVERSE_DOMAIN);
+        Ok(())
     }
 
     #[tokio::test]
-    async fn get_custom_universe_domain_success() {
+    async fn get_custom_universe_domain_success() -> TestResult {
         let universe_domain = "test-universe";
         let universe_domain_response = Builder::default()
             .universe_domain(universe_domain)
@@ -772,5 +901,152 @@ mod test {
             .await
             .unwrap();
         assert_eq!(universe_domain_response, universe_domain);
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn get_universe_domain_success_cached() {
+        let ud = "test-universe-domain";
+
+        let (endpoint, server) = start(HashMap::from([(
+            UNIVERSE_DOMAIN_URI.to_string(),
+            (
+                StatusCode::OK,
+                ud.to_string(),
+                TokenQueryParams {
+                    scopes: None,
+                    recursive: None,
+                },
+            ),
+        )]))
+        .await;
+
+        let mdcs = Builder::default().endpoint(endpoint).build();
+        assert_eq!(mdcs.get_universe_domain().await.unwrap(), ud);
+        server.abort();
+        let _ = server.await;
+        assert_eq!(mdcs.get_universe_domain().await.unwrap(), ud);
+    }
+
+    #[tokio::test]
+    async fn get_universe_domain_error() {
+        let universe_domain_response = "invalid_response";
+
+        let (endpoint, _server) = start(HashMap::from([(
+            UNIVERSE_DOMAIN_URI.to_string(),
+            (
+                StatusCode::SERVICE_UNAVAILABLE,
+                universe_domain_response.to_string(),
+                TokenQueryParams {
+                    scopes: None,
+                    recursive: None,
+                },
+            ),
+        )]))
+        .await;
+
+        let e = Builder::default()
+            .endpoint(endpoint)
+            .build()
+            .get_universe_domain()
+            .await
+            .err()
+            .unwrap();
+        assert!(e.is_retryable(), "{e}");
+        assert!(
+            e.source()
+                .unwrap()
+                .to_string()
+                .contains(universe_domain_response),
+            "{e}"
+        );
+    }
+
+    async fn get_number_of_http_calls(endpoint: String) -> i32 {
+        let client = Client::new();
+        let request = client.get(format!("{}/count", endpoint));
+
+        let response = request.send().await.unwrap();
+        let x = response.text().await.unwrap();
+        x.parse::<i32>().unwrap()
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 8)]
+    async fn get_universe_domain_herd_success() {
+        let ud = "test-universe-domain";
+
+        let (endpoint, _) = start(HashMap::from([(
+            UNIVERSE_DOMAIN_URI.to_string(),
+            (
+                StatusCode::OK,
+                ud.to_string(),
+                TokenQueryParams {
+                    scopes: None,
+                    recursive: None,
+                },
+            ),
+        )]))
+        .await;
+
+        let mdcs = Builder::default().endpoint(endpoint.clone()).build();
+
+        // Spawn N tasks, all asking for a universe domain at once
+        let tasks = (0..100)
+            .map(|_| {
+                let mdcs = mdcs.clone();
+                tokio::spawn(async move { mdcs.get_universe_domain().await })
+            })
+            .collect::<Vec<_>>();
+
+        // Wait for the N token requests to complete, verifying the returned token.
+        for task in tasks {
+            let actual = task.await.unwrap();
+            assert!(actual.is_ok(), "{}", actual.err().unwrap());
+            assert_eq!(actual.unwrap(), ud);
+        }
+
+        let calls = get_number_of_http_calls(endpoint).await;
+        // Only one call to get_universe_domain_mds should have been made
+        assert_eq!(calls, 1);
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 8)]
+    async fn get_universe_domain_herd_failure_shares_same_error() {
+        let error = "invalid request";
+
+        let (endpoint, _) = start(HashMap::from([(
+            UNIVERSE_DOMAIN_URI.to_string(),
+            (
+                StatusCode::SERVICE_UNAVAILABLE,
+                error.to_string(),
+                TokenQueryParams {
+                    scopes: None,
+                    recursive: None,
+                },
+            ),
+        )]))
+        .await;
+
+        let mdcs = Builder::default().endpoint(endpoint.clone()).build();
+
+        // Spawn N tasks, all asking for a universe domain at once
+        let tasks = (0..100)
+            .map(|_| {
+                let mdcs = mdcs.clone();
+                tokio::spawn(async move { mdcs.get_universe_domain().await })
+            })
+            .collect::<Vec<_>>();
+
+        // Wait for the N get_universe_domain requests to complete, verifying the returned error.
+        for task in tasks {
+            let actual = task.await.unwrap();
+            assert!(actual.is_err(), "{:?}", actual.unwrap());
+            let e = format!("{}", actual.err().unwrap());
+            assert!(e.contains(error), "{e}");
+        }
+
+        let calls = get_number_of_http_calls(endpoint).await;
+        // Only one call to get_universe_domain_mds should have been made
+        assert_eq!(calls, 1);
     }
 }
