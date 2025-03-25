@@ -211,10 +211,10 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<wkt::Empty>;
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy>;
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
@@ -513,11 +513,11 @@ impl<T: super::Datastream> Datastream for T {
         T::cancel_operation(self, req, options).await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
-        T::get_polling_policy(self, options)
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(

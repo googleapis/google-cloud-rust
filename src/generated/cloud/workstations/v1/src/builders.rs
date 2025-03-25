@@ -203,7 +203,7 @@ pub mod workstations {
         {
             type Operation =
                 lro::Operation<crate::model::WorkstationCluster, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -227,7 +227,7 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkstationClusterRequest::parent].
@@ -311,7 +311,7 @@ pub mod workstations {
         {
             type Operation =
                 lro::Operation<crate::model::WorkstationCluster, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -335,7 +335,7 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [workstation_cluster][crate::model::UpdateWorkstationClusterRequest::workstation_cluster].
@@ -422,7 +422,7 @@ pub mod workstations {
         {
             type Operation =
                 lro::Operation<crate::model::WorkstationCluster, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -446,7 +446,7 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkstationClusterRequest::name].
@@ -717,7 +717,7 @@ pub mod workstations {
         {
             type Operation =
                 lro::Operation<crate::model::WorkstationConfig, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -741,7 +741,7 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkstationConfigRequest::parent].
@@ -825,7 +825,7 @@ pub mod workstations {
         {
             type Operation =
                 lro::Operation<crate::model::WorkstationConfig, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -849,7 +849,7 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [workstation_config][crate::model::UpdateWorkstationConfigRequest::workstation_config].
@@ -936,7 +936,7 @@ pub mod workstations {
         {
             type Operation =
                 lro::Operation<crate::model::WorkstationConfig, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -960,7 +960,7 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkstationConfigRequest::name].
@@ -1221,7 +1221,7 @@ pub mod workstations {
         ) -> impl lro::Poller<crate::model::Workstation, crate::model::OperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::Workstation, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1245,7 +1245,7 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkstationRequest::parent].
@@ -1324,7 +1324,7 @@ pub mod workstations {
         ) -> impl lro::Poller<crate::model::Workstation, crate::model::OperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::Workstation, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1348,7 +1348,7 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [workstation][crate::model::UpdateWorkstationRequest::workstation].
@@ -1430,7 +1430,7 @@ pub mod workstations {
         ) -> impl lro::Poller<crate::model::Workstation, crate::model::OperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::Workstation, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1454,7 +1454,7 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkstationRequest::name].
@@ -1524,7 +1524,7 @@ pub mod workstations {
         ) -> impl lro::Poller<crate::model::Workstation, crate::model::OperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::Workstation, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1548,7 +1548,7 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StartWorkstationRequest::name].
@@ -1615,7 +1615,7 @@ pub mod workstations {
         ) -> impl lro::Poller<crate::model::Workstation, crate::model::OperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::Workstation, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1639,7 +1639,7 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StopWorkstationRequest::name].

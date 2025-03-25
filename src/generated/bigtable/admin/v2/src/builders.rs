@@ -83,7 +83,7 @@ pub mod bigtable_instance_admin {
         {
             type Operation =
                 lro::Operation<crate::model::Instance, crate::model::CreateInstanceMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -107,7 +107,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
@@ -379,7 +379,7 @@ pub mod bigtable_instance_admin {
         {
             type Operation =
                 lro::Operation<crate::model::Instance, crate::model::UpdateInstanceMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -403,7 +403,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [instance][crate::model::PartialUpdateInstanceRequest::instance].
@@ -515,7 +515,7 @@ pub mod bigtable_instance_admin {
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::CreateClusterMetadata> {
             type Operation =
                 lro::Operation<crate::model::Cluster, crate::model::CreateClusterMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -539,7 +539,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
@@ -703,7 +703,7 @@ pub mod bigtable_instance_admin {
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::UpdateClusterMetadata> {
             type Operation =
                 lro::Operation<crate::model::Cluster, crate::model::UpdateClusterMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -727,7 +727,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::Cluster::name].
@@ -841,7 +841,7 @@ pub mod bigtable_instance_admin {
         {
             type Operation =
                 lro::Operation<crate::model::Cluster, crate::model::PartialUpdateClusterMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -865,7 +865,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [cluster][crate::model::PartialUpdateClusterRequest::cluster].
@@ -1161,7 +1161,7 @@ pub mod bigtable_instance_admin {
         {
             type Operation =
                 lro::Operation<crate::model::AppProfile, crate::model::UpdateAppProfileMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1185,7 +1185,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [app_profile][crate::model::UpdateAppProfileRequest::app_profile].
@@ -1571,7 +1571,7 @@ pub mod bigtable_instance_admin {
         {
             type Operation =
                 lro::Operation<crate::model::LogicalView, crate::model::CreateLogicalViewMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1595,7 +1595,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateLogicalViewRequest::parent].
@@ -1787,7 +1787,7 @@ pub mod bigtable_instance_admin {
         {
             type Operation =
                 lro::Operation<crate::model::LogicalView, crate::model::UpdateLogicalViewMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1811,7 +1811,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [logical_view][crate::model::UpdateLogicalViewRequest::logical_view].
@@ -1938,7 +1938,7 @@ pub mod bigtable_instance_admin {
                 crate::model::MaterializedView,
                 crate::model::CreateMaterializedViewMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1962,7 +1962,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateMaterializedViewRequest::parent].
@@ -2161,7 +2161,7 @@ pub mod bigtable_instance_admin {
                 crate::model::MaterializedView,
                 crate::model::UpdateMaterializedViewMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -2185,7 +2185,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [materialized_view][crate::model::UpdateMaterializedViewRequest::materialized_view].
@@ -2622,7 +2622,7 @@ pub mod bigtable_table_admin {
         {
             type Operation =
                 lro::Operation<crate::model::Table, crate::model::CreateTableFromSnapshotMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -2646,7 +2646,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateTableFromSnapshotRequest::parent].
@@ -2833,7 +2833,7 @@ pub mod bigtable_table_admin {
             self,
         ) -> impl lro::Poller<crate::model::Table, crate::model::UpdateTableMetadata> {
             type Operation = lro::Operation<crate::model::Table, crate::model::UpdateTableMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -2857,7 +2857,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [table][crate::model::UpdateTableRequest::table].
@@ -2971,7 +2971,7 @@ pub mod bigtable_table_admin {
         ) -> impl lro::Poller<crate::model::Table, crate::model::UndeleteTableMetadata> {
             type Operation =
                 lro::Operation<crate::model::Table, crate::model::UndeleteTableMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -2995,7 +2995,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UndeleteTableRequest::name].
@@ -3056,7 +3056,7 @@ pub mod bigtable_table_admin {
                 crate::model::AuthorizedView,
                 crate::model::CreateAuthorizedViewMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -3080,7 +3080,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAuthorizedViewRequest::parent].
@@ -3289,7 +3289,7 @@ pub mod bigtable_table_admin {
                 crate::model::AuthorizedView,
                 crate::model::UpdateAuthorizedViewMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -3313,7 +3313,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [authorized_view][crate::model::UpdateAuthorizedViewRequest::authorized_view].
@@ -3652,7 +3652,7 @@ pub mod bigtable_table_admin {
         ) -> impl lro::Poller<crate::model::Snapshot, crate::model::SnapshotTableMetadata> {
             type Operation =
                 lro::Operation<crate::model::Snapshot, crate::model::SnapshotTableMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -3676,7 +3676,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::SnapshotTableRequest::name].
@@ -3905,7 +3905,7 @@ pub mod bigtable_table_admin {
         ) -> impl lro::Poller<crate::model::Backup, crate::model::CreateBackupMetadata> {
             type Operation =
                 lro::Operation<crate::model::Backup, crate::model::CreateBackupMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -3929,7 +3929,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
@@ -4214,7 +4214,7 @@ pub mod bigtable_table_admin {
         ) -> impl lro::Poller<crate::model::Table, crate::model::RestoreTableMetadata> {
             type Operation =
                 lro::Operation<crate::model::Table, crate::model::RestoreTableMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -4238,7 +4238,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::RestoreTableRequest::parent].
@@ -4307,7 +4307,7 @@ pub mod bigtable_table_admin {
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::CopyBackupMetadata> {
             type Operation = lro::Operation<crate::model::Backup, crate::model::CopyBackupMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -4331,7 +4331,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CopyBackupRequest::parent].

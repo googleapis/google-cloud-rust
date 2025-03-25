@@ -79,7 +79,7 @@ pub mod dataset_service {
         {
             type Operation =
                 lro::Operation<crate::model::Dataset, crate::model::CreateDatasetOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -103,7 +103,7 @@ pub mod dataset_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateDatasetRequest::parent].
@@ -350,7 +350,7 @@ pub mod dataset_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_dataset`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -374,7 +374,7 @@ pub mod dataset_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteDatasetRequest::name].
@@ -432,7 +432,7 @@ pub mod dataset_service {
                 crate::model::ImportDataResponse,
                 crate::model::ImportDataOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -456,7 +456,7 @@ pub mod dataset_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ImportDataRequest::name].
@@ -525,7 +525,7 @@ pub mod dataset_service {
                 crate::model::ExportDataResponse,
                 crate::model::ExportDataOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -549,7 +549,7 @@ pub mod dataset_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ExportDataRequest::name].
@@ -621,7 +621,7 @@ pub mod dataset_service {
                 crate::model::DatasetVersion,
                 crate::model::CreateDatasetVersionOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -645,7 +645,7 @@ pub mod dataset_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateDatasetVersionRequest::parent].
@@ -765,7 +765,7 @@ pub mod dataset_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_dataset_version`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -789,7 +789,7 @@ pub mod dataset_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteDatasetVersionRequest::name].
@@ -991,7 +991,7 @@ pub mod dataset_service {
                 crate::model::DatasetVersion,
                 crate::model::RestoreDatasetVersionOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1015,7 +1015,7 @@ pub mod dataset_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RestoreDatasetVersionRequest::name].
@@ -1378,7 +1378,7 @@ pub mod dataset_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_saved_query`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1402,7 +1402,7 @@ pub mod dataset_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteSavedQueryRequest::name].
@@ -2174,7 +2174,7 @@ pub mod deployment_resource_pool_service {
                 crate::model::DeploymentResourcePool,
                 crate::model::CreateDeploymentResourcePoolOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -2198,7 +2198,7 @@ pub mod deployment_resource_pool_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateDeploymentResourcePoolRequest::parent].
@@ -2410,7 +2410,7 @@ pub mod deployment_resource_pool_service {
                 crate::model::DeploymentResourcePool,
                 crate::model::UpdateDeploymentResourcePoolOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -2434,7 +2434,7 @@ pub mod deployment_resource_pool_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [deployment_resource_pool][crate::model::UpdateDeploymentResourcePoolRequest::deployment_resource_pool].
@@ -2507,7 +2507,7 @@ pub mod deployment_resource_pool_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_deployment_resource_pool`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -2531,7 +2531,7 @@ pub mod deployment_resource_pool_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteDeploymentResourcePoolRequest::name].
@@ -3249,7 +3249,7 @@ pub mod endpoint_service {
                 crate::model::Endpoint,
                 crate::model::CreateEndpointOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -3273,7 +3273,7 @@ pub mod endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateEndpointRequest::parent].
@@ -3531,7 +3531,7 @@ pub mod endpoint_service {
                 crate::model::Endpoint,
                 crate::model::UpdateEndpointOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -3555,7 +3555,7 @@ pub mod endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [endpoint][crate::model::UpdateEndpointLongRunningRequest::endpoint].
@@ -3610,7 +3610,7 @@ pub mod endpoint_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_endpoint`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -3634,7 +3634,7 @@ pub mod endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteEndpointRequest::name].
@@ -3694,7 +3694,7 @@ pub mod endpoint_service {
                 crate::model::DeployModelResponse,
                 crate::model::DeployModelOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -3718,7 +3718,7 @@ pub mod endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [endpoint][crate::model::DeployModelRequest::endpoint].
@@ -3799,7 +3799,7 @@ pub mod endpoint_service {
                 crate::model::UndeployModelResponse,
                 crate::model::UndeployModelOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -3823,7 +3823,7 @@ pub mod endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [endpoint][crate::model::UndeployModelRequest::endpoint].
@@ -3904,7 +3904,7 @@ pub mod endpoint_service {
                 crate::model::MutateDeployedModelResponse,
                 crate::model::MutateDeployedModelOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -3928,7 +3928,7 @@ pub mod endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [endpoint][crate::model::MutateDeployedModelRequest::endpoint].
@@ -5204,7 +5204,7 @@ pub mod feature_online_store_admin_service {
                 crate::model::FeatureOnlineStore,
                 crate::model::CreateFeatureOnlineStoreOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -5228,7 +5228,7 @@ pub mod feature_online_store_admin_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateFeatureOnlineStoreRequest::parent].
@@ -5447,7 +5447,7 @@ pub mod feature_online_store_admin_service {
                 crate::model::FeatureOnlineStore,
                 crate::model::UpdateFeatureOnlineStoreOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -5471,7 +5471,7 @@ pub mod feature_online_store_admin_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [feature_online_store][crate::model::UpdateFeatureOnlineStoreRequest::feature_online_store].
@@ -5544,7 +5544,7 @@ pub mod feature_online_store_admin_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_feature_online_store`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -5568,7 +5568,7 @@ pub mod feature_online_store_admin_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteFeatureOnlineStoreRequest::name].
@@ -5637,7 +5637,7 @@ pub mod feature_online_store_admin_service {
                 crate::model::FeatureView,
                 crate::model::CreateFeatureViewOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -5661,7 +5661,7 @@ pub mod feature_online_store_admin_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateFeatureViewRequest::parent].
@@ -5873,7 +5873,7 @@ pub mod feature_online_store_admin_service {
                 crate::model::FeatureView,
                 crate::model::UpdateFeatureViewOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -5897,7 +5897,7 @@ pub mod feature_online_store_admin_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [feature_view][crate::model::UpdateFeatureViewRequest::feature_view].
@@ -5966,7 +5966,7 @@ pub mod feature_online_store_admin_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_feature_view`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -5990,7 +5990,7 @@ pub mod feature_online_store_admin_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteFeatureViewRequest::name].
@@ -7532,7 +7532,7 @@ pub mod feature_registry_service {
                 crate::model::FeatureGroup,
                 crate::model::CreateFeatureGroupOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -7556,7 +7556,7 @@ pub mod feature_registry_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateFeatureGroupRequest::parent].
@@ -7764,7 +7764,7 @@ pub mod feature_registry_service {
                 crate::model::FeatureGroup,
                 crate::model::UpdateFeatureGroupOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -7788,7 +7788,7 @@ pub mod feature_registry_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [feature_group][crate::model::UpdateFeatureGroupRequest::feature_group].
@@ -7857,7 +7857,7 @@ pub mod feature_registry_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_feature_group`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -7881,7 +7881,7 @@ pub mod feature_registry_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteFeatureGroupRequest::name].
@@ -7945,7 +7945,7 @@ pub mod feature_registry_service {
         {
             type Operation =
                 lro::Operation<crate::model::Feature, crate::model::CreateFeatureOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -7969,7 +7969,7 @@ pub mod feature_registry_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateFeatureRequest::parent].
@@ -8049,7 +8049,7 @@ pub mod feature_registry_service {
                 crate::model::BatchCreateFeaturesResponse,
                 crate::model::BatchCreateFeaturesOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -8073,7 +8073,7 @@ pub mod feature_registry_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateFeaturesRequest::parent].
@@ -8279,7 +8279,7 @@ pub mod feature_registry_service {
         {
             type Operation =
                 lro::Operation<crate::model::Feature, crate::model::UpdateFeatureOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -8303,7 +8303,7 @@ pub mod feature_registry_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [feature][crate::model::UpdateFeatureRequest::feature].
@@ -8369,7 +8369,7 @@ pub mod feature_registry_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_feature`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -8393,7 +8393,7 @@ pub mod feature_registry_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteFeatureRequest::name].
@@ -9754,7 +9754,7 @@ pub mod featurestore_service {
                 crate::model::Featurestore,
                 crate::model::CreateFeaturestoreOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -9778,7 +9778,7 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateFeaturestoreRequest::parent].
@@ -9992,7 +9992,7 @@ pub mod featurestore_service {
                 crate::model::Featurestore,
                 crate::model::UpdateFeaturestoreOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -10016,7 +10016,7 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [featurestore][crate::model::UpdateFeaturestoreRequest::featurestore].
@@ -10085,7 +10085,7 @@ pub mod featurestore_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_featurestore`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -10109,7 +10109,7 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteFeaturestoreRequest::name].
@@ -10178,7 +10178,7 @@ pub mod featurestore_service {
                 crate::model::EntityType,
                 crate::model::CreateEntityTypeOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -10202,7 +10202,7 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateEntityTypeRequest::parent].
@@ -10463,7 +10463,7 @@ pub mod featurestore_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_entity_type`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -10487,7 +10487,7 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteEntityTypeRequest::name].
@@ -10551,7 +10551,7 @@ pub mod featurestore_service {
         {
             type Operation =
                 lro::Operation<crate::model::Feature, crate::model::CreateFeatureOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -10575,7 +10575,7 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateFeatureRequest::parent].
@@ -10655,7 +10655,7 @@ pub mod featurestore_service {
                 crate::model::BatchCreateFeaturesResponse,
                 crate::model::BatchCreateFeaturesOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -10679,7 +10679,7 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateFeaturesRequest::parent].
@@ -10936,7 +10936,7 @@ pub mod featurestore_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_feature`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -10960,7 +10960,7 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteFeatureRequest::name].
@@ -11025,7 +11025,7 @@ pub mod featurestore_service {
                 crate::model::ImportFeatureValuesResponse,
                 crate::model::ImportFeatureValuesOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -11049,7 +11049,7 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [entity_type][crate::model::ImportFeatureValuesRequest::entity_type].
@@ -11169,7 +11169,7 @@ pub mod featurestore_service {
                 crate::model::BatchReadFeatureValuesResponse,
                 crate::model::BatchReadFeatureValuesOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -11193,7 +11193,7 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [featurestore][crate::model::BatchReadFeatureValuesRequest::featurestore].
@@ -11313,7 +11313,7 @@ pub mod featurestore_service {
                 crate::model::ExportFeatureValuesResponse,
                 crate::model::ExportFeatureValuesOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -11337,7 +11337,7 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [entity_type][crate::model::ExportFeatureValuesRequest::entity_type].
@@ -11442,7 +11442,7 @@ pub mod featurestore_service {
                 crate::model::DeleteFeatureValuesResponse,
                 crate::model::DeleteFeatureValuesOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -11466,7 +11466,7 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [entity_type][crate::model::DeleteFeatureValuesRequest::entity_type].
@@ -13242,7 +13242,7 @@ pub mod gen_ai_tuning_service {
                 crate::model::TuningJob,
                 crate::model::RebaseTunedModelOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -13266,7 +13266,7 @@ pub mod gen_ai_tuning_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::RebaseTunedModelRequest::parent].
@@ -13935,7 +13935,7 @@ pub mod index_endpoint_service {
                 crate::model::IndexEndpoint,
                 crate::model::CreateIndexEndpointOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -13959,7 +13959,7 @@ pub mod index_endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateIndexEndpointRequest::parent].
@@ -14214,7 +14214,7 @@ pub mod index_endpoint_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_index_endpoint`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -14238,7 +14238,7 @@ pub mod index_endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteIndexEndpointRequest::name].
@@ -14300,7 +14300,7 @@ pub mod index_endpoint_service {
                 crate::model::DeployIndexResponse,
                 crate::model::DeployIndexOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -14324,7 +14324,7 @@ pub mod index_endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [index_endpoint][crate::model::DeployIndexRequest::index_endpoint].
@@ -14395,7 +14395,7 @@ pub mod index_endpoint_service {
                 crate::model::UndeployIndexResponse,
                 crate::model::UndeployIndexOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -14419,7 +14419,7 @@ pub mod index_endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [index_endpoint][crate::model::UndeployIndexRequest::index_endpoint].
@@ -14490,7 +14490,7 @@ pub mod index_endpoint_service {
                 crate::model::MutateDeployedIndexResponse,
                 crate::model::MutateDeployedIndexOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -14514,7 +14514,7 @@ pub mod index_endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [index_endpoint][crate::model::MutateDeployedIndexRequest::index_endpoint].
@@ -15166,7 +15166,7 @@ pub mod index_service {
         {
             type Operation =
                 lro::Operation<crate::model::Index, crate::model::CreateIndexOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -15190,7 +15190,7 @@ pub mod index_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateIndexRequest::parent].
@@ -15376,7 +15376,7 @@ pub mod index_service {
         {
             type Operation =
                 lro::Operation<crate::model::Index, crate::model::UpdateIndexOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -15400,7 +15400,7 @@ pub mod index_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [index][crate::model::UpdateIndexRequest::index].
@@ -15464,7 +15464,7 @@ pub mod index_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_index`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -15488,7 +15488,7 @@ pub mod index_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteIndexRequest::name].
@@ -16397,7 +16397,7 @@ pub mod job_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_custom_job`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -16421,7 +16421,7 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteCustomJobRequest::name].
@@ -16705,7 +16705,7 @@ pub mod job_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_data_labeling_job`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -16729,7 +16729,7 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteDataLabelingJobRequest::name].
@@ -17020,7 +17020,7 @@ pub mod job_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_hyperparameter_tuning_job`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -17044,7 +17044,7 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteHyperparameterTuningJobRequest::name].
@@ -17313,7 +17313,7 @@ pub mod job_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_nas_job`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -17337,7 +17337,7 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteNasJobRequest::name].
@@ -17738,7 +17738,7 @@ pub mod job_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_batch_prediction_job`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -17762,7 +17762,7 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteBatchPredictionJobRequest::name].
@@ -18183,7 +18183,7 @@ pub mod job_service {
                 crate::model::ModelDeploymentMonitoringJob,
                 crate::model::UpdateModelDeploymentMonitoringJobOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -18207,7 +18207,7 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [model_deployment_monitoring_job][crate::model::UpdateModelDeploymentMonitoringJobRequest::model_deployment_monitoring_job].
@@ -18278,7 +18278,7 @@ pub mod job_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_model_deployment_monitoring_job`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -18302,7 +18302,7 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteModelDeploymentMonitoringJobRequest::name].
@@ -20452,7 +20452,7 @@ pub mod metadata_service {
                 crate::model::MetadataStore,
                 crate::model::CreateMetadataStoreOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -20476,7 +20476,7 @@ pub mod metadata_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateMetadataStoreRequest::parent].
@@ -20665,7 +20665,7 @@ pub mod metadata_service {
         {
             type Operation =
                 lro::Operation<wkt::Empty, crate::model::DeleteMetadataStoreOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -20689,7 +20689,7 @@ pub mod metadata_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteMetadataStoreRequest::name].
@@ -20983,7 +20983,7 @@ pub mod metadata_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_artifact`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -21007,7 +21007,7 @@ pub mod metadata_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteArtifactRequest::name].
@@ -21071,7 +21071,7 @@ pub mod metadata_service {
                 crate::model::PurgeArtifactsResponse,
                 crate::model::PurgeArtifactsMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -21095,7 +21095,7 @@ pub mod metadata_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::PurgeArtifactsRequest::parent].
@@ -21395,7 +21395,7 @@ pub mod metadata_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_context`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -21419,7 +21419,7 @@ pub mod metadata_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteContextRequest::name].
@@ -21489,7 +21489,7 @@ pub mod metadata_service {
                 crate::model::PurgeContextsResponse,
                 crate::model::PurgeContextsMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -21513,7 +21513,7 @@ pub mod metadata_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::PurgeContextsRequest::parent].
@@ -22037,7 +22037,7 @@ pub mod metadata_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_execution`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -22061,7 +22061,7 @@ pub mod metadata_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteExecutionRequest::name].
@@ -22125,7 +22125,7 @@ pub mod metadata_service {
                 crate::model::PurgeExecutionsResponse,
                 crate::model::PurgeExecutionsMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -22149,7 +22149,7 @@ pub mod metadata_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::PurgeExecutionsRequest::parent].
@@ -23211,7 +23211,7 @@ pub mod migration_service {
                 crate::model::BatchMigrateResourcesResponse,
                 crate::model::BatchMigrateResourcesOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -23235,7 +23235,7 @@ pub mod migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchMigrateResourcesRequest::parent].
@@ -24508,7 +24508,7 @@ pub mod model_service {
                 crate::model::UploadModelResponse,
                 crate::model::UploadModelOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -24532,7 +24532,7 @@ pub mod model_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::UploadModelRequest::parent].
@@ -24968,7 +24968,7 @@ pub mod model_service {
                 crate::model::UpdateExplanationDatasetResponse,
                 crate::model::UpdateExplanationDatasetOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -24992,7 +24992,7 @@ pub mod model_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [model][crate::model::UpdateExplanationDatasetRequest::model].
@@ -25053,7 +25053,7 @@ pub mod model_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_model`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -25077,7 +25077,7 @@ pub mod model_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteModelRequest::name].
@@ -25132,7 +25132,7 @@ pub mod model_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_model_version`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -25156,7 +25156,7 @@ pub mod model_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteModelVersionRequest::name].
@@ -25271,7 +25271,7 @@ pub mod model_service {
                 crate::model::ExportModelResponse,
                 crate::model::ExportModelOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -25295,7 +25295,7 @@ pub mod model_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ExportModelRequest::name].
@@ -25364,7 +25364,7 @@ pub mod model_service {
                 crate::model::CopyModelResponse,
                 crate::model::CopyModelOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -25388,7 +25388,7 @@ pub mod model_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CopyModelRequest::parent].
@@ -26473,7 +26473,7 @@ pub mod notebook_service {
                 crate::model::NotebookRuntimeTemplate,
                 crate::model::CreateNotebookRuntimeTemplateOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -26497,7 +26497,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateNotebookRuntimeTemplateRequest::parent].
@@ -26713,7 +26713,7 @@ pub mod notebook_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_notebook_runtime_template`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -26737,7 +26737,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteNotebookRuntimeTemplateRequest::name].
@@ -26860,7 +26860,7 @@ pub mod notebook_service {
                 crate::model::NotebookRuntime,
                 crate::model::AssignNotebookRuntimeOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -26884,7 +26884,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::AssignNotebookRuntimeRequest::parent].
@@ -27093,7 +27093,7 @@ pub mod notebook_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_notebook_runtime`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -27117,7 +27117,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteNotebookRuntimeRequest::name].
@@ -27180,7 +27180,7 @@ pub mod notebook_service {
                 crate::model::UpgradeNotebookRuntimeResponse,
                 crate::model::UpgradeNotebookRuntimeOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -27204,7 +27204,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UpgradeNotebookRuntimeRequest::name].
@@ -27267,7 +27267,7 @@ pub mod notebook_service {
                 crate::model::StartNotebookRuntimeResponse,
                 crate::model::StartNotebookRuntimeOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -27291,7 +27291,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StartNotebookRuntimeRequest::name].
@@ -27354,7 +27354,7 @@ pub mod notebook_service {
                 crate::model::StopNotebookRuntimeResponse,
                 crate::model::StopNotebookRuntimeOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -27378,7 +27378,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StopNotebookRuntimeRequest::name].
@@ -27443,7 +27443,7 @@ pub mod notebook_service {
                 crate::model::NotebookExecutionJob,
                 crate::model::CreateNotebookExecutionJobOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -27467,7 +27467,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateNotebookExecutionJobRequest::parent].
@@ -27686,7 +27686,7 @@ pub mod notebook_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_notebook_execution_job`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -27710,7 +27710,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteNotebookExecutionJobRequest::name].
@@ -28346,7 +28346,7 @@ pub mod persistent_resource_service {
                 crate::model::PersistentResource,
                 crate::model::CreatePersistentResourceOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -28370,7 +28370,7 @@ pub mod persistent_resource_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreatePersistentResourceRequest::parent].
@@ -28569,7 +28569,7 @@ pub mod persistent_resource_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_persistent_resource`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -28593,7 +28593,7 @@ pub mod persistent_resource_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeletePersistentResourceRequest::name].
@@ -28660,7 +28660,7 @@ pub mod persistent_resource_service {
                 crate::model::PersistentResource,
                 crate::model::UpdatePersistentResourceOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -28684,7 +28684,7 @@ pub mod persistent_resource_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [persistent_resource][crate::model::UpdatePersistentResourceRequest::persistent_resource].
@@ -28765,7 +28765,7 @@ pub mod persistent_resource_service {
                 crate::model::PersistentResource,
                 crate::model::RebootPersistentResourceOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -28789,7 +28789,7 @@ pub mod persistent_resource_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RebootPersistentResourceRequest::name].
@@ -29613,7 +29613,7 @@ pub mod pipeline_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_training_pipeline`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -29637,7 +29637,7 @@ pub mod pipeline_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteTrainingPipelineRequest::name].
@@ -29925,7 +29925,7 @@ pub mod pipeline_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_pipeline_job`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -29949,7 +29949,7 @@ pub mod pipeline_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeletePipelineJobRequest::name].
@@ -30014,7 +30014,7 @@ pub mod pipeline_service {
                 crate::model::BatchDeletePipelineJobsResponse,
                 crate::model::DeleteOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -30038,7 +30038,7 @@ pub mod pipeline_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchDeletePipelineJobsRequest::parent].
@@ -30158,7 +30158,7 @@ pub mod pipeline_service {
                 crate::model::BatchCancelPipelineJobsResponse,
                 crate::model::BatchCancelPipelineJobsOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -30182,7 +30182,7 @@ pub mod pipeline_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchCancelPipelineJobsRequest::parent].
@@ -32457,7 +32457,7 @@ pub mod reasoning_engine_service {
                 crate::model::ReasoningEngine,
                 crate::model::CreateReasoningEngineOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -32481,7 +32481,7 @@ pub mod reasoning_engine_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateReasoningEngineRequest::parent].
@@ -32680,7 +32680,7 @@ pub mod reasoning_engine_service {
                 crate::model::ReasoningEngine,
                 crate::model::UpdateReasoningEngineOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -32704,7 +32704,7 @@ pub mod reasoning_engine_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [reasoning_engine][crate::model::UpdateReasoningEngineRequest::reasoning_engine].
@@ -32773,7 +32773,7 @@ pub mod reasoning_engine_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_reasoning_engine`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -32797,7 +32797,7 @@ pub mod reasoning_engine_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteReasoningEngineRequest::name].
@@ -33486,7 +33486,7 @@ pub mod schedule_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_schedule`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -33510,7 +33510,7 @@ pub mod schedule_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteScheduleRequest::name].
@@ -34406,7 +34406,7 @@ pub mod specialist_pool_service {
                 crate::model::SpecialistPool,
                 crate::model::CreateSpecialistPoolOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -34430,7 +34430,7 @@ pub mod specialist_pool_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateSpecialistPoolRequest::parent].
@@ -34621,7 +34621,7 @@ pub mod specialist_pool_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_specialist_pool`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -34645,7 +34645,7 @@ pub mod specialist_pool_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteSpecialistPoolRequest::name].
@@ -34716,7 +34716,7 @@ pub mod specialist_pool_service {
                 crate::model::SpecialistPool,
                 crate::model::UpdateSpecialistPoolOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -34740,7 +34740,7 @@ pub mod specialist_pool_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [specialist_pool][crate::model::UpdateSpecialistPoolRequest::specialist_pool].
@@ -35400,7 +35400,7 @@ pub mod tensorboard_service {
                 crate::model::Tensorboard,
                 crate::model::CreateTensorboardOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -35424,7 +35424,7 @@ pub mod tensorboard_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateTensorboardRequest::parent].
@@ -35535,7 +35535,7 @@ pub mod tensorboard_service {
                 crate::model::Tensorboard,
                 crate::model::UpdateTensorboardOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -35559,7 +35559,7 @@ pub mod tensorboard_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTensorboardRequest::update_mask].
@@ -35715,7 +35715,7 @@ pub mod tensorboard_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_tensorboard`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -35739,7 +35739,7 @@ pub mod tensorboard_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteTensorboardRequest::name].
@@ -36146,7 +36146,7 @@ pub mod tensorboard_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_tensorboard_experiment`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -36170,7 +36170,7 @@ pub mod tensorboard_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteTensorboardExperimentRequest::name].
@@ -36530,7 +36530,7 @@ pub mod tensorboard_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_tensorboard_run`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -36554,7 +36554,7 @@ pub mod tensorboard_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteTensorboardRunRequest::name].
@@ -36933,7 +36933,7 @@ pub mod tensorboard_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_tensorboard_time_series`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -36957,7 +36957,7 @@ pub mod tensorboard_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteTensorboardTimeSeriesRequest::name].
@@ -37904,7 +37904,7 @@ pub mod vertex_rag_data_service {
                 crate::model::RagCorpus,
                 crate::model::CreateRagCorpusOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -37928,7 +37928,7 @@ pub mod vertex_rag_data_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateRagCorpusRequest::parent].
@@ -37997,7 +37997,7 @@ pub mod vertex_rag_data_service {
                 crate::model::RagCorpus,
                 crate::model::UpdateRagCorpusOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -38021,7 +38021,7 @@ pub mod vertex_rag_data_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [rag_corpus][crate::model::UpdateRagCorpusRequest::rag_corpus].
@@ -38191,7 +38191,7 @@ pub mod vertex_rag_data_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_rag_corpus`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -38215,7 +38215,7 @@ pub mod vertex_rag_data_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteRagCorpusRequest::name].
@@ -38346,7 +38346,7 @@ pub mod vertex_rag_data_service {
                 crate::model::ImportRagFilesResponse,
                 crate::model::ImportRagFilesOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -38370,7 +38370,7 @@ pub mod vertex_rag_data_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportRagFilesRequest::parent].
@@ -38548,7 +38548,7 @@ pub mod vertex_rag_data_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_rag_file`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -38572,7 +38572,7 @@ pub mod vertex_rag_data_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteRagFileRequest::name].
@@ -40244,7 +40244,7 @@ pub mod vizier_service {
                 crate::model::SuggestTrialsResponse,
                 crate::model::SuggestTrialsMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -40268,7 +40268,7 @@ pub mod vizier_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::SuggestTrialsRequest::parent].
@@ -40671,7 +40671,7 @@ pub mod vizier_service {
                 crate::model::CheckTrialEarlyStoppingStateResponse,
                 crate::model::CheckTrialEarlyStoppingStateMetatdata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -40695,7 +40695,7 @@ pub mod vizier_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [trial_name][crate::model::CheckTrialEarlyStoppingStateRequest::trial_name].

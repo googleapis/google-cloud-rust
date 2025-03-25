@@ -202,7 +202,7 @@ pub mod config {
         ) -> impl lro::Poller<crate::model::Deployment, crate::model::OperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::Deployment, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -226,7 +226,7 @@ pub mod config {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateDeploymentRequest::parent].
@@ -305,7 +305,7 @@ pub mod config {
         ) -> impl lro::Poller<crate::model::Deployment, crate::model::OperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::Deployment, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -329,7 +329,7 @@ pub mod config {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDeploymentRequest::update_mask].
@@ -405,7 +405,7 @@ pub mod config {
         ) -> impl lro::Poller<crate::model::Deployment, crate::model::OperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::Deployment, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -429,7 +429,7 @@ pub mod config {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteDeploymentRequest::name].
@@ -945,7 +945,7 @@ pub mod config {
         ) -> impl lro::Poller<crate::model::Deployment, crate::model::OperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::Deployment, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -969,7 +969,7 @@ pub mod config {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::LockDeploymentRequest::name].
@@ -1027,7 +1027,7 @@ pub mod config {
         ) -> impl lro::Poller<crate::model::Deployment, crate::model::OperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::Deployment, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1051,7 +1051,7 @@ pub mod config {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UnlockDeploymentRequest::name].
@@ -1152,7 +1152,7 @@ pub mod config {
             self,
         ) -> impl lro::Poller<crate::model::Preview, crate::model::OperationMetadata> {
             type Operation = lro::Operation<crate::model::Preview, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1176,7 +1176,7 @@ pub mod config {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreatePreviewRequest::parent].
@@ -1372,7 +1372,7 @@ pub mod config {
             self,
         ) -> impl lro::Poller<crate::model::Preview, crate::model::OperationMetadata> {
             type Operation = lro::Operation<crate::model::Preview, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1396,7 +1396,7 @@ pub mod config {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeletePreviewRequest::name].

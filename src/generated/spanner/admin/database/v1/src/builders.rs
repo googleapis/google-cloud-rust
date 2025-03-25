@@ -147,7 +147,7 @@ pub mod database_admin {
         {
             type Operation =
                 lro::Operation<crate::model::Database, crate::model::CreateDatabaseMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -171,7 +171,7 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateDatabaseRequest::parent].
@@ -311,7 +311,7 @@ pub mod database_admin {
         {
             type Operation =
                 lro::Operation<crate::model::Database, crate::model::UpdateDatabaseMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -335,7 +335,7 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [database][crate::model::UpdateDatabaseRequest::database].
@@ -404,7 +404,7 @@ pub mod database_admin {
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::UpdateDatabaseDdlMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::UpdateDatabaseDdlMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -428,7 +428,7 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [database][crate::model::UpdateDatabaseDdlRequest::database].
@@ -752,7 +752,7 @@ pub mod database_admin {
         ) -> impl lro::Poller<crate::model::Backup, crate::model::CreateBackupMetadata> {
             type Operation =
                 lro::Operation<crate::model::Backup, crate::model::CreateBackupMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -776,7 +776,7 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
@@ -856,7 +856,7 @@ pub mod database_admin {
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::CopyBackupMetadata> {
             type Operation = lro::Operation<crate::model::Backup, crate::model::CopyBackupMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -880,7 +880,7 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CopyBackupRequest::parent].
@@ -1177,7 +1177,7 @@ pub mod database_admin {
         {
             type Operation =
                 lro::Operation<crate::model::Database, crate::model::RestoreDatabaseMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1201,7 +1201,7 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::RestoreDatabaseRequest::parent].

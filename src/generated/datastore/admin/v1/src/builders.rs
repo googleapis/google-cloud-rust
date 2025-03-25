@@ -81,7 +81,7 @@ pub mod datastore_admin {
                 crate::model::ExportEntitiesResponse,
                 crate::model::ExportEntitiesMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -105,7 +105,7 @@ pub mod datastore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::ExportEntitiesRequest::project_id].
@@ -183,7 +183,7 @@ pub mod datastore_admin {
         /// Creates a [Poller][lro::Poller] to work with `import_entities`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::ImportEntitiesMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::ImportEntitiesMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -207,7 +207,7 @@ pub mod datastore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::ImportEntitiesRequest::project_id].
@@ -288,7 +288,7 @@ pub mod datastore_admin {
         ) -> impl lro::Poller<crate::model::Index, crate::model::IndexOperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::Index, crate::model::IndexOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -312,7 +312,7 @@ pub mod datastore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::CreateIndexRequest::project_id].
@@ -376,7 +376,7 @@ pub mod datastore_admin {
         ) -> impl lro::Poller<crate::model::Index, crate::model::IndexOperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::Index, crate::model::IndexOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -400,7 +400,7 @@ pub mod datastore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::DeleteIndexRequest::project_id].

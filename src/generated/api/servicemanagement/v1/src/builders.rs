@@ -194,7 +194,7 @@ pub mod service_manager {
         {
             type Operation =
                 lro::Operation<crate::model::ManagedService, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -218,7 +218,7 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service][crate::model::CreateServiceRequest::service].
@@ -273,7 +273,7 @@ pub mod service_manager {
         /// Creates a [Poller][lro::Poller] to work with `delete_service`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -297,7 +297,7 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service_name][crate::model::DeleteServiceRequest::service_name].
@@ -355,7 +355,7 @@ pub mod service_manager {
                 crate::model::UndeleteServiceResponse,
                 crate::model::OperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -379,7 +379,7 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service_name][crate::model::UndeleteServiceRequest::service_name].
@@ -623,7 +623,7 @@ pub mod service_manager {
                 crate::model::SubmitConfigSourceResponse,
                 crate::model::OperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -647,7 +647,7 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service_name][crate::model::SubmitConfigSourceRequest::service_name].
@@ -846,7 +846,7 @@ pub mod service_manager {
             self,
         ) -> impl lro::Poller<crate::model::Rollout, crate::model::OperationMetadata> {
             type Operation = lro::Operation<crate::model::Rollout, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -870,7 +870,7 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service_name][crate::model::CreateServiceRolloutRequest::service_name].

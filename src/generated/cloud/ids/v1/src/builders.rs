@@ -199,7 +199,7 @@ pub mod ids {
         ) -> impl lro::Poller<crate::model::Endpoint, crate::model::OperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::Endpoint, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -223,7 +223,7 @@ pub mod ids {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateEndpointRequest::parent].
@@ -296,7 +296,7 @@ pub mod ids {
         /// Creates a [Poller][lro::Poller] to work with `delete_endpoint`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -320,7 +320,7 @@ pub mod ids {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteEndpointRequest::name].

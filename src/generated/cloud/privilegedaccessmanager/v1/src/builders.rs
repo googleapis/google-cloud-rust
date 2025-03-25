@@ -349,7 +349,7 @@ pub mod privileged_access_manager {
         ) -> impl lro::Poller<crate::model::Entitlement, crate::model::OperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::Entitlement, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -373,7 +373,7 @@ pub mod privileged_access_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateEntitlementRequest::parent].
@@ -454,7 +454,7 @@ pub mod privileged_access_manager {
         ) -> impl lro::Poller<crate::model::Entitlement, crate::model::OperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::Entitlement, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -478,7 +478,7 @@ pub mod privileged_access_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteEntitlementRequest::name].
@@ -550,7 +550,7 @@ pub mod privileged_access_manager {
         ) -> impl lro::Poller<crate::model::Entitlement, crate::model::OperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::Entitlement, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -574,7 +574,7 @@ pub mod privileged_access_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [entitlement][crate::model::UpdateEntitlementRequest::entitlement].
@@ -1010,7 +1010,7 @@ pub mod privileged_access_manager {
             self,
         ) -> impl lro::Poller<crate::model::Grant, crate::model::OperationMetadata> {
             type Operation = lro::Operation<crate::model::Grant, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1034,7 +1034,7 @@ pub mod privileged_access_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RevokeGrantRequest::name].

@@ -328,7 +328,7 @@ pub mod agents {
         /// Creates a [Poller][lro::Poller] to work with `export_agent`.
         pub fn poller(self) -> impl lro::Poller<crate::model::ExportAgentResponse, wkt::Struct> {
             type Operation = lro::Operation<crate::model::ExportAgentResponse, wkt::Struct>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -352,7 +352,7 @@ pub mod agents {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ExportAgentRequest::name].
@@ -442,7 +442,7 @@ pub mod agents {
         /// Creates a [Poller][lro::Poller] to work with `restore_agent`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, wkt::Struct> {
             type Operation = lro::Operation<wkt::Empty, wkt::Struct>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -466,7 +466,7 @@ pub mod agents {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RestoreAgentRequest::name].
@@ -2199,7 +2199,7 @@ pub mod entity_types {
                 crate::model::ExportEntityTypesResponse,
                 crate::model::ExportEntityTypesMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -2223,7 +2223,7 @@ pub mod entity_types {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ExportEntityTypesRequest::parent].
@@ -2323,7 +2323,7 @@ pub mod entity_types {
                 crate::model::ImportEntityTypesResponse,
                 crate::model::ImportEntityTypesMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -2347,7 +2347,7 @@ pub mod entity_types {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportEntityTypesRequest::parent].
@@ -2849,7 +2849,7 @@ pub mod environments {
         /// Creates a [Poller][lro::Poller] to work with `create_environment`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Environment, wkt::Struct> {
             type Operation = lro::Operation<crate::model::Environment, wkt::Struct>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -2873,7 +2873,7 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateEnvironmentRequest::parent].
@@ -2937,7 +2937,7 @@ pub mod environments {
         /// Creates a [Poller][lro::Poller] to work with `update_environment`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Environment, wkt::Struct> {
             type Operation = lro::Operation<crate::model::Environment, wkt::Struct>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -2961,7 +2961,7 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
@@ -3155,7 +3155,7 @@ pub mod environments {
                 crate::model::RunContinuousTestResponse,
                 crate::model::RunContinuousTestMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -3179,7 +3179,7 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [environment][crate::model::RunContinuousTestRequest::environment].
@@ -3310,7 +3310,7 @@ pub mod environments {
         {
             type Operation =
                 lro::Operation<crate::model::DeployFlowResponse, crate::model::DeployFlowMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -3334,7 +3334,7 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [environment][crate::model::DeployFlowRequest::environment].
@@ -4630,7 +4630,7 @@ pub mod flows {
         /// Creates a [Poller][lro::Poller] to work with `train_flow`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, wkt::Struct> {
             type Operation = lro::Operation<wkt::Empty, wkt::Struct>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -4654,7 +4654,7 @@ pub mod flows {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::TrainFlowRequest::name].
@@ -4805,7 +4805,7 @@ pub mod flows {
         /// Creates a [Poller][lro::Poller] to work with `import_flow`.
         pub fn poller(self) -> impl lro::Poller<crate::model::ImportFlowResponse, wkt::Struct> {
             type Operation = lro::Operation<crate::model::ImportFlowResponse, wkt::Struct>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -4829,7 +4829,7 @@ pub mod flows {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportFlowRequest::parent].
@@ -4910,7 +4910,7 @@ pub mod flows {
         /// Creates a [Poller][lro::Poller] to work with `export_flow`.
         pub fn poller(self) -> impl lro::Poller<crate::model::ExportFlowResponse, wkt::Struct> {
             type Operation = lro::Operation<crate::model::ExportFlowResponse, wkt::Struct>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -4934,7 +4934,7 @@ pub mod flows {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ExportFlowRequest::name].
@@ -6188,7 +6188,7 @@ pub mod intents {
                 crate::model::ImportIntentsResponse,
                 crate::model::ImportIntentsMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -6212,7 +6212,7 @@ pub mod intents {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportIntentsRequest::parent].
@@ -6288,7 +6288,7 @@ pub mod intents {
                 crate::model::ExportIntentsResponse,
                 crate::model::ExportIntentsMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -6312,7 +6312,7 @@ pub mod intents {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ExportIntentsRequest::parent].
@@ -9341,7 +9341,7 @@ pub mod test_cases {
                 crate::model::RunTestCaseResponse,
                 crate::model::RunTestCaseMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -9365,7 +9365,7 @@ pub mod test_cases {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RunTestCaseRequest::name].
@@ -9434,7 +9434,7 @@ pub mod test_cases {
                 crate::model::BatchRunTestCasesResponse,
                 crate::model::BatchRunTestCasesMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -9458,7 +9458,7 @@ pub mod test_cases {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchRunTestCasesRequest::parent].
@@ -9586,7 +9586,7 @@ pub mod test_cases {
                 crate::model::ImportTestCasesResponse,
                 crate::model::ImportTestCasesMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -9610,7 +9610,7 @@ pub mod test_cases {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportTestCasesRequest::parent].
@@ -9677,7 +9677,7 @@ pub mod test_cases {
                 crate::model::ExportTestCasesResponse,
                 crate::model::ExportTestCasesMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -9701,7 +9701,7 @@ pub mod test_cases {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ExportTestCasesRequest::parent].
@@ -10967,7 +10967,7 @@ pub mod versions {
         {
             type Operation =
                 lro::Operation<crate::model::Version, crate::model::CreateVersionOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -10991,7 +10991,7 @@ pub mod versions {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateVersionRequest::parent].
@@ -11146,7 +11146,7 @@ pub mod versions {
         /// Creates a [Poller][lro::Poller] to work with `load_version`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, wkt::Struct> {
             type Operation = lro::Operation<wkt::Empty, wkt::Struct>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -11170,7 +11170,7 @@ pub mod versions {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::LoadVersionRequest::name].

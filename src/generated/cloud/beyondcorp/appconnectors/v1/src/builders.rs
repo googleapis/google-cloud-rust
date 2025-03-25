@@ -216,7 +216,7 @@ pub mod app_connectors_service {
                 crate::model::AppConnector,
                 crate::model::AppConnectorOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -240,7 +240,7 @@ pub mod app_connectors_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAppConnectorRequest::parent].
@@ -330,7 +330,7 @@ pub mod app_connectors_service {
                 crate::model::AppConnector,
                 crate::model::AppConnectorOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -354,7 +354,7 @@ pub mod app_connectors_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAppConnectorRequest::update_mask].
@@ -438,7 +438,7 @@ pub mod app_connectors_service {
         ) -> impl lro::Poller<wkt::Empty, crate::model::AppConnectorOperationMetadata> {
             type Operation =
                 lro::Operation<wkt::Empty, crate::model::AppConnectorOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -462,7 +462,7 @@ pub mod app_connectors_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteAppConnectorRequest::name].
@@ -534,7 +534,7 @@ pub mod app_connectors_service {
                 crate::model::AppConnector,
                 crate::model::AppConnectorOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -558,7 +558,7 @@ pub mod app_connectors_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [app_connector][crate::model::ReportStatusRequest::app_connector].

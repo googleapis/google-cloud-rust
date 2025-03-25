@@ -77,7 +77,7 @@ pub mod livestream_service {
             self,
         ) -> impl lro::Poller<crate::model::Channel, crate::model::OperationMetadata> {
             type Operation = lro::Operation<crate::model::Channel, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -101,7 +101,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateChannelRequest::parent].
@@ -295,7 +295,7 @@ pub mod livestream_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_channel`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -319,7 +319,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteChannelRequest::name].
@@ -385,7 +385,7 @@ pub mod livestream_service {
             self,
         ) -> impl lro::Poller<crate::model::Channel, crate::model::OperationMetadata> {
             type Operation = lro::Operation<crate::model::Channel, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -409,7 +409,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateChannelRequest::update_mask].
@@ -485,7 +485,7 @@ pub mod livestream_service {
                 crate::model::ChannelOperationResponse,
                 crate::model::OperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -509,7 +509,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StartChannelRequest::name].
@@ -573,7 +573,7 @@ pub mod livestream_service {
                 crate::model::ChannelOperationResponse,
                 crate::model::OperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -597,7 +597,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StopChannelRequest::name].
@@ -657,7 +657,7 @@ pub mod livestream_service {
             self,
         ) -> impl lro::Poller<crate::model::Input, crate::model::OperationMetadata> {
             type Operation = lro::Operation<crate::model::Input, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -681,7 +681,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInputRequest::parent].
@@ -875,7 +875,7 @@ pub mod livestream_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_input`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -899,7 +899,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteInputRequest::name].
@@ -959,7 +959,7 @@ pub mod livestream_service {
             self,
         ) -> impl lro::Poller<crate::model::Input, crate::model::OperationMetadata> {
             type Operation = lro::Operation<crate::model::Input, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -983,7 +983,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInputRequest::update_mask].
@@ -1405,7 +1405,7 @@ pub mod livestream_service {
             self,
         ) -> impl lro::Poller<crate::model::Clip, crate::model::OperationMetadata> {
             type Operation = lro::Operation<crate::model::Clip, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1429,7 +1429,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateClipRequest::parent].
@@ -1499,7 +1499,7 @@ pub mod livestream_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_clip`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1523,7 +1523,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteClipRequest::name].
@@ -1583,7 +1583,7 @@ pub mod livestream_service {
             self,
         ) -> impl lro::Poller<crate::model::Asset, crate::model::OperationMetadata> {
             type Operation = lro::Operation<crate::model::Asset, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1607,7 +1607,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAssetRequest::parent].
@@ -1680,7 +1680,7 @@ pub mod livestream_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_asset`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1704,7 +1704,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteAssetRequest::name].
@@ -1926,7 +1926,7 @@ pub mod livestream_service {
             self,
         ) -> impl lro::Poller<crate::model::Pool, crate::model::OperationMetadata> {
             type Operation = lro::Operation<crate::model::Pool, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1950,7 +1950,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePoolRequest::update_mask].

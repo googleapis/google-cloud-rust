@@ -208,7 +208,7 @@ pub mod cloud_filestore_manager {
         {
             type Operation =
                 lro::Operation<crate::model::Instance, cloud_common::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -232,7 +232,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
@@ -305,7 +305,7 @@ pub mod cloud_filestore_manager {
         {
             type Operation =
                 lro::Operation<crate::model::Instance, cloud_common::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -329,7 +329,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
@@ -399,7 +399,7 @@ pub mod cloud_filestore_manager {
         {
             type Operation =
                 lro::Operation<crate::model::Instance, cloud_common::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -423,7 +423,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RestoreInstanceRequest::name].
@@ -496,7 +496,7 @@ pub mod cloud_filestore_manager {
         {
             type Operation =
                 lro::Operation<crate::model::Instance, cloud_common::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -520,7 +520,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RevertInstanceRequest::name].
@@ -582,7 +582,7 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<wkt::Empty, cloud_common::model::OperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -606,7 +606,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
@@ -801,7 +801,7 @@ pub mod cloud_filestore_manager {
         {
             type Operation =
                 lro::Operation<crate::model::Snapshot, cloud_common::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -825,7 +825,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateSnapshotRequest::parent].
@@ -896,7 +896,7 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<wkt::Empty, cloud_common::model::OperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -920,7 +920,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteSnapshotRequest::name].
@@ -978,7 +978,7 @@ pub mod cloud_filestore_manager {
         {
             type Operation =
                 lro::Operation<crate::model::Snapshot, cloud_common::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1002,7 +1002,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
@@ -1197,7 +1197,7 @@ pub mod cloud_filestore_manager {
         {
             type Operation =
                 lro::Operation<crate::model::Backup, cloud_common::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1221,7 +1221,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
@@ -1292,7 +1292,7 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<wkt::Empty, cloud_common::model::OperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1316,7 +1316,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
@@ -1374,7 +1374,7 @@ pub mod cloud_filestore_manager {
         {
             type Operation =
                 lro::Operation<crate::model::Backup, cloud_common::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1398,7 +1398,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
@@ -1468,7 +1468,7 @@ pub mod cloud_filestore_manager {
         {
             type Operation =
                 lro::Operation<crate::model::Instance, cloud_common::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1492,7 +1492,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::PromoteReplicaRequest::name].

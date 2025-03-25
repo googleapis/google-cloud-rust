@@ -64,11 +64,11 @@ where
         self.inner.get_operation(req, options).await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -277,11 +277,11 @@ where
         self.inner.get_operation(req, options).await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -586,11 +586,11 @@ where
         self.inner.get_operation(req, options).await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -799,11 +799,11 @@ where
         self.inner.get_operation(req, options).await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -1053,11 +1053,11 @@ where
         self.inner.get_operation(req, options).await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(

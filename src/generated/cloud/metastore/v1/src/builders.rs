@@ -198,7 +198,7 @@ pub mod dataproc_metastore {
             self,
         ) -> impl lro::Poller<crate::model::Service, crate::model::OperationMetadata> {
             type Operation = lro::Operation<crate::model::Service, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -222,7 +222,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateServiceRequest::parent].
@@ -297,7 +297,7 @@ pub mod dataproc_metastore {
             self,
         ) -> impl lro::Poller<crate::model::Service, crate::model::OperationMetadata> {
             type Operation = lro::Operation<crate::model::Service, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -321,7 +321,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
@@ -391,7 +391,7 @@ pub mod dataproc_metastore {
         /// Creates a [Poller][lro::Poller] to work with `delete_service`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -415,7 +415,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceRequest::name].
@@ -607,7 +607,7 @@ pub mod dataproc_metastore {
         {
             type Operation =
                 lro::Operation<crate::model::MetadataImport, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -631,7 +631,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateMetadataImportRequest::parent].
@@ -711,7 +711,7 @@ pub mod dataproc_metastore {
         {
             type Operation =
                 lro::Operation<crate::model::MetadataImport, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -735,7 +735,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateMetadataImportRequest::update_mask].
@@ -809,7 +809,7 @@ pub mod dataproc_metastore {
         {
             type Operation =
                 lro::Operation<crate::model::MetadataExport, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -833,7 +833,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service][crate::model::ExportMetadataRequest::service].
@@ -913,7 +913,7 @@ pub mod dataproc_metastore {
             self,
         ) -> impl lro::Poller<crate::model::Restore, crate::model::OperationMetadata> {
             type Operation = lro::Operation<crate::model::Restore, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -937,7 +937,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service][crate::model::RestoreServiceRequest::service].
@@ -1133,7 +1133,7 @@ pub mod dataproc_metastore {
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata> {
             type Operation = lro::Operation<crate::model::Backup, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1157,7 +1157,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
@@ -1230,7 +1230,7 @@ pub mod dataproc_metastore {
         /// Creates a [Poller][lro::Poller] to work with `delete_backup`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1254,7 +1254,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
@@ -1318,7 +1318,7 @@ pub mod dataproc_metastore {
                 crate::model::QueryMetadataResponse,
                 crate::model::OperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1342,7 +1342,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service][crate::model::QueryMetadataRequest::service].
@@ -1409,7 +1409,7 @@ pub mod dataproc_metastore {
                 crate::model::MoveTableToDatabaseResponse,
                 crate::model::OperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1433,7 +1433,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service][crate::model::MoveTableToDatabaseRequest::service].
@@ -1516,7 +1516,7 @@ pub mod dataproc_metastore {
                 crate::model::AlterMetadataResourceLocationResponse,
                 crate::model::OperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1540,7 +1540,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service][crate::model::AlterMetadataResourceLocationRequest::service].
@@ -2256,7 +2256,7 @@ pub mod dataproc_metastore_federation {
         ) -> impl lro::Poller<crate::model::Federation, crate::model::OperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::Federation, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -2280,7 +2280,7 @@ pub mod dataproc_metastore_federation {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateFederationRequest::parent].
@@ -2361,7 +2361,7 @@ pub mod dataproc_metastore_federation {
         ) -> impl lro::Poller<crate::model::Federation, crate::model::OperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::Federation, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -2385,7 +2385,7 @@ pub mod dataproc_metastore_federation {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFederationRequest::update_mask].
@@ -2460,7 +2460,7 @@ pub mod dataproc_metastore_federation {
         /// Creates a [Poller][lro::Poller] to work with `delete_federation`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -2484,7 +2484,7 @@ pub mod dataproc_metastore_federation {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteFederationRequest::name].

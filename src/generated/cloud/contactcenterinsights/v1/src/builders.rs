@@ -149,7 +149,7 @@ pub mod contact_center_insights {
                 crate::model::Conversation,
                 crate::model::UploadConversationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -173,7 +173,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::UploadConversationRequest::parent].
@@ -516,7 +516,7 @@ pub mod contact_center_insights {
                 crate::model::Analysis,
                 crate::model::CreateAnalysisOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -540,7 +540,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAnalysisRequest::parent].
@@ -778,7 +778,7 @@ pub mod contact_center_insights {
                 crate::model::BulkAnalyzeConversationsResponse,
                 crate::model::BulkAnalyzeConversationsMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -802,7 +802,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BulkAnalyzeConversationsRequest::parent].
@@ -892,7 +892,7 @@ pub mod contact_center_insights {
                 crate::model::BulkDeleteConversationsResponse,
                 crate::model::BulkDeleteConversationsMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -916,7 +916,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BulkDeleteConversationsRequest::parent].
@@ -999,7 +999,7 @@ pub mod contact_center_insights {
                 crate::model::IngestConversationsResponse,
                 crate::model::IngestConversationsMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1023,7 +1023,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::IngestConversationsRequest::parent].
@@ -1145,7 +1145,7 @@ pub mod contact_center_insights {
                 crate::model::ExportInsightsDataResponse,
                 crate::model::ExportInsightsDataMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1169,7 +1169,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ExportInsightsDataRequest::parent].
@@ -1264,7 +1264,7 @@ pub mod contact_center_insights {
         {
             type Operation =
                 lro::Operation<crate::model::IssueModel, crate::model::CreateIssueModelMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1288,7 +1288,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateIssueModelRequest::parent].
@@ -1500,7 +1500,7 @@ pub mod contact_center_insights {
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::DeleteIssueModelMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::DeleteIssueModelMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1524,7 +1524,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteIssueModelRequest::name].
@@ -1589,7 +1589,7 @@ pub mod contact_center_insights {
                 crate::model::DeployIssueModelResponse,
                 crate::model::DeployIssueModelMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1613,7 +1613,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeployIssueModelRequest::name].
@@ -1678,7 +1678,7 @@ pub mod contact_center_insights {
                 crate::model::UndeployIssueModelResponse,
                 crate::model::UndeployIssueModelMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1702,7 +1702,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UndeployIssueModelRequest::name].
@@ -1767,7 +1767,7 @@ pub mod contact_center_insights {
                 crate::model::ExportIssueModelResponse,
                 crate::model::ExportIssueModelMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1791,7 +1791,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ExportIssueModelRequest::name].
@@ -1867,7 +1867,7 @@ pub mod contact_center_insights {
                 crate::model::ImportIssueModelResponse,
                 crate::model::ImportIssueModelMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1891,7 +1891,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportIssueModelRequest::parent].
@@ -2957,7 +2957,7 @@ pub mod contact_center_insights {
                 crate::model::InitializeEncryptionSpecResponse,
                 crate::model::InitializeEncryptionSpecMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -2981,7 +2981,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [encryption_spec][crate::model::InitializeEncryptionSpecRequest::encryption_spec].
@@ -3300,7 +3300,7 @@ pub mod contact_center_insights {
                 crate::model::QueryMetricsResponse,
                 crate::model::QueryMetricsMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -3324,7 +3324,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [location][crate::model::QueryMetricsRequest::location].
@@ -4104,7 +4104,7 @@ pub mod contact_center_insights {
                 crate::model::TuneQaScorecardRevisionResponse,
                 crate::model::TuneQaScorecardRevisionMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -4128,7 +4128,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::TuneQaScorecardRevisionRequest::parent].
@@ -4809,7 +4809,7 @@ pub mod contact_center_insights {
                 crate::model::BulkUploadFeedbackLabelsResponse,
                 crate::model::BulkUploadFeedbackLabelsMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -4833,7 +4833,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BulkUploadFeedbackLabelsRequest::parent].
@@ -4917,7 +4917,7 @@ pub mod contact_center_insights {
                 crate::model::BulkDownloadFeedbackLabelsResponse,
                 crate::model::BulkDownloadFeedbackLabelsMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -4941,7 +4941,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BulkDownloadFeedbackLabelsRequest::parent].

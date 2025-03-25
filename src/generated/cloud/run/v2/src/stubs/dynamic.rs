@@ -150,10 +150,10 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<longrunning::model::Operation>;
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy>;
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
@@ -236,11 +236,11 @@ impl<T: super::Executions> Executions for T {
         T::wait_operation(self, req, options).await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
-        T::get_polling_policy(self, options)
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
@@ -332,10 +332,10 @@ pub trait Jobs: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<longrunning::model::Operation>;
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy>;
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
@@ -463,11 +463,11 @@ impl<T: super::Jobs> Jobs for T {
         T::wait_operation(self, req, options).await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
-        T::get_polling_policy(self, options)
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
@@ -523,10 +523,10 @@ pub trait Revisions: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<longrunning::model::Operation>;
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy>;
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
@@ -600,11 +600,11 @@ impl<T: super::Revisions> Revisions for T {
         T::wait_operation(self, req, options).await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
-        T::get_polling_policy(self, options)
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
@@ -690,10 +690,10 @@ pub trait Services: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<longrunning::model::Operation>;
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy>;
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
@@ -812,11 +812,11 @@ impl<T: super::Services> Services for T {
         T::wait_operation(self, req, options).await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
-        T::get_polling_policy(self, options)
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(

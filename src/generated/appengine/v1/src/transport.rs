@@ -165,11 +165,11 @@ impl super::stubs::Applications for Applications {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -332,11 +332,11 @@ impl super::stubs::Services for Services {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -522,11 +522,11 @@ impl super::stubs::Versions for Versions {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -679,11 +679,11 @@ impl super::stubs::Instances for Instances {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -1332,11 +1332,11 @@ impl super::stubs::DomainMappings for DomainMappings {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(

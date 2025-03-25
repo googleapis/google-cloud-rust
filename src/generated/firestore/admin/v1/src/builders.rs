@@ -78,7 +78,7 @@ pub mod firestore_admin {
         ) -> impl lro::Poller<crate::model::Index, crate::model::IndexOperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::Index, crate::model::IndexOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -102,7 +102,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateIndexRequest::parent].
@@ -363,7 +363,7 @@ pub mod firestore_admin {
         ) -> impl lro::Poller<crate::model::Field, crate::model::FieldOperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::Field, crate::model::FieldOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -387,7 +387,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [field][crate::model::UpdateFieldRequest::field].
@@ -531,7 +531,7 @@ pub mod firestore_admin {
                 crate::model::ExportDocumentsResponse,
                 crate::model::ExportDocumentsMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -555,7 +555,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ExportDocumentsRequest::name].
@@ -644,7 +644,7 @@ pub mod firestore_admin {
         /// Creates a [Poller][lro::Poller] to work with `import_documents`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::ImportDocumentsMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::ImportDocumentsMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -668,7 +668,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ImportDocumentsRequest::name].
@@ -759,7 +759,7 @@ pub mod firestore_admin {
                 crate::model::BulkDeleteDocumentsResponse,
                 crate::model::BulkDeleteDocumentsMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -783,7 +783,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::BulkDeleteDocumentsRequest::name].
@@ -861,7 +861,7 @@ pub mod firestore_admin {
         {
             type Operation =
                 lro::Operation<crate::model::Database, crate::model::CreateDatabaseMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -885,7 +885,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateDatabaseRequest::parent].
@@ -1044,7 +1044,7 @@ pub mod firestore_admin {
         {
             type Operation =
                 lro::Operation<crate::model::Database, crate::model::UpdateDatabaseMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1068,7 +1068,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [database][crate::model::UpdateDatabaseRequest::database].
@@ -1136,7 +1136,7 @@ pub mod firestore_admin {
         {
             type Operation =
                 lro::Operation<crate::model::Database, crate::model::DeleteDatabaseMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1160,7 +1160,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteDatabaseRequest::name].
@@ -1351,7 +1351,7 @@ pub mod firestore_admin {
         {
             type Operation =
                 lro::Operation<crate::model::Database, crate::model::RestoreDatabaseMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1375,7 +1375,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::RestoreDatabaseRequest::parent].
