@@ -266,7 +266,7 @@ impl ReqwestClient {
         options: &gax::options::RequestOptions,
     ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
         options
-            .polling_policy()
+            .polling_error_policy()
             .clone()
             .or_else(|| self.polling_error_policy.clone())
             .unwrap_or_else(|| Arc::new(Aip194Strict))

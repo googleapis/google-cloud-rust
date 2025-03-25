@@ -138,12 +138,12 @@ impl RequestOptions {
 
     // TODO(#1135) - remove backwards compat.
     pub fn polling_policy(&self) -> &Option<Arc<dyn PollingErrorPolicy>> {
-        &self.polling_error_policy
+        self.polling_error_policy()
     }
 
     // TODO(#1135) - remove backwards compat.
     pub fn set_polling_policy<V: Into<PollingErrorPolicyArg>>(&mut self, v: V) {
-        self.polling_error_policy = Some(v.into().0);
+        self.set_polling_error_policy(v);
     }
 
     /// Get the current polling policy override, if any.
@@ -449,7 +449,7 @@ mod test {
         assert!(opts.retry_throttler().is_some(), "{opts:?}");
 
         opts.set_polling_error_policy(polling_error_policy::Aip194Strict);
-        assert!(opts.polling_policy().is_some(), "{opts:?}");
+        assert!(opts.polling_error_policy().is_some(), "{opts:?}");
 
         opts.set_polling_backoff_policy(ExponentialBackoffBuilder::new().clamp());
         assert!(opts.polling_backoff_policy().is_some(), "{opts:?}");
@@ -513,7 +513,7 @@ mod test {
         let mut builder =
             TestBuilder::default().with_polling_error_policy(polling_error_policy::Aip194Strict);
         assert!(
-            builder.request_options().polling_policy().is_some(),
+            builder.request_options().polling_error_policy().is_some(),
             "{builder:?}"
         );
 

@@ -27,7 +27,9 @@
 //! # use google_cloud_gax::polling_error_policy::*;
 //! # use google_cloud_gax::options;
 //! use std::time::Duration;
-//! fn customize_polling_policy(config: options::ClientConfig) -> options::ClientConfig {
+//! fn customize_polling_error_policy(config: options::ClientConfig)
+//!     -> options::ClientConfig
+//! {
 //!     // Poll for at most 15 minutes or at most 50 attempts: whichever limit
 //!     // is reached first stops the polling loop.
 //!     config.set_polling_error_policy(
