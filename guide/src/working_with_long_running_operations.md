@@ -302,7 +302,7 @@ You can find the [full function](#manually-polling-a-long-running-operation-comp
 
 ## What's Next
 
-* [Configuring polling policies](/configuring_polling_policies.md) describes how
+- [Configuring polling policies](/configuring_polling_policies.md) describes how
   to customize error handling and backoff periods for LROs.
 
 [batch recognize]: https://cloud.google.com/speech-to-text/v2/docs/batch-recognize
