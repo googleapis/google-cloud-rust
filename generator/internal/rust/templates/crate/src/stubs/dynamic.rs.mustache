@@ -35,10 +35,10 @@ pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
 
     {{/Codec.Methods}}
     {{#Codec.HasLROs}}
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy>;
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
@@ -62,11 +62,11 @@ impl<T: super::{{Codec.Name}}> {{Codec.Name}} for T {
 
     {{/Codec.Methods}}
     {{#Codec.HasLROs}}
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
-        T::get_polling_policy(self, options)
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
