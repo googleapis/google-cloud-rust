@@ -179,7 +179,7 @@ impl wkt::message::Message for NotificationConfig {
     }
 }
 
-/// Defines additional types related to NotificationConfig
+/// Defines additional types related to [NotificationConfig].
 pub mod notification_config {
     #[allow(unused_imports)]
     use super::*;
@@ -907,7 +907,7 @@ impl wkt::message::Message for AppConnector {
     }
 }
 
-/// Defines additional types related to AppConnector
+/// Defines additional types related to [AppConnector].
 pub mod app_connector {
     #[allow(unused_imports)]
     use super::*;
@@ -983,7 +983,7 @@ pub mod app_connector {
         }
     }
 
-    /// Defines additional types related to PrincipalInfo
+    /// Defines additional types related to [PrincipalInfo].
     pub mod principal_info {
         #[allow(unused_imports)]
         use super::*;

@@ -485,7 +485,7 @@ impl wkt::message::Message for Case {
     }
 }
 
-/// Defines additional types related to Case
+/// Defines additional types related to [Case].
 pub mod case {
     #[allow(unused_imports)]
     use super::*;
@@ -1547,7 +1547,7 @@ impl wkt::message::Message for Escalation {
     }
 }
 
-/// Defines additional types related to Escalation
+/// Defines additional types related to [Escalation].
 pub mod escalation {
     #[allow(unused_imports)]
     use super::*;

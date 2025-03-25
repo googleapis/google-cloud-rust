@@ -526,7 +526,7 @@ impl wkt::message::Message for Connection {
     }
 }
 
-/// Defines additional types related to Connection
+/// Defines additional types related to [Connection].
 pub mod connection {
     #[allow(unused_imports)]
     use super::*;
@@ -605,7 +605,7 @@ impl wkt::message::Message for InstallationState {
     }
 }
 
-/// Defines additional types related to InstallationState
+/// Defines additional types related to [InstallationState].
 pub mod installation_state {
     #[allow(unused_imports)]
     use super::*;
@@ -2394,7 +2394,7 @@ impl wkt::message::Message for FetchGitRefsRequest {
     }
 }
 
-/// Defines additional types related to FetchGitRefsRequest
+/// Defines additional types related to [FetchGitRefsRequest].
 pub mod fetch_git_refs_request {
     #[allow(unused_imports)]
     use super::*;

@@ -210,7 +210,7 @@ impl wkt::message::Message for Run {
     }
 }
 
-/// Defines additional types related to Run
+/// Defines additional types related to [Run].
 pub mod run {
     #[allow(unused_imports)]
     use super::*;
@@ -535,7 +535,7 @@ impl wkt::message::Message for OperationMetadata {
     }
 }
 
-/// Defines additional types related to OperationMetadata
+/// Defines additional types related to [OperationMetadata].
 pub mod operation_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -1758,7 +1758,7 @@ impl wkt::message::Message for SearchLinksRequest {
     }
 }
 
-/// Defines additional types related to SearchLinksRequest
+/// Defines additional types related to [SearchLinksRequest].
 pub mod search_links_request {
     #[allow(unused_imports)]
     use super::*;
@@ -2223,7 +2223,7 @@ impl wkt::message::Message for Origin {
     }
 }
 
-/// Defines additional types related to Origin
+/// Defines additional types related to [Origin].
 pub mod origin {
     #[allow(unused_imports)]
     use super::*;

@@ -107,7 +107,7 @@ impl wkt::message::Message for CheckError {
     }
 }
 
-/// Defines additional types related to CheckError
+/// Defines additional types related to [CheckError].
 pub mod check_error {
     #[allow(unused_imports)]
     use super::*;
@@ -525,7 +525,7 @@ impl wkt::message::Message for Distribution {
     }
 }
 
-/// Defines additional types related to Distribution
+/// Defines additional types related to [Distribution].
 pub mod distribution {
     #[allow(unused_imports)]
     use super::*;
@@ -1143,7 +1143,7 @@ impl wkt::message::Message for LogEntry {
     }
 }
 
-/// Defines additional types related to LogEntry
+/// Defines additional types related to [LogEntry].
 pub mod log_entry {
     #[allow(unused_imports)]
     use super::*;
@@ -1494,7 +1494,7 @@ impl wkt::message::Message for MetricValue {
     }
 }
 
-/// Defines additional types related to MetricValue
+/// Defines additional types related to [MetricValue].
 pub mod metric_value {
     #[allow(unused_imports)]
     use super::*;
@@ -1763,7 +1763,7 @@ impl wkt::message::Message for Operation {
     }
 }
 
-/// Defines additional types related to Operation
+/// Defines additional types related to [Operation].
 pub mod operation {
     #[allow(unused_imports)]
     use super::*;
@@ -2011,7 +2011,7 @@ impl wkt::message::Message for QuotaOperation {
     }
 }
 
-/// Defines additional types related to QuotaOperation
+/// Defines additional types related to [QuotaOperation].
 pub mod quota_operation {
     #[allow(unused_imports)]
     use super::*;
@@ -2263,7 +2263,7 @@ impl wkt::message::Message for QuotaError {
     }
 }
 
-/// Defines additional types related to QuotaError
+/// Defines additional types related to [QuotaError].
 pub mod quota_error {
     #[allow(unused_imports)]
     use super::*;
@@ -2504,7 +2504,7 @@ impl wkt::message::Message for CheckResponse {
     }
 }
 
-/// Defines additional types related to CheckResponse
+/// Defines additional types related to [CheckResponse].
 pub mod check_response {
     #[allow(unused_imports)]
     use super::*;
@@ -2633,7 +2633,7 @@ pub mod check_response {
         }
     }
 
-    /// Defines additional types related to ConsumerInfo
+    /// Defines additional types related to [ConsumerInfo].
     pub mod consumer_info {
         #[allow(unused_imports)]
         use super::*;
@@ -2863,7 +2863,7 @@ impl wkt::message::Message for ReportResponse {
     }
 }
 
-/// Defines additional types related to ReportResponse
+/// Defines additional types related to [ReportResponse].
 pub mod report_response {
     #[allow(unused_imports)]
     use super::*;

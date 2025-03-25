@@ -98,7 +98,7 @@ impl wkt::message::Message for ComputeThreatListDiffRequest {
     }
 }
 
-/// Defines additional types related to ComputeThreatListDiffRequest
+/// Defines additional types related to [ComputeThreatListDiffRequest].
 pub mod compute_threat_list_diff_request {
     #[allow(unused_imports)]
     use super::*;
@@ -273,7 +273,7 @@ impl wkt::message::Message for ComputeThreatListDiffResponse {
     }
 }
 
-/// Defines additional types related to ComputeThreatListDiffResponse
+/// Defines additional types related to [ComputeThreatListDiffResponse].
 pub mod compute_threat_list_diff_response {
     #[allow(unused_imports)]
     use super::*;
@@ -449,7 +449,7 @@ impl wkt::message::Message for SearchUrisResponse {
     }
 }
 
-/// Defines additional types related to SearchUrisResponse
+/// Defines additional types related to [SearchUrisResponse].
 pub mod search_uris_response {
     #[allow(unused_imports)]
     use super::*;
@@ -600,7 +600,7 @@ impl wkt::message::Message for SearchHashesResponse {
     }
 }
 
-/// Defines additional types related to SearchHashesResponse
+/// Defines additional types related to [SearchHashesResponse].
 pub mod search_hashes_response {
     #[allow(unused_imports)]
     use super::*;
@@ -1028,7 +1028,7 @@ impl wkt::message::Message for ThreatInfo {
     }
 }
 
-/// Defines additional types related to ThreatInfo
+/// Defines additional types related to [ThreatInfo].
 pub mod threat_info {
     #[allow(unused_imports)]
     use super::*;
@@ -1123,7 +1123,7 @@ pub mod threat_info {
         }
     }
 
-    /// Defines additional types related to Confidence
+    /// Defines additional types related to [Confidence].
     pub mod confidence {
         #[allow(unused_imports)]
         use super::*;
@@ -1257,7 +1257,7 @@ pub mod threat_info {
         }
     }
 
-    /// Defines additional types related to ThreatJustification
+    /// Defines additional types related to [ThreatJustification].
     pub mod threat_justification {
         #[allow(unused_imports)]
         use super::*;
@@ -1438,7 +1438,7 @@ impl wkt::message::Message for ThreatDiscovery {
     }
 }
 
-/// Defines additional types related to ThreatDiscovery
+/// Defines additional types related to [ThreatDiscovery].
 pub mod threat_discovery {
     #[allow(unused_imports)]
     use super::*;
@@ -1683,7 +1683,7 @@ impl wkt::message::Message for SubmitUriMetadata {
     }
 }
 
-/// Defines additional types related to SubmitUriMetadata
+/// Defines additional types related to [SubmitUriMetadata].
 pub mod submit_uri_metadata {
     #[allow(unused_imports)]
     use super::*;

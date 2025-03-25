@@ -259,7 +259,7 @@ impl wkt::message::Message for FeatureResourceState {
     }
 }
 
-/// Defines additional types related to FeatureResourceState
+/// Defines additional types related to [FeatureResourceState].
 pub mod feature_resource_state {
     #[allow(unused_imports)]
     use super::*;
@@ -396,7 +396,7 @@ impl wkt::message::Message for FeatureState {
     }
 }
 
-/// Defines additional types related to FeatureState
+/// Defines additional types related to [FeatureState].
 pub mod feature_state {
     #[allow(unused_imports)]
     use super::*;
@@ -536,7 +536,7 @@ impl wkt::message::Message for CommonFeatureSpec {
     }
 }
 
-/// Defines additional types related to CommonFeatureSpec
+/// Defines additional types related to [CommonFeatureSpec].
 pub mod common_feature_spec {
     #[allow(unused_imports)]
     use super::*;
@@ -649,7 +649,7 @@ impl wkt::message::Message for MembershipFeatureSpec {
     }
 }
 
-/// Defines additional types related to MembershipFeatureSpec
+/// Defines additional types related to [MembershipFeatureSpec].
 pub mod membership_feature_spec {
     #[allow(unused_imports)]
     use super::*;
@@ -745,7 +745,7 @@ impl wkt::message::Message for MembershipFeatureState {
     }
 }
 
-/// Defines additional types related to MembershipFeatureState
+/// Defines additional types related to [MembershipFeatureState].
 pub mod membership_feature_state {
     #[allow(unused_imports)]
     use super::*;
@@ -996,7 +996,7 @@ impl wkt::message::Message for Membership {
     }
 }
 
-/// Defines additional types related to Membership
+/// Defines additional types related to [Membership].
 pub mod membership {
     #[allow(unused_imports)]
     use super::*;
@@ -1540,7 +1540,7 @@ impl wkt::message::Message for MembershipState {
     }
 }
 
-/// Defines additional types related to MembershipState
+/// Defines additional types related to [MembershipState].
 pub mod membership_state {
     #[allow(unused_imports)]
     use super::*;

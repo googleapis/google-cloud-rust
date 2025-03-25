@@ -341,7 +341,7 @@ impl wkt::message::Message for Instance {
     }
 }
 
-/// Defines additional types related to Instance
+/// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;
@@ -412,7 +412,7 @@ pub mod instance {
         }
     }
 
-    /// Defines additional types related to StateInfo
+    /// Defines additional types related to [StateInfo].
     pub mod state_info {
         #[allow(unused_imports)]
         use super::*;
@@ -610,7 +610,7 @@ pub mod instance {
         }
     }
 
-    /// Defines additional types related to ConnectionDetail
+    /// Defines additional types related to [ConnectionDetail].
     pub mod connection_detail {
         #[allow(unused_imports)]
         use super::*;
@@ -1108,7 +1108,7 @@ impl wkt::message::Message for PscAutoConnection {
     }
 }
 
-/// Defines additional types related to PscAutoConnection
+/// Defines additional types related to [PscAutoConnection].
 pub mod psc_auto_connection {
     #[allow(unused_imports)]
     use super::*;
@@ -1355,7 +1355,7 @@ impl wkt::message::Message for PersistenceConfig {
     }
 }
 
-/// Defines additional types related to PersistenceConfig
+/// Defines additional types related to [PersistenceConfig].
 pub mod persistence_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1410,7 +1410,7 @@ pub mod persistence_config {
         }
     }
 
-    /// Defines additional types related to RDBConfig
+    /// Defines additional types related to [RDBConfig].
     pub mod rdb_config {
         #[allow(unused_imports)]
         use super::*;
@@ -1518,7 +1518,7 @@ pub mod persistence_config {
         }
     }
 
-    /// Defines additional types related to AOFConfig
+    /// Defines additional types related to [AOFConfig].
     pub mod aof_config {
         #[allow(unused_imports)]
         use super::*;
@@ -1728,7 +1728,7 @@ impl wkt::message::Message for ZoneDistributionConfig {
     }
 }
 
-/// Defines additional types related to ZoneDistributionConfig
+/// Defines additional types related to [ZoneDistributionConfig].
 pub mod zone_distribution_config {
     #[allow(unused_imports)]
     use super::*;
@@ -2288,7 +2288,7 @@ impl wkt::message::Message for CertificateAuthority {
     }
 }
 
-/// Defines additional types related to CertificateAuthority
+/// Defines additional types related to [CertificateAuthority].
 pub mod certificate_authority {
     #[allow(unused_imports)]
     use super::*;
@@ -2331,7 +2331,7 @@ pub mod certificate_authority {
         }
     }
 
-    /// Defines additional types related to ManagedCertificateAuthority
+    /// Defines additional types related to [ManagedCertificateAuthority].
     pub mod managed_certificate_authority {
         #[allow(unused_imports)]
         use super::*;

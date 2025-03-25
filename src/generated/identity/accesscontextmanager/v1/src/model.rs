@@ -1609,7 +1609,7 @@ impl wkt::message::Message for AccessLevel {
     }
 }
 
-/// Defines additional types related to AccessLevel
+/// Defines additional types related to [AccessLevel].
 pub mod access_level {
     #[allow(unused_imports)]
     use super::*;
@@ -1678,7 +1678,7 @@ impl wkt::message::Message for BasicLevel {
     }
 }
 
-/// Defines additional types related to BasicLevel
+/// Defines additional types related to [BasicLevel].
 pub mod basic_level {
     #[allow(unused_imports)]
     use super::*;
@@ -2408,7 +2408,7 @@ impl wkt::message::Message for ServicePerimeter {
     }
 }
 
-/// Defines additional types related to ServicePerimeter
+/// Defines additional types related to [ServicePerimeter].
 pub mod service_perimeter {
     #[allow(unused_imports)]
     use super::*;
@@ -2618,7 +2618,7 @@ impl wkt::message::Message for ServicePerimeterConfig {
     }
 }
 
-/// Defines additional types related to ServicePerimeterConfig
+/// Defines additional types related to [ServicePerimeterConfig].
 pub mod service_perimeter_config {
     #[allow(unused_imports)]
     use super::*;
@@ -2761,7 +2761,7 @@ pub mod service_perimeter_config {
         }
     }
 
-    /// Defines additional types related to MethodSelector
+    /// Defines additional types related to [MethodSelector].
     pub mod method_selector {
         #[allow(unused_imports)]
         use super::*;
@@ -2940,7 +2940,7 @@ pub mod service_perimeter_config {
         }
     }
 
-    /// Defines additional types related to IngressSource
+    /// Defines additional types related to [IngressSource].
     pub mod ingress_source {
         #[allow(unused_imports)]
         use super::*;

@@ -142,7 +142,7 @@ impl wkt::message::Message for NetworkConfig {
     }
 }
 
-/// Defines additional types related to NetworkConfig
+/// Defines additional types related to [NetworkConfig].
 pub mod network_config {
     #[allow(unused_imports)]
     use super::*;
@@ -363,7 +363,7 @@ impl wkt::message::Message for FileShareConfig {
     }
 }
 
-/// Defines additional types related to FileShareConfig
+/// Defines additional types related to [FileShareConfig].
 pub mod file_share_config {
     #[allow(unused_imports)]
     use super::*;
@@ -476,7 +476,7 @@ impl wkt::message::Message for NfsExportOptions {
     }
 }
 
-/// Defines additional types related to NfsExportOptions
+/// Defines additional types related to [NfsExportOptions].
 pub mod nfs_export_options {
     #[allow(unused_imports)]
     use super::*;
@@ -671,7 +671,7 @@ impl wkt::message::Message for ReplicaConfig {
     }
 }
 
-/// Defines additional types related to ReplicaConfig
+/// Defines additional types related to [ReplicaConfig].
 pub mod replica_config {
     #[allow(unused_imports)]
     use super::*;
@@ -854,7 +854,7 @@ impl wkt::message::Message for Replication {
     }
 }
 
-/// Defines additional types related to Replication
+/// Defines additional types related to [Replication].
 pub mod replication {
     #[allow(unused_imports)]
     use super::*;
@@ -1225,7 +1225,7 @@ impl wkt::message::Message for Instance {
     }
 }
 
-/// Defines additional types related to Instance
+/// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;
@@ -1394,7 +1394,7 @@ pub mod instance {
         }
     }
 
-    /// Defines additional types related to PerformanceConfig
+    /// Defines additional types related to [PerformanceConfig].
     pub mod performance_config {
         #[allow(unused_imports)]
         use super::*;
@@ -2037,7 +2037,7 @@ impl wkt::message::Message for RestoreInstanceRequest {
     }
 }
 
-/// Defines additional types related to RestoreInstanceRequest
+/// Defines additional types related to [RestoreInstanceRequest].
 pub mod restore_instance_request {
     #[allow(unused_imports)]
     use super::*;
@@ -2406,7 +2406,7 @@ impl wkt::message::Message for Snapshot {
     }
 }
 
-/// Defines additional types related to Snapshot
+/// Defines additional types related to [Snapshot].
 pub mod snapshot {
     #[allow(unused_imports)]
     use super::*;
@@ -3013,7 +3013,7 @@ impl wkt::message::Message for Backup {
     }
 }
 
-/// Defines additional types related to Backup
+/// Defines additional types related to [Backup].
 pub mod backup {
     #[allow(unused_imports)]
     use super::*;

@@ -770,7 +770,7 @@ impl wkt::message::Message for GenerateSshScriptRequest {
     }
 }
 
-/// Defines additional types related to GenerateSshScriptRequest
+/// Defines additional types related to [GenerateSshScriptRequest].
 pub mod generate_ssh_script_request {
     #[allow(unused_imports)]
     use super::*;
@@ -2377,7 +2377,7 @@ impl wkt::message::Message for ApplyConversionWorkspaceRequest {
     }
 }
 
-/// Defines additional types related to ApplyConversionWorkspaceRequest
+/// Defines additional types related to [ApplyConversionWorkspaceRequest].
 pub mod apply_conversion_workspace_request {
     #[allow(unused_imports)]
     use super::*;
@@ -2659,7 +2659,7 @@ impl wkt::message::Message for SeedConversionWorkspaceRequest {
     }
 }
 
-/// Defines additional types related to SeedConversionWorkspaceRequest
+/// Defines additional types related to [SeedConversionWorkspaceRequest].
 pub mod seed_conversion_workspace_request {
     #[allow(unused_imports)]
     use super::*;
@@ -2809,7 +2809,7 @@ impl wkt::message::Message for ImportMappingRulesRequest {
     }
 }
 
-/// Defines additional types related to ImportMappingRulesRequest
+/// Defines additional types related to [ImportMappingRulesRequest].
 pub mod import_mapping_rules_request {
     #[allow(unused_imports)]
     use super::*;
@@ -2979,7 +2979,7 @@ impl wkt::message::Message for DescribeDatabaseEntitiesRequest {
     }
 }
 
-/// Defines additional types related to DescribeDatabaseEntitiesRequest
+/// Defines additional types related to [DescribeDatabaseEntitiesRequest].
 pub mod describe_database_entities_request {
     #[allow(unused_imports)]
     use super::*;
@@ -3574,7 +3574,7 @@ impl wkt::message::Message for SslConfig {
     }
 }
 
-/// Defines additional types related to SslConfig
+/// Defines additional types related to [SslConfig].
 pub mod ssl_config {
     #[allow(unused_imports)]
     use super::*;
@@ -3929,7 +3929,7 @@ impl wkt::message::Message for PostgreSqlConnectionProfile {
     }
 }
 
-/// Defines additional types related to PostgreSqlConnectionProfile
+/// Defines additional types related to [PostgreSqlConnectionProfile].
 pub mod postgre_sql_connection_profile {
     #[allow(unused_imports)]
     use super::*;
@@ -4165,7 +4165,7 @@ impl wkt::message::Message for OracleConnectionProfile {
     }
 }
 
-/// Defines additional types related to OracleConnectionProfile
+/// Defines additional types related to [OracleConnectionProfile].
 pub mod oracle_connection_profile {
     #[allow(unused_imports)]
     use super::*;
@@ -4413,7 +4413,7 @@ impl wkt::message::Message for SqlAclEntry {
     }
 }
 
-/// Defines additional types related to SqlAclEntry
+/// Defines additional types related to [SqlAclEntry].
 pub mod sql_acl_entry {
     #[allow(unused_imports)]
     use super::*;
@@ -4816,7 +4816,7 @@ impl wkt::message::Message for CloudSqlSettings {
     }
 }
 
-/// Defines additional types related to CloudSqlSettings
+/// Defines additional types related to [CloudSqlSettings].
 pub mod cloud_sql_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -5260,7 +5260,7 @@ impl wkt::message::Message for AlloyDbSettings {
     }
 }
 
-/// Defines additional types related to AlloyDbSettings
+/// Defines additional types related to [AlloyDbSettings].
 pub mod alloy_db_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -5412,7 +5412,7 @@ pub mod alloy_db_settings {
         }
     }
 
-    /// Defines additional types related to PrimaryInstanceSettings
+    /// Defines additional types related to [PrimaryInstanceSettings].
     pub mod primary_instance_settings {
         #[allow(unused_imports)]
         use super::*;
@@ -5755,7 +5755,7 @@ impl wkt::message::Message for ForwardSshTunnelConnectivity {
     }
 }
 
-/// Defines additional types related to ForwardSshTunnelConnectivity
+/// Defines additional types related to [ForwardSshTunnelConnectivity].
 pub mod forward_ssh_tunnel_connectivity {
     #[allow(unused_imports)]
     use super::*;
@@ -6286,7 +6286,7 @@ impl wkt::message::Message for MigrationJob {
     }
 }
 
-/// Defines additional types related to MigrationJob
+/// Defines additional types related to [MigrationJob].
 pub mod migration_job {
     #[allow(unused_imports)]
     use super::*;
@@ -6397,7 +6397,7 @@ pub mod migration_job {
         }
     }
 
-    /// Defines additional types related to PerformanceConfig
+    /// Defines additional types related to [PerformanceConfig].
     pub mod performance_config {
         #[allow(unused_imports)]
         use super::*;
@@ -7080,7 +7080,7 @@ impl wkt::message::Message for ConnectionProfile {
     }
 }
 
-/// Defines additional types related to ConnectionProfile
+/// Defines additional types related to [ConnectionProfile].
 pub mod connection_profile {
     #[allow(unused_imports)]
     use super::*;
@@ -7242,7 +7242,7 @@ impl wkt::message::Message for MigrationJobVerificationError {
     }
 }
 
-/// Defines additional types related to MigrationJobVerificationError
+/// Defines additional types related to [MigrationJobVerificationError].
 pub mod migration_job_verification_error {
     #[allow(unused_imports)]
     use super::*;
@@ -7629,7 +7629,7 @@ impl wkt::message::Message for PrivateConnection {
     }
 }
 
-/// Defines additional types related to PrivateConnection
+/// Defines additional types related to [PrivateConnection].
 pub mod private_connection {
     #[allow(unused_imports)]
     use super::*;
@@ -8211,7 +8211,7 @@ impl wkt::message::Message for BackgroundJobLogEntry {
     }
 }
 
-/// Defines additional types related to BackgroundJobLogEntry
+/// Defines additional types related to [BackgroundJobLogEntry].
 pub mod background_job_log_entry {
     #[allow(unused_imports)]
     use super::*;
@@ -9015,7 +9015,7 @@ impl wkt::message::Message for MappingRule {
     }
 }
 
-/// Defines additional types related to MappingRule
+/// Defines additional types related to [MappingRule].
 pub mod mapping_rule {
     #[allow(unused_imports)]
     use super::*;
@@ -9623,7 +9623,7 @@ impl wkt::message::Message for MultiColumnDatatypeChange {
     }
 }
 
-/// Defines additional types related to MultiColumnDatatypeChange
+/// Defines additional types related to [MultiColumnDatatypeChange].
 pub mod multi_column_datatype_change {
     #[allow(unused_imports)]
     use super::*;
@@ -9887,7 +9887,7 @@ impl wkt::message::Message for ConditionalColumnSetValue {
     }
 }
 
-/// Defines additional types related to ConditionalColumnSetValue
+/// Defines additional types related to [ConditionalColumnSetValue].
 pub mod conditional_column_set_value {
     #[allow(unused_imports)]
     use super::*;
@@ -10243,7 +10243,7 @@ impl wkt::message::Message for ValueTransformation {
     }
 }
 
-/// Defines additional types related to ValueTransformation
+/// Defines additional types related to [ValueTransformation].
 pub mod value_transformation {
     #[allow(unused_imports)]
     use super::*;
@@ -10742,7 +10742,7 @@ impl wkt::message::Message for ApplyHash {
     }
 }
 
-/// Defines additional types related to ApplyHash
+/// Defines additional types related to [ApplyHash].
 pub mod apply_hash {
     #[allow(unused_imports)]
     use super::*;
@@ -11231,7 +11231,7 @@ impl wkt::message::Message for DatabaseEntity {
     }
 }
 
-/// Defines additional types related to DatabaseEntity
+/// Defines additional types related to [DatabaseEntity].
 pub mod database_entity {
     #[allow(unused_imports)]
     use super::*;
@@ -12741,7 +12741,7 @@ impl wkt::message::Message for EntityIssue {
     }
 }
 
-/// Defines additional types related to EntityIssue
+/// Defines additional types related to [EntityIssue].
 pub mod entity_issue {
     #[allow(unused_imports)]
     use super::*;

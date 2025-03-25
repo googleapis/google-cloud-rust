@@ -606,7 +606,7 @@ impl wkt::message::Message for Instance {
     }
 }
 
-/// Defines additional types related to Instance
+/// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;
@@ -1082,7 +1082,7 @@ impl wkt::message::Message for PersistenceConfig {
     }
 }
 
-/// Defines additional types related to PersistenceConfig
+/// Defines additional types related to [PersistenceConfig].
 pub mod persistence_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1281,7 +1281,7 @@ impl wkt::message::Message for RescheduleMaintenanceRequest {
     }
 }
 
-/// Defines additional types related to RescheduleMaintenanceRequest
+/// Defines additional types related to [RescheduleMaintenanceRequest].
 pub mod reschedule_maintenance_request {
     #[allow(unused_imports)]
     use super::*;
@@ -2088,7 +2088,7 @@ impl wkt::message::Message for InputConfig {
     }
 }
 
-/// Defines additional types related to InputConfig
+/// Defines additional types related to [InputConfig].
 pub mod input_config {
     #[allow(unused_imports)]
     use super::*;
@@ -2247,7 +2247,7 @@ impl wkt::message::Message for OutputConfig {
     }
 }
 
-/// Defines additional types related to OutputConfig
+/// Defines additional types related to [OutputConfig].
 pub mod output_config {
     #[allow(unused_imports)]
     use super::*;
@@ -2358,7 +2358,7 @@ impl wkt::message::Message for FailoverInstanceRequest {
     }
 }
 
-/// Defines additional types related to FailoverInstanceRequest
+/// Defines additional types related to [FailoverInstanceRequest].
 pub mod failover_instance_request {
     #[allow(unused_imports)]
     use super::*;

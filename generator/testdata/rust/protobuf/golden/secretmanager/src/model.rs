@@ -324,7 +324,7 @@ impl wkt::message::Message for Secret {
     }
 }
 
-/// Defines additional types related to Secret
+/// Defines additional types related to [Secret].
 pub mod secret {
     #[allow(unused_imports)]
     use super::*;
@@ -519,7 +519,7 @@ impl wkt::message::Message for SecretVersion {
     }
 }
 
-/// Defines additional types related to SecretVersion
+/// Defines additional types related to [SecretVersion].
 pub mod secret_version {
     #[allow(unused_imports)]
     use super::*;
@@ -688,7 +688,7 @@ impl wkt::message::Message for Replication {
     }
 }
 
-/// Defines additional types related to Replication
+/// Defines additional types related to [Replication].
 pub mod replication {
     #[allow(unused_imports)]
     use super::*;
@@ -783,7 +783,7 @@ pub mod replication {
         }
     }
 
-    /// Defines additional types related to UserManaged
+    /// Defines additional types related to [UserManaged].
     pub mod user_managed {
         #[allow(unused_imports)]
         use super::*;
@@ -997,7 +997,7 @@ impl wkt::message::Message for ReplicationStatus {
     }
 }
 
-/// Defines additional types related to ReplicationStatus
+/// Defines additional types related to [ReplicationStatus].
 pub mod replication_status {
     #[allow(unused_imports)]
     use super::*;
@@ -1091,7 +1091,7 @@ pub mod replication_status {
         }
     }
 
-    /// Defines additional types related to UserManagedStatus
+    /// Defines additional types related to [UserManagedStatus].
     pub mod user_managed_status {
         #[allow(unused_imports)]
         use super::*;

@@ -179,7 +179,7 @@ impl wkt::message::Message for Instance {
     }
 }
 
-/// Defines additional types related to Instance
+/// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;
@@ -595,7 +595,7 @@ impl wkt::message::Message for Repository {
     }
 }
 
-/// Defines additional types related to Repository
+/// Defines additional types related to [Repository].
 pub mod repository {
     #[allow(unused_imports)]
     use super::*;
@@ -1036,7 +1036,7 @@ impl wkt::message::Message for BranchRule {
     }
 }
 
-/// Defines additional types related to BranchRule
+/// Defines additional types related to [BranchRule].
 pub mod branch_rule {
     #[allow(unused_imports)]
     use super::*;

@@ -210,7 +210,7 @@ impl wkt::message::Message for AuthConfig {
     }
 }
 
-/// Defines additional types related to AuthConfig
+/// Defines additional types related to [AuthConfig].
 pub mod auth_config {
     #[allow(unused_imports)]
     use super::*;
@@ -312,7 +312,7 @@ pub mod auth_config {
         }
     }
 
-    /// Defines additional types related to Oauth2JwtBearer
+    /// Defines additional types related to [Oauth2JwtBearer].
     pub mod oauth_2_jwt_bearer {
         #[allow(unused_imports)]
         use super::*;
@@ -819,7 +819,7 @@ impl wkt::message::Message for ConfigVariableTemplate {
     }
 }
 
-/// Defines additional types related to ConfigVariableTemplate
+/// Defines additional types related to [ConfigVariableTemplate].
 pub mod config_variable_template {
     #[allow(unused_imports)]
     use super::*;
@@ -1164,7 +1164,7 @@ impl wkt::message::Message for ConfigVariable {
     }
 }
 
-/// Defines additional types related to ConfigVariable
+/// Defines additional types related to [ConfigVariable].
 pub mod config_variable {
     #[allow(unused_imports)]
     use super::*;
@@ -1263,7 +1263,7 @@ impl wkt::message::Message for RoleGrant {
     }
 }
 
-/// Defines additional types related to RoleGrant
+/// Defines additional types related to [RoleGrant].
 pub mod role_grant {
     #[allow(unused_imports)]
     use super::*;
@@ -1315,7 +1315,7 @@ pub mod role_grant {
         }
     }
 
-    /// Defines additional types related to Resource
+    /// Defines additional types related to [Resource].
     pub mod resource {
         #[allow(unused_imports)]
         use super::*;
@@ -1914,7 +1914,7 @@ impl wkt::message::Message for ConnectionSchemaMetadata {
     }
 }
 
-/// Defines additional types related to ConnectionSchemaMetadata
+/// Defines additional types related to [ConnectionSchemaMetadata].
 pub mod connection_schema_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -2021,7 +2021,7 @@ impl wkt::message::Message for RuntimeEntitySchema {
     }
 }
 
-/// Defines additional types related to RuntimeEntitySchema
+/// Defines additional types related to [RuntimeEntitySchema].
 pub mod runtime_entity_schema {
     #[allow(unused_imports)]
     use super::*;
@@ -2194,7 +2194,7 @@ impl wkt::message::Message for RuntimeActionSchema {
     }
 }
 
-/// Defines additional types related to RuntimeActionSchema
+/// Defines additional types related to [RuntimeActionSchema].
 pub mod runtime_action_schema {
     #[allow(unused_imports)]
     use super::*;
@@ -3065,7 +3065,7 @@ impl wkt::message::Message for ConnectionStatus {
     }
 }
 
-/// Defines additional types related to ConnectionStatus
+/// Defines additional types related to [ConnectionStatus].
 pub mod connection_status {
     #[allow(unused_imports)]
     use super::*;
@@ -3986,7 +3986,7 @@ impl wkt::message::Message for EgressControlConfig {
     }
 }
 
-/// Defines additional types related to EgressControlConfig
+/// Defines additional types related to [EgressControlConfig].
 pub mod egress_control_config {
     #[allow(unused_imports)]
     use super::*;
@@ -4088,7 +4088,7 @@ impl wkt::message::Message for ExtractionRule {
     }
 }
 
-/// Defines additional types related to ExtractionRule
+/// Defines additional types related to [ExtractionRule].
 pub mod extraction_rule {
     #[allow(unused_imports)]
     use super::*;
@@ -4324,7 +4324,7 @@ impl wkt::message::Message for Destination {
     }
 }
 
-/// Defines additional types related to Destination
+/// Defines additional types related to [Destination].
 pub mod destination {
     #[allow(unused_imports)]
     use super::*;
@@ -4816,7 +4816,7 @@ impl wkt::message::Message for RuntimeConfig {
     }
 }
 
-/// Defines additional types related to RuntimeConfig
+/// Defines additional types related to [RuntimeConfig].
 pub mod runtime_config {
     #[allow(unused_imports)]
     use super::*;
@@ -5208,7 +5208,7 @@ impl wkt::message::Message for SslConfig {
     }
 }
 
-/// Defines additional types related to SslConfig
+/// Defines additional types related to [SslConfig].
 pub mod ssl_config {
     #[allow(unused_imports)]
     use super::*;

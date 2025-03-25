@@ -165,7 +165,7 @@ impl wkt::message::Message for Location {
     }
 }
 
-/// Defines additional types related to Location
+/// Defines additional types related to [Location].
 pub mod location {
     #[allow(unused_imports)]
     use super::*;
@@ -484,7 +484,7 @@ impl wkt::message::Message for DeviceInfo {
     }
 }
 
-/// Defines additional types related to DeviceInfo
+/// Defines additional types related to [DeviceInfo].
 pub mod device_info {
     #[allow(unused_imports)]
     use super::*;
@@ -829,7 +829,7 @@ impl wkt::message::Message for CompensationInfo {
     }
 }
 
-/// Defines additional types related to CompensationInfo
+/// Defines additional types related to [CompensationInfo].
 pub mod compensation_info {
     #[allow(unused_imports)]
     use super::*;
@@ -1038,7 +1038,7 @@ pub mod compensation_info {
         }
     }
 
-    /// Defines additional types related to CompensationEntry
+    /// Defines additional types related to [CompensationEntry].
     pub mod compensation_entry {
         #[allow(unused_imports)]
         use super::*;
@@ -1447,7 +1447,7 @@ impl wkt::message::Message for BatchOperationMetadata {
     }
 }
 
-/// Defines additional types related to BatchOperationMetadata
+/// Defines additional types related to [BatchOperationMetadata].
 pub mod batch_operation_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -1738,7 +1738,7 @@ impl wkt::message::Message for Company {
     }
 }
 
-/// Defines additional types related to Company
+/// Defines additional types related to [Company].
 pub mod company {
     #[allow(unused_imports)]
     use super::*;
@@ -2216,7 +2216,7 @@ impl wkt::message::Message for CompleteQueryRequest {
     }
 }
 
-/// Defines additional types related to CompleteQueryRequest
+/// Defines additional types related to [CompleteQueryRequest].
 pub mod complete_query_request {
     #[allow(unused_imports)]
     use super::*;
@@ -2425,7 +2425,7 @@ impl wkt::message::Message for CompleteQueryResponse {
     }
 }
 
-/// Defines additional types related to CompleteQueryResponse
+/// Defines additional types related to [CompleteQueryResponse].
 pub mod complete_query_response {
     #[allow(unused_imports)]
     use super::*;
@@ -2602,7 +2602,7 @@ impl wkt::message::Message for ClientEvent {
     }
 }
 
-/// Defines additional types related to ClientEvent
+/// Defines additional types related to [ClientEvent].
 pub mod client_event {
     #[allow(unused_imports)]
     use super::*;
@@ -2685,7 +2685,7 @@ impl wkt::message::Message for JobEvent {
     }
 }
 
-/// Defines additional types related to JobEvent
+/// Defines additional types related to [JobEvent].
 pub mod job_event {
     #[allow(unused_imports)]
     use super::*;
@@ -3411,7 +3411,7 @@ impl wkt::message::Message for LocationFilter {
     }
 }
 
-/// Defines additional types related to LocationFilter
+/// Defines additional types related to [LocationFilter].
 pub mod location_filter {
     #[allow(unused_imports)]
     use super::*;
@@ -3563,7 +3563,7 @@ impl wkt::message::Message for CompensationFilter {
     }
 }
 
-/// Defines additional types related to CompensationFilter
+/// Defines additional types related to [CompensationFilter].
 pub mod compensation_filter {
     #[allow(unused_imports)]
     use super::*;
@@ -3830,7 +3830,7 @@ impl wkt::message::Message for CommuteFilter {
     }
 }
 
-/// Defines additional types related to CommuteFilter
+/// Defines additional types related to [CommuteFilter].
 pub mod commute_filter {
     #[allow(unused_imports)]
     use super::*;
@@ -4633,7 +4633,7 @@ impl wkt::message::Message for Job {
     }
 }
 
-/// Defines additional types related to Job
+/// Defines additional types related to [Job].
 pub mod job {
     #[allow(unused_imports)]
     use super::*;
@@ -5678,7 +5678,7 @@ impl wkt::message::Message for SearchJobsRequest {
     }
 }
 
-/// Defines additional types related to SearchJobsRequest
+/// Defines additional types related to [SearchJobsRequest].
 pub mod search_jobs_request {
     #[allow(unused_imports)]
     use super::*;
@@ -5765,7 +5765,7 @@ pub mod search_jobs_request {
         }
     }
 
-    /// Defines additional types related to CustomRankingInfo
+    /// Defines additional types related to [CustomRankingInfo].
     pub mod custom_ranking_info {
         #[allow(unused_imports)]
         use super::*;
@@ -6359,7 +6359,7 @@ impl wkt::message::Message for SearchJobsResponse {
     }
 }
 
-/// Defines additional types related to SearchJobsResponse
+/// Defines additional types related to [SearchJobsResponse].
 pub mod search_jobs_response {
     #[allow(unused_imports)]
     use super::*;

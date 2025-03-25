@@ -267,7 +267,7 @@ impl wkt::message::Message for Span {
     }
 }
 
-/// Defines additional types related to Span
+/// Defines additional types related to [Span].
 pub mod span {
     #[allow(unused_imports)]
     use super::*;
@@ -441,7 +441,7 @@ pub mod span {
         }
     }
 
-    /// Defines additional types related to TimeEvent
+    /// Defines additional types related to [TimeEvent].
     pub mod time_event {
         #[allow(unused_imports)]
         use super::*;
@@ -565,7 +565,7 @@ pub mod span {
             }
         }
 
-        /// Defines additional types related to MessageEvent
+        /// Defines additional types related to [MessageEvent].
         pub mod message_event {
             #[allow(unused_imports)]
             use super::*;
@@ -771,7 +771,7 @@ pub mod span {
         }
     }
 
-    /// Defines additional types related to Link
+    /// Defines additional types related to [Link].
     pub mod link {
         #[allow(unused_imports)]
         use super::*;
@@ -1070,7 +1070,7 @@ impl wkt::message::Message for AttributeValue {
     }
 }
 
-/// Defines additional types related to AttributeValue
+/// Defines additional types related to [AttributeValue].
 pub mod attribute_value {
     #[allow(unused_imports)]
     use super::*;
@@ -1141,7 +1141,7 @@ impl wkt::message::Message for StackTrace {
     }
 }
 
-/// Defines additional types related to StackTrace
+/// Defines additional types related to [StackTrace].
 pub mod stack_trace {
     #[allow(unused_imports)]
     use super::*;

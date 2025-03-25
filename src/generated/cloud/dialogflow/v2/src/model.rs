@@ -213,7 +213,7 @@ impl wkt::message::Message for Agent {
     }
 }
 
-/// Defines additional types related to Agent
+/// Defines additional types related to [Agent].
 pub mod agent {
     #[allow(unused_imports)]
     use super::*;
@@ -804,7 +804,7 @@ impl wkt::message::Message for ExportAgentResponse {
     }
 }
 
-/// Defines additional types related to ExportAgentResponse
+/// Defines additional types related to [ExportAgentResponse].
 pub mod export_agent_response {
     #[allow(unused_imports)]
     use super::*;
@@ -918,7 +918,7 @@ impl wkt::message::Message for ImportAgentRequest {
     }
 }
 
-/// Defines additional types related to ImportAgentRequest
+/// Defines additional types related to [ImportAgentRequest].
 pub mod import_agent_request {
     #[allow(unused_imports)]
     use super::*;
@@ -1038,7 +1038,7 @@ impl wkt::message::Message for RestoreAgentRequest {
     }
 }
 
-/// Defines additional types related to RestoreAgentRequest
+/// Defines additional types related to [RestoreAgentRequest].
 pub mod restore_agent_request {
     #[allow(unused_imports)]
     use super::*;
@@ -1237,7 +1237,7 @@ impl wkt::message::Message for AnswerRecord {
     }
 }
 
-/// Defines additional types related to AnswerRecord
+/// Defines additional types related to [AnswerRecord].
 pub mod answer_record {
     #[allow(unused_imports)]
     use super::*;
@@ -1586,7 +1586,7 @@ impl wkt::message::Message for AnswerFeedback {
     }
 }
 
-/// Defines additional types related to AnswerFeedback
+/// Defines additional types related to [AnswerFeedback].
 pub mod answer_feedback {
     #[allow(unused_imports)]
     use super::*;
@@ -1813,7 +1813,7 @@ impl wkt::message::Message for AgentAssistantFeedback {
     }
 }
 
-/// Defines additional types related to AgentAssistantFeedback
+/// Defines additional types related to [AgentAssistantFeedback].
 pub mod agent_assistant_feedback {
     #[allow(unused_imports)]
     use super::*;
@@ -2306,7 +2306,7 @@ impl wkt::message::Message for AgentAssistantRecord {
     }
 }
 
-/// Defines additional types related to AgentAssistantRecord
+/// Defines additional types related to [AgentAssistantRecord].
 pub mod agent_assistant_record {
     #[allow(unused_imports)]
     use super::*;
@@ -3679,7 +3679,7 @@ impl wkt::message::Message for Conversation {
     }
 }
 
-/// Defines additional types related to Conversation
+/// Defines additional types related to [Conversation].
 pub mod conversation {
     #[allow(unused_imports)]
     use super::*;
@@ -3762,7 +3762,7 @@ pub mod conversation {
         }
     }
 
-    /// Defines additional types related to TelephonyConnectionInfo
+    /// Defines additional types related to [TelephonyConnectionInfo].
     pub mod telephony_connection_info {
         #[allow(unused_imports)]
         use super::*;
@@ -3926,7 +3926,7 @@ pub mod conversation {
         }
     }
 
-    /// Defines additional types related to ContextReference
+    /// Defines additional types related to [ContextReference].
     pub mod context_reference {
         #[allow(unused_imports)]
         use super::*;
@@ -3986,7 +3986,7 @@ pub mod conversation {
             }
         }
 
-        /// Defines additional types related to ContextContent
+        /// Defines additional types related to [ContextContent].
         pub mod context_content {
             #[allow(unused_imports)]
             use super::*;
@@ -4914,7 +4914,7 @@ impl wkt::message::Message for SuggestConversationSummaryResponse {
     }
 }
 
-/// Defines additional types related to SuggestConversationSummaryResponse
+/// Defines additional types related to [SuggestConversationSummaryResponse].
 pub mod suggest_conversation_summary_response {
     #[allow(unused_imports)]
     use super::*;
@@ -5079,7 +5079,7 @@ impl wkt::message::Message for GenerateStatelessSummaryRequest {
     }
 }
 
-/// Defines additional types related to GenerateStatelessSummaryRequest
+/// Defines additional types related to [GenerateStatelessSummaryRequest].
 pub mod generate_stateless_summary_request {
     #[allow(unused_imports)]
     use super::*;
@@ -5203,7 +5203,7 @@ impl wkt::message::Message for GenerateStatelessSummaryResponse {
     }
 }
 
-/// Defines additional types related to GenerateStatelessSummaryResponse
+/// Defines additional types related to [GenerateStatelessSummaryResponse].
 pub mod generate_stateless_summary_response {
     #[allow(unused_imports)]
     use super::*;
@@ -5431,7 +5431,7 @@ impl wkt::message::Message for GenerateStatelessSuggestionRequest {
     }
 }
 
-/// Defines additional types related to GenerateStatelessSuggestionRequest
+/// Defines additional types related to [GenerateStatelessSuggestionRequest].
 pub mod generate_stateless_suggestion_request {
     #[allow(unused_imports)]
     use super::*;
@@ -5659,7 +5659,7 @@ impl wkt::message::Message for SearchKnowledgeRequest {
     }
 }
 
-/// Defines additional types related to SearchKnowledgeRequest
+/// Defines additional types related to [SearchKnowledgeRequest].
 pub mod search_knowledge_request {
     #[allow(unused_imports)]
     use super::*;
@@ -5728,7 +5728,7 @@ pub mod search_knowledge_request {
         }
     }
 
-    /// Defines additional types related to SearchConfig
+    /// Defines additional types related to [SearchConfig].
     pub mod search_config {
         #[allow(unused_imports)]
         use super::*;
@@ -5787,7 +5787,7 @@ pub mod search_knowledge_request {
             }
         }
 
-        /// Defines additional types related to BoostSpecs
+        /// Defines additional types related to [BoostSpecs].
         pub mod boost_specs {
             #[allow(unused_imports)]
             use super::*;
@@ -5833,7 +5833,7 @@ pub mod search_knowledge_request {
                 }
             }
 
-            /// Defines additional types related to BoostSpec
+            /// Defines additional types related to [BoostSpec].
             pub mod boost_spec {
                 #[allow(unused_imports)]
                 use super::*;
@@ -5917,7 +5917,7 @@ pub mod search_knowledge_request {
                     }
                 }
 
-                /// Defines additional types related to ConditionBoostSpec
+                /// Defines additional types related to [ConditionBoostSpec].
                 pub mod condition_boost_spec {
                     #[allow(unused_imports)]
                     use super::*;
@@ -6002,7 +6002,7 @@ pub mod search_knowledge_request {
                         }
                     }
 
-                    /// Defines additional types related to BoostControlSpec
+                    /// Defines additional types related to [BoostControlSpec].
                     pub mod boost_control_spec {
                         #[allow(unused_imports)]
                         use super::*;
@@ -6440,7 +6440,7 @@ impl wkt::message::Message for SearchKnowledgeAnswer {
     }
 }
 
-/// Defines additional types related to SearchKnowledgeAnswer
+/// Defines additional types related to [SearchKnowledgeAnswer].
 pub mod search_knowledge_answer {
     #[allow(unused_imports)]
     use super::*;
@@ -6730,7 +6730,7 @@ impl wkt::message::Message for InputConfig {
     }
 }
 
-/// Defines additional types related to InputConfig
+/// Defines additional types related to [InputConfig].
 pub mod input_config {
     #[allow(unused_imports)]
     use super::*;
@@ -7468,7 +7468,7 @@ impl wkt::message::Message for ConversationEvent {
     }
 }
 
-/// Defines additional types related to ConversationEvent
+/// Defines additional types related to [ConversationEvent].
 pub mod conversation_event {
     #[allow(unused_imports)]
     use super::*;
@@ -7789,7 +7789,7 @@ impl wkt::message::Message for ConversationModel {
     }
 }
 
-/// Defines additional types related to ConversationModel
+/// Defines additional types related to [ConversationModel].
 pub mod conversation_model {
     #[allow(unused_imports)]
     use super::*;
@@ -8103,7 +8103,7 @@ impl wkt::message::Message for ConversationModelEvaluation {
     }
 }
 
-/// Defines additional types related to ConversationModelEvaluation
+/// Defines additional types related to [ConversationModelEvaluation].
 pub mod conversation_model_evaluation {
     #[allow(unused_imports)]
     use super::*;
@@ -8236,7 +8236,7 @@ impl wkt::message::Message for EvaluationConfig {
     }
 }
 
-/// Defines additional types related to EvaluationConfig
+/// Defines additional types related to [EvaluationConfig].
 pub mod evaluation_config {
     #[allow(unused_imports)]
     use super::*;
@@ -8500,7 +8500,7 @@ impl wkt::message::Message for SmartReplyMetrics {
     }
 }
 
-/// Defines additional types related to SmartReplyMetrics
+/// Defines additional types related to [SmartReplyMetrics].
 pub mod smart_reply_metrics {
     #[allow(unused_imports)]
     use super::*;
@@ -9105,7 +9105,7 @@ impl wkt::message::Message for CreateConversationModelOperationMetadata {
     }
 }
 
-/// Defines additional types related to CreateConversationModelOperationMetadata
+/// Defines additional types related to [CreateConversationModelOperationMetadata].
 pub mod create_conversation_model_operation_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -9426,7 +9426,7 @@ impl wkt::message::Message for CreateConversationModelEvaluationOperationMetadat
     }
 }
 
-/// Defines additional types related to CreateConversationModelEvaluationOperationMetadata
+/// Defines additional types related to [CreateConversationModelEvaluationOperationMetadata].
 pub mod create_conversation_model_evaluation_operation_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -10208,7 +10208,7 @@ impl wkt::message::Message for HumanAgentAssistantConfig {
     }
 }
 
-/// Defines additional types related to HumanAgentAssistantConfig
+/// Defines additional types related to [HumanAgentAssistantConfig].
 pub mod human_agent_assistant_config {
     #[allow(unused_imports)]
     use super::*;
@@ -10707,7 +10707,7 @@ pub mod human_agent_assistant_config {
         }
     }
 
-    /// Defines additional types related to SuggestionQueryConfig
+    /// Defines additional types related to [SuggestionQueryConfig].
     pub mod suggestion_query_config {
         #[allow(unused_imports)]
         use super::*;
@@ -10835,7 +10835,7 @@ pub mod human_agent_assistant_config {
             }
         }
 
-        /// Defines additional types related to DialogflowQuerySource
+        /// Defines additional types related to [DialogflowQuerySource].
         pub mod dialogflow_query_source {
             #[allow(unused_imports)]
             use super::*;
@@ -10969,7 +10969,7 @@ pub mod human_agent_assistant_config {
             }
         }
 
-        /// Defines additional types related to Sections
+        /// Defines additional types related to [Sections].
         pub mod sections {
             #[allow(unused_imports)]
             use super::*;
@@ -11354,7 +11354,7 @@ impl wkt::message::Message for HumanAgentHandoffConfig {
     }
 }
 
-/// Defines additional types related to HumanAgentHandoffConfig
+/// Defines additional types related to [HumanAgentHandoffConfig].
 pub mod human_agent_handoff_config {
     #[allow(unused_imports)]
     use super::*;
@@ -11540,7 +11540,7 @@ impl wkt::message::Message for NotificationConfig {
     }
 }
 
-/// Defines additional types related to NotificationConfig
+/// Defines additional types related to [NotificationConfig].
 pub mod notification_config {
     #[allow(unused_imports)]
     use super::*;
@@ -11673,7 +11673,7 @@ impl wkt::message::Message for SuggestionFeature {
     }
 }
 
-/// Defines additional types related to SuggestionFeature
+/// Defines additional types related to [SuggestionFeature].
 pub mod suggestion_feature {
     #[allow(unused_imports)]
     use super::*;
@@ -12253,7 +12253,7 @@ impl wkt::message::Message for Document {
     }
 }
 
-/// Defines additional types related to Document
+/// Defines additional types related to [Document].
 pub mod document {
     #[allow(unused_imports)]
     use super::*;
@@ -12814,7 +12814,7 @@ impl wkt::message::Message for ImportDocumentsRequest {
     }
 }
 
-/// Defines additional types related to ImportDocumentsRequest
+/// Defines additional types related to [ImportDocumentsRequest].
 pub mod import_documents_request {
     #[allow(unused_imports)]
     use super::*;
@@ -13126,7 +13126,7 @@ impl wkt::message::Message for ReloadDocumentRequest {
     }
 }
 
-/// Defines additional types related to ReloadDocumentRequest
+/// Defines additional types related to [ReloadDocumentRequest].
 pub mod reload_document_request {
     #[allow(unused_imports)]
     use super::*;
@@ -13253,7 +13253,7 @@ impl wkt::message::Message for ExportDocumentRequest {
     }
 }
 
-/// Defines additional types related to ExportDocumentRequest
+/// Defines additional types related to [ExportDocumentRequest].
 pub mod export_document_request {
     #[allow(unused_imports)]
     use super::*;
@@ -13393,7 +13393,7 @@ impl wkt::message::Message for KnowledgeOperationMetadata {
     }
 }
 
-/// Defines additional types related to KnowledgeOperationMetadata
+/// Defines additional types related to [KnowledgeOperationMetadata].
 pub mod knowledge_operation_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -13745,7 +13745,7 @@ impl wkt::message::Message for EntityType {
     }
 }
 
-/// Defines additional types related to EntityType
+/// Defines additional types related to [EntityType].
 pub mod entity_type {
     #[allow(unused_imports)]
     use super::*;
@@ -14413,7 +14413,7 @@ impl wkt::message::Message for BatchUpdateEntityTypesRequest {
     }
 }
 
-/// Defines additional types related to BatchUpdateEntityTypesRequest
+/// Defines additional types related to [BatchUpdateEntityTypesRequest].
 pub mod batch_update_entity_types_request {
     #[allow(unused_imports)]
     use super::*;
@@ -14895,7 +14895,7 @@ impl wkt::message::Message for Environment {
     }
 }
 
-/// Defines additional types related to Environment
+/// Defines additional types related to [Environment].
 pub mod environment {
     #[allow(unused_imports)]
     use super::*;
@@ -15500,7 +15500,7 @@ impl gax::paginator::PageableResponse for EnvironmentHistory {
     }
 }
 
-/// Defines additional types related to EnvironmentHistory
+/// Defines additional types related to [EnvironmentHistory].
 pub mod environment_history {
     #[allow(unused_imports)]
     use super::*;
@@ -15690,7 +15690,7 @@ impl wkt::message::Message for Fulfillment {
     }
 }
 
-/// Defines additional types related to Fulfillment
+/// Defines additional types related to [Fulfillment].
 pub mod fulfillment {
     #[allow(unused_imports)]
     use super::*;
@@ -15814,7 +15814,7 @@ pub mod fulfillment {
         }
     }
 
-    /// Defines additional types related to Feature
+    /// Defines additional types related to [Feature].
     pub mod feature {
         #[allow(unused_imports)]
         use super::*;
@@ -16378,7 +16378,7 @@ impl wkt::message::Message for MessageEntry {
     }
 }
 
-/// Defines additional types related to MessageEntry
+/// Defines additional types related to [MessageEntry].
 pub mod message_entry {
     #[allow(unused_imports)]
     use super::*;
@@ -16630,7 +16630,7 @@ impl wkt::message::Message for FewShotExample {
     }
 }
 
-/// Defines additional types related to FewShotExample
+/// Defines additional types related to [FewShotExample].
 pub mod few_shot_example {
     #[allow(unused_imports)]
     use super::*;
@@ -16780,7 +16780,7 @@ impl wkt::message::Message for SummarizationSection {
     }
 }
 
-/// Defines additional types related to SummarizationSection
+/// Defines additional types related to [SummarizationSection].
 pub mod summarization_section {
     #[allow(unused_imports)]
     use super::*;
@@ -17209,7 +17209,7 @@ impl wkt::message::Message for Generator {
     }
 }
 
-/// Defines additional types related to Generator
+/// Defines additional types related to [Generator].
 pub mod generator {
     #[allow(unused_imports)]
     use super::*;
@@ -17305,7 +17305,7 @@ impl wkt::message::Message for SummarySuggestion {
     }
 }
 
-/// Defines additional types related to SummarySuggestion
+/// Defines additional types related to [SummarySuggestion].
 pub mod summary_suggestion {
     #[allow(unused_imports)]
     use super::*;
@@ -17448,7 +17448,7 @@ impl wkt::message::Message for GeneratorSuggestion {
     }
 }
 
-/// Defines additional types related to GeneratorSuggestion
+/// Defines additional types related to [GeneratorSuggestion].
 pub mod generator_suggestion {
     #[allow(unused_imports)]
     use super::*;
@@ -17847,7 +17847,7 @@ impl wkt::message::Message for Intent {
     }
 }
 
-/// Defines additional types related to Intent
+/// Defines additional types related to [Intent].
 pub mod intent {
     #[allow(unused_imports)]
     use super::*;
@@ -17942,7 +17942,7 @@ pub mod intent {
         }
     }
 
-    /// Defines additional types related to TrainingPhrase
+    /// Defines additional types related to [TrainingPhrase].
     pub mod training_phrase {
         #[allow(unused_imports)]
         use super::*;
@@ -18696,7 +18696,7 @@ pub mod intent {
         }
     }
 
-    /// Defines additional types related to Message
+    /// Defines additional types related to [Message].
     pub mod message {
         #[allow(unused_imports)]
         use super::*;
@@ -18895,7 +18895,7 @@ pub mod intent {
             }
         }
 
-        /// Defines additional types related to Card
+        /// Defines additional types related to [Card].
         pub mod card {
             #[allow(unused_imports)]
             use super::*;
@@ -19127,7 +19127,7 @@ pub mod intent {
             }
         }
 
-        /// Defines additional types related to BasicCard
+        /// Defines additional types related to [BasicCard].
         pub mod basic_card {
             #[allow(unused_imports)]
             use super::*;
@@ -19185,7 +19185,7 @@ pub mod intent {
                 }
             }
 
-            /// Defines additional types related to Button
+            /// Defines additional types related to [Button].
             pub mod button {
                 #[allow(unused_imports)]
                 use super::*;
@@ -19391,7 +19391,7 @@ pub mod intent {
             }
         }
 
-        /// Defines additional types related to ListSelect
+        /// Defines additional types related to [ListSelect].
         pub mod list_select {
             #[allow(unused_imports)]
             use super::*;
@@ -19508,7 +19508,7 @@ pub mod intent {
             }
         }
 
-        /// Defines additional types related to CarouselSelect
+        /// Defines additional types related to [CarouselSelect].
         pub mod carousel_select {
             #[allow(unused_imports)]
             use super::*;
@@ -19689,7 +19689,7 @@ pub mod intent {
             }
         }
 
-        /// Defines additional types related to MediaContent
+        /// Defines additional types related to [MediaContent].
         pub mod media_content {
             #[allow(unused_imports)]
             use super::*;
@@ -19831,7 +19831,7 @@ pub mod intent {
                 }
             }
 
-            /// Defines additional types related to ResponseMediaObject
+            /// Defines additional types related to [ResponseMediaObject].
             pub mod response_media_object {
                 #[allow(unused_imports)]
                 use super::*;
@@ -19964,7 +19964,7 @@ pub mod intent {
             }
         }
 
-        /// Defines additional types related to BrowseCarouselCard
+        /// Defines additional types related to [BrowseCarouselCard].
         pub mod browse_carousel_card {
             #[allow(unused_imports)]
             use super::*;
@@ -20055,7 +20055,7 @@ pub mod intent {
                 }
             }
 
-            /// Defines additional types related to BrowseCarouselCardItem
+            /// Defines additional types related to [BrowseCarouselCardItem].
             pub mod browse_carousel_card_item {
                 #[allow(unused_imports)]
                 use super::*;
@@ -20105,7 +20105,7 @@ pub mod intent {
                     }
                 }
 
-                /// Defines additional types related to OpenUrlAction
+                /// Defines additional types related to [OpenUrlAction].
                 pub mod open_url_action {
                     #[allow(unused_imports)]
                     use super::*;
@@ -20408,7 +20408,7 @@ pub mod intent {
             }
         }
 
-        /// Defines additional types related to ColumnProperties
+        /// Defines additional types related to [ColumnProperties].
         pub mod column_properties {
             #[allow(unused_imports)]
             use super::*;
@@ -21330,7 +21330,7 @@ impl wkt::message::Message for BatchUpdateIntentsRequest {
     }
 }
 
-/// Defines additional types related to BatchUpdateIntentsRequest
+/// Defines additional types related to [BatchUpdateIntentsRequest].
 pub mod batch_update_intents_request {
     #[allow(unused_imports)]
     use super::*;
@@ -22009,7 +22009,7 @@ impl wkt::message::Message for Participant {
     }
 }
 
-/// Defines additional types related to Participant
+/// Defines additional types related to [Participant].
 pub mod participant {
     #[allow(unused_imports)]
     use super::*;
@@ -22707,7 +22707,7 @@ impl wkt::message::Message for AnalyzeContentRequest {
     }
 }
 
-/// Defines additional types related to AnalyzeContentRequest
+/// Defines additional types related to [AnalyzeContentRequest].
 pub mod analyze_content_request {
     #[allow(unused_imports)]
     use super::*;
@@ -23301,7 +23301,7 @@ impl wkt::message::Message for StreamingAnalyzeContentRequest {
     }
 }
 
-/// Defines additional types related to StreamingAnalyzeContentRequest
+/// Defines additional types related to [StreamingAnalyzeContentRequest].
 pub mod streaming_analyze_content_request {
     #[allow(unused_imports)]
     use super::*;
@@ -23890,7 +23890,7 @@ impl wkt::message::Message for GenerateSuggestionsResponse {
     }
 }
 
-/// Defines additional types related to GenerateSuggestionsResponse
+/// Defines additional types related to [GenerateSuggestionsResponse].
 pub mod generate_suggestions_response {
     #[allow(unused_imports)]
     use super::*;
@@ -24274,7 +24274,7 @@ impl wkt::message::Message for AutomatedAgentReply {
     }
 }
 
-/// Defines additional types related to AutomatedAgentReply
+/// Defines additional types related to [AutomatedAgentReply].
 pub mod automated_agent_reply {
     #[allow(unused_imports)]
     use super::*;
@@ -24659,7 +24659,7 @@ impl wkt::message::Message for IntentSuggestion {
     }
 }
 
-/// Defines additional types related to IntentSuggestion
+/// Defines additional types related to [IntentSuggestion].
 pub mod intent_suggestion {
     #[allow(unused_imports)]
     use super::*;
@@ -24786,7 +24786,7 @@ impl wkt::message::Message for DialogflowAssistAnswer {
     }
 }
 
-/// Defines additional types related to DialogflowAssistAnswer
+/// Defines additional types related to [DialogflowAssistAnswer].
 pub mod dialogflow_assist_answer {
     #[allow(unused_imports)]
     use super::*;
@@ -25045,7 +25045,7 @@ impl wkt::message::Message for SuggestionResult {
     }
 }
 
-/// Defines additional types related to SuggestionResult
+/// Defines additional types related to [SuggestionResult].
 pub mod suggestion_result {
     #[allow(unused_imports)]
     use super::*;
@@ -25509,7 +25509,7 @@ impl wkt::message::Message for KnowledgeAssistAnswer {
     }
 }
 
-/// Defines additional types related to KnowledgeAssistAnswer
+/// Defines additional types related to [KnowledgeAssistAnswer].
 pub mod knowledge_assist_answer {
     #[allow(unused_imports)]
     use super::*;
@@ -25673,7 +25673,7 @@ pub mod knowledge_assist_answer {
         }
     }
 
-    /// Defines additional types related to KnowledgeAnswer
+    /// Defines additional types related to [KnowledgeAnswer].
     pub mod knowledge_answer {
         #[allow(unused_imports)]
         use super::*;
@@ -25747,7 +25747,7 @@ pub mod knowledge_assist_answer {
             }
         }
 
-        /// Defines additional types related to GenerativeSource
+        /// Defines additional types related to [GenerativeSource].
         pub mod generative_source {
             #[allow(unused_imports)]
             use super::*;
@@ -26350,7 +26350,7 @@ impl wkt::message::Message for QueryInput {
     }
 }
 
-/// Defines additional types related to QueryInput
+/// Defines additional types related to [QueryInput].
 pub mod query_input {
     #[allow(unused_imports)]
     use super::*;
@@ -27390,7 +27390,7 @@ impl wkt::message::Message for StreamingRecognitionResult {
     }
 }
 
-/// Defines additional types related to StreamingRecognitionResult
+/// Defines additional types related to [StreamingRecognitionResult].
 pub mod streaming_recognition_result {
     #[allow(unused_imports)]
     use super::*;
@@ -27787,7 +27787,7 @@ impl wkt::message::Message for SessionEntityType {
     }
 }
 
-/// Defines additional types related to SessionEntityType
+/// Defines additional types related to [SessionEntityType].
 pub mod session_entity_type {
     #[allow(unused_imports)]
     use super::*;
@@ -28234,7 +28234,7 @@ impl wkt::message::Message for ValidationError {
     }
 }
 
-/// Defines additional types related to ValidationError
+/// Defines additional types related to [ValidationError].
 pub mod validation_error {
     #[allow(unused_imports)]
     use super::*;
@@ -28439,7 +28439,7 @@ impl wkt::message::Message for Version {
     }
 }
 
-/// Defines additional types related to Version
+/// Defines additional types related to [Version].
 pub mod version {
     #[allow(unused_imports)]
     use super::*;

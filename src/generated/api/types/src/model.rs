@@ -286,7 +286,7 @@ impl wkt::message::Message for JwtLocation {
     }
 }
 
-/// Defines additional types related to JwtLocation
+/// Defines additional types related to [JwtLocation].
 pub mod jwt_location {
     #[allow(unused_imports)]
     use super::*;
@@ -851,7 +851,7 @@ impl wkt::message::Message for BackendRule {
     }
 }
 
-/// Defines additional types related to BackendRule
+/// Defines additional types related to [BackendRule].
 pub mod backend_rule {
     #[allow(unused_imports)]
     use super::*;
@@ -1067,7 +1067,7 @@ impl wkt::message::Message for Billing {
     }
 }
 
-/// Defines additional types related to Billing
+/// Defines additional types related to [Billing].
 pub mod billing {
     #[allow(unused_imports)]
     use super::*;
@@ -1734,7 +1734,7 @@ impl wkt::message::Message for PythonSettings {
     }
 }
 
-/// Defines additional types related to PythonSettings
+/// Defines additional types related to [PythonSettings].
 pub mod python_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -2144,7 +2144,7 @@ impl wkt::message::Message for MethodSettings {
     }
 }
 
-/// Defines additional types related to MethodSettings
+/// Defines additional types related to [MethodSettings].
 pub mod method_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -2510,7 +2510,7 @@ impl wkt::message::Message for Property {
     }
 }
 
-/// Defines additional types related to Property
+/// Defines additional types related to [Property].
 pub mod property {
     #[allow(unused_imports)]
     use super::*;
@@ -2960,7 +2960,7 @@ impl wkt::message::Message for Distribution {
     }
 }
 
-/// Defines additional types related to Distribution
+/// Defines additional types related to [Distribution].
 pub mod distribution {
     #[allow(unused_imports)]
     use super::*;
@@ -3157,7 +3157,7 @@ pub mod distribution {
         }
     }
 
-    /// Defines additional types related to BucketOptions
+    /// Defines additional types related to [BucketOptions].
     pub mod bucket_options {
         #[allow(unused_imports)]
         use super::*;
@@ -3818,7 +3818,7 @@ impl wkt::message::Message for FieldInfo {
     }
 }
 
-/// Defines additional types related to FieldInfo
+/// Defines additional types related to [FieldInfo].
 pub mod field_info {
     #[allow(unused_imports)]
     use super::*;
@@ -4513,7 +4513,7 @@ impl wkt::message::Message for HttpRule {
     }
 }
 
-/// Defines additional types related to HttpRule
+/// Defines additional types related to [HttpRule].
 pub mod http_rule {
     #[allow(unused_imports)]
     use super::*;
@@ -4735,7 +4735,7 @@ impl wkt::message::Message for LabelDescriptor {
     }
 }
 
-/// Defines additional types related to LabelDescriptor
+/// Defines additional types related to [LabelDescriptor].
 pub mod label_descriptor {
     #[allow(unused_imports)]
     use super::*;
@@ -4963,7 +4963,7 @@ impl wkt::message::Message for Logging {
     }
 }
 
-/// Defines additional types related to Logging
+/// Defines additional types related to [Logging].
 pub mod logging {
     #[allow(unused_imports)]
     use super::*;
@@ -5329,7 +5329,7 @@ impl wkt::message::Message for MetricDescriptor {
     }
 }
 
-/// Defines additional types related to MetricDescriptor
+/// Defines additional types related to [MetricDescriptor].
 pub mod metric_descriptor {
     #[allow(unused_imports)]
     use super::*;
@@ -5416,7 +5416,7 @@ pub mod metric_descriptor {
         }
     }
 
-    /// Defines additional types related to MetricDescriptorMetadata
+    /// Defines additional types related to [MetricDescriptorMetadata].
     pub mod metric_descriptor_metadata {
         #[allow(unused_imports)]
         use super::*;
@@ -6067,7 +6067,7 @@ impl wkt::message::Message for Monitoring {
     }
 }
 
-/// Defines additional types related to Monitoring
+/// Defines additional types related to [Monitoring].
 pub mod monitoring {
     #[allow(unused_imports)]
     use super::*;
@@ -6812,7 +6812,7 @@ impl wkt::message::Message for ResourceDescriptor {
     }
 }
 
-/// Defines additional types related to ResourceDescriptor
+/// Defines additional types related to [ResourceDescriptor].
 pub mod resource_descriptor {
     #[allow(unused_imports)]
     use super::*;

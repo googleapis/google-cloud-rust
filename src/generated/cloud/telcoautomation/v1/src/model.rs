@@ -143,7 +143,7 @@ impl wkt::message::Message for OrchestrationCluster {
     }
 }
 
-/// Defines additional types related to OrchestrationCluster
+/// Defines additional types related to [OrchestrationCluster].
 pub mod orchestration_cluster {
     #[allow(unused_imports)]
     use super::*;
@@ -340,7 +340,7 @@ impl wkt::message::Message for EdgeSlm {
     }
 }
 
-/// Defines additional types related to EdgeSlm
+/// Defines additional types related to [EdgeSlm].
 pub mod edge_slm {
     #[allow(unused_imports)]
     use super::*;
@@ -677,7 +677,7 @@ impl wkt::message::Message for Blueprint {
     }
 }
 
-/// Defines additional types related to Blueprint
+/// Defines additional types related to [Blueprint].
 pub mod blueprint {
     #[allow(unused_imports)]
     use super::*;
@@ -1053,7 +1053,7 @@ impl wkt::message::Message for Deployment {
     }
 }
 
-/// Defines additional types related to Deployment
+/// Defines additional types related to [Deployment].
 pub mod deployment {
     #[allow(unused_imports)]
     use super::*;
@@ -1204,7 +1204,7 @@ impl wkt::message::Message for HydratedDeployment {
     }
 }
 
-/// Defines additional types related to HydratedDeployment
+/// Defines additional types related to [HydratedDeployment].
 pub mod hydrated_deployment {
     #[allow(unused_imports)]
     use super::*;
@@ -3819,7 +3819,7 @@ impl wkt::message::Message for ManagementConfig {
     }
 }
 
-/// Defines additional types related to ManagementConfig
+/// Defines additional types related to [ManagementConfig].
 pub mod management_config {
     #[allow(unused_imports)]
     use super::*;
@@ -4148,7 +4148,7 @@ impl wkt::message::Message for MasterAuthorizedNetworksConfig {
     }
 }
 
-/// Defines additional types related to MasterAuthorizedNetworksConfig
+/// Defines additional types related to [MasterAuthorizedNetworksConfig].
 pub mod master_authorized_networks_config {
     #[allow(unused_imports)]
     use super::*;

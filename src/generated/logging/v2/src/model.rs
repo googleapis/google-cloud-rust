@@ -427,7 +427,7 @@ impl wkt::message::Message for LogEntry {
     }
 }
 
-/// Defines additional types related to LogEntry
+/// Defines additional types related to [LogEntry].
 pub mod log_entry {
     #[allow(unused_imports)]
     use super::*;
@@ -1427,7 +1427,7 @@ impl wkt::message::Message for TailLogEntriesResponse {
     }
 }
 
-/// Defines additional types related to TailLogEntriesResponse
+/// Defines additional types related to [TailLogEntriesResponse].
 pub mod tail_log_entries_response {
     #[allow(unused_imports)]
     use super::*;
@@ -1474,7 +1474,7 @@ pub mod tail_log_entries_response {
         }
     }
 
-    /// Defines additional types related to SuppressionInfo
+    /// Defines additional types related to [SuppressionInfo].
     pub mod suppression_info {
         #[allow(unused_imports)]
         use super::*;
@@ -2137,7 +2137,7 @@ impl wkt::message::Message for LogSink {
     }
 }
 
-/// Defines additional types related to LogSink
+/// Defines additional types related to [LogSink].
 pub mod log_sink {
     #[allow(unused_imports)]
     use super::*;
@@ -5012,7 +5012,7 @@ impl wkt::message::Message for BucketMetadata {
     }
 }
 
-/// Defines additional types related to BucketMetadata
+/// Defines additional types related to [BucketMetadata].
 pub mod bucket_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -5160,7 +5160,7 @@ impl wkt::message::Message for LinkMetadata {
     }
 }
 
-/// Defines additional types related to LinkMetadata
+/// Defines additional types related to [LinkMetadata].
 pub mod link_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -5462,7 +5462,7 @@ impl wkt::message::Message for LogMetric {
     }
 }
 
-/// Defines additional types related to LogMetric
+/// Defines additional types related to [LogMetric].
 pub mod log_metric {
     #[allow(unused_imports)]
     use super::*;

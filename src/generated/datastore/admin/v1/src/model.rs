@@ -119,7 +119,7 @@ impl wkt::message::Message for CommonMetadata {
     }
 }
 
-/// Defines additional types related to CommonMetadata
+/// Defines additional types related to [CommonMetadata].
 pub mod common_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -1185,7 +1185,7 @@ impl wkt::message::Message for Index {
     }
 }
 
-/// Defines additional types related to Index
+/// Defines additional types related to [Index].
 pub mod index {
     #[allow(unused_imports)]
     use super::*;
@@ -1586,7 +1586,7 @@ impl wkt::message::Message for MigrationProgressEvent {
     }
 }
 
-/// Defines additional types related to MigrationProgressEvent
+/// Defines additional types related to [MigrationProgressEvent].
 pub mod migration_progress_event {
     #[allow(unused_imports)]
     use super::*;

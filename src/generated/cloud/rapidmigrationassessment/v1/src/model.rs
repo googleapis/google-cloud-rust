@@ -284,7 +284,7 @@ impl wkt::message::Message for Collector {
     }
 }
 
-/// Defines additional types related to Collector
+/// Defines additional types related to [Collector].
 pub mod collector {
     #[allow(unused_imports)]
     use super::*;
@@ -465,7 +465,7 @@ impl wkt::message::Message for Annotation {
     }
 }
 
-/// Defines additional types related to Annotation
+/// Defines additional types related to [Annotation].
 pub mod annotation {
     #[allow(unused_imports)]
     use super::*;

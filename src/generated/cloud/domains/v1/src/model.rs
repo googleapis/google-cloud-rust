@@ -246,7 +246,7 @@ impl wkt::message::Message for Registration {
     }
 }
 
-/// Defines additional types related to Registration
+/// Defines additional types related to [Registration].
 pub mod registration {
     #[allow(unused_imports)]
     use super::*;
@@ -452,7 +452,7 @@ impl wkt::message::Message for ManagementSettings {
     }
 }
 
-/// Defines additional types related to ManagementSettings
+/// Defines additional types related to [ManagementSettings].
 pub mod management_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -636,7 +636,7 @@ impl wkt::message::Message for DnsSettings {
     }
 }
 
-/// Defines additional types related to DnsSettings
+/// Defines additional types related to [DnsSettings].
 pub mod dns_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -832,7 +832,7 @@ pub mod dns_settings {
         }
     }
 
-    /// Defines additional types related to DsRecord
+    /// Defines additional types related to [DsRecord].
     pub mod ds_record {
         #[allow(unused_imports)]
         use super::*;
@@ -1272,7 +1272,7 @@ impl wkt::message::Message for ContactSettings {
     }
 }
 
-/// Defines additional types related to ContactSettings
+/// Defines additional types related to [ContactSettings].
 pub mod contact_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -2418,7 +2418,7 @@ impl wkt::message::Message for RegisterParameters {
     }
 }
 
-/// Defines additional types related to RegisterParameters
+/// Defines additional types related to [RegisterParameters].
 pub mod register_parameters {
     #[allow(unused_imports)]
     use super::*;

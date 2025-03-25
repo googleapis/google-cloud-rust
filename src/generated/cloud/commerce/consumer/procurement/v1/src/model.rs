@@ -135,7 +135,7 @@ impl wkt::message::Message for AssignmentProtocol {
     }
 }
 
-/// Defines additional types related to AssignmentProtocol
+/// Defines additional types related to [AssignmentProtocol].
 pub mod assignment_protocol {
     #[allow(unused_imports)]
     use super::*;
@@ -1120,7 +1120,7 @@ impl wkt::message::Message for Parameter {
     }
 }
 
-/// Defines additional types related to Parameter
+/// Defines additional types related to [Parameter].
 pub mod parameter {
     #[allow(unused_imports)]
     use super::*;
@@ -1234,7 +1234,7 @@ pub mod parameter {
         }
     }
 
-    /// Defines additional types related to Value
+    /// Defines additional types related to [Value].
     pub mod value {
         #[allow(unused_imports)]
         use super::*;
@@ -1648,7 +1648,7 @@ impl wkt::message::Message for ModifyOrderRequest {
     }
 }
 
-/// Defines additional types related to ModifyOrderRequest
+/// Defines additional types related to [ModifyOrderRequest].
 pub mod modify_order_request {
     #[allow(unused_imports)]
     use super::*;
@@ -1816,7 +1816,7 @@ impl wkt::message::Message for CancelOrderRequest {
     }
 }
 
-/// Defines additional types related to CancelOrderRequest
+/// Defines additional types related to [CancelOrderRequest].
 pub mod cancel_order_request {
     #[allow(unused_imports)]
     use super::*;

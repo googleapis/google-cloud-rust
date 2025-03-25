@@ -611,7 +611,7 @@ impl gax::paginator::PageableResponse for ResolveAppConnectionsResponse {
     }
 }
 
-/// Defines additional types related to ResolveAppConnectionsResponse
+/// Defines additional types related to [ResolveAppConnectionsResponse].
 pub mod resolve_app_connections_response {
     #[allow(unused_imports)]
     use super::*;
@@ -837,7 +837,7 @@ impl wkt::message::Message for AppConnection {
     }
 }
 
-/// Defines additional types related to AppConnection
+/// Defines additional types related to [AppConnection].
 pub mod app_connection {
     #[allow(unused_imports)]
     use super::*;
@@ -944,7 +944,7 @@ pub mod app_connection {
         }
     }
 
-    /// Defines additional types related to Gateway
+    /// Defines additional types related to [Gateway].
     pub mod gateway {
         #[allow(unused_imports)]
         use super::*;

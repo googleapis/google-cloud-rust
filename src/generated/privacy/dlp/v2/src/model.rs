@@ -295,7 +295,7 @@ impl wkt::message::Message for ExclusionRule {
     }
 }
 
-/// Defines additional types related to ExclusionRule
+/// Defines additional types related to [ExclusionRule].
 pub mod exclusion_rule {
     #[allow(unused_imports)]
     use super::*;
@@ -414,7 +414,7 @@ impl wkt::message::Message for InspectionRule {
     }
 }
 
-/// Defines additional types related to InspectionRule
+/// Defines additional types related to [InspectionRule].
 pub mod inspection_rule {
     #[allow(unused_imports)]
     use super::*;
@@ -669,7 +669,7 @@ impl wkt::message::Message for InspectConfig {
     }
 }
 
-/// Defines additional types related to InspectConfig
+/// Defines additional types related to [InspectConfig].
 pub mod inspect_config {
     #[allow(unused_imports)]
     use super::*;
@@ -810,7 +810,7 @@ pub mod inspect_config {
         }
     }
 
-    /// Defines additional types related to FindingLimits
+    /// Defines additional types related to [FindingLimits].
     pub mod finding_limits {
         #[allow(unused_imports)]
         use super::*;
@@ -907,7 +907,7 @@ impl wkt::message::Message for ByteContentItem {
     }
 }
 
-/// Defines additional types related to ByteContentItem
+/// Defines additional types related to [ByteContentItem].
 pub mod byte_content_item {
     #[allow(unused_imports)]
     use super::*;
@@ -1155,7 +1155,7 @@ impl wkt::message::Message for ContentItem {
     }
 }
 
-/// Defines additional types related to ContentItem
+/// Defines additional types related to [ContentItem].
 pub mod content_item {
     #[allow(unused_imports)]
     use super::*;
@@ -1227,7 +1227,7 @@ impl wkt::message::Message for Table {
     }
 }
 
-/// Defines additional types related to Table
+/// Defines additional types related to [Table].
 pub mod table {
     #[allow(unused_imports)]
     use super::*;
@@ -1798,7 +1798,7 @@ impl wkt::message::Message for ContentLocation {
     }
 }
 
-/// Defines additional types related to ContentLocation
+/// Defines additional types related to [ContentLocation].
 pub mod content_location {
     #[allow(unused_imports)]
     use super::*;
@@ -1894,7 +1894,7 @@ impl wkt::message::Message for MetadataLocation {
     }
 }
 
-/// Defines additional types related to MetadataLocation
+/// Defines additional types related to [MetadataLocation].
 pub mod metadata_location {
     #[allow(unused_imports)]
     use super::*;
@@ -2419,7 +2419,7 @@ impl wkt::message::Message for RedactImageRequest {
     }
 }
 
-/// Defines additional types related to RedactImageRequest
+/// Defines additional types related to [RedactImageRequest].
 pub mod redact_image_request {
     #[allow(unused_imports)]
     use super::*;
@@ -2536,7 +2536,7 @@ pub mod redact_image_request {
         }
     }
 
-    /// Defines additional types related to ImageRedactionConfig
+    /// Defines additional types related to [ImageRedactionConfig].
     pub mod image_redaction_config {
         #[allow(unused_imports)]
         use super::*;
@@ -3263,7 +3263,7 @@ impl wkt::message::Message for OutputStorageConfig {
     }
 }
 
-/// Defines additional types related to OutputStorageConfig
+/// Defines additional types related to [OutputStorageConfig].
 pub mod output_storage_config {
     #[allow(unused_imports)]
     use super::*;
@@ -3461,7 +3461,7 @@ impl wkt::message::Message for InspectDataSourceDetails {
     }
 }
 
-/// Defines additional types related to InspectDataSourceDetails
+/// Defines additional types related to [InspectDataSourceDetails].
 pub mod inspect_data_source_details {
     #[allow(unused_imports)]
     use super::*;
@@ -3734,7 +3734,7 @@ impl wkt::message::Message for DataProfileBigQueryRowSchema {
     }
 }
 
-/// Defines additional types related to DataProfileBigQueryRowSchema
+/// Defines additional types related to [DataProfileBigQueryRowSchema].
 pub mod data_profile_big_query_row_schema {
     #[allow(unused_imports)]
     use super::*;
@@ -3875,7 +3875,7 @@ impl wkt::message::Message for ActionDetails {
     }
 }
 
-/// Defines additional types related to ActionDetails
+/// Defines additional types related to [ActionDetails].
 pub mod action_details {
     #[allow(unused_imports)]
     use super::*;
@@ -3997,7 +3997,7 @@ impl wkt::message::Message for DeidentifyDataSourceDetails {
     }
 }
 
-/// Defines additional types related to DeidentifyDataSourceDetails
+/// Defines additional types related to [DeidentifyDataSourceDetails].
 pub mod deidentify_data_source_details {
     #[allow(unused_imports)]
     use super::*;
@@ -4325,7 +4325,7 @@ impl wkt::message::Message for InfoTypeCategory {
     }
 }
 
-/// Defines additional types related to InfoTypeCategory
+/// Defines additional types related to [InfoTypeCategory].
 pub mod info_type_category {
     #[allow(unused_imports)]
     use super::*;
@@ -5123,7 +5123,7 @@ impl wkt::message::Message for QuasiId {
     }
 }
 
-/// Defines additional types related to QuasiId
+/// Defines additional types related to [QuasiId].
 pub mod quasi_id {
     #[allow(unused_imports)]
     use super::*;
@@ -5220,7 +5220,7 @@ impl wkt::message::Message for StatisticalTable {
     }
 }
 
-/// Defines additional types related to StatisticalTable
+/// Defines additional types related to [StatisticalTable].
 pub mod statistical_table {
     #[allow(unused_imports)]
     use super::*;
@@ -5500,7 +5500,7 @@ impl wkt::message::Message for PrivacyMetric {
     }
 }
 
-/// Defines additional types related to PrivacyMetric
+/// Defines additional types related to [PrivacyMetric].
 pub mod privacy_metric {
     #[allow(unused_imports)]
     use super::*;
@@ -5761,7 +5761,7 @@ pub mod privacy_metric {
         }
     }
 
-    /// Defines additional types related to KMapEstimationConfig
+    /// Defines additional types related to [KMapEstimationConfig].
     pub mod k_map_estimation_config {
         #[allow(unused_imports)]
         use super::*;
@@ -5899,7 +5899,7 @@ pub mod privacy_metric {
             }
         }
 
-        /// Defines additional types related to TaggedField
+        /// Defines additional types related to [TaggedField].
         pub mod tagged_field {
             #[allow(unused_imports)]
             use super::*;
@@ -5999,7 +5999,7 @@ pub mod privacy_metric {
             }
         }
 
-        /// Defines additional types related to AuxiliaryTable
+        /// Defines additional types related to [AuxiliaryTable].
         pub mod auxiliary_table {
             #[allow(unused_imports)]
             use super::*;
@@ -6460,7 +6460,7 @@ impl wkt::message::Message for AnalyzeDataSourceRiskDetails {
     }
 }
 
-/// Defines additional types related to AnalyzeDataSourceRiskDetails
+/// Defines additional types related to [AnalyzeDataSourceRiskDetails].
 pub mod analyze_data_source_risk_details {
     #[allow(unused_imports)]
     use super::*;
@@ -6561,7 +6561,7 @@ pub mod analyze_data_source_risk_details {
         }
     }
 
-    /// Defines additional types related to CategoricalStatsResult
+    /// Defines additional types related to [CategoricalStatsResult].
     pub mod categorical_stats_result {
         #[allow(unused_imports)]
         use super::*;
@@ -6683,7 +6683,7 @@ pub mod analyze_data_source_risk_details {
         }
     }
 
-    /// Defines additional types related to KAnonymityResult
+    /// Defines additional types related to [KAnonymityResult].
     pub mod k_anonymity_result {
         #[allow(unused_imports)]
         use super::*;
@@ -6854,7 +6854,7 @@ pub mod analyze_data_source_risk_details {
         }
     }
 
-    /// Defines additional types related to LDiversityResult
+    /// Defines additional types related to [LDiversityResult].
     pub mod l_diversity_result {
         #[allow(unused_imports)]
         use super::*;
@@ -7060,7 +7060,7 @@ pub mod analyze_data_source_risk_details {
         }
     }
 
-    /// Defines additional types related to KMapEstimationResult
+    /// Defines additional types related to [KMapEstimationResult].
     pub mod k_map_estimation_result {
         #[allow(unused_imports)]
         use super::*;
@@ -7236,7 +7236,7 @@ pub mod analyze_data_source_risk_details {
         }
     }
 
-    /// Defines additional types related to DeltaPresenceEstimationResult
+    /// Defines additional types related to [DeltaPresenceEstimationResult].
     pub mod delta_presence_estimation_result {
         #[allow(unused_imports)]
         use super::*;
@@ -7703,7 +7703,7 @@ impl wkt::message::Message for Value {
     }
 }
 
-/// Defines additional types related to Value
+/// Defines additional types related to [Value].
 pub mod value {
     #[allow(unused_imports)]
     use super::*;
@@ -7791,7 +7791,7 @@ impl wkt::message::Message for QuoteInfo {
     }
 }
 
-/// Defines additional types related to QuoteInfo
+/// Defines additional types related to [QuoteInfo].
 pub mod quote_info {
     #[allow(unused_imports)]
     use super::*;
@@ -7877,7 +7877,7 @@ impl wkt::message::Message for DateTime {
     }
 }
 
-/// Defines additional types related to DateTime
+/// Defines additional types related to [DateTime].
 pub mod date_time {
     #[allow(unused_imports)]
     use super::*;
@@ -8059,7 +8059,7 @@ impl wkt::message::Message for DeidentifyConfig {
     }
 }
 
-/// Defines additional types related to DeidentifyConfig
+/// Defines additional types related to [DeidentifyConfig].
 pub mod deidentify_config {
     #[allow(unused_imports)]
     use super::*;
@@ -8115,7 +8115,7 @@ impl wkt::message::Message for ImageTransformations {
     }
 }
 
-/// Defines additional types related to ImageTransformations
+/// Defines additional types related to [ImageTransformations].
 pub mod image_transformations {
     #[allow(unused_imports)]
     use super::*;
@@ -8288,7 +8288,7 @@ pub mod image_transformations {
         }
     }
 
-    /// Defines additional types related to ImageTransformation
+    /// Defines additional types related to [ImageTransformation].
     pub mod image_transformation {
         #[allow(unused_imports)]
         use super::*;
@@ -8507,7 +8507,7 @@ impl wkt::message::Message for TransformationErrorHandling {
     }
 }
 
-/// Defines additional types related to TransformationErrorHandling
+/// Defines additional types related to [TransformationErrorHandling].
 pub mod transformation_error_handling {
     #[allow(unused_imports)]
     use super::*;
@@ -8995,7 +8995,7 @@ impl wkt::message::Message for PrimitiveTransformation {
     }
 }
 
-/// Defines additional types related to PrimitiveTransformation
+/// Defines additional types related to [PrimitiveTransformation].
 pub mod primitive_transformation {
     #[allow(unused_imports)]
     use super::*;
@@ -9065,7 +9065,7 @@ impl wkt::message::Message for TimePartConfig {
     }
 }
 
-/// Defines additional types related to TimePartConfig
+/// Defines additional types related to [TimePartConfig].
 pub mod time_part_config {
     #[allow(unused_imports)]
     use super::*;
@@ -9398,7 +9398,7 @@ impl wkt::message::Message for ReplaceDictionaryConfig {
     }
 }
 
-/// Defines additional types related to ReplaceDictionaryConfig
+/// Defines additional types related to [ReplaceDictionaryConfig].
 pub mod replace_dictionary_config {
     #[allow(unused_imports)]
     use super::*;
@@ -9550,7 +9550,7 @@ impl wkt::message::Message for CharsToIgnore {
     }
 }
 
-/// Defines additional types related to CharsToIgnore
+/// Defines additional types related to [CharsToIgnore].
 pub mod chars_to_ignore {
     #[allow(unused_imports)]
     use super::*;
@@ -9862,7 +9862,7 @@ impl wkt::message::Message for BucketingConfig {
     }
 }
 
-/// Defines additional types related to BucketingConfig
+/// Defines additional types related to [BucketingConfig].
 pub mod bucketing_config {
     #[allow(unused_imports)]
     use super::*;
@@ -10145,7 +10145,7 @@ impl wkt::message::Message for CryptoReplaceFfxFpeConfig {
     }
 }
 
-/// Defines additional types related to CryptoReplaceFfxFpeConfig
+/// Defines additional types related to [CryptoReplaceFfxFpeConfig].
 pub mod crypto_replace_ffx_fpe_config {
     #[allow(unused_imports)]
     use super::*;
@@ -10373,7 +10373,7 @@ impl wkt::message::Message for CryptoKey {
     }
 }
 
-/// Defines additional types related to CryptoKey
+/// Defines additional types related to [CryptoKey].
 pub mod crypto_key {
     #[allow(unused_imports)]
     use super::*;
@@ -10609,7 +10609,7 @@ impl wkt::message::Message for DateShiftConfig {
     }
 }
 
-/// Defines additional types related to DateShiftConfig
+/// Defines additional types related to [DateShiftConfig].
 pub mod date_shift_config {
     #[allow(unused_imports)]
     use super::*;
@@ -10666,7 +10666,7 @@ impl wkt::message::Message for InfoTypeTransformations {
     }
 }
 
-/// Defines additional types related to InfoTypeTransformations
+/// Defines additional types related to [InfoTypeTransformations].
 pub mod info_type_transformations {
     #[allow(unused_imports)]
     use super::*;
@@ -10863,7 +10863,7 @@ impl wkt::message::Message for FieldTransformation {
     }
 }
 
-/// Defines additional types related to FieldTransformation
+/// Defines additional types related to [FieldTransformation].
 pub mod field_transformation {
     #[allow(unused_imports)]
     use super::*;
@@ -11003,7 +11003,7 @@ impl wkt::message::Message for RecordCondition {
     }
 }
 
-/// Defines additional types related to RecordCondition
+/// Defines additional types related to [RecordCondition].
 pub mod record_condition {
     #[allow(unused_imports)]
     use super::*;
@@ -11201,7 +11201,7 @@ pub mod record_condition {
         }
     }
 
-    /// Defines additional types related to Expressions
+    /// Defines additional types related to [Expressions].
     pub mod expressions {
         #[allow(unused_imports)]
         use super::*;
@@ -11434,7 +11434,7 @@ impl wkt::message::Message for TransformationSummary {
     }
 }
 
-/// Defines additional types related to TransformationSummary
+/// Defines additional types related to [TransformationSummary].
 pub mod transformation_summary {
     #[allow(unused_imports)]
     use super::*;
@@ -11845,7 +11845,7 @@ impl wkt::message::Message for TransformationLocation {
     }
 }
 
-/// Defines additional types related to TransformationLocation
+/// Defines additional types related to [TransformationLocation].
 pub mod transformation_location {
     #[allow(unused_imports)]
     use super::*;
@@ -12035,7 +12035,7 @@ impl wkt::message::Message for TransformationDetailsStorageConfig {
     }
 }
 
-/// Defines additional types related to TransformationDetailsStorageConfig
+/// Defines additional types related to [TransformationDetailsStorageConfig].
 pub mod transformation_details_storage_config {
     #[allow(unused_imports)]
     use super::*;
@@ -12119,7 +12119,7 @@ impl wkt::message::Message for Schedule {
     }
 }
 
-/// Defines additional types related to Schedule
+/// Defines additional types related to [Schedule].
 pub mod schedule {
     #[allow(unused_imports)]
     use super::*;
@@ -12417,7 +12417,7 @@ impl wkt::message::Message for Error {
     }
 }
 
-/// Defines additional types related to Error
+/// Defines additional types related to [Error].
 pub mod error {
     #[allow(unused_imports)]
     use super::*;
@@ -12665,7 +12665,7 @@ impl wkt::message::Message for JobTrigger {
     }
 }
 
-/// Defines additional types related to JobTrigger
+/// Defines additional types related to [JobTrigger].
 pub mod job_trigger {
     #[allow(unused_imports)]
     use super::*;
@@ -12762,7 +12762,7 @@ pub mod job_trigger {
         }
     }
 
-    /// Defines additional types related to Trigger
+    /// Defines additional types related to [Trigger].
     pub mod trigger {
         #[allow(unused_imports)]
         use super::*;
@@ -13097,7 +13097,7 @@ impl wkt::message::Message for Action {
     }
 }
 
-/// Defines additional types related to Action
+/// Defines additional types related to [Action].
 pub mod action {
     #[allow(unused_imports)]
     use super::*;
@@ -13377,7 +13377,7 @@ pub mod action {
         }
     }
 
-    /// Defines additional types related to Deidentify
+    /// Defines additional types related to [Deidentify].
     pub mod deidentify {
         #[allow(unused_imports)]
         use super::*;
@@ -14587,7 +14587,7 @@ impl wkt::message::Message for CreateDlpJobRequest {
     }
 }
 
-/// Defines additional types related to CreateDlpJobRequest
+/// Defines additional types related to [CreateDlpJobRequest].
 pub mod create_dlp_job_request {
     #[allow(unused_imports)]
     use super::*;
@@ -15117,7 +15117,7 @@ impl wkt::message::Message for DataProfileAction {
     }
 }
 
-/// Defines additional types related to DataProfileAction
+/// Defines additional types related to [DataProfileAction].
 pub mod data_profile_action {
     #[allow(unused_imports)]
     use super::*;
@@ -15261,7 +15261,7 @@ pub mod data_profile_action {
         }
     }
 
-    /// Defines additional types related to PubSubNotification
+    /// Defines additional types related to [PubSubNotification].
     pub mod pub_sub_notification {
         #[allow(unused_imports)]
         use super::*;
@@ -15446,7 +15446,7 @@ pub mod data_profile_action {
         }
     }
 
-    /// Defines additional types related to TagResources
+    /// Defines additional types related to [TagResources].
     pub mod tag_resources {
         #[allow(unused_imports)]
         use super::*;
@@ -15544,7 +15544,7 @@ pub mod data_profile_action {
             }
         }
 
-        /// Defines additional types related to TagCondition
+        /// Defines additional types related to [TagCondition].
         pub mod tag_condition {
             #[allow(unused_imports)]
             use super::*;
@@ -15628,7 +15628,7 @@ pub mod data_profile_action {
             }
         }
 
-        /// Defines additional types related to TagValue
+        /// Defines additional types related to [TagValue].
         pub mod tag_value {
             #[allow(unused_imports)]
             use super::*;
@@ -16084,7 +16084,7 @@ impl wkt::message::Message for DataProfileLocation {
     }
 }
 
-/// Defines additional types related to DataProfileLocation
+/// Defines additional types related to [DataProfileLocation].
 pub mod data_profile_location {
     #[allow(unused_imports)]
     use super::*;
@@ -16325,7 +16325,7 @@ impl wkt::message::Message for DiscoveryConfig {
     }
 }
 
-/// Defines additional types related to DiscoveryConfig
+/// Defines additional types related to [DiscoveryConfig].
 pub mod discovery_config {
     #[allow(unused_imports)]
     use super::*;
@@ -16661,7 +16661,7 @@ impl wkt::message::Message for DiscoveryTarget {
     }
 }
 
-/// Defines additional types related to DiscoveryTarget
+/// Defines additional types related to [DiscoveryTarget].
 pub mod discovery_target {
     #[allow(unused_imports)]
     use super::*;
@@ -16829,7 +16829,7 @@ impl wkt::message::Message for BigQueryDiscoveryTarget {
     }
 }
 
-/// Defines additional types related to BigQueryDiscoveryTarget
+/// Defines additional types related to [BigQueryDiscoveryTarget].
 pub mod big_query_discovery_target {
     #[allow(unused_imports)]
     use super::*;
@@ -16989,7 +16989,7 @@ impl wkt::message::Message for DiscoveryBigQueryFilter {
     }
 }
 
-/// Defines additional types related to DiscoveryBigQueryFilter
+/// Defines additional types related to [DiscoveryBigQueryFilter].
 pub mod discovery_big_query_filter {
     #[allow(unused_imports)]
     use super::*;
@@ -17109,7 +17109,7 @@ impl wkt::message::Message for BigQueryTableCollection {
     }
 }
 
-/// Defines additional types related to BigQueryTableCollection
+/// Defines additional types related to [BigQueryTableCollection].
 pub mod big_query_table_collection {
     #[allow(unused_imports)]
     use super::*;
@@ -17260,7 +17260,7 @@ impl wkt::message::Message for DiscoveryBigQueryConditions {
     }
 }
 
-/// Defines additional types related to DiscoveryBigQueryConditions
+/// Defines additional types related to [DiscoveryBigQueryConditions].
 pub mod discovery_big_query_conditions {
     #[allow(unused_imports)]
     use super::*;
@@ -17668,7 +17668,7 @@ impl wkt::message::Message for CloudSqlDiscoveryTarget {
     }
 }
 
-/// Defines additional types related to CloudSqlDiscoveryTarget
+/// Defines additional types related to [CloudSqlDiscoveryTarget].
 pub mod cloud_sql_discovery_target {
     #[allow(unused_imports)]
     use super::*;
@@ -17822,7 +17822,7 @@ impl wkt::message::Message for DiscoveryCloudSqlFilter {
     }
 }
 
-/// Defines additional types related to DiscoveryCloudSqlFilter
+/// Defines additional types related to [DiscoveryCloudSqlFilter].
 pub mod discovery_cloud_sql_filter {
     #[allow(unused_imports)]
     use super::*;
@@ -17918,7 +17918,7 @@ impl wkt::message::Message for DatabaseResourceCollection {
     }
 }
 
-/// Defines additional types related to DatabaseResourceCollection
+/// Defines additional types related to [DatabaseResourceCollection].
 pub mod database_resource_collection {
     #[allow(unused_imports)]
     use super::*;
@@ -18182,7 +18182,7 @@ impl wkt::message::Message for DiscoveryCloudSqlConditions {
     }
 }
 
-/// Defines additional types related to DiscoveryCloudSqlConditions
+/// Defines additional types related to [DiscoveryCloudSqlConditions].
 pub mod discovery_cloud_sql_conditions {
     #[allow(unused_imports)]
     use super::*;
@@ -18398,7 +18398,7 @@ impl wkt::message::Message for DiscoveryCloudSqlGenerationCadence {
     }
 }
 
-/// Defines additional types related to DiscoveryCloudSqlGenerationCadence
+/// Defines additional types related to [DiscoveryCloudSqlGenerationCadence].
 pub mod discovery_cloud_sql_generation_cadence {
     #[allow(unused_imports)]
     use super::*;
@@ -18452,7 +18452,7 @@ pub mod discovery_cloud_sql_generation_cadence {
         }
     }
 
-    /// Defines additional types related to SchemaModifiedCadence
+    /// Defines additional types related to [SchemaModifiedCadence].
     pub mod schema_modified_cadence {
         #[allow(unused_imports)]
         use super::*;
@@ -18679,7 +18679,7 @@ impl wkt::message::Message for CloudStorageDiscoveryTarget {
     }
 }
 
-/// Defines additional types related to CloudStorageDiscoveryTarget
+/// Defines additional types related to [CloudStorageDiscoveryTarget].
 pub mod cloud_storage_discovery_target {
     #[allow(unused_imports)]
     use super::*;
@@ -18835,7 +18835,7 @@ impl wkt::message::Message for DiscoveryCloudStorageFilter {
     }
 }
 
-/// Defines additional types related to DiscoveryCloudStorageFilter
+/// Defines additional types related to [DiscoveryCloudStorageFilter].
 pub mod discovery_cloud_storage_filter {
     #[allow(unused_imports)]
     use super::*;
@@ -18930,7 +18930,7 @@ impl wkt::message::Message for FileStoreCollection {
     }
 }
 
-/// Defines additional types related to FileStoreCollection
+/// Defines additional types related to [FileStoreCollection].
 pub mod file_store_collection {
     #[allow(unused_imports)]
     use super::*;
@@ -19050,7 +19050,7 @@ impl wkt::message::Message for FileStoreRegex {
     }
 }
 
-/// Defines additional types related to FileStoreRegex
+/// Defines additional types related to [FileStoreRegex].
 pub mod file_store_regex {
     #[allow(unused_imports)]
     use super::*;
@@ -19276,7 +19276,7 @@ impl wkt::message::Message for DiscoveryCloudStorageConditions {
     }
 }
 
-/// Defines additional types related to DiscoveryCloudStorageConditions
+/// Defines additional types related to [DiscoveryCloudStorageConditions].
 pub mod discovery_cloud_storage_conditions {
     #[allow(unused_imports)]
     use super::*;
@@ -19555,7 +19555,7 @@ impl wkt::message::Message for DiscoveryFileStoreConditions {
     }
 }
 
-/// Defines additional types related to DiscoveryFileStoreConditions
+/// Defines additional types related to [DiscoveryFileStoreConditions].
 pub mod discovery_file_store_conditions {
     #[allow(unused_imports)]
     use super::*;
@@ -19720,7 +19720,7 @@ impl wkt::message::Message for OtherCloudDiscoveryTarget {
     }
 }
 
-/// Defines additional types related to OtherCloudDiscoveryTarget
+/// Defines additional types related to [OtherCloudDiscoveryTarget].
 pub mod other_cloud_discovery_target {
     #[allow(unused_imports)]
     use super::*;
@@ -19871,7 +19871,7 @@ impl wkt::message::Message for DiscoveryOtherCloudFilter {
     }
 }
 
-/// Defines additional types related to DiscoveryOtherCloudFilter
+/// Defines additional types related to [DiscoveryOtherCloudFilter].
 pub mod discovery_other_cloud_filter {
     #[allow(unused_imports)]
     use super::*;
@@ -19964,7 +19964,7 @@ impl wkt::message::Message for OtherCloudResourceCollection {
     }
 }
 
-/// Defines additional types related to OtherCloudResourceCollection
+/// Defines additional types related to [OtherCloudResourceCollection].
 pub mod other_cloud_resource_collection {
     #[allow(unused_imports)]
     use super::*;
@@ -20089,7 +20089,7 @@ impl wkt::message::Message for OtherCloudResourceRegex {
     }
 }
 
-/// Defines additional types related to OtherCloudResourceRegex
+/// Defines additional types related to [OtherCloudResourceRegex].
 pub mod other_cloud_resource_regex {
     #[allow(unused_imports)]
     use super::*;
@@ -20254,7 +20254,7 @@ impl wkt::message::Message for OtherCloudSingleResourceReference {
     }
 }
 
-/// Defines additional types related to OtherCloudSingleResourceReference
+/// Defines additional types related to [OtherCloudSingleResourceReference].
 pub mod other_cloud_single_resource_reference {
     #[allow(unused_imports)]
     use super::*;
@@ -20423,7 +20423,7 @@ impl wkt::message::Message for DiscoveryOtherCloudConditions {
     }
 }
 
-/// Defines additional types related to DiscoveryOtherCloudConditions
+/// Defines additional types related to [DiscoveryOtherCloudConditions].
 pub mod discovery_other_cloud_conditions {
     #[allow(unused_imports)]
     use super::*;
@@ -20490,7 +20490,7 @@ impl wkt::message::Message for AmazonS3BucketConditions {
     }
 }
 
-/// Defines additional types related to AmazonS3BucketConditions
+/// Defines additional types related to [AmazonS3BucketConditions].
 pub mod amazon_s_3_bucket_conditions {
     #[allow(unused_imports)]
     use super::*;
@@ -20774,7 +20774,7 @@ impl wkt::message::Message for DiscoveryStartingLocation {
     }
 }
 
-/// Defines additional types related to DiscoveryStartingLocation
+/// Defines additional types related to [DiscoveryStartingLocation].
 pub mod discovery_starting_location {
     #[allow(unused_imports)]
     use super::*;
@@ -20861,7 +20861,7 @@ impl wkt::message::Message for OtherCloudDiscoveryStartingLocation {
     }
 }
 
-/// Defines additional types related to OtherCloudDiscoveryStartingLocation
+/// Defines additional types related to [OtherCloudDiscoveryStartingLocation].
 pub mod other_cloud_discovery_starting_location {
     #[allow(unused_imports)]
     use super::*;
@@ -20947,7 +20947,7 @@ pub mod other_cloud_discovery_starting_location {
         }
     }
 
-    /// Defines additional types related to AwsDiscoveryStartingLocation
+    /// Defines additional types related to [AwsDiscoveryStartingLocation].
     pub mod aws_discovery_starting_location {
         #[allow(unused_imports)]
         use super::*;
@@ -21130,7 +21130,7 @@ impl wkt::message::Message for VertexDatasetDiscoveryTarget {
     }
 }
 
-/// Defines additional types related to VertexDatasetDiscoveryTarget
+/// Defines additional types related to [VertexDatasetDiscoveryTarget].
 pub mod vertex_dataset_discovery_target {
     #[allow(unused_imports)]
     use super::*;
@@ -21284,7 +21284,7 @@ impl wkt::message::Message for DiscoveryVertexDatasetFilter {
     }
 }
 
-/// Defines additional types related to DiscoveryVertexDatasetFilter
+/// Defines additional types related to [DiscoveryVertexDatasetFilter].
 pub mod discovery_vertex_dataset_filter {
     #[allow(unused_imports)]
     use super::*;
@@ -21378,7 +21378,7 @@ impl wkt::message::Message for VertexDatasetCollection {
     }
 }
 
-/// Defines additional types related to VertexDatasetCollection
+/// Defines additional types related to [VertexDatasetCollection].
 pub mod vertex_dataset_collection {
     #[allow(unused_imports)]
     use super::*;
@@ -21822,7 +21822,7 @@ impl wkt::message::Message for DlpJob {
     }
 }
 
-/// Defines additional types related to DlpJob
+/// Defines additional types related to [DlpJob].
 pub mod dlp_job {
     #[allow(unused_imports)]
     use super::*;
@@ -22736,7 +22736,7 @@ impl wkt::message::Message for LargeCustomDictionaryConfig {
     }
 }
 
-/// Defines additional types related to LargeCustomDictionaryConfig
+/// Defines additional types related to [LargeCustomDictionaryConfig].
 pub mod large_custom_dictionary_config {
     #[allow(unused_imports)]
     use super::*;
@@ -22931,7 +22931,7 @@ impl wkt::message::Message for StoredInfoTypeConfig {
     }
 }
 
-/// Defines additional types related to StoredInfoTypeConfig
+/// Defines additional types related to [StoredInfoTypeConfig].
 pub mod stored_info_type_config {
     #[allow(unused_imports)]
     use super::*;
@@ -23016,7 +23016,7 @@ impl wkt::message::Message for StoredInfoTypeStats {
     }
 }
 
-/// Defines additional types related to StoredInfoTypeStats
+/// Defines additional types related to [StoredInfoTypeStats].
 pub mod stored_info_type_stats {
     #[allow(unused_imports)]
     use super::*;
@@ -24380,7 +24380,7 @@ impl wkt::message::Message for DataRiskLevel {
     }
 }
 
-/// Defines additional types related to DataRiskLevel
+/// Defines additional types related to [DataRiskLevel].
 pub mod data_risk_level {
     #[allow(unused_imports)]
     use super::*;
@@ -25046,7 +25046,7 @@ impl wkt::message::Message for TableDataProfile {
     }
 }
 
-/// Defines additional types related to TableDataProfile
+/// Defines additional types related to [TableDataProfile].
 pub mod table_data_profile {
     #[allow(unused_imports)]
     use super::*;
@@ -25537,7 +25537,7 @@ impl wkt::message::Message for ColumnDataProfile {
     }
 }
 
-/// Defines additional types related to ColumnDataProfile
+/// Defines additional types related to [ColumnDataProfile].
 pub mod column_data_profile {
     #[allow(unused_imports)]
     use super::*;
@@ -26163,7 +26163,7 @@ impl wkt::message::Message for FileStoreDataProfile {
     }
 }
 
-/// Defines additional types related to FileStoreDataProfile
+/// Defines additional types related to [FileStoreDataProfile].
 pub mod file_store_data_profile {
     #[allow(unused_imports)]
     use super::*;
@@ -26833,7 +26833,7 @@ impl wkt::message::Message for DataProfilePubSubCondition {
     }
 }
 
-/// Defines additional types related to DataProfilePubSubCondition
+/// Defines additional types related to [DataProfilePubSubCondition].
 pub mod data_profile_pub_sub_condition {
     #[allow(unused_imports)]
     use super::*;
@@ -26944,7 +26944,7 @@ pub mod data_profile_pub_sub_condition {
         }
     }
 
-    /// Defines additional types related to PubSubCondition
+    /// Defines additional types related to [PubSubCondition].
     pub mod pub_sub_condition {
         #[allow(unused_imports)]
         use super::*;
@@ -27007,7 +27007,7 @@ pub mod data_profile_pub_sub_condition {
         }
     }
 
-    /// Defines additional types related to PubSubExpressions
+    /// Defines additional types related to [PubSubExpressions].
     pub mod pub_sub_expressions {
         #[allow(unused_imports)]
         use super::*;
@@ -27706,7 +27706,7 @@ impl wkt::message::Message for Connection {
     }
 }
 
-/// Defines additional types related to Connection
+/// Defines additional types related to [Connection].
 pub mod connection {
     #[allow(unused_imports)]
     use super::*;
@@ -27931,7 +27931,7 @@ impl wkt::message::Message for CloudSqlProperties {
     }
 }
 
-/// Defines additional types related to CloudSqlProperties
+/// Defines additional types related to [CloudSqlProperties].
 pub mod cloud_sql_properties {
     #[allow(unused_imports)]
     use super::*;
@@ -28136,7 +28136,7 @@ impl wkt::message::Message for FileClusterType {
     }
 }
 
-/// Defines additional types related to FileClusterType
+/// Defines additional types related to [FileClusterType].
 pub mod file_cluster_type {
     #[allow(unused_imports)]
     use super::*;
@@ -28290,7 +28290,7 @@ impl wkt::message::Message for ProcessingLocation {
     }
 }
 
-/// Defines additional types related to ProcessingLocation
+/// Defines additional types related to [ProcessingLocation].
 pub mod processing_location {
     #[allow(unused_imports)]
     use super::*;
@@ -28487,7 +28487,7 @@ impl wkt::message::Message for SensitivityScore {
     }
 }
 
-/// Defines additional types related to SensitivityScore
+/// Defines additional types related to [SensitivityScore].
 pub mod sensitivity_score {
     #[allow(unused_imports)]
     use super::*;
@@ -28845,7 +28845,7 @@ impl wkt::message::Message for CustomInfoType {
     }
 }
 
-/// Defines additional types related to CustomInfoType
+/// Defines additional types related to [CustomInfoType].
 pub mod custom_info_type {
     #[allow(unused_imports)]
     use super::*;
@@ -28976,7 +28976,7 @@ pub mod custom_info_type {
         }
     }
 
-    /// Defines additional types related to Dictionary
+    /// Defines additional types related to [Dictionary].
     pub mod dictionary {
         #[allow(unused_imports)]
         use super::*;
@@ -29178,7 +29178,7 @@ pub mod custom_info_type {
         }
     }
 
-    /// Defines additional types related to DetectionRule
+    /// Defines additional types related to [DetectionRule].
     pub mod detection_rule {
         #[allow(unused_imports)]
         use super::*;
@@ -29311,7 +29311,7 @@ pub mod custom_info_type {
             }
         }
 
-        /// Defines additional types related to LikelihoodAdjustment
+        /// Defines additional types related to [LikelihoodAdjustment].
         pub mod likelihood_adjustment {
             #[allow(unused_imports)]
             use super::*;
@@ -29875,7 +29875,7 @@ impl wkt::message::Message for CloudStorageOptions {
     }
 }
 
-/// Defines additional types related to CloudStorageOptions
+/// Defines additional types related to [CloudStorageOptions].
 pub mod cloud_storage_options {
     #[allow(unused_imports)]
     use super::*;
@@ -30192,7 +30192,7 @@ impl wkt::message::Message for BigQueryOptions {
     }
 }
 
-/// Defines additional types related to BigQueryOptions
+/// Defines additional types related to [BigQueryOptions].
 pub mod big_query_options {
     #[allow(unused_imports)]
     use super::*;
@@ -30431,7 +30431,7 @@ impl wkt::message::Message for StorageConfig {
     }
 }
 
-/// Defines additional types related to StorageConfig
+/// Defines additional types related to [StorageConfig].
 pub mod storage_config {
     #[allow(unused_imports)]
     use super::*;
@@ -30814,7 +30814,7 @@ impl wkt::message::Message for Key {
     }
 }
 
-/// Defines additional types related to Key
+/// Defines additional types related to [Key].
 pub mod key {
     #[allow(unused_imports)]
     use super::*;
@@ -30913,7 +30913,7 @@ pub mod key {
         }
     }
 
-    /// Defines additional types related to PathElement
+    /// Defines additional types related to [PathElement].
     pub mod path_element {
         #[allow(unused_imports)]
         use super::*;
@@ -31038,7 +31038,7 @@ impl wkt::message::Message for RecordKey {
     }
 }
 
-/// Defines additional types related to RecordKey
+/// Defines additional types related to [RecordKey].
 pub mod record_key {
     #[allow(unused_imports)]
     use super::*;

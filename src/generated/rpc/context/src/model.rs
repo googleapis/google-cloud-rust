@@ -186,7 +186,7 @@ impl wkt::message::Message for AttributeContext {
     }
 }
 
-/// Defines additional types related to AttributeContext
+/// Defines additional types related to [AttributeContext].
 pub mod attribute_context {
     #[allow(unused_imports)]
     use super::*;

@@ -2333,7 +2333,7 @@ impl wkt::message::Message for Application {
     }
 }
 
-/// Defines additional types related to Application
+/// Defines additional types related to [Application].
 pub mod application {
     #[allow(unused_imports)]
     use super::*;
@@ -2430,7 +2430,7 @@ impl wkt::message::Message for Scope {
     }
 }
 
-/// Defines additional types related to Scope
+/// Defines additional types related to [Scope].
 pub mod scope {
     #[allow(unused_imports)]
     use super::*;
@@ -2615,7 +2615,7 @@ impl wkt::message::Message for Criticality {
     }
 }
 
-/// Defines additional types related to Criticality
+/// Defines additional types related to [Criticality].
 pub mod criticality {
     #[allow(unused_imports)]
     use super::*;
@@ -2720,7 +2720,7 @@ impl wkt::message::Message for Environment {
     }
 }
 
-/// Defines additional types related to Environment
+/// Defines additional types related to [Environment].
 pub mod environment {
     #[allow(unused_imports)]
     use super::*;
@@ -2991,7 +2991,7 @@ impl wkt::message::Message for Service {
     }
 }
 
-/// Defines additional types related to Service
+/// Defines additional types related to [Service].
 pub mod service {
     #[allow(unused_imports)]
     use super::*;
@@ -3292,7 +3292,7 @@ impl wkt::message::Message for ServiceProjectAttachment {
     }
 }
 
-/// Defines additional types related to ServiceProjectAttachment
+/// Defines additional types related to [ServiceProjectAttachment].
 pub mod service_project_attachment {
     #[allow(unused_imports)]
     use super::*;
@@ -3521,7 +3521,7 @@ impl wkt::message::Message for Workload {
     }
 }
 
-/// Defines additional types related to Workload
+/// Defines additional types related to [Workload].
 pub mod workload {
     #[allow(unused_imports)]
     use super::*;

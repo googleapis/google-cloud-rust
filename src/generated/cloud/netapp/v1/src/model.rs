@@ -616,7 +616,7 @@ impl wkt::message::Message for ActiveDirectory {
     }
 }
 
-/// Defines additional types related to ActiveDirectory
+/// Defines additional types related to [ActiveDirectory].
 pub mod active_directory {
     #[allow(unused_imports)]
     use super::*;
@@ -866,7 +866,7 @@ impl wkt::message::Message for Backup {
     }
 }
 
-/// Defines additional types related to Backup
+/// Defines additional types related to [Backup].
 pub mod backup {
     #[allow(unused_imports)]
     use super::*;
@@ -1483,7 +1483,7 @@ impl wkt::message::Message for BackupPolicy {
     }
 }
 
-/// Defines additional types related to BackupPolicy
+/// Defines additional types related to [BackupPolicy].
 pub mod backup_policy {
     #[allow(unused_imports)]
     use super::*;
@@ -1956,7 +1956,7 @@ impl wkt::message::Message for BackupVault {
     }
 }
 
-/// Defines additional types related to BackupVault
+/// Defines additional types related to [BackupVault].
 pub mod backup_vault {
     #[allow(unused_imports)]
     use super::*;
@@ -3035,7 +3035,7 @@ impl wkt::message::Message for KmsConfig {
     }
 }
 
-/// Defines additional types related to KmsConfig
+/// Defines additional types related to [KmsConfig].
 pub mod kms_config {
     #[allow(unused_imports)]
     use super::*;
@@ -3571,7 +3571,7 @@ impl wkt::message::Message for QuotaRule {
     }
 }
 
-/// Defines additional types related to QuotaRule
+/// Defines additional types related to [QuotaRule].
 pub mod quota_rule {
     #[allow(unused_imports)]
     use super::*;
@@ -4097,7 +4097,7 @@ impl wkt::message::Message for Replication {
     }
 }
 
-/// Defines additional types related to Replication
+/// Defines additional types related to [Replication].
 pub mod replication {
     #[allow(unused_imports)]
     use super::*;
@@ -5576,7 +5576,7 @@ impl wkt::message::Message for Snapshot {
     }
 }
 
-/// Defines additional types related to Snapshot
+/// Defines additional types related to [Snapshot].
 pub mod snapshot {
     #[allow(unused_imports)]
     use super::*;
@@ -6260,7 +6260,7 @@ impl wkt::message::Message for StoragePool {
     }
 }
 
-/// Defines additional types related to StoragePool
+/// Defines additional types related to [StoragePool].
 pub mod storage_pool {
     #[allow(unused_imports)]
     use super::*;
@@ -7221,7 +7221,7 @@ impl wkt::message::Message for Volume {
     }
 }
 
-/// Defines additional types related to Volume
+/// Defines additional types related to [Volume].
 pub mod volume {
     #[allow(unused_imports)]
     use super::*;
@@ -8003,7 +8003,7 @@ impl wkt::message::Message for RestoreParameters {
     }
 }
 
-/// Defines additional types related to RestoreParameters
+/// Defines additional types related to [RestoreParameters].
 pub mod restore_parameters {
     #[allow(unused_imports)]
     use super::*;
@@ -8149,7 +8149,7 @@ impl wkt::message::Message for TieringPolicy {
     }
 }
 
-/// Defines additional types related to TieringPolicy
+/// Defines additional types related to [TieringPolicy].
 pub mod tiering_policy {
     #[allow(unused_imports)]
     use super::*;

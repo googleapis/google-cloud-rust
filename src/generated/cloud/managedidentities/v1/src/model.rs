@@ -898,7 +898,7 @@ impl wkt::message::Message for Domain {
     }
 }
 
-/// Defines additional types related to Domain
+/// Defines additional types related to [Domain].
 pub mod domain {
     #[allow(unused_imports)]
     use super::*;
@@ -1150,7 +1150,7 @@ impl wkt::message::Message for Trust {
     }
 }
 
-/// Defines additional types related to Trust
+/// Defines additional types related to [Trust].
 pub mod trust {
     #[allow(unused_imports)]
     use super::*;

@@ -110,7 +110,7 @@ impl wkt::message::Message for VulnerabilityOccurrencesSummary {
     }
 }
 
-/// Defines additional types related to VulnerabilityOccurrencesSummary
+/// Defines additional types related to [VulnerabilityOccurrencesSummary].
 pub mod vulnerability_occurrences_summary {
     #[allow(unused_imports)]
     use super::*;

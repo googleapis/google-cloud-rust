@@ -161,7 +161,7 @@ impl wkt::message::Message for ErrorHandler {
     }
 }
 
-/// Defines additional types related to ErrorHandler
+/// Defines additional types related to [ErrorHandler].
 pub mod error_handler {
     #[allow(unused_imports)]
     use super::*;
@@ -421,7 +421,7 @@ impl wkt::message::Message for UrlMap {
     }
 }
 
-/// Defines additional types related to UrlMap
+/// Defines additional types related to [UrlMap].
 pub mod url_map {
     #[allow(unused_imports)]
     use super::*;
@@ -3192,7 +3192,7 @@ impl wkt::message::Message for Application {
     }
 }
 
-/// Defines additional types related to Application
+/// Defines additional types related to [Application].
 pub mod application {
     #[allow(unused_imports)]
     use super::*;
@@ -3600,7 +3600,7 @@ impl wkt::message::Message for AuditData {
     }
 }
 
-/// Defines additional types related to AuditData
+/// Defines additional types related to [AuditData].
 pub mod audit_data {
     #[allow(unused_imports)]
     use super::*;
@@ -4418,7 +4418,7 @@ impl wkt::message::Message for SslSettings {
     }
 }
 
-/// Defines additional types related to SslSettings
+/// Defines additional types related to [SslSettings].
 pub mod ssl_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -4540,7 +4540,7 @@ impl wkt::message::Message for ResourceRecord {
     }
 }
 
-/// Defines additional types related to ResourceRecord
+/// Defines additional types related to [ResourceRecord].
 pub mod resource_record {
     #[allow(unused_imports)]
     use super::*;
@@ -4681,7 +4681,7 @@ impl wkt::message::Message for FirewallRule {
     }
 }
 
-/// Defines additional types related to FirewallRule
+/// Defines additional types related to [FirewallRule].
 pub mod firewall_rule {
     #[allow(unused_imports)]
     use super::*;
@@ -4951,7 +4951,7 @@ impl wkt::message::Message for Instance {
     }
 }
 
-/// Defines additional types related to Instance
+/// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;
@@ -4975,7 +4975,7 @@ pub mod instance {
         }
     }
 
-    /// Defines additional types related to Liveness
+    /// Defines additional types related to [Liveness].
     pub mod liveness {
         #[allow(unused_imports)]
         use super::*;
@@ -5203,7 +5203,7 @@ impl wkt::message::Message for NetworkSettings {
     }
 }
 
-/// Defines additional types related to NetworkSettings
+/// Defines additional types related to [NetworkSettings].
 pub mod network_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -5452,7 +5452,7 @@ impl wkt::message::Message for OperationMetadataV1 {
     }
 }
 
-/// Defines additional types related to OperationMetadataV1
+/// Defines additional types related to [OperationMetadataV1].
 pub mod operation_metadata_v_1 {
     #[allow(unused_imports)]
     use super::*;
@@ -5659,7 +5659,7 @@ impl wkt::message::Message for TrafficSplit {
     }
 }
 
-/// Defines additional types related to TrafficSplit
+/// Defines additional types related to [TrafficSplit].
 pub mod traffic_split {
     #[allow(unused_imports)]
     use super::*;
@@ -6398,7 +6398,7 @@ impl wkt::message::Message for Version {
     }
 }
 
-/// Defines additional types related to Version
+/// Defines additional types related to [Version].
 pub mod version {
     #[allow(unused_imports)]
     use super::*;
@@ -6508,7 +6508,7 @@ impl wkt::message::Message for EndpointsApiService {
     }
 }
 
-/// Defines additional types related to EndpointsApiService
+/// Defines additional types related to [EndpointsApiService].
 pub mod endpoints_api_service {
     #[allow(unused_imports)]
     use super::*;
@@ -7368,7 +7368,7 @@ impl wkt::message::Message for VpcAccessConnector {
     }
 }
 
-/// Defines additional types related to VpcAccessConnector
+/// Defines additional types related to [VpcAccessConnector].
 pub mod vpc_access_connector {
     #[allow(unused_imports)]
     use super::*;
@@ -7491,7 +7491,7 @@ impl wkt::message::Message for Entrypoint {
     }
 }
 
-/// Defines additional types related to Entrypoint
+/// Defines additional types related to [Entrypoint].
 pub mod entrypoint {
     #[allow(unused_imports)]
     use super::*;

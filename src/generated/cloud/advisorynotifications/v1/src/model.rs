@@ -272,7 +272,7 @@ impl wkt::message::Message for Message {
     }
 }
 
-/// Defines additional types related to Message
+/// Defines additional types related to [Message].
 pub mod message {
     #[allow(unused_imports)]
     use super::*;
@@ -376,7 +376,7 @@ impl wkt::message::Message for Attachment {
     }
 }
 
-/// Defines additional types related to Attachment
+/// Defines additional types related to [Attachment].
 pub mod attachment {
     #[allow(unused_imports)]
     use super::*;
@@ -442,7 +442,7 @@ impl wkt::message::Message for Csv {
     }
 }
 
-/// Defines additional types related to Csv
+/// Defines additional types related to [Csv].
 pub mod csv {
     #[allow(unused_imports)]
     use super::*;

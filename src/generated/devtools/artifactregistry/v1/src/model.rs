@@ -120,7 +120,7 @@ impl wkt::message::Message for AptArtifact {
     }
 }
 
-/// Defines additional types related to AptArtifact
+/// Defines additional types related to [AptArtifact].
 pub mod apt_artifact {
     #[allow(unused_imports)]
     use super::*;
@@ -304,7 +304,7 @@ impl wkt::message::Message for ImportAptArtifactsRequest {
     }
 }
 
-/// Defines additional types related to ImportAptArtifactsRequest
+/// Defines additional types related to [ImportAptArtifactsRequest].
 pub mod import_apt_artifacts_request {
     #[allow(unused_imports)]
     use super::*;
@@ -400,7 +400,7 @@ impl wkt::message::Message for ImportAptArtifactsErrorInfo {
     }
 }
 
-/// Defines additional types related to ImportAptArtifactsErrorInfo
+/// Defines additional types related to [ImportAptArtifactsErrorInfo].
 pub mod import_apt_artifacts_error_info {
     #[allow(unused_imports)]
     use super::*;
@@ -1892,7 +1892,7 @@ impl wkt::message::Message for Hash {
     }
 }
 
-/// Defines additional types related to Hash
+/// Defines additional types related to [Hash].
 pub mod hash {
     #[allow(unused_imports)]
     use super::*;
@@ -2942,7 +2942,7 @@ impl wkt::message::Message for CleanupPolicyCondition {
     }
 }
 
-/// Defines additional types related to CleanupPolicyCondition
+/// Defines additional types related to [CleanupPolicyCondition].
 pub mod cleanup_policy_condition {
     #[allow(unused_imports)]
     use super::*;
@@ -3174,7 +3174,7 @@ impl wkt::message::Message for CleanupPolicy {
     }
 }
 
-/// Defines additional types related to CleanupPolicy
+/// Defines additional types related to [CleanupPolicy].
 pub mod cleanup_policy {
     #[allow(unused_imports)]
     use super::*;
@@ -3600,7 +3600,7 @@ impl wkt::message::Message for RemoteRepositoryConfig {
     }
 }
 
-/// Defines additional types related to RemoteRepositoryConfig
+/// Defines additional types related to [RemoteRepositoryConfig].
 pub mod remote_repository_config {
     #[allow(unused_imports)]
     use super::*;
@@ -3669,7 +3669,7 @@ pub mod remote_repository_config {
         }
     }
 
-    /// Defines additional types related to UpstreamCredentials
+    /// Defines additional types related to [UpstreamCredentials].
     pub mod upstream_credentials {
         #[allow(unused_imports)]
         use super::*;
@@ -3846,7 +3846,7 @@ pub mod remote_repository_config {
         }
     }
 
-    /// Defines additional types related to DockerRepository
+    /// Defines additional types related to [DockerRepository].
     pub mod docker_repository {
         #[allow(unused_imports)]
         use super::*;
@@ -4070,7 +4070,7 @@ pub mod remote_repository_config {
         }
     }
 
-    /// Defines additional types related to MavenRepository
+    /// Defines additional types related to [MavenRepository].
     pub mod maven_repository {
         #[allow(unused_imports)]
         use super::*;
@@ -4294,7 +4294,7 @@ pub mod remote_repository_config {
         }
     }
 
-    /// Defines additional types related to NpmRepository
+    /// Defines additional types related to [NpmRepository].
     pub mod npm_repository {
         #[allow(unused_imports)]
         use super::*;
@@ -4518,7 +4518,7 @@ pub mod remote_repository_config {
         }
     }
 
-    /// Defines additional types related to PythonRepository
+    /// Defines additional types related to [PythonRepository].
     pub mod python_repository {
         #[allow(unused_imports)]
         use super::*;
@@ -4745,7 +4745,7 @@ pub mod remote_repository_config {
         }
     }
 
-    /// Defines additional types related to AptRepository
+    /// Defines additional types related to [AptRepository].
     pub mod apt_repository {
         #[allow(unused_imports)]
         use super::*;
@@ -4793,7 +4793,7 @@ pub mod remote_repository_config {
             }
         }
 
-        /// Defines additional types related to PublicRepository
+        /// Defines additional types related to [PublicRepository].
         pub mod public_repository {
             #[allow(unused_imports)]
             use super::*;
@@ -5033,7 +5033,7 @@ pub mod remote_repository_config {
         }
     }
 
-    /// Defines additional types related to YumRepository
+    /// Defines additional types related to [YumRepository].
     pub mod yum_repository {
         #[allow(unused_imports)]
         use super::*;
@@ -5081,7 +5081,7 @@ pub mod remote_repository_config {
             }
         }
 
-        /// Defines additional types related to PublicRepository
+        /// Defines additional types related to [PublicRepository].
         pub mod public_repository {
             #[allow(unused_imports)]
             use super::*;
@@ -5638,7 +5638,7 @@ impl wkt::message::Message for Repository {
     }
 }
 
-/// Defines additional types related to Repository
+/// Defines additional types related to [Repository].
 pub mod repository {
     #[allow(unused_imports)]
     use super::*;
@@ -5688,7 +5688,7 @@ pub mod repository {
         }
     }
 
-    /// Defines additional types related to MavenRepositoryConfig
+    /// Defines additional types related to [MavenRepositoryConfig].
     pub mod maven_repository_config {
         #[allow(unused_imports)]
         use super::*;
@@ -5869,7 +5869,7 @@ pub mod repository {
         }
     }
 
-    /// Defines additional types related to VulnerabilityScanningConfig
+    /// Defines additional types related to [VulnerabilityScanningConfig].
     pub mod vulnerability_scanning_config {
         #[allow(unused_imports)]
         use super::*;
@@ -6561,7 +6561,7 @@ impl wkt::message::Message for Rule {
     }
 }
 
-/// Defines additional types related to Rule
+/// Defines additional types related to [Rule].
 pub mod rule {
     #[allow(unused_imports)]
     use super::*;
@@ -7019,7 +7019,7 @@ impl wkt::message::Message for ProjectSettings {
     }
 }
 
-/// Defines additional types related to ProjectSettings
+/// Defines additional types related to [ProjectSettings].
 pub mod project_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -8096,7 +8096,7 @@ impl wkt::message::Message for VPCSCConfig {
     }
 }
 
-/// Defines additional types related to VPCSCConfig
+/// Defines additional types related to [VPCSCConfig].
 pub mod vpcsc_config {
     #[allow(unused_imports)]
     use super::*;
@@ -8302,7 +8302,7 @@ impl wkt::message::Message for YumArtifact {
     }
 }
 
-/// Defines additional types related to YumArtifact
+/// Defines additional types related to [YumArtifact].
 pub mod yum_artifact {
     #[allow(unused_imports)]
     use super::*;
@@ -8486,7 +8486,7 @@ impl wkt::message::Message for ImportYumArtifactsRequest {
     }
 }
 
-/// Defines additional types related to ImportYumArtifactsRequest
+/// Defines additional types related to [ImportYumArtifactsRequest].
 pub mod import_yum_artifacts_request {
     #[allow(unused_imports)]
     use super::*;
@@ -8582,7 +8582,7 @@ impl wkt::message::Message for ImportYumArtifactsErrorInfo {
     }
 }
 
-/// Defines additional types related to ImportYumArtifactsErrorInfo
+/// Defines additional types related to [ImportYumArtifactsErrorInfo].
 pub mod import_yum_artifacts_error_info {
     #[allow(unused_imports)]
     use super::*;

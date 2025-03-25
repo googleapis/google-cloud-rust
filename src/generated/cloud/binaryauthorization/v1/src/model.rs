@@ -219,7 +219,7 @@ impl wkt::message::Message for Policy {
     }
 }
 
-/// Defines additional types related to Policy
+/// Defines additional types related to [Policy].
 pub mod policy {
     #[allow(unused_imports)]
     use super::*;
@@ -399,7 +399,7 @@ impl wkt::message::Message for AdmissionRule {
     }
 }
 
-/// Defines additional types related to AdmissionRule
+/// Defines additional types related to [AdmissionRule].
 pub mod admission_rule {
     #[allow(unused_imports)]
     use super::*;
@@ -637,7 +637,7 @@ impl wkt::message::Message for Attestor {
     }
 }
 
-/// Defines additional types related to Attestor
+/// Defines additional types related to [Attestor].
 pub mod attestor {
     #[allow(unused_imports)]
     use super::*;
@@ -785,7 +785,7 @@ impl wkt::message::Message for PkixPublicKey {
     }
 }
 
-/// Defines additional types related to PkixPublicKey
+/// Defines additional types related to [PkixPublicKey].
 pub mod pkix_public_key {
     #[allow(unused_imports)]
     use super::*;
@@ -1042,7 +1042,7 @@ impl wkt::message::Message for AttestorPublicKey {
     }
 }
 
-/// Defines additional types related to AttestorPublicKey
+/// Defines additional types related to [AttestorPublicKey].
 pub mod attestor_public_key {
     #[allow(unused_imports)]
     use super::*;
@@ -1577,7 +1577,7 @@ impl wkt::message::Message for ValidateAttestationOccurrenceResponse {
     }
 }
 
-/// Defines additional types related to ValidateAttestationOccurrenceResponse
+/// Defines additional types related to [ValidateAttestationOccurrenceResponse].
 pub mod validate_attestation_occurrence_response {
     #[allow(unused_imports)]
     use super::*;

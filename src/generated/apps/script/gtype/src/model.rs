@@ -57,7 +57,7 @@ impl wkt::message::Message for AddOnWidgetSet {
     }
 }
 
-/// Defines additional types related to AddOnWidgetSet
+/// Defines additional types related to [AddOnWidgetSet].
 pub mod add_on_widget_set {
     #[allow(unused_imports)]
     use super::*;
@@ -352,7 +352,7 @@ impl wkt::message::Message for UniversalActionExtensionPoint {
     }
 }
 
-/// Defines additional types related to UniversalActionExtensionPoint
+/// Defines additional types related to [UniversalActionExtensionPoint].
 pub mod universal_action_extension_point {
     #[allow(unused_imports)]
     use super::*;

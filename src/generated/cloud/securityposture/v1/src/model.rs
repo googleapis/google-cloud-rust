@@ -180,7 +180,7 @@ impl wkt::message::Message for PolicyRule {
     }
 }
 
-/// Defines additional types related to PolicyRule
+/// Defines additional types related to [PolicyRule].
 pub mod policy_rule {
     #[allow(unused_imports)]
     use super::*;
@@ -409,7 +409,7 @@ impl wkt::message::Message for CustomConstraint {
     }
 }
 
-/// Defines additional types related to CustomConstraint
+/// Defines additional types related to [CustomConstraint].
 pub mod custom_constraint {
     #[allow(unused_imports)]
     use super::*;
@@ -903,7 +903,7 @@ impl wkt::message::Message for Posture {
     }
 }
 
-/// Defines additional types related to Posture
+/// Defines additional types related to [Posture].
 pub mod posture {
     #[allow(unused_imports)]
     use super::*;
@@ -1093,7 +1093,7 @@ impl wkt::message::Message for Policy {
     }
 }
 
-/// Defines additional types related to Policy
+/// Defines additional types related to [Policy].
 pub mod policy {
     #[allow(unused_imports)]
     use super::*;
@@ -1300,7 +1300,7 @@ impl wkt::message::Message for Constraint {
     }
 }
 
-/// Defines additional types related to Constraint
+/// Defines additional types related to [Constraint].
 pub mod constraint {
     #[allow(unused_imports)]
     use super::*;
@@ -2003,7 +2003,7 @@ impl wkt::message::Message for PostureDeployment {
     }
 }
 
-/// Defines additional types related to PostureDeployment
+/// Defines additional types related to [PostureDeployment].
 pub mod posture_deployment {
     #[allow(unused_imports)]
     use super::*;
@@ -2480,7 +2480,7 @@ impl wkt::message::Message for PostureTemplate {
     }
 }
 
-/// Defines additional types related to PostureTemplate
+/// Defines additional types related to [PostureTemplate].
 pub mod posture_template {
     #[allow(unused_imports)]
     use super::*;
@@ -2918,7 +2918,7 @@ impl wkt::message::Message for CustomConfig {
     }
 }
 
-/// Defines additional types related to CustomConfig
+/// Defines additional types related to [CustomConfig].
 pub mod custom_config {
     #[allow(unused_imports)]
     use super::*;
@@ -2960,7 +2960,7 @@ pub mod custom_config {
         }
     }
 
-    /// Defines additional types related to CustomOutputSpec
+    /// Defines additional types related to [CustomOutputSpec].
     pub mod custom_output_spec {
         #[allow(unused_imports)]
         use super::*;

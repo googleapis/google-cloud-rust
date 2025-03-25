@@ -543,7 +543,7 @@ impl wkt::message::Message for AutokeyConfig {
     }
 }
 
-/// Defines additional types related to AutokeyConfig
+/// Defines additional types related to [AutokeyConfig].
 pub mod autokey_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1377,7 +1377,7 @@ impl wkt::message::Message for EkmConnection {
     }
 }
 
-/// Defines additional types related to EkmConnection
+/// Defines additional types related to [EkmConnection].
 pub mod ekm_connection {
     #[allow(unused_imports)]
     use super::*;
@@ -2048,7 +2048,7 @@ impl wkt::message::Message for CryptoKey {
     }
 }
 
-/// Defines additional types related to CryptoKey
+/// Defines additional types related to [CryptoKey].
 pub mod crypto_key {
     #[allow(unused_imports)]
     use super::*;
@@ -2334,7 +2334,7 @@ impl wkt::message::Message for KeyOperationAttestation {
     }
 }
 
-/// Defines additional types related to KeyOperationAttestation
+/// Defines additional types related to [KeyOperationAttestation].
 pub mod key_operation_attestation {
     #[allow(unused_imports)]
     use super::*;
@@ -2791,7 +2791,7 @@ impl wkt::message::Message for CryptoKeyVersion {
     }
 }
 
-/// Defines additional types related to CryptoKeyVersion
+/// Defines additional types related to [CryptoKeyVersion].
 pub mod crypto_key_version {
     #[allow(unused_imports)]
     use super::*;
@@ -3616,7 +3616,7 @@ impl wkt::message::Message for PublicKey {
     }
 }
 
-/// Defines additional types related to PublicKey
+/// Defines additional types related to [PublicKey].
 pub mod public_key {
     #[allow(unused_imports)]
     use super::*;
@@ -3938,7 +3938,7 @@ impl wkt::message::Message for ImportJob {
     }
 }
 
-/// Defines additional types related to ImportJob
+/// Defines additional types related to [ImportJob].
 pub mod import_job {
     #[allow(unused_imports)]
     use super::*;
@@ -5620,7 +5620,7 @@ impl wkt::message::Message for ImportCryptoKeyVersionRequest {
     }
 }
 
-/// Defines additional types related to ImportCryptoKeyVersionRequest
+/// Defines additional types related to [ImportCryptoKeyVersionRequest].
 pub mod import_crypto_key_version_request {
     #[allow(unused_imports)]
     use super::*;
@@ -8488,7 +8488,7 @@ impl wkt::message::Message for Digest {
     }
 }
 
-/// Defines additional types related to Digest
+/// Defines additional types related to [Digest].
 pub mod digest {
     #[allow(unused_imports)]
     use super::*;

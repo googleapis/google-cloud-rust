@@ -171,7 +171,7 @@ impl wkt::message::Message for Connector {
     }
 }
 
-/// Defines additional types related to Connector
+/// Defines additional types related to [Connector].
 pub mod connector {
     #[allow(unused_imports)]
     use super::*;

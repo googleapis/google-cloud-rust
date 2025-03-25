@@ -761,7 +761,7 @@ impl wkt::message::Message for DescriptorProto {
     }
 }
 
-/// Defines additional types related to DescriptorProto
+/// Defines additional types related to [DescriptorProto].
 pub mod descriptor_proto {
     #[allow(unused_imports)]
     use super::*;
@@ -931,7 +931,7 @@ impl wkt::message::Message for ExtensionRangeOptions {
     }
 }
 
-/// Defines additional types related to ExtensionRangeOptions
+/// Defines additional types related to [ExtensionRangeOptions].
 pub mod extension_range_options {
     #[allow(unused_imports)]
     use super::*;
@@ -1223,7 +1223,7 @@ impl wkt::message::Message for FieldDescriptorProto {
     }
 }
 
-/// Defines additional types related to FieldDescriptorProto
+/// Defines additional types related to [FieldDescriptorProto].
 pub mod field_descriptor_proto {
     #[allow(unused_imports)]
     use super::*;
@@ -1538,7 +1538,7 @@ impl wkt::message::Message for EnumDescriptorProto {
     }
 }
 
-/// Defines additional types related to EnumDescriptorProto
+/// Defines additional types related to [EnumDescriptorProto].
 pub mod enum_descriptor_proto {
     #[allow(unused_imports)]
     use super::*;
@@ -2057,7 +2057,7 @@ impl wkt::message::Message for FileOptions {
     }
 }
 
-/// Defines additional types related to FileOptions
+/// Defines additional types related to [FileOptions].
 pub mod file_options {
     #[allow(unused_imports)]
     use super::*;
@@ -2486,7 +2486,7 @@ impl wkt::message::Message for FieldOptions {
     }
 }
 
-/// Defines additional types related to FieldOptions
+/// Defines additional types related to [FieldOptions].
 pub mod field_options {
     #[allow(unused_imports)]
     use super::*;
@@ -3196,7 +3196,7 @@ impl wkt::message::Message for MethodOptions {
     }
 }
 
-/// Defines additional types related to MethodOptions
+/// Defines additional types related to [MethodOptions].
 pub mod method_options {
     #[allow(unused_imports)]
     use super::*;
@@ -3355,7 +3355,7 @@ impl wkt::message::Message for UninterpretedOption {
     }
 }
 
-/// Defines additional types related to UninterpretedOption
+/// Defines additional types related to [UninterpretedOption].
 pub mod uninterpreted_option {
     #[allow(unused_imports)]
     use super::*;
@@ -3493,7 +3493,7 @@ impl wkt::message::Message for FeatureSet {
     }
 }
 
-/// Defines additional types related to FeatureSet
+/// Defines additional types related to [FeatureSet].
 pub mod feature_set {
     #[allow(unused_imports)]
     use super::*;
@@ -3884,7 +3884,7 @@ impl wkt::message::Message for FeatureSetDefaults {
     }
 }
 
-/// Defines additional types related to FeatureSetDefaults
+/// Defines additional types related to [FeatureSetDefaults].
 pub mod feature_set_defaults {
     #[allow(unused_imports)]
     use super::*;
@@ -4026,7 +4026,7 @@ impl wkt::message::Message for SourceCodeInfo {
     }
 }
 
-/// Defines additional types related to SourceCodeInfo
+/// Defines additional types related to [SourceCodeInfo].
 pub mod source_code_info {
     #[allow(unused_imports)]
     use super::*;
@@ -4229,7 +4229,7 @@ impl wkt::message::Message for GeneratedCodeInfo {
     }
 }
 
-/// Defines additional types related to GeneratedCodeInfo
+/// Defines additional types related to [GeneratedCodeInfo].
 pub mod generated_code_info {
     #[allow(unused_imports)]
     use super::*;
@@ -4312,7 +4312,7 @@ pub mod generated_code_info {
         }
     }
 
-    /// Defines additional types related to Annotation
+    /// Defines additional types related to [Annotation].
     pub mod annotation {
         #[allow(unused_imports)]
         use super::*;
@@ -4638,7 +4638,7 @@ impl wkt::message::Message for Field {
     }
 }
 
-/// Defines additional types related to Field
+/// Defines additional types related to [Field].
 pub mod field {
     #[allow(unused_imports)]
     use super::*;

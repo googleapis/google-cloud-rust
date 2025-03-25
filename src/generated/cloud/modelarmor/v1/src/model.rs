@@ -132,7 +132,7 @@ impl wkt::message::Message for Template {
     }
 }
 
-/// Defines additional types related to Template
+/// Defines additional types related to [Template].
 pub mod template {
     #[allow(unused_imports)]
     use super::*;
@@ -914,7 +914,7 @@ impl wkt::message::Message for PiAndJailbreakFilterSettings {
     }
 }
 
-/// Defines additional types related to PiAndJailbreakFilterSettings
+/// Defines additional types related to [PiAndJailbreakFilterSettings].
 pub mod pi_and_jailbreak_filter_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -1019,7 +1019,7 @@ impl wkt::message::Message for MaliciousUriFilterSettings {
     }
 }
 
-/// Defines additional types related to MaliciousUriFilterSettings
+/// Defines additional types related to [MaliciousUriFilterSettings].
 pub mod malicious_uri_filter_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -1119,7 +1119,7 @@ impl wkt::message::Message for RaiFilterSettings {
     }
 }
 
-/// Defines additional types related to RaiFilterSettings
+/// Defines additional types related to [RaiFilterSettings].
 pub mod rai_filter_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -1274,7 +1274,7 @@ impl wkt::message::Message for SdpFilterSettings {
     }
 }
 
-/// Defines additional types related to SdpFilterSettings
+/// Defines additional types related to [SdpFilterSettings].
 pub mod sdp_filter_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -1331,7 +1331,7 @@ impl wkt::message::Message for SdpBasicConfig {
     }
 }
 
-/// Defines additional types related to SdpBasicConfig
+/// Defines additional types related to [SdpBasicConfig].
 pub mod sdp_basic_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1718,7 +1718,7 @@ impl wkt::message::Message for SanitizationResult {
     }
 }
 
-/// Defines additional types related to SanitizationResult
+/// Defines additional types related to [SanitizationResult].
 pub mod sanitization_result {
     #[allow(unused_imports)]
     use super::*;
@@ -1994,7 +1994,7 @@ impl wkt::message::Message for FilterResult {
     }
 }
 
-/// Defines additional types related to FilterResult
+/// Defines additional types related to [FilterResult].
 pub mod filter_result {
     #[allow(unused_imports)]
     use super::*;
@@ -2105,7 +2105,7 @@ impl wkt::message::Message for RaiFilterResult {
     }
 }
 
-/// Defines additional types related to RaiFilterResult
+/// Defines additional types related to [RaiFilterResult].
 pub mod rai_filter_result {
     #[allow(unused_imports)]
     use super::*;
@@ -2266,7 +2266,7 @@ impl wkt::message::Message for SdpFilterResult {
     }
 }
 
-/// Defines additional types related to SdpFilterResult
+/// Defines additional types related to [SdpFilterResult].
 pub mod sdp_filter_result {
     #[allow(unused_imports)]
     use super::*;
@@ -2459,7 +2459,7 @@ impl wkt::message::Message for DataItem {
     }
 }
 
-/// Defines additional types related to DataItem
+/// Defines additional types related to [DataItem].
 pub mod data_item {
     #[allow(unused_imports)]
     use super::*;
@@ -2518,7 +2518,7 @@ impl wkt::message::Message for ByteDataItem {
     }
 }
 
-/// Defines additional types related to ByteDataItem
+/// Defines additional types related to [ByteDataItem].
 pub mod byte_data_item {
     #[allow(unused_imports)]
     use super::*;
@@ -2740,7 +2740,7 @@ impl wkt::message::Message for SdpFinding {
     }
 }
 
-/// Defines additional types related to SdpFinding
+/// Defines additional types related to [SdpFinding].
 pub mod sdp_finding {
     #[allow(unused_imports)]
     use super::*;
@@ -2953,7 +2953,7 @@ impl wkt::message::Message for MaliciousUriFilterResult {
     }
 }
 
-/// Defines additional types related to MaliciousUriFilterResult
+/// Defines additional types related to [MaliciousUriFilterResult].
 pub mod malicious_uri_filter_result {
     #[allow(unused_imports)]
     use super::*;
@@ -3112,7 +3112,7 @@ impl wkt::message::Message for VirusScanFilterResult {
     }
 }
 
-/// Defines additional types related to VirusScanFilterResult
+/// Defines additional types related to [VirusScanFilterResult].
 pub mod virus_scan_filter_result {
     #[allow(unused_imports)]
     use super::*;
@@ -3239,7 +3239,7 @@ impl wkt::message::Message for VirusDetail {
     }
 }
 
-/// Defines additional types related to VirusDetail
+/// Defines additional types related to [VirusDetail].
 pub mod virus_detail {
     #[allow(unused_imports)]
     use super::*;
@@ -3426,7 +3426,7 @@ impl wkt::message::Message for MessageItem {
     }
 }
 
-/// Defines additional types related to MessageItem
+/// Defines additional types related to [MessageItem].
 pub mod message_item {
     #[allow(unused_imports)]
     use super::*;

@@ -136,7 +136,7 @@ impl wkt::message::Message for Document {
     }
 }
 
-/// Defines additional types related to Document
+/// Defines additional types related to [Document].
 pub mod document {
     #[allow(unused_imports)]
     use super::*;
@@ -356,7 +356,7 @@ impl wkt::message::Message for Entity {
     }
 }
 
-/// Defines additional types related to Entity
+/// Defines additional types related to [Entity].
 pub mod entity {
     #[allow(unused_imports)]
     use super::*;
@@ -620,7 +620,7 @@ impl wkt::message::Message for EntityMention {
     }
 }
 
-/// Defines additional types related to EntityMention
+/// Defines additional types related to [EntityMention].
 pub mod entity_mention {
     #[allow(unused_imports)]
     use super::*;
@@ -1128,7 +1128,7 @@ impl wkt::message::Message for ModerateTextRequest {
     }
 }
 
-/// Defines additional types related to ModerateTextRequest
+/// Defines additional types related to [ModerateTextRequest].
 pub mod moderate_text_request {
     #[allow(unused_imports)]
     use super::*;
@@ -1314,7 +1314,7 @@ impl wkt::message::Message for AnnotateTextRequest {
     }
 }
 
-/// Defines additional types related to AnnotateTextRequest
+/// Defines additional types related to [AnnotateTextRequest].
 pub mod annotate_text_request {
     #[allow(unused_imports)]
     use super::*;

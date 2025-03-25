@@ -239,7 +239,7 @@ impl wkt::message::Message for EndpointMatcher {
     }
 }
 
-/// Defines additional types related to EndpointMatcher
+/// Defines additional types related to [EndpointMatcher].
 pub mod endpoint_matcher {
     #[allow(unused_imports)]
     use super::*;
@@ -320,7 +320,7 @@ pub mod endpoint_matcher {
         }
     }
 
-    /// Defines additional types related to MetadataLabelMatcher
+    /// Defines additional types related to [MetadataLabelMatcher].
     pub mod metadata_label_matcher {
         #[allow(unused_imports)]
         use super::*;
@@ -513,7 +513,7 @@ impl wkt::message::Message for ExtensionChain {
     }
 }
 
-/// Defines additional types related to ExtensionChain
+/// Defines additional types related to [ExtensionChain].
 pub mod extension_chain {
     #[allow(unused_imports)]
     use super::*;
@@ -1967,7 +1967,7 @@ impl wkt::message::Message for EndpointPolicy {
     }
 }
 
-/// Defines additional types related to EndpointPolicy
+/// Defines additional types related to [EndpointPolicy].
 pub mod endpoint_policy {
     #[allow(unused_imports)]
     use super::*;
@@ -2468,7 +2468,7 @@ impl wkt::message::Message for Gateway {
     }
 }
 
-/// Defines additional types related to Gateway
+/// Defines additional types related to [Gateway].
 pub mod gateway {
     #[allow(unused_imports)]
     use super::*;
@@ -3006,7 +3006,7 @@ impl wkt::message::Message for GrpcRoute {
     }
 }
 
-/// Defines additional types related to GrpcRoute
+/// Defines additional types related to [GrpcRoute].
 pub mod grpc_route {
     #[allow(unused_imports)]
     use super::*;
@@ -3084,7 +3084,7 @@ pub mod grpc_route {
         }
     }
 
-    /// Defines additional types related to MethodMatch
+    /// Defines additional types related to [MethodMatch].
     pub mod method_match {
         #[allow(unused_imports)]
         use super::*;
@@ -3201,7 +3201,7 @@ pub mod grpc_route {
         }
     }
 
-    /// Defines additional types related to HeaderMatch
+    /// Defines additional types related to [HeaderMatch].
     pub mod header_match {
         #[allow(unused_imports)]
         use super::*;
@@ -3405,7 +3405,7 @@ pub mod grpc_route {
         }
     }
 
-    /// Defines additional types related to Destination
+    /// Defines additional types related to [Destination].
     pub mod destination {
         #[allow(unused_imports)]
         use super::*;
@@ -3479,7 +3479,7 @@ pub mod grpc_route {
         }
     }
 
-    /// Defines additional types related to FaultInjectionPolicy
+    /// Defines additional types related to [FaultInjectionPolicy].
     pub mod fault_injection_policy {
         #[allow(unused_imports)]
         use super::*;
@@ -4250,7 +4250,7 @@ impl wkt::message::Message for HttpRoute {
     }
 }
 
-/// Defines additional types related to HttpRoute
+/// Defines additional types related to [HttpRoute].
 pub mod http_route {
     #[allow(unused_imports)]
     use super::*;
@@ -4477,7 +4477,7 @@ pub mod http_route {
         }
     }
 
-    /// Defines additional types related to HeaderMatch
+    /// Defines additional types related to [HeaderMatch].
     pub mod header_match {
         #[allow(unused_imports)]
         use super::*;
@@ -4667,7 +4667,7 @@ pub mod http_route {
         }
     }
 
-    /// Defines additional types related to QueryParameterMatch
+    /// Defines additional types related to [QueryParameterMatch].
     pub mod query_parameter_match {
         #[allow(unused_imports)]
         use super::*;
@@ -4856,7 +4856,7 @@ pub mod http_route {
         }
     }
 
-    /// Defines additional types related to RouteMatch
+    /// Defines additional types related to [RouteMatch].
     pub mod route_match {
         #[allow(unused_imports)]
         use super::*;
@@ -5057,7 +5057,7 @@ pub mod http_route {
         }
     }
 
-    /// Defines additional types related to Redirect
+    /// Defines additional types related to [Redirect].
     pub mod redirect {
         #[allow(unused_imports)]
         use super::*;
@@ -5197,7 +5197,7 @@ pub mod http_route {
         }
     }
 
-    /// Defines additional types related to FaultInjectionPolicy
+    /// Defines additional types related to [FaultInjectionPolicy].
     pub mod fault_injection_policy {
         #[allow(unused_imports)]
         use super::*;
@@ -7030,7 +7030,7 @@ impl wkt::message::Message for TcpRoute {
     }
 }
 
-/// Defines additional types related to TcpRoute
+/// Defines additional types related to [TcpRoute].
 pub mod tcp_route {
     #[allow(unused_imports)]
     use super::*;
@@ -7648,7 +7648,7 @@ impl wkt::message::Message for TlsRoute {
     }
 }
 
-/// Defines additional types related to TlsRoute
+/// Defines additional types related to [TlsRoute].
 pub mod tls_route {
     #[allow(unused_imports)]
     use super::*;

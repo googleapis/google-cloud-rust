@@ -747,7 +747,7 @@ impl wkt::message::Message for CreateClusterMetadata {
     }
 }
 
-/// Defines additional types related to CreateClusterMetadata
+/// Defines additional types related to [CreateClusterMetadata].
 pub mod create_cluster_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -806,7 +806,7 @@ pub mod create_cluster_metadata {
         }
     }
 
-    /// Defines additional types related to TableProgress
+    /// Defines additional types related to [TableProgress].
     pub mod table_progress {
         #[allow(unused_imports)]
         use super::*;
@@ -2464,7 +2464,7 @@ impl wkt::message::Message for RestoreTableRequest {
     }
 }
 
-/// Defines additional types related to RestoreTableRequest
+/// Defines additional types related to [RestoreTableRequest].
 pub mod restore_table_request {
     #[allow(unused_imports)]
     use super::*;
@@ -2615,7 +2615,7 @@ impl wkt::message::Message for RestoreTableMetadata {
     }
 }
 
-/// Defines additional types related to RestoreTableMetadata
+/// Defines additional types related to [RestoreTableMetadata].
 pub mod restore_table_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -2768,7 +2768,7 @@ impl wkt::message::Message for CreateTableRequest {
     }
 }
 
-/// Defines additional types related to CreateTableRequest
+/// Defines additional types related to [CreateTableRequest].
 pub mod create_table_request {
     #[allow(unused_imports)]
     use super::*;
@@ -2965,7 +2965,7 @@ impl wkt::message::Message for DropRowRangeRequest {
     }
 }
 
-/// Defines additional types related to DropRowRangeRequest
+/// Defines additional types related to [DropRowRangeRequest].
 pub mod drop_row_range_request {
     #[allow(unused_imports)]
     use super::*;
@@ -3474,7 +3474,7 @@ impl wkt::message::Message for ModifyColumnFamiliesRequest {
     }
 }
 
-/// Defines additional types related to ModifyColumnFamiliesRequest
+/// Defines additional types related to [ModifyColumnFamiliesRequest].
 pub mod modify_column_families_request {
     #[allow(unused_imports)]
     use super::*;
@@ -3628,7 +3628,7 @@ pub mod modify_column_families_request {
         }
     }
 
-    /// Defines additional types related to Modification
+    /// Defines additional types related to [Modification].
     pub mod modification {
         #[allow(unused_imports)]
         use super::*;
@@ -3847,7 +3847,7 @@ impl wkt::message::Message for CheckConsistencyRequest {
     }
 }
 
-/// Defines additional types related to CheckConsistencyRequest
+/// Defines additional types related to [CheckConsistencyRequest].
 pub mod check_consistency_request {
     #[allow(unused_imports)]
     use super::*;
@@ -5652,7 +5652,7 @@ impl wkt::message::Message for Instance {
     }
 }
 
-/// Defines additional types related to Instance
+/// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;
@@ -6014,7 +6014,7 @@ impl wkt::message::Message for Cluster {
     }
 }
 
-/// Defines additional types related to Cluster
+/// Defines additional types related to [Cluster].
 pub mod cluster {
     #[allow(unused_imports)]
     use super::*;
@@ -6537,7 +6537,7 @@ impl wkt::message::Message for AppProfile {
     }
 }
 
-/// Defines additional types related to AppProfile
+/// Defines additional types related to [AppProfile].
 pub mod app_profile {
     #[allow(unused_imports)]
     use super::*;
@@ -6648,7 +6648,7 @@ pub mod app_profile {
         }
     }
 
-    /// Defines additional types related to MultiClusterRoutingUseAny
+    /// Defines additional types related to [MultiClusterRoutingUseAny].
     pub mod multi_cluster_routing_use_any {
         #[allow(unused_imports)]
         use super::*;
@@ -6811,7 +6811,7 @@ pub mod app_profile {
         }
     }
 
-    /// Defines additional types related to DataBoostIsolationReadOnly
+    /// Defines additional types related to [DataBoostIsolationReadOnly].
     pub mod data_boost_isolation_read_only {
         #[allow(unused_imports)]
         use super::*;
@@ -7264,7 +7264,7 @@ impl wkt::message::Message for RestoreInfo {
     }
 }
 
-/// Defines additional types related to RestoreInfo
+/// Defines additional types related to [RestoreInfo].
 pub mod restore_info {
     #[allow(unused_imports)]
     use super::*;
@@ -7567,7 +7567,7 @@ impl wkt::message::Message for Table {
     }
 }
 
-/// Defines additional types related to Table
+/// Defines additional types related to [Table].
 pub mod table {
     #[allow(unused_imports)]
     use super::*;
@@ -7624,7 +7624,7 @@ pub mod table {
         }
     }
 
-    /// Defines additional types related to ClusterState
+    /// Defines additional types related to [ClusterState].
     pub mod cluster_state {
         #[allow(unused_imports)]
         use super::*;
@@ -8002,7 +8002,7 @@ impl wkt::message::Message for AuthorizedView {
     }
 }
 
-/// Defines additional types related to AuthorizedView
+/// Defines additional types related to [AuthorizedView].
 pub mod authorized_view {
     #[allow(unused_imports)]
     use super::*;
@@ -8382,7 +8382,7 @@ impl wkt::message::Message for GcRule {
     }
 }
 
-/// Defines additional types related to GcRule
+/// Defines additional types related to [GcRule].
 pub mod gc_rule {
     #[allow(unused_imports)]
     use super::*;
@@ -8535,7 +8535,7 @@ impl wkt::message::Message for EncryptionInfo {
     }
 }
 
-/// Defines additional types related to EncryptionInfo
+/// Defines additional types related to [EncryptionInfo].
 pub mod encryption_info {
     #[allow(unused_imports)]
     use super::*;
@@ -8722,7 +8722,7 @@ impl wkt::message::Message for Snapshot {
     }
 }
 
-/// Defines additional types related to Snapshot
+/// Defines additional types related to [Snapshot].
 pub mod snapshot {
     #[allow(unused_imports)]
     use super::*;
@@ -8970,7 +8970,7 @@ impl wkt::message::Message for Backup {
     }
 }
 
-/// Defines additional types related to Backup
+/// Defines additional types related to [Backup].
 pub mod backup {
     #[allow(unused_imports)]
     use super::*;
@@ -9549,7 +9549,7 @@ impl wkt::message::Message for Type {
     }
 }
 
-/// Defines additional types related to Type
+/// Defines additional types related to [Type].
 pub mod r#type {
     #[allow(unused_imports)]
     use super::*;
@@ -9589,7 +9589,7 @@ pub mod r#type {
         }
     }
 
-    /// Defines additional types related to Bytes
+    /// Defines additional types related to [Bytes].
     pub mod bytes {
         #[allow(unused_imports)]
         use super::*;
@@ -9663,7 +9663,7 @@ pub mod r#type {
             }
         }
 
-        /// Defines additional types related to Encoding
+        /// Defines additional types related to [Encoding].
         pub mod encoding {
             #[allow(unused_imports)]
             use super::*;
@@ -9737,7 +9737,7 @@ pub mod r#type {
         }
     }
 
-    /// Defines additional types related to String
+    /// Defines additional types related to [String].
     pub mod string {
         #[allow(unused_imports)]
         use super::*;
@@ -9850,7 +9850,7 @@ pub mod r#type {
             }
         }
 
-        /// Defines additional types related to Encoding
+        /// Defines additional types related to [Encoding].
         pub mod encoding {
             #[allow(unused_imports)]
             use super::*;
@@ -9954,7 +9954,7 @@ pub mod r#type {
         }
     }
 
-    /// Defines additional types related to Int64
+    /// Defines additional types related to [Int64].
     pub mod int_64 {
         #[allow(unused_imports)]
         use super::*;
@@ -10067,7 +10067,7 @@ pub mod r#type {
             }
         }
 
-        /// Defines additional types related to Encoding
+        /// Defines additional types related to [Encoding].
         pub mod encoding {
             #[allow(unused_imports)]
             use super::*;
@@ -10252,7 +10252,7 @@ pub mod r#type {
         }
     }
 
-    /// Defines additional types related to Timestamp
+    /// Defines additional types related to [Timestamp].
     pub mod timestamp {
         #[allow(unused_imports)]
         use super::*;
@@ -10326,7 +10326,7 @@ pub mod r#type {
             }
         }
 
-        /// Defines additional types related to Encoding
+        /// Defines additional types related to [Encoding].
         pub mod encoding {
             #[allow(unused_imports)]
             use super::*;
@@ -10419,7 +10419,7 @@ pub mod r#type {
         }
     }
 
-    /// Defines additional types related to Struct
+    /// Defines additional types related to [Struct].
     pub mod r#struct {
         #[allow(unused_imports)]
         use super::*;
@@ -10617,7 +10617,7 @@ pub mod r#type {
             }
         }
 
-        /// Defines additional types related to Encoding
+        /// Defines additional types related to [Encoding].
         pub mod encoding {
             #[allow(unused_imports)]
             use super::*;
@@ -11059,7 +11059,7 @@ pub mod r#type {
         }
     }
 
-    /// Defines additional types related to Aggregate
+    /// Defines additional types related to [Aggregate].
     pub mod aggregate {
         #[allow(unused_imports)]
         use super::*;

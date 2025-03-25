@@ -246,7 +246,7 @@ impl wkt::message::Message for SubmitBuildRequest {
     }
 }
 
-/// Defines additional types related to SubmitBuildRequest
+/// Defines additional types related to [SubmitBuildRequest].
 pub mod submit_build_request {
     #[allow(unused_imports)]
     use super::*;
@@ -695,7 +695,7 @@ impl wkt::message::Message for Condition {
     }
 }
 
-/// Defines additional types related to Condition
+/// Defines additional types related to [Condition].
 pub mod condition {
     #[allow(unused_imports)]
     use super::*;
@@ -2296,7 +2296,7 @@ impl wkt::message::Message for RunJobRequest {
     }
 }
 
-/// Defines additional types related to RunJobRequest
+/// Defines additional types related to [RunJobRequest].
 pub mod run_job_request {
     #[allow(unused_imports)]
     use super::*;
@@ -2361,7 +2361,7 @@ pub mod run_job_request {
         }
     }
 
-    /// Defines additional types related to Overrides
+    /// Defines additional types related to [Overrides].
     pub mod overrides {
         #[allow(unused_imports)]
         use super::*;
@@ -2868,7 +2868,7 @@ impl wkt::message::Message for Job {
     }
 }
 
-/// Defines additional types related to Job
+/// Defines additional types related to [Job].
 pub mod job {
     #[allow(unused_imports)]
     use super::*;
@@ -2972,7 +2972,7 @@ impl wkt::message::Message for ExecutionReference {
     }
 }
 
-/// Defines additional types related to ExecutionReference
+/// Defines additional types related to [ExecutionReference].
 pub mod execution_reference {
     #[allow(unused_imports)]
     use super::*;
@@ -3422,7 +3422,7 @@ impl wkt::message::Message for EnvVar {
     }
 }
 
-/// Defines additional types related to EnvVar
+/// Defines additional types related to [EnvVar].
 pub mod env_var {
     #[allow(unused_imports)]
     use super::*;
@@ -3779,7 +3779,7 @@ impl wkt::message::Message for Volume {
     }
 }
 
-/// Defines additional types related to Volume
+/// Defines additional types related to [Volume].
 pub mod volume {
     #[allow(unused_imports)]
     use super::*;
@@ -4039,7 +4039,7 @@ impl wkt::message::Message for EmptyDirVolumeSource {
     }
 }
 
-/// Defines additional types related to EmptyDirVolumeSource
+/// Defines additional types related to [EmptyDirVolumeSource].
 pub mod empty_dir_volume_source {
     #[allow(unused_imports)]
     use super::*;
@@ -4357,7 +4357,7 @@ impl wkt::message::Message for Probe {
     }
 }
 
-/// Defines additional types related to Probe
+/// Defines additional types related to [Probe].
 pub mod probe {
     #[allow(unused_imports)]
     use super::*;
@@ -7181,7 +7181,7 @@ impl wkt::message::Message for TaskTemplate {
     }
 }
 
-/// Defines additional types related to TaskTemplate
+/// Defines additional types related to [TaskTemplate].
 pub mod task_template {
     #[allow(unused_imports)]
     use super::*;
@@ -7395,7 +7395,7 @@ impl wkt::message::Message for VpcAccess {
     }
 }
 
-/// Defines additional types related to VpcAccess
+/// Defines additional types related to [VpcAccess].
 pub mod vpc_access {
     #[allow(unused_imports)]
     use super::*;
@@ -7619,7 +7619,7 @@ impl wkt::message::Message for BinaryAuthorization {
     }
 }
 
-/// Defines additional types related to BinaryAuthorization
+/// Defines additional types related to [BinaryAuthorization].
 pub mod binary_authorization {
     #[allow(unused_imports)]
     use super::*;
@@ -7768,7 +7768,7 @@ impl wkt::message::Message for ServiceScaling {
     }
 }
 
-/// Defines additional types related to ServiceScaling
+/// Defines additional types related to [ServiceScaling].
 pub mod service_scaling {
     #[allow(unused_imports)]
     use super::*;

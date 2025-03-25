@@ -345,7 +345,7 @@ impl wkt::message::Message for CustomPronunciationParams {
     }
 }
 
-/// Defines additional types related to CustomPronunciationParams
+/// Defines additional types related to [CustomPronunciationParams].
 pub mod custom_pronunciation_params {
     #[allow(unused_imports)]
     use super::*;
@@ -482,7 +482,7 @@ impl wkt::message::Message for MultiSpeakerMarkup {
     }
 }
 
-/// Defines additional types related to MultiSpeakerMarkup
+/// Defines additional types related to [MultiSpeakerMarkup].
 pub mod multi_speaker_markup {
     #[allow(unused_imports)]
     use super::*;
@@ -667,7 +667,7 @@ impl wkt::message::Message for SynthesisInput {
     }
 }
 
-/// Defines additional types related to SynthesisInput
+/// Defines additional types related to [SynthesisInput].
 pub mod synthesis_input {
     #[allow(unused_imports)]
     use super::*;
@@ -940,7 +940,7 @@ impl wkt::message::Message for CustomVoiceParams {
     }
 }
 
-/// Defines additional types related to CustomVoiceParams
+/// Defines additional types related to [CustomVoiceParams].
 pub mod custom_voice_params {
     #[allow(unused_imports)]
     use super::*;
@@ -1226,7 +1226,7 @@ impl wkt::message::Message for StreamingSynthesisInput {
     }
 }
 
-/// Defines additional types related to StreamingSynthesisInput
+/// Defines additional types related to [StreamingSynthesisInput].
 pub mod streaming_synthesis_input {
     #[allow(unused_imports)]
     use super::*;
@@ -1349,7 +1349,7 @@ impl wkt::message::Message for StreamingSynthesizeRequest {
     }
 }
 
-/// Defines additional types related to StreamingSynthesizeRequest
+/// Defines additional types related to [StreamingSynthesizeRequest].
 pub mod streaming_synthesize_request {
     #[allow(unused_imports)]
     use super::*;

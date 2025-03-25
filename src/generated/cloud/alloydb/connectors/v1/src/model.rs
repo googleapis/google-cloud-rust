@@ -82,7 +82,7 @@ impl wkt::message::Message for MetadataExchangeRequest {
     }
 }
 
-/// Defines additional types related to MetadataExchangeRequest
+/// Defines additional types related to [MetadataExchangeRequest].
 pub mod metadata_exchange_request {
     #[allow(unused_imports)]
     use super::*;
@@ -190,7 +190,7 @@ impl wkt::message::Message for MetadataExchangeResponse {
     }
 }
 
-/// Defines additional types related to MetadataExchangeResponse
+/// Defines additional types related to [MetadataExchangeResponse].
 pub mod metadata_exchange_response {
     #[allow(unused_imports)]
     use super::*;

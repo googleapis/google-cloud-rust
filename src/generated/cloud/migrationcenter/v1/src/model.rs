@@ -227,7 +227,7 @@ impl wkt::message::Message for Asset {
     }
 }
 
-/// Defines additional types related to Asset
+/// Defines additional types related to [Asset].
 pub mod asset {
     #[allow(unused_imports)]
     use super::*;
@@ -523,7 +523,7 @@ impl wkt::message::Message for ImportJob {
     }
 }
 
-/// Defines additional types related to ImportJob
+/// Defines additional types related to [ImportJob].
 pub mod import_job {
     #[allow(unused_imports)]
     use super::*;
@@ -758,7 +758,7 @@ impl wkt::message::Message for ImportDataFile {
     }
 }
 
-/// Defines additional types related to ImportDataFile
+/// Defines additional types related to [ImportDataFile].
 pub mod import_data_file {
     #[allow(unused_imports)]
     use super::*;
@@ -1131,7 +1131,7 @@ impl wkt::message::Message for Source {
     }
 }
 
-/// Defines additional types related to Source
+/// Defines additional types related to [Source].
 pub mod source {
     #[allow(unused_imports)]
     use super::*;
@@ -1362,7 +1362,7 @@ impl wkt::message::Message for ReportConfig {
     }
 }
 
-/// Defines additional types related to ReportConfig
+/// Defines additional types related to [ReportConfig].
 pub mod report_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1517,7 +1517,7 @@ impl wkt::message::Message for Report {
     }
 }
 
-/// Defines additional types related to Report
+/// Defines additional types related to [Report].
 pub mod report {
     #[allow(unused_imports)]
     use super::*;
@@ -5499,7 +5499,7 @@ impl wkt::message::Message for AssetFrame {
     }
 }
 
-/// Defines additional types related to AssetFrame
+/// Defines additional types related to [AssetFrame].
 pub mod asset_frame {
     #[allow(unused_imports)]
     use super::*;
@@ -5672,7 +5672,7 @@ impl wkt::message::Message for MachineDetails {
     }
 }
 
-/// Defines additional types related to MachineDetails
+/// Defines additional types related to [MachineDetails].
 pub mod machine_details {
     #[allow(unused_imports)]
     use super::*;
@@ -5870,7 +5870,7 @@ impl wkt::message::Message for MachineArchitectureDetails {
     }
 }
 
-/// Defines additional types related to MachineArchitectureDetails
+/// Defines additional types related to [MachineArchitectureDetails].
 pub mod machine_architecture_details {
     #[allow(unused_imports)]
     use super::*;
@@ -6346,7 +6346,7 @@ impl wkt::message::Message for NetworkAddress {
     }
 }
 
-/// Defines additional types related to NetworkAddress
+/// Defines additional types related to [NetworkAddress].
 pub mod network_address {
     #[allow(unused_imports)]
     use super::*;
@@ -6639,7 +6639,7 @@ impl wkt::message::Message for DiskEntry {
     }
 }
 
-/// Defines additional types related to DiskEntry
+/// Defines additional types related to [DiskEntry].
 pub mod disk_entry {
     #[allow(unused_imports)]
     use super::*;
@@ -6935,7 +6935,7 @@ impl wkt::message::Message for VmwareDiskConfig {
     }
 }
 
-/// Defines additional types related to VmwareDiskConfig
+/// Defines additional types related to [VmwareDiskConfig].
 pub mod vmware_disk_config {
     #[allow(unused_imports)]
     use super::*;
@@ -7322,7 +7322,7 @@ impl wkt::message::Message for GuestConfigDetails {
     }
 }
 
-/// Defines additional types related to GuestConfigDetails
+/// Defines additional types related to [GuestConfigDetails].
 pub mod guest_config_details {
     #[allow(unused_imports)]
     use super::*;
@@ -7911,7 +7911,7 @@ impl wkt::message::Message for RunningService {
     }
 }
 
-/// Defines additional types related to RunningService
+/// Defines additional types related to [RunningService].
 pub mod running_service {
     #[allow(unused_imports)]
     use super::*;
@@ -8345,7 +8345,7 @@ impl wkt::message::Message for NetworkConnection {
     }
 }
 
-/// Defines additional types related to NetworkConnection
+/// Defines additional types related to [NetworkConnection].
 pub mod network_connection {
     #[allow(unused_imports)]
     use super::*;
@@ -8818,7 +8818,7 @@ impl wkt::message::Message for PlatformDetails {
     }
 }
 
-/// Defines additional types related to PlatformDetails
+/// Defines additional types related to [PlatformDetails].
 pub mod platform_details {
     #[allow(unused_imports)]
     use super::*;
@@ -9429,7 +9429,7 @@ impl wkt::message::Message for DailyResourceUsageAggregation {
     }
 }
 
-/// Defines additional types related to DailyResourceUsageAggregation
+/// Defines additional types related to [DailyResourceUsageAggregation].
 pub mod daily_resource_usage_aggregation {
     #[allow(unused_imports)]
     use super::*;
@@ -9791,7 +9791,7 @@ impl wkt::message::Message for Insight {
     }
 }
 
-/// Defines additional types related to Insight
+/// Defines additional types related to [Insight].
 pub mod insight {
     #[allow(unused_imports)]
     use super::*;
@@ -9946,7 +9946,7 @@ impl wkt::message::Message for MigrationInsight {
     }
 }
 
-/// Defines additional types related to MigrationInsight
+/// Defines additional types related to [MigrationInsight].
 pub mod migration_insight {
     #[allow(unused_imports)]
     use super::*;
@@ -10148,7 +10148,7 @@ impl wkt::message::Message for FitDescriptor {
     }
 }
 
-/// Defines additional types related to FitDescriptor
+/// Defines additional types related to [FitDescriptor].
 pub mod fit_descriptor {
     #[allow(unused_imports)]
     use super::*;
@@ -10380,7 +10380,7 @@ impl wkt::message::Message for Aggregation {
     }
 }
 
-/// Defines additional types related to Aggregation
+/// Defines additional types related to [Aggregation].
 pub mod aggregation {
     #[allow(unused_imports)]
     use super::*;
@@ -10659,7 +10659,7 @@ impl wkt::message::Message for AggregationResult {
     }
 }
 
-/// Defines additional types related to AggregationResult
+/// Defines additional types related to [AggregationResult].
 pub mod aggregation_result {
     #[allow(unused_imports)]
     use super::*;
@@ -10757,7 +10757,7 @@ pub mod aggregation_result {
         }
     }
 
-    /// Defines additional types related to Histogram
+    /// Defines additional types related to [Histogram].
     pub mod histogram {
         #[allow(unused_imports)]
         use super::*;
@@ -11071,7 +11071,7 @@ impl wkt::message::Message for ImportError {
     }
 }
 
-/// Defines additional types related to ImportError
+/// Defines additional types related to [ImportError].
 pub mod import_error {
     #[allow(unused_imports)]
     use super::*;
@@ -11656,7 +11656,7 @@ impl wkt::message::Message for VmwareEnginePreferences {
     }
 }
 
-/// Defines additional types related to VmwareEnginePreferences
+/// Defines additional types related to [VmwareEnginePreferences].
 pub mod vmware_engine_preferences {
     #[allow(unused_imports)]
     use super::*;
@@ -11820,7 +11820,7 @@ impl wkt::message::Message for SoleTenancyPreferences {
     }
 }
 
-/// Defines additional types related to SoleTenancyPreferences
+/// Defines additional types related to [SoleTenancyPreferences].
 pub mod sole_tenancy_preferences {
     #[allow(unused_imports)]
     use super::*;
@@ -12123,7 +12123,7 @@ impl wkt::message::Message for ReportSummary {
     }
 }
 
-/// Defines additional types related to ReportSummary
+/// Defines additional types related to [ReportSummary].
 pub mod report_summary {
     #[allow(unused_imports)]
     use super::*;
@@ -12164,7 +12164,7 @@ pub mod report_summary {
         }
     }
 
-    /// Defines additional types related to ChartData
+    /// Defines additional types related to [ChartData].
     pub mod chart_data {
         #[allow(unused_imports)]
         use super::*;
@@ -12287,7 +12287,7 @@ pub mod report_summary {
         }
     }
 
-    /// Defines additional types related to HistogramChartData
+    /// Defines additional types related to [HistogramChartData].
     pub mod histogram_chart_data {
         #[allow(unused_imports)]
         use super::*;

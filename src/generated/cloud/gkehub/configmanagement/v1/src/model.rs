@@ -231,7 +231,7 @@ impl wkt::message::Message for MembershipSpec {
     }
 }
 
-/// Defines additional types related to MembershipSpec
+/// Defines additional types related to [MembershipSpec].
 pub mod membership_spec {
     #[allow(unused_imports)]
     use super::*;
@@ -1046,7 +1046,7 @@ impl wkt::message::Message for ConfigSyncState {
     }
 }
 
-/// Defines additional types related to ConfigSyncState
+/// Defines additional types related to [ConfigSyncState].
 pub mod config_sync_state {
     #[allow(unused_imports)]
     use super::*;
@@ -1517,7 +1517,7 @@ impl wkt::message::Message for SyncState {
     }
 }
 
-/// Defines additional types related to SyncState
+/// Defines additional types related to [SyncState].
 pub mod sync_state {
     #[allow(unused_imports)]
     use super::*;

@@ -204,7 +204,7 @@ impl wkt::message::Message for Insight {
     }
 }
 
-/// Defines additional types related to Insight
+/// Defines additional types related to [Insight].
 pub mod insight {
     #[allow(unused_imports)]
     use super::*;
@@ -434,7 +434,7 @@ impl wkt::message::Message for InsightStateInfo {
     }
 }
 
-/// Defines additional types related to InsightStateInfo
+/// Defines additional types related to [InsightStateInfo].
 pub mod insight_state_info {
     #[allow(unused_imports)]
     use super::*;
@@ -849,7 +849,7 @@ impl wkt::message::Message for Recommendation {
     }
 }
 
-/// Defines additional types related to Recommendation
+/// Defines additional types related to [Recommendation].
 pub mod recommendation {
     #[allow(unused_imports)]
     use super::*;
@@ -1270,7 +1270,7 @@ impl wkt::message::Message for Operation {
     }
 }
 
-/// Defines additional types related to Operation
+/// Defines additional types related to [Operation].
 pub mod operation {
     #[allow(unused_imports)]
     use super::*;
@@ -1349,7 +1349,7 @@ impl wkt::message::Message for ValueMatcher {
     }
 }
 
-/// Defines additional types related to ValueMatcher
+/// Defines additional types related to [ValueMatcher].
 pub mod value_matcher {
     #[allow(unused_imports)]
     use super::*;
@@ -1553,7 +1553,7 @@ impl wkt::message::Message for ReliabilityProjection {
     }
 }
 
-/// Defines additional types related to ReliabilityProjection
+/// Defines additional types related to [ReliabilityProjection].
 pub mod reliability_projection {
     #[allow(unused_imports)]
     use super::*;
@@ -1791,7 +1791,7 @@ impl wkt::message::Message for Impact {
     }
 }
 
-/// Defines additional types related to Impact
+/// Defines additional types related to [Impact].
 pub mod impact {
     #[allow(unused_imports)]
     use super::*;
@@ -1936,7 +1936,7 @@ impl wkt::message::Message for RecommendationStateInfo {
     }
 }
 
-/// Defines additional types related to RecommendationStateInfo
+/// Defines additional types related to [RecommendationStateInfo].
 pub mod recommendation_state_info {
     #[allow(unused_imports)]
     use super::*;
