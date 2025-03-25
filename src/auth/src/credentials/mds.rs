@@ -77,7 +77,7 @@ where
     T: TokenProvider,
 {
     quota_project_id: Option<String>,
-    universe_domain_receiver: watch::Receiver<Option<Result<String>>>,
+    universe_domain_rx: watch::Receiver<Option<Result<String>>>,
     wakeup_signal: Arc<Notify>,
     token_provider: T,
 }
@@ -163,25 +163,23 @@ impl Builder {
             .maybe_scopes(self.scopes)
             .build();
 
-        let (universe_domain_transmitter, universe_domain_receiver) =
-            match self.universe_domain.clone() {
-                Some(universe_domain) => watch::channel(Some(Ok(universe_domain))),
-                None => watch::channel(None),
-            };
+        let (universe_domain_tx, universe_domain_rx) = match self.universe_domain.clone() {
+            Some(universe_domain) => watch::channel(Some(Ok(universe_domain))),
+            None => watch::channel(None),
+        };
 
         let notify = Arc::new(Notify::new());
 
         let mdsc = MDSCredential {
             quota_project_id: self.quota_project_id,
             token_provider,
-            universe_domain_receiver,
+            universe_domain_rx,
             wakeup_signal: notify.clone(),
         };
 
         if self.universe_domain.is_none() {
             tokio::spawn(async move {
-                universe_domain_background_task(endpoint, universe_domain_transmitter, notify)
-                    .await;
+                universe_domain_background_task(endpoint, universe_domain_tx, notify).await;
             });
         }
         Credential {
@@ -226,7 +224,7 @@ async fn get_universe_domain_from_mds(endpoint: &String) -> Result<String> {
 
 async fn universe_domain_background_task(
     endpoint: String,
-    universe_domain_transmitter: watch::Sender<Option<Result<String>>>,
+    universe_domain_tx: watch::Sender<Option<Result<String>>>,
     wakeup_signal: Arc<Notify>,
 ) {
     // Wait to be woken up
@@ -236,7 +234,7 @@ async fn universe_domain_background_task(
     let universe_domain = get_universe_domain_from_mds(&endpoint).await;
 
     // Push it onto the watch channel.
-    let _ = universe_domain_transmitter.send(Some(universe_domain.clone())); // We ignore the error if the receiver is dropped.
+    let _ = universe_domain_tx.send(Some(universe_domain)); // We ignore the error if the receiver is dropped.
 }
 
 #[async_trait::async_trait]
@@ -263,22 +261,18 @@ where
         Ok(headers)
     }
 
-    /// Retrieves the universe domain associated with the credential.
-    ///
-    /// The underlying implementation may fetch the universe domain from the
-    /// Metadata Service or use a (default value)[crate::DEFAULT_UNIVERSE_DOMAIN] if not available.
     async fn get_universe_domain(&self) -> Result<String> {
-        let mut universe_domain_receiver = self.universe_domain_receiver.clone();
+        let mut universe_domain_rx = self.universe_domain_rx.clone();
 
-        if universe_domain_receiver.borrow_and_update().is_none() {
+        if universe_domain_rx.borrow_and_update().is_none() {
             self.wakeup_signal.notify_one();
 
-            universe_domain_receiver.changed().await.map_err(|_| {
+            universe_domain_rx.changed().await.map_err(|_| {
                 CredentialError::non_retryable_from_str("Failed to receive universe domain update.")
             })?;
         }
 
-        return universe_domain_receiver.borrow().clone().unwrap();
+        return universe_domain_rx.borrow().clone().unwrap();
     }
 }
 
@@ -429,11 +423,11 @@ mod test {
             .times(1)
             .return_once(|| Ok(expected_clone));
 
-        let (_, universe_domain_receiver) = watch::channel(None);
+        let (_, universe_domain_rx) = watch::channel(None);
 
         let mdsc = MDSCredential {
             quota_project_id: None,
-            universe_domain_receiver,
+            universe_domain_rx,
             wakeup_signal: Arc::new(Notify::new()),
             token_provider: mock,
         };
@@ -448,11 +442,11 @@ mod test {
             .times(1)
             .return_once(|| Err(CredentialError::non_retryable_from_str("fail")));
 
-        let (_, universe_domain_receiver) = watch::channel(None);
+        let (_, universe_domain_rx) = watch::channel(None);
 
         let mdsc = MDSCredential {
             quota_project_id: None,
-            universe_domain_receiver,
+            universe_domain_rx,
             wakeup_signal: Arc::new(Notify::new()),
             token_provider: mock,
         };
@@ -471,11 +465,11 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token().times(1).return_once(|| Ok(token));
 
-        let (_, universe_domain_receiver) = watch::channel(None);
+        let (_, universe_domain_rx) = watch::channel(None);
 
         let mdsc = MDSCredential {
             quota_project_id: None,
-            universe_domain_receiver,
+            universe_domain_rx,
             wakeup_signal: Arc::new(Notify::new()),
             token_provider: mock,
         };
@@ -498,10 +492,10 @@ mod test {
             .times(1)
             .return_once(|| Err(CredentialError::non_retryable_from_str("fail")));
 
-        let (_, universe_domain_receiver) = watch::channel(None);
+        let (_, universe_domain_rx) = watch::channel(None);
         let mdsc = MDSCredential {
             quota_project_id: None,
-            universe_domain_receiver,
+            universe_domain_rx,
             wakeup_signal: Arc::new(Notify::new()),
             token_provider: mock,
         };
@@ -514,7 +508,6 @@ mod test {
         // Read the current value of the counter atomically
         let current_count = state.target_endpoint_counter.load(Ordering::Relaxed);
 
-        // Return the count directly as a string
         (StatusCode::OK, current_count.to_string())
     }
 
@@ -908,30 +901,6 @@ mod test {
         assert_eq!(universe_domain_response, universe_domain);
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn get_universe_domain_success_cached() {
-        let ud = "test-universe-domain";
-
-        let (endpoint, server) = start(HashMap::from([(
-            UNIVERSE_DOMAIN_URI.to_string(),
-            (
-                StatusCode::OK,
-                ud.to_string(),
-                TokenQueryParams {
-                    scopes: None,
-                    recursive: None,
-                },
-            ),
-        )]))
-        .await;
-
-        let mdcs = Builder::default().endpoint(endpoint).build();
-        assert_eq!(mdcs.get_universe_domain().await.unwrap(), ud);
-        server.abort();
-        let _ = server.await;
-        assert_eq!(mdcs.get_universe_domain().await.unwrap(), ud);
-    }
-
     #[tokio::test]
     async fn get_universe_domain_error() {
         let universe_domain_response = "invalid_response";
@@ -971,8 +940,8 @@ mod test {
         let request = client.get(format!("{}/count", endpoint));
 
         let response = request.send().await.unwrap();
-        let x = response.text().await.unwrap();
-        x.parse::<i32>().unwrap()
+        let number_of_calls = response.text().await.unwrap();
+        number_of_calls.parse::<i32>().unwrap()
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 8)]
@@ -1002,7 +971,7 @@ mod test {
             })
             .collect::<Vec<_>>();
 
-        // Wait for the N token requests to complete, verifying the returned token.
+        // Wait for the N get_universe_domain requests to complete.
         for task in tasks {
             let actual = task.await.unwrap();
             assert!(actual.is_ok(), "{}", actual.err().unwrap());
