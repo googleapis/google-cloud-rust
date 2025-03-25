@@ -17,7 +17,7 @@
 use gax::Result;
 use gax::error::Error;
 use gax::polling_backoff_policy::PollingBackoffPolicy;
-use gax::polling_policy::PollingPolicy;
+use gax::polling_error_policy::PollingErrorPolicy;
 use std::future::Future;
 use std::marker::PhantomData;
 use std::sync::Arc;
@@ -125,7 +125,7 @@ pub trait Poller<R, M> {
 /// Applications should have no need to create or use this struct.
 #[doc(hidden)]
 pub fn new_poller<ResponseType, MetadataType, S, SF, Q, QF>(
-    polling_policy: Arc<dyn PollingPolicy>,
+    polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
     start: S,
     query: Q,
@@ -142,7 +142,7 @@ where
         + Send
         + 'static,
 {
-    PollerImpl::new(polling_policy, polling_backoff_policy, start, query)
+    PollerImpl::new(polling_error_policy, polling_backoff_policy, start, query)
 }
 
 /// An implementation of `Poller` based on closures.
@@ -177,7 +177,7 @@ where
         + Send
         + 'static,
 {
-    polling_policy: Arc<dyn PollingPolicy>,
+    error_policy: Arc<dyn PollingErrorPolicy>,
     backoff_policy: Arc<dyn PollingBackoffPolicy>,
     start: Option<S>,
     query: Q,
@@ -198,13 +198,13 @@ where
         + 'static,
 {
     pub fn new(
-        polling_policy: Arc<dyn PollingPolicy>,
+        error_policy: Arc<dyn PollingErrorPolicy>,
         backoff_policy: Arc<dyn PollingBackoffPolicy>,
         start: S,
         query: Q,
     ) -> Self {
         Self {
-            polling_policy,
+            error_policy,
             backoff_policy,
             start: Some(start),
             query,
@@ -240,7 +240,7 @@ where
             self.attempt_count += 1;
             let result = (self.query)(name.clone()).await;
             let (op, poll) = details::handle_poll(
-                self.polling_policy.clone(),
+                self.error_policy.clone(),
                 self.loop_start,
                 self.attempt_count,
                 name,
@@ -301,7 +301,7 @@ mod test {
     use super::*;
     use gax::exponential_backoff::ExponentialBackoff;
     use gax::exponential_backoff::ExponentialBackoffBuilder;
-    use gax::polling_policy::*;
+    use gax::polling_error_policy::*;
     use std::time::Duration;
 
     type ResponseType = wkt::Duration;

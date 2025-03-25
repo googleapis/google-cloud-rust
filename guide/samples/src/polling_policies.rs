@@ -136,15 +136,15 @@ pub async fn rpc_backoff(project_id: &str) -> crate::Result<()> {
 pub async fn client_errors(project_id: &str) -> crate::Result<()> {
     // ANCHOR: client-errors-use
     use google_cloud_gax::options::ClientConfig;
-    use google_cloud_gax::polling_policy::Aip194Strict;
-    use google_cloud_gax::polling_policy::PollingPolicyExt;
+    use google_cloud_gax::polling_error_policy::Aip194Strict;
+    use google_cloud_gax::polling_error_policy::PollingErrorPolicyExt;
     use std::time::Duration;
     // ANCHOR_END: client-errors-use
     use speech::Poller;
 
     // ANCHOR: client-errors-client
     let client = speech::client::Speech::new_with_config(
-        ClientConfig::default().set_polling_policy(
+        ClientConfig::default().set_polling_error_policy(
             Aip194Strict
                 .with_attempt_limit(100)
                 .with_time_limit(Duration::from_secs(300)),
@@ -191,8 +191,8 @@ pub async fn client_errors(project_id: &str) -> crate::Result<()> {
 // ANCHOR: rpc-errors
 pub async fn rpc_errors(project_id: &str) -> crate::Result<()> {
     // ANCHOR: rpc-errors-use
-    use google_cloud_gax::polling_policy::Aip194Strict;
-    use google_cloud_gax::polling_policy::PollingPolicyExt;
+    use google_cloud_gax::polling_error_policy::Aip194Strict;
+    use google_cloud_gax::polling_error_policy::PollingErrorPolicyExt;
     use std::time::Duration;
     // ANCHOR_END: rpc-errors-use
     // ANCHOR: rpc-errors-builder-trait
@@ -211,7 +211,7 @@ pub async fn rpc_errors(project_id: &str) -> crate::Result<()> {
         ))
         // ANCHOR_END: rpc-errors-builder
         // ANCHOR: rpc-errors-rpc-polling-errors
-        .with_polling_policy(
+        .with_polling_error_policy(
             Aip194Strict
                 .with_attempt_limit(100)
                 .with_time_limit(Duration::from_secs(300)),

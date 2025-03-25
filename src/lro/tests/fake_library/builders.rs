@@ -68,7 +68,7 @@ impl CreateResource {
             super::model::CreateResourceMetadata,
         >;
 
-        let polling_policy = self.stub.get_polling_policy(&self.options);
+        let polling_error_policy = self.stub.get_polling_error_policy(&self.options);
         let polling_backoff_policy = self.stub.get_polling_backoff_policy(&self.options);
         let stub = self.stub.clone();
         let mut options = self.options.clone();
@@ -90,7 +90,7 @@ impl CreateResource {
             let op = self.send().await?;
             Ok(Operation::new(op))
         };
-        google_cloud_lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+        google_cloud_lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
     }
 }
 

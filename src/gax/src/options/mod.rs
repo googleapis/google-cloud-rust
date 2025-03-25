@@ -27,7 +27,7 @@
 
 use crate::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
 use crate::polling_backoff_policy::{PollingBackoffPolicy, PollingBackoffPolicyArg};
-use crate::polling_policy::{PollingPolicy, PollingPolicyArg};
+use crate::polling_error_policy::{PollingErrorPolicy, PollingErrorPolicyArg};
 use crate::retry_policy::{RetryPolicy, RetryPolicyArg};
 use crate::retry_throttler::{RetryThrottlerArg, SharedRetryThrottler};
 use auth::credentials::Credential;
@@ -48,7 +48,7 @@ pub struct RequestOptions {
     retry_policy: Option<Arc<dyn RetryPolicy>>,
     backoff_policy: Option<Arc<dyn BackoffPolicy>>,
     retry_throttler: Option<SharedRetryThrottler>,
-    polling_policy: Option<Arc<dyn PollingPolicy>>,
+    polling_error_policy: Option<Arc<dyn PollingErrorPolicy>>,
     polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
 }
 
@@ -136,14 +136,24 @@ impl RequestOptions {
         self.retry_throttler = Some(v.into().0);
     }
 
+    // TODO(#1135) - remove backwards compat.
+    pub fn polling_policy(&self) -> &Option<Arc<dyn PollingErrorPolicy>> {
+        self.polling_error_policy()
+    }
+
+    // TODO(#1135) - remove backwards compat.
+    pub fn set_polling_policy<V: Into<PollingErrorPolicyArg>>(&mut self, v: V) {
+        self.set_polling_error_policy(v);
+    }
+
     /// Get the current polling policy override, if any.
-    pub fn polling_policy(&self) -> &Option<Arc<dyn PollingPolicy>> {
-        &self.polling_policy
+    pub fn polling_error_policy(&self) -> &Option<Arc<dyn PollingErrorPolicy>> {
+        &self.polling_error_policy
     }
 
     /// Sets the polling policy configuration.
-    pub fn set_polling_policy<V: Into<PollingPolicyArg>>(&mut self, v: V) {
-        self.polling_policy = Some(v.into().0);
+    pub fn set_polling_error_policy<V: Into<PollingErrorPolicyArg>>(&mut self, v: V) {
+        self.polling_error_policy = Some(v.into().0);
     }
 
     /// Get the current polling backoff policy override, if any.
@@ -185,8 +195,8 @@ pub trait RequestOptionsBuilder {
     /// Sets the retry throttler configuration.
     fn with_retry_throttler<V: Into<RetryThrottlerArg>>(self, v: V) -> Self;
 
-    /// Sets the polling policy configuration.
-    fn with_polling_policy<V: Into<PollingPolicyArg>>(self, v: V) -> Self;
+    /// Sets the polling error policy configuration.
+    fn with_polling_error_policy<V: Into<PollingErrorPolicyArg>>(self, v: V) -> Self;
 
     /// Sets the polling backoff policy configuration.
     fn with_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(self, v: V) -> Self;
@@ -237,8 +247,8 @@ where
         self
     }
 
-    fn with_polling_policy<V: Into<PollingPolicyArg>>(mut self, v: V) -> Self {
-        self.request_options().set_polling_policy(v);
+    fn with_polling_error_policy<V: Into<PollingErrorPolicyArg>>(mut self, v: V) -> Self {
+        self.request_options().set_polling_error_policy(v);
         self
     }
 
@@ -262,7 +272,7 @@ pub struct ClientConfig {
     retry_policy: Option<Arc<dyn RetryPolicy>>,
     backoff_policy: Option<Arc<dyn BackoffPolicy>>,
     retry_throttler: SharedRetryThrottler,
-    polling_policy: Option<Arc<dyn PollingPolicy>>,
+    polling_error_policy: Option<Arc<dyn PollingErrorPolicy>>,
     polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
 }
 
@@ -351,13 +361,13 @@ impl ClientConfig {
     }
 
     /// Get the current polling policy override, if any.
-    pub fn polling_policy(&self) -> &Option<Arc<dyn PollingPolicy>> {
-        &self.polling_policy
+    pub fn polling_error_policy(&self) -> &Option<Arc<dyn PollingErrorPolicy>> {
+        &self.polling_error_policy
     }
 
     /// Configure the polling backoff policy.
-    pub fn set_polling_policy<V: Into<PollingPolicyArg>>(mut self, v: V) -> Self {
-        self.polling_policy = Some(v.into().0);
+    pub fn set_polling_error_policy<V: Into<PollingErrorPolicyArg>>(mut self, v: V) -> Self {
+        self.polling_error_policy = Some(v.into().0);
         self
     }
 
@@ -384,7 +394,7 @@ impl std::default::Default for ClientConfig {
             retry_policy: None,
             backoff_policy: None,
             retry_throttler: Arc::new(Mutex::new(AdaptiveThrottler::default())),
-            polling_policy: None,
+            polling_error_policy: None,
             polling_backoff_policy: None,
         }
     }
@@ -394,7 +404,7 @@ impl std::default::Default for ClientConfig {
 mod test {
     use super::*;
     use crate::exponential_backoff::ExponentialBackoffBuilder;
-    use crate::polling_policy;
+    use crate::polling_error_policy;
     use crate::retry_policy::LimitedAttemptCount;
     use crate::retry_throttler::AdaptiveThrottler;
     use std::time::Duration;
@@ -438,8 +448,8 @@ mod test {
         opts.set_retry_throttler(AdaptiveThrottler::default());
         assert!(opts.retry_throttler().is_some(), "{opts:?}");
 
-        opts.set_polling_policy(polling_policy::Aip194Strict);
-        assert!(opts.polling_policy().is_some(), "{opts:?}");
+        opts.set_polling_error_policy(polling_error_policy::Aip194Strict);
+        assert!(opts.polling_error_policy().is_some(), "{opts:?}");
 
         opts.set_polling_backoff_policy(ExponentialBackoffBuilder::new().clamp());
         assert!(opts.polling_backoff_policy().is_some(), "{opts:?}");
@@ -500,9 +510,10 @@ mod test {
             "{builder:?}"
         );
 
-        let mut builder = TestBuilder::default().with_polling_policy(polling_policy::Aip194Strict);
+        let mut builder =
+            TestBuilder::default().with_polling_error_policy(polling_error_policy::Aip194Strict);
         assert!(
-            builder.request_options().polling_policy().is_some(),
+            builder.request_options().polling_error_policy().is_some(),
             "{builder:?}"
         );
 
@@ -599,8 +610,9 @@ mod test {
 
     #[test]
     fn config_polling() {
-        let config = ClientConfig::new().set_polling_policy(polling_policy::AlwaysContinue);
-        assert!(config.polling_policy.is_some());
+        let config =
+            ClientConfig::new().set_polling_error_policy(polling_error_policy::AlwaysContinue);
+        assert!(config.polling_error_policy.is_some());
     }
 
     #[test]

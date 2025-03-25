@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Defines the trait for polling policies and some common implementations.
+//! Defines the types for polling error policies.
 //!
 //! The client libraries automatically poll long-running operations (LROs) and
 //! need to (1) distinguish between transient and permanent errors, and (2)
@@ -24,13 +24,15 @@
 //!
 //! # Example:
 //! ```
-//! # use google_cloud_gax::polling_policy::*;
+//! # use google_cloud_gax::polling_error_policy::*;
 //! # use google_cloud_gax::options;
 //! use std::time::Duration;
-//! fn customize_polling_policy(config: options::ClientConfig) -> options::ClientConfig {
+//! fn customize_polling_error_policy(config: options::ClientConfig)
+//!     -> options::ClientConfig
+//! {
 //!     // Poll for at most 15 minutes or at most 50 attempts: whichever limit
 //!     // is reached first stops the polling loop.
-//!     config.set_polling_policy(
+//!     config.set_polling_error_policy(
 //!         Aip194Strict
 //!             .with_time_limit(Duration::from_secs(15 * 60))
 //!             .with_attempt_limit(50))
@@ -41,11 +43,14 @@ use crate::error::Error;
 use crate::loop_state::LoopState;
 use std::sync::Arc;
 
+// TODO(#1135) - remove backwards compat
+pub use PollingErrorPolicy as PollingPolicy;
+
 /// Determines how errors are handled in the polling loop.
 ///
 /// Implementations of this trait determine if polling errors may resolve in
 /// future attempts, and for how long the polling loop may continue.
-pub trait PollingPolicy: Send + Sync + std::fmt::Debug {
+pub trait PollingErrorPolicy: Send + Sync + std::fmt::Debug {
     /// Query the polling policy after an error.
     ///
     /// # Parameters
@@ -73,28 +78,28 @@ pub trait PollingPolicy: Send + Sync + std::fmt::Debug {
     }
 }
 
-/// A helper type to use [PollingPolicy] in client and request options.
+/// A helper type to use [PollingErrorPolicy] in client and request options.
 #[derive(Clone)]
-pub struct PollingPolicyArg(pub(crate) Arc<dyn PollingPolicy>);
+pub struct PollingErrorPolicyArg(pub(crate) Arc<dyn PollingErrorPolicy>);
 
-impl<T> std::convert::From<T> for PollingPolicyArg
+impl<T> std::convert::From<T> for PollingErrorPolicyArg
 where
-    T: PollingPolicy + 'static,
+    T: PollingErrorPolicy + 'static,
 {
     fn from(value: T) -> Self {
         Self(Arc::new(value))
     }
 }
 
-impl std::convert::From<Arc<dyn PollingPolicy>> for PollingPolicyArg {
-    fn from(value: Arc<dyn PollingPolicy>) -> Self {
+impl std::convert::From<Arc<dyn PollingErrorPolicy>> for PollingErrorPolicyArg {
+    fn from(value: Arc<dyn PollingErrorPolicy>) -> Self {
         Self(value)
     }
 }
 
-/// Extension trait for [PollingPolicy]
-pub trait PollingPolicyExt: PollingPolicy + Sized {
-    /// Decorate a [PollingPolicy] to limit the total elapsed time in the
+/// Extension trait for [PollingErrorPolicy]
+pub trait PollingErrorPolicyExt: PollingErrorPolicy + Sized {
+    /// Decorate a [PollingErrorPolicy] to limit the total elapsed time in the
     /// polling loop.
     ///
     /// While the time spent in the polling loop (including time in backoff) is
@@ -106,7 +111,7 @@ pub trait PollingPolicyExt: PollingPolicy + Sized {
     /// # Example
     /// ```
     /// # use google_cloud_gax::*;
-    /// use polling_policy::*;
+    /// use polling_error_policy::*;
     /// use std::time::{Duration, Instant};
     /// let policy = Aip194Strict.with_time_limit(Duration::from_secs(10)).with_attempt_limit(3);
     /// let attempt_count = 4;
@@ -116,7 +121,7 @@ pub trait PollingPolicyExt: PollingPolicy + Sized {
         LimitedElapsedTime::custom(self, maximum_duration)
     }
 
-    /// Decorate a [PollingPolicy] to limit the number of poll attempts.
+    /// Decorate a [PollingErrorPolicy] to limit the number of poll attempts.
     ///
     /// This policy decorates an inner policy and limits the total number of
     /// attempts. Note that `on_error()` is called only after a polling attempt.
@@ -132,7 +137,7 @@ pub trait PollingPolicyExt: PollingPolicy + Sized {
     /// # Example
     /// ```
     /// # use google_cloud_gax::*;
-    /// use polling_policy::*;
+    /// use polling_error_policy::*;
     /// use std::time::Instant;
     /// let policy = Aip194Strict.with_attempt_limit(3);
     /// assert!(policy.on_error(Instant::now(), 0, error::Error::authentication(format!("transient"))).is_continue());
@@ -145,7 +150,7 @@ pub trait PollingPolicyExt: PollingPolicy + Sized {
     }
 }
 
-impl<T: PollingPolicy> PollingPolicyExt for T {}
+impl<T: PollingErrorPolicy> PollingErrorPolicyExt for T {}
 
 /// A polling policy that strictly follows [AIP-194].
 ///
@@ -158,7 +163,7 @@ impl<T: PollingPolicy> PollingPolicyExt for T {}
 /// # Example
 /// ```
 /// # use google_cloud_gax::*;
-/// # use google_cloud_gax::polling_policy::*;
+/// # use google_cloud_gax::polling_error_policy::*;
 /// use std::time::Instant;
 /// let policy = Aip194Strict.with_attempt_limit(3);
 /// let attempt_count = 4;
@@ -169,7 +174,7 @@ impl<T: PollingPolicy> PollingPolicyExt for T {}
 #[derive(Clone, Debug)]
 pub struct Aip194Strict;
 
-impl PollingPolicy for Aip194Strict {
+impl PollingErrorPolicy for Aip194Strict {
     fn on_error(
         &self,
         _loop_start: std::time::Instant,
@@ -216,7 +221,7 @@ impl PollingPolicy for Aip194Strict {
 /// # Example
 /// ```
 /// # use google_cloud_gax::*;
-/// # use google_cloud_gax::polling_policy::*;
+/// # use google_cloud_gax::polling_error_policy::*;
 /// use std::time::Instant;
 /// let policy = AlwaysContinue;
 /// assert!(policy.on_error(Instant::now(), 1, error::Error::other("err")).is_continue());
@@ -226,7 +231,7 @@ impl PollingPolicy for Aip194Strict {
 #[derive(Clone, Debug)]
 pub struct AlwaysContinue;
 
-impl PollingPolicy for AlwaysContinue {
+impl PollingErrorPolicy for AlwaysContinue {
     fn on_error(
         &self,
         _loop_start: std::time::Instant,
@@ -255,7 +260,7 @@ impl PollingPolicy for AlwaysContinue {
 #[derive(Debug)]
 pub struct LimitedElapsedTime<P = Aip194Strict>
 where
-    P: PollingPolicy,
+    P: PollingErrorPolicy,
 {
     inner: P,
     maximum_duration: std::time::Duration,
@@ -267,7 +272,7 @@ impl LimitedElapsedTime {
     /// # Example
     /// ```
     /// # use google_cloud_gax::*;
-    /// # use google_cloud_gax::polling_policy::*;
+    /// # use google_cloud_gax::polling_error_policy::*;
     /// use std::time::{Duration, Instant};
     /// let policy = LimitedElapsedTime::new(Duration::from_secs(10));
     /// let start = Instant::now() - Duration::from_secs(20);
@@ -283,14 +288,14 @@ impl LimitedElapsedTime {
 
 impl<P> LimitedElapsedTime<P>
 where
-    P: PollingPolicy,
+    P: PollingErrorPolicy,
 {
     /// Creates a new instance with a custom inner policy.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_gax::*;
-    /// # use google_cloud_gax::polling_policy::*;
+    /// # use google_cloud_gax::polling_error_policy::*;
     /// use std::time::{Duration, Instant};
     /// let policy = LimitedElapsedTime::custom(AlwaysContinue, Duration::from_secs(10));
     /// let start = Instant::now() - Duration::from_secs(20);
@@ -317,9 +322,9 @@ where
     }
 }
 
-impl<P> PollingPolicy for LimitedElapsedTime<P>
+impl<P> PollingErrorPolicy for LimitedElapsedTime<P>
 where
-    P: PollingPolicy + 'static,
+    P: PollingErrorPolicy + 'static,
 {
     fn on_error(&self, start: std::time::Instant, count: u32, error: Error) -> LoopState {
         match self.inner.on_error(start, count, error) {
@@ -363,7 +368,7 @@ where
 #[derive(Debug)]
 pub struct LimitedAttemptCount<P = Aip194Strict>
 where
-    P: PollingPolicy,
+    P: PollingErrorPolicy,
 {
     inner: P,
     maximum_attempts: u32,
@@ -375,7 +380,7 @@ impl LimitedAttemptCount {
     /// # Example
     /// ```
     /// # use google_cloud_gax::*;
-    /// # use google_cloud_gax::polling_policy::*;
+    /// # use google_cloud_gax::polling_error_policy::*;
     /// use std::time::Instant;
     /// let policy = LimitedAttemptCount::new(5);
     /// let attempt_count = 10;
@@ -391,13 +396,13 @@ impl LimitedAttemptCount {
 
 impl<P> LimitedAttemptCount<P>
 where
-    P: PollingPolicy,
+    P: PollingErrorPolicy,
 {
     /// Creates a new instance with a custom inner policy.
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::polling_policy::*;
+    /// # use google_cloud_gax::polling_error_policy::*;
     /// # use google_cloud_gax::*;
     /// use std::time::Instant;
     /// let policy = LimitedAttemptCount::custom(AlwaysContinue, 2);
@@ -424,9 +429,9 @@ where
     }
 }
 
-impl<P> PollingPolicy for LimitedAttemptCount<P>
+impl<P> PollingErrorPolicy for LimitedAttemptCount<P>
 where
-    P: PollingPolicy,
+    P: PollingErrorPolicy,
 {
     fn on_error(&self, start: std::time::Instant, count: u32, error: Error) -> LoopState {
         match self.inner.on_error(start, count, error) {
@@ -500,7 +505,7 @@ mod tests {
     mockall::mock! {
         #[derive(Debug)]
         Policy {}
-        impl PollingPolicy for Policy {
+        impl PollingErrorPolicy for Policy {
             fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, error: Error) -> LoopState;
             fn on_in_progress(&self, loop_start: std::time::Instant, attempt_count: u32, operation_name: &str) -> Option<Error>;
         }
@@ -510,10 +515,10 @@ mod tests {
     #[test]
     fn polling_policy_arg() {
         let policy = LimitedAttemptCount::new(3);
-        let _ = PollingPolicyArg::from(policy);
+        let _ = PollingErrorPolicyArg::from(policy);
 
-        let policy: Arc<dyn PollingPolicy> = Arc::new(LimitedAttemptCount::new(3));
-        let _ = PollingPolicyArg::from(policy);
+        let policy: Arc<dyn PollingErrorPolicy> = Arc::new(LimitedAttemptCount::new(3));
+        let _ = PollingErrorPolicyArg::from(policy);
     }
 
     #[test]
