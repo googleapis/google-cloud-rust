@@ -18,6 +18,7 @@ import (
 	"errors"
 	"fmt"
 	"os/exec"
+	"regexp"
 	"strings"
 	"unicode"
 
@@ -107,17 +108,33 @@ func httpPathArgs(_ *api.PathInfo) []string {
 	return args
 }
 
+// This regex matches Google API documentation reference links; it supports
+// both regular references as well as implit references.
+//
+// - `[Code][google.rpc.Code]`
+// - `[google.rpc.Code][]`
+var commentRefsRegex = regexp.MustCompile(`\[([\w\d\._]+)\]\[([\d\w\._]*)\]`)
+
 func formatDocComments(documentation string, _ *api.APIState) []string {
 	lines := strings.Split(documentation, "\n")
 
+	// Remove trailing whitespace.
 	for i, line := range lines {
 		lines[i] = strings.TrimRightFunc(line, unicode.IsSpace)
 	}
 
+	// Re-write Google API doc references to code formatted text.
+	// TODO(#1575): Instead, resolve and insert dartdoc style references.
+	for i, line := range lines {
+		lines[i] = commentRefsRegex.ReplaceAllString(line, "`$1`")
+	}
+
+	// Remove trailing blank lines.
 	for len(lines) > 0 && len(lines[len(lines)-1]) == 0 {
 		lines = lines[:len(lines)-1]
 	}
 
+	// Convert to dartdoc format.
 	for i, line := range lines {
 		if len(line) == 0 {
 			lines[i] = "///"
