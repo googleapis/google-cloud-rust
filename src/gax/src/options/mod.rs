@@ -136,16 +136,6 @@ impl RequestOptions {
         self.retry_throttler = Some(v.into().0);
     }
 
-    // TODO(#1135) - remove backwards compat.
-    pub fn polling_policy(&self) -> &Option<Arc<dyn PollingErrorPolicy>> {
-        self.polling_error_policy()
-    }
-
-    // TODO(#1135) - remove backwards compat.
-    pub fn set_polling_policy<V: Into<PollingErrorPolicyArg>>(&mut self, v: V) {
-        self.set_polling_error_policy(v);
-    }
-
     /// Get the current polling policy override, if any.
     pub fn polling_error_policy(&self) -> &Option<Arc<dyn PollingErrorPolicy>> {
         &self.polling_error_policy
