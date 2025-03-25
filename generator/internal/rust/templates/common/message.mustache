@@ -190,7 +190,7 @@ impl gax::paginator::PageableResponse for {{Name}} {
 {{/Pagination}}
 {{#Codec.HasNestedTypes}}
 
-/// Defines additional types related to {{Name}}
+/// Defines additional types related to [{{Name}}].
 pub mod {{Codec.ModuleName}} {
     {{! Very rarely, this is unused. It is easier to always disable the warning. }}
     #[allow(unused_imports)]
