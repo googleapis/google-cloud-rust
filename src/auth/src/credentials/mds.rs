@@ -128,7 +128,7 @@ impl Builder {
     /// Client libraries use `universe_domain` to determine
     /// the API endpoints to use for making requests.
     /// If not set, credentials fetch the `universe_domain` from the [Metadata Service]
-    /// when a call to [get_universe_domain](MDSCredential::get_universe_domain) is made.
+    /// when a call to [get_universe_domain](Credential::get_universe_domain) is made.
     /// Any value provided or obtained is cached for the credential lifetime.
     ///
     /// [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
@@ -267,8 +267,10 @@ where
         if universe_domain_rx.borrow_and_update().is_none() {
             self.wakeup_signal.notify_one();
 
-            universe_domain_rx.changed().await.map_err(|_| {
-                CredentialError::non_retryable_from_str("Failed to receive universe domain update.")
+            universe_domain_rx.changed().await.map_err(|e| {
+                CredentialError::non_retryable_from_str(format!(
+                    "Failed to read universe domain due to: {e}"
+                ))
             })?;
         }
 
@@ -890,6 +892,29 @@ mod test {
     }
 
     #[tokio::test]
+    async fn get_universe_domain_empty_response_success() {
+        let (endpoint, _server) = start(HashMap::from([(
+            UNIVERSE_DOMAIN_URI.to_string(),
+            (
+                StatusCode::OK,
+                String::default(),
+                TokenQueryParams {
+                    scopes: None,
+                    recursive: None,
+                },
+            ),
+        )]))
+        .await;
+        let universe_domain_response = Builder::default()
+            .endpoint(endpoint)
+            .build()
+            .get_universe_domain()
+            .await
+            .unwrap();
+        assert_eq!(universe_domain_response, DEFAULT_UNIVERSE_DOMAIN);
+    }
+
+    #[tokio::test]
     async fn get_custom_universe_domain_success() {
         let universe_domain = "test-universe";
         let universe_domain_response = Builder::default()
@@ -931,6 +956,30 @@ mod test {
                 .unwrap()
                 .to_string()
                 .contains(universe_domain_response),
+            "{e}"
+        );
+    }
+
+    #[tokio::test]
+    async fn get_universe_domain_dropped_watcher() {
+        let mock = MockTokenProvider::new();
+
+        let (universe_domain_tx, universe_domain_rx) = watch::channel(None);
+        let mdsc = MDSCredential {
+            quota_project_id: None,
+            universe_domain_rx,
+            wakeup_signal: Arc::new(Notify::new()),
+            token_provider: mock,
+        };
+        drop(universe_domain_tx);
+        let e = mdsc.get_universe_domain().await.err().unwrap();
+
+        assert!(!e.is_retryable(), "{e}");
+        assert!(
+            e.source()
+                .unwrap()
+                .to_string()
+                .contains("Failed to read universe domain due to: channel closed"),
             "{e}"
         );
     }

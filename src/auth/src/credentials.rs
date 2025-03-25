@@ -356,7 +356,6 @@ fn adc_well_known_path() -> Option<String> {
 pub mod testing {
     use crate::Result;
     use crate::credentials::Credential;
-    use crate::credentials::DEFAULT_UNIVERSE_DOMAIN;
     use crate::credentials::dynamic::CredentialTrait;
     use crate::token::Token;
     use http::header::{HeaderName, HeaderValue};
@@ -387,10 +386,6 @@ pub mod testing {
 
         async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
             Ok(Vec::new())
-        }
-
-        async fn get_universe_domain(&self) -> Result<String> {
-            Ok(DEFAULT_UNIVERSE_DOMAIN.to_string())
         }
     }
 }
