@@ -16,6 +16,7 @@ use crate::credentials::dynamic::CredentialTrait;
 use crate::credentials::{Credential, QUOTA_PROJECT_KEY, Result};
 use crate::errors::{CredentialError, is_retryable};
 use crate::token::{Token, TokenProvider};
+use crate::token_cache::TokenCache;
 use http::header::{AUTHORIZATION, CONTENT_TYPE, HeaderName, HeaderValue};
 use reqwest::{Client, Method};
 use std::sync::Arc;
@@ -36,9 +37,11 @@ pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
         endpoint,
     };
 
+    let cached_token_provider = TokenCache::new(token_provider);
+
     Ok(Credential {
         inner: Arc::new(UserCredential {
-            token_provider,
+            token_provider: cached_token_provider,
             quota_project_id: au.quota_project_id,
         }),
     })
@@ -194,6 +197,7 @@ mod test {
     use axum::extract::Json;
     use http::StatusCode;
     use std::error::Error;
+    use std::sync::Mutex;
     use tokio::task::JoinHandle;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
@@ -459,10 +463,14 @@ mod test {
     }
 
     // Starts a server running locally. Returns an (endpoint, handler) pair.
-    async fn start(response_code: StatusCode, response_body: String) -> (String, JoinHandle<()>) {
+    async fn start(
+        response_code: StatusCode,
+        response_body: String,
+        call_count: Arc<Mutex<i32>>,
+    ) -> (String, JoinHandle<()>) {
         let code = response_code.clone();
         let body = response_body.clone();
-        let handler = move |req| async move { handle_token_factory(code, body)(req) };
+        let handler = move |req| async move { handle_token_factory(code, body, call_count)(req) };
         let app = axum::Router::new().route("/token", axum::routing::post(handler));
         let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
         let addr = listener.local_addr().unwrap();
@@ -482,8 +490,11 @@ mod test {
     fn handle_token_factory(
         response_code: StatusCode,
         response_body: String,
+        call_count: Arc<std::sync::Mutex<i32>>,
     ) -> impl Fn(Json<Oauth2RefreshRequest>) -> (StatusCode, String) {
         move |request: Json<Oauth2RefreshRequest>| -> (StatusCode, String) {
+            let mut count = call_count.lock().unwrap();
+            *count += 1;
             assert_eq!(request.client_id, "test-client-id");
             assert_eq!(request.client_secret, "test-client-secret");
             assert_eq!(request.refresh_token, "test-refresh-token");
@@ -503,7 +514,8 @@ mod test {
             token_type: "test-token-type".to_string(),
         };
         let response_body = serde_json::to_string(&response).unwrap();
-        let (endpoint, _server) = start(StatusCode::OK, response_body).await;
+        let (endpoint, _server) =
+            start(StatusCode::OK, response_body, Arc::new(Mutex::new(0))).await;
         println!("endpoint = {endpoint}");
 
         let token_provider = UserTokenProvider {
@@ -533,7 +545,7 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn creds_from_json_custom_token_uri() -> TestResult {
+    async fn creds_from_json_custom_uri_with_caching() -> TestResult {
         let response = Oauth2RefreshResponse {
             access_token: "test-access-token".to_string(),
             expires_in: Some(3600),
@@ -542,7 +554,8 @@ mod test {
             token_type: "test-token-type".to_string(),
         };
         let response_body = serde_json::to_string(&response).unwrap();
-        let (endpoint, _server) = start(StatusCode::OK, response_body).await;
+        let call_count = Arc::new(Mutex::new(0));
+        let (endpoint, _server) = start(StatusCode::OK, response_body, call_count.clone()).await;
         println!("endpoint = {endpoint}");
 
         let json = serde_json::json!({
@@ -561,6 +574,13 @@ mod test {
         let token = cred.get_token().await?;
         assert_eq!(token.token, "test-access-token");
 
+        let token = cred.get_token().await?;
+        assert_eq!(token.token, "test-access-token");
+
+        // Test that the inner token provider was called only
+        // once even though get_token was called twice.
+        assert_eq!(*call_count.lock().unwrap(), 1);
+
         Ok(())
     }
 
@@ -574,7 +594,8 @@ mod test {
             token_type: "test-token-type".to_string(),
         };
         let response_body = serde_json::to_string(&response).unwrap();
-        let (endpoint, _server) = start(StatusCode::OK, response_body).await;
+        let (endpoint, _server) =
+            start(StatusCode::OK, response_body, Arc::new(Mutex::new(0))).await;
         println!("endpoint = {endpoint}");
 
         let token_provider = UserTokenProvider {
@@ -597,8 +618,12 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_retryable_error() -> TestResult {
-        let (endpoint, _server) =
-            start(StatusCode::SERVICE_UNAVAILABLE, "try again".to_string()).await;
+        let (endpoint, _server) = start(
+            StatusCode::SERVICE_UNAVAILABLE,
+            "try again".to_string(),
+            Arc::new(Mutex::new(0)),
+        )
+        .await;
         println!("endpoint = {endpoint}");
 
         let token_provider = UserTokenProvider {
@@ -620,7 +645,12 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_nonretryable_error() -> TestResult {
-        let (endpoint, _server) = start(StatusCode::UNAUTHORIZED, "epic fail".to_string()).await;
+        let (endpoint, _server) = start(
+            StatusCode::UNAUTHORIZED,
+            "epic fail".to_string(),
+            Arc::new(Mutex::new(0)),
+        )
+        .await;
         println!("endpoint = {endpoint}");
 
         let token_provider = UserTokenProvider {
@@ -642,7 +672,12 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_malformed_response_is_nonretryable() -> TestResult {
-        let (endpoint, _server) = start(StatusCode::OK, "bad json".to_string()).await;
+        let (endpoint, _server) = start(
+            StatusCode::OK,
+            "bad json".to_string(),
+            Arc::new(Mutex::new(0)),
+        )
+        .await;
         println!("endpoint = {endpoint}");
 
         let token_provider = UserTokenProvider {
