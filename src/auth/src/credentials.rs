@@ -157,12 +157,15 @@ pub trait CredentialTrait: std::fmt::Debug {
     /// The underlying implementation refreshes the token as needed.
     fn get_headers(&self) -> impl Future<Output = Result<Vec<(HeaderName, HeaderValue)>>> + Send;
 
-    /// Retrieves the universe domain associated with the credential, if any.
+    /// Retrieves the universe domain associated with the credential.
+    ///
+    /// The universe domain associated with the credential determines the API endpoints
+    /// to use for making requests eg: `${service}.googleapis.com`.
     fn get_universe_domain(&self) -> impl Future<Output = Result<String>> + Send;
 }
 
 pub(crate) mod dynamic {
-    use super::Result;
+    use super::{DEFAULT_UNIVERSE_DOMAIN, Result};
     use super::{HeaderName, HeaderValue};
 
     /// A dyn-compatible, crate-private version of `CredentialTrait`.
@@ -183,9 +186,12 @@ pub(crate) mod dynamic {
         /// The underlying implementation refreshes the token as needed.
         async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>>;
 
-        /// Retrieves the universe domain associated with the credential, if any.
+        /// Retrieves the universe domain associated with the credential.
+        ///
+        /// The universe domain associated with the credential determines the API endpoints
+        /// to use for making requests eg: `${service}.${universe_domain}`.
         async fn get_universe_domain(&self) -> Result<String> {
-            Ok("googleapis.com".to_string())
+            Ok(DEFAULT_UNIVERSE_DOMAIN.to_string())
         }
     }
 

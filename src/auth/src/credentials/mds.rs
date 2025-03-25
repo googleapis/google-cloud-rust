@@ -127,8 +127,11 @@ impl Builder {
     ///
     /// Client libraries use `universe_domain` to determine
     /// the API endpoints to use for making requests.
-    /// If not set, then credentials use `${service}.googleapis.com`,
-    /// otherwise they use `${service}.${universe_domain}.
+    /// If not set, credentials fetch the `universe_domain` from the [Metadata Service]
+    /// when a call to [get_universe_domain](MDSCredential::get_universe_domain) is made.
+    /// Any value provided or obtained is cached for the credential lifetime.
+    ///
+    /// [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
     pub fn universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
         self.universe_domain = Some(universe_domain.into());
         self
@@ -209,7 +212,7 @@ async fn get_universe_domain_from_mds(endpoint: &String) -> Result<String> {
             .map_err(|e| CredentialError::new(is_retryable(status), e))?;
         return Err(CredentialError::from_str(
             is_retryable(status),
-            format!("Failed to fetch universe domain. {body}"),
+            format!("Failed to fetch universe domain. Status: {status}. Body: {body}"),
         ));
     }
     let universe_domain = response.text().await.map_err(CredentialError::retryable)?;
@@ -260,6 +263,10 @@ where
         Ok(headers)
     }
 
+    /// Retrieves the universe domain associated with the credential.
+    ///
+    /// The underlying implementation may fetch the universe domain from the
+    /// Metadata Service or use a (default value)[crate::DEFAULT_UNIVERSE_DOMAIN] if not available.
     async fn get_universe_domain(&self) -> Result<String> {
         let mut universe_domain_receiver = self.universe_domain_receiver.clone();
 
@@ -402,7 +409,7 @@ mod test {
         recursive: Option<String>,
     }
 
-    #[derive(Clone)] // State needs to be Clone
+    #[derive(Clone)]
     struct AppState {
         target_endpoint_counter: Arc<AtomicUsize>,
     }
@@ -501,7 +508,6 @@ mod test {
         assert!(mdsc.get_headers().await.is_err());
     }
 
-    // Handler to get the current count
     async fn get_count_handler(
         State(state): State<AppState>, // Extract the shared state
     ) -> impl IntoResponse {
@@ -601,7 +607,7 @@ mod test {
             path,
             (
                 StatusCode::SERVICE_UNAVAILABLE,
-                serde_json::to_string("try again").unwrap(),
+                "try again".to_string(),
                 TokenQueryParams {
                     scopes: None,
                     recursive: Some("true".to_string()),
@@ -868,7 +874,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_default_universe_domain_success() -> TestResult {
+    async fn get_default_universe_domain_success() {
         let (endpoint, _server) = start(HashMap::from([(
             UNIVERSE_DOMAIN_URI.to_string(),
             (
@@ -888,11 +894,10 @@ mod test {
             .await
             .unwrap();
         assert_eq!(universe_domain_response, DEFAULT_UNIVERSE_DOMAIN);
-        Ok(())
     }
 
     #[tokio::test]
-    async fn get_custom_universe_domain_success() -> TestResult {
+    async fn get_custom_universe_domain_success() {
         let universe_domain = "test-universe";
         let universe_domain_response = Builder::default()
             .universe_domain(universe_domain)
@@ -901,7 +906,6 @@ mod test {
             .await
             .unwrap();
         assert_eq!(universe_domain_response, universe_domain);
-        Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
