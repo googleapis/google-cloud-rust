@@ -366,7 +366,7 @@ impl wkt::message::Message for Subnet {
     }
 }
 
-/// Defines additional types related to Subnet
+/// Defines additional types related to [Subnet].
 pub mod subnet {
     #[allow(unused_imports)]
     use super::*;
@@ -571,7 +571,7 @@ impl wkt::message::Message for Interconnect {
     }
 }
 
-/// Defines additional types related to Interconnect
+/// Defines additional types related to [Interconnect].
 pub mod interconnect {
     #[allow(unused_imports)]
     use super::*;
@@ -927,7 +927,7 @@ impl wkt::message::Message for Router {
     }
 }
 
-/// Defines additional types related to Router
+/// Defines additional types related to [Router].
 pub mod router {
     #[allow(unused_imports)]
     use super::*;
@@ -1334,7 +1334,7 @@ impl wkt::message::Message for InterconnectDiagnostics {
     }
 }
 
-/// Defines additional types related to InterconnectDiagnostics
+/// Defines additional types related to [InterconnectDiagnostics].
 pub mod interconnect_diagnostics {
     #[allow(unused_imports)]
     use super::*;
@@ -1592,7 +1592,7 @@ pub mod interconnect_diagnostics {
         }
     }
 
-    /// Defines additional types related to LinkLACPStatus
+    /// Defines additional types related to [LinkLACPStatus].
     pub mod link_lacp_status {
         #[allow(unused_imports)]
         use super::*;
@@ -1802,7 +1802,7 @@ impl wkt::message::Message for RouterStatus {
     }
 }
 
-/// Defines additional types related to RouterStatus
+/// Defines additional types related to [RouterStatus].
 pub mod router_status {
     #[allow(unused_imports)]
     use super::*;
@@ -1920,7 +1920,7 @@ pub mod router_status {
         }
     }
 
-    /// Defines additional types related to BgpPeerStatus
+    /// Defines additional types related to [BgpPeerStatus].
     pub mod bgp_peer_status {
         #[allow(unused_imports)]
         use super::*;
@@ -3919,7 +3919,7 @@ impl wkt::message::Message for DiagnoseNetworkResponse {
     }
 }
 
-/// Defines additional types related to DiagnoseNetworkResponse
+/// Defines additional types related to [DiagnoseNetworkResponse].
 pub mod diagnose_network_response {
     #[allow(unused_imports)]
     use super::*;
@@ -3976,7 +3976,7 @@ pub mod diagnose_network_response {
         }
     }
 
-    /// Defines additional types related to NetworkStatus
+    /// Defines additional types related to [NetworkStatus].
     pub mod network_status {
         #[allow(unused_imports)]
         use super::*;

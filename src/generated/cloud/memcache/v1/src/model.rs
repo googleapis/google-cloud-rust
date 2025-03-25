@@ -320,7 +320,7 @@ impl wkt::message::Message for Instance {
     }
 }
 
-/// Defines additional types related to Instance
+/// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;
@@ -448,7 +448,7 @@ pub mod instance {
         }
     }
 
-    /// Defines additional types related to Node
+    /// Defines additional types related to [Node].
     pub mod node {
         #[allow(unused_imports)]
         use super::*;
@@ -561,7 +561,7 @@ pub mod instance {
         }
     }
 
-    /// Defines additional types related to InstanceMessage
+    /// Defines additional types related to [InstanceMessage].
     pub mod instance_message {
         #[allow(unused_imports)]
         use super::*;
@@ -944,7 +944,7 @@ impl wkt::message::Message for RescheduleMaintenanceRequest {
     }
 }
 
-/// Defines additional types related to RescheduleMaintenanceRequest
+/// Defines additional types related to [RescheduleMaintenanceRequest].
 pub mod reschedule_maintenance_request {
     #[allow(unused_imports)]
     use super::*;

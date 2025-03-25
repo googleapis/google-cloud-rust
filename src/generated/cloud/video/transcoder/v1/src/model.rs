@@ -285,7 +285,7 @@ impl wkt::message::Message for Job {
     }
 }
 
-/// Defines additional types related to Job
+/// Defines additional types related to [Job].
 pub mod job {
     #[allow(unused_imports)]
     use super::*;
@@ -1088,7 +1088,7 @@ impl wkt::message::Message for ElementaryStream {
     }
 }
 
-/// Defines additional types related to ElementaryStream
+/// Defines additional types related to [ElementaryStream].
 pub mod elementary_stream {
     #[allow(unused_imports)]
     use super::*;
@@ -1318,7 +1318,7 @@ impl wkt::message::Message for Manifest {
     }
 }
 
-/// Defines additional types related to Manifest
+/// Defines additional types related to [Manifest].
 pub mod manifest {
     #[allow(unused_imports)]
     use super::*;
@@ -1357,7 +1357,7 @@ pub mod manifest {
         }
     }
 
-    /// Defines additional types related to DashConfig
+    /// Defines additional types related to [DashConfig].
     pub mod dash_config {
         #[allow(unused_imports)]
         use super::*;
@@ -1747,7 +1747,7 @@ impl wkt::message::Message for SpriteSheet {
     }
 }
 
-/// Defines additional types related to SpriteSheet
+/// Defines additional types related to [SpriteSheet].
 pub mod sprite_sheet {
     #[allow(unused_imports)]
     use super::*;
@@ -1815,7 +1815,7 @@ impl wkt::message::Message for Overlay {
     }
 }
 
-/// Defines additional types related to Overlay
+/// Defines additional types related to [Overlay].
 pub mod overlay {
     #[allow(unused_imports)]
     use super::*;
@@ -2209,7 +2209,7 @@ pub mod overlay {
         }
     }
 
-    /// Defines additional types related to Animation
+    /// Defines additional types related to [Animation].
     pub mod animation {
         #[allow(unused_imports)]
         use super::*;
@@ -2410,7 +2410,7 @@ impl wkt::message::Message for PreprocessingConfig {
     }
 }
 
-/// Defines additional types related to PreprocessingConfig
+/// Defines additional types related to [PreprocessingConfig].
 pub mod preprocessing_config {
     #[allow(unused_imports)]
     use super::*;
@@ -2844,7 +2844,7 @@ pub mod preprocessing_config {
         }
     }
 
-    /// Defines additional types related to Deinterlace
+    /// Defines additional types related to [Deinterlace].
     pub mod deinterlace {
         #[allow(unused_imports)]
         use super::*;
@@ -3116,7 +3116,7 @@ impl wkt::message::Message for VideoStream {
     }
 }
 
-/// Defines additional types related to VideoStream
+/// Defines additional types related to [VideoStream].
 pub mod video_stream {
     #[allow(unused_imports)]
     use super::*;
@@ -3462,7 +3462,7 @@ pub mod video_stream {
         }
     }
 
-    /// Defines additional types related to H264CodecSettings
+    /// Defines additional types related to [H264CodecSettings].
     pub mod h_264_codec_settings {
         #[allow(unused_imports)]
         use super::*;
@@ -3822,7 +3822,7 @@ pub mod video_stream {
         }
     }
 
-    /// Defines additional types related to H265CodecSettings
+    /// Defines additional types related to [H265CodecSettings].
     pub mod h_265_codec_settings {
         #[allow(unused_imports)]
         use super::*;
@@ -4066,7 +4066,7 @@ pub mod video_stream {
         }
     }
 
-    /// Defines additional types related to Vp9CodecSettings
+    /// Defines additional types related to [Vp9CodecSettings].
     pub mod vp_9_codec_settings {
         #[allow(unused_imports)]
         use super::*;
@@ -4233,7 +4233,7 @@ impl wkt::message::Message for AudioStream {
     }
 }
 
-/// Defines additional types related to AudioStream
+/// Defines additional types related to [AudioStream].
 pub mod audio_stream {
     #[allow(unused_imports)]
     use super::*;
@@ -4392,7 +4392,7 @@ impl wkt::message::Message for TextStream {
     }
 }
 
-/// Defines additional types related to TextStream
+/// Defines additional types related to [TextStream].
 pub mod text_stream {
     #[allow(unused_imports)]
     use super::*;
@@ -4686,7 +4686,7 @@ impl wkt::message::Message for Encryption {
     }
 }
 
-/// Defines additional types related to Encryption
+/// Defines additional types related to [Encryption].
 pub mod encryption {
     #[allow(unused_imports)]
     use super::*;

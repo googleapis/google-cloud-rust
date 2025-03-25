@@ -164,7 +164,7 @@ impl wkt::message::Message for Environment {
     }
 }
 
-/// Defines additional types related to Environment
+/// Defines additional types related to [Environment].
 pub mod environment {
     #[allow(unused_imports)]
     use super::*;
@@ -522,7 +522,7 @@ impl wkt::message::Message for StartEnvironmentMetadata {
     }
 }
 
-/// Defines additional types related to StartEnvironmentMetadata
+/// Defines additional types related to [StartEnvironmentMetadata].
 pub mod start_environment_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -870,7 +870,7 @@ impl wkt::message::Message for CloudShellErrorDetails {
     }
 }
 
-/// Defines additional types related to CloudShellErrorDetails
+/// Defines additional types related to [CloudShellErrorDetails].
 pub mod cloud_shell_error_details {
     #[allow(unused_imports)]
     use super::*;

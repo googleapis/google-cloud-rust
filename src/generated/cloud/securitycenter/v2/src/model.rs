@@ -439,7 +439,7 @@ impl wkt::message::Message for AttackExposure {
     }
 }
 
-/// Defines additional types related to AttackExposure
+/// Defines additional types related to [AttackExposure].
 pub mod attack_exposure {
     #[allow(unused_imports)]
     use super::*;
@@ -562,7 +562,7 @@ impl wkt::message::Message for AttackPath {
     }
 }
 
-/// Defines additional types related to AttackPath
+/// Defines additional types related to [AttackPath].
 pub mod attack_path {
     #[allow(unused_imports)]
     use super::*;
@@ -670,7 +670,7 @@ pub mod attack_path {
         }
     }
 
-    /// Defines additional types related to AttackPathNode
+    /// Defines additional types related to [AttackPathNode].
     pub mod attack_path_node {
         #[allow(unused_imports)]
         use super::*;
@@ -1607,7 +1607,7 @@ impl wkt::message::Message for CloudDlpDataProfile {
     }
 }
 
-/// Defines additional types related to CloudDlpDataProfile
+/// Defines additional types related to [CloudDlpDataProfile].
 pub mod cloud_dlp_data_profile {
     #[allow(unused_imports)]
     use super::*;
@@ -1863,7 +1863,7 @@ impl wkt::message::Message for Connection {
     }
 }
 
-/// Defines additional types related to Connection
+/// Defines additional types related to [Connection].
 pub mod connection {
     #[allow(unused_imports)]
     use super::*;
@@ -2149,7 +2149,7 @@ impl wkt::message::Message for DataAccessEvent {
     }
 }
 
-/// Defines additional types related to DataAccessEvent
+/// Defines additional types related to [DataAccessEvent].
 pub mod data_access_event {
     #[allow(unused_imports)]
     use super::*;
@@ -2297,7 +2297,7 @@ impl wkt::message::Message for DataFlowEvent {
     }
 }
 
-/// Defines additional types related to DataFlowEvent
+/// Defines additional types related to [DataFlowEvent].
 pub mod data_flow_event {
     #[allow(unused_imports)]
     use super::*;
@@ -2450,7 +2450,7 @@ impl wkt::message::Message for DataRetentionDeletionEvent {
     }
 }
 
-/// Defines additional types related to DataRetentionDeletionEvent
+/// Defines additional types related to [DataRetentionDeletionEvent].
 pub mod data_retention_deletion_event {
     #[allow(unused_imports)]
     use super::*;
@@ -2925,7 +2925,7 @@ impl wkt::message::Message for ExternalSystem {
     }
 }
 
-/// Defines additional types related to ExternalSystem
+/// Defines additional types related to [ExternalSystem].
 pub mod external_system {
     #[allow(unused_imports)]
     use super::*;
@@ -3113,7 +3113,7 @@ impl wkt::message::Message for File {
     }
 }
 
-/// Defines additional types related to File
+/// Defines additional types related to [File].
 pub mod file {
     #[allow(unused_imports)]
     use super::*;
@@ -4024,7 +4024,7 @@ impl wkt::message::Message for Finding {
     }
 }
 
-/// Defines additional types related to Finding
+/// Defines additional types related to [Finding].
 pub mod finding {
     #[allow(unused_imports)]
     use super::*;
@@ -4081,7 +4081,7 @@ pub mod finding {
         }
     }
 
-    /// Defines additional types related to MuteInfo
+    /// Defines additional types related to [MuteInfo].
     pub mod mute_info {
         #[allow(unused_imports)]
         use super::*;
@@ -4592,7 +4592,7 @@ impl wkt::message::Message for GroupMembership {
     }
 }
 
-/// Defines additional types related to GroupMembership
+/// Defines additional types related to [GroupMembership].
 pub mod group_membership {
     #[allow(unused_imports)]
     use super::*;
@@ -4706,7 +4706,7 @@ impl wkt::message::Message for IamBinding {
     }
 }
 
-/// Defines additional types related to IamBinding
+/// Defines additional types related to [IamBinding].
 pub mod iam_binding {
     #[allow(unused_imports)]
     use super::*;
@@ -4853,7 +4853,7 @@ impl wkt::message::Message for Indicator {
     }
 }
 
-/// Defines additional types related to Indicator
+/// Defines additional types related to [Indicator].
 pub mod indicator {
     #[allow(unused_imports)]
     use super::*;
@@ -4983,7 +4983,7 @@ pub mod indicator {
         }
     }
 
-    /// Defines additional types related to ProcessSignature
+    /// Defines additional types related to [ProcessSignature].
     pub mod process_signature {
         #[allow(unused_imports)]
         use super::*;
@@ -5038,7 +5038,7 @@ pub mod indicator {
             }
         }
 
-        /// Defines additional types related to MemoryHashSignature
+        /// Defines additional types related to [MemoryHashSignature].
         pub mod memory_hash_signature {
             #[allow(unused_imports)]
             use super::*;
@@ -5449,7 +5449,7 @@ impl wkt::message::Message for Kubernetes {
     }
 }
 
-/// Defines additional types related to Kubernetes
+/// Defines additional types related to [Kubernetes].
 pub mod kubernetes {
     #[allow(unused_imports)]
     use super::*;
@@ -5649,7 +5649,7 @@ pub mod kubernetes {
         }
     }
 
-    /// Defines additional types related to Role
+    /// Defines additional types related to [Role].
     pub mod role {
         #[allow(unused_imports)]
         use super::*;
@@ -5833,7 +5833,7 @@ pub mod kubernetes {
         }
     }
 
-    /// Defines additional types related to Subject
+    /// Defines additional types related to [Subject].
     pub mod subject {
         #[allow(unused_imports)]
         use super::*;
@@ -6213,7 +6213,7 @@ impl wkt::message::Message for LogEntry {
     }
 }
 
-/// Defines additional types related to LogEntry
+/// Defines additional types related to [LogEntry].
 pub mod log_entry {
     #[allow(unused_imports)]
     use super::*;
@@ -6390,7 +6390,7 @@ impl wkt::message::Message for MitreAttack {
     }
 }
 
-/// Defines additional types related to MitreAttack
+/// Defines additional types related to [MitreAttack].
 pub mod mitre_attack {
     #[allow(unused_imports)]
     use super::*;
@@ -7109,7 +7109,7 @@ impl wkt::message::Message for MuteConfig {
     }
 }
 
-/// Defines additional types related to MuteConfig
+/// Defines additional types related to [MuteConfig].
 pub mod mute_config {
     #[allow(unused_imports)]
     use super::*;
@@ -7365,7 +7365,7 @@ impl wkt::message::Message for NotificationConfig {
     }
 }
 
-/// Defines additional types related to NotificationConfig
+/// Defines additional types related to [NotificationConfig].
 pub mod notification_config {
     #[allow(unused_imports)]
     use super::*;
@@ -7515,7 +7515,7 @@ impl wkt::message::Message for NotificationMessage {
     }
 }
 
-/// Defines additional types related to NotificationMessage
+/// Defines additional types related to [NotificationMessage].
 pub mod notification_message {
     #[allow(unused_imports)]
     use super::*;
@@ -7970,7 +7970,7 @@ impl wkt::message::Message for Resource {
     }
 }
 
-/// Defines additional types related to Resource
+/// Defines additional types related to [Resource].
 pub mod resource {
     #[allow(unused_imports)]
     use super::*;
@@ -8147,7 +8147,7 @@ impl wkt::message::Message for AwsMetadata {
     }
 }
 
-/// Defines additional types related to AwsMetadata
+/// Defines additional types related to [AwsMetadata].
 pub mod aws_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -8351,7 +8351,7 @@ impl wkt::message::Message for AzureMetadata {
     }
 }
 
-/// Defines additional types related to AzureMetadata
+/// Defines additional types related to [AzureMetadata].
 pub mod azure_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -8561,7 +8561,7 @@ impl wkt::message::Message for ResourcePath {
     }
 }
 
-/// Defines additional types related to ResourcePath
+/// Defines additional types related to [ResourcePath].
 pub mod resource_path {
     #[allow(unused_imports)]
     use super::*;
@@ -8901,7 +8901,7 @@ impl wkt::message::Message for ResourceValueConfig {
     }
 }
 
-/// Defines additional types related to ResourceValueConfig
+/// Defines additional types related to [ResourceValueConfig].
 pub mod resource_value_config {
     #[allow(unused_imports)]
     use super::*;
@@ -9165,7 +9165,7 @@ impl wkt::message::Message for SecurityPosture {
     }
 }
 
-/// Defines additional types related to SecurityPosture
+/// Defines additional types related to [SecurityPosture].
 pub mod security_posture {
     #[allow(unused_imports)]
     use super::*;
@@ -9399,7 +9399,7 @@ impl wkt::message::Message for BulkMuteFindingsRequest {
     }
 }
 
-/// Defines additional types related to BulkMuteFindingsRequest
+/// Defines additional types related to [BulkMuteFindingsRequest].
 pub mod bulk_mute_findings_request {
     #[allow(unused_imports)]
     use super::*;
@@ -10949,7 +10949,7 @@ impl gax::paginator::PageableResponse for ListFindingsResponse {
     }
 }
 
-/// Defines additional types related to ListFindingsResponse
+/// Defines additional types related to [ListFindingsResponse].
 pub mod list_findings_response {
     #[allow(unused_imports)]
     use super::*;
@@ -11007,7 +11007,7 @@ pub mod list_findings_response {
         }
     }
 
-    /// Defines additional types related to ListFindingsResult
+    /// Defines additional types related to [ListFindingsResult].
     pub mod list_findings_result {
         #[allow(unused_imports)]
         use super::*;
@@ -11246,7 +11246,7 @@ pub mod list_findings_response {
             }
         }
 
-        /// Defines additional types related to Resource
+        /// Defines additional types related to [Resource].
         pub mod resource {
             #[allow(unused_imports)]
             use super::*;
@@ -12705,7 +12705,7 @@ impl wkt::message::Message for ValuedResource {
     }
 }
 
-/// Defines additional types related to ValuedResource
+/// Defines additional types related to [ValuedResource].
 pub mod valued_resource {
     #[allow(unused_imports)]
     use super::*;
@@ -13024,7 +13024,7 @@ impl wkt::message::Message for Cve {
     }
 }
 
-/// Defines additional types related to Cve
+/// Defines additional types related to [Cve].
 pub mod cve {
     #[allow(unused_imports)]
     use super::*;
@@ -13357,7 +13357,7 @@ impl wkt::message::Message for Cvssv3 {
     }
 }
 
-/// Defines additional types related to Cvssv3
+/// Defines additional types related to [Cvssv3].
 pub mod cvssv_3 {
     #[allow(unused_imports)]
     use super::*;

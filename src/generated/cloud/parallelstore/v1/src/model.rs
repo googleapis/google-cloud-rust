@@ -262,7 +262,7 @@ impl wkt::message::Message for Instance {
     }
 }
 
-/// Defines additional types related to Instance
+/// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;
@@ -1115,7 +1115,7 @@ impl wkt::message::Message for ImportDataRequest {
     }
 }
 
-/// Defines additional types related to ImportDataRequest
+/// Defines additional types related to [ImportDataRequest].
 pub mod import_data_request {
     #[allow(unused_imports)]
     use super::*;
@@ -1303,7 +1303,7 @@ impl wkt::message::Message for ExportDataRequest {
     }
 }
 
-/// Defines additional types related to ExportDataRequest
+/// Defines additional types related to [ExportDataRequest].
 pub mod export_data_request {
     #[allow(unused_imports)]
     use super::*;
@@ -1920,7 +1920,7 @@ impl wkt::message::Message for TransferOperationMetadata {
     }
 }
 
-/// Defines additional types related to TransferOperationMetadata
+/// Defines additional types related to [TransferOperationMetadata].
 pub mod transfer_operation_metadata {
     #[allow(unused_imports)]
     use super::*;

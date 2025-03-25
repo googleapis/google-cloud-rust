@@ -120,7 +120,7 @@ impl wkt::message::Message for Inventory {
     }
 }
 
-/// Defines additional types related to Inventory
+/// Defines additional types related to [Inventory].
 pub mod inventory {
     #[allow(unused_imports)]
     use super::*;
@@ -400,7 +400,7 @@ pub mod inventory {
         }
     }
 
-    /// Defines additional types related to Item
+    /// Defines additional types related to [Item].
     pub mod item {
         #[allow(unused_imports)]
         use super::*;
@@ -864,7 +864,7 @@ pub mod inventory {
         }
     }
 
-    /// Defines additional types related to SoftwarePackage
+    /// Defines additional types related to [SoftwarePackage].
     pub mod software_package {
         #[allow(unused_imports)]
         use super::*;
@@ -1163,7 +1163,7 @@ pub mod inventory {
         }
     }
 
-    /// Defines additional types related to WindowsUpdatePackage
+    /// Defines additional types related to [WindowsUpdatePackage].
     pub mod windows_update_package {
         #[allow(unused_imports)]
         use super::*;
@@ -1625,7 +1625,7 @@ impl wkt::message::Message for OSPolicy {
     }
 }
 
-/// Defines additional types related to OSPolicy
+/// Defines additional types related to [OSPolicy].
 pub mod os_policy {
     #[allow(unused_imports)]
     use super::*;
@@ -1870,7 +1870,7 @@ pub mod os_policy {
         }
     }
 
-    /// Defines additional types related to Resource
+    /// Defines additional types related to [Resource].
     pub mod resource {
         #[allow(unused_imports)]
         use super::*;
@@ -2021,7 +2021,7 @@ pub mod os_policy {
             }
         }
 
-        /// Defines additional types related to File
+        /// Defines additional types related to [File].
         pub mod file {
             #[allow(unused_imports)]
             use super::*;
@@ -2464,7 +2464,7 @@ pub mod os_policy {
             }
         }
 
-        /// Defines additional types related to PackageResource
+        /// Defines additional types related to [PackageResource].
         pub mod package_resource {
             #[allow(unused_imports)]
             use super::*;
@@ -3046,7 +3046,7 @@ pub mod os_policy {
             }
         }
 
-        /// Defines additional types related to RepositoryResource
+        /// Defines additional types related to [RepositoryResource].
         pub mod repository_resource {
             #[allow(unused_imports)]
             use super::*;
@@ -3135,7 +3135,7 @@ pub mod os_policy {
                 }
             }
 
-            /// Defines additional types related to AptRepository
+            /// Defines additional types related to [AptRepository].
             pub mod apt_repository {
                 #[allow(unused_imports)]
                 use super::*;
@@ -3511,7 +3511,7 @@ pub mod os_policy {
             }
         }
 
-        /// Defines additional types related to ExecResource
+        /// Defines additional types related to [ExecResource].
         pub mod exec_resource {
             #[allow(unused_imports)]
             use super::*;
@@ -3671,7 +3671,7 @@ pub mod os_policy {
                 }
             }
 
-            /// Defines additional types related to Exec
+            /// Defines additional types related to [Exec].
             pub mod exec {
                 #[allow(unused_imports)]
                 use super::*;
@@ -3905,7 +3905,7 @@ pub mod os_policy {
             }
         }
 
-        /// Defines additional types related to FileResource
+        /// Defines additional types related to [FileResource].
         pub mod file_resource {
             #[allow(unused_imports)]
             use super::*;
@@ -4415,7 +4415,7 @@ impl wkt::message::Message for OSPolicyAssignmentReport {
     }
 }
 
-/// Defines additional types related to OSPolicyAssignmentReport
+/// Defines additional types related to [OSPolicyAssignmentReport].
 pub mod os_policy_assignment_report {
     #[allow(unused_imports)]
     use super::*;
@@ -4510,7 +4510,7 @@ pub mod os_policy_assignment_report {
         }
     }
 
-    /// Defines additional types related to OSPolicyCompliance
+    /// Defines additional types related to [OSPolicyCompliance].
     pub mod os_policy_compliance {
         #[allow(unused_imports)]
         use super::*;
@@ -4635,7 +4635,7 @@ pub mod os_policy_assignment_report {
             }
         }
 
-        /// Defines additional types related to OSPolicyResourceCompliance
+        /// Defines additional types related to [OSPolicyResourceCompliance].
         pub mod os_policy_resource_compliance {
             #[allow(unused_imports)]
             use super::*;
@@ -4685,7 +4685,7 @@ pub mod os_policy_assignment_report {
                 }
             }
 
-            /// Defines additional types related to OSPolicyResourceConfigStep
+            /// Defines additional types related to [OSPolicyResourceConfigStep].
             pub mod os_policy_resource_config_step {
                 #[allow(unused_imports)]
                 use super::*;
@@ -5147,7 +5147,7 @@ impl wkt::message::Message for OSPolicyAssignment {
     }
 }
 
-/// Defines additional types related to OSPolicyAssignment
+/// Defines additional types related to [OSPolicyAssignment].
 pub mod os_policy_assignment {
     #[allow(unused_imports)]
     use super::*;
@@ -5285,7 +5285,7 @@ pub mod os_policy_assignment {
         }
     }
 
-    /// Defines additional types related to InstanceFilter
+    /// Defines additional types related to [InstanceFilter].
     pub mod instance_filter {
         #[allow(unused_imports)]
         use super::*;
@@ -5555,7 +5555,7 @@ impl wkt::message::Message for OSPolicyAssignmentOperationMetadata {
     }
 }
 
-/// Defines additional types related to OSPolicyAssignmentOperationMetadata
+/// Defines additional types related to [OSPolicyAssignmentOperationMetadata].
 pub mod os_policy_assignment_operation_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -6160,7 +6160,7 @@ impl wkt::message::Message for FixedOrPercent {
     }
 }
 
-/// Defines additional types related to FixedOrPercent
+/// Defines additional types related to [FixedOrPercent].
 pub mod fixed_or_percent {
     #[allow(unused_imports)]
     use super::*;
@@ -6416,7 +6416,7 @@ impl wkt::message::Message for PatchDeployment {
     }
 }
 
-/// Defines additional types related to PatchDeployment
+/// Defines additional types related to [PatchDeployment].
 pub mod patch_deployment {
     #[allow(unused_imports)]
     use super::*;
@@ -6712,7 +6712,7 @@ impl wkt::message::Message for RecurringSchedule {
     }
 }
 
-/// Defines additional types related to RecurringSchedule
+/// Defines additional types related to [RecurringSchedule].
 pub mod recurring_schedule {
     #[allow(unused_imports)]
     use super::*;
@@ -6913,7 +6913,7 @@ impl wkt::message::Message for MonthlySchedule {
     }
 }
 
-/// Defines additional types related to MonthlySchedule
+/// Defines additional types related to [MonthlySchedule].
 pub mod monthly_schedule {
     #[allow(unused_imports)]
     use super::*;
@@ -8006,7 +8006,7 @@ impl wkt::message::Message for PatchJob {
     }
 }
 
-/// Defines additional types related to PatchJob
+/// Defines additional types related to [PatchJob].
 pub mod patch_job {
     #[allow(unused_imports)]
     use super::*;
@@ -8425,7 +8425,7 @@ impl wkt::message::Message for PatchConfig {
     }
 }
 
-/// Defines additional types related to PatchConfig
+/// Defines additional types related to [PatchConfig].
 pub mod patch_config {
     #[allow(unused_imports)]
     use super::*;
@@ -8517,7 +8517,7 @@ impl wkt::message::Message for Instance {
     }
 }
 
-/// Defines additional types related to Instance
+/// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;
@@ -8749,7 +8749,7 @@ impl wkt::message::Message for AptSettings {
     }
 }
 
-/// Defines additional types related to AptSettings
+/// Defines additional types related to [AptSettings].
 pub mod apt_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -9075,7 +9075,7 @@ impl wkt::message::Message for WindowsUpdateSettings {
     }
 }
 
-/// Defines additional types related to WindowsUpdateSettings
+/// Defines additional types related to [WindowsUpdateSettings].
 pub mod windows_update_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -9361,7 +9361,7 @@ impl wkt::message::Message for ExecStepConfig {
     }
 }
 
-/// Defines additional types related to ExecStepConfig
+/// Defines additional types related to [ExecStepConfig].
 pub mod exec_step_config {
     #[allow(unused_imports)]
     use super::*;
@@ -9590,7 +9590,7 @@ impl wkt::message::Message for PatchInstanceFilter {
     }
 }
 
-/// Defines additional types related to PatchInstanceFilter
+/// Defines additional types related to [PatchInstanceFilter].
 pub mod patch_instance_filter {
     #[allow(unused_imports)]
     use super::*;
@@ -9708,7 +9708,7 @@ impl wkt::message::Message for PatchRollout {
     }
 }
 
-/// Defines additional types related to PatchRollout
+/// Defines additional types related to [PatchRollout].
 pub mod patch_rollout {
     #[allow(unused_imports)]
     use super::*;
@@ -9841,7 +9841,7 @@ impl wkt::message::Message for VulnerabilityReport {
     }
 }
 
-/// Defines additional types related to VulnerabilityReport
+/// Defines additional types related to [VulnerabilityReport].
 pub mod vulnerability_report {
     #[allow(unused_imports)]
     use super::*;
@@ -9964,7 +9964,7 @@ pub mod vulnerability_report {
         }
     }
 
-    /// Defines additional types related to Vulnerability
+    /// Defines additional types related to [Vulnerability].
     pub mod vulnerability {
         #[allow(unused_imports)]
         use super::*;
@@ -10069,7 +10069,7 @@ pub mod vulnerability_report {
             }
         }
 
-        /// Defines additional types related to Details
+        /// Defines additional types related to [Details].
         pub mod details {
             #[allow(unused_imports)]
             use super::*;
@@ -10519,7 +10519,7 @@ impl wkt::message::Message for CVSSv3 {
     }
 }
 
-/// Defines additional types related to CVSSv3
+/// Defines additional types related to [CVSSv3].
 pub mod cvs_sv_3 {
     #[allow(unused_imports)]
     use super::*;

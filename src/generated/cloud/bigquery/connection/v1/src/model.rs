@@ -615,7 +615,7 @@ impl wkt::message::Message for Connection {
     }
 }
 
-/// Defines additional types related to Connection
+/// Defines additional types related to [Connection].
 pub mod connection {
     #[allow(unused_imports)]
     use super::*;
@@ -729,7 +729,7 @@ impl wkt::message::Message for CloudSqlProperties {
     }
 }
 
-/// Defines additional types related to CloudSqlProperties
+/// Defines additional types related to [CloudSqlProperties].
 pub mod cloud_sql_properties {
     #[allow(unused_imports)]
     use super::*;
@@ -1028,7 +1028,7 @@ impl wkt::message::Message for AwsProperties {
     }
 }
 
-/// Defines additional types related to AwsProperties
+/// Defines additional types related to [AwsProperties].
 pub mod aws_properties {
     #[allow(unused_imports)]
     use super::*;

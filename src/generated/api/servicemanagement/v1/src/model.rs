@@ -151,7 +151,7 @@ impl wkt::message::Message for OperationMetadata {
     }
 }
 
-/// Defines additional types related to OperationMetadata
+/// Defines additional types related to [OperationMetadata].
 pub mod operation_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -319,7 +319,7 @@ impl wkt::message::Message for Diagnostic {
     }
 }
 
-/// Defines additional types related to Diagnostic
+/// Defines additional types related to [Diagnostic].
 pub mod diagnostic {
     #[allow(unused_imports)]
     use super::*;
@@ -477,7 +477,7 @@ impl wkt::message::Message for ConfigFile {
     }
 }
 
-/// Defines additional types related to ConfigFile
+/// Defines additional types related to [ConfigFile].
 pub mod config_file {
     #[allow(unused_imports)]
     use super::*;
@@ -804,7 +804,7 @@ impl wkt::message::Message for Rollout {
     }
 }
 
-/// Defines additional types related to Rollout
+/// Defines additional types related to [Rollout].
 pub mod rollout {
     #[allow(unused_imports)]
     use super::*;
@@ -1334,7 +1334,7 @@ impl wkt::message::Message for GetServiceConfigRequest {
     }
 }
 
-/// Defines additional types related to GetServiceConfigRequest
+/// Defines additional types related to [GetServiceConfigRequest].
 pub mod get_service_config_request {
     #[allow(unused_imports)]
     use super::*;

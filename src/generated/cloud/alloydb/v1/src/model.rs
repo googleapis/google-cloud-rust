@@ -303,7 +303,7 @@ impl wkt::message::Message for MigrationSource {
     }
 }
 
-/// Defines additional types related to MigrationSource
+/// Defines additional types related to [MigrationSource].
 pub mod migration_source {
     #[allow(unused_imports)]
     use super::*;
@@ -443,7 +443,7 @@ impl wkt::message::Message for EncryptionInfo {
     }
 }
 
-/// Defines additional types related to EncryptionInfo
+/// Defines additional types related to [EncryptionInfo].
 pub mod encryption_info {
     #[allow(unused_imports)]
     use super::*;
@@ -556,7 +556,7 @@ impl wkt::message::Message for SslConfig {
     }
 }
 
-/// Defines additional types related to SslConfig
+/// Defines additional types related to [SslConfig].
 pub mod ssl_config {
     #[allow(unused_imports)]
     use super::*;
@@ -940,7 +940,7 @@ impl wkt::message::Message for AutomatedBackupPolicy {
     }
 }
 
-/// Defines additional types related to AutomatedBackupPolicy
+/// Defines additional types related to [AutomatedBackupPolicy].
 pub mod automated_backup_policy {
     #[allow(unused_imports)]
     use super::*;
@@ -1371,7 +1371,7 @@ impl wkt::message::Message for MaintenanceUpdatePolicy {
     }
 }
 
-/// Defines additional types related to MaintenanceUpdatePolicy
+/// Defines additional types related to [MaintenanceUpdatePolicy].
 pub mod maintenance_update_policy {
     #[allow(unused_imports)]
     use super::*;
@@ -1998,7 +1998,7 @@ impl wkt::message::Message for Cluster {
     }
 }
 
-/// Defines additional types related to Cluster
+/// Defines additional types related to [Cluster].
 pub mod cluster {
     #[allow(unused_imports)]
     use super::*;
@@ -2820,7 +2820,7 @@ impl wkt::message::Message for Instance {
     }
 }
 
-/// Defines additional types related to Instance
+/// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;
@@ -3183,7 +3183,7 @@ pub mod instance {
         }
     }
 
-    /// Defines additional types related to InstanceNetworkConfig
+    /// Defines additional types related to [InstanceNetworkConfig].
     pub mod instance_network_config {
         #[allow(unused_imports)]
         use super::*;
@@ -3843,7 +3843,7 @@ impl wkt::message::Message for Backup {
     }
 }
 
-/// Defines additional types related to Backup
+/// Defines additional types related to [Backup].
 pub mod backup {
     #[allow(unused_imports)]
     use super::*;
@@ -4218,7 +4218,7 @@ impl wkt::message::Message for SupportedDatabaseFlag {
     }
 }
 
-/// Defines additional types related to SupportedDatabaseFlag
+/// Defines additional types related to [SupportedDatabaseFlag].
 pub mod supported_database_flag {
     #[allow(unused_imports)]
     use super::*;
@@ -4468,7 +4468,7 @@ impl wkt::message::Message for User {
     }
 }
 
-/// Defines additional types related to User
+/// Defines additional types related to [User].
 pub mod user {
     #[allow(unused_imports)]
     use super::*;
@@ -5421,7 +5421,7 @@ impl wkt::message::Message for RestoreClusterRequest {
     }
 }
 
-/// Defines additional types related to RestoreClusterRequest
+/// Defines additional types related to [RestoreClusterRequest].
 pub mod restore_cluster_request {
     #[allow(unused_imports)]
     use super::*;
@@ -6084,7 +6084,7 @@ impl wkt::message::Message for BatchCreateInstanceStatus {
     }
 }
 
-/// Defines additional types related to BatchCreateInstanceStatus
+/// Defines additional types related to [BatchCreateInstanceStatus].
 pub mod batch_create_instance_status {
     #[allow(unused_imports)]
     use super::*;
@@ -6477,7 +6477,7 @@ impl wkt::message::Message for InjectFaultRequest {
     }
 }
 
-/// Defines additional types related to InjectFaultRequest
+/// Defines additional types related to [InjectFaultRequest].
 pub mod inject_fault_request {
     #[allow(unused_imports)]
     use super::*;
@@ -6720,7 +6720,7 @@ impl wkt::message::Message for ExecuteSqlRequest {
     }
 }
 
-/// Defines additional types related to ExecuteSqlRequest
+/// Defines additional types related to [ExecuteSqlRequest].
 pub mod execute_sql_request {
     #[allow(unused_imports)]
     use super::*;
@@ -6855,7 +6855,7 @@ impl wkt::message::Message for ExecuteSqlMetadata {
     }
 }
 
-/// Defines additional types related to ExecuteSqlMetadata
+/// Defines additional types related to [ExecuteSqlMetadata].
 pub mod execute_sql_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -7801,7 +7801,7 @@ impl wkt::message::Message for OperationMetadata {
     }
 }
 
-/// Defines additional types related to OperationMetadata
+/// Defines additional types related to [OperationMetadata].
 pub mod operation_metadata {
     #[allow(unused_imports)]
     use super::*;

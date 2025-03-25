@@ -364,7 +364,7 @@ impl wkt::message::Message for Service {
     }
 }
 
-/// Defines additional types related to Service
+/// Defines additional types related to [Service].
 pub mod service {
     #[allow(unused_imports)]
     use super::*;
@@ -798,7 +798,7 @@ impl wkt::message::Message for HiveMetastoreConfig {
     }
 }
 
-/// Defines additional types related to HiveMetastoreConfig
+/// Defines additional types related to [HiveMetastoreConfig].
 pub mod hive_metastore_config {
     #[allow(unused_imports)]
     use super::*;
@@ -975,7 +975,7 @@ impl wkt::message::Message for Secret {
     }
 }
 
-/// Defines additional types related to Secret
+/// Defines additional types related to [Secret].
 pub mod secret {
     #[allow(unused_imports)]
     use super::*;
@@ -1127,7 +1127,7 @@ impl wkt::message::Message for NetworkConfig {
     }
 }
 
-/// Defines additional types related to NetworkConfig
+/// Defines additional types related to [NetworkConfig].
 pub mod network_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1222,7 +1222,7 @@ pub mod network_config {
         }
     }
 
-    /// Defines additional types related to Consumer
+    /// Defines additional types related to [Consumer].
     pub mod consumer {
         #[allow(unused_imports)]
         use super::*;
@@ -1275,7 +1275,7 @@ impl wkt::message::Message for TelemetryConfig {
     }
 }
 
-/// Defines additional types related to TelemetryConfig
+/// Defines additional types related to [TelemetryConfig].
 pub mod telemetry_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1525,7 +1525,7 @@ impl wkt::message::Message for MetadataImport {
     }
 }
 
-/// Defines additional types related to MetadataImport
+/// Defines additional types related to [MetadataImport].
 pub mod metadata_import {
     #[allow(unused_imports)]
     use super::*;
@@ -1602,7 +1602,7 @@ pub mod metadata_import {
         }
     }
 
-    /// Defines additional types related to DatabaseDump
+    /// Defines additional types related to [DatabaseDump].
     pub mod database_dump {
         #[allow(unused_imports)]
         use super::*;
@@ -1851,7 +1851,7 @@ impl wkt::message::Message for MetadataExport {
     }
 }
 
-/// Defines additional types related to MetadataExport
+/// Defines additional types related to [MetadataExport].
 pub mod metadata_export {
     #[allow(unused_imports)]
     use super::*;
@@ -2041,7 +2041,7 @@ impl wkt::message::Message for Backup {
     }
 }
 
-/// Defines additional types related to Backup
+/// Defines additional types related to [Backup].
 pub mod backup {
     #[allow(unused_imports)]
     use super::*;
@@ -2210,7 +2210,7 @@ impl wkt::message::Message for Restore {
     }
 }
 
-/// Defines additional types related to Restore
+/// Defines additional types related to [Restore].
 pub mod restore {
     #[allow(unused_imports)]
     use super::*;
@@ -2432,7 +2432,7 @@ impl wkt::message::Message for ScalingConfig {
     }
 }
 
-/// Defines additional types related to ScalingConfig
+/// Defines additional types related to [ScalingConfig].
 pub mod scaling_config {
     #[allow(unused_imports)]
     use super::*;
@@ -3764,7 +3764,7 @@ impl wkt::message::Message for ExportMetadataRequest {
     }
 }
 
-/// Defines additional types related to ExportMetadataRequest
+/// Defines additional types related to [ExportMetadataRequest].
 pub mod export_metadata_request {
     #[allow(unused_imports)]
     use super::*;
@@ -3996,7 +3996,7 @@ impl wkt::message::Message for LocationMetadata {
     }
 }
 
-/// Defines additional types related to LocationMetadata
+/// Defines additional types related to [LocationMetadata].
 pub mod location_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -4060,7 +4060,7 @@ impl wkt::message::Message for DatabaseDumpSpec {
     }
 }
 
-/// Defines additional types related to DatabaseDumpSpec
+/// Defines additional types related to [DatabaseDumpSpec].
 pub mod database_dump_spec {
     #[allow(unused_imports)]
     use super::*;
@@ -4570,7 +4570,7 @@ impl wkt::message::Message for Federation {
     }
 }
 
-/// Defines additional types related to Federation
+/// Defines additional types related to [Federation].
 pub mod federation {
     #[allow(unused_imports)]
     use super::*;
@@ -4700,7 +4700,7 @@ impl wkt::message::Message for BackendMetastore {
     }
 }
 
-/// Defines additional types related to BackendMetastore
+/// Defines additional types related to [BackendMetastore].
 pub mod backend_metastore {
     #[allow(unused_imports)]
     use super::*;

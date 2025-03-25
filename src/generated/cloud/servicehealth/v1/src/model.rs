@@ -236,7 +236,7 @@ impl wkt::message::Message for Event {
     }
 }
 
-/// Defines additional types related to Event
+/// Defines additional types related to [Event].
 pub mod event {
     #[allow(unused_imports)]
     use super::*;
@@ -795,7 +795,7 @@ impl wkt::message::Message for OrganizationEvent {
     }
 }
 
-/// Defines additional types related to OrganizationEvent
+/// Defines additional types related to [OrganizationEvent].
 pub mod organization_event {
     #[allow(unused_imports)]
     use super::*;

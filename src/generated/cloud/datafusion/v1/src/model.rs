@@ -145,7 +145,7 @@ impl wkt::message::Message for Version {
     }
 }
 
-/// Defines additional types related to Version
+/// Defines additional types related to [Version].
 pub mod version {
     #[allow(unused_imports)]
     use super::*;
@@ -255,7 +255,7 @@ impl wkt::message::Message for Accelerator {
     }
 }
 
-/// Defines additional types related to Accelerator
+/// Defines additional types related to [Accelerator].
 pub mod accelerator {
     #[allow(unused_imports)]
     use super::*;
@@ -788,7 +788,7 @@ impl wkt::message::Message for Instance {
     }
 }
 
-/// Defines additional types related to Instance
+/// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;

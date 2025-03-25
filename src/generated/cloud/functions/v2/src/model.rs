@@ -236,7 +236,7 @@ impl wkt::message::Message for Function {
     }
 }
 
-/// Defines additional types related to Function
+/// Defines additional types related to [Function].
 pub mod function {
     #[allow(unused_imports)]
     use super::*;
@@ -367,7 +367,7 @@ impl wkt::message::Message for StateMessage {
     }
 }
 
-/// Defines additional types related to StateMessage
+/// Defines additional types related to [StateMessage].
 pub mod state_message {
     #[allow(unused_imports)]
     use super::*;
@@ -651,7 +651,7 @@ impl wkt::message::Message for RepoSource {
     }
 }
 
-/// Defines additional types related to RepoSource
+/// Defines additional types related to [RepoSource].
 pub mod repo_source {
     #[allow(unused_imports)]
     use super::*;
@@ -786,7 +786,7 @@ impl wkt::message::Message for Source {
     }
 }
 
-/// Defines additional types related to Source
+/// Defines additional types related to [Source].
 pub mod source {
     #[allow(unused_imports)]
     use super::*;
@@ -1131,7 +1131,7 @@ impl wkt::message::Message for BuildConfig {
     }
 }
 
-/// Defines additional types related to BuildConfig
+/// Defines additional types related to [BuildConfig].
 pub mod build_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1500,7 +1500,7 @@ impl wkt::message::Message for ServiceConfig {
     }
 }
 
-/// Defines additional types related to ServiceConfig
+/// Defines additional types related to [ServiceConfig].
 pub mod service_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1849,7 +1849,7 @@ impl wkt::message::Message for SecretVolume {
     }
 }
 
-/// Defines additional types related to SecretVolume
+/// Defines additional types related to [SecretVolume].
 pub mod secret_volume {
     #[allow(unused_imports)]
     use super::*;
@@ -2045,7 +2045,7 @@ impl wkt::message::Message for EventTrigger {
     }
 }
 
-/// Defines additional types related to EventTrigger
+/// Defines additional types related to [EventTrigger].
 pub mod event_trigger {
     #[allow(unused_imports)]
     use super::*;
@@ -2755,7 +2755,7 @@ impl wkt::message::Message for ListRuntimesResponse {
     }
 }
 
-/// Defines additional types related to ListRuntimesResponse
+/// Defines additional types related to [ListRuntimesResponse].
 pub mod list_runtimes_response {
     #[allow(unused_imports)]
     use super::*;
@@ -3283,7 +3283,7 @@ impl wkt::message::Message for Stage {
     }
 }
 
-/// Defines additional types related to Stage
+/// Defines additional types related to [Stage].
 pub mod stage {
     #[allow(unused_imports)]
     use super::*;

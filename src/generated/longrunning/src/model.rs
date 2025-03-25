@@ -154,7 +154,7 @@ impl wkt::message::Message for Operation {
     }
 }
 
-/// Defines additional types related to Operation
+/// Defines additional types related to [Operation].
 pub mod operation {
     #[allow(unused_imports)]
     use super::*;

@@ -407,7 +407,7 @@ impl wkt::message::Message for AttachedCluster {
     }
 }
 
-/// Defines additional types related to AttachedCluster
+/// Defines additional types related to [AttachedCluster].
 pub mod attached_cluster {
     #[allow(unused_imports)]
     use super::*;
@@ -2034,7 +2034,7 @@ impl wkt::message::Message for AwsCluster {
     }
 }
 
-/// Defines additional types related to AwsCluster
+/// Defines additional types related to [AwsCluster].
 pub mod aws_cluster {
     #[allow(unused_imports)]
     use super::*;
@@ -2646,7 +2646,7 @@ impl wkt::message::Message for AwsVolumeTemplate {
     }
 }
 
-/// Defines additional types related to AwsVolumeTemplate
+/// Defines additional types related to [AwsVolumeTemplate].
 pub mod aws_volume_template {
     #[allow(unused_imports)]
     use super::*;
@@ -3061,7 +3061,7 @@ impl wkt::message::Message for AwsNodePool {
     }
 }
 
-/// Defines additional types related to AwsNodePool
+/// Defines additional types related to [AwsNodePool].
 pub mod aws_node_pool {
     #[allow(unused_imports)]
     use super::*;
@@ -3991,7 +3991,7 @@ impl wkt::message::Message for AwsInstancePlacement {
     }
 }
 
-/// Defines additional types related to AwsInstancePlacement
+/// Defines additional types related to [AwsInstancePlacement].
 pub mod aws_instance_placement {
     #[allow(unused_imports)]
     use super::*;
@@ -5861,7 +5861,7 @@ impl wkt::message::Message for AzureCluster {
     }
 }
 
-/// Defines additional types related to AzureCluster
+/// Defines additional types related to [AzureCluster].
 pub mod azure_cluster {
     #[allow(unused_imports)]
     use super::*;
@@ -7031,7 +7031,7 @@ impl wkt::message::Message for AzureNodePool {
     }
 }
 
-/// Defines additional types related to AzureNodePool
+/// Defines additional types related to [AzureNodePool].
 pub mod azure_node_pool {
     #[allow(unused_imports)]
     use super::*;
@@ -9675,7 +9675,7 @@ impl wkt::message::Message for NodeTaint {
     }
 }
 
-/// Defines additional types related to NodeTaint
+/// Defines additional types related to [NodeTaint].
 pub mod node_taint {
     #[allow(unused_imports)]
     use super::*;
@@ -9991,7 +9991,7 @@ impl wkt::message::Message for LoggingComponentConfig {
     }
 }
 
-/// Defines additional types related to LoggingComponentConfig
+/// Defines additional types related to [LoggingComponentConfig].
 pub mod logging_component_config {
     #[allow(unused_imports)]
     use super::*;
@@ -10199,7 +10199,7 @@ impl wkt::message::Message for BinaryAuthorization {
     }
 }
 
-/// Defines additional types related to BinaryAuthorization
+/// Defines additional types related to [BinaryAuthorization].
 pub mod binary_authorization {
     #[allow(unused_imports)]
     use super::*;
@@ -10301,7 +10301,7 @@ impl wkt::message::Message for SecurityPostureConfig {
     }
 }
 
-/// Defines additional types related to SecurityPostureConfig
+/// Defines additional types related to [SecurityPostureConfig].
 pub mod security_posture_config {
     #[allow(unused_imports)]
     use super::*;

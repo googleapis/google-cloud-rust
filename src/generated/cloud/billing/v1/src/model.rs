@@ -1194,7 +1194,7 @@ impl wkt::message::Message for PricingExpression {
     }
 }
 
-/// Defines additional types related to PricingExpression
+/// Defines additional types related to [PricingExpression].
 pub mod pricing_expression {
     #[allow(unused_imports)]
     use super::*;
@@ -1300,7 +1300,7 @@ impl wkt::message::Message for AggregationInfo {
     }
 }
 
-/// Defines additional types related to AggregationInfo
+/// Defines additional types related to [AggregationInfo].
 pub mod aggregation_info {
     #[allow(unused_imports)]
     use super::*;
@@ -1471,7 +1471,7 @@ impl wkt::message::Message for GeoTaxonomy {
     }
 }
 
-/// Defines additional types related to GeoTaxonomy
+/// Defines additional types related to [GeoTaxonomy].
 pub mod geo_taxonomy {
     #[allow(unused_imports)]
     use super::*;

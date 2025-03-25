@@ -988,7 +988,7 @@ impl wkt::message::Message for OutputConfig {
     }
 }
 
-/// Defines additional types related to OutputConfig
+/// Defines additional types related to [OutputConfig].
 pub mod output_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1067,7 +1067,7 @@ impl wkt::message::Message for OutputResult {
     }
 }
 
-/// Defines additional types related to OutputResult
+/// Defines additional types related to [OutputResult].
 pub mod output_result {
     #[allow(unused_imports)]
     use super::*;
@@ -1196,7 +1196,7 @@ impl wkt::message::Message for GcsDestination {
     }
 }
 
-/// Defines additional types related to GcsDestination
+/// Defines additional types related to [GcsDestination].
 pub mod gcs_destination {
     #[allow(unused_imports)]
     use super::*;
@@ -1386,7 +1386,7 @@ impl wkt::message::Message for PartitionSpec {
     }
 }
 
-/// Defines additional types related to PartitionSpec
+/// Defines additional types related to [PartitionSpec].
 pub mod partition_spec {
     #[allow(unused_imports)]
     use super::*;
@@ -1558,7 +1558,7 @@ impl wkt::message::Message for FeedOutputConfig {
     }
 }
 
-/// Defines additional types related to FeedOutputConfig
+/// Defines additional types related to [FeedOutputConfig].
 pub mod feed_output_config {
     #[allow(unused_imports)]
     use super::*;
@@ -2405,7 +2405,7 @@ impl wkt::message::Message for IamPolicyAnalysisQuery {
     }
 }
 
-/// Defines additional types related to IamPolicyAnalysisQuery
+/// Defines additional types related to [IamPolicyAnalysisQuery].
 pub mod iam_policy_analysis_query {
     #[allow(unused_imports)]
     use super::*;
@@ -2777,7 +2777,7 @@ pub mod iam_policy_analysis_query {
         }
     }
 
-    /// Defines additional types related to ConditionContext
+    /// Defines additional types related to [ConditionContext].
     pub mod condition_context {
         #[allow(unused_imports)]
         use super::*;
@@ -2957,7 +2957,7 @@ impl wkt::message::Message for AnalyzeIamPolicyResponse {
     }
 }
 
-/// Defines additional types related to AnalyzeIamPolicyResponse
+/// Defines additional types related to [AnalyzeIamPolicyResponse].
 pub mod analyze_iam_policy_response {
     #[allow(unused_imports)]
     use super::*;
@@ -3157,7 +3157,7 @@ impl wkt::message::Message for IamPolicyAnalysisOutputConfig {
     }
 }
 
-/// Defines additional types related to IamPolicyAnalysisOutputConfig
+/// Defines additional types related to [IamPolicyAnalysisOutputConfig].
 pub mod iam_policy_analysis_output_config {
     #[allow(unused_imports)]
     use super::*;
@@ -3289,7 +3289,7 @@ pub mod iam_policy_analysis_output_config {
         }
     }
 
-    /// Defines additional types related to BigQueryDestination
+    /// Defines additional types related to [BigQueryDestination].
     pub mod big_query_destination {
         #[allow(unused_imports)]
         use super::*;
@@ -3598,7 +3598,7 @@ impl wkt::message::Message for SavedQuery {
     }
 }
 
-/// Defines additional types related to SavedQuery
+/// Defines additional types related to [SavedQuery].
 pub mod saved_query {
     #[allow(unused_imports)]
     use super::*;
@@ -3673,7 +3673,7 @@ pub mod saved_query {
         }
     }
 
-    /// Defines additional types related to QueryContent
+    /// Defines additional types related to [QueryContent].
     pub mod query_content {
         #[allow(unused_imports)]
         use super::*;
@@ -4073,7 +4073,7 @@ impl wkt::message::Message for AnalyzeMoveRequest {
     }
 }
 
-/// Defines additional types related to AnalyzeMoveRequest
+/// Defines additional types related to [AnalyzeMoveRequest].
 pub mod analyze_move_request {
     #[allow(unused_imports)]
     use super::*;
@@ -4274,7 +4274,7 @@ impl wkt::message::Message for MoveAnalysis {
     }
 }
 
-/// Defines additional types related to MoveAnalysis
+/// Defines additional types related to [MoveAnalysis].
 pub mod move_analysis {
     #[allow(unused_imports)]
     use super::*;
@@ -4408,7 +4408,7 @@ impl wkt::message::Message for QueryAssetsOutputConfig {
     }
 }
 
-/// Defines additional types related to QueryAssetsOutputConfig
+/// Defines additional types related to [QueryAssetsOutputConfig].
 pub mod query_assets_output_config {
     #[allow(unused_imports)]
     use super::*;
@@ -4729,7 +4729,7 @@ impl wkt::message::Message for QueryAssetsRequest {
     }
 }
 
-/// Defines additional types related to QueryAssetsRequest
+/// Defines additional types related to [QueryAssetsRequest].
 pub mod query_assets_request {
     #[allow(unused_imports)]
     use super::*;
@@ -4915,7 +4915,7 @@ impl wkt::message::Message for QueryAssetsResponse {
     }
 }
 
-/// Defines additional types related to QueryAssetsResponse
+/// Defines additional types related to [QueryAssetsResponse].
 pub mod query_assets_response {
     #[allow(unused_imports)]
     use super::*;
@@ -5233,7 +5233,7 @@ impl wkt::message::Message for BatchGetEffectiveIamPoliciesResponse {
     }
 }
 
-/// Defines additional types related to BatchGetEffectiveIamPoliciesResponse
+/// Defines additional types related to [BatchGetEffectiveIamPoliciesResponse].
 pub mod batch_get_effective_iam_policies_response {
     #[allow(unused_imports)]
     use super::*;
@@ -5318,7 +5318,7 @@ pub mod batch_get_effective_iam_policies_response {
         }
     }
 
-    /// Defines additional types related to EffectiveIamPolicy
+    /// Defines additional types related to [EffectiveIamPolicy].
     pub mod effective_iam_policy {
         #[allow(unused_imports)]
         use super::*;
@@ -5478,7 +5478,7 @@ impl wkt::message::Message for AnalyzerOrgPolicy {
     }
 }
 
-/// Defines additional types related to AnalyzerOrgPolicy
+/// Defines additional types related to [AnalyzerOrgPolicy].
 pub mod analyzer_org_policy {
     #[allow(unused_imports)]
     use super::*;
@@ -5677,7 +5677,7 @@ pub mod analyzer_org_policy {
         }
     }
 
-    /// Defines additional types related to Rule
+    /// Defines additional types related to [Rule].
     pub mod rule {
         #[allow(unused_imports)]
         use super::*;
@@ -5862,7 +5862,7 @@ impl wkt::message::Message for AnalyzerOrgPolicyConstraint {
     }
 }
 
-/// Defines additional types related to AnalyzerOrgPolicyConstraint
+/// Defines additional types related to [AnalyzerOrgPolicyConstraint].
 pub mod analyzer_org_policy_constraint {
     #[allow(unused_imports)]
     use super::*;
@@ -6044,7 +6044,7 @@ pub mod analyzer_org_policy_constraint {
         }
     }
 
-    /// Defines additional types related to Constraint
+    /// Defines additional types related to [Constraint].
     pub mod constraint {
         #[allow(unused_imports)]
         use super::*;
@@ -6324,7 +6324,7 @@ pub mod analyzer_org_policy_constraint {
         }
     }
 
-    /// Defines additional types related to CustomConstraint
+    /// Defines additional types related to [CustomConstraint].
     pub mod custom_constraint {
         #[allow(unused_imports)]
         use super::*;
@@ -6650,7 +6650,7 @@ impl gax::paginator::PageableResponse for AnalyzeOrgPoliciesResponse {
     }
 }
 
-/// Defines additional types related to AnalyzeOrgPoliciesResponse
+/// Defines additional types related to [AnalyzeOrgPoliciesResponse].
 pub mod analyze_org_policies_response {
     #[allow(unused_imports)]
     use super::*;
@@ -6937,7 +6937,7 @@ impl gax::paginator::PageableResponse for AnalyzeOrgPolicyGovernedContainersResp
     }
 }
 
-/// Defines additional types related to AnalyzeOrgPolicyGovernedContainersResponse
+/// Defines additional types related to [AnalyzeOrgPolicyGovernedContainersResponse].
 pub mod analyze_org_policy_governed_containers_response {
     #[allow(unused_imports)]
     use super::*;
@@ -7290,7 +7290,7 @@ impl gax::paginator::PageableResponse for AnalyzeOrgPolicyGovernedAssetsResponse
     }
 }
 
-/// Defines additional types related to AnalyzeOrgPolicyGovernedAssetsResponse
+/// Defines additional types related to [AnalyzeOrgPolicyGovernedAssetsResponse].
 pub mod analyze_org_policy_governed_assets_response {
     #[allow(unused_imports)]
     use super::*;
@@ -7685,7 +7685,7 @@ pub mod analyze_org_policy_governed_assets_response {
         }
     }
 
-    /// Defines additional types related to GovernedAsset
+    /// Defines additional types related to [GovernedAsset].
     pub mod governed_asset {
         #[allow(unused_imports)]
         use super::*;
@@ -7801,7 +7801,7 @@ impl wkt::message::Message for TemporalAsset {
     }
 }
 
-/// Defines additional types related to TemporalAsset
+/// Defines additional types related to [TemporalAsset].
 pub mod temporal_asset {
     #[allow(unused_imports)]
     use super::*;
@@ -8230,7 +8230,7 @@ impl wkt::message::Message for Asset {
     }
 }
 
-/// Defines additional types related to Asset
+/// Defines additional types related to [Asset].
 pub mod asset {
     #[allow(unused_imports)]
     use super::*;
@@ -9709,7 +9709,7 @@ impl wkt::message::Message for IamPolicySearchResult {
     }
 }
 
-/// Defines additional types related to IamPolicySearchResult
+/// Defines additional types related to [IamPolicySearchResult].
 pub mod iam_policy_search_result {
     #[allow(unused_imports)]
     use super::*;
@@ -9758,7 +9758,7 @@ pub mod iam_policy_search_result {
         }
     }
 
-    /// Defines additional types related to Explanation
+    /// Defines additional types related to [Explanation].
     pub mod explanation {
         #[allow(unused_imports)]
         use super::*;
@@ -9877,7 +9877,7 @@ impl wkt::message::Message for ConditionEvaluation {
     }
 }
 
-/// Defines additional types related to ConditionEvaluation
+/// Defines additional types related to [ConditionEvaluation].
 pub mod condition_evaluation {
     #[allow(unused_imports)]
     use super::*;
@@ -10056,7 +10056,7 @@ impl wkt::message::Message for IamPolicyAnalysisResult {
     }
 }
 
-/// Defines additional types related to IamPolicyAnalysisResult
+/// Defines additional types related to [IamPolicyAnalysisResult].
 pub mod iam_policy_analysis_result {
     #[allow(unused_imports)]
     use super::*;
@@ -10212,7 +10212,7 @@ pub mod iam_policy_analysis_result {
         }
     }
 
-    /// Defines additional types related to Access
+    /// Defines additional types related to [Access].
     pub mod access {
         #[allow(unused_imports)]
         use super::*;

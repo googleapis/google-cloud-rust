@@ -349,7 +349,7 @@ impl wkt::message::Message for PolicyBinding {
     }
 }
 
-/// Defines additional types related to PolicyBinding
+/// Defines additional types related to [PolicyBinding].
 pub mod policy_binding {
     #[allow(unused_imports)]
     use super::*;
@@ -416,7 +416,7 @@ pub mod policy_binding {
         }
     }
 
-    /// Defines additional types related to Target
+    /// Defines additional types related to [Target].
     pub mod target {
         #[allow(unused_imports)]
         use super::*;
@@ -1744,7 +1744,7 @@ impl wkt::message::Message for PrincipalAccessBoundaryPolicyRule {
     }
 }
 
-/// Defines additional types related to PrincipalAccessBoundaryPolicyRule
+/// Defines additional types related to [PrincipalAccessBoundaryPolicyRule].
 pub mod principal_access_boundary_policy_rule {
     #[allow(unused_imports)]
     use super::*;

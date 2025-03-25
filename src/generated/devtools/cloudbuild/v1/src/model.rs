@@ -216,7 +216,7 @@ impl wkt::message::Message for StorageSource {
     }
 }
 
-/// Defines additional types related to StorageSource
+/// Defines additional types related to [StorageSource].
 pub mod storage_source {
     #[allow(unused_imports)]
     use super::*;
@@ -506,7 +506,7 @@ impl wkt::message::Message for RepoSource {
     }
 }
 
-/// Defines additional types related to RepoSource
+/// Defines additional types related to [RepoSource].
 pub mod repo_source {
     #[allow(unused_imports)]
     use super::*;
@@ -729,7 +729,7 @@ impl wkt::message::Message for Source {
     }
 }
 
-/// Defines additional types related to Source
+/// Defines additional types related to [Source].
 pub mod source {
     #[allow(unused_imports)]
     use super::*;
@@ -2082,7 +2082,7 @@ impl wkt::message::Message for Build {
     }
 }
 
-/// Defines additional types related to Build
+/// Defines additional types related to [Build].
 pub mod build {
     #[allow(unused_imports)]
     use super::*;
@@ -2128,7 +2128,7 @@ pub mod build {
         }
     }
 
-    /// Defines additional types related to Warning
+    /// Defines additional types related to [Warning].
     pub mod warning {
         #[allow(unused_imports)]
         use super::*;
@@ -2238,7 +2238,7 @@ pub mod build {
         }
     }
 
-    /// Defines additional types related to FailureInfo
+    /// Defines additional types related to [FailureInfo].
     pub mod failure_info {
         #[allow(unused_imports)]
         use super::*;
@@ -2500,7 +2500,7 @@ impl wkt::message::Message for Dependency {
     }
 }
 
-/// Defines additional types related to Dependency
+/// Defines additional types related to [Dependency].
 pub mod dependency {
     #[allow(unused_imports)]
     use super::*;
@@ -2671,7 +2671,7 @@ pub mod dependency {
         }
     }
 
-    /// Defines additional types related to GitSourceRepository
+    /// Defines additional types related to [GitSourceRepository].
     pub mod git_source_repository {
         #[allow(unused_imports)]
         use super::*;
@@ -2737,7 +2737,7 @@ impl wkt::message::Message for GitConfig {
     }
 }
 
-/// Defines additional types related to GitConfig
+/// Defines additional types related to [GitConfig].
 pub mod git_config {
     #[allow(unused_imports)]
     use super::*;
@@ -2929,7 +2929,7 @@ impl wkt::message::Message for Artifacts {
     }
 }
 
-/// Defines additional types related to Artifacts
+/// Defines additional types related to [Artifacts].
 pub mod artifacts {
     #[allow(unused_imports)]
     use super::*;
@@ -3530,7 +3530,7 @@ impl wkt::message::Message for Hash {
     }
 }
 
-/// Defines additional types related to Hash
+/// Defines additional types related to [Hash].
 pub mod hash {
     #[allow(unused_imports)]
     use super::*;
@@ -4194,7 +4194,7 @@ impl wkt::message::Message for BuildApproval {
     }
 }
 
-/// Defines additional types related to BuildApproval
+/// Defines additional types related to [BuildApproval].
 pub mod build_approval {
     #[allow(unused_imports)]
     use super::*;
@@ -4379,7 +4379,7 @@ impl wkt::message::Message for ApprovalResult {
     }
 }
 
-/// Defines additional types related to ApprovalResult
+/// Defines additional types related to [ApprovalResult].
 pub mod approval_result {
     #[allow(unused_imports)]
     use super::*;
@@ -4577,7 +4577,7 @@ impl wkt::message::Message for GitRepoSource {
     }
 }
 
-/// Defines additional types related to GitRepoSource
+/// Defines additional types related to [GitRepoSource].
 pub mod git_repo_source {
     #[allow(unused_imports)]
     use super::*;
@@ -4757,7 +4757,7 @@ impl wkt::message::Message for GitFileSource {
     }
 }
 
-/// Defines additional types related to GitFileSource
+/// Defines additional types related to [GitFileSource].
 pub mod git_file_source {
     #[allow(unused_imports)]
     use super::*;
@@ -5279,7 +5279,7 @@ impl wkt::message::Message for BuildTrigger {
     }
 }
 
-/// Defines additional types related to BuildTrigger
+/// Defines additional types related to [BuildTrigger].
 pub mod build_trigger {
     #[allow(unused_imports)]
     use super::*;
@@ -5427,7 +5427,7 @@ impl wkt::message::Message for RepositoryEventConfig {
     }
 }
 
-/// Defines additional types related to RepositoryEventConfig
+/// Defines additional types related to [RepositoryEventConfig].
 pub mod repository_event_config {
     #[allow(unused_imports)]
     use super::*;
@@ -5634,7 +5634,7 @@ impl wkt::message::Message for GitHubEventsConfig {
     }
 }
 
-/// Defines additional types related to GitHubEventsConfig
+/// Defines additional types related to [GitHubEventsConfig].
 pub mod git_hub_events_config {
     #[allow(unused_imports)]
     use super::*;
@@ -5720,7 +5720,7 @@ impl wkt::message::Message for PubsubConfig {
     }
 }
 
-/// Defines additional types related to PubsubConfig
+/// Defines additional types related to [PubsubConfig].
 pub mod pubsub_config {
     #[allow(unused_imports)]
     use super::*;
@@ -5866,7 +5866,7 @@ impl wkt::message::Message for WebhookConfig {
     }
 }
 
-/// Defines additional types related to WebhookConfig
+/// Defines additional types related to [WebhookConfig].
 pub mod webhook_config {
     #[allow(unused_imports)]
     use super::*;
@@ -6027,7 +6027,7 @@ impl wkt::message::Message for PullRequestFilter {
     }
 }
 
-/// Defines additional types related to PullRequestFilter
+/// Defines additional types related to [PullRequestFilter].
 pub mod pull_request_filter {
     #[allow(unused_imports)]
     use super::*;
@@ -6214,7 +6214,7 @@ impl wkt::message::Message for PushFilter {
     }
 }
 
-/// Defines additional types related to PushFilter
+/// Defines additional types related to [PushFilter].
 pub mod push_filter {
     #[allow(unused_imports)]
     use super::*;
@@ -6833,7 +6833,7 @@ impl wkt::message::Message for BuildOptions {
     }
 }
 
-/// Defines additional types related to BuildOptions
+/// Defines additional types related to [BuildOptions].
 pub mod build_options {
     #[allow(unused_imports)]
     use super::*;
@@ -7756,7 +7756,7 @@ impl wkt::message::Message for WorkerPool {
     }
 }
 
-/// Defines additional types related to WorkerPool
+/// Defines additional types related to [WorkerPool].
 pub mod worker_pool {
     #[allow(unused_imports)]
     use super::*;
@@ -7914,7 +7914,7 @@ impl wkt::message::Message for PrivatePoolV1Config {
     }
 }
 
-/// Defines additional types related to PrivatePoolV1Config
+/// Defines additional types related to [PrivatePoolV1Config].
 pub mod private_pool_v_1_config {
     #[allow(unused_imports)]
     use super::*;
@@ -8042,7 +8042,7 @@ pub mod private_pool_v_1_config {
         }
     }
 
-    /// Defines additional types related to NetworkConfig
+    /// Defines additional types related to [NetworkConfig].
     pub mod network_config {
         #[allow(unused_imports)]
         use super::*;

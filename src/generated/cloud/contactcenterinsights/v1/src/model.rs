@@ -217,7 +217,7 @@ impl wkt::message::Message for CalculateStatsResponse {
     }
 }
 
-/// Defines additional types related to CalculateStatsResponse
+/// Defines additional types related to [CalculateStatsResponse].
 pub mod calculate_stats_response {
     #[allow(unused_imports)]
     use super::*;
@@ -271,7 +271,7 @@ pub mod calculate_stats_response {
         }
     }
 
-    /// Defines additional types related to TimeSeries
+    /// Defines additional types related to [TimeSeries].
     pub mod time_series {
         #[allow(unused_imports)]
         use super::*;
@@ -1122,7 +1122,7 @@ impl wkt::message::Message for IngestConversationsRequest {
     }
 }
 
-/// Defines additional types related to IngestConversationsRequest
+/// Defines additional types related to [IngestConversationsRequest].
 pub mod ingest_conversations_request {
     #[allow(unused_imports)]
     use super::*;
@@ -1212,7 +1212,7 @@ pub mod ingest_conversations_request {
         }
     }
 
-    /// Defines additional types related to GcsSource
+    /// Defines additional types related to [GcsSource].
     pub mod gcs_source {
         #[allow(unused_imports)]
         use super::*;
@@ -1480,7 +1480,7 @@ impl wkt::message::Message for IngestConversationsMetadata {
     }
 }
 
-/// Defines additional types related to IngestConversationsMetadata
+/// Defines additional types related to [IngestConversationsMetadata].
 pub mod ingest_conversations_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -2266,7 +2266,7 @@ impl wkt::message::Message for ExportInsightsDataRequest {
     }
 }
 
-/// Defines additional types related to ExportInsightsDataRequest
+/// Defines additional types related to [ExportInsightsDataRequest].
 pub mod export_insights_data_request {
     #[allow(unused_imports)]
     use super::*;
@@ -3118,7 +3118,7 @@ impl wkt::message::Message for ExportIssueModelRequest {
     }
 }
 
-/// Defines additional types related to ExportIssueModelRequest
+/// Defines additional types related to [ExportIssueModelRequest].
 pub mod export_issue_model_request {
     #[allow(unused_imports)]
     use super::*;
@@ -3327,7 +3327,7 @@ impl wkt::message::Message for ImportIssueModelRequest {
     }
 }
 
-/// Defines additional types related to ImportIssueModelRequest
+/// Defines additional types related to [ImportIssueModelRequest].
 pub mod import_issue_model_request {
     #[allow(unused_imports)]
     use super::*;
@@ -4895,7 +4895,7 @@ impl wkt::message::Message for Dimension {
     }
 }
 
-/// Defines additional types related to Dimension
+/// Defines additional types related to [Dimension].
 pub mod dimension {
     #[allow(unused_imports)]
     use super::*;
@@ -5344,7 +5344,7 @@ impl wkt::message::Message for QueryMetricsRequest {
     }
 }
 
-/// Defines additional types related to QueryMetricsRequest
+/// Defines additional types related to [QueryMetricsRequest].
 pub mod query_metrics_request {
     #[allow(unused_imports)]
     use super::*;
@@ -5515,7 +5515,7 @@ impl wkt::message::Message for QueryMetricsResponse {
     }
 }
 
-/// Defines additional types related to QueryMetricsResponse
+/// Defines additional types related to [QueryMetricsResponse].
 pub mod query_metrics_response {
     #[allow(unused_imports)]
     use super::*;
@@ -5600,7 +5600,7 @@ pub mod query_metrics_response {
         }
     }
 
-    /// Defines additional types related to Slice
+    /// Defines additional types related to [Slice].
     pub mod slice {
         #[allow(unused_imports)]
         use super::*;
@@ -5696,7 +5696,7 @@ pub mod query_metrics_response {
             }
         }
 
-        /// Defines additional types related to DataPoint
+        /// Defines additional types related to [DataPoint].
         pub mod data_point {
             #[allow(unused_imports)]
             use super::*;
@@ -5871,7 +5871,7 @@ pub mod query_metrics_response {
                 }
             }
 
-            /// Defines additional types related to ConversationMeasure
+            /// Defines additional types related to [ConversationMeasure].
             pub mod conversation_measure {
                 #[allow(unused_imports)]
                 use super::*;
@@ -6720,7 +6720,7 @@ impl wkt::message::Message for TuneQaScorecardRevisionMetadata {
     }
 }
 
-/// Defines additional types related to TuneQaScorecardRevisionMetadata
+/// Defines additional types related to [TuneQaScorecardRevisionMetadata].
 pub mod tune_qa_scorecard_revision_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -6822,7 +6822,7 @@ pub mod tune_qa_scorecard_revision_metadata {
         }
     }
 
-    /// Defines additional types related to QaQuestionDatasetTuningMetrics
+    /// Defines additional types related to [QaQuestionDatasetTuningMetrics].
     pub mod qa_question_dataset_tuning_metrics {
         #[allow(unused_imports)]
         use super::*;
@@ -7716,7 +7716,7 @@ impl wkt::message::Message for BulkUploadFeedbackLabelsRequest {
     }
 }
 
-/// Defines additional types related to BulkUploadFeedbackLabelsRequest
+/// Defines additional types related to [BulkUploadFeedbackLabelsRequest].
 pub mod bulk_upload_feedback_labels_request {
     #[allow(unused_imports)]
     use super::*;
@@ -7767,7 +7767,7 @@ pub mod bulk_upload_feedback_labels_request {
         }
     }
 
-    /// Defines additional types related to GcsSource
+    /// Defines additional types related to [GcsSource].
     pub mod gcs_source {
         #[allow(unused_imports)]
         use super::*;
@@ -7956,7 +7956,7 @@ impl wkt::message::Message for BulkUploadFeedbackLabelsMetadata {
     }
 }
 
-/// Defines additional types related to BulkUploadFeedbackLabelsMetadata
+/// Defines additional types related to [BulkUploadFeedbackLabelsMetadata].
 pub mod bulk_upload_feedback_labels_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -8178,7 +8178,7 @@ impl wkt::message::Message for BulkDownloadFeedbackLabelsRequest {
     }
 }
 
-/// Defines additional types related to BulkDownloadFeedbackLabelsRequest
+/// Defines additional types related to [BulkDownloadFeedbackLabelsRequest].
 pub mod bulk_download_feedback_labels_request {
     #[allow(unused_imports)]
     use super::*;
@@ -8264,7 +8264,7 @@ pub mod bulk_download_feedback_labels_request {
         }
     }
 
-    /// Defines additional types related to GcsDestination
+    /// Defines additional types related to [GcsDestination].
     pub mod gcs_destination {
         #[allow(unused_imports)]
         use super::*;
@@ -8519,7 +8519,7 @@ impl wkt::message::Message for BulkDownloadFeedbackLabelsMetadata {
     }
 }
 
-/// Defines additional types related to BulkDownloadFeedbackLabelsMetadata
+/// Defines additional types related to [BulkDownloadFeedbackLabelsMetadata].
 pub mod bulk_download_feedback_labels_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -8977,7 +8977,7 @@ impl wkt::message::Message for Conversation {
     }
 }
 
-/// Defines additional types related to Conversation
+/// Defines additional types related to [Conversation].
 pub mod conversation {
     #[allow(unused_imports)]
     use super::*;
@@ -9088,7 +9088,7 @@ pub mod conversation {
         }
     }
 
-    /// Defines additional types related to QualityMetadata
+    /// Defines additional types related to [QualityMetadata].
     pub mod quality_metadata {
         #[allow(unused_imports)]
         use super::*;
@@ -9212,7 +9212,7 @@ pub mod conversation {
         }
     }
 
-    /// Defines additional types related to Transcript
+    /// Defines additional types related to [Transcript].
     pub mod transcript {
         #[allow(unused_imports)]
         use super::*;
@@ -9354,7 +9354,7 @@ pub mod conversation {
             }
         }
 
-        /// Defines additional types related to TranscriptSegment
+        /// Defines additional types related to [TranscriptSegment].
         pub mod transcript_segment {
             #[allow(unused_imports)]
             use super::*;
@@ -9732,7 +9732,7 @@ impl wkt::message::Message for ConversationDataSource {
     }
 }
 
-/// Defines additional types related to ConversationDataSource
+/// Defines additional types related to [ConversationDataSource].
 pub mod conversation_data_source {
     #[allow(unused_imports)]
     use super::*;
@@ -9915,7 +9915,7 @@ impl wkt::message::Message for AnalysisResult {
     }
 }
 
-/// Defines additional types related to AnalysisResult
+/// Defines additional types related to [AnalysisResult].
 pub mod analysis_result {
     #[allow(unused_imports)]
     use super::*;
@@ -10257,7 +10257,7 @@ impl wkt::message::Message for FeedbackLabel {
     }
 }
 
-/// Defines additional types related to FeedbackLabel
+/// Defines additional types related to [FeedbackLabel].
 pub mod feedback_label {
     #[allow(unused_imports)]
     use super::*;
@@ -10717,7 +10717,7 @@ impl wkt::message::Message for CallAnnotation {
     }
 }
 
-/// Defines additional types related to CallAnnotation
+/// Defines additional types related to [CallAnnotation].
 pub mod call_annotation {
     #[allow(unused_imports)]
     use super::*;
@@ -10817,7 +10817,7 @@ impl wkt::message::Message for AnnotationBoundary {
     }
 }
 
-/// Defines additional types related to AnnotationBoundary
+/// Defines additional types related to [AnnotationBoundary].
 pub mod annotation_boundary {
     #[allow(unused_imports)]
     use super::*;
@@ -10923,7 +10923,7 @@ impl wkt::message::Message for Entity {
     }
 }
 
-/// Defines additional types related to Entity
+/// Defines additional types related to [Entity].
 pub mod entity {
     #[allow(unused_imports)]
     use super::*;
@@ -11302,7 +11302,7 @@ impl wkt::message::Message for EntityMentionData {
     }
 }
 
-/// Defines additional types related to EntityMentionData
+/// Defines additional types related to [EntityMentionData].
 pub mod entity_mention_data {
     #[allow(unused_imports)]
     use super::*;
@@ -11617,7 +11617,7 @@ impl wkt::message::Message for IssueModel {
     }
 }
 
-/// Defines additional types related to IssueModel
+/// Defines additional types related to [IssueModel].
 pub mod issue_model {
     #[allow(unused_imports)]
     use super::*;
@@ -11968,7 +11968,7 @@ impl wkt::message::Message for IssueModelLabelStats {
     }
 }
 
-/// Defines additional types related to IssueModelLabelStats
+/// Defines additional types related to [IssueModelLabelStats].
 pub mod issue_model_label_stats {
     #[allow(unused_imports)]
     use super::*;
@@ -12187,7 +12187,7 @@ impl wkt::message::Message for PhraseMatcher {
     }
 }
 
-/// Defines additional types related to PhraseMatcher
+/// Defines additional types related to [PhraseMatcher].
 pub mod phrase_matcher {
     #[allow(unused_imports)]
     use super::*;
@@ -12302,7 +12302,7 @@ impl wkt::message::Message for PhraseMatchRuleGroup {
     }
 }
 
-/// Defines additional types related to PhraseMatchRuleGroup
+/// Defines additional types related to [PhraseMatchRuleGroup].
 pub mod phrase_match_rule_group {
     #[allow(unused_imports)]
     use super::*;
@@ -12490,7 +12490,7 @@ impl wkt::message::Message for PhraseMatchRuleConfig {
     }
 }
 
-/// Defines additional types related to PhraseMatchRuleConfig
+/// Defines additional types related to [PhraseMatchRuleConfig].
 pub mod phrase_match_rule_config {
     #[allow(unused_imports)]
     use super::*;
@@ -12710,7 +12710,7 @@ impl wkt::message::Message for Settings {
     }
 }
 
-/// Defines additional types related to Settings
+/// Defines additional types related to [Settings].
 pub mod settings {
     #[allow(unused_imports)]
     use super::*;
@@ -13346,7 +13346,7 @@ impl wkt::message::Message for RuntimeAnnotation {
     }
 }
 
-/// Defines additional types related to RuntimeAnnotation
+/// Defines additional types related to [RuntimeAnnotation].
 pub mod runtime_annotation {
     #[allow(unused_imports)]
     use super::*;
@@ -13409,7 +13409,7 @@ pub mod runtime_annotation {
         }
     }
 
-    /// Defines additional types related to UserInput
+    /// Defines additional types related to [UserInput].
     pub mod user_input {
         #[allow(unused_imports)]
         use super::*;
@@ -13550,7 +13550,7 @@ impl wkt::message::Message for AnswerFeedback {
     }
 }
 
-/// Defines additional types related to AnswerFeedback
+/// Defines additional types related to [AnswerFeedback].
 pub mod answer_feedback {
     #[allow(unused_imports)]
     use super::*;
@@ -14213,7 +14213,7 @@ impl wkt::message::Message for ConversationParticipant {
     }
 }
 
-/// Defines additional types related to ConversationParticipant
+/// Defines additional types related to [ConversationParticipant].
 pub mod conversation_participant {
     #[allow(unused_imports)]
     use super::*;
@@ -14546,7 +14546,7 @@ impl wkt::message::Message for AnnotatorSelector {
     }
 }
 
-/// Defines additional types related to AnnotatorSelector
+/// Defines additional types related to [AnnotatorSelector].
 pub mod annotator_selector {
     #[allow(unused_imports)]
     use super::*;
@@ -14656,7 +14656,7 @@ pub mod annotator_selector {
         }
     }
 
-    /// Defines additional types related to SummarizationConfig
+    /// Defines additional types related to [SummarizationConfig].
     pub mod summarization_config {
         #[allow(unused_imports)]
         use super::*;
@@ -14815,7 +14815,7 @@ pub mod annotator_selector {
         }
     }
 
-    /// Defines additional types related to QaConfig
+    /// Defines additional types related to [QaConfig].
     pub mod qa_config {
         #[allow(unused_imports)]
         use super::*;
@@ -15033,7 +15033,7 @@ impl wkt::message::Message for QaQuestion {
     }
 }
 
-/// Defines additional types related to QaQuestion
+/// Defines additional types related to [QaQuestion].
 pub mod qa_question {
     #[allow(unused_imports)]
     use super::*;
@@ -15195,7 +15195,7 @@ pub mod qa_question {
         }
     }
 
-    /// Defines additional types related to AnswerChoice
+    /// Defines additional types related to [AnswerChoice].
     pub mod answer_choice {
         #[allow(unused_imports)]
         use super::*;
@@ -15479,7 +15479,7 @@ impl wkt::message::Message for QaScorecardRevision {
     }
 }
 
-/// Defines additional types related to QaScorecardRevision
+/// Defines additional types related to [QaScorecardRevision].
 pub mod qa_scorecard_revision {
     #[allow(unused_imports)]
     use super::*;
@@ -15658,7 +15658,7 @@ impl wkt::message::Message for QaAnswer {
     }
 }
 
-/// Defines additional types related to QaAnswer
+/// Defines additional types related to [QaAnswer].
 pub mod qa_answer {
     #[allow(unused_imports)]
     use super::*;
@@ -15851,7 +15851,7 @@ pub mod qa_answer {
         }
     }
 
-    /// Defines additional types related to AnswerValue
+    /// Defines additional types related to [AnswerValue].
     pub mod answer_value {
         #[allow(unused_imports)]
         use super::*;
@@ -15922,7 +15922,7 @@ pub mod qa_answer {
         }
     }
 
-    /// Defines additional types related to AnswerSource
+    /// Defines additional types related to [AnswerSource].
     pub mod answer_source {
         #[allow(unused_imports)]
         use super::*;
@@ -16150,7 +16150,7 @@ impl wkt::message::Message for QaScorecardResult {
     }
 }
 
-/// Defines additional types related to QaScorecardResult
+/// Defines additional types related to [QaScorecardResult].
 pub mod qa_scorecard_result {
     #[allow(unused_imports)]
     use super::*;
@@ -16307,7 +16307,7 @@ pub mod qa_scorecard_result {
         }
     }
 
-    /// Defines additional types related to ScoreSource
+    /// Defines additional types related to [ScoreSource].
     pub mod score_source {
         #[allow(unused_imports)]
         use super::*;

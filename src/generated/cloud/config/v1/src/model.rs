@@ -413,7 +413,7 @@ impl wkt::message::Message for Deployment {
     }
 }
 
-/// Defines additional types related to Deployment
+/// Defines additional types related to [Deployment].
 pub mod deployment {
     #[allow(unused_imports)]
     use super::*;
@@ -779,7 +779,7 @@ impl wkt::message::Message for TerraformBlueprint {
     }
 }
 
-/// Defines additional types related to TerraformBlueprint
+/// Defines additional types related to [TerraformBlueprint].
 pub mod terraform_blueprint {
     #[allow(unused_imports)]
     use super::*;
@@ -1562,7 +1562,7 @@ impl wkt::message::Message for DeleteDeploymentRequest {
     }
 }
 
-/// Defines additional types related to DeleteDeploymentRequest
+/// Defines additional types related to [DeleteDeploymentRequest].
 pub mod delete_deployment_request {
     #[allow(unused_imports)]
     use super::*;
@@ -1808,7 +1808,7 @@ impl wkt::message::Message for OperationMetadata {
     }
 }
 
-/// Defines additional types related to OperationMetadata
+/// Defines additional types related to [OperationMetadata].
 pub mod operation_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -2134,7 +2134,7 @@ impl wkt::message::Message for Revision {
     }
 }
 
-/// Defines additional types related to Revision
+/// Defines additional types related to [Revision].
 pub mod revision {
     #[allow(unused_imports)]
     use super::*;
@@ -2548,7 +2548,7 @@ impl wkt::message::Message for DeploymentOperationMetadata {
     }
 }
 
-/// Defines additional types related to DeploymentOperationMetadata
+/// Defines additional types related to [DeploymentOperationMetadata].
 pub mod deployment_operation_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -2755,7 +2755,7 @@ impl wkt::message::Message for Resource {
     }
 }
 
-/// Defines additional types related to Resource
+/// Defines additional types related to [Resource].
 pub mod resource {
     #[allow(unused_imports)]
     use super::*;
@@ -3885,7 +3885,7 @@ impl wkt::message::Message for Preview {
     }
 }
 
-/// Defines additional types related to Preview
+/// Defines additional types related to [Preview].
 pub mod preview {
     #[allow(unused_imports)]
     use super::*;
@@ -4198,7 +4198,7 @@ impl wkt::message::Message for PreviewOperationMetadata {
     }
 }
 
-/// Defines additional types related to PreviewOperationMetadata
+/// Defines additional types related to [PreviewOperationMetadata].
 pub mod preview_operation_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -5049,7 +5049,7 @@ impl wkt::message::Message for TerraformVersion {
     }
 }
 
-/// Defines additional types related to TerraformVersion
+/// Defines additional types related to [TerraformVersion].
 pub mod terraform_version {
     #[allow(unused_imports)]
     use super::*;

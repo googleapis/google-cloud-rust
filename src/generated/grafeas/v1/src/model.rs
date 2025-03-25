@@ -72,7 +72,7 @@ impl wkt::message::Message for AttestationNote {
     }
 }
 
-/// Defines additional types related to AttestationNote
+/// Defines additional types related to [AttestationNote].
 pub mod attestation_note {
     #[allow(unused_imports)]
     use super::*;
@@ -864,7 +864,7 @@ impl wkt::message::Message for ComplianceNote {
     }
 }
 
-/// Defines additional types related to ComplianceNote
+/// Defines additional types related to [ComplianceNote].
 pub mod compliance_note {
     #[allow(unused_imports)]
     use super::*;
@@ -1223,7 +1223,7 @@ impl wkt::message::Message for CVSSv3 {
     }
 }
 
-/// Defines additional types related to CVSSv3
+/// Defines additional types related to [CVSSv3].
 pub mod cvs_sv_3 {
     #[allow(unused_imports)]
     use super::*;
@@ -1727,7 +1727,7 @@ impl wkt::message::Message for Cvss {
     }
 }
 
-/// Defines additional types related to CVSS
+/// Defines additional types related to [CVSS].
 pub mod cvss {
     #[allow(unused_imports)]
     use super::*;
@@ -2295,7 +2295,7 @@ impl wkt::message::Message for DeploymentOccurrence {
     }
 }
 
-/// Defines additional types related to DeploymentOccurrence
+/// Defines additional types related to [DeploymentOccurrence].
 pub mod deployment_occurrence {
     #[allow(unused_imports)]
     use super::*;
@@ -2563,7 +2563,7 @@ impl wkt::message::Message for DiscoveryOccurrence {
     }
 }
 
-/// Defines additional types related to DiscoveryOccurrence
+/// Defines additional types related to [DiscoveryOccurrence].
 pub mod discovery_occurrence {
     #[allow(unused_imports)]
     use super::*;
@@ -2646,7 +2646,7 @@ pub mod discovery_occurrence {
         }
     }
 
-    /// Defines additional types related to SBOMStatus
+    /// Defines additional types related to [SBOMStatus].
     pub mod sbom_status {
         #[allow(unused_imports)]
         use super::*;
@@ -2763,7 +2763,7 @@ pub mod discovery_occurrence {
         }
     }
 
-    /// Defines additional types related to VulnerabilityAttestation
+    /// Defines additional types related to [VulnerabilityAttestation].
     pub mod vulnerability_attestation {
         #[allow(unused_imports)]
         use super::*;
@@ -3004,7 +3004,7 @@ impl wkt::message::Message for DSSEAttestationNote {
     }
 }
 
-/// Defines additional types related to DSSEAttestationNote
+/// Defines additional types related to [DSSEAttestationNote].
 pub mod dsse_attestation_note {
     #[allow(unused_imports)]
     use super::*;
@@ -3130,7 +3130,7 @@ impl wkt::message::Message for DSSEAttestationOccurrence {
     }
 }
 
-/// Defines additional types related to DSSEAttestationOccurrence
+/// Defines additional types related to [DSSEAttestationOccurrence].
 pub mod dsse_attestation_occurrence {
     #[allow(unused_imports)]
     use super::*;
@@ -3583,7 +3583,7 @@ impl wkt::message::Message for Occurrence {
     }
 }
 
-/// Defines additional types related to Occurrence
+/// Defines additional types related to [Occurrence].
 pub mod occurrence {
     #[allow(unused_imports)]
     use super::*;
@@ -4086,7 +4086,7 @@ impl wkt::message::Message for Note {
     }
 }
 
-/// Defines additional types related to Note
+/// Defines additional types related to [Note].
 pub mod note {
     #[allow(unused_imports)]
     use super::*;
@@ -5725,7 +5725,7 @@ impl wkt::message::Message for InTotoStatement {
     }
 }
 
-/// Defines additional types related to InTotoStatement
+/// Defines additional types related to [InTotoStatement].
 pub mod in_toto_statement {
     #[allow(unused_imports)]
     use super::*;
@@ -5855,7 +5855,7 @@ impl wkt::message::Message for InTotoSlsaProvenanceV1 {
     }
 }
 
-/// Defines additional types related to InTotoSlsaProvenanceV1
+/// Defines additional types related to [InTotoSlsaProvenanceV1].
 pub mod in_toto_slsa_provenance_v_1 {
     #[allow(unused_imports)]
     use super::*;
@@ -6746,7 +6746,7 @@ impl wkt::message::Message for Version {
     }
 }
 
-/// Defines additional types related to Version
+/// Defines additional types related to [Version].
 pub mod version {
     #[allow(unused_imports)]
     use super::*;
@@ -7451,7 +7451,7 @@ impl wkt::message::Message for SourceContext {
     }
 }
 
-/// Defines additional types related to SourceContext
+/// Defines additional types related to [SourceContext].
 pub mod source_context {
     #[allow(unused_imports)]
     use super::*;
@@ -7511,7 +7511,7 @@ impl wkt::message::Message for AliasContext {
     }
 }
 
-/// Defines additional types related to AliasContext
+/// Defines additional types related to [AliasContext].
 pub mod alias_context {
     #[allow(unused_imports)]
     use super::*;
@@ -7684,7 +7684,7 @@ impl wkt::message::Message for CloudRepoSourceContext {
     }
 }
 
-/// Defines additional types related to CloudRepoSourceContext
+/// Defines additional types related to [CloudRepoSourceContext].
 pub mod cloud_repo_source_context {
     #[allow(unused_imports)]
     use super::*;
@@ -7814,7 +7814,7 @@ impl wkt::message::Message for GerritSourceContext {
     }
 }
 
-/// Defines additional types related to GerritSourceContext
+/// Defines additional types related to [GerritSourceContext].
 pub mod gerrit_source_context {
     #[allow(unused_imports)]
     use super::*;
@@ -7954,7 +7954,7 @@ impl wkt::message::Message for RepoId {
     }
 }
 
-/// Defines additional types related to RepoId
+/// Defines additional types related to [RepoId].
 pub mod repo_id {
     #[allow(unused_imports)]
     use super::*;
@@ -8338,7 +8338,7 @@ impl wkt::message::Message for SlsaProvenance {
     }
 }
 
-/// Defines additional types related to SlsaProvenance
+/// Defines additional types related to [SlsaProvenance].
 pub mod slsa_provenance {
     #[allow(unused_imports)]
     use super::*;
@@ -8747,7 +8747,7 @@ impl wkt::message::Message for SlsaProvenanceZeroTwo {
     }
 }
 
-/// Defines additional types related to SlsaProvenanceZeroTwo
+/// Defines additional types related to [SlsaProvenanceZeroTwo].
 pub mod slsa_provenance_zero_two {
     #[allow(unused_imports)]
     use super::*;
@@ -9322,7 +9322,7 @@ impl wkt::message::Message for WindowsUpdate {
     }
 }
 
-/// Defines additional types related to WindowsUpdate
+/// Defines additional types related to [WindowsUpdate].
 pub mod windows_update {
     #[allow(unused_imports)]
     use super::*;
@@ -9602,7 +9602,7 @@ impl wkt::message::Message for VulnerabilityAssessmentNote {
     }
 }
 
-/// Defines additional types related to VulnerabilityAssessmentNote
+/// Defines additional types related to [VulnerabilityAssessmentNote].
 pub mod vulnerability_assessment_note {
     #[allow(unused_imports)]
     use super::*;
@@ -9761,7 +9761,7 @@ pub mod vulnerability_assessment_note {
         }
     }
 
-    /// Defines additional types related to Product
+    /// Defines additional types related to [Product].
     pub mod product {
         #[allow(unused_imports)]
         use super::*;
@@ -9936,7 +9936,7 @@ pub mod vulnerability_assessment_note {
         }
     }
 
-    /// Defines additional types related to Assessment
+    /// Defines additional types related to [Assessment].
     pub mod assessment {
         #[allow(unused_imports)]
         use super::*;
@@ -9981,7 +9981,7 @@ pub mod vulnerability_assessment_note {
             }
         }
 
-        /// Defines additional types related to Justification
+        /// Defines additional types related to [Justification].
         pub mod justification {
             #[allow(unused_imports)]
             use super::*;
@@ -10143,7 +10143,7 @@ pub mod vulnerability_assessment_note {
             }
         }
 
-        /// Defines additional types related to Remediation
+        /// Defines additional types related to [Remediation].
         pub mod remediation {
             #[allow(unused_imports)]
             use super::*;
@@ -10417,7 +10417,7 @@ impl wkt::message::Message for VulnerabilityNote {
     }
 }
 
-/// Defines additional types related to VulnerabilityNote
+/// Defines additional types related to [VulnerabilityNote].
 pub mod vulnerability_note {
     #[allow(unused_imports)]
     use super::*;
@@ -10710,7 +10710,7 @@ pub mod vulnerability_note {
         }
     }
 
-    /// Defines additional types related to WindowsDetail
+    /// Defines additional types related to [WindowsDetail].
     pub mod windows_detail {
         #[allow(unused_imports)]
         use super::*;
@@ -10959,7 +10959,7 @@ impl wkt::message::Message for VulnerabilityOccurrence {
     }
 }
 
-/// Defines additional types related to VulnerabilityOccurrence
+/// Defines additional types related to [VulnerabilityOccurrence].
 pub mod vulnerability_occurrence {
     #[allow(unused_imports)]
     use super::*;

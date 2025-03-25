@@ -465,7 +465,7 @@ impl wkt::message::Message for DateTime {
     }
 }
 
-/// Defines additional types related to DateTime
+/// Defines additional types related to [DateTime].
 pub mod date_time {
     #[allow(unused_imports)]
     use super::*;
@@ -1093,7 +1093,7 @@ impl wkt::message::Message for PhoneNumber {
     }
 }
 
-/// Defines additional types related to PhoneNumber
+/// Defines additional types related to [PhoneNumber].
 pub mod phone_number {
     #[allow(unused_imports)]
     use super::*;

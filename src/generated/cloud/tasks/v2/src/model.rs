@@ -1120,7 +1120,7 @@ impl wkt::message::Message for Queue {
     }
 }
 
-/// Defines additional types related to Queue
+/// Defines additional types related to [Queue].
 pub mod queue {
     #[allow(unused_imports)]
     use super::*;
@@ -1759,7 +1759,7 @@ impl wkt::message::Message for HttpRequest {
     }
 }
 
-/// Defines additional types related to HttpRequest
+/// Defines additional types related to [HttpRequest].
 pub mod http_request {
     #[allow(unused_imports)]
     use super::*;
@@ -2546,7 +2546,7 @@ impl wkt::message::Message for Task {
     }
 }
 
-/// Defines additional types related to Task
+/// Defines additional types related to [Task].
 pub mod task {
     #[allow(unused_imports)]
     use super::*;

@@ -242,7 +242,7 @@ impl wkt::message::Message for Aggregation {
     }
 }
 
-/// Defines additional types related to Aggregation
+/// Defines additional types related to [Aggregation].
 pub mod aggregation {
     #[allow(unused_imports)]
     use super::*;
@@ -723,7 +723,7 @@ impl wkt::message::Message for PickTimeSeriesFilter {
     }
 }
 
-/// Defines additional types related to PickTimeSeriesFilter
+/// Defines additional types related to [PickTimeSeriesFilter].
 pub mod pick_time_series_filter {
     #[allow(unused_imports)]
     use super::*;
@@ -908,7 +908,7 @@ impl wkt::message::Message for StatisticalTimeSeriesFilter {
     }
 }
 
-/// Defines additional types related to StatisticalTimeSeriesFilter
+/// Defines additional types related to [StatisticalTimeSeriesFilter].
 pub mod statistical_time_series_filter {
     #[allow(unused_imports)]
     use super::*;
@@ -1174,7 +1174,7 @@ impl wkt::message::Message for Dashboard {
     }
 }
 
-/// Defines additional types related to Dashboard
+/// Defines additional types related to [Dashboard].
 pub mod dashboard {
     #[allow(unused_imports)]
     use super::*;
@@ -1295,7 +1295,7 @@ impl wkt::message::Message for DashboardFilter {
     }
 }
 
-/// Defines additional types related to DashboardFilter
+/// Defines additional types related to [DashboardFilter].
 pub mod dashboard_filter {
     #[allow(unused_imports)]
     use super::*;
@@ -1889,7 +1889,7 @@ impl wkt::message::Message for MosaicLayout {
     }
 }
 
-/// Defines additional types related to MosaicLayout
+/// Defines additional types related to [MosaicLayout].
 pub mod mosaic_layout {
     #[allow(unused_imports)]
     use super::*;
@@ -2004,7 +2004,7 @@ impl wkt::message::Message for RowLayout {
     }
 }
 
-/// Defines additional types related to RowLayout
+/// Defines additional types related to [RowLayout].
 pub mod row_layout {
     #[allow(unused_imports)]
     use super::*;
@@ -2092,7 +2092,7 @@ impl wkt::message::Message for ColumnLayout {
     }
 }
 
-/// Defines additional types related to ColumnLayout
+/// Defines additional types related to [ColumnLayout].
 pub mod column_layout {
     #[allow(unused_imports)]
     use super::*;
@@ -2378,7 +2378,7 @@ impl wkt::message::Message for TimeSeriesQuery {
     }
 }
 
-/// Defines additional types related to TimeSeriesQuery
+/// Defines additional types related to [TimeSeriesQuery].
 pub mod time_series_query {
     #[allow(unused_imports)]
     use super::*;
@@ -2544,7 +2544,7 @@ impl wkt::message::Message for TimeSeriesFilter {
     }
 }
 
-/// Defines additional types related to TimeSeriesFilter
+/// Defines additional types related to [TimeSeriesFilter].
 pub mod time_series_filter {
     #[allow(unused_imports)]
     use super::*;
@@ -2712,7 +2712,7 @@ impl wkt::message::Message for TimeSeriesFilterRatio {
     }
 }
 
-/// Defines additional types related to TimeSeriesFilterRatio
+/// Defines additional types related to [TimeSeriesFilterRatio].
 pub mod time_series_filter_ratio {
     #[allow(unused_imports)]
     use super::*;
@@ -2857,7 +2857,7 @@ impl wkt::message::Message for Threshold {
     }
 }
 
-/// Defines additional types related to Threshold
+/// Defines additional types related to [Threshold].
 pub mod threshold {
     #[allow(unused_imports)]
     use super::*;
@@ -3096,7 +3096,7 @@ impl wkt::message::Message for PieChart {
     }
 }
 
-/// Defines additional types related to PieChart
+/// Defines additional types related to [PieChart].
 pub mod pie_chart {
     #[allow(unused_imports)]
     use super::*;
@@ -3420,7 +3420,7 @@ impl wkt::message::Message for Scorecard {
     }
 }
 
-/// Defines additional types related to Scorecard
+/// Defines additional types related to [Scorecard].
 pub mod scorecard {
     #[allow(unused_imports)]
     use super::*;
@@ -3658,7 +3658,7 @@ impl wkt::message::Message for TimeSeriesTable {
     }
 }
 
-/// Defines additional types related to TimeSeriesTable
+/// Defines additional types related to [TimeSeriesTable].
 pub mod time_series_table {
     #[allow(unused_imports)]
     use super::*;
@@ -3934,7 +3934,7 @@ impl wkt::message::Message for Text {
     }
 }
 
-/// Defines additional types related to Text
+/// Defines additional types related to [Text].
 pub mod text {
     #[allow(unused_imports)]
     use super::*;
@@ -4048,7 +4048,7 @@ pub mod text {
         }
     }
 
-    /// Defines additional types related to TextStyle
+    /// Defines additional types related to [TextStyle].
     pub mod text_style {
         #[allow(unused_imports)]
         use super::*;
@@ -4897,7 +4897,7 @@ impl wkt::message::Message for Widget {
     }
 }
 
-/// Defines additional types related to Widget
+/// Defines additional types related to [Widget].
 pub mod widget {
     #[allow(unused_imports)]
     use super::*;
@@ -5058,7 +5058,7 @@ impl wkt::message::Message for XyChart {
     }
 }
 
-/// Defines additional types related to XyChart
+/// Defines additional types related to [XyChart].
 pub mod xy_chart {
     #[allow(unused_imports)]
     use super::*;
@@ -5158,7 +5158,7 @@ pub mod xy_chart {
         }
     }
 
-    /// Defines additional types related to DataSet
+    /// Defines additional types related to [DataSet].
     pub mod data_set {
         #[allow(unused_imports)]
         use super::*;
@@ -5342,7 +5342,7 @@ pub mod xy_chart {
         }
     }
 
-    /// Defines additional types related to Axis
+    /// Defines additional types related to [Axis].
     pub mod axis {
         #[allow(unused_imports)]
         use super::*;
@@ -5437,7 +5437,7 @@ impl wkt::message::Message for ChartOptions {
     }
 }
 
-/// Defines additional types related to ChartOptions
+/// Defines additional types related to [ChartOptions].
 pub mod chart_options {
     #[allow(unused_imports)]
     use super::*;

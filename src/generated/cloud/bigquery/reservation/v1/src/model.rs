@@ -252,7 +252,7 @@ impl wkt::message::Message for Reservation {
     }
 }
 
-/// Defines additional types related to Reservation
+/// Defines additional types related to [Reservation].
 pub mod reservation {
     #[allow(unused_imports)]
     use super::*;
@@ -540,7 +540,7 @@ impl wkt::message::Message for CapacityCommitment {
     }
 }
 
-/// Defines additional types related to CapacityCommitment
+/// Defines additional types related to [CapacityCommitment].
 pub mod capacity_commitment {
     #[allow(unused_imports)]
     use super::*;
@@ -1594,7 +1594,7 @@ impl wkt::message::Message for Assignment {
     }
 }
 
-/// Defines additional types related to Assignment
+/// Defines additional types related to [Assignment].
 pub mod assignment {
     #[allow(unused_imports)]
     use super::*;

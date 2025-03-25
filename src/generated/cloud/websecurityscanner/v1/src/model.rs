@@ -328,7 +328,7 @@ impl wkt::message::Message for Finding {
     }
 }
 
-/// Defines additional types related to Finding
+/// Defines additional types related to [Finding].
 pub mod finding {
     #[allow(unused_imports)]
     use super::*;
@@ -622,7 +622,7 @@ impl wkt::message::Message for VulnerableHeaders {
     }
 }
 
-/// Defines additional types related to VulnerableHeaders
+/// Defines additional types related to [VulnerableHeaders].
 pub mod vulnerable_headers {
     #[allow(unused_imports)]
     use super::*;
@@ -736,7 +736,7 @@ impl wkt::message::Message for Xss {
     }
 }
 
-/// Defines additional types related to Xss
+/// Defines additional types related to [Xss].
 pub mod xss {
     #[allow(unused_imports)]
     use super::*;
@@ -909,7 +909,7 @@ impl wkt::message::Message for Xxe {
     }
 }
 
-/// Defines additional types related to Xxe
+/// Defines additional types related to [Xxe].
 pub mod xxe {
     #[allow(unused_imports)]
     use super::*;
@@ -1189,7 +1189,7 @@ impl wkt::message::Message for ScanConfig {
     }
 }
 
-/// Defines additional types related to ScanConfig
+/// Defines additional types related to [ScanConfig].
 pub mod scan_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1340,7 +1340,7 @@ pub mod scan_config {
         }
     }
 
-    /// Defines additional types related to Authentication
+    /// Defines additional types related to [Authentication].
     pub mod authentication {
         #[allow(unused_imports)]
         use super::*;
@@ -1507,7 +1507,7 @@ pub mod scan_config {
             }
         }
 
-        /// Defines additional types related to IapCredential
+        /// Defines additional types related to [IapCredential].
         pub mod iap_credential {
             #[allow(unused_imports)]
             use super::*;
@@ -1852,7 +1852,7 @@ impl wkt::message::Message for ScanConfigError {
     }
 }
 
-/// Defines additional types related to ScanConfigError
+/// Defines additional types related to [ScanConfigError].
 pub mod scan_config_error {
     #[allow(unused_imports)]
     use super::*;
@@ -2345,7 +2345,7 @@ impl wkt::message::Message for ScanRun {
     }
 }
 
-/// Defines additional types related to ScanRun
+/// Defines additional types related to [ScanRun].
 pub mod scan_run {
     #[allow(unused_imports)]
     use super::*;
@@ -2541,7 +2541,7 @@ impl wkt::message::Message for ScanRunErrorTrace {
     }
 }
 
-/// Defines additional types related to ScanRunErrorTrace
+/// Defines additional types related to [ScanRunErrorTrace].
 pub mod scan_run_error_trace {
     #[allow(unused_imports)]
     use super::*;
@@ -2775,7 +2775,7 @@ impl wkt::message::Message for ScanRunWarningTrace {
     }
 }
 
-/// Defines additional types related to ScanRunWarningTrace
+/// Defines additional types related to [ScanRunWarningTrace].
 pub mod scan_run_warning_trace {
     #[allow(unused_imports)]
     use super::*;

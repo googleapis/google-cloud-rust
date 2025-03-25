@@ -444,7 +444,7 @@ impl wkt::message::Message for CdnKey {
     }
 }
 
-/// Defines additional types related to CdnKey
+/// Defines additional types related to [CdnKey].
 pub mod cdn_key {
     #[allow(unused_imports)]
     use super::*;
@@ -589,7 +589,7 @@ impl wkt::message::Message for MediaCdnKey {
     }
 }
 
-/// Defines additional types related to MediaCdnKey
+/// Defines additional types related to [MediaCdnKey].
 pub mod media_cdn_key {
     #[allow(unused_imports)]
     use super::*;
@@ -682,7 +682,7 @@ impl wkt::message::Message for CompanionAds {
     }
 }
 
-/// Defines additional types related to CompanionAds
+/// Defines additional types related to [CompanionAds].
 pub mod companion_ads {
     #[allow(unused_imports)]
     use super::*;
@@ -971,7 +971,7 @@ impl wkt::message::Message for Companion {
     }
 }
 
-/// Defines additional types related to Companion
+/// Defines additional types related to [Companion].
 pub mod companion {
     #[allow(unused_imports)]
     use super::*;
@@ -1149,7 +1149,7 @@ impl wkt::message::Message for Event {
     }
 }
 
-/// Defines additional types related to Event
+/// Defines additional types related to [Event].
 pub mod event {
     #[allow(unused_imports)]
     use super::*;
@@ -1560,7 +1560,7 @@ impl wkt::message::Message for LiveConfig {
     }
 }
 
-/// Defines additional types related to LiveConfig
+/// Defines additional types related to [LiveConfig].
 pub mod live_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1964,7 +1964,7 @@ impl wkt::message::Message for VodSession {
     }
 }
 
-/// Defines additional types related to VodSession
+/// Defines additional types related to [VodSession].
 pub mod vod_session {
     #[allow(unused_imports)]
     use super::*;
@@ -2360,7 +2360,7 @@ impl wkt::message::Message for LiveSession {
     }
 }
 
-/// Defines additional types related to LiveSession
+/// Defines additional types related to [LiveSession].
 pub mod live_session {
     #[allow(unused_imports)]
     use super::*;
@@ -2464,7 +2464,7 @@ impl wkt::message::Message for ManifestOptions {
     }
 }
 
-/// Defines additional types related to ManifestOptions
+/// Defines additional types related to [ManifestOptions].
 pub mod manifest_options {
     #[allow(unused_imports)]
     use super::*;
@@ -2625,7 +2625,7 @@ impl wkt::message::Message for Slate {
     }
 }
 
-/// Defines additional types related to Slate
+/// Defines additional types related to [Slate].
 pub mod slate {
     #[allow(unused_imports)]
     use super::*;
@@ -4802,7 +4802,7 @@ impl wkt::message::Message for VodConfig {
     }
 }
 
-/// Defines additional types related to VodConfig
+/// Defines additional types related to [VodConfig].
 pub mod vod_config {
     #[allow(unused_imports)]
     use super::*;

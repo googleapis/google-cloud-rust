@@ -819,7 +819,7 @@ impl wkt::message::Message for ReauthSettings {
     }
 }
 
-/// Defines additional types related to ReauthSettings
+/// Defines additional types related to [ReauthSettings].
 pub mod reauth_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -1273,7 +1273,7 @@ impl wkt::message::Message for AttributePropagationSettings {
     }
 }
 
-/// Defines additional types related to AttributePropagationSettings
+/// Defines additional types related to [AttributePropagationSettings].
 pub mod attribute_propagation_settings {
     #[allow(unused_imports)]
     use super::*;

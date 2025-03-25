@@ -530,7 +530,7 @@ impl wkt::message::Message for Endpoint {
     }
 }
 
-/// Defines additional types related to Endpoint
+/// Defines additional types related to [Endpoint].
 pub mod endpoint {
     #[allow(unused_imports)]
     use super::*;
@@ -837,7 +837,7 @@ impl wkt::message::Message for ReachabilityDetails {
     }
 }
 
-/// Defines additional types related to ReachabilityDetails
+/// Defines additional types related to [ReachabilityDetails].
 pub mod reachability_details {
     #[allow(unused_imports)]
     use super::*;
@@ -1144,7 +1144,7 @@ impl wkt::message::Message for ProbingDetails {
     }
 }
 
-/// Defines additional types related to ProbingDetails
+/// Defines additional types related to [ProbingDetails].
 pub mod probing_details {
     #[allow(unused_imports)]
     use super::*;
@@ -2671,7 +2671,7 @@ impl wkt::message::Message for Step {
     }
 }
 
-/// Defines additional types related to Step
+/// Defines additional types related to [Step].
 pub mod step {
     #[allow(unused_imports)]
     use super::*;
@@ -3362,7 +3362,7 @@ impl wkt::message::Message for FirewallInfo {
     }
 }
 
-/// Defines additional types related to FirewallInfo
+/// Defines additional types related to [FirewallInfo].
 pub mod firewall_info {
     #[allow(unused_imports)]
     use super::*;
@@ -3744,7 +3744,7 @@ impl wkt::message::Message for RouteInfo {
     }
 }
 
-/// Defines additional types related to RouteInfo
+/// Defines additional types related to [RouteInfo].
 pub mod route_info {
     #[allow(unused_imports)]
     use super::*;
@@ -4064,7 +4064,7 @@ impl wkt::message::Message for GoogleServiceInfo {
     }
 }
 
-/// Defines additional types related to GoogleServiceInfo
+/// Defines additional types related to [GoogleServiceInfo].
 pub mod google_service_info {
     #[allow(unused_imports)]
     use super::*;
@@ -4394,7 +4394,7 @@ impl wkt::message::Message for LoadBalancerInfo {
     }
 }
 
-/// Defines additional types related to LoadBalancerInfo
+/// Defines additional types related to [LoadBalancerInfo].
 pub mod load_balancer_info {
     #[allow(unused_imports)]
     use super::*;
@@ -4621,7 +4621,7 @@ impl wkt::message::Message for LoadBalancerBackend {
     }
 }
 
-/// Defines additional types related to LoadBalancerBackend
+/// Defines additional types related to [LoadBalancerBackend].
 pub mod load_balancer_backend {
     #[allow(unused_imports)]
     use super::*;
@@ -4890,7 +4890,7 @@ impl wkt::message::Message for VpnTunnelInfo {
     }
 }
 
-/// Defines additional types related to VpnTunnelInfo
+/// Defines additional types related to [VpnTunnelInfo].
 pub mod vpn_tunnel_info {
     #[allow(unused_imports)]
     use super::*;
@@ -5144,7 +5144,7 @@ impl wkt::message::Message for DeliverInfo {
     }
 }
 
-/// Defines additional types related to DeliverInfo
+/// Defines additional types related to [DeliverInfo].
 pub mod deliver_info {
     #[allow(unused_imports)]
     use super::*;
@@ -5336,7 +5336,7 @@ impl wkt::message::Message for ForwardInfo {
     }
 }
 
-/// Defines additional types related to ForwardInfo
+/// Defines additional types related to [ForwardInfo].
 pub mod forward_info {
     #[allow(unused_imports)]
     use super::*;
@@ -5503,7 +5503,7 @@ impl wkt::message::Message for AbortInfo {
     }
 }
 
-/// Defines additional types related to AbortInfo
+/// Defines additional types related to [AbortInfo].
 pub mod abort_info {
     #[allow(unused_imports)]
     use super::*;
@@ -5879,7 +5879,7 @@ impl wkt::message::Message for DropInfo {
     }
 }
 
-/// Defines additional types related to DropInfo
+/// Defines additional types related to [DropInfo].
 pub mod drop_info {
     #[allow(unused_imports)]
     use super::*;
@@ -7293,7 +7293,7 @@ impl wkt::message::Message for NatInfo {
     }
 }
 
-/// Defines additional types related to NatInfo
+/// Defines additional types related to [NatInfo].
 pub mod nat_info {
     #[allow(unused_imports)]
     use super::*;
@@ -7658,7 +7658,7 @@ impl wkt::message::Message for LoadBalancerBackendInfo {
     }
 }
 
-/// Defines additional types related to LoadBalancerBackendInfo
+/// Defines additional types related to [LoadBalancerBackendInfo].
 pub mod load_balancer_backend_info {
     #[allow(unused_imports)]
     use super::*;
@@ -8392,7 +8392,7 @@ impl wkt::message::Message for VpcFlowLogsConfig {
     }
 }
 
-/// Defines additional types related to VpcFlowLogsConfig
+/// Defines additional types related to [VpcFlowLogsConfig].
 pub mod vpc_flow_logs_config {
     #[allow(unused_imports)]
     use super::*;

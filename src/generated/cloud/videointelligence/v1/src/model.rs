@@ -2803,7 +2803,7 @@ impl wkt::message::Message for ObjectTrackingAnnotation {
     }
 }
 
-/// Defines additional types related to ObjectTrackingAnnotation
+/// Defines additional types related to [ObjectTrackingAnnotation].
 pub mod object_tracking_annotation {
     #[allow(unused_imports)]
     use super::*;

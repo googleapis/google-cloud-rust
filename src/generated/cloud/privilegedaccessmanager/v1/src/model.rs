@@ -114,7 +114,7 @@ impl wkt::message::Message for CheckOnboardingStatusResponse {
     }
 }
 
-/// Defines additional types related to CheckOnboardingStatusResponse
+/// Defines additional types related to [CheckOnboardingStatusResponse].
 pub mod check_onboarding_status_response {
     #[allow(unused_imports)]
     use super::*;
@@ -199,7 +199,7 @@ pub mod check_onboarding_status_response {
         }
     }
 
-    /// Defines additional types related to Finding
+    /// Defines additional types related to [Finding].
     pub mod finding {
         #[allow(unused_imports)]
         use super::*;
@@ -442,7 +442,7 @@ impl wkt::message::Message for Entitlement {
     }
 }
 
-/// Defines additional types related to Entitlement
+/// Defines additional types related to [Entitlement].
 pub mod entitlement {
     #[allow(unused_imports)]
     use super::*;
@@ -561,7 +561,7 @@ pub mod entitlement {
         }
     }
 
-    /// Defines additional types related to RequesterJustificationConfig
+    /// Defines additional types related to [RequesterJustificationConfig].
     pub mod requester_justification_config {
         #[allow(unused_imports)]
         use super::*;
@@ -855,7 +855,7 @@ impl wkt::message::Message for ApprovalWorkflow {
     }
 }
 
-/// Defines additional types related to ApprovalWorkflow
+/// Defines additional types related to [ApprovalWorkflow].
 pub mod approval_workflow {
     #[allow(unused_imports)]
     use super::*;
@@ -929,7 +929,7 @@ impl wkt::message::Message for ManualApprovals {
     }
 }
 
-/// Defines additional types related to ManualApprovals
+/// Defines additional types related to [ManualApprovals].
 pub mod manual_approvals {
     #[allow(unused_imports)]
     use super::*;
@@ -1062,7 +1062,7 @@ impl wkt::message::Message for PrivilegedAccess {
     }
 }
 
-/// Defines additional types related to PrivilegedAccess
+/// Defines additional types related to [PrivilegedAccess].
 pub mod privileged_access {
     #[allow(unused_imports)]
     use super::*;
@@ -1127,7 +1127,7 @@ pub mod privileged_access {
         }
     }
 
-    /// Defines additional types related to GcpIamAccess
+    /// Defines additional types related to [GcpIamAccess].
     pub mod gcp_iam_access {
         #[allow(unused_imports)]
         use super::*;
@@ -1408,7 +1408,7 @@ impl wkt::message::Message for SearchEntitlementsRequest {
     }
 }
 
-/// Defines additional types related to SearchEntitlementsRequest
+/// Defines additional types related to [SearchEntitlementsRequest].
 pub mod search_entitlements_request {
     #[allow(unused_imports)]
     use super::*;
@@ -1952,7 +1952,7 @@ impl wkt::message::Message for Grant {
     }
 }
 
-/// Defines additional types related to Grant
+/// Defines additional types related to [Grant].
 pub mod grant {
     #[allow(unused_imports)]
     use super::*;
@@ -1994,7 +1994,7 @@ pub mod grant {
         }
     }
 
-    /// Defines additional types related to Timeline
+    /// Defines additional types related to [Timeline].
     pub mod timeline {
         #[allow(unused_imports)]
         use super::*;
@@ -2392,7 +2392,7 @@ pub mod grant {
             }
         }
 
-        /// Defines additional types related to Event
+        /// Defines additional types related to [Event].
         pub mod event {
             #[allow(unused_imports)]
             use super::*;
@@ -2963,7 +2963,7 @@ impl wkt::message::Message for Justification {
     }
 }
 
-/// Defines additional types related to Justification
+/// Defines additional types related to [Justification].
 pub mod justification {
     #[allow(unused_imports)]
     use super::*;
@@ -3193,7 +3193,7 @@ impl wkt::message::Message for SearchGrantsRequest {
     }
 }
 
-/// Defines additional types related to SearchGrantsRequest
+/// Defines additional types related to [SearchGrantsRequest].
 pub mod search_grants_request {
     #[allow(unused_imports)]
     use super::*;

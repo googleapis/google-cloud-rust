@@ -262,7 +262,7 @@ impl wkt::message::Message for Feature {
     }
 }
 
-/// Defines additional types related to Feature
+/// Defines additional types related to [Feature].
 pub mod feature {
     #[allow(unused_imports)]
     use super::*;
@@ -702,7 +702,7 @@ impl wkt::message::Message for FaceAnnotation {
     }
 }
 
-/// Defines additional types related to FaceAnnotation
+/// Defines additional types related to [FaceAnnotation].
 pub mod face_annotation {
     #[allow(unused_imports)]
     use super::*;
@@ -752,7 +752,7 @@ pub mod face_annotation {
         }
     }
 
-    /// Defines additional types related to Landmark
+    /// Defines additional types related to [Landmark].
     pub mod landmark {
         #[allow(unused_imports)]
         use super::*;
@@ -3200,7 +3200,7 @@ impl wkt::message::Message for OperationMetadata {
     }
 }
 
-/// Defines additional types related to OperationMetadata
+/// Defines additional types related to [OperationMetadata].
 pub mod operation_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -3429,7 +3429,7 @@ impl wkt::message::Message for ProductSearchResults {
     }
 }
 
-/// Defines additional types related to ProductSearchResults
+/// Defines additional types related to [ProductSearchResults].
 pub mod product_search_results {
     #[allow(unused_imports)]
     use super::*;
@@ -3717,7 +3717,7 @@ impl wkt::message::Message for Product {
     }
 }
 
-/// Defines additional types related to Product
+/// Defines additional types related to [Product].
 pub mod product {
     #[allow(unused_imports)]
     use super::*;
@@ -5091,7 +5091,7 @@ impl wkt::message::Message for ImportProductSetsInputConfig {
     }
 }
 
-/// Defines additional types related to ImportProductSetsInputConfig
+/// Defines additional types related to [ImportProductSetsInputConfig].
 pub mod import_product_sets_input_config {
     #[allow(unused_imports)]
     use super::*;
@@ -5279,7 +5279,7 @@ impl wkt::message::Message for BatchOperationMetadata {
     }
 }
 
-/// Defines additional types related to BatchOperationMetadata
+/// Defines additional types related to [BatchOperationMetadata].
 pub mod batch_operation_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -5499,7 +5499,7 @@ impl wkt::message::Message for PurgeProductsRequest {
     }
 }
 
-/// Defines additional types related to PurgeProductsRequest
+/// Defines additional types related to [PurgeProductsRequest].
 pub mod purge_products_request {
     #[allow(unused_imports)]
     use super::*;
@@ -5570,7 +5570,7 @@ impl wkt::message::Message for TextAnnotation {
     }
 }
 
-/// Defines additional types related to TextAnnotation
+/// Defines additional types related to [TextAnnotation].
 pub mod text_annotation {
     #[allow(unused_imports)]
     use super::*;
@@ -5661,7 +5661,7 @@ pub mod text_annotation {
         }
     }
 
-    /// Defines additional types related to DetectedBreak
+    /// Defines additional types related to [DetectedBreak].
     pub mod detected_break {
         #[allow(unused_imports)]
         use super::*;
@@ -5977,7 +5977,7 @@ impl wkt::message::Message for Block {
     }
 }
 
-/// Defines additional types related to Block
+/// Defines additional types related to [Block].
 pub mod block {
     #[allow(unused_imports)]
     use super::*;
@@ -6428,7 +6428,7 @@ impl wkt::message::Message for WebDetection {
     }
 }
 
-/// Defines additional types related to WebDetection
+/// Defines additional types related to [WebDetection].
 pub mod web_detection {
     #[allow(unused_imports)]
     use super::*;

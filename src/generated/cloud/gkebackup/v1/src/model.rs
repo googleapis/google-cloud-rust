@@ -509,7 +509,7 @@ impl wkt::message::Message for Backup {
     }
 }
 
-/// Defines additional types related to Backup
+/// Defines additional types related to [Backup].
 pub mod backup {
     #[allow(unused_imports)]
     use super::*;
@@ -652,7 +652,7 @@ pub mod backup {
         }
     }
 
-    /// Defines additional types related to ClusterMetadata
+    /// Defines additional types related to [ClusterMetadata].
     pub mod cluster_metadata {
         #[allow(unused_imports)]
         use super::*;
@@ -1011,7 +1011,7 @@ impl wkt::message::Message for BackupPlan {
     }
 }
 
-/// Defines additional types related to BackupPlan
+/// Defines additional types related to [BackupPlan].
 pub mod backup_plan {
     #[allow(unused_imports)]
     use super::*;
@@ -1382,7 +1382,7 @@ pub mod backup_plan {
         }
     }
 
-    /// Defines additional types related to BackupConfig
+    /// Defines additional types related to [BackupConfig].
     pub mod backup_config {
         #[allow(unused_imports)]
         use super::*;
@@ -1697,7 +1697,7 @@ impl wkt::message::Message for ExclusionWindow {
     }
 }
 
-/// Defines additional types related to ExclusionWindow
+/// Defines additional types related to [ExclusionWindow].
 pub mod exclusion_window {
     #[allow(unused_imports)]
     use super::*;
@@ -1913,7 +1913,7 @@ impl wkt::message::Message for VolumeTypeEnum {
     }
 }
 
-/// Defines additional types related to VolumeTypeEnum
+/// Defines additional types related to [VolumeTypeEnum].
 pub mod volume_type_enum {
     #[allow(unused_imports)]
     use super::*;
@@ -4174,7 +4174,7 @@ impl wkt::message::Message for Restore {
     }
 }
 
-/// Defines additional types related to Restore
+/// Defines additional types related to [Restore].
 pub mod restore {
     #[allow(unused_imports)]
     use super::*;
@@ -4656,7 +4656,7 @@ impl wkt::message::Message for RestoreConfig {
     }
 }
 
-/// Defines additional types related to RestoreConfig
+/// Defines additional types related to [RestoreConfig].
 pub mod restore_config {
     #[allow(unused_imports)]
     use super::*;
@@ -4986,7 +4986,7 @@ pub mod restore_config {
         }
     }
 
-    /// Defines additional types related to TransformationRuleAction
+    /// Defines additional types related to [TransformationRuleAction].
     pub mod transformation_rule_action {
         #[allow(unused_imports)]
         use super::*;
@@ -5309,7 +5309,7 @@ pub mod restore_config {
         }
     }
 
-    /// Defines additional types related to VolumeDataRestorePolicyBinding
+    /// Defines additional types related to [VolumeDataRestorePolicyBinding].
     pub mod volume_data_restore_policy_binding {
         #[allow(unused_imports)]
         use super::*;
@@ -5362,7 +5362,7 @@ pub mod restore_config {
         }
     }
 
-    /// Defines additional types related to RestoreOrder
+    /// Defines additional types related to [RestoreOrder].
     pub mod restore_order {
         #[allow(unused_imports)]
         use super::*;
@@ -5889,7 +5889,7 @@ impl wkt::message::Message for VolumeDataRestorePolicyOverride {
     }
 }
 
-/// Defines additional types related to VolumeDataRestorePolicyOverride
+/// Defines additional types related to [VolumeDataRestorePolicyOverride].
 pub mod volume_data_restore_policy_override {
     #[allow(unused_imports)]
     use super::*;
@@ -6086,7 +6086,7 @@ impl wkt::message::Message for RestorePlan {
     }
 }
 
-/// Defines additional types related to RestorePlan
+/// Defines additional types related to [RestorePlan].
 pub mod restore_plan {
     #[allow(unused_imports)]
     use super::*;
@@ -6348,7 +6348,7 @@ impl wkt::message::Message for VolumeBackup {
     }
 }
 
-/// Defines additional types related to VolumeBackup
+/// Defines additional types related to [VolumeBackup].
 pub mod volume_backup {
     #[allow(unused_imports)]
     use super::*;
@@ -6661,7 +6661,7 @@ impl wkt::message::Message for VolumeRestore {
     }
 }
 
-/// Defines additional types related to VolumeRestore
+/// Defines additional types related to [VolumeRestore].
 pub mod volume_restore {
     #[allow(unused_imports)]
     use super::*;

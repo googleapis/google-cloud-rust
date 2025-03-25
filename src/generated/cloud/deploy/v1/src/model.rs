@@ -399,7 +399,7 @@ impl wkt::message::Message for DeliveryPipeline {
     }
 }
 
-/// Defines additional types related to DeliveryPipeline
+/// Defines additional types related to [DeliveryPipeline].
 pub mod delivery_pipeline {
     #[allow(unused_imports)]
     use super::*;
@@ -666,7 +666,7 @@ impl wkt::message::Message for Strategy {
     }
 }
 
-/// Defines additional types related to Strategy
+/// Defines additional types related to [Strategy].
 pub mod strategy {
     #[allow(unused_imports)]
     use super::*;
@@ -918,7 +918,7 @@ impl wkt::message::Message for Canary {
     }
 }
 
-/// Defines additional types related to Canary
+/// Defines additional types related to [Canary].
 pub mod canary {
     #[allow(unused_imports)]
     use super::*;
@@ -1048,7 +1048,7 @@ impl wkt::message::Message for CustomCanaryDeployment {
     }
 }
 
-/// Defines additional types related to CustomCanaryDeployment
+/// Defines additional types related to [CustomCanaryDeployment].
 pub mod custom_canary_deployment {
     #[allow(unused_imports)]
     use super::*;
@@ -1255,7 +1255,7 @@ impl wkt::message::Message for KubernetesConfig {
     }
 }
 
-/// Defines additional types related to KubernetesConfig
+/// Defines additional types related to [KubernetesConfig].
 pub mod kubernetes_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1384,7 +1384,7 @@ pub mod kubernetes_config {
         }
     }
 
-    /// Defines additional types related to GatewayServiceMesh
+    /// Defines additional types related to [GatewayServiceMesh].
     pub mod gateway_service_mesh {
         #[allow(unused_imports)]
         use super::*;
@@ -1697,7 +1697,7 @@ impl wkt::message::Message for RuntimeConfig {
     }
 }
 
-/// Defines additional types related to RuntimeConfig
+/// Defines additional types related to [RuntimeConfig].
 pub mod runtime_config {
     #[allow(unused_imports)]
     use super::*;
@@ -2950,7 +2950,7 @@ impl wkt::message::Message for Target {
     }
 }
 
-/// Defines additional types related to Target
+/// Defines additional types related to [Target].
 pub mod target {
     #[allow(unused_imports)]
     use super::*;
@@ -3152,7 +3152,7 @@ impl wkt::message::Message for ExecutionConfig {
     }
 }
 
-/// Defines additional types related to ExecutionConfig
+/// Defines additional types related to [ExecutionConfig].
 pub mod execution_config {
     #[allow(unused_imports)]
     use super::*;
@@ -4237,7 +4237,7 @@ impl wkt::message::Message for CustomTargetType {
     }
 }
 
-/// Defines additional types related to CustomTargetType
+/// Defines additional types related to [CustomTargetType].
 pub mod custom_target_type {
     #[allow(unused_imports)]
     use super::*;
@@ -4456,7 +4456,7 @@ impl wkt::message::Message for SkaffoldModules {
     }
 }
 
-/// Defines additional types related to SkaffoldModules
+/// Defines additional types related to [SkaffoldModules].
 pub mod skaffold_modules {
     #[allow(unused_imports)]
     use super::*;
@@ -5264,7 +5264,7 @@ impl wkt::message::Message for DeployPolicy {
     }
 }
 
-/// Defines additional types related to DeployPolicy
+/// Defines additional types related to [DeployPolicy].
 pub mod deploy_policy {
     #[allow(unused_imports)]
     use super::*;
@@ -5540,7 +5540,7 @@ impl wkt::message::Message for PolicyRule {
     }
 }
 
-/// Defines additional types related to PolicyRule
+/// Defines additional types related to [PolicyRule].
 pub mod policy_rule {
     #[allow(unused_imports)]
     use super::*;
@@ -5631,7 +5631,7 @@ impl wkt::message::Message for RolloutRestriction {
     }
 }
 
-/// Defines additional types related to RolloutRestriction
+/// Defines additional types related to [RolloutRestriction].
 pub mod rollout_restriction {
     #[allow(unused_imports)]
     use super::*;
@@ -6358,7 +6358,7 @@ impl wkt::message::Message for Release {
     }
 }
 
-/// Defines additional types related to Release
+/// Defines additional types related to [Release].
 pub mod release {
     #[allow(unused_imports)]
     use super::*;
@@ -6455,7 +6455,7 @@ pub mod release {
         }
     }
 
-    /// Defines additional types related to TargetRender
+    /// Defines additional types related to [TargetRender].
     pub mod target_render {
         #[allow(unused_imports)]
         use super::*;
@@ -7444,7 +7444,7 @@ impl wkt::message::Message for TargetArtifact {
     }
 }
 
-/// Defines additional types related to TargetArtifact
+/// Defines additional types related to [TargetArtifact].
 pub mod target_artifact {
     #[allow(unused_imports)]
     use super::*;
@@ -8254,7 +8254,7 @@ impl wkt::message::Message for Rollout {
     }
 }
 
-/// Defines additional types related to Rollout
+/// Defines additional types related to [Rollout].
 pub mod rollout {
     #[allow(unused_imports)]
     use super::*;
@@ -8977,7 +8977,7 @@ impl wkt::message::Message for Phase {
     }
 }
 
-/// Defines additional types related to Phase
+/// Defines additional types related to [Phase].
 pub mod phase {
     #[allow(unused_imports)]
     use super::*;
@@ -9426,7 +9426,7 @@ impl wkt::message::Message for Job {
     }
 }
 
-/// Defines additional types related to Job
+/// Defines additional types related to [Job].
 pub mod job {
     #[allow(unused_imports)]
     use super::*;
@@ -10830,7 +10830,7 @@ impl wkt::message::Message for JobRun {
     }
 }
 
-/// Defines additional types related to JobRun
+/// Defines additional types related to [JobRun].
 pub mod job_run {
     #[allow(unused_imports)]
     use super::*;
@@ -11011,7 +11011,7 @@ impl wkt::message::Message for DeployJobRun {
     }
 }
 
-/// Defines additional types related to DeployJobRun
+/// Defines additional types related to [DeployJobRun].
 pub mod deploy_job_run {
     #[allow(unused_imports)]
     use super::*;
@@ -11185,7 +11185,7 @@ impl wkt::message::Message for VerifyJobRun {
     }
 }
 
-/// Defines additional types related to VerifyJobRun
+/// Defines additional types related to [VerifyJobRun].
 pub mod verify_job_run {
     #[allow(unused_imports)]
     use super::*;
@@ -11332,7 +11332,7 @@ impl wkt::message::Message for PredeployJobRun {
     }
 }
 
-/// Defines additional types related to PredeployJobRun
+/// Defines additional types related to [PredeployJobRun].
 pub mod predeploy_job_run {
     #[allow(unused_imports)]
     use super::*;
@@ -11472,7 +11472,7 @@ impl wkt::message::Message for PostdeployJobRun {
     }
 }
 
-/// Defines additional types related to PostdeployJobRun
+/// Defines additional types related to [PostdeployJobRun].
 pub mod postdeploy_job_run {
     #[allow(unused_imports)]
     use super::*;
@@ -12448,7 +12448,7 @@ impl wkt::message::Message for AutomationRule {
     }
 }
 
-/// Defines additional types related to AutomationRule
+/// Defines additional types related to [AutomationRule].
 pub mod automation_rule {
     #[allow(unused_imports)]
     use super::*;
@@ -12940,7 +12940,7 @@ impl wkt::message::Message for RepairPhaseConfig {
     }
 }
 
-/// Defines additional types related to RepairPhaseConfig
+/// Defines additional types related to [RepairPhaseConfig].
 pub mod repair_phase_config {
     #[allow(unused_imports)]
     use super::*;
@@ -13145,7 +13145,7 @@ impl wkt::message::Message for AutomationRuleCondition {
     }
 }
 
-/// Defines additional types related to AutomationRuleCondition
+/// Defines additional types related to [AutomationRuleCondition].
 pub mod automation_rule_condition {
     #[allow(unused_imports)]
     use super::*;
@@ -13209,7 +13209,7 @@ impl wkt::message::Message for TimedPromoteReleaseCondition {
     }
 }
 
-/// Defines additional types related to TimedPromoteReleaseCondition
+/// Defines additional types related to [TimedPromoteReleaseCondition].
 pub mod timed_promote_release_condition {
     #[allow(unused_imports)]
     use super::*;
@@ -14047,7 +14047,7 @@ impl wkt::message::Message for AutomationRun {
     }
 }
 
-/// Defines additional types related to AutomationRun
+/// Defines additional types related to [AutomationRun].
 pub mod automation_run {
     #[allow(unused_imports)]
     use super::*;
@@ -14489,7 +14489,7 @@ impl wkt::message::Message for RepairPhase {
     }
 }
 
-/// Defines additional types related to RepairPhase
+/// Defines additional types related to [RepairPhase].
 pub mod repair_phase {
     #[allow(unused_imports)]
     use super::*;
@@ -15233,7 +15233,7 @@ impl wkt::message::Message for DeployPolicyEvaluationEvent {
     }
 }
 
-/// Defines additional types related to DeployPolicyEvaluationEvent
+/// Defines additional types related to [DeployPolicyEvaluationEvent].
 pub mod deploy_policy_evaluation_event {
     #[allow(unused_imports)]
     use super::*;
@@ -15890,7 +15890,7 @@ impl wkt::message::Message for RolloutUpdateEvent {
     }
 }
 
-/// Defines additional types related to RolloutUpdateEvent
+/// Defines additional types related to [RolloutUpdateEvent].
 pub mod rollout_update_event {
     #[allow(unused_imports)]
     use super::*;

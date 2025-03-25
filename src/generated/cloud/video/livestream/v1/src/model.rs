@@ -173,7 +173,7 @@ impl wkt::message::Message for ElementaryStream {
     }
 }
 
-/// Defines additional types related to ElementaryStream
+/// Defines additional types related to [ElementaryStream].
 pub mod elementary_stream {
     #[allow(unused_imports)]
     use super::*;
@@ -420,7 +420,7 @@ impl wkt::message::Message for Manifest {
     }
 }
 
-/// Defines additional types related to Manifest
+/// Defines additional types related to [Manifest].
 pub mod manifest {
     #[allow(unused_imports)]
     use super::*;
@@ -661,7 +661,7 @@ impl wkt::message::Message for PreprocessingConfig {
     }
 }
 
-/// Defines additional types related to PreprocessingConfig
+/// Defines additional types related to [PreprocessingConfig].
 pub mod preprocessing_config {
     #[allow(unused_imports)]
     use super::*;
@@ -880,7 +880,7 @@ impl wkt::message::Message for VideoStream {
     }
 }
 
-/// Defines additional types related to VideoStream
+/// Defines additional types related to [VideoStream].
 pub mod video_stream {
     #[allow(unused_imports)]
     use super::*;
@@ -1153,7 +1153,7 @@ pub mod video_stream {
         }
     }
 
-    /// Defines additional types related to H264CodecSettings
+    /// Defines additional types related to [H264CodecSettings].
     pub mod h_264_codec_settings {
         #[allow(unused_imports)]
         use super::*;
@@ -1306,7 +1306,7 @@ impl wkt::message::Message for AudioStream {
     }
 }
 
-/// Defines additional types related to AudioStream
+/// Defines additional types related to [AudioStream].
 pub mod audio_stream {
     #[allow(unused_imports)]
     use super::*;
@@ -1573,7 +1573,7 @@ impl wkt::message::Message for TimecodeConfig {
     }
 }
 
-/// Defines additional types related to TimecodeConfig
+/// Defines additional types related to [TimecodeConfig].
 pub mod timecode_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1809,7 +1809,7 @@ impl wkt::message::Message for Input {
     }
 }
 
-/// Defines additional types related to Input
+/// Defines additional types related to [Input].
 pub mod input {
     #[allow(unused_imports)]
     use super::*;
@@ -2282,7 +2282,7 @@ impl wkt::message::Message for Channel {
     }
 }
 
-/// Defines additional types related to Channel
+/// Defines additional types related to [Channel].
 pub mod channel {
     #[allow(unused_imports)]
     use super::*;
@@ -2592,7 +2592,7 @@ impl wkt::message::Message for InputConfig {
     }
 }
 
-/// Defines additional types related to InputConfig
+/// Defines additional types related to [InputConfig].
 pub mod input_config {
     #[allow(unused_imports)]
     use super::*;
@@ -2706,7 +2706,7 @@ impl wkt::message::Message for LogConfig {
     }
 }
 
-/// Defines additional types related to LogConfig
+/// Defines additional types related to [LogConfig].
 pub mod log_config {
     #[allow(unused_imports)]
     use super::*;
@@ -3160,7 +3160,7 @@ impl wkt::message::Message for InputAttachment {
     }
 }
 
-/// Defines additional types related to InputAttachment
+/// Defines additional types related to [InputAttachment].
 pub mod input_attachment {
     #[allow(unused_imports)]
     use super::*;
@@ -3510,7 +3510,7 @@ impl wkt::message::Message for Event {
     }
 }
 
-/// Defines additional types related to Event
+/// Defines additional types related to [Event].
 pub mod event {
     #[allow(unused_imports)]
     use super::*;
@@ -3958,7 +3958,7 @@ impl wkt::message::Message for Clip {
     }
 }
 
-/// Defines additional types related to Clip
+/// Defines additional types related to [Clip].
 pub mod clip {
     #[allow(unused_imports)]
     use super::*;
@@ -4072,7 +4072,7 @@ pub mod clip {
         }
     }
 
-    /// Defines additional types related to Slice
+    /// Defines additional types related to [Slice].
     pub mod slice {
         #[allow(unused_imports)]
         use super::*;
@@ -4394,7 +4394,7 @@ impl wkt::message::Message for Asset {
     }
 }
 
-/// Defines additional types related to Asset
+/// Defines additional types related to [Asset].
 pub mod asset {
     #[allow(unused_imports)]
     use super::*;
@@ -4736,7 +4736,7 @@ impl wkt::message::Message for Encryption {
     }
 }
 
-/// Defines additional types related to Encryption
+/// Defines additional types related to [Encryption].
 pub mod encryption {
     #[allow(unused_imports)]
     use super::*;
@@ -5113,7 +5113,7 @@ impl wkt::message::Message for Pool {
     }
 }
 
-/// Defines additional types related to Pool
+/// Defines additional types related to [Pool].
 pub mod pool {
     #[allow(unused_imports)]
     use super::*;

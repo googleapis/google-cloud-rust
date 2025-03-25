@@ -858,7 +858,7 @@ impl wkt::message::Message for ExportBackupRequest {
     }
 }
 
-/// Defines additional types related to ExportBackupRequest
+/// Defines additional types related to [ExportBackupRequest].
 pub mod export_backup_request {
     #[allow(unused_imports)]
     use super::*;
@@ -1422,7 +1422,7 @@ impl wkt::message::Message for Cluster {
     }
 }
 
-/// Defines additional types related to Cluster
+/// Defines additional types related to [Cluster].
 pub mod cluster {
     #[allow(unused_imports)]
     use super::*;
@@ -1493,7 +1493,7 @@ pub mod cluster {
         }
     }
 
-    /// Defines additional types related to StateInfo
+    /// Defines additional types related to [StateInfo].
     pub mod state_info {
         #[allow(unused_imports)]
         use super::*;
@@ -1804,7 +1804,7 @@ impl wkt::message::Message for AutomatedBackupConfig {
     }
 }
 
-/// Defines additional types related to AutomatedBackupConfig
+/// Defines additional types related to [AutomatedBackupConfig].
 pub mod automated_backup_config {
     #[allow(unused_imports)]
     use super::*;
@@ -2175,7 +2175,7 @@ impl wkt::message::Message for Backup {
     }
 }
 
-/// Defines additional types related to Backup
+/// Defines additional types related to [Backup].
 pub mod backup {
     #[allow(unused_imports)]
     use super::*;
@@ -2517,7 +2517,7 @@ impl wkt::message::Message for CrossClusterReplicationConfig {
     }
 }
 
-/// Defines additional types related to CrossClusterReplicationConfig
+/// Defines additional types related to [CrossClusterReplicationConfig].
 pub mod cross_cluster_replication_config {
     #[allow(unused_imports)]
     use super::*;
@@ -3183,7 +3183,7 @@ impl wkt::message::Message for ConnectionDetail {
     }
 }
 
-/// Defines additional types related to ConnectionDetail
+/// Defines additional types related to [ConnectionDetail].
 pub mod connection_detail {
     #[allow(unused_imports)]
     use super::*;
@@ -3507,7 +3507,7 @@ impl wkt::message::Message for CertificateAuthority {
     }
 }
 
-/// Defines additional types related to CertificateAuthority
+/// Defines additional types related to [CertificateAuthority].
 pub mod certificate_authority {
     #[allow(unused_imports)]
     use super::*;
@@ -3550,7 +3550,7 @@ pub mod certificate_authority {
         }
     }
 
-    /// Defines additional types related to ManagedCertificateAuthority
+    /// Defines additional types related to [ManagedCertificateAuthority].
     pub mod managed_certificate_authority {
         #[allow(unused_imports)]
         use super::*;
@@ -3667,7 +3667,7 @@ impl wkt::message::Message for ClusterPersistenceConfig {
     }
 }
 
-/// Defines additional types related to ClusterPersistenceConfig
+/// Defines additional types related to [ClusterPersistenceConfig].
 pub mod cluster_persistence_config {
     #[allow(unused_imports)]
     use super::*;
@@ -3725,7 +3725,7 @@ pub mod cluster_persistence_config {
         }
     }
 
-    /// Defines additional types related to RDBConfig
+    /// Defines additional types related to [RDBConfig].
     pub mod rdb_config {
         #[allow(unused_imports)]
         use super::*;
@@ -3833,7 +3833,7 @@ pub mod cluster_persistence_config {
         }
     }
 
-    /// Defines additional types related to AOFConfig
+    /// Defines additional types related to [AOFConfig].
     pub mod aof_config {
         #[allow(unused_imports)]
         use super::*;
@@ -4017,7 +4017,7 @@ impl wkt::message::Message for ZoneDistributionConfig {
     }
 }
 
-/// Defines additional types related to ZoneDistributionConfig
+/// Defines additional types related to [ZoneDistributionConfig].
 pub mod zone_distribution_config {
     #[allow(unused_imports)]
     use super::*;
@@ -4146,7 +4146,7 @@ impl wkt::message::Message for RescheduleClusterMaintenanceRequest {
     }
 }
 
-/// Defines additional types related to RescheduleClusterMaintenanceRequest
+/// Defines additional types related to [RescheduleClusterMaintenanceRequest].
 pub mod reschedule_cluster_maintenance_request {
     #[allow(unused_imports)]
     use super::*;
@@ -4286,7 +4286,7 @@ impl wkt::message::Message for EncryptionInfo {
     }
 }
 
-/// Defines additional types related to EncryptionInfo
+/// Defines additional types related to [EncryptionInfo].
 pub mod encryption_info {
     #[allow(unused_imports)]
     use super::*;

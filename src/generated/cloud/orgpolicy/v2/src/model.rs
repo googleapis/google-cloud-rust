@@ -209,7 +209,7 @@ impl wkt::message::Message for Constraint {
     }
 }
 
-/// Defines additional types related to Constraint
+/// Defines additional types related to [Constraint].
 pub mod constraint {
     #[allow(unused_imports)]
     use super::*;
@@ -497,7 +497,7 @@ impl wkt::message::Message for CustomConstraint {
     }
 }
 
-/// Defines additional types related to CustomConstraint
+/// Defines additional types related to [CustomConstraint].
 pub mod custom_constraint {
     #[allow(unused_imports)]
     use super::*;
@@ -893,7 +893,7 @@ impl wkt::message::Message for PolicySpec {
     }
 }
 
-/// Defines additional types related to PolicySpec
+/// Defines additional types related to [PolicySpec].
 pub mod policy_spec {
     #[allow(unused_imports)]
     use super::*;
@@ -1066,7 +1066,7 @@ pub mod policy_spec {
         }
     }
 
-    /// Defines additional types related to PolicyRule
+    /// Defines additional types related to [PolicyRule].
     pub mod policy_rule {
         #[allow(unused_imports)]
         use super::*;

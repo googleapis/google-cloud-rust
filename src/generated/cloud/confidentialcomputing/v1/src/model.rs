@@ -339,7 +339,7 @@ impl wkt::message::Message for VerifyAttestationRequest {
     }
 }
 
-/// Defines additional types related to VerifyAttestationRequest
+/// Defines additional types related to [VerifyAttestationRequest].
 pub mod verify_attestation_request {
     #[allow(unused_imports)]
     use super::*;
@@ -660,7 +660,7 @@ impl wkt::message::Message for TokenOptions {
     }
 }
 
-/// Defines additional types related to TokenOptions
+/// Defines additional types related to [TokenOptions].
 pub mod token_options {
     #[allow(unused_imports)]
     use super::*;
@@ -696,7 +696,7 @@ pub mod token_options {
         }
     }
 
-    /// Defines additional types related to AwsPrincipalTagsOptions
+    /// Defines additional types related to [AwsPrincipalTagsOptions].
     pub mod aws_principal_tags_options {
         #[allow(unused_imports)]
         use super::*;
@@ -732,7 +732,7 @@ pub mod token_options {
             }
         }
 
-        /// Defines additional types related to AllowedPrincipalTags
+        /// Defines additional types related to [AllowedPrincipalTags].
         pub mod allowed_principal_tags {
             #[allow(unused_imports)]
             use super::*;
@@ -878,7 +878,7 @@ impl wkt::message::Message for TpmAttestation {
     }
 }
 
-/// Defines additional types related to TpmAttestation
+/// Defines additional types related to [TpmAttestation].
 pub mod tpm_attestation {
     #[allow(unused_imports)]
     use super::*;

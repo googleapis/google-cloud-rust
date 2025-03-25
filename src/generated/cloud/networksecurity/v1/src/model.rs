@@ -150,7 +150,7 @@ impl wkt::message::Message for AuthorizationPolicy {
     }
 }
 
-/// Defines additional types related to AuthorizationPolicy
+/// Defines additional types related to [AuthorizationPolicy].
 pub mod authorization_policy {
     #[allow(unused_imports)]
     use super::*;
@@ -211,7 +211,7 @@ pub mod authorization_policy {
         }
     }
 
-    /// Defines additional types related to Rule
+    /// Defines additional types related to [Rule].
     pub mod rule {
         #[allow(unused_imports)]
         use super::*;
@@ -367,7 +367,7 @@ pub mod authorization_policy {
             }
         }
 
-        /// Defines additional types related to Destination
+        /// Defines additional types related to [Destination].
         pub mod destination {
             #[allow(unused_imports)]
             use super::*;
@@ -447,7 +447,7 @@ pub mod authorization_policy {
                 }
             }
 
-            /// Defines additional types related to HttpHeaderMatch
+            /// Defines additional types related to [HttpHeaderMatch].
             pub mod http_header_match {
                 #[allow(unused_imports)]
                 use super::*;
@@ -1460,7 +1460,7 @@ impl wkt::message::Message for ServerTlsPolicy {
     }
 }
 
-/// Defines additional types related to ServerTlsPolicy
+/// Defines additional types related to [ServerTlsPolicy].
 pub mod server_tls_policy {
     #[allow(unused_imports)]
     use super::*;
@@ -1908,7 +1908,7 @@ impl wkt::message::Message for ValidationCA {
     }
 }
 
-/// Defines additional types related to ValidationCA
+/// Defines additional types related to [ValidationCA].
 pub mod validation_ca {
     #[allow(unused_imports)]
     use super::*;
@@ -2060,7 +2060,7 @@ impl wkt::message::Message for CertificateProvider {
     }
 }
 
-/// Defines additional types related to CertificateProvider
+/// Defines additional types related to [CertificateProvider].
 pub mod certificate_provider {
     #[allow(unused_imports)]
     use super::*;

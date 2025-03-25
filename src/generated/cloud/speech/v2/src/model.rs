@@ -718,7 +718,7 @@ impl wkt::message::Message for OperationMetadata {
     }
 }
 
-/// Defines additional types related to OperationMetadata
+/// Defines additional types related to [OperationMetadata].
 pub mod operation_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -1383,7 +1383,7 @@ impl wkt::message::Message for Recognizer {
     }
 }
 
-/// Defines additional types related to Recognizer
+/// Defines additional types related to [Recognizer].
 pub mod recognizer {
     #[allow(unused_imports)]
     use super::*;
@@ -1551,7 +1551,7 @@ impl wkt::message::Message for ExplicitDecodingConfig {
     }
 }
 
-/// Defines additional types related to ExplicitDecodingConfig
+/// Defines additional types related to [ExplicitDecodingConfig].
 pub mod explicit_decoding_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1848,7 +1848,7 @@ impl wkt::message::Message for RecognitionFeatures {
     }
 }
 
-/// Defines additional types related to RecognitionFeatures
+/// Defines additional types related to [RecognitionFeatures].
 pub mod recognition_features {
     #[allow(unused_imports)]
     use super::*;
@@ -1956,7 +1956,7 @@ impl wkt::message::Message for TranscriptNormalization {
     }
 }
 
-/// Defines additional types related to TranscriptNormalization
+/// Defines additional types related to [TranscriptNormalization].
 pub mod transcript_normalization {
     #[allow(unused_imports)]
     use super::*;
@@ -2092,7 +2092,7 @@ impl wkt::message::Message for SpeechAdaptation {
     }
 }
 
-/// Defines additional types related to SpeechAdaptation
+/// Defines additional types related to [SpeechAdaptation].
 pub mod speech_adaptation {
     #[allow(unused_imports)]
     use super::*;
@@ -2195,7 +2195,7 @@ pub mod speech_adaptation {
         }
     }
 
-    /// Defines additional types related to AdaptationPhraseSet
+    /// Defines additional types related to [AdaptationPhraseSet].
     pub mod adaptation_phrase_set {
         #[allow(unused_imports)]
         use super::*;
@@ -2420,7 +2420,7 @@ impl wkt::message::Message for RecognitionConfig {
     }
 }
 
-/// Defines additional types related to RecognitionConfig
+/// Defines additional types related to [RecognitionConfig].
 pub mod recognition_config {
     #[allow(unused_imports)]
     use super::*;
@@ -2591,7 +2591,7 @@ impl wkt::message::Message for RecognizeRequest {
     }
 }
 
-/// Defines additional types related to RecognizeRequest
+/// Defines additional types related to [RecognizeRequest].
 pub mod recognize_request {
     #[allow(unused_imports)]
     use super::*;
@@ -3024,7 +3024,7 @@ impl wkt::message::Message for StreamingRecognitionFeatures {
     }
 }
 
-/// Defines additional types related to StreamingRecognitionFeatures
+/// Defines additional types related to [StreamingRecognitionFeatures].
 pub mod streaming_recognition_features {
     #[allow(unused_imports)]
     use super::*;
@@ -3298,7 +3298,7 @@ impl wkt::message::Message for StreamingRecognizeRequest {
     }
 }
 
-/// Defines additional types related to StreamingRecognizeRequest
+/// Defines additional types related to [StreamingRecognizeRequest].
 pub mod streaming_recognize_request {
     #[allow(unused_imports)]
     use super::*;
@@ -3449,7 +3449,7 @@ impl wkt::message::Message for BatchRecognizeRequest {
     }
 }
 
-/// Defines additional types related to BatchRecognizeRequest
+/// Defines additional types related to [BatchRecognizeRequest].
 pub mod batch_recognize_request {
     #[allow(unused_imports)]
     use super::*;
@@ -3801,7 +3801,7 @@ impl wkt::message::Message for RecognitionOutputConfig {
     }
 }
 
-/// Defines additional types related to RecognitionOutputConfig
+/// Defines additional types related to [RecognitionOutputConfig].
 pub mod recognition_output_config {
     #[allow(unused_imports)]
     use super::*;
@@ -4185,7 +4185,7 @@ impl wkt::message::Message for BatchRecognizeFileResult {
     }
 }
 
-/// Defines additional types related to BatchRecognizeFileResult
+/// Defines additional types related to [BatchRecognizeFileResult].
 pub mod batch_recognize_file_result {
     #[allow(unused_imports)]
     use super::*;
@@ -4420,7 +4420,7 @@ impl wkt::message::Message for BatchRecognizeFileMetadata {
     }
 }
 
-/// Defines additional types related to BatchRecognizeFileMetadata
+/// Defines additional types related to [BatchRecognizeFileMetadata].
 pub mod batch_recognize_file_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -4675,7 +4675,7 @@ impl wkt::message::Message for StreamingRecognizeResponse {
     }
 }
 
-/// Defines additional types related to StreamingRecognizeResponse
+/// Defines additional types related to [StreamingRecognizeResponse].
 pub mod streaming_recognize_response {
     #[allow(unused_imports)]
     use super::*;
@@ -5108,7 +5108,7 @@ impl wkt::message::Message for CustomClass {
     }
 }
 
-/// Defines additional types related to CustomClass
+/// Defines additional types related to [CustomClass].
 pub mod custom_class {
     #[allow(unused_imports)]
     use super::*;
@@ -5416,7 +5416,7 @@ impl wkt::message::Message for PhraseSet {
     }
 }
 
-/// Defines additional types related to PhraseSet
+/// Defines additional types related to [PhraseSet].
 pub mod phrase_set {
     #[allow(unused_imports)]
     use super::*;
@@ -6566,7 +6566,7 @@ impl wkt::message::Message for AccessMetadata {
     }
 }
 
-/// Defines additional types related to AccessMetadata
+/// Defines additional types related to [AccessMetadata].
 pub mod access_metadata {
     #[allow(unused_imports)]
     use super::*;

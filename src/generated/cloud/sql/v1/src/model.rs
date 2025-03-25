@@ -686,7 +686,7 @@ impl wkt::message::Message for ConnectSettings {
     }
 }
 
-/// Defines additional types related to ConnectSettings
+/// Defines additional types related to [ConnectSettings].
 pub mod connect_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -2684,7 +2684,7 @@ impl wkt::message::Message for BackupReencryptionConfig {
     }
 }
 
-/// Defines additional types related to BackupReencryptionConfig
+/// Defines additional types related to [BackupReencryptionConfig].
 pub mod backup_reencryption_config {
     #[allow(unused_imports)]
     use super::*;
@@ -2912,7 +2912,7 @@ impl wkt::message::Message for SqlInstancesVerifyExternalSyncSettingsRequest {
     }
 }
 
-/// Defines additional types related to SqlInstancesVerifyExternalSyncSettingsRequest
+/// Defines additional types related to [SqlInstancesVerifyExternalSyncSettingsRequest].
 pub mod sql_instances_verify_external_sync_settings_request {
     #[allow(unused_imports)]
     use super::*;
@@ -3159,7 +3159,7 @@ impl wkt::message::Message for SqlInstancesStartExternalSyncRequest {
     }
 }
 
-/// Defines additional types related to SqlInstancesStartExternalSyncRequest
+/// Defines additional types related to [SqlInstancesStartExternalSyncRequest].
 pub mod sql_instances_start_external_sync_request {
     #[allow(unused_imports)]
     use super::*;
@@ -4638,7 +4638,7 @@ impl wkt::message::Message for DatabaseInstance {
     }
 }
 
-/// Defines additional types related to DatabaseInstance
+/// Defines additional types related to [DatabaseInstance].
 pub mod database_instance {
     #[allow(unused_imports)]
     use super::*;
@@ -4795,7 +4795,7 @@ pub mod database_instance {
         }
     }
 
-    /// Defines additional types related to SqlOutOfDiskReport
+    /// Defines additional types related to [SqlOutOfDiskReport].
     pub mod sql_out_of_disk_report {
         #[allow(unused_imports)]
         use super::*;
@@ -5228,7 +5228,7 @@ impl wkt::message::Message for SqlInstancesRescheduleMaintenanceRequestBody {
     }
 }
 
-/// Defines additional types related to SqlInstancesRescheduleMaintenanceRequestBody
+/// Defines additional types related to [SqlInstancesRescheduleMaintenanceRequestBody].
 pub mod sql_instances_reschedule_maintenance_request_body {
     #[allow(unused_imports)]
     use super::*;
@@ -5692,7 +5692,7 @@ impl wkt::message::Message for SqlExternalSyncSettingError {
     }
 }
 
-/// Defines additional types related to SqlExternalSyncSettingError
+/// Defines additional types related to [SqlExternalSyncSettingError].
 pub mod sql_external_sync_setting_error {
     #[allow(unused_imports)]
     use super::*;
@@ -6653,7 +6653,7 @@ impl wkt::message::Message for ApiWarning {
     }
 }
 
-/// Defines additional types related to ApiWarning
+/// Defines additional types related to [ApiWarning].
 pub mod api_warning {
     #[allow(unused_imports)]
     use super::*;
@@ -6773,7 +6773,7 @@ impl wkt::message::Message for BackupRetentionSettings {
     }
 }
 
-/// Defines additional types related to BackupRetentionSettings
+/// Defines additional types related to [BackupRetentionSettings].
 pub mod backup_retention_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -6957,7 +6957,7 @@ impl wkt::message::Message for BackupConfiguration {
     }
 }
 
-/// Defines additional types related to BackupConfiguration
+/// Defines additional types related to [BackupConfiguration].
 pub mod backup_configuration {
     #[allow(unused_imports)]
     use super::*;
@@ -7247,7 +7247,7 @@ impl wkt::message::Message for Database {
     }
 }
 
-/// Defines additional types related to Database
+/// Defines additional types related to [Database].
 pub mod database {
     #[allow(unused_imports)]
     use super::*;
@@ -7723,7 +7723,7 @@ impl wkt::message::Message for ExportContext {
     }
 }
 
-/// Defines additional types related to ExportContext
+/// Defines additional types related to [ExportContext].
 pub mod export_context {
     #[allow(unused_imports)]
     use super::*;
@@ -7886,7 +7886,7 @@ pub mod export_context {
         }
     }
 
-    /// Defines additional types related to SqlExportOptions
+    /// Defines additional types related to [SqlExportOptions].
     pub mod sql_export_options {
         #[allow(unused_imports)]
         use super::*;
@@ -8150,7 +8150,7 @@ impl wkt::message::Message for ImportContext {
     }
 }
 
-/// Defines additional types related to ImportContext
+/// Defines additional types related to [ImportContext].
 pub mod import_context {
     #[allow(unused_imports)]
     use super::*;
@@ -8205,7 +8205,7 @@ pub mod import_context {
         }
     }
 
-    /// Defines additional types related to SqlImportOptions
+    /// Defines additional types related to [SqlImportOptions].
     pub mod sql_import_options {
         #[allow(unused_imports)]
         use super::*;
@@ -8439,7 +8439,7 @@ pub mod import_context {
         }
     }
 
-    /// Defines additional types related to SqlBakImportOptions
+    /// Defines additional types related to [SqlBakImportOptions].
     pub mod sql_bak_import_options {
         #[allow(unused_imports)]
         use super::*;
@@ -8654,7 +8654,7 @@ impl wkt::message::Message for IpConfiguration {
     }
 }
 
-/// Defines additional types related to IpConfiguration
+/// Defines additional types related to [IpConfiguration].
 pub mod ip_configuration {
     #[allow(unused_imports)]
     use super::*;
@@ -9613,7 +9613,7 @@ impl wkt::message::Message for Operation {
     }
 }
 
-/// Defines additional types related to Operation
+/// Defines additional types related to [Operation].
 pub mod operation {
     #[allow(unused_imports)]
     use super::*;
@@ -10156,7 +10156,7 @@ impl wkt::message::Message for PasswordValidationPolicy {
     }
 }
 
-/// Defines additional types related to PasswordValidationPolicy
+/// Defines additional types related to [PasswordValidationPolicy].
 pub mod password_validation_policy {
     #[allow(unused_imports)]
     use super::*;
@@ -10674,7 +10674,7 @@ impl wkt::message::Message for Settings {
     }
 }
 
-/// Defines additional types related to Settings
+/// Defines additional types related to [Settings].
 pub mod settings {
     #[allow(unused_imports)]
     use super::*;
@@ -12232,7 +12232,7 @@ impl wkt::message::Message for User {
     }
 }
 
-/// Defines additional types related to User
+/// Defines additional types related to [User].
 pub mod user {
     #[allow(unused_imports)]
     use super::*;

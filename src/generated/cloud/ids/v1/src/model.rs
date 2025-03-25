@@ -178,7 +178,7 @@ impl wkt::message::Message for Endpoint {
     }
 }
 
-/// Defines additional types related to Endpoint
+/// Defines additional types related to [Endpoint].
 pub mod endpoint {
     #[allow(unused_imports)]
     use super::*;

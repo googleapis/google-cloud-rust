@@ -144,7 +144,7 @@ impl wkt::message::Message for TransactionEvent {
     }
 }
 
-/// Defines additional types related to TransactionEvent
+/// Defines additional types related to [TransactionEvent].
 pub mod transaction_event {
     #[allow(unused_imports)]
     use super::*;
@@ -435,7 +435,7 @@ impl wkt::message::Message for AnnotateAssessmentRequest {
     }
 }
 
-/// Defines additional types related to AnnotateAssessmentRequest
+/// Defines additional types related to [AnnotateAssessmentRequest].
 pub mod annotate_assessment_request {
     #[allow(unused_imports)]
     use super::*;
@@ -775,7 +775,7 @@ impl wkt::message::Message for EndpointVerificationInfo {
     }
 }
 
-/// Defines additional types related to EndpointVerificationInfo
+/// Defines additional types related to [EndpointVerificationInfo].
 pub mod endpoint_verification_info {
     #[allow(unused_imports)]
     use super::*;
@@ -862,7 +862,7 @@ impl wkt::message::Message for AccountVerificationInfo {
     }
 }
 
-/// Defines additional types related to AccountVerificationInfo
+/// Defines additional types related to [AccountVerificationInfo].
 pub mod account_verification_info {
     #[allow(unused_imports)]
     use super::*;
@@ -1483,7 +1483,7 @@ impl wkt::message::Message for Event {
     }
 }
 
-/// Defines additional types related to Event
+/// Defines additional types related to [Event].
 pub mod event {
     #[allow(unused_imports)]
     use super::*;
@@ -1747,7 +1747,7 @@ impl wkt::message::Message for TransactionData {
     }
 }
 
-/// Defines additional types related to TransactionData
+/// Defines additional types related to [TransactionData].
 pub mod transaction_data {
     #[allow(unused_imports)]
     use super::*;
@@ -2223,7 +2223,7 @@ impl wkt::message::Message for UserId {
     }
 }
 
-/// Defines additional types related to UserId
+/// Defines additional types related to [UserId].
 pub mod user_id {
     #[allow(unused_imports)]
     use super::*;
@@ -2317,7 +2317,7 @@ impl wkt::message::Message for RiskAnalysis {
     }
 }
 
-/// Defines additional types related to RiskAnalysis
+/// Defines additional types related to [RiskAnalysis].
 pub mod risk_analysis {
     #[allow(unused_imports)]
     use super::*;
@@ -2580,7 +2580,7 @@ impl wkt::message::Message for TokenProperties {
     }
 }
 
-/// Defines additional types related to TokenProperties
+/// Defines additional types related to [TokenProperties].
 pub mod token_properties {
     #[allow(unused_imports)]
     use super::*;
@@ -2756,7 +2756,7 @@ impl wkt::message::Message for FraudPreventionAssessment {
     }
 }
 
-/// Defines additional types related to FraudPreventionAssessment
+/// Defines additional types related to [FraudPreventionAssessment].
 pub mod fraud_prevention_assessment {
     #[allow(unused_imports)]
     use super::*;
@@ -2902,7 +2902,7 @@ impl wkt::message::Message for FraudSignals {
     }
 }
 
-/// Defines additional types related to FraudSignals
+/// Defines additional types related to [FraudSignals].
 pub mod fraud_signals {
     #[allow(unused_imports)]
     use super::*;
@@ -2981,7 +2981,7 @@ pub mod fraud_signals {
         }
     }
 
-    /// Defines additional types related to CardSignals
+    /// Defines additional types related to [CardSignals].
     pub mod card_signals {
         #[allow(unused_imports)]
         use super::*;
@@ -3099,7 +3099,7 @@ impl wkt::message::Message for SmsTollFraudVerdict {
     }
 }
 
-/// Defines additional types related to SmsTollFraudVerdict
+/// Defines additional types related to [SmsTollFraudVerdict].
 pub mod sms_toll_fraud_verdict {
     #[allow(unused_imports)]
     use super::*;
@@ -3228,7 +3228,7 @@ impl wkt::message::Message for AccountDefenderAssessment {
     }
 }
 
-/// Defines additional types related to AccountDefenderAssessment
+/// Defines additional types related to [AccountDefenderAssessment].
 pub mod account_defender_assessment {
     #[allow(unused_imports)]
     use super::*;
@@ -4353,7 +4353,7 @@ impl wkt::message::Message for Key {
     }
 }
 
-/// Defines additional types related to Key
+/// Defines additional types related to [Key].
 pub mod key {
     #[allow(unused_imports)]
     use super::*;
@@ -4420,7 +4420,7 @@ impl wkt::message::Message for TestingOptions {
     }
 }
 
-/// Defines additional types related to TestingOptions
+/// Defines additional types related to [TestingOptions].
 pub mod testing_options {
     #[allow(unused_imports)]
     use super::*;
@@ -4575,7 +4575,7 @@ impl wkt::message::Message for WebKeySettings {
     }
 }
 
-/// Defines additional types related to WebKeySettings
+/// Defines additional types related to [WebKeySettings].
 pub mod web_key_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -5343,7 +5343,7 @@ impl wkt::message::Message for FirewallAction {
     }
 }
 
-/// Defines additional types related to FirewallAction
+/// Defines additional types related to [FirewallAction].
 pub mod firewall_action {
     #[allow(unused_imports)]
     use super::*;
@@ -6367,7 +6367,7 @@ impl wkt::message::Message for WafSettings {
     }
 }
 
-/// Defines additional types related to WafSettings
+/// Defines additional types related to [WafSettings].
 pub mod waf_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -6610,7 +6610,7 @@ impl wkt::message::Message for IpOverrideData {
     }
 }
 
-/// Defines additional types related to IpOverrideData
+/// Defines additional types related to [IpOverrideData].
 pub mod ip_override_data {
     #[allow(unused_imports)]
     use super::*;

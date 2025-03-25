@@ -374,7 +374,7 @@ impl wkt::message::Message for CertificateAuthority {
     }
 }
 
-/// Defines additional types related to CertificateAuthority
+/// Defines additional types related to [CertificateAuthority].
 pub mod certificate_authority {
     #[allow(unused_imports)]
     use super::*;
@@ -544,7 +544,7 @@ pub mod certificate_authority {
         }
     }
 
-    /// Defines additional types related to KeyVersionSpec
+    /// Defines additional types related to [KeyVersionSpec].
     pub mod key_version_spec {
         #[allow(unused_imports)]
         use super::*;
@@ -963,7 +963,7 @@ impl wkt::message::Message for CaPool {
     }
 }
 
-/// Defines additional types related to CaPool
+/// Defines additional types related to [CaPool].
 pub mod ca_pool {
     #[allow(unused_imports)]
     use super::*;
@@ -1054,7 +1054,7 @@ pub mod ca_pool {
         }
     }
 
-    /// Defines additional types related to PublishingOptions
+    /// Defines additional types related to [PublishingOptions].
     pub mod publishing_options {
         #[allow(unused_imports)]
         use super::*;
@@ -1304,7 +1304,7 @@ pub mod ca_pool {
         }
     }
 
-    /// Defines additional types related to IssuancePolicy
+    /// Defines additional types related to [IssuancePolicy].
     pub mod issuance_policy {
         #[allow(unused_imports)]
         use super::*;
@@ -1439,7 +1439,7 @@ pub mod ca_pool {
             }
         }
 
-        /// Defines additional types related to AllowedKeyType
+        /// Defines additional types related to [AllowedKeyType].
         pub mod allowed_key_type {
             #[allow(unused_imports)]
             use super::*;
@@ -1527,7 +1527,7 @@ pub mod ca_pool {
                 }
             }
 
-            /// Defines additional types related to EcKeyType
+            /// Defines additional types related to [EcKeyType].
             pub mod ec_key_type {
                 #[allow(unused_imports)]
                 use super::*;
@@ -1916,7 +1916,7 @@ impl wkt::message::Message for CertificateRevocationList {
     }
 }
 
-/// Defines additional types related to CertificateRevocationList
+/// Defines additional types related to [CertificateRevocationList].
 pub mod certificate_revocation_list {
     #[allow(unused_imports)]
     use super::*;
@@ -2345,7 +2345,7 @@ impl wkt::message::Message for Certificate {
     }
 }
 
-/// Defines additional types related to Certificate
+/// Defines additional types related to [Certificate].
 pub mod certificate {
     #[allow(unused_imports)]
     use super::*;
@@ -2755,7 +2755,7 @@ impl wkt::message::Message for X509Parameters {
     }
 }
 
-/// Defines additional types related to X509Parameters
+/// Defines additional types related to [X509Parameters].
 pub mod x_509_parameters {
     #[allow(unused_imports)]
     use super::*;
@@ -3088,7 +3088,7 @@ impl wkt::message::Message for SubordinateConfig {
     }
 }
 
-/// Defines additional types related to SubordinateConfig
+/// Defines additional types related to [SubordinateConfig].
 pub mod subordinate_config {
     #[allow(unused_imports)]
     use super::*;
@@ -3197,7 +3197,7 @@ impl wkt::message::Message for PublicKey {
     }
 }
 
-/// Defines additional types related to PublicKey
+/// Defines additional types related to [PublicKey].
 pub mod public_key {
     #[allow(unused_imports)]
     use super::*;
@@ -3364,7 +3364,7 @@ impl wkt::message::Message for CertificateConfig {
     }
 }
 
-/// Defines additional types related to CertificateConfig
+/// Defines additional types related to [CertificateConfig].
 pub mod certificate_config {
     #[allow(unused_imports)]
     use super::*;
@@ -3604,7 +3604,7 @@ impl wkt::message::Message for CertificateDescription {
     }
 }
 
-/// Defines additional types related to CertificateDescription
+/// Defines additional types related to [CertificateDescription].
 pub mod certificate_description {
     #[allow(unused_imports)]
     use super::*;
@@ -3942,7 +3942,7 @@ impl wkt::message::Message for KeyUsage {
     }
 }
 
-/// Defines additional types related to KeyUsage
+/// Defines additional types related to [KeyUsage].
 pub mod key_usage {
     #[allow(unused_imports)]
     use super::*;
@@ -4488,7 +4488,7 @@ impl wkt::message::Message for CertificateExtensionConstraints {
     }
 }
 
-/// Defines additional types related to CertificateExtensionConstraints
+/// Defines additional types related to [CertificateExtensionConstraints].
 pub mod certificate_extension_constraints {
     #[allow(unused_imports)]
     use super::*;
@@ -6266,7 +6266,7 @@ impl wkt::message::Message for FetchCaCertsResponse {
     }
 }
 
-/// Defines additional types related to FetchCaCertsResponse
+/// Defines additional types related to [FetchCaCertsResponse].
 pub mod fetch_ca_certs_response {
     #[allow(unused_imports)]
     use super::*;

@@ -132,7 +132,7 @@ impl wkt::message::Message for MigrationWorkflow {
     }
 }
 
-/// Defines additional types related to MigrationWorkflow
+/// Defines additional types related to [MigrationWorkflow].
 pub mod migration_workflow {
     #[allow(unused_imports)]
     use super::*;
@@ -467,7 +467,7 @@ impl wkt::message::Message for MigrationTask {
     }
 }
 
-/// Defines additional types related to MigrationTask
+/// Defines additional types related to [MigrationTask].
 pub mod migration_task {
     #[allow(unused_imports)]
     use super::*;
@@ -718,7 +718,7 @@ impl wkt::message::Message for MigrationSubtask {
     }
 }
 
-/// Defines additional types related to MigrationSubtask
+/// Defines additional types related to [MigrationSubtask].
 pub mod migration_subtask {
     #[allow(unused_imports)]
     use super::*;
@@ -869,7 +869,7 @@ impl wkt::message::Message for MigrationTaskResult {
     }
 }
 
-/// Defines additional types related to MigrationTaskResult
+/// Defines additional types related to [MigrationTaskResult].
 pub mod migration_task_result {
     #[allow(unused_imports)]
     use super::*;
@@ -1414,7 +1414,7 @@ impl wkt::message::Message for TypedValue {
     }
 }
 
-/// Defines additional types related to TypedValue
+/// Defines additional types related to [TypedValue].
 pub mod typed_value {
     #[allow(unused_imports)]
     use super::*;
@@ -2116,7 +2116,7 @@ impl wkt::message::Message for TranslationConfigDetails {
     }
 }
 
-/// Defines additional types related to TranslationConfigDetails
+/// Defines additional types related to [TranslationConfigDetails].
 pub mod translation_config_details {
     #[allow(unused_imports)]
     use super::*;
@@ -2694,7 +2694,7 @@ impl wkt::message::Message for Dialect {
     }
 }
 
-/// Defines additional types related to Dialect
+/// Defines additional types related to [Dialect].
 pub mod dialect {
     #[allow(unused_imports)]
     use super::*;
@@ -2829,7 +2829,7 @@ impl wkt::message::Message for TeradataDialect {
     }
 }
 
-/// Defines additional types related to TeradataDialect
+/// Defines additional types related to [TeradataDialect].
 pub mod teradata_dialect {
     #[allow(unused_imports)]
     use super::*;
@@ -3298,7 +3298,7 @@ impl wkt::message::Message for NameMappingKey {
     }
 }
 
-/// Defines additional types related to NameMappingKey
+/// Defines additional types related to [NameMappingKey].
 pub mod name_mapping_key {
     #[allow(unused_imports)]
     use super::*;
@@ -3747,7 +3747,7 @@ impl wkt::message::Message for SourceSpec {
     }
 }
 
-/// Defines additional types related to SourceSpec
+/// Defines additional types related to [SourceSpec].
 pub mod source_spec {
     #[allow(unused_imports)]
     use super::*;
@@ -3883,7 +3883,7 @@ impl wkt::message::Message for Literal {
     }
 }
 
-/// Defines additional types related to Literal
+/// Defines additional types related to [Literal].
 pub mod literal {
     #[allow(unused_imports)]
     use super::*;
@@ -4040,7 +4040,7 @@ impl wkt::message::Message for TranslationReportRecord {
     }
 }
 
-/// Defines additional types related to TranslationReportRecord
+/// Defines additional types related to [TranslationReportRecord].
 pub mod translation_report_record {
     #[allow(unused_imports)]
     use super::*;

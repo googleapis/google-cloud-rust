@@ -116,7 +116,7 @@ impl wkt::message::Message for GenerateCredentialsRequest {
     }
 }
 
-/// Defines additional types related to GenerateCredentialsRequest
+/// Defines additional types related to [GenerateCredentialsRequest].
 pub mod generate_credentials_request {
     #[allow(unused_imports)]
     use super::*;

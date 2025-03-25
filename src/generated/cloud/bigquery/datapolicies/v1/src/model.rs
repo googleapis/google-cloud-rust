@@ -497,7 +497,7 @@ impl wkt::message::Message for DataPolicy {
     }
 }
 
-/// Defines additional types related to DataPolicy
+/// Defines additional types related to [DataPolicy].
 pub mod data_policy {
     #[allow(unused_imports)]
     use super::*;
@@ -678,7 +678,7 @@ impl wkt::message::Message for DataMaskingPolicy {
     }
 }
 
-/// Defines additional types related to DataMaskingPolicy
+/// Defines additional types related to [DataMaskingPolicy].
 pub mod data_masking_policy {
     #[allow(unused_imports)]
     use super::*;

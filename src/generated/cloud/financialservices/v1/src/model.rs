@@ -198,7 +198,7 @@ impl wkt::message::Message for BacktestResult {
     }
 }
 
-/// Defines additional types related to BacktestResult
+/// Defines additional types related to [BacktestResult].
 pub mod backtest_result {
     #[allow(unused_imports)]
     use super::*;
@@ -802,7 +802,7 @@ impl wkt::message::Message for BigQueryDestination {
     }
 }
 
-/// Defines additional types related to BigQueryDestination
+/// Defines additional types related to [BigQueryDestination].
 pub mod big_query_destination {
     #[allow(unused_imports)]
     use super::*;
@@ -1002,7 +1002,7 @@ impl wkt::message::Message for Dataset {
     }
 }
 
-/// Defines additional types related to Dataset
+/// Defines additional types related to [Dataset].
 pub mod dataset {
     #[allow(unused_imports)]
     use super::*;
@@ -1625,7 +1625,7 @@ impl wkt::message::Message for EngineConfig {
     }
 }
 
-/// Defines additional types related to EngineConfig
+/// Defines additional types related to [EngineConfig].
 pub mod engine_config {
     #[allow(unused_imports)]
     use super::*;
@@ -2432,7 +2432,7 @@ impl wkt::message::Message for EngineVersion {
     }
 }
 
-/// Defines additional types related to EngineVersion
+/// Defines additional types related to [EngineVersion].
 pub mod engine_version {
     #[allow(unused_imports)]
     use super::*;
@@ -2782,7 +2782,7 @@ impl wkt::message::Message for Instance {
     }
 }
 
-/// Defines additional types related to Instance
+/// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;
@@ -3317,7 +3317,7 @@ impl wkt::message::Message for ImportRegisteredPartiesRequest {
     }
 }
 
-/// Defines additional types related to ImportRegisteredPartiesRequest
+/// Defines additional types related to [ImportRegisteredPartiesRequest].
 pub mod import_registered_parties_request {
     #[allow(unused_imports)]
     use super::*;
@@ -3693,7 +3693,7 @@ impl wkt::message::Message for Model {
     }
 }
 
-/// Defines additional types related to Model
+/// Defines additional types related to [Model].
 pub mod model {
     #[allow(unused_imports)]
     use super::*;
@@ -4372,7 +4372,7 @@ impl wkt::message::Message for PredictionResult {
     }
 }
 
-/// Defines additional types related to PredictionResult
+/// Defines additional types related to [PredictionResult].
 pub mod prediction_result {
     #[allow(unused_imports)]
     use super::*;

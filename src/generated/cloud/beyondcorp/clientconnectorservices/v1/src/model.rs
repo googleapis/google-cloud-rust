@@ -146,7 +146,7 @@ impl wkt::message::Message for ClientConnectorService {
     }
 }
 
-/// Defines additional types related to ClientConnectorService
+/// Defines additional types related to [ClientConnectorService].
 pub mod client_connector_service {
     #[allow(unused_imports)]
     use super::*;
@@ -226,7 +226,7 @@ pub mod client_connector_service {
         }
     }
 
-    /// Defines additional types related to Ingress
+    /// Defines additional types related to [Ingress].
     pub mod ingress {
         #[allow(unused_imports)]
         use super::*;
@@ -287,7 +287,7 @@ pub mod client_connector_service {
             }
         }
 
-        /// Defines additional types related to Config
+        /// Defines additional types related to [Config].
         pub mod config {
             #[allow(unused_imports)]
             use super::*;
@@ -482,7 +482,7 @@ pub mod client_connector_service {
         }
     }
 
-    /// Defines additional types related to Egress
+    /// Defines additional types related to [Egress].
     pub mod egress {
         #[allow(unused_imports)]
         use super::*;

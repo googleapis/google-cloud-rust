@@ -111,7 +111,7 @@ impl wkt::message::Message for LinuxNodeConfig {
     }
 }
 
-/// Defines additional types related to LinuxNodeConfig
+/// Defines additional types related to [LinuxNodeConfig].
 pub mod linux_node_config {
     #[allow(unused_imports)]
     use super::*;
@@ -259,7 +259,7 @@ impl wkt::message::Message for WindowsNodeConfig {
     }
 }
 
-/// Defines additional types related to WindowsNodeConfig
+/// Defines additional types related to [WindowsNodeConfig].
 pub mod windows_node_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1135,7 +1135,7 @@ impl wkt::message::Message for NodeConfig {
     }
 }
 
-/// Defines additional types related to NodeConfig
+/// Defines additional types related to [NodeConfig].
 pub mod node_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1512,7 +1512,7 @@ impl wkt::message::Message for NodeNetworkConfig {
     }
 }
 
-/// Defines additional types related to NodeNetworkConfig
+/// Defines additional types related to [NodeNetworkConfig].
 pub mod node_network_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1557,7 +1557,7 @@ pub mod node_network_config {
         }
     }
 
-    /// Defines additional types related to NetworkPerformanceConfig
+    /// Defines additional types related to [NetworkPerformanceConfig].
     pub mod network_performance_config {
         #[allow(unused_imports)]
         use super::*;
@@ -1793,7 +1793,7 @@ impl wkt::message::Message for SandboxConfig {
     }
 }
 
-/// Defines additional types related to SandboxConfig
+/// Defines additional types related to [SandboxConfig].
 pub mod sandbox_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1943,7 +1943,7 @@ impl wkt::message::Message for ReservationAffinity {
     }
 }
 
-/// Defines additional types related to ReservationAffinity
+/// Defines additional types related to [ReservationAffinity].
 pub mod reservation_affinity {
     #[allow(unused_imports)]
     use super::*;
@@ -2047,7 +2047,7 @@ impl wkt::message::Message for SoleTenantConfig {
     }
 }
 
-/// Defines additional types related to SoleTenantConfig
+/// Defines additional types related to [SoleTenantConfig].
 pub mod sole_tenant_config {
     #[allow(unused_imports)]
     use super::*;
@@ -2112,7 +2112,7 @@ pub mod sole_tenant_config {
         }
     }
 
-    /// Defines additional types related to NodeAffinity
+    /// Defines additional types related to [NodeAffinity].
     pub mod node_affinity {
         #[allow(unused_imports)]
         use super::*;
@@ -2215,7 +2215,7 @@ impl wkt::message::Message for ContainerdConfig {
     }
 }
 
-/// Defines additional types related to ContainerdConfig
+/// Defines additional types related to [ContainerdConfig].
 pub mod containerd_config {
     #[allow(unused_imports)]
     use super::*;
@@ -2265,7 +2265,7 @@ pub mod containerd_config {
         }
     }
 
-    /// Defines additional types related to PrivateRegistryAccessConfig
+    /// Defines additional types related to [PrivateRegistryAccessConfig].
     pub mod private_registry_access_config {
         #[allow(unused_imports)]
         use super::*;
@@ -2350,7 +2350,7 @@ pub mod containerd_config {
             }
         }
 
-        /// Defines additional types related to CertificateAuthorityDomainConfig
+        /// Defines additional types related to [CertificateAuthorityDomainConfig].
         pub mod certificate_authority_domain_config {
             #[allow(unused_imports)]
             use super::*;
@@ -2460,7 +2460,7 @@ impl wkt::message::Message for NodeTaint {
     }
 }
 
-/// Defines additional types related to NodeTaint
+/// Defines additional types related to [NodeTaint].
 pub mod node_taint {
     #[allow(unused_imports)]
     use super::*;
@@ -3469,7 +3469,7 @@ impl wkt::message::Message for CloudRunConfig {
     }
 }
 
-/// Defines additional types related to CloudRunConfig
+/// Defines additional types related to [CloudRunConfig].
 pub mod cloud_run_config {
     #[allow(unused_imports)]
     use super::*;
@@ -3869,7 +3869,7 @@ impl wkt::message::Message for MasterAuthorizedNetworksConfig {
     }
 }
 
-/// Defines additional types related to MasterAuthorizedNetworksConfig
+/// Defines additional types related to [MasterAuthorizedNetworksConfig].
 pub mod master_authorized_networks_config {
     #[allow(unused_imports)]
     use super::*;
@@ -3990,7 +3990,7 @@ impl wkt::message::Message for NetworkPolicy {
     }
 }
 
-/// Defines additional types related to NetworkPolicy
+/// Defines additional types related to [NetworkPolicy].
 pub mod network_policy {
     #[allow(unused_imports)]
     use super::*;
@@ -4093,7 +4093,7 @@ impl wkt::message::Message for BinaryAuthorization {
     }
 }
 
-/// Defines additional types related to BinaryAuthorization
+/// Defines additional types related to [BinaryAuthorization].
 pub mod binary_authorization {
     #[allow(unused_imports)]
     use super::*;
@@ -5683,7 +5683,7 @@ impl wkt::message::Message for Cluster {
     }
 }
 
-/// Defines additional types related to Cluster
+/// Defines additional types related to [Cluster].
 pub mod cluster {
     #[allow(unused_imports)]
     use super::*;
@@ -6004,7 +6004,7 @@ impl wkt::message::Message for CompliancePostureConfig {
     }
 }
 
-/// Defines additional types related to CompliancePostureConfig
+/// Defines additional types related to [CompliancePostureConfig].
 pub mod compliance_posture_config {
     #[allow(unused_imports)]
     use super::*;
@@ -6186,7 +6186,7 @@ impl wkt::message::Message for SecurityPostureConfig {
     }
 }
 
-/// Defines additional types related to SecurityPostureConfig
+/// Defines additional types related to [SecurityPostureConfig].
 pub mod security_posture_config {
     #[allow(unused_imports)]
     use super::*;
@@ -7927,7 +7927,7 @@ impl wkt::message::Message for Operation {
     }
 }
 
-/// Defines additional types related to Operation
+/// Defines additional types related to [Operation].
 pub mod operation {
     #[allow(unused_imports)]
     use super::*;
@@ -8303,7 +8303,7 @@ impl wkt::message::Message for OperationProgress {
     }
 }
 
-/// Defines additional types related to OperationProgress
+/// Defines additional types related to [OperationProgress].
 pub mod operation_progress {
     #[allow(unused_imports)]
     use super::*;
@@ -8432,7 +8432,7 @@ pub mod operation_progress {
         }
     }
 
-    /// Defines additional types related to Metric
+    /// Defines additional types related to [Metric].
     pub mod metric {
         #[allow(unused_imports)]
         use super::*;
@@ -9762,7 +9762,7 @@ impl wkt::message::Message for SetMasterAuthRequest {
     }
 }
 
-/// Defines additional types related to SetMasterAuthRequest
+/// Defines additional types related to [SetMasterAuthRequest].
 pub mod set_master_auth_request {
     #[allow(unused_imports)]
     use super::*;
@@ -10404,7 +10404,7 @@ impl wkt::message::Message for ServerConfig {
     }
 }
 
-/// Defines additional types related to ServerConfig
+/// Defines additional types related to [ServerConfig].
 pub mod server_config {
     #[allow(unused_imports)]
     use super::*;
@@ -10870,7 +10870,7 @@ impl wkt::message::Message for BlueGreenSettings {
     }
 }
 
-/// Defines additional types related to BlueGreenSettings
+/// Defines additional types related to [BlueGreenSettings].
 pub mod blue_green_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -10980,7 +10980,7 @@ pub mod blue_green_settings {
         }
     }
 
-    /// Defines additional types related to StandardRolloutPolicy
+    /// Defines additional types related to [StandardRolloutPolicy].
     pub mod standard_rollout_policy {
         #[allow(unused_imports)]
         use super::*;
@@ -11333,7 +11333,7 @@ impl wkt::message::Message for NodePool {
     }
 }
 
-/// Defines additional types related to NodePool
+/// Defines additional types related to [NodePool].
 pub mod node_pool {
     #[allow(unused_imports)]
     use super::*;
@@ -11493,7 +11493,7 @@ pub mod node_pool {
         }
     }
 
-    /// Defines additional types related to UpdateInfo
+    /// Defines additional types related to [UpdateInfo].
     pub mod update_info {
         #[allow(unused_imports)]
         use super::*;
@@ -11592,7 +11592,7 @@ pub mod node_pool {
             }
         }
 
-        /// Defines additional types related to BlueGreenInfo
+        /// Defines additional types related to [BlueGreenInfo].
         pub mod blue_green_info {
             #[allow(unused_imports)]
             use super::*;
@@ -11743,7 +11743,7 @@ pub mod node_pool {
         }
     }
 
-    /// Defines additional types related to PlacementPolicy
+    /// Defines additional types related to [PlacementPolicy].
     pub mod placement_policy {
         #[allow(unused_imports)]
         use super::*;
@@ -12229,7 +12229,7 @@ impl wkt::message::Message for MaintenanceWindow {
     }
 }
 
-/// Defines additional types related to MaintenanceWindow
+/// Defines additional types related to [MaintenanceWindow].
 pub mod maintenance_window {
     #[allow(unused_imports)]
     use super::*;
@@ -12339,7 +12339,7 @@ impl wkt::message::Message for TimeWindow {
     }
 }
 
-/// Defines additional types related to TimeWindow
+/// Defines additional types related to [TimeWindow].
 pub mod time_window {
     #[allow(unused_imports)]
     use super::*;
@@ -12386,7 +12386,7 @@ impl wkt::message::Message for MaintenanceExclusionOptions {
     }
 }
 
-/// Defines additional types related to MaintenanceExclusionOptions
+/// Defines additional types related to [MaintenanceExclusionOptions].
 pub mod maintenance_exclusion_options {
     #[allow(unused_imports)]
     use super::*;
@@ -13007,7 +13007,7 @@ impl wkt::message::Message for ClusterAutoscaling {
     }
 }
 
-/// Defines additional types related to ClusterAutoscaling
+/// Defines additional types related to [ClusterAutoscaling].
 pub mod cluster_autoscaling {
     #[allow(unused_imports)]
     use super::*;
@@ -13399,7 +13399,7 @@ impl wkt::message::Message for NodePoolAutoscaling {
     }
 }
 
-/// Defines additional types related to NodePoolAutoscaling
+/// Defines additional types related to [NodePoolAutoscaling].
 pub mod node_pool_autoscaling {
     #[allow(unused_imports)]
     use super::*;
@@ -13923,7 +13923,7 @@ impl wkt::message::Message for GPUSharingConfig {
     }
 }
 
-/// Defines additional types related to GPUSharingConfig
+/// Defines additional types related to [GPUSharingConfig].
 pub mod gpu_sharing_config {
     #[allow(unused_imports)]
     use super::*;
@@ -14026,7 +14026,7 @@ impl wkt::message::Message for GPUDriverInstallationConfig {
     }
 }
 
-/// Defines additional types related to GPUDriverInstallationConfig
+/// Defines additional types related to [GPUDriverInstallationConfig].
 pub mod gpu_driver_installation_config {
     #[allow(unused_imports)]
     use super::*;
@@ -14129,7 +14129,7 @@ impl wkt::message::Message for WorkloadMetadataConfig {
     }
 }
 
-/// Defines additional types related to WorkloadMetadataConfig
+/// Defines additional types related to [WorkloadMetadataConfig].
 pub mod workload_metadata_config {
     #[allow(unused_imports)]
     use super::*;
@@ -14410,7 +14410,7 @@ impl wkt::message::Message for StatusCondition {
     }
 }
 
-/// Defines additional types related to StatusCondition
+/// Defines additional types related to [StatusCondition].
 pub mod status_condition {
     #[allow(unused_imports)]
     use super::*;
@@ -14745,7 +14745,7 @@ impl wkt::message::Message for NetworkConfig {
     }
 }
 
-/// Defines additional types related to NetworkConfig
+/// Defines additional types related to [NetworkConfig].
 pub mod network_config {
     #[allow(unused_imports)]
     use super::*;
@@ -14790,7 +14790,7 @@ pub mod network_config {
         }
     }
 
-    /// Defines additional types related to ClusterNetworkPerformanceConfig
+    /// Defines additional types related to [ClusterNetworkPerformanceConfig].
     pub mod cluster_network_performance_config {
         #[allow(unused_imports)]
         use super::*;
@@ -14880,7 +14880,7 @@ impl wkt::message::Message for GatewayAPIConfig {
     }
 }
 
-/// Defines additional types related to GatewayAPIConfig
+/// Defines additional types related to [GatewayAPIConfig].
 pub mod gateway_api_config {
     #[allow(unused_imports)]
     use super::*;
@@ -15428,7 +15428,7 @@ impl wkt::message::Message for AutopilotCompatibilityIssue {
     }
 }
 
-/// Defines additional types related to AutopilotCompatibilityIssue
+/// Defines additional types related to [AutopilotCompatibilityIssue].
 pub mod autopilot_compatibility_issue {
     #[allow(unused_imports)]
     use super::*;
@@ -15584,7 +15584,7 @@ impl wkt::message::Message for ReleaseChannel {
     }
 }
 
-/// Defines additional types related to ReleaseChannel
+/// Defines additional types related to [ReleaseChannel].
 pub mod release_channel {
     #[allow(unused_imports)]
     use super::*;
@@ -15821,7 +15821,7 @@ impl wkt::message::Message for DNSConfig {
     }
 }
 
-/// Defines additional types related to DNSConfig
+/// Defines additional types related to [DNSConfig].
 pub mod dns_config {
     #[allow(unused_imports)]
     use super::*;
@@ -16167,7 +16167,7 @@ impl wkt::message::Message for DatabaseEncryption {
     }
 }
 
-/// Defines additional types related to DatabaseEncryption
+/// Defines additional types related to [DatabaseEncryption].
 pub mod database_encryption {
     #[allow(unused_imports)]
     use super::*;
@@ -16563,7 +16563,7 @@ impl wkt::message::Message for UsableSubnetworkSecondaryRange {
     }
 }
 
-/// Defines additional types related to UsableSubnetworkSecondaryRange
+/// Defines additional types related to [UsableSubnetworkSecondaryRange].
 pub mod usable_subnetwork_secondary_range {
     #[allow(unused_imports)]
     use super::*;
@@ -16790,7 +16790,7 @@ impl wkt::message::Message for ResourceUsageExportConfig {
     }
 }
 
-/// Defines additional types related to ResourceUsageExportConfig
+/// Defines additional types related to [ResourceUsageExportConfig].
 pub mod resource_usage_export_config {
     #[allow(unused_imports)]
     use super::*;
@@ -17032,7 +17032,7 @@ impl wkt::message::Message for NotificationConfig {
     }
 }
 
-/// Defines additional types related to NotificationConfig
+/// Defines additional types related to [NotificationConfig].
 pub mod notification_config {
     #[allow(unused_imports)]
     use super::*;
@@ -17434,7 +17434,7 @@ impl wkt::message::Message for UpgradeInfoEvent {
     }
 }
 
-/// Defines additional types related to UpgradeInfoEvent
+/// Defines additional types related to [UpgradeInfoEvent].
 pub mod upgrade_info_event {
     #[allow(unused_imports)]
     use super::*;
@@ -17871,7 +17871,7 @@ impl wkt::message::Message for LoggingComponentConfig {
     }
 }
 
-/// Defines additional types related to LoggingComponentConfig
+/// Defines additional types related to [LoggingComponentConfig].
 pub mod logging_component_config {
     #[allow(unused_imports)]
     use super::*;
@@ -18109,7 +18109,7 @@ impl wkt::message::Message for AdvancedDatapathObservabilityConfig {
     }
 }
 
-/// Defines additional types related to AdvancedDatapathObservabilityConfig
+/// Defines additional types related to [AdvancedDatapathObservabilityConfig].
 pub mod advanced_datapath_observability_config {
     #[allow(unused_imports)]
     use super::*;
@@ -18271,7 +18271,7 @@ impl wkt::message::Message for LoggingVariantConfig {
     }
 }
 
-/// Defines additional types related to LoggingVariantConfig
+/// Defines additional types related to [LoggingVariantConfig].
 pub mod logging_variant_config {
     #[allow(unused_imports)]
     use super::*;
@@ -18369,7 +18369,7 @@ impl wkt::message::Message for MonitoringComponentConfig {
     }
 }
 
-/// Defines additional types related to MonitoringComponentConfig
+/// Defines additional types related to [MonitoringComponentConfig].
 pub mod monitoring_component_config {
     #[allow(unused_imports)]
     use super::*;
@@ -18628,7 +18628,7 @@ impl wkt::message::Message for ControlPlaneEndpointsConfig {
     }
 }
 
-/// Defines additional types related to ControlPlaneEndpointsConfig
+/// Defines additional types related to [ControlPlaneEndpointsConfig].
 pub mod control_plane_endpoints_config {
     #[allow(unused_imports)]
     use super::*;
@@ -18994,7 +18994,7 @@ impl wkt::message::Message for EnterpriseConfig {
     }
 }
 
-/// Defines additional types related to EnterpriseConfig
+/// Defines additional types related to [EnterpriseConfig].
 pub mod enterprise_config {
     #[allow(unused_imports)]
     use super::*;
@@ -19130,7 +19130,7 @@ impl wkt::message::Message for SecondaryBootDisk {
     }
 }
 
-/// Defines additional types related to SecondaryBootDisk
+/// Defines additional types related to [SecondaryBootDisk].
 pub mod secondary_boot_disk {
     #[allow(unused_imports)]
     use super::*;
