@@ -21,8 +21,8 @@ use gax::error::ServiceError;
 use gax::exponential_backoff::ExponentialBackoff;
 use gax::loop_state::LoopState;
 use gax::polling_backoff_policy::PollingBackoffPolicy;
-use gax::polling_policy::Aip194Strict;
-use gax::polling_policy::PollingPolicy;
+use gax::polling_error_policy::Aip194Strict;
+use gax::polling_error_policy::PollingErrorPolicy;
 use gax::retry_policy::RetryPolicy;
 use gax::retry_throttler::SharedRetryThrottler;
 use std::sync::Arc;
@@ -36,7 +36,7 @@ pub struct ReqwestClient {
     retry_policy: Option<Arc<dyn RetryPolicy>>,
     backoff_policy: Option<Arc<dyn BackoffPolicy>>,
     retry_throttler: SharedRetryThrottler,
-    polling_policy: Option<Arc<dyn PollingPolicy>>,
+    polling_error_policy: Option<Arc<dyn PollingErrorPolicy>>,
     polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
 }
 
@@ -61,7 +61,7 @@ impl ReqwestClient {
             retry_policy: config.retry_policy().clone(),
             backoff_policy: config.backoff_policy().clone(),
             retry_throttler: config.retry_throttler(),
-            polling_policy: config.polling_policy().clone(),
+            polling_error_policy: config.polling_error_policy().clone(),
             polling_backoff_policy: config.polling_backoff_policy().clone(),
         })
     }
@@ -253,14 +253,22 @@ impl ReqwestClient {
             .unwrap_or_else(|| self.retry_throttler.clone())
     }
 
+    // TODO(#1135) - remove backwards compat function
     pub fn get_polling_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.get_polling_error_policy(options)
+    }
+
+    pub fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
         options
             .polling_policy()
             .clone()
-            .or_else(|| self.polling_policy.clone())
+            .or_else(|| self.polling_error_policy.clone())
             .unwrap_or_else(|| Arc::new(Aip194Strict))
     }
 

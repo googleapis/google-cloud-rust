@@ -51,6 +51,8 @@ pub mod exponential_backoff;
 pub mod loop_state;
 pub mod options;
 pub mod polling_backoff_policy;
-pub mod polling_policy;
+pub mod polling_error_policy;
+// TODO(#1135) - remove backwards compat
+pub use polling_error_policy as polling_policy;
 pub mod retry_policy;
 pub mod retry_throttler;
