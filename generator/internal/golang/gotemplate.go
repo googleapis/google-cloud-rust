@@ -189,8 +189,8 @@ func annotateMessage(m *api.Message, state *api.APIState, importMap map[string]*
 	for _, f := range m.Fields {
 		annotateField(f, state, importMap)
 	}
-	for _, f := range m.OneOfs {
-		annotateOneOf(f, state)
+	for _, o := range m.OneOfs {
+		annotateOneOf(o, state)
 	}
 	m.Codec = &messageAnnotation{
 		Name:           messageName(m, importMap),
@@ -230,10 +230,10 @@ func annotateMethod(m *api.Method, s *api.Service, state *api.APIState) {
 	m.Codec = annotation
 }
 
-func annotateOneOf(field *api.OneOf, state *api.APIState) {
-	field.Codec = &oneOfAnnotation{
-		Name:     toPascal(field.Name),
-		DocLines: formatDocComments(field.Documentation, state),
+func annotateOneOf(oneof *api.OneOf, state *api.APIState) {
+	oneof.Codec = &oneOfAnnotation{
+		Name:     toPascal(oneof.Name),
+		DocLines: formatDocComments(oneof.Documentation, state),
 	}
 }
 
