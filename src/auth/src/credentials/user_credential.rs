@@ -524,9 +524,8 @@ mod test {
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
         };
-        let cached_token_provider = TokenCache::new(token_provider);
         let uc = UserCredential {
-            token_provider: cached_token_provider,
+            token_provider,
             quota_project_id: None,
         };
         let now = std::time::Instant::now();
@@ -546,7 +545,7 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn creds_from_json_custom_token_uri() -> TestResult {
+    async fn creds_from_json_custom_uri_with_caching() -> TestResult {
         let response = Oauth2RefreshResponse {
             access_token: "test-access-token".to_string(),
             expires_in: Some(3600),
@@ -605,9 +604,8 @@ mod test {
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
         };
-        let cached_token_provider = TokenCache::new(token_provider);
         let uc = UserCredential {
-            token_provider: cached_token_provider,
+            token_provider,
             quota_project_id: None,
         };
         let token = uc.get_token().await?;
@@ -634,9 +632,8 @@ mod test {
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
         };
-        let cached_token_provider = TokenCache::new(token_provider);
         let uc = UserCredential {
-            token_provider: cached_token_provider,
+            token_provider,
             quota_project_id: None,
         };
         let e = uc.get_token().await.err().unwrap();
@@ -662,9 +659,8 @@ mod test {
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
         };
-        let cached_token_provider = TokenCache::new(token_provider);
         let uc = UserCredential {
-            token_provider: cached_token_provider,
+            token_provider,
             quota_project_id: None,
         };
         let e = uc.get_token().await.err().unwrap();
@@ -690,9 +686,8 @@ mod test {
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
         };
-        let cached_token_provider = TokenCache::new(token_provider);
         let uc = UserCredential {
-            token_provider: cached_token_provider,
+            token_provider,
             quota_project_id: None,
         };
         let e = uc.get_token().await.err().unwrap();
