@@ -369,8 +369,8 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 	for _, f := range m.Fields {
 		c.annotateField(f, m, state, sourceSpecificationPackageName)
 	}
-	for _, f := range m.OneOfs {
-		c.annotateOneOf(f, m, state, sourceSpecificationPackageName)
+	for _, o := range m.OneOfs {
+		c.annotateOneOf(o, m, state, sourceSpecificationPackageName)
 	}
 	for _, e := range m.Enums {
 		c.annotateEnum(e, state, sourceSpecificationPackageName)
