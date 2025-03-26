@@ -289,11 +289,11 @@ impl super::stubs::Folders for Folders {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -722,11 +722,11 @@ impl super::stubs::Projects for Projects {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -861,11 +861,11 @@ impl super::stubs::TagBindings for TagBindings {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -982,11 +982,11 @@ impl super::stubs::TagHolds for TagHolds {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -1239,11 +1239,11 @@ impl super::stubs::TagKeys for TagKeys {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -1496,11 +1496,11 @@ impl super::stubs::TagValues for TagValues {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(

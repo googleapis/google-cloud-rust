@@ -819,11 +819,11 @@ impl super::stubs::DatasetService for DatasetService {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -1227,11 +1227,11 @@ impl super::stubs::DeploymentResourcePoolService for DeploymentResourcePoolServi
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -1712,11 +1712,11 @@ impl super::stubs::EndpointService for EndpointService {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -2563,11 +2563,11 @@ impl super::stubs::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminSer
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -3396,11 +3396,11 @@ impl super::stubs::FeatureRegistryService for FeatureRegistryService {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -4480,11 +4480,11 @@ impl super::stubs::FeaturestoreService for FeaturestoreService {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -5219,11 +5219,11 @@ impl super::stubs::GenAiTuningService for GenAiTuningService {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -5678,11 +5678,11 @@ impl super::stubs::IndexEndpointService for IndexEndpointService {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -6105,11 +6105,11 @@ impl super::stubs::IndexService for IndexService {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -7159,11 +7159,11 @@ impl super::stubs::JobService for JobService {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -8743,11 +8743,11 @@ impl super::stubs::MetadataService for MetadataService {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -9047,11 +9047,11 @@ impl super::stubs::MigrationService for MigrationService {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -10035,11 +10035,11 @@ impl super::stubs::ModelService for ModelService {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -10671,11 +10671,11 @@ impl super::stubs::NotebookService for NotebookService {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -11075,11 +11075,11 @@ impl super::stubs::PersistentResourceService for PersistentResourceService {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -11605,11 +11605,11 @@ impl super::stubs::PipelineService for PipelineService {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -12629,11 +12629,11 @@ impl super::stubs::ReasoningEngineService for ReasoningEngineService {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -13051,11 +13051,11 @@ impl super::stubs::ScheduleService for ScheduleService {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -13448,11 +13448,11 @@ impl super::stubs::SpecialistPoolService for SpecialistPoolService {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -14443,11 +14443,11 @@ impl super::stubs::TensorboardService for TensorboardService {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -14919,11 +14919,11 @@ impl super::stubs::VertexRagDataService for VertexRagDataService {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -15779,11 +15779,11 @@ impl super::stubs::VizierService for VizierService {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(

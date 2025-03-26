@@ -127,7 +127,7 @@ pub mod cloud_shell_service {
                 crate::model::StartEnvironmentResponse,
                 crate::model::StartEnvironmentMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -151,7 +151,7 @@ pub mod cloud_shell_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StartEnvironmentRequest::name].
@@ -231,7 +231,7 @@ pub mod cloud_shell_service {
                 crate::model::AuthorizeEnvironmentResponse,
                 crate::model::AuthorizeEnvironmentMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -255,7 +255,7 @@ pub mod cloud_shell_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::AuthorizeEnvironmentRequest::name].
@@ -334,7 +334,7 @@ pub mod cloud_shell_service {
                 crate::model::AddPublicKeyResponse,
                 crate::model::AddPublicKeyMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -358,7 +358,7 @@ pub mod cloud_shell_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [environment][crate::model::AddPublicKeyRequest::environment].
@@ -422,7 +422,7 @@ pub mod cloud_shell_service {
                 crate::model::RemovePublicKeyResponse,
                 crate::model::RemovePublicKeyMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -446,7 +446,7 @@ pub mod cloud_shell_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [environment][crate::model::RemovePublicKeyRequest::environment].

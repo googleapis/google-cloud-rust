@@ -219,7 +219,7 @@ pub mod client_gateways_service {
                 crate::model::ClientGateway,
                 crate::model::ClientGatewayOperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -243,7 +243,7 @@ pub mod client_gateways_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateClientGatewayRequest::parent].
@@ -330,7 +330,7 @@ pub mod client_gateways_service {
         ) -> impl lro::Poller<wkt::Empty, crate::model::ClientGatewayOperationMetadata> {
             type Operation =
                 lro::Operation<wkt::Empty, crate::model::ClientGatewayOperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -354,7 +354,7 @@ pub mod client_gateways_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteClientGatewayRequest::name].

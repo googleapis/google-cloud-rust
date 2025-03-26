@@ -91,10 +91,10 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<longrunning::model::Operation>;
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy>;
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
@@ -213,11 +213,11 @@ impl<T: super::Folders> Folders for T {
         T::get_operation(self, req, options).await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
-        T::get_polling_policy(self, options)
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
@@ -401,10 +401,10 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<longrunning::model::Operation>;
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy>;
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
@@ -523,11 +523,11 @@ impl<T: super::Projects> Projects for T {
         T::get_operation(self, req, options).await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
-        T::get_polling_policy(self, options)
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
@@ -571,10 +571,10 @@ pub trait TagBindings: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<longrunning::model::Operation>;
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy>;
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
@@ -630,11 +630,11 @@ impl<T: super::TagBindings> TagBindings for T {
         T::get_operation(self, req, options).await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
-        T::get_polling_policy(self, options)
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
@@ -672,10 +672,10 @@ pub trait TagHolds: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<longrunning::model::Operation>;
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy>;
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
@@ -722,11 +722,11 @@ impl<T: super::TagHolds> TagHolds for T {
         T::get_operation(self, req, options).await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
-        T::get_polling_policy(self, options)
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
@@ -800,10 +800,10 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<longrunning::model::Operation>;
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy>;
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
@@ -904,11 +904,11 @@ impl<T: super::TagKeys> TagKeys for T {
         T::get_operation(self, req, options).await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
-        T::get_polling_policy(self, options)
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
@@ -982,10 +982,10 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<longrunning::model::Operation>;
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy>;
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
@@ -1086,11 +1086,11 @@ impl<T: super::TagValues> TagValues for T {
         T::get_operation(self, req, options).await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
-        T::get_polling_policy(self, options)
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(

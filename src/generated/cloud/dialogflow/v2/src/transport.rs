@@ -342,11 +342,11 @@ impl super::stubs::Agents for Agents {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -1395,11 +1395,11 @@ impl super::stubs::ConversationDatasets for ConversationDatasets {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -1714,11 +1714,11 @@ impl super::stubs::ConversationModels for ConversationModels {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -2020,11 +2020,11 @@ impl super::stubs::ConversationProfiles for ConversationProfiles {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -2335,11 +2335,11 @@ impl super::stubs::Documents for Documents {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -2518,11 +2518,11 @@ impl super::stubs::EncryptionSpecService for EncryptionSpecService {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -2882,11 +2882,11 @@ impl super::stubs::EntityTypes for EntityTypes {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
@@ -3880,11 +3880,11 @@ impl super::stubs::Intents for Intents {
             .await
     }
 
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
-        self.inner.get_polling_policy(options)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(

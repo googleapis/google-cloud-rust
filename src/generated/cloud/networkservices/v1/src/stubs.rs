@@ -262,15 +262,15 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Returns the polling policy.
+    /// Returns the polling error policy.
     ///
     /// When mocking, this method is typically irrelevant. Do not try to verify
     /// it is called by your mocks.
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         _options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
-        Arc::new(gax::polling_policy::Aip194Strict)
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        Arc::new(gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -854,15 +854,15 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Returns the polling policy.
+    /// Returns the polling error policy.
     ///
     /// When mocking, this method is typically irrelevant. Do not try to verify
     /// it is called by your mocks.
-    fn get_polling_policy(
+    fn get_polling_error_policy(
         &self,
         _options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
-        Arc::new(gax::polling_policy::Aip194Strict)
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        Arc::new(gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.

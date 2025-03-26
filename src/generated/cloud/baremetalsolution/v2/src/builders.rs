@@ -193,7 +193,7 @@ pub mod bare_metal_solution {
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -217,7 +217,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
@@ -334,7 +334,7 @@ pub mod bare_metal_solution {
                 crate::model::ResetInstanceResponse,
                 crate::model::OperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -358,7 +358,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ResetInstanceRequest::name].
@@ -416,7 +416,7 @@ pub mod bare_metal_solution {
                 crate::model::StartInstanceResponse,
                 crate::model::OperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -440,7 +440,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StartInstanceRequest::name].
@@ -496,7 +496,7 @@ pub mod bare_metal_solution {
         {
             type Operation =
                 lro::Operation<crate::model::StopInstanceResponse, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -520,7 +520,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StopInstanceRequest::name].
@@ -585,7 +585,7 @@ pub mod bare_metal_solution {
                 crate::model::EnableInteractiveSerialConsoleResponse,
                 crate::model::OperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -609,7 +609,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::EnableInteractiveSerialConsoleRequest::name].
@@ -674,7 +674,7 @@ pub mod bare_metal_solution {
                 crate::model::DisableInteractiveSerialConsoleResponse,
                 crate::model::OperationMetadata,
             >;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -698,7 +698,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DisableInteractiveSerialConsoleRequest::name].
@@ -753,7 +753,7 @@ pub mod bare_metal_solution {
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -777,7 +777,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [instance][crate::model::DetachLunRequest::instance].
@@ -1123,7 +1123,7 @@ pub mod bare_metal_solution {
             self,
         ) -> impl lro::Poller<crate::model::Volume, crate::model::OperationMetadata> {
             type Operation = lro::Operation<crate::model::Volume, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1147,7 +1147,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [volume][crate::model::UpdateVolumeRequest::volume].
@@ -1258,7 +1258,7 @@ pub mod bare_metal_solution {
         /// Creates a [Poller][lro::Poller] to work with `evict_volume`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1282,7 +1282,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::EvictVolumeRequest::name].
@@ -1336,7 +1336,7 @@ pub mod bare_metal_solution {
             self,
         ) -> impl lro::Poller<crate::model::Volume, crate::model::OperationMetadata> {
             type Operation = lro::Operation<crate::model::Volume, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1360,7 +1360,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [volume][crate::model::ResizeVolumeRequest::volume].
@@ -1579,7 +1579,7 @@ pub mod bare_metal_solution {
             self,
         ) -> impl lro::Poller<crate::model::Network, crate::model::OperationMetadata> {
             type Operation = lro::Operation<crate::model::Network, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1603,7 +1603,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [network][crate::model::UpdateNetworkRequest::network].
@@ -1727,7 +1727,7 @@ pub mod bare_metal_solution {
         {
             type Operation =
                 lro::Operation<crate::model::VolumeSnapshot, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -1751,7 +1751,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [volume_snapshot][crate::model::RestoreVolumeSnapshotRequest::volume_snapshot].
@@ -2068,7 +2068,7 @@ pub mod bare_metal_solution {
         /// Creates a [Poller][lro::Poller] to work with `evict_lun`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -2092,7 +2092,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::EvictLunRequest::name].
@@ -2262,7 +2262,7 @@ pub mod bare_metal_solution {
         ) -> impl lro::Poller<crate::model::NfsShare, crate::model::OperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::NfsShare, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -2286,7 +2286,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [nfs_share][crate::model::UpdateNfsShareRequest::nfs_share].
@@ -2353,7 +2353,7 @@ pub mod bare_metal_solution {
         ) -> impl lro::Poller<crate::model::NfsShare, crate::model::OperationMetadata> {
             type Operation =
                 lro::Operation<crate::model::NfsShare, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -2377,7 +2377,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateNfsShareRequest::parent].
@@ -2485,7 +2485,7 @@ pub mod bare_metal_solution {
         /// Creates a [Poller][lro::Poller] to work with `delete_nfs_share`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
             type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
-            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
             let stub = self.0.stub.clone();
@@ -2509,7 +2509,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteNfsShareRequest::name].
