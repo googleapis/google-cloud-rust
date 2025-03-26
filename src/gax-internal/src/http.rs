@@ -107,10 +107,9 @@ impl ReqwestClient {
                 .ok_or_else(|| Error::other("cannot clone builder in retry loop".to_string()))?;
             this.request_attempt(builder, &options, d).await
         };
-        let sleep = async |d| {
-            tokio::time::sleep(d).await
-        };
-        gax::retry_loop::retry_loop(inner, sleep, idempotent, throttler, retry_policy, backoff).await
+        let sleep = async |d| tokio::time::sleep(d).await;
+        gax::retry_loop::retry_loop(inner, sleep, idempotent, throttler, retry_policy, backoff)
+            .await
     }
 
     async fn request_attempt<O: serde::de::DeserializeOwned>(

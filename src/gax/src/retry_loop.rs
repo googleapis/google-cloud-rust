@@ -46,7 +46,9 @@ where
         let throttle = if attempt_count == 0 {
             false
         } else {
-            let t = retry_throttler.lock().expect("retry throttler lock is poisoned");
+            let t = retry_throttler
+                .lock()
+                .expect("retry throttler lock is poisoned");
             t.throttle_retry_attempt()
         };
         if throttle {
@@ -68,12 +70,7 @@ where
                 return Ok(r);
             }
             Err(e) => {
-                let flow = retry_policy.on_error(
-                    loop_start,
-                    attempt_count,
-                    idempotent,
-                    e,
-                );
+                let flow = retry_policy.on_error(loop_start, attempt_count, idempotent, e);
                 let delay = backoff_policy.on_failure(loop_start, attempt_count);
                 retry_throttler
                     .lock()
@@ -109,14 +106,15 @@ mod test {
         let mut throttler = MockRetryThrottler::new();
         throttler.expect_on_success().once().return_const(());
         let mut retry_policy = MockRetryPolicy::new();
-        retry_policy.expect_remaining_time().once().return_const(None);
+        retry_policy
+            .expect_remaining_time()
+            .once()
+            .return_const(None);
         let backoff_policy = MockBackoffPolicy::new();
         let sleep = MockSleep::new();
 
         let inner = async |_| Ok("success".to_string());
-        let backoff = async move |d| {
-            sleep.sleep(d).await
-        };
+        let backoff = async move |d| sleep.sleep(d).await;
         let response = retry_loop(
             inner,
             backoff,
