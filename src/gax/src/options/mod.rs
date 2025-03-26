@@ -30,7 +30,6 @@ use crate::polling_backoff_policy::{PollingBackoffPolicy, PollingBackoffPolicyAr
 use crate::polling_error_policy::{PollingErrorPolicy, PollingErrorPolicyArg};
 use crate::retry_policy::{RetryPolicy, RetryPolicyArg};
 use crate::retry_throttler::{RetryThrottlerArg, SharedRetryThrottler};
-use auth::credentials::Credential;
 use std::sync::Arc;
 
 /// A set of options configuring a single request.
@@ -255,9 +254,9 @@ where
 /// should work for most applications. But some applications may need to
 /// override the default endpoint, the default authentication credentials,
 /// the retry policies, and/or other behaviors of the client.
-pub struct ClientConfig {
+pub struct ClientConfig<T> {
     endpoint: Option<String>,
-    cred: Option<Credential>,
+    cred: Option<T>,
     tracing: bool,
     retry_policy: Option<Arc<dyn RetryPolicy>>,
     backoff_policy: Option<Arc<dyn BackoffPolicy>>,
@@ -268,12 +267,14 @@ pub struct ClientConfig {
 
 const LOGGING_VAR: &str = "GOOGLE_CLOUD_RUST_LOGGING";
 
-impl ClientConfig {
+impl ClientConfig<()> {
     /// Returns a default [ClientConfig].
     pub fn new() -> Self {
         Self::default()
     }
+}
 
+impl<T> ClientConfig<T> {
     pub fn tracing_enabled(&self) -> bool {
         if self.tracing {
             return true;
@@ -289,7 +290,7 @@ impl ClientConfig {
     }
 
     /// Sets an endpoint that overrides the default endpoint for a service.
-    pub fn set_endpoint<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_endpoint<V: Into<String>>(mut self, v: V) -> Self {
         self.endpoint = Some(v.into());
         self
     }
@@ -307,14 +308,26 @@ impl ClientConfig {
     }
 
     /// Gets the current credential override, if any.
-    pub fn credential(&self) -> &Option<Credential> {
+    pub fn credential(&self) -> &Option<T> {
         &self.cred
     }
 
     /// Configure the authentication credentials.
-    pub fn set_credential<T: Into<Option<Credential>>>(mut self, v: T) -> Self {
-        self.cred = v.into();
-        self
+    pub fn set_credential<V, U>(self, v: V) -> ClientConfig<U>
+    where
+        V: Into<U>,
+    {
+        let new = ClientConfig::<U> {
+            cred: Some(v.into()),
+            endpoint: self.endpoint,
+            tracing: self.tracing,
+            retry_policy: self.retry_policy,
+            backoff_policy: self.backoff_policy,
+            retry_throttler: self.retry_throttler,
+            polling_error_policy: self.polling_error_policy,
+            polling_backoff_policy: self.polling_backoff_policy,
+        };
+        new
     }
 
     /// Get the current retry policy override, if any.
@@ -373,7 +386,7 @@ impl ClientConfig {
     }
 }
 
-impl std::default::Default for ClientConfig {
+impl std::default::Default for ClientConfig<()> {
     fn default() -> Self {
         use crate::retry_throttler::AdaptiveThrottler;
         use std::sync::{Arc, Mutex};

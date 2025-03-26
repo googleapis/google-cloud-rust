@@ -26,6 +26,22 @@ use gax::retry_policy::RetryPolicy;
 use gax::retry_throttler::SharedRetryThrottler;
 use std::sync::Arc;
 
+pub trait ValidCredential: Clone {
+    fn valid(self) -> Option<Credential>;
+}
+
+impl ValidCredential for () {
+    fn valid(self) -> Option<Credential> {
+        None
+    }
+}
+
+impl ValidCredential for Credential {
+    fn valid(self) -> Option<Credential> {
+        Some(self)
+    }
+}
+
 #[doc(hidden)]
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {
@@ -40,9 +56,20 @@ pub struct ReqwestClient {
 }
 
 impl ReqwestClient {
-    pub async fn new(config: gax::options::ClientConfig, default_endpoint: &str) -> Result<Self> {
+    pub async fn new<T>(
+        config: gax::options::ClientConfig<T>,
+        default_endpoint: &str,
+    ) -> Result<Self>
+    where
+        T: ValidCredential,
+    {
         let inner = reqwest::Client::new();
-        let cred = if let Some(c) = config.credential().clone() {
+        let cred = config
+            .credential()
+            .clone()
+            .map(ValidCredential::valid)
+            .flatten();
+        let cred = if let Some(c) = cred {
             c
         } else {
             create_access_token_credential()

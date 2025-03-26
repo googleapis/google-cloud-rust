@@ -63,7 +63,7 @@ impl std::fmt::Debug for {{Codec.Name}} {
 }
 
 impl {{Codec.Name}} {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new<T>(config: gax::options::ClientConfig<T>) -> Result<Self> {
         let inner = Self::make_inner(&config).await?;
         let cred = Self::make_credentials(&config).await?;
         Ok(Self {
@@ -75,7 +75,7 @@ impl {{Codec.Name}} {
         })
     }
 
-    async fn make_inner(config: &gax::options::ClientConfig) -> Result<tonic::client::Grpc<tonic::transport::Channel>> {
+    async fn make_inner<T>(config: &gax::options::ClientConfig<T>) -> Result<tonic::client::Grpc<tonic::transport::Channel>> {
         let endpoint = tonic::transport::Endpoint::new(
             config
             .endpoint()
@@ -86,10 +86,13 @@ impl {{Codec.Name}} {
         Ok(tonic::client::Grpc::new(conn))
     }
 
-    async fn make_credentials(config: &gax::options::ClientConfig) -> Result<auth::credentials::Credential> {
-        if let Some(c) = config.credential().clone() {
-            return Ok(c);
-        }
+    async fn make_credentials<T>(
+        _config: &gax::options::ClientConfig<T>
+    ) -> Result<auth::credentials::Credential>
+    {
+        // if let Some(c) = config.credential().clone() {
+        //     return Ok(c);
+        // }
         auth::credentials::create_access_token_credential()
                 .await
                 .map_err(Error::authentication)
