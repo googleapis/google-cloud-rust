@@ -56,3 +56,5 @@ pub mod polling_error_policy;
 pub use polling_error_policy as polling_policy;
 pub mod retry_policy;
 pub mod retry_throttler;
+
+pub mod retry_loop;

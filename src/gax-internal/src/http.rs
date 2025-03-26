@@ -26,172 +26,15 @@ use gax::polling_error_policy::PollingErrorPolicy;
 use gax::retry_policy::RetryPolicy;
 use gax::retry_throttler::SharedRetryThrottler;
 use std::sync::Arc;
+use gax::retry_loop::RetryLoop;
+use gax::retry_loop::InnerRequestTrait;
 
-#[doc(hidden)]
-#[derive(Clone, Debug)]
-pub struct ReqwestClient {
-    inner: reqwest::Client,
+#[derive(Debug, Clone)]
+pub struct GaxInnerRequest {
     cred: Credential,
-    endpoint: String,
-    retry_policy: Option<Arc<dyn RetryPolicy>>,
-    backoff_policy: Option<Arc<dyn BackoffPolicy>>,
-    retry_throttler: SharedRetryThrottler,
-    polling_error_policy: Option<Arc<dyn PollingErrorPolicy>>,
-    polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
 }
 
-impl ReqwestClient {
-    pub async fn new(config: gax::options::ClientConfig, default_endpoint: &str) -> Result<Self> {
-        let inner = reqwest::Client::new();
-        let cred = if let Some(c) = config.credential().clone() {
-            c
-        } else {
-            create_access_token_credential()
-                .await
-                .map_err(Error::authentication)?
-        };
-        let endpoint = config
-            .endpoint()
-            .clone()
-            .unwrap_or_else(|| default_endpoint.to_string());
-        Ok(Self {
-            inner,
-            cred,
-            endpoint,
-            retry_policy: config.retry_policy().clone(),
-            backoff_policy: config.backoff_policy().clone(),
-            retry_throttler: config.retry_throttler(),
-            polling_error_policy: config.polling_error_policy().clone(),
-            polling_backoff_policy: config.polling_backoff_policy().clone(),
-        })
-    }
-
-    pub fn builder(&self, method: reqwest::Method, path: String) -> reqwest::RequestBuilder {
-        self.inner
-            .request(method, format!("{}{path}", &self.endpoint))
-    }
-
-    pub async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned>(
-        &self,
-        mut builder: reqwest::RequestBuilder,
-        body: Option<I>,
-        options: gax::options::RequestOptions,
-    ) -> Result<O> {
-        if let Some(user_agent) = options.user_agent() {
-            builder = builder.header(
-                reqwest::header::USER_AGENT,
-                reqwest::header::HeaderValue::from_str(user_agent).map_err(Error::other)?,
-            );
-        }
-        if let Some(body) = body {
-            builder = builder.json(&body);
-        }
-        match self.get_retry_policy(&options) {
-            None => self.request_attempt::<O>(builder, &options, None).await,
-            Some(policy) => self.retry_loop::<O>(builder, &options, policy).await,
-        }
-    }
-
-    async fn retry_loop<O: serde::de::DeserializeOwned>(
-        &self,
-        builder: reqwest::RequestBuilder,
-        options: &gax::options::RequestOptions,
-        retry_policy: Arc<dyn RetryPolicy>,
-    ) -> Result<O> {
-        let loop_start = std::time::Instant::now();
-        let throttler = self.get_retry_throttler(options);
-        let backoff = self.get_backoff_policy(options);
-        let mut attempt_count = 0;
-        loop {
-            let builder = builder
-                .try_clone()
-                .ok_or_else(|| Error::other("cannot clone builder in retry loop".to_string()))?;
-            let remaining_time = retry_policy.remaining_time(loop_start, attempt_count);
-            let throttle = if attempt_count == 0 {
-                false
-            } else {
-                let t = throttler.lock().expect("retry throttler lock is poisoned");
-                t.throttle_retry_attempt()
-            };
-            if throttle {
-                // This counts as an error for the purposes of the retry policy.
-                if let Some(error) = retry_policy.on_throttle(loop_start, attempt_count) {
-                    return Err(error);
-                }
-                let delay = backoff.on_failure(loop_start, attempt_count);
-                tokio::time::sleep(delay).await;
-                continue;
-            }
-            attempt_count += 1;
-            match self.request_attempt(builder, options, remaining_time).await {
-                Ok(r) => {
-                    throttler
-                        .lock()
-                        .expect("retry throttler lock is poisoned")
-                        .on_success();
-                    return Ok(r);
-                }
-                Err(e) => {
-                    let flow = retry_policy.on_error(
-                        loop_start,
-                        attempt_count,
-                        options.idempotent().unwrap_or(false),
-                        e,
-                    );
-                    let delay = backoff.on_failure(loop_start, attempt_count);
-                    {
-                        throttler
-                            .lock()
-                            .expect("retry throttler lock is poisoned")
-                            .on_retry_failure(&flow);
-                    };
-                    self.on_error(flow, delay).await?;
-                }
-            };
-        }
-    }
-
-    async fn on_error(
-        &self,
-        retry_flow: LoopState,
-        backoff_delay: std::time::Duration,
-    ) -> Result<()> {
-        match retry_flow {
-            LoopState::Permanent(e) | LoopState::Exhausted(e) => {
-                return Err(e);
-            }
-            LoopState::Continue(_e) => {
-                tokio::time::sleep(backoff_delay).await;
-            }
-        }
-        Ok(())
-    }
-
-    async fn request_attempt<O: serde::de::DeserializeOwned>(
-        &self,
-        mut builder: reqwest::RequestBuilder,
-        options: &gax::options::RequestOptions,
-        remaining_time: Option<std::time::Duration>,
-    ) -> Result<O> {
-        builder = Self::effective_timeout(options, remaining_time)
-            .into_iter()
-            .fold(builder, |b, t| b.timeout(t));
-        let auth_headers = self
-            .cred
-            .get_headers()
-            .await
-            .map_err(Error::authentication)?;
-        for header in auth_headers.into_iter() {
-            builder = builder.header(header.0, header.1);
-        }
-        let response = builder.send().await.map_err(Error::io)?;
-        if !response.status().is_success() {
-            return Self::to_http_error(response).await;
-        }
-        let response = response.json::<O>().await.map_err(Error::serde)?;
-        Ok(response)
-    }
-
+impl GaxInnerRequest {
     async fn to_http_error<O>(response: reqwest::Response) -> Result<O> {
         let status_code = response.status().as_u16();
         let headers = Self::convert_headers(response.headers());
@@ -222,6 +65,129 @@ impl ReqwestClient {
         headers
     }
 
+    fn effective_timeout(
+        options: &gax::options::RequestOptions,
+        remaining_time: Option<std::time::Duration>,
+    ) -> Option<std::time::Duration> {
+        match (options.attempt_timeout(), remaining_time) {
+            (None, None) => None,
+            (None, Some(t)) => Some(t),
+            (Some(t), None) => Some(*t),
+            (Some(a), Some(r)) => Some(*std::cmp::min(a, &r)),
+        }
+    }
+}
+
+#[async_trait::async_trait]
+impl InnerRequestTrait for GaxInnerRequest {
+    async fn make_request<O: serde::de::DeserializeOwned>(
+        &self,
+        builder: reqwest::RequestBuilder,
+        options: &gax::options::RequestOptions,
+        remaining_time: Option<std::time::Duration>,
+    ) -> Result<O> {
+        let mut builder = builder;
+        builder = Self::effective_timeout(options, remaining_time)
+            .into_iter()
+            .fold(builder, |b, t| b.timeout(t));
+        let auth_headers = self
+            .cred
+            .get_headers()
+            .await
+            .map_err(Error::authentication)?;
+        for header in auth_headers.into_iter() {
+            builder = builder.header(header.0, header.1);
+        }
+        let response = builder.send().await.map_err(Error::io)?;
+        if !response.status().is_success() {
+            return Self::to_http_error(response).await;
+        }
+        let response = response.json::<O>().await.map_err(Error::serde)?;
+        Ok(response)
+    }
+}
+
+
+#[doc(hidden)]
+#[derive(Clone, Debug)]
+pub struct ReqwestClient{
+    inner: reqwest::Client,
+    retry_loop: RetryLoop<GaxInnerRequest>,
+    inner_request: GaxInnerRequest,
+    endpoint: String,
+    retry_policy: Option<Arc<dyn RetryPolicy>>,
+    backoff_policy: Option<Arc<dyn BackoffPolicy>>,
+    retry_throttler: SharedRetryThrottler,
+    polling_error_policy: Option<Arc<dyn PollingErrorPolicy>>,
+    polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
+}
+
+impl ReqwestClient {
+    pub async fn new(config: gax::options::ClientConfig, default_endpoint: &str) -> Result<Self> {
+        let inner = reqwest::Client::new();
+        let cred = if let Some(c) = config.credential().clone() {
+            c
+        } else {
+            create_access_token_credential()
+                .await
+                .map_err(Error::authentication)?
+        };
+        let endpoint = config
+            .endpoint()
+            .clone()
+            .unwrap_or_else(|| default_endpoint.to_string());
+
+        let inner_request = GaxInnerRequest { cred };
+
+        let retry_loop = RetryLoop {
+            retry_policy: config.retry_policy().clone(),
+            backoff_policy: config.backoff_policy().clone(),
+            retry_throttler: config.retry_throttler(),
+            inner_request: inner_request.clone(),
+        };
+
+        Ok(Self {
+            inner,
+            retry_loop,
+            inner_request,
+            endpoint,
+            retry_policy: config.retry_policy().clone(),
+            backoff_policy: config.backoff_policy().clone(),
+            retry_throttler: config.retry_throttler(),
+            polling_error_policy: config.polling_error_policy().clone(),
+            polling_backoff_policy: config.polling_backoff_policy().clone(),
+
+        })
+    }
+
+    pub fn builder(&self, method: reqwest::Method, path: String) -> reqwest::RequestBuilder {
+        self.inner
+            .request(method, format!("{}{path}", &self.endpoint))
+    }
+
+    pub async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned>(
+        &self,
+        mut builder: reqwest::RequestBuilder,
+        body: Option<I>,
+        options: gax::options::RequestOptions,
+    ) -> Result<O> {
+        if let Some(user_agent) = options.user_agent() {
+            builder = builder.header(
+                reqwest::header::USER_AGENT,
+                reqwest::header::HeaderValue::from_str(user_agent).map_err(Error::other)?,
+            );
+        }
+        if let Some(body) = body {
+            builder = builder.json(&body);
+        }
+        match self.get_retry_policy(&options) {
+            None => self.inner_request.make_request::<O>(builder, &options, None).await,
+            Some(policy) => self.retry_loop.retry_loop::<O>(builder, &options, policy).await,
+        }
+    }
+
+    
+
     fn get_retry_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -230,27 +196,6 @@ impl ReqwestClient {
             .retry_policy()
             .clone()
             .or_else(|| self.retry_policy.clone())
-    }
-
-    pub(crate) fn get_backoff_policy(
-        &self,
-        options: &gax::options::RequestOptions,
-    ) -> Arc<dyn BackoffPolicy> {
-        options
-            .backoff_policy()
-            .clone()
-            .or_else(|| self.backoff_policy.clone())
-            .unwrap_or_else(|| Arc::new(ExponentialBackoff::default()))
-    }
-
-    pub(crate) fn get_retry_throttler(
-        &self,
-        options: &gax::options::RequestOptions,
-    ) -> SharedRetryThrottler {
-        options
-            .retry_throttler()
-            .clone()
-            .unwrap_or_else(|| self.retry_throttler.clone())
     }
 
     // TODO(#1135) - remove backwards compat function
@@ -281,18 +226,6 @@ impl ReqwestClient {
             .clone()
             .or_else(|| self.polling_backoff_policy.clone())
             .unwrap_or_else(|| Arc::new(ExponentialBackoff::default()))
-    }
-
-    fn effective_timeout(
-        options: &gax::options::RequestOptions,
-        remaining_time: Option<std::time::Duration>,
-    ) -> Option<std::time::Duration> {
-        match (options.attempt_timeout(), remaining_time) {
-            (None, None) => None,
-            (None, Some(t)) => Some(t),
-            (Some(t), None) => Some(*t),
-            (Some(a), Some(r)) => Some(*std::cmp::min(a, &r)),
-        }
     }
 }
 

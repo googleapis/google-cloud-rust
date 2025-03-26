@@ -40,6 +40,7 @@ _internal_grpc_client = ["_internal_common"]
 _internal_common = ["dep:gax", "dep:thiserror"]
 
 [dependencies]
+async-trait    = "0.1"
 reqwest    = { version = "0.12", optional = true }
 serde      = { version = "1", optional = true }
 serde_json = { version = "1", optional = true }
