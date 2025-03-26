@@ -2238,6 +2238,7 @@ dependencies = [
 name = "google-cloud-gax"
 version = "0.21.0"
 dependencies = [
+ "anyhow",
  "base64",
  "built",
  "bytes",

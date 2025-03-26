@@ -29,7 +29,7 @@ rust-version.workspace = true
 _internal_http_client = [
   "_internal_common",
   "dep:auth",
-  "dep:gax",
+  "gax/unstable-sdk-client",
   "dep:reqwest",
   "dep:rpc",
   "dep:serde",

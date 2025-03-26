@@ -51,6 +51,7 @@ wkt  = { version = "0.3", path = "../wkt", package = "google-cloud-wkt" }
 # This is a workaround to integration test features of this crate. Open issue
 # https://github.com/rust-lang/cargo/issues/2911.
 gax         = { path = ".", package = "google-cloud-gax", features = ["unstable-sdk-client"] }
+anyhow      = "1"
 mockall     = "0.13"
 serde       = { version = "1", features = ["serde_derive"] }
 serial_test = "3"

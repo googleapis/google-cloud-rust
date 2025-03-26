@@ -19,7 +19,6 @@ use gax::error::Error;
 use gax::error::HttpError;
 use gax::error::ServiceError;
 use gax::exponential_backoff::ExponentialBackoff;
-use gax::loop_state::LoopState;
 use gax::polling_backoff_policy::PollingBackoffPolicy;
 use gax::polling_error_policy::Aip194Strict;
 use gax::polling_error_policy::PollingErrorPolicy;
@@ -88,83 +87,30 @@ impl ReqwestClient {
         }
         match self.get_retry_policy(&options) {
             None => self.request_attempt::<O>(builder, &options, None).await,
-            Some(policy) => self.retry_loop::<O>(builder, &options, policy).await,
+            Some(policy) => self.retry_loop::<O>(builder, options, policy).await,
         }
     }
 
     async fn retry_loop<O: serde::de::DeserializeOwned>(
         &self,
         builder: reqwest::RequestBuilder,
-        options: &gax::options::RequestOptions,
+        options: gax::options::RequestOptions,
         retry_policy: Arc<dyn RetryPolicy>,
     ) -> Result<O> {
-        let loop_start = std::time::Instant::now();
-        let throttler = self.get_retry_throttler(options);
-        let backoff = self.get_backoff_policy(options);
-        let mut attempt_count = 0;
-        loop {
+        let idempotent = options.idempotent().unwrap_or(false);
+        let throttler = self.get_retry_throttler(&options);
+        let backoff = self.get_backoff_policy(&options);
+        let this = self.clone();
+        let inner = async move |d| {
             let builder = builder
                 .try_clone()
                 .ok_or_else(|| Error::other("cannot clone builder in retry loop".to_string()))?;
-            let remaining_time = retry_policy.remaining_time(loop_start, attempt_count);
-            let throttle = if attempt_count == 0 {
-                false
-            } else {
-                let t = throttler.lock().expect("retry throttler lock is poisoned");
-                t.throttle_retry_attempt()
-            };
-            if throttle {
-                // This counts as an error for the purposes of the retry policy.
-                if let Some(error) = retry_policy.on_throttle(loop_start, attempt_count) {
-                    return Err(error);
-                }
-                let delay = backoff.on_failure(loop_start, attempt_count);
-                tokio::time::sleep(delay).await;
-                continue;
-            }
-            attempt_count += 1;
-            match self.request_attempt(builder, options, remaining_time).await {
-                Ok(r) => {
-                    throttler
-                        .lock()
-                        .expect("retry throttler lock is poisoned")
-                        .on_success();
-                    return Ok(r);
-                }
-                Err(e) => {
-                    let flow = retry_policy.on_error(
-                        loop_start,
-                        attempt_count,
-                        options.idempotent().unwrap_or(false),
-                        e,
-                    );
-                    let delay = backoff.on_failure(loop_start, attempt_count);
-                    {
-                        throttler
-                            .lock()
-                            .expect("retry throttler lock is poisoned")
-                            .on_retry_failure(&flow);
-                    };
-                    self.on_error(flow, delay).await?;
-                }
-            };
-        }
-    }
-
-    async fn on_error(
-        &self,
-        retry_flow: LoopState,
-        backoff_delay: std::time::Duration,
-    ) -> Result<()> {
-        match retry_flow {
-            LoopState::Permanent(e) | LoopState::Exhausted(e) => {
-                return Err(e);
-            }
-            LoopState::Continue(_e) => {
-                tokio::time::sleep(backoff_delay).await;
-            }
-        }
-        Ok(())
+            this.request_attempt(builder, &options, d).await
+        };
+        let sleep = async |d| {
+            tokio::time::sleep(d).await
+        };
+        gax::retry_loop::retry_loop(inner, sleep, idempotent, throttler, retry_policy, backoff).await
     }
 
     async fn request_attempt<O: serde::de::DeserializeOwned>(
