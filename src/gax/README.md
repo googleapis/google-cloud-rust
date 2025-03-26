@@ -1,4 +1,4 @@
-# Google Cloud Client Libraries for Rust - Common Components
+# Google Cloud Client Libraries for Rust - Google API eXtensions
 
 This crate contains common components used by the Google Cloud Client Libraries
 for Rust. Please consult the crate documentation for details.
