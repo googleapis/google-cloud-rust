@@ -36,7 +36,7 @@ prost-types = "0.13"
 serde       = { version = "1", features = ["serde_derive"] }
 serde_json  = { version = "1" }
 serde_with  = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
-tonic       = { version = "0.12", features = ["tls", "tls-native-roots"] }
+tonic       = { version = "0.13", features = ["tls-native-roots", "tls-ring"] }
 tokio       = { version = "1", features = ["macros", "rt-multi-thread"] }
 tracing     = "0.1"
 # Local crates
