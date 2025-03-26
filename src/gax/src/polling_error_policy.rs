@@ -43,9 +43,6 @@ use crate::error::Error;
 use crate::loop_state::LoopState;
 use std::sync::Arc;
 
-// TODO(#1135) - remove backwards compat
-pub use PollingErrorPolicy as PollingPolicy;
-
 /// Determines how errors are handled in the polling loop.
 ///
 /// Implementations of this trait determine if polling errors may resolve in

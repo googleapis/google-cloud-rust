@@ -253,14 +253,6 @@ impl ReqwestClient {
             .unwrap_or_else(|| self.retry_throttler.clone())
     }
 
-    // TODO(#1135) - remove backwards compat function
-    pub fn get_polling_policy(
-        &self,
-        options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        self.get_polling_error_policy(options)
-    }
-
     pub fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
