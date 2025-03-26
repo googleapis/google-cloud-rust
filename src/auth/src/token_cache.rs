@@ -13,7 +13,8 @@
 // limitations under the License.
 
 use crate::Result;
-use crate::token::{Token, TokenProvider};
+use crate::token::TokenProvider;
+use gax::token::Token;
 use tokio::sync::watch;
 use tokio::time::{Duration, Instant, sleep};
 
@@ -132,7 +133,7 @@ where
 #[cfg(test)]
 mod test {
     use super::*;
-    use crate::errors::CredentialError;
+    use gax::error::CredentialError;
     use crate::token::test::MockTokenProvider;
     use std::ops::{Add, Sub};
     use std::sync::{Arc, Mutex};

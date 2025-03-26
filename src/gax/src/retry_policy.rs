@@ -38,9 +38,7 @@
 //!
 //! [idempotent]: https://en.wikipedia.org/wiki/Idempotence
 
-use auth::errors::CredentialError;
-
-use crate::error::Error;
+use crate::error::{Error, CredentialError};
 use crate::loop_state::LoopState;
 use std::sync::Arc;
 

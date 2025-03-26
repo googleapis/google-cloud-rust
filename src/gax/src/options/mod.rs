@@ -30,7 +30,7 @@ use crate::polling_backoff_policy::{PollingBackoffPolicy, PollingBackoffPolicyAr
 use crate::polling_error_policy::{PollingErrorPolicy, PollingErrorPolicyArg};
 use crate::retry_policy::{RetryPolicy, RetryPolicyArg};
 use crate::retry_throttler::{RetryThrottlerArg, SharedRetryThrottler};
-use auth::credentials::Credential;
+use crate::credentials::Credential;
 use std::sync::Arc;
 
 /// A set of options configuring a single request.

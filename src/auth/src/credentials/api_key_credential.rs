@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::credentials::dynamic::CredentialTrait;
+use gax::credentials::dynamic::CredentialTrait;
 use crate::credentials::{Credential, QUOTA_PROJECT_KEY, Result};
-use crate::errors::CredentialError;
-use crate::token::{Token, TokenProvider};
+use gax::error::CredentialError;
+use crate::token::TokenProvider;
+use gax::token::Token;
 use http::header::{HeaderName, HeaderValue};
 use std::sync::Arc;
 

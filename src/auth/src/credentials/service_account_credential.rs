@@ -14,10 +14,11 @@
 
 mod jws;
 
-use crate::credentials::dynamic::CredentialTrait;
+use gax::credentials::dynamic::CredentialTrait;
 use crate::credentials::{Credential, Result};
-use crate::errors::CredentialError;
-use crate::token::{Token, TokenProvider};
+use gax::error::CredentialError;
+use crate::token::TokenProvider;
+use gax::token::Token;
 use async_trait::async_trait;
 use derive_builder::Builder;
 use http::header::{AUTHORIZATION, HeaderName, HeaderValue};

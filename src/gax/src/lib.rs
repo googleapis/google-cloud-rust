@@ -58,3 +58,6 @@ pub mod retry_policy;
 pub mod retry_throttler;
 
 pub mod retry_loop;
+
+pub mod credentials;
+pub mod token;

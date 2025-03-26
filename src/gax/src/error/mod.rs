@@ -15,9 +15,12 @@
 mod core_error;
 mod http_error;
 mod service_error;
+mod credential_error;
 pub use core_error::*;
 pub use http_error::*;
 pub use service_error::*;
+pub use credential_error::*;
+
 
 /// Errors and error details returned by Service RPCs.
 ///

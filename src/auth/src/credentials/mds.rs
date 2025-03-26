@@ -50,10 +50,11 @@
 //! [gke-link]: https://cloud.google.com/kubernetes-engine
 //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 
-use crate::credentials::dynamic::CredentialTrait;
+use gax::credentials::dynamic::CredentialTrait;
 use crate::credentials::{Credential, DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY, Result};
-use crate::errors::{CredentialError, is_retryable};
-use crate::token::{Token, TokenProvider};
+use gax::error::{CredentialError, is_retryable};
+use crate::token::TokenProvider;
+use gax::token::Token;
 use async_trait::async_trait;
 use bon::Builder;
 use http::header::{AUTHORIZATION, HeaderName, HeaderValue};

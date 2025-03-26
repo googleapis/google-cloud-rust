@@ -51,7 +51,7 @@ impl CredentialError {
     /// # Arguments
     /// * `is_retryable` - A boolean indicating whether the error is retryable.
     /// * `source` - The underlying error that caused the auth failure.
-    pub(crate) fn new<T: Error + Send + Sync + 'static>(is_retryable: bool, source: T) -> Self {
+    pub fn new<T: Error + Send + Sync + 'static>(is_retryable: bool, source: T) -> Self {
         CredentialError {
             is_retryable,
             source: CredentialErrorImpl::Source(Arc::new(source)),
@@ -76,21 +76,21 @@ impl CredentialError {
     }
 
     /// A helper to create a retryable error.
-    pub(crate) fn retryable<T: Error + Send + Sync + 'static>(source: T) -> Self {
+    pub fn retryable<T: Error + Send + Sync + 'static>(source: T) -> Self {
         CredentialError::new(true, source)
     }
 
     #[allow(dead_code)]
-    pub(crate) fn retryable_from_str<T: Into<String>>(message: T) -> Self {
+    pub fn retryable_from_str<T: Into<String>>(message: T) -> Self {
         CredentialError::from_str(true, message)
     }
 
     /// A helper to create a non-retryable error.
-    pub(crate) fn non_retryable<T: Error + Send + Sync + 'static>(source: T) -> Self {
+    pub fn non_retryable<T: Error + Send + Sync + 'static>(source: T) -> Self {
         CredentialError::new(false, source)
     }
 
-    pub(crate) fn non_retryable_from_str<T: Into<String>>(message: T) -> Self {
+    pub fn non_retryable_from_str<T: Into<String>>(message: T) -> Self {
         CredentialError::from_str(false, message)
     }
 }
@@ -147,7 +147,7 @@ pub enum InnerAuthError {
     // TODO(#389) - define error types here
 }
 
-pub(crate) fn is_retryable(c: StatusCode) -> bool {
+pub fn is_retryable(c: StatusCode) -> bool {
     match c {
         // Internal server errors do not indicate that there is anything wrong
         // with our request, so we retry them.

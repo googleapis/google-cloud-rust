@@ -12,10 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::credentials::dynamic::CredentialTrait;
+use gax::credentials::dynamic::CredentialTrait;
 use crate::credentials::{Credential, QUOTA_PROJECT_KEY, Result};
-use crate::errors::{CredentialError, is_retryable};
-use crate::token::{Token, TokenProvider};
+use crate::request::AuthClientConfig;
+use gax::error::{CredentialError, is_retryable};
+use crate::token::TokenProvider;
+use gax::token::Token;
 use crate::token_cache::TokenCache;
 use http::header::{AUTHORIZATION, CONTENT_TYPE, HeaderName, HeaderValue};
 use reqwest::{Client, Method};
@@ -69,7 +71,8 @@ impl std::fmt::Debug for UserTokenProvider {
 #[async_trait::async_trait]
 impl TokenProvider for UserTokenProvider {
     async fn get_token(&self) -> Result<Token> {
-        let client = Client::new();
+        // The config will come through constructor
+        let client = crate::request::ReqwestClient::new(AuthClientConfig::default(), self.endpoint.as_str()).await.unwrap();
 
         // Make the request
         let req = Oauth2RefreshRequest {
@@ -80,10 +83,11 @@ impl TokenProvider for UserTokenProvider {
         };
         let header = HeaderValue::from_static("application/json");
         let builder = client
-            .request(Method::POST, self.endpoint.as_str())
+            .builder(Method::POST, "")
             .header(CONTENT_TYPE, header)
             .json(&req);
-        let resp = builder.send().await.map_err(CredentialError::retryable)?;
+
+        let resp = client.execute(builder, None).await.unwrap();
 
         // Process the response
         if !resp.status().is_success() {
