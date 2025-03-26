@@ -300,20 +300,14 @@ impl ClientConfig {
         self
     }
 
-    /// Disables tracing.
-    pub fn disable_tracing(mut self) -> Self {
-        self.tracing = false;
-        self
-    }
-
     /// Gets the current credential override, if any.
     pub fn credential(&self) -> &Option<Credential> {
         &self.cred
     }
 
     /// Configure the authentication credentials.
-    pub fn set_credential<T: Into<Option<Credential>>>(mut self, v: T) -> Self {
-        self.cred = v.into();
+    pub fn set_credential<T: Into<Credential>>(mut self, v: T) -> Self {
+        self.cred = Some(v.into());
         self
     }
 
@@ -529,11 +523,6 @@ mod test {
         assert!(!config.tracing_enabled(), "expected tracing to be disabled");
         let config = ClientConfig::new().enable_tracing();
         assert!(config.tracing_enabled(), "expected tracing to be enabled");
-        let config = config.disable_tracing();
-        assert!(
-            !config.tracing_enabled(),
-            "expected tracing to be disaabled"
-        );
 
         unsafe {
             std::env::set_var(LOGGING_VAR, "true");
