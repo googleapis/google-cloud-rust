@@ -79,7 +79,7 @@ impl wkt::message::Message for NetworkConfig {
     }
 }
 
-/// Defines additional types related to NetworkConfig
+/// Defines additional types related to [NetworkConfig].
 pub mod network_config {
     #[allow(unused_imports)]
     use super::*;
@@ -513,7 +513,7 @@ impl wkt::message::Message for ManagementServer {
     }
 }
 
-/// Defines additional types related to ManagementServer
+/// Defines additional types related to [ManagementServer].
 pub mod management_server {
     #[allow(unused_imports)]
     use super::*;
@@ -1389,7 +1389,7 @@ impl wkt::message::Message for BackupPlan {
     }
 }
 
-/// Defines additional types related to BackupPlan
+/// Defines additional types related to [BackupPlan].
 pub mod backup_plan {
     #[allow(unused_imports)]
     use super::*;
@@ -1559,7 +1559,7 @@ impl wkt::message::Message for BackupRule {
     }
 }
 
-/// Defines additional types related to BackupRule
+/// Defines additional types related to [BackupRule].
 pub mod backup_rule {
     #[allow(unused_imports)]
     use super::*;
@@ -1743,7 +1743,7 @@ impl wkt::message::Message for StandardSchedule {
     }
 }
 
-/// Defines additional types related to StandardSchedule
+/// Defines additional types related to [StandardSchedule].
 pub mod standard_schedule {
     #[allow(unused_imports)]
     use super::*;
@@ -1912,7 +1912,7 @@ impl wkt::message::Message for WeekDayOfMonth {
     }
 }
 
-/// Defines additional types related to WeekDayOfMonth
+/// Defines additional types related to [WeekDayOfMonth].
 pub mod week_day_of_month {
     #[allow(unused_imports)]
     use super::*;
@@ -2459,7 +2459,7 @@ impl wkt::message::Message for BackupPlanAssociation {
     }
 }
 
-/// Defines additional types related to BackupPlanAssociation
+/// Defines additional types related to [BackupPlanAssociation].
 pub mod backup_plan_association {
     #[allow(unused_imports)]
     use super::*;
@@ -2604,7 +2604,7 @@ impl wkt::message::Message for RuleConfigInfo {
     }
 }
 
-/// Defines additional types related to RuleConfigInfo
+/// Defines additional types related to [RuleConfigInfo].
 pub mod rule_config_info {
     #[allow(unused_imports)]
     use super::*;
@@ -3282,7 +3282,7 @@ impl wkt::message::Message for BackupVault {
     }
 }
 
-/// Defines additional types related to BackupVault
+/// Defines additional types related to [BackupVault].
 pub mod backup_vault {
     #[allow(unused_imports)]
     use super::*;
@@ -3671,7 +3671,7 @@ impl wkt::message::Message for DataSource {
     }
 }
 
-/// Defines additional types related to DataSource
+/// Defines additional types related to [DataSource].
 pub mod data_source {
     #[allow(unused_imports)]
     use super::*;
@@ -3903,7 +3903,7 @@ impl wkt::message::Message for BackupConfigInfo {
     }
 }
 
-/// Defines additional types related to BackupConfigInfo
+/// Defines additional types related to [BackupConfigInfo].
 pub mod backup_config_info {
     #[allow(unused_imports)]
     use super::*;
@@ -4267,7 +4267,7 @@ impl wkt::message::Message for DataSourceGcpResource {
     }
 }
 
-/// Defines additional types related to DataSourceGcpResource
+/// Defines additional types related to [DataSourceGcpResource].
 pub mod data_source_gcp_resource {
     #[allow(unused_imports)]
     use super::*;
@@ -4560,7 +4560,7 @@ impl wkt::message::Message for BackupApplianceLockInfo {
     }
 }
 
-/// Defines additional types related to BackupApplianceLockInfo
+/// Defines additional types related to [BackupApplianceLockInfo].
 pub mod backup_appliance_lock_info {
     #[allow(unused_imports)]
     use super::*;
@@ -4692,7 +4692,7 @@ impl wkt::message::Message for BackupLock {
     }
 }
 
-/// Defines additional types related to BackupLock
+/// Defines additional types related to [BackupLock].
 pub mod backup_lock {
     #[allow(unused_imports)]
     use super::*;
@@ -5041,7 +5041,7 @@ impl wkt::message::Message for Backup {
     }
 }
 
-/// Defines additional types related to Backup
+/// Defines additional types related to [Backup].
 pub mod backup {
     #[allow(unused_imports)]
     use super::*;
@@ -6624,7 +6624,7 @@ impl wkt::message::Message for RestoreBackupRequest {
     }
 }
 
-/// Defines additional types related to RestoreBackupRequest
+/// Defines additional types related to [RestoreBackupRequest].
 pub mod restore_backup_request {
     #[allow(unused_imports)]
     use super::*;
@@ -6751,7 +6751,7 @@ impl wkt::message::Message for TargetResource {
     }
 }
 
-/// Defines additional types related to TargetResource
+/// Defines additional types related to [TargetResource].
 pub mod target_resource {
     #[allow(unused_imports)]
     use super::*;
@@ -7532,7 +7532,7 @@ impl wkt::message::Message for ComputeInstanceRestoreProperties {
     }
 }
 
-/// Defines additional types related to ComputeInstanceRestoreProperties
+/// Defines additional types related to [ComputeInstanceRestoreProperties].
 pub mod compute_instance_restore_properties {
     #[allow(unused_imports)]
     use super::*;
@@ -8047,7 +8047,7 @@ impl wkt::message::Message for CustomerEncryptionKey {
     }
 }
 
-/// Defines additional types related to CustomerEncryptionKey
+/// Defines additional types related to [CustomerEncryptionKey].
 pub mod customer_encryption_key {
     #[allow(unused_imports)]
     use super::*;
@@ -8389,7 +8389,7 @@ impl wkt::message::Message for NetworkInterface {
     }
 }
 
-/// Defines additional types related to NetworkInterface
+/// Defines additional types related to [NetworkInterface].
 pub mod network_interface {
     #[allow(unused_imports)]
     use super::*;
@@ -8604,7 +8604,7 @@ impl wkt::message::Message for NetworkPerformanceConfig {
     }
 }
 
-/// Defines additional types related to NetworkPerformanceConfig
+/// Defines additional types related to [NetworkPerformanceConfig].
 pub mod network_performance_config {
     #[allow(unused_imports)]
     use super::*;
@@ -8803,7 +8803,7 @@ impl wkt::message::Message for AccessConfig {
     }
 }
 
-/// Defines additional types related to AccessConfig
+/// Defines additional types related to [AccessConfig].
 pub mod access_config {
     #[allow(unused_imports)]
     use super::*;
@@ -9076,7 +9076,7 @@ impl wkt::message::Message for AllocationAffinity {
     }
 }
 
-/// Defines additional types related to AllocationAffinity
+/// Defines additional types related to [AllocationAffinity].
 pub mod allocation_affinity {
     #[allow(unused_imports)]
     use super::*;
@@ -9287,7 +9287,7 @@ impl wkt::message::Message for Scheduling {
     }
 }
 
-/// Defines additional types related to Scheduling
+/// Defines additional types related to [Scheduling].
 pub mod scheduling {
     #[allow(unused_imports)]
     use super::*;
@@ -9357,7 +9357,7 @@ pub mod scheduling {
         }
     }
 
-    /// Defines additional types related to NodeAffinity
+    /// Defines additional types related to [NodeAffinity].
     pub mod node_affinity {
         #[allow(unused_imports)]
         use super::*;
@@ -9991,7 +9991,7 @@ impl wkt::message::Message for AttachedDisk {
     }
 }
 
-/// Defines additional types related to AttachedDisk
+/// Defines additional types related to [AttachedDisk].
 pub mod attached_disk {
     #[allow(unused_imports)]
     use super::*;
@@ -10328,7 +10328,7 @@ impl wkt::message::Message for GuestOsFeature {
     }
 }
 
-/// Defines additional types related to GuestOsFeature
+/// Defines additional types related to [GuestOsFeature].
 pub mod guest_os_feature {
     #[allow(unused_imports)]
     use super::*;

@@ -382,7 +382,7 @@ impl wkt::message::Message for Document {
     }
 }
 
-/// Defines additional types related to Document
+/// Defines additional types related to [Document].
 pub mod document {
     #[allow(unused_imports)]
     use super::*;
@@ -572,7 +572,7 @@ pub mod document {
         }
     }
 
-    /// Defines additional types related to Style
+    /// Defines additional types related to [Style].
     pub mod style {
         #[allow(unused_imports)]
         use super::*;
@@ -909,7 +909,7 @@ pub mod document {
         }
     }
 
-    /// Defines additional types related to Page
+    /// Defines additional types related to [Page].
     pub mod page {
         #[allow(unused_imports)]
         use super::*;
@@ -1173,7 +1173,7 @@ pub mod document {
             }
         }
 
-        /// Defines additional types related to Layout
+        /// Defines additional types related to [Layout].
         pub mod layout {
             #[allow(unused_imports)]
             use super::*;
@@ -1563,7 +1563,7 @@ pub mod document {
             }
         }
 
-        /// Defines additional types related to Token
+        /// Defines additional types related to [Token].
         pub mod token {
             #[allow(unused_imports)]
             use super::*;
@@ -1605,7 +1605,7 @@ pub mod document {
                 }
             }
 
-            /// Defines additional types related to DetectedBreak
+            /// Defines additional types related to [DetectedBreak].
             pub mod detected_break {
                 #[allow(unused_imports)]
                 use super::*;
@@ -2073,7 +2073,7 @@ pub mod document {
             }
         }
 
-        /// Defines additional types related to Table
+        /// Defines additional types related to [Table].
         pub mod table {
             #[allow(unused_imports)]
             use super::*;
@@ -2483,7 +2483,7 @@ pub mod document {
             }
         }
 
-        /// Defines additional types related to ImageQualityScores
+        /// Defines additional types related to [ImageQualityScores].
         pub mod image_quality_scores {
             #[allow(unused_imports)]
             use super::*;
@@ -2713,7 +2713,7 @@ pub mod document {
         }
     }
 
-    /// Defines additional types related to Entity
+    /// Defines additional types related to [Entity].
     pub mod entity {
         #[allow(unused_imports)]
         use super::*;
@@ -2980,7 +2980,7 @@ pub mod document {
             }
         }
 
-        /// Defines additional types related to NormalizedValue
+        /// Defines additional types related to [NormalizedValue].
         pub mod normalized_value {
             #[allow(unused_imports)]
             use super::*;
@@ -3120,7 +3120,7 @@ pub mod document {
         }
     }
 
-    /// Defines additional types related to TextAnchor
+    /// Defines additional types related to [TextAnchor].
     pub mod text_anchor {
         #[allow(unused_imports)]
         use super::*;
@@ -3221,7 +3221,7 @@ pub mod document {
         }
     }
 
-    /// Defines additional types related to PageAnchor
+    /// Defines additional types related to [PageAnchor].
     pub mod page_anchor {
         #[allow(unused_imports)]
         use super::*;
@@ -3321,7 +3321,7 @@ pub mod document {
             }
         }
 
-        /// Defines additional types related to PageRef
+        /// Defines additional types related to [PageRef].
         pub mod page_ref {
             #[allow(unused_imports)]
             use super::*;
@@ -3508,7 +3508,7 @@ pub mod document {
         }
     }
 
-    /// Defines additional types related to Provenance
+    /// Defines additional types related to [Provenance].
     pub mod provenance {
         #[allow(unused_imports)]
         use super::*;
@@ -3808,7 +3808,7 @@ pub mod document {
         }
     }
 
-    /// Defines additional types related to Revision
+    /// Defines additional types related to [Revision].
     pub mod revision {
         #[allow(unused_imports)]
         use super::*;
@@ -3974,7 +3974,7 @@ pub mod document {
         }
     }
 
-    /// Defines additional types related to DocumentLayout
+    /// Defines additional types related to [DocumentLayout].
     pub mod document_layout {
         #[allow(unused_imports)]
         use super::*;
@@ -4131,7 +4131,7 @@ pub mod document {
             }
         }
 
-        /// Defines additional types related to DocumentLayoutBlock
+        /// Defines additional types related to [DocumentLayoutBlock].
         pub mod document_layout_block {
             #[allow(unused_imports)]
             use super::*;
@@ -4535,7 +4535,7 @@ pub mod document {
         }
     }
 
-    /// Defines additional types related to ChunkedDocument
+    /// Defines additional types related to [ChunkedDocument].
     pub mod chunked_document {
         #[allow(unused_imports)]
         use super::*;
@@ -4653,7 +4653,7 @@ pub mod document {
             }
         }
 
-        /// Defines additional types related to Chunk
+        /// Defines additional types related to [Chunk].
         pub mod chunk {
             #[allow(unused_imports)]
             use super::*;
@@ -5072,7 +5072,7 @@ impl wkt::message::Message for BatchDocumentsInputConfig {
     }
 }
 
-/// Defines additional types related to BatchDocumentsInputConfig
+/// Defines additional types related to [BatchDocumentsInputConfig].
 pub mod batch_documents_input_config {
     #[allow(unused_imports)]
     use super::*;
@@ -5158,7 +5158,7 @@ impl wkt::message::Message for DocumentOutputConfig {
     }
 }
 
-/// Defines additional types related to DocumentOutputConfig
+/// Defines additional types related to [DocumentOutputConfig].
 pub mod document_output_config {
     #[allow(unused_imports)]
     use super::*;
@@ -5228,7 +5228,7 @@ pub mod document_output_config {
         }
     }
 
-    /// Defines additional types related to GcsOutputConfig
+    /// Defines additional types related to [GcsOutputConfig].
     pub mod gcs_output_config {
         #[allow(unused_imports)]
         use super::*;
@@ -5408,7 +5408,7 @@ impl wkt::message::Message for OcrConfig {
     }
 }
 
-/// Defines additional types related to OcrConfig
+/// Defines additional types related to [OcrConfig].
 pub mod ocr_config {
     #[allow(unused_imports)]
     use super::*;
@@ -5675,7 +5675,7 @@ impl wkt::message::Message for ProcessOptions {
     }
 }
 
-/// Defines additional types related to ProcessOptions
+/// Defines additional types related to [ProcessOptions].
 pub mod process_options {
     #[allow(unused_imports)]
     use super::*;
@@ -5719,7 +5719,7 @@ pub mod process_options {
         }
     }
 
-    /// Defines additional types related to LayoutConfig
+    /// Defines additional types related to [LayoutConfig].
     pub mod layout_config {
         #[allow(unused_imports)]
         use super::*;
@@ -6044,7 +6044,7 @@ impl wkt::message::Message for ProcessRequest {
     }
 }
 
-/// Defines additional types related to ProcessRequest
+/// Defines additional types related to [ProcessRequest].
 pub mod process_request {
     #[allow(unused_imports)]
     use super::*;
@@ -6125,7 +6125,7 @@ impl wkt::message::Message for HumanReviewStatus {
     }
 }
 
-/// Defines additional types related to HumanReviewStatus
+/// Defines additional types related to [HumanReviewStatus].
 pub mod human_review_status {
     #[allow(unused_imports)]
     use super::*;
@@ -6489,7 +6489,7 @@ impl wkt::message::Message for BatchProcessMetadata {
     }
 }
 
-/// Defines additional types related to BatchProcessMetadata
+/// Defines additional types related to [BatchProcessMetadata].
 pub mod batch_process_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -8059,7 +8059,7 @@ impl wkt::message::Message for TrainProcessorVersionRequest {
     }
 }
 
-/// Defines additional types related to TrainProcessorVersionRequest
+/// Defines additional types related to [TrainProcessorVersionRequest].
 pub mod train_processor_version_request {
     #[allow(unused_imports)]
     use super::*;
@@ -8146,7 +8146,7 @@ pub mod train_processor_version_request {
         }
     }
 
-    /// Defines additional types related to CustomDocumentExtractionOptions
+    /// Defines additional types related to [CustomDocumentExtractionOptions].
     pub mod custom_document_extraction_options {
         #[allow(unused_imports)]
         use super::*;
@@ -8377,7 +8377,7 @@ impl wkt::message::Message for TrainProcessorVersionMetadata {
     }
 }
 
-/// Defines additional types related to TrainProcessorVersionMetadata
+/// Defines additional types related to [TrainProcessorVersionMetadata].
 pub mod train_processor_version_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -8574,7 +8574,7 @@ impl wkt::message::Message for ReviewDocumentRequest {
     }
 }
 
-/// Defines additional types related to ReviewDocumentRequest
+/// Defines additional types related to [ReviewDocumentRequest].
 pub mod review_document_request {
     #[allow(unused_imports)]
     use super::*;
@@ -8701,7 +8701,7 @@ impl wkt::message::Message for ReviewDocumentResponse {
     }
 }
 
-/// Defines additional types related to ReviewDocumentResponse
+/// Defines additional types related to [ReviewDocumentResponse].
 pub mod review_document_response {
     #[allow(unused_imports)]
     use super::*;
@@ -9159,7 +9159,7 @@ impl wkt::message::Message for DocumentSchema {
     }
 }
 
-/// Defines additional types related to DocumentSchema
+/// Defines additional types related to [DocumentSchema].
 pub mod document_schema {
     #[allow(unused_imports)]
     use super::*;
@@ -9304,7 +9304,7 @@ pub mod document_schema {
         }
     }
 
-    /// Defines additional types related to EntityType
+    /// Defines additional types related to [EntityType].
     pub mod entity_type {
         #[allow(unused_imports)]
         use super::*;
@@ -9418,7 +9418,7 @@ pub mod document_schema {
             }
         }
 
-        /// Defines additional types related to Property
+        /// Defines additional types related to [Property].
         pub mod property {
             #[allow(unused_imports)]
             use super::*;
@@ -9768,7 +9768,7 @@ impl wkt::message::Message for Evaluation {
     }
 }
 
-/// Defines additional types related to Evaluation
+/// Defines additional types related to [Evaluation].
 pub mod evaluation {
     #[allow(unused_imports)]
     use super::*;
@@ -10102,7 +10102,7 @@ pub mod evaluation {
         }
     }
 
-    /// Defines additional types related to MultiConfidenceMetrics
+    /// Defines additional types related to [MultiConfidenceMetrics].
     pub mod multi_confidence_metrics {
         #[allow(unused_imports)]
         use super::*;
@@ -10372,7 +10372,7 @@ impl wkt::message::Message for CommonOperationMetadata {
     }
 }
 
-/// Defines additional types related to CommonOperationMetadata
+/// Defines additional types related to [CommonOperationMetadata].
 pub mod common_operation_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -10642,7 +10642,7 @@ impl wkt::message::Message for ProcessorVersion {
     }
 }
 
-/// Defines additional types related to ProcessorVersion
+/// Defines additional types related to [ProcessorVersion].
 pub mod processor_version {
     #[allow(unused_imports)]
     use super::*;
@@ -10803,7 +10803,7 @@ pub mod processor_version {
         }
     }
 
-    /// Defines additional types related to GenAiModelInfo
+    /// Defines additional types related to [GenAiModelInfo].
     pub mod gen_ai_model_info {
         #[allow(unused_imports)]
         use super::*;
@@ -10893,7 +10893,7 @@ pub mod processor_version {
             }
         }
 
-        /// Defines additional types related to CustomGenAiModelInfo
+        /// Defines additional types related to [CustomGenAiModelInfo].
         pub mod custom_gen_ai_model_info {
             #[allow(unused_imports)]
             use super::*;
@@ -11320,7 +11320,7 @@ impl wkt::message::Message for Processor {
     }
 }
 
-/// Defines additional types related to Processor
+/// Defines additional types related to [Processor].
 pub mod processor {
     #[allow(unused_imports)]
     use super::*;
@@ -11520,7 +11520,7 @@ impl wkt::message::Message for ProcessorType {
     }
 }
 
-/// Defines additional types related to ProcessorType
+/// Defines additional types related to [ProcessorType].
 pub mod processor_type {
     #[allow(unused_imports)]
     use super::*;

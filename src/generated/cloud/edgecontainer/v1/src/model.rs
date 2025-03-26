@@ -392,7 +392,7 @@ impl wkt::message::Message for Cluster {
     }
 }
 
-/// Defines additional types related to Cluster
+/// Defines additional types related to [Cluster].
 pub mod cluster {
     #[allow(unused_imports)]
     use super::*;
@@ -496,7 +496,7 @@ pub mod cluster {
         }
     }
 
-    /// Defines additional types related to ControlPlane
+    /// Defines additional types related to [ControlPlane].
     pub mod control_plane {
         #[allow(unused_imports)]
         use super::*;
@@ -753,7 +753,7 @@ pub mod cluster {
         }
     }
 
-    /// Defines additional types related to SystemAddonsConfig
+    /// Defines additional types related to [SystemAddonsConfig].
     pub mod system_addons_config {
         #[allow(unused_imports)]
         use super::*;
@@ -1070,7 +1070,7 @@ pub mod cluster {
         }
     }
 
-    /// Defines additional types related to MaintenanceEvent
+    /// Defines additional types related to [MaintenanceEvent].
     pub mod maintenance_event {
         #[allow(unused_imports)]
         use super::*;
@@ -1331,7 +1331,7 @@ pub mod cluster {
         }
     }
 
-    /// Defines additional types related to ConnectionState
+    /// Defines additional types related to [ConnectionState].
     pub mod connection_state {
         #[allow(unused_imports)]
         use super::*;
@@ -1849,7 +1849,7 @@ impl wkt::message::Message for NodePool {
     }
 }
 
-/// Defines additional types related to NodePool
+/// Defines additional types related to [NodePool].
 pub mod node_pool {
     #[allow(unused_imports)]
     use super::*;
@@ -2284,7 +2284,7 @@ impl wkt::message::Message for VpnConnection {
     }
 }
 
-/// Defines additional types related to VpnConnection
+/// Defines additional types related to [VpnConnection].
 pub mod vpn_connection {
     #[allow(unused_imports)]
     use super::*;
@@ -2405,7 +2405,7 @@ pub mod vpn_connection {
         }
     }
 
-    /// Defines additional types related to Details
+    /// Defines additional types related to [Details].
     pub mod details {
         #[allow(unused_imports)]
         use super::*;
@@ -2694,7 +2694,7 @@ impl wkt::message::Message for ZoneMetadata {
     }
 }
 
-/// Defines additional types related to ZoneMetadata
+/// Defines additional types related to [ZoneMetadata].
 pub mod zone_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -3320,7 +3320,7 @@ impl wkt::message::Message for OperationMetadata {
     }
 }
 
-/// Defines additional types related to OperationMetadata
+/// Defines additional types related to [OperationMetadata].
 pub mod operation_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -3738,7 +3738,7 @@ impl wkt::message::Message for UpgradeClusterRequest {
     }
 }
 
-/// Defines additional types related to UpgradeClusterRequest
+/// Defines additional types related to [UpgradeClusterRequest].
 pub mod upgrade_cluster_request {
     #[allow(unused_imports)]
     use super::*;

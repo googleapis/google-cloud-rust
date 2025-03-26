@@ -20,7 +20,7 @@ pub mod os_config_service {
 
     /// Common implementation for [super::super::client::OsConfigService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::OsConfigService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -827,7 +827,7 @@ pub mod os_config_zonal_service {
 
     /// Common implementation for [super::super::client::OsConfigZonalService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::OsConfigZonalService>,
         request: R,
         options: gax::options::RequestOptions,

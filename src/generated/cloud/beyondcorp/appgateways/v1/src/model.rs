@@ -525,7 +525,7 @@ impl wkt::message::Message for AppGateway {
     }
 }
 
-/// Defines additional types related to AppGateway
+/// Defines additional types related to [AppGateway].
 pub mod app_gateway {
     #[allow(unused_imports)]
     use super::*;

@@ -22,10 +22,10 @@ mod test {
     /// A test policy, the only interesting bit is the name, which is included
     /// in debug messages and used in the tests.
     #[derive(Debug)]
-    struct TestPollingPolicy {
+    struct TestErrorPolicy {
         pub _name: String,
     }
-    impl gax::polling_policy::PollingPolicy for TestPollingPolicy {
+    impl gax::polling_error_policy::PollingErrorPolicy for TestErrorPolicy {
         fn on_error(
             &self,
             _loop_start: std::time::Instant,
@@ -59,7 +59,7 @@ mod test {
 
         let options = gax::options::RequestOptions::default();
         // Verify the functions are callable from outside the crate.
-        let _ = client.get_polling_policy(&options);
+        let _ = client.get_polling_error_policy(&options);
         let _ = client.get_polling_backoff_policy(&options);
 
         Ok(())
@@ -70,21 +70,21 @@ mod test {
         let (endpoint, _server) = echo_server::start().await?;
         let config = ClientConfig::default()
             .set_credential(auth::credentials::testing::test_credentials())
-            .set_polling_policy(TestPollingPolicy {
-                _name: "client-polling".to_string(),
+            .set_polling_error_policy(TestErrorPolicy {
+                _name: "client-polling-error".to_string(),
             })
             .set_polling_backoff_policy(TestBackoffPolicy {
-                _name: "client-backoff".to_string(),
+                _name: "client-polling-backoff".to_string(),
             });
         let client = ReqwestClient::new(config, &endpoint).await?;
 
         let options = gax::options::RequestOptions::default();
-        let polling = client.get_polling_policy(&options);
+        let polling = client.get_polling_error_policy(&options);
         let fmt = format!("{polling:?}");
-        assert!(fmt.contains("client-polling"), "{polling:?}");
+        assert!(fmt.contains("client-polling-error"), "{polling:?}");
         let backoff = client.get_polling_backoff_policy(&options);
         let fmt = format!("{backoff:?}");
-        assert!(fmt.contains("client-backoff"), "{backoff:?}");
+        assert!(fmt.contains("client-polling-backoff"), "{backoff:?}");
 
         Ok(())
     }
@@ -94,27 +94,30 @@ mod test {
         let (endpoint, _server) = echo_server::start().await?;
         let config = ClientConfig::default()
             .set_credential(auth::credentials::testing::test_credentials())
-            .set_polling_policy(TestPollingPolicy {
-                _name: "client-polling".to_string(),
+            .set_polling_error_policy(TestErrorPolicy {
+                _name: "client-polling-error".to_string(),
             })
             .set_polling_backoff_policy(TestBackoffPolicy {
-                _name: "client-backoff".to_string(),
+                _name: "client-polling-backoff".to_string(),
             });
         let client = ReqwestClient::new(config, &endpoint).await?;
 
         let mut options = gax::options::RequestOptions::default();
-        options.set_polling_policy(TestPollingPolicy {
-            _name: "request-options-polling".to_string(),
+        options.set_polling_error_policy(TestErrorPolicy {
+            _name: "request-options-polling-error".to_string(),
         });
         options.set_polling_backoff_policy(TestBackoffPolicy {
-            _name: "request-options-backoff".to_string(),
+            _name: "request-options-polling-backoff".to_string(),
         });
-        let polling = client.get_polling_policy(&options);
+        let polling = client.get_polling_error_policy(&options);
         let fmt = format!("{polling:?}");
-        assert!(fmt.contains("request-options-polling"), "{polling:?}");
+        assert!(fmt.contains("request-options-polling-error"), "{polling:?}");
         let backoff = client.get_polling_backoff_policy(&options);
         let fmt = format!("{backoff:?}");
-        assert!(fmt.contains("request-options-backoff"), "{backoff:?}");
+        assert!(
+            fmt.contains("request-options-polling-backoff"),
+            "{backoff:?}"
+        );
 
         Ok(())
     }

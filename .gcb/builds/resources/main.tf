@@ -16,6 +16,10 @@ variable "project" {
   type = string
 }
 
+variable "region" {
+  type = string
+}
+
 # Create a bucket to cache build artifacts.
 resource "google_storage_bucket" "build-cache" {
   name          = "${var.project}-build-cache"
@@ -44,6 +48,14 @@ resource "google_storage_bucket" "build-cache" {
       type = "Delete"
     }
   }
+}
+
+# Create a Firestore database for the integration tests.
+resource "google_firestore_database" "default" {
+  project     = var.project
+  name        = "(default)"
+  location_id = "us-central1"
+  type        = "FIRESTORE_NATIVE"
 }
 
 output "build-cache" {

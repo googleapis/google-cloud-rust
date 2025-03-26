@@ -20,7 +20,7 @@ pub mod backup_for_gke {
 
     /// Common implementation for [super::super::client::BackupForGKE] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>,
         request: R,
         options: gax::options::RequestOptions,

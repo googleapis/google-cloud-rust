@@ -421,7 +421,7 @@ impl wkt::message::Message for Instance {
     }
 }
 
-/// Defines additional types related to Instance
+/// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;
@@ -1093,7 +1093,7 @@ impl wkt::message::Message for ServerNetworkTemplate {
     }
 }
 
-/// Defines additional types related to ServerNetworkTemplate
+/// Defines additional types related to [ServerNetworkTemplate].
 pub mod server_network_template {
     #[allow(unused_imports)]
     use super::*;
@@ -1157,7 +1157,7 @@ pub mod server_network_template {
         }
     }
 
-    /// Defines additional types related to LogicalInterface
+    /// Defines additional types related to [LogicalInterface].
     pub mod logical_interface {
         #[allow(unused_imports)]
         use super::*;
@@ -1373,7 +1373,7 @@ impl wkt::message::Message for Lun {
     }
 }
 
-/// Defines additional types related to Lun
+/// Defines additional types related to [Lun].
 pub mod lun {
     #[allow(unused_imports)]
     use super::*;
@@ -1950,7 +1950,7 @@ impl wkt::message::Message for Network {
     }
 }
 
-/// Defines additional types related to Network
+/// Defines additional types related to [Network].
 pub mod network {
     #[allow(unused_imports)]
     use super::*;
@@ -2204,7 +2204,7 @@ impl wkt::message::Message for Vrf {
     }
 }
 
-/// Defines additional types related to VRF
+/// Defines additional types related to [VRF].
 pub mod vrf {
     #[allow(unused_imports)]
     use super::*;
@@ -2453,7 +2453,7 @@ impl wkt::message::Message for LogicalInterface {
     }
 }
 
-/// Defines additional types related to LogicalInterface
+/// Defines additional types related to [LogicalInterface].
 pub mod logical_interface {
     #[allow(unused_imports)]
     use super::*;
@@ -3078,7 +3078,7 @@ impl wkt::message::Message for NfsShare {
     }
 }
 
-/// Defines additional types related to NfsShare
+/// Defines additional types related to [NfsShare].
 pub mod nfs_share {
     #[allow(unused_imports)]
     use super::*;
@@ -4077,7 +4077,7 @@ impl wkt::message::Message for ProvisioningConfig {
     }
 }
 
-/// Defines additional types related to ProvisioningConfig
+/// Defines additional types related to [ProvisioningConfig].
 pub mod provisioning_config {
     #[allow(unused_imports)]
     use super::*;
@@ -4465,7 +4465,7 @@ impl wkt::message::Message for ProvisioningQuota {
     }
 }
 
-/// Defines additional types related to ProvisioningQuota
+/// Defines additional types related to [ProvisioningQuota].
 pub mod provisioning_quota {
     #[allow(unused_imports)]
     use super::*;
@@ -4848,7 +4848,7 @@ impl wkt::message::Message for InstanceConfig {
     }
 }
 
-/// Defines additional types related to InstanceConfig
+/// Defines additional types related to [InstanceConfig].
 pub mod instance_config {
     #[allow(unused_imports)]
     use super::*;
@@ -5130,7 +5130,7 @@ impl wkt::message::Message for VolumeConfig {
     }
 }
 
-/// Defines additional types related to VolumeConfig
+/// Defines additional types related to [VolumeConfig].
 pub mod volume_config {
     #[allow(unused_imports)]
     use super::*;
@@ -5311,7 +5311,7 @@ pub mod volume_config {
         }
     }
 
-    /// Defines additional types related to NfsExport
+    /// Defines additional types related to [NfsExport].
     pub mod nfs_export {
         #[allow(unused_imports)]
         use super::*;
@@ -5646,7 +5646,7 @@ impl wkt::message::Message for NetworkConfig {
     }
 }
 
-/// Defines additional types related to NetworkConfig
+/// Defines additional types related to [NetworkConfig].
 pub mod network_config {
     #[allow(unused_imports)]
     use super::*;
@@ -6633,7 +6633,7 @@ impl wkt::message::Message for Volume {
     }
 }
 
-/// Defines additional types related to Volume
+/// Defines additional types related to [Volume].
 pub mod volume {
     #[allow(unused_imports)]
     use super::*;
@@ -7427,7 +7427,7 @@ impl wkt::message::Message for VolumeSnapshot {
     }
 }
 
-/// Defines additional types related to VolumeSnapshot
+/// Defines additional types related to [VolumeSnapshot].
 pub mod volume_snapshot {
     #[allow(unused_imports)]
     use super::*;

@@ -801,7 +801,7 @@ impl wkt::message::Message for PollAirflowCommandResponse {
     }
 }
 
-/// Defines additional types related to PollAirflowCommandResponse
+/// Defines additional types related to [PollAirflowCommandResponse].
 pub mod poll_airflow_command_response {
     #[allow(unused_imports)]
     use super::*;
@@ -1610,7 +1610,7 @@ impl gax::paginator::PageableResponse for ListWorkloadsResponse {
     }
 }
 
-/// Defines additional types related to ListWorkloadsResponse
+/// Defines additional types related to [ListWorkloadsResponse].
 pub mod list_workloads_response {
     #[allow(unused_imports)]
     use super::*;
@@ -2593,7 +2593,7 @@ impl wkt::message::Message for EnvironmentConfig {
     }
 }
 
-/// Defines additional types related to EnvironmentConfig
+/// Defines additional types related to [EnvironmentConfig].
 pub mod environment_config {
     #[allow(unused_imports)]
     use super::*;
@@ -2754,7 +2754,7 @@ impl wkt::message::Message for WebServerNetworkAccessControl {
     }
 }
 
-/// Defines additional types related to WebServerNetworkAccessControl
+/// Defines additional types related to [WebServerNetworkAccessControl].
 pub mod web_server_network_access_control {
     #[allow(unused_imports)]
     use super::*;
@@ -3203,7 +3203,7 @@ impl wkt::message::Message for SoftwareConfig {
     }
 }
 
-/// Defines additional types related to SoftwareConfig
+/// Defines additional types related to [SoftwareConfig].
 pub mod software_config {
     #[allow(unused_imports)]
     use super::*;
@@ -3455,7 +3455,7 @@ impl wkt::message::Message for IPAllocationPolicy {
     }
 }
 
-/// Defines additional types related to IPAllocationPolicy
+/// Defines additional types related to [IPAllocationPolicy].
 pub mod ip_allocation_policy {
     #[allow(unused_imports)]
     use super::*;
@@ -3871,7 +3871,7 @@ impl wkt::message::Message for NetworkingConfig {
     }
 }
 
-/// Defines additional types related to NetworkingConfig
+/// Defines additional types related to [NetworkingConfig].
 pub mod networking_config {
     #[allow(unused_imports)]
     use super::*;
@@ -4245,7 +4245,7 @@ impl wkt::message::Message for WorkloadsConfig {
     }
 }
 
-/// Defines additional types related to WorkloadsConfig
+/// Defines additional types related to [WorkloadsConfig].
 pub mod workloads_config {
     #[allow(unused_imports)]
     use super::*;
@@ -4678,7 +4678,7 @@ impl wkt::message::Message for MasterAuthorizedNetworksConfig {
     }
 }
 
-/// Defines additional types related to MasterAuthorizedNetworksConfig
+/// Defines additional types related to [MasterAuthorizedNetworksConfig].
 pub mod master_authorized_networks_config {
     #[allow(unused_imports)]
     use super::*;
@@ -4907,7 +4907,7 @@ impl wkt::message::Message for Environment {
     }
 }
 
-/// Defines additional types related to Environment
+/// Defines additional types related to [Environment].
 pub mod environment {
     #[allow(unused_imports)]
     use super::*;
@@ -5135,7 +5135,7 @@ impl wkt::message::Message for CheckUpgradeResponse {
     }
 }
 
-/// Defines additional types related to CheckUpgradeResponse
+/// Defines additional types related to [CheckUpgradeResponse].
 pub mod check_upgrade_response {
     #[allow(unused_imports)]
     use super::*;
@@ -5283,7 +5283,7 @@ impl wkt::message::Message for TaskLogsRetentionConfig {
     }
 }
 
-/// Defines additional types related to TaskLogsRetentionConfig
+/// Defines additional types related to [TaskLogsRetentionConfig].
 pub mod task_logs_retention_config {
     #[allow(unused_imports)]
     use super::*;
@@ -5395,7 +5395,7 @@ impl wkt::message::Message for AirflowMetadataRetentionPolicyConfig {
     }
 }
 
-/// Defines additional types related to AirflowMetadataRetentionPolicyConfig
+/// Defines additional types related to [AirflowMetadataRetentionPolicyConfig].
 pub mod airflow_metadata_retention_policy_config {
     #[allow(unused_imports)]
     use super::*;
@@ -5758,7 +5758,7 @@ impl wkt::message::Message for OperationMetadata {
     }
 }
 
-/// Defines additional types related to OperationMetadata
+/// Defines additional types related to [OperationMetadata].
 pub mod operation_metadata {
     #[allow(unused_imports)]
     use super::*;

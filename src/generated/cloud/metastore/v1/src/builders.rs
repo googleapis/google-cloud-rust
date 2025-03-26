@@ -20,7 +20,7 @@ pub mod dataproc_metastore {
 
     /// Common implementation for [super::super::client::DataprocMetastore] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>,
         request: R,
         options: gax::options::RequestOptions,
@@ -2066,7 +2066,7 @@ pub mod dataproc_metastore_federation {
 
     /// Common implementation for [super::super::client::DataprocMetastoreFederation] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastoreFederation>,
         request: R,
         options: gax::options::RequestOptions,

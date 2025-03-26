@@ -6991,7 +6991,7 @@ impl wkt::message::Message for PrivateCloud {
     }
 }
 
-/// Defines additional types related to PrivateCloud
+/// Defines additional types related to [PrivateCloud].
 pub mod private_cloud {
     #[allow(unused_imports)]
     use super::*;
@@ -7346,7 +7346,7 @@ impl wkt::message::Message for Cluster {
     }
 }
 
-/// Defines additional types related to Cluster
+/// Defines additional types related to [Cluster].
 pub mod cluster {
     #[allow(unused_imports)]
     use super::*;
@@ -7521,7 +7521,7 @@ impl wkt::message::Message for Node {
     }
 }
 
-/// Defines additional types related to Node
+/// Defines additional types related to [Node].
 pub mod node {
     #[allow(unused_imports)]
     use super::*;
@@ -7706,7 +7706,7 @@ impl wkt::message::Message for ExternalAddress {
     }
 }
 
-/// Defines additional types related to ExternalAddress
+/// Defines additional types related to [ExternalAddress].
 pub mod external_address {
     #[allow(unused_imports)]
     use super::*;
@@ -7864,7 +7864,7 @@ impl wkt::message::Message for Subnet {
     }
 }
 
-/// Defines additional types related to Subnet
+/// Defines additional types related to [Subnet].
 pub mod subnet {
     #[allow(unused_imports)]
     use super::*;
@@ -8158,7 +8158,7 @@ impl wkt::message::Message for ExternalAccessRule {
     }
 }
 
-/// Defines additional types related to ExternalAccessRule
+/// Defines additional types related to [ExternalAccessRule].
 pub mod external_access_rule {
     #[allow(unused_imports)]
     use super::*;
@@ -8279,7 +8279,7 @@ pub mod external_access_rule {
         }
     }
 
-    /// Defines additional types related to IpRange
+    /// Defines additional types related to [IpRange].
     pub mod ip_range {
         #[allow(unused_imports)]
         use super::*;
@@ -8542,7 +8542,7 @@ impl wkt::message::Message for LoggingServer {
     }
 }
 
-/// Defines additional types related to LoggingServer
+/// Defines additional types related to [LoggingServer].
 pub mod logging_server {
     #[allow(unused_imports)]
     use super::*;
@@ -8827,7 +8827,7 @@ impl wkt::message::Message for NodeType {
     }
 }
 
-/// Defines additional types related to NodeType
+/// Defines additional types related to [NodeType].
 pub mod node_type {
     #[allow(unused_imports)]
     use super::*;
@@ -9070,7 +9070,7 @@ impl wkt::message::Message for HcxActivationKey {
     }
 }
 
-/// Defines additional types related to HcxActivationKey
+/// Defines additional types related to [HcxActivationKey].
 pub mod hcx_activation_key {
     #[allow(unused_imports)]
     use super::*;
@@ -9196,7 +9196,7 @@ impl wkt::message::Message for Hcx {
     }
 }
 
-/// Defines additional types related to Hcx
+/// Defines additional types related to [Hcx].
 pub mod hcx {
     #[allow(unused_imports)]
     use super::*;
@@ -9322,7 +9322,7 @@ impl wkt::message::Message for Nsx {
     }
 }
 
-/// Defines additional types related to Nsx
+/// Defines additional types related to [Nsx].
 pub mod nsx {
     #[allow(unused_imports)]
     use super::*;
@@ -9443,7 +9443,7 @@ impl wkt::message::Message for Vcenter {
     }
 }
 
-/// Defines additional types related to Vcenter
+/// Defines additional types related to [Vcenter].
 pub mod vcenter {
     #[allow(unused_imports)]
     use super::*;
@@ -9593,7 +9593,7 @@ impl wkt::message::Message for AutoscalingSettings {
     }
 }
 
-/// Defines additional types related to AutoscalingSettings
+/// Defines additional types related to [AutoscalingSettings].
 pub mod autoscaling_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -9826,7 +9826,7 @@ impl wkt::message::Message for DnsForwarding {
     }
 }
 
-/// Defines additional types related to DnsForwarding
+/// Defines additional types related to [DnsForwarding].
 pub mod dns_forwarding {
     #[allow(unused_imports)]
     use super::*;
@@ -10123,7 +10123,7 @@ impl wkt::message::Message for NetworkPeering {
     }
 }
 
-/// Defines additional types related to NetworkPeering
+/// Defines additional types related to [NetworkPeering].
 pub mod network_peering {
     #[allow(unused_imports)]
     use super::*;
@@ -10382,7 +10382,7 @@ impl wkt::message::Message for PeeringRoute {
     }
 }
 
-/// Defines additional types related to PeeringRoute
+/// Defines additional types related to [PeeringRoute].
 pub mod peering_route {
     #[allow(unused_imports)]
     use super::*;
@@ -10670,7 +10670,7 @@ impl wkt::message::Message for NetworkPolicy {
     }
 }
 
-/// Defines additional types related to NetworkPolicy
+/// Defines additional types related to [NetworkPolicy].
 pub mod network_policy {
     #[allow(unused_imports)]
     use super::*;
@@ -10722,7 +10722,7 @@ pub mod network_policy {
         }
     }
 
-    /// Defines additional types related to NetworkService
+    /// Defines additional types related to [NetworkService].
     pub mod network_service {
         #[allow(unused_imports)]
         use super::*;
@@ -10959,7 +10959,7 @@ impl wkt::message::Message for ManagementDnsZoneBinding {
     }
 }
 
-/// Defines additional types related to ManagementDnsZoneBinding
+/// Defines additional types related to [ManagementDnsZoneBinding].
 pub mod management_dns_zone_binding {
     #[allow(unused_imports)]
     use super::*;
@@ -11192,7 +11192,7 @@ impl wkt::message::Message for VmwareEngineNetwork {
     }
 }
 
-/// Defines additional types related to VmwareEngineNetwork
+/// Defines additional types related to [VmwareEngineNetwork].
 pub mod vmware_engine_network {
     #[allow(unused_imports)]
     use super::*;
@@ -11245,7 +11245,7 @@ pub mod vmware_engine_network {
         }
     }
 
-    /// Defines additional types related to VpcNetwork
+    /// Defines additional types related to [VpcNetwork].
     pub mod vpc_network {
         #[allow(unused_imports)]
         use super::*;
@@ -11647,7 +11647,7 @@ impl wkt::message::Message for PrivateConnection {
     }
 }
 
-/// Defines additional types related to PrivateConnection
+/// Defines additional types related to [PrivateConnection].
 pub mod private_connection {
     #[allow(unused_imports)]
     use super::*;
@@ -11957,7 +11957,7 @@ impl wkt::message::Message for LocationMetadata {
     }
 }
 
-/// Defines additional types related to LocationMetadata
+/// Defines additional types related to [LocationMetadata].
 pub mod location_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -12149,7 +12149,7 @@ impl wkt::message::Message for Principal {
     }
 }
 
-/// Defines additional types related to Principal
+/// Defines additional types related to [Principal].
 pub mod principal {
     #[allow(unused_imports)]
     use super::*;

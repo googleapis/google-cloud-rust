@@ -209,7 +209,7 @@ impl wkt::message::Message for AttachedDisk {
     }
 }
 
-/// Defines additional types related to AttachedDisk
+/// Defines additional types related to [AttachedDisk].
 pub mod attached_disk {
     #[allow(unused_imports)]
     use super::*;
@@ -880,7 +880,7 @@ impl wkt::message::Message for Node {
     }
 }
 
-/// Defines additional types related to Node
+/// Defines additional types related to [Node].
 pub mod node {
     #[allow(unused_imports)]
     use super::*;
@@ -1348,7 +1348,7 @@ impl wkt::message::Message for QueuedResource {
     }
 }
 
-/// Defines additional types related to QueuedResource
+/// Defines additional types related to [QueuedResource].
 pub mod queued_resource {
     #[allow(unused_imports)]
     use super::*;
@@ -1387,7 +1387,7 @@ pub mod queued_resource {
         }
     }
 
-    /// Defines additional types related to Tpu
+    /// Defines additional types related to [Tpu].
     pub mod tpu {
         #[allow(unused_imports)]
         use super::*;
@@ -1519,7 +1519,7 @@ pub mod queued_resource {
             }
         }
 
-        /// Defines additional types related to NodeSpec
+        /// Defines additional types related to [NodeSpec].
         pub mod node_spec {
             #[allow(unused_imports)]
             use super::*;
@@ -1838,7 +1838,7 @@ pub mod queued_resource {
         }
     }
 
-    /// Defines additional types related to QueueingPolicy
+    /// Defines additional types related to [QueueingPolicy].
     pub mod queueing_policy {
         #[allow(unused_imports)]
         use super::*;
@@ -2213,7 +2213,7 @@ impl wkt::message::Message for QueuedResourceState {
     }
 }
 
-/// Defines additional types related to QueuedResourceState
+/// Defines additional types related to [QueuedResourceState].
 pub mod queued_resource_state {
     #[allow(unused_imports)]
     use super::*;
@@ -3952,7 +3952,7 @@ impl wkt::message::Message for Symptom {
     }
 }
 
-/// Defines additional types related to Symptom
+/// Defines additional types related to [Symptom].
 pub mod symptom {
     #[allow(unused_imports)]
     use super::*;
@@ -4175,7 +4175,7 @@ impl wkt::message::Message for AcceleratorConfig {
     }
 }
 
-/// Defines additional types related to AcceleratorConfig
+/// Defines additional types related to [AcceleratorConfig].
 pub mod accelerator_config {
     #[allow(unused_imports)]
     use super::*;

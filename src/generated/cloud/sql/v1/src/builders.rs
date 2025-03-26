@@ -20,7 +20,7 @@ pub mod sql_backup_runs_service {
 
     /// Common implementation for [super::super::client::SqlBackupRunsService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::SqlBackupRunsService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -263,7 +263,7 @@ pub mod sql_connect_service {
 
     /// Common implementation for [super::super::client::SqlConnectService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::SqlConnectService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -412,7 +412,7 @@ pub mod sql_databases_service {
 
     /// Common implementation for [super::super::client::SqlDatabasesService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::SqlDatabasesService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -761,7 +761,7 @@ pub mod sql_flags_service {
 
     /// Common implementation for [super::super::client::SqlFlagsService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::SqlFlagsService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -827,7 +827,7 @@ pub mod sql_instances_service {
 
     /// Common implementation for [super::super::client::SqlInstancesService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -2636,7 +2636,7 @@ pub mod sql_operations_service {
 
     /// Common implementation for [super::super::client::SqlOperationsService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::SqlOperationsService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -2814,7 +2814,7 @@ pub mod sql_ssl_certs_service {
 
     /// Common implementation for [super::super::client::SqlSslCertsService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::SqlSslCertsService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -3045,7 +3045,7 @@ pub mod sql_tiers_service {
 
     /// Common implementation for [super::super::client::SqlTiersService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::SqlTiersService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -3111,7 +3111,7 @@ pub mod sql_users_service {
 
     /// Common implementation for [super::super::client::SqlUsersService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::SqlUsersService>,
         request: R,
         options: gax::options::RequestOptions,

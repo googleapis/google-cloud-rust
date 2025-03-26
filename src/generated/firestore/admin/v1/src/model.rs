@@ -142,7 +142,7 @@ impl wkt::message::Message for Backup {
     }
 }
 
-/// Defines additional types related to Backup
+/// Defines additional types related to [Backup].
 pub mod backup {
     #[allow(unused_imports)]
     use super::*;
@@ -537,7 +537,7 @@ impl wkt::message::Message for Database {
     }
 }
 
-/// Defines additional types related to Database
+/// Defines additional types related to [Database].
 pub mod database {
     #[allow(unused_imports)]
     use super::*;
@@ -685,7 +685,7 @@ pub mod database {
         }
     }
 
-    /// Defines additional types related to SourceInfo
+    /// Defines additional types related to [SourceInfo].
     pub mod source_info {
         #[allow(unused_imports)]
         use super::*;
@@ -894,7 +894,7 @@ pub mod database {
         }
     }
 
-    /// Defines additional types related to EncryptionConfig
+    /// Defines additional types related to [EncryptionConfig].
     pub mod encryption_config {
         #[allow(unused_imports)]
         use super::*;
@@ -1437,7 +1437,7 @@ impl wkt::message::Message for Field {
     }
 }
 
-/// Defines additional types related to Field
+/// Defines additional types related to [Field].
 pub mod field {
     #[allow(unused_imports)]
     use super::*;
@@ -1554,7 +1554,7 @@ pub mod field {
         }
     }
 
-    /// Defines additional types related to TtlConfig
+    /// Defines additional types related to [TtlConfig].
     pub mod ttl_config {
         #[allow(unused_imports)]
         use super::*;
@@ -3339,7 +3339,7 @@ impl wkt::message::Message for Index {
     }
 }
 
-/// Defines additional types related to Index
+/// Defines additional types related to [Index].
 pub mod index {
     #[allow(unused_imports)]
     use super::*;
@@ -3485,7 +3485,7 @@ pub mod index {
         }
     }
 
-    /// Defines additional types related to IndexField
+    /// Defines additional types related to [IndexField].
     pub mod index_field {
         #[allow(unused_imports)]
         use super::*;
@@ -3574,7 +3574,7 @@ pub mod index {
             }
         }
 
-        /// Defines additional types related to VectorConfig
+        /// Defines additional types related to [VectorConfig].
         pub mod vector_config {
             #[allow(unused_imports)]
             use super::*;
@@ -4200,7 +4200,7 @@ impl wkt::message::Message for FieldOperationMetadata {
     }
 }
 
-/// Defines additional types related to FieldOperationMetadata
+/// Defines additional types related to [FieldOperationMetadata].
 pub mod field_operation_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -4253,7 +4253,7 @@ pub mod field_operation_metadata {
         }
     }
 
-    /// Defines additional types related to IndexConfigDelta
+    /// Defines additional types related to [IndexConfigDelta].
     pub mod index_config_delta {
         #[allow(unused_imports)]
         use super::*;
@@ -4353,7 +4353,7 @@ pub mod field_operation_metadata {
         }
     }
 
-    /// Defines additional types related to TtlConfigDelta
+    /// Defines additional types related to [TtlConfigDelta].
     pub mod ttl_config_delta {
         #[allow(unused_imports)]
         use super::*;
@@ -5184,7 +5184,7 @@ impl wkt::message::Message for BackupSchedule {
     }
 }
 
-/// Defines additional types related to BackupSchedule
+/// Defines additional types related to [BackupSchedule].
 pub mod backup_schedule {
     #[allow(unused_imports)]
     use super::*;

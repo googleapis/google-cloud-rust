@@ -277,7 +277,7 @@ impl wkt::message::Message for SharingEnvironmentConfig {
     }
 }
 
-/// Defines additional types related to SharingEnvironmentConfig
+/// Defines additional types related to [SharingEnvironmentConfig].
 pub mod sharing_environment_config {
     #[allow(unused_imports)]
     use super::*;
@@ -821,7 +821,7 @@ impl wkt::message::Message for Listing {
     }
 }
 
-/// Defines additional types related to Listing
+/// Defines additional types related to [Listing].
 pub mod listing {
     #[allow(unused_imports)]
     use super::*;
@@ -904,7 +904,7 @@ pub mod listing {
         }
     }
 
-    /// Defines additional types related to BigQueryDatasetSource
+    /// Defines additional types related to [BigQueryDatasetSource].
     pub mod big_query_dataset_source {
         #[allow(unused_imports)]
         use super::*;
@@ -965,7 +965,7 @@ pub mod listing {
             }
         }
 
-        /// Defines additional types related to SelectedResource
+        /// Defines additional types related to [SelectedResource].
         pub mod selected_resource {
             #[allow(unused_imports)]
             use super::*;
@@ -1487,7 +1487,7 @@ impl wkt::message::Message for Subscription {
     }
 }
 
-/// Defines additional types related to Subscription
+/// Defines additional types related to [Subscription].
 pub mod subscription {
     #[allow(unused_imports)]
     use super::*;
@@ -1555,7 +1555,7 @@ pub mod subscription {
         }
     }
 
-    /// Defines additional types related to LinkedResource
+    /// Defines additional types related to [LinkedResource].
     pub mod linked_resource {
         #[allow(unused_imports)]
         use super::*;
@@ -2387,7 +2387,7 @@ impl wkt::message::Message for SubscribeListingRequest {
     }
 }
 
-/// Defines additional types related to SubscribeListingRequest
+/// Defines additional types related to [SubscribeListingRequest].
 pub mod subscribe_listing_request {
     #[allow(unused_imports)]
     use super::*;

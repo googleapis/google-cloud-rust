@@ -20,7 +20,7 @@ pub mod assured_workloads_service {
 
     /// Common implementation for [super::super::client::AssuredWorkloadsService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::AssuredWorkloadsService>,
         request: R,
         options: gax::options::RequestOptions,

@@ -30,7 +30,7 @@ There are two different policies controlling the behavior of the LRO loops:
 
 - The polling backoff policy controls how long the loop waits before polling
   the status of a LRO that is still in progress.
-- The polling policy controls what to do on an polling error. Some polling
+- The polling error policy controls what to do on an polling error. Some polling
   errors are unrecoverable, and indicate that the operation was aborted or the
   caller has no permissions to check the status of the LRO. Other polling errors
   are transient, and indicate a temporary problem in the client network or the
@@ -136,7 +136,7 @@ See [below](#configuring-the-polling-frequency-for-a-specific-request-complete-c
 ## Configuring the retryable polling errors for all requests in a client
 
 To configure the retryable errors we need to use a type implementing the
-[PollingPolicy] trait. The client libraries provide a number of them, a
+[PollingErrorPolicy] trait. The client libraries provide a number of them, a
 conservative choice is [Aip194Strict]:
 
 ```rust,ignore
@@ -173,7 +173,7 @@ See [below](#configuring-the-retryable-polling-errors-for-all-requests-in-a-clie
 ## Configuring the retryable polling errors for a specific request
 
 To configure the retryable errors we need to use a type implementing the
-[PollingPolicy] trait. The client libraries provide a number of them, a
+[PollingErrorPolicy] trait. The client libraries provide a number of them, a
 conservative choice is [Aip194Strict]:
 
 ```rust,ignore
@@ -231,10 +231,10 @@ See [below](#configuring-the-retryable-polling-errors-for-a-specific-request-com
 ```
 
 [aip-194]: https://google.aip.dev/194
-[aip194strict]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/polling_policy/struct.Aip194Strict.html
+[aip194strict]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/polling_error_policy/struct.Aip194Strict.html
 [exponentialbackoff]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/exponential_backoff/struct.ExponentialBackoff.html
 [per-request setting]: #configuring-the-polling-frequency-for-a-specific-request
 [pollingbackoffpolicy]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/polling_backoff_policy/trait.PollingBackoffPolicy.html
-[pollingpolicy]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/polling_policy/trait.PollingPolicy.html
+[pollingerrorpolicy]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/polling_error_policy/trait.PollingErrorPolicy.html
 [speech-to-text v2]: https://cloud.google.com/speech-to-text/v2
 [transcribe speech to text by using the command line]: https://cloud.google.com/speech-to-text/v2/docs/transcribe-api

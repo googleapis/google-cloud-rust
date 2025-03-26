@@ -172,7 +172,7 @@ impl wkt::message::Message for ReplicaInfo {
     }
 }
 
-/// Defines additional types related to ReplicaInfo
+/// Defines additional types related to [ReplicaInfo].
 pub mod replica_info {
     #[allow(unused_imports)]
     use super::*;
@@ -502,7 +502,7 @@ impl wkt::message::Message for InstanceConfig {
     }
 }
 
-/// Defines additional types related to InstanceConfig
+/// Defines additional types related to [InstanceConfig].
 pub mod instance_config {
     #[allow(unused_imports)]
     use super::*;
@@ -879,7 +879,7 @@ impl wkt::message::Message for ReplicaComputeCapacity {
     }
 }
 
-/// Defines additional types related to ReplicaComputeCapacity
+/// Defines additional types related to [ReplicaComputeCapacity].
 pub mod replica_compute_capacity {
     #[allow(unused_imports)]
     use super::*;
@@ -985,7 +985,7 @@ impl wkt::message::Message for AutoscalingConfig {
     }
 }
 
-/// Defines additional types related to AutoscalingConfig
+/// Defines additional types related to [AutoscalingConfig].
 pub mod autoscaling_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1155,7 +1155,7 @@ pub mod autoscaling_config {
         }
     }
 
-    /// Defines additional types related to AutoscalingLimits
+    /// Defines additional types related to [AutoscalingLimits].
     pub mod autoscaling_limits {
         #[allow(unused_imports)]
         use super::*;
@@ -1284,7 +1284,7 @@ pub mod autoscaling_config {
         }
     }
 
-    /// Defines additional types related to AsymmetricAutoscalingOption
+    /// Defines additional types related to [AsymmetricAutoscalingOption].
     pub mod asymmetric_autoscaling_option {
         #[allow(unused_imports)]
         use super::*;
@@ -1644,7 +1644,7 @@ impl wkt::message::Message for Instance {
     }
 }
 
-/// Defines additional types related to Instance
+/// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;
@@ -3105,7 +3105,7 @@ impl wkt::message::Message for FreeInstanceMetadata {
     }
 }
 
-/// Defines additional types related to FreeInstanceMetadata
+/// Defines additional types related to [FreeInstanceMetadata].
 pub mod free_instance_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -3539,7 +3539,7 @@ impl wkt::message::Message for InstancePartition {
     }
 }
 
-/// Defines additional types related to InstancePartition
+/// Defines additional types related to [InstancePartition].
 pub mod instance_partition {
     #[allow(unused_imports)]
     use super::*;

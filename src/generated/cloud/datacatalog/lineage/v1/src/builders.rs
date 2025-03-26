@@ -20,7 +20,7 @@ pub mod lineage {
 
     /// Common implementation for [super::super::client::Lineage] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Lineage>,
         request: R,
         options: gax::options::RequestOptions,

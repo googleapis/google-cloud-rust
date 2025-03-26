@@ -20,7 +20,7 @@ pub mod hub_service {
 
     /// Common implementation for [super::super::client::HubService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::HubService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -2163,7 +2163,7 @@ pub mod policy_based_routing_service {
 
     /// Common implementation for [super::super::client::PolicyBasedRoutingService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::PolicyBasedRoutingService>,
         request: R,
         options: gax::options::RequestOptions,

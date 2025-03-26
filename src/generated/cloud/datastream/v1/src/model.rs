@@ -354,7 +354,7 @@ impl wkt::message::Message for DiscoverConnectionProfileRequest {
     }
 }
 
-/// Defines additional types related to DiscoverConnectionProfileRequest
+/// Defines additional types related to [DiscoverConnectionProfileRequest].
 pub mod discover_connection_profile_request {
     #[allow(unused_imports)]
     use super::*;
@@ -563,7 +563,7 @@ impl wkt::message::Message for DiscoverConnectionProfileResponse {
     }
 }
 
-/// Defines additional types related to DiscoverConnectionProfileResponse
+/// Defines additional types related to [DiscoverConnectionProfileResponse].
 pub mod discover_connection_profile_response {
     #[allow(unused_imports)]
     use super::*;
@@ -3282,7 +3282,7 @@ impl wkt::message::Message for ForwardSshTunnelConnectivity {
     }
 }
 
-/// Defines additional types related to ForwardSshTunnelConnectivity
+/// Defines additional types related to [ForwardSshTunnelConnectivity].
 pub mod forward_ssh_tunnel_connectivity {
     #[allow(unused_imports)]
     use super::*;
@@ -3462,7 +3462,7 @@ impl wkt::message::Message for PrivateConnection {
     }
 }
 
-/// Defines additional types related to PrivateConnection
+/// Defines additional types related to [PrivateConnection].
 pub mod private_connection {
     #[allow(unused_imports)]
     use super::*;
@@ -3915,7 +3915,7 @@ impl wkt::message::Message for PostgresqlSslConfig {
     }
 }
 
-/// Defines additional types related to PostgresqlSslConfig
+/// Defines additional types related to [PostgresqlSslConfig].
 pub mod postgresql_ssl_config {
     #[allow(unused_imports)]
     use super::*;
@@ -4438,7 +4438,7 @@ impl wkt::message::Message for ConnectionProfile {
     }
 }
 
-/// Defines additional types related to ConnectionProfile
+/// Defines additional types related to [ConnectionProfile].
 pub mod connection_profile {
     #[allow(unused_imports)]
     use super::*;
@@ -4936,7 +4936,7 @@ impl wkt::message::Message for OracleSourceConfig {
     }
 }
 
-/// Defines additional types related to OracleSourceConfig
+/// Defines additional types related to [OracleSourceConfig].
 pub mod oracle_source_config {
     #[allow(unused_imports)]
     use super::*;
@@ -5109,7 +5109,7 @@ pub mod oracle_source_config {
         }
     }
 
-    /// Defines additional types related to BinaryLogParser
+    /// Defines additional types related to [BinaryLogParser].
     pub mod binary_log_parser {
         #[allow(unused_imports)]
         use super::*;
@@ -5886,7 +5886,7 @@ impl wkt::message::Message for SqlServerSourceConfig {
     }
 }
 
-/// Defines additional types related to SqlServerSourceConfig
+/// Defines additional types related to [SqlServerSourceConfig].
 pub mod sql_server_source_config {
     #[allow(unused_imports)]
     use super::*;
@@ -6316,7 +6316,7 @@ impl wkt::message::Message for MysqlSourceConfig {
     }
 }
 
-/// Defines additional types related to MysqlSourceConfig
+/// Defines additional types related to [MysqlSourceConfig].
 pub mod mysql_source_config {
     #[allow(unused_imports)]
     use super::*;
@@ -6547,7 +6547,7 @@ impl wkt::message::Message for SourceConfig {
     }
 }
 
-/// Defines additional types related to SourceConfig
+/// Defines additional types related to [SourceConfig].
 pub mod source_config {
     #[allow(unused_imports)]
     use super::*;
@@ -6634,7 +6634,7 @@ impl wkt::message::Message for JsonFileFormat {
     }
 }
 
-/// Defines additional types related to JsonFileFormat
+/// Defines additional types related to [JsonFileFormat].
 pub mod json_file_format {
     #[allow(unused_imports)]
     use super::*;
@@ -6890,7 +6890,7 @@ impl wkt::message::Message for GcsDestinationConfig {
     }
 }
 
-/// Defines additional types related to GcsDestinationConfig
+/// Defines additional types related to [GcsDestinationConfig].
 pub mod gcs_destination_config {
     #[allow(unused_imports)]
     use super::*;
@@ -7120,7 +7120,7 @@ impl wkt::message::Message for BigQueryDestinationConfig {
     }
 }
 
-/// Defines additional types related to BigQueryDestinationConfig
+/// Defines additional types related to [BigQueryDestinationConfig].
 pub mod big_query_destination_config {
     #[allow(unused_imports)]
     use super::*;
@@ -7188,7 +7188,7 @@ pub mod big_query_destination_config {
         }
     }
 
-    /// Defines additional types related to SourceHierarchyDatasets
+    /// Defines additional types related to [SourceHierarchyDatasets].
     pub mod source_hierarchy_datasets {
         #[allow(unused_imports)]
         use super::*;
@@ -7447,7 +7447,7 @@ impl wkt::message::Message for DestinationConfig {
     }
 }
 
-/// Defines additional types related to DestinationConfig
+/// Defines additional types related to [DestinationConfig].
 pub mod destination_config {
     #[allow(unused_imports)]
     use super::*;
@@ -7706,7 +7706,7 @@ impl wkt::message::Message for Stream {
     }
 }
 
-/// Defines additional types related to Stream
+/// Defines additional types related to [Stream].
 pub mod stream {
     #[allow(unused_imports)]
     use super::*;
@@ -7879,7 +7879,7 @@ pub mod stream {
         }
     }
 
-    /// Defines additional types related to BackfillAllStrategy
+    /// Defines additional types related to [BackfillAllStrategy].
     pub mod backfill_all_strategy {
         #[allow(unused_imports)]
         use super::*;
@@ -8316,7 +8316,7 @@ impl wkt::message::Message for SourceObjectIdentifier {
     }
 }
 
-/// Defines additional types related to SourceObjectIdentifier
+/// Defines additional types related to [SourceObjectIdentifier].
 pub mod source_object_identifier {
     #[allow(unused_imports)]
     use super::*;
@@ -8585,7 +8585,7 @@ impl wkt::message::Message for BackfillJob {
     }
 }
 
-/// Defines additional types related to BackfillJob
+/// Defines additional types related to [BackfillJob].
 pub mod backfill_job {
     #[allow(unused_imports)]
     use super::*;
@@ -8914,7 +8914,7 @@ impl wkt::message::Message for Validation {
     }
 }
 
-/// Defines additional types related to Validation
+/// Defines additional types related to [Validation].
 pub mod validation {
     #[allow(unused_imports)]
     use super::*;
@@ -9054,7 +9054,7 @@ impl wkt::message::Message for ValidationMessage {
     }
 }
 
-/// Defines additional types related to ValidationMessage
+/// Defines additional types related to [ValidationMessage].
 pub mod validation_message {
     #[allow(unused_imports)]
     use super::*;
@@ -9252,7 +9252,7 @@ impl wkt::message::Message for CdcStrategy {
     }
 }
 
-/// Defines additional types related to CdcStrategy
+/// Defines additional types related to [CdcStrategy].
 pub mod cdc_strategy {
     #[allow(unused_imports)]
     use super::*;
@@ -9433,7 +9433,7 @@ pub mod cdc_strategy {
         }
     }
 
-    /// Defines additional types related to SpecificStartPosition
+    /// Defines additional types related to [SpecificStartPosition].
     pub mod specific_start_position {
         #[allow(unused_imports)]
         use super::*;

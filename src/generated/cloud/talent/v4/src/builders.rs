@@ -20,7 +20,7 @@ pub mod company_service {
 
     /// Common implementation for [super::super::client::CompanyService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::CompanyService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -349,7 +349,7 @@ pub mod completion {
 
     /// Common implementation for [super::super::client::Completion] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Completion>,
         request: R,
         options: gax::options::RequestOptions,
@@ -507,7 +507,7 @@ pub mod event_service {
 
     /// Common implementation for [super::super::client::EventService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::EventService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -630,7 +630,7 @@ pub mod job_service {
 
     /// Common implementation for [super::super::client::JobService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::JobService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -1574,7 +1574,7 @@ pub mod tenant_service {
 
     /// Common implementation for [super::super::client::TenantService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::TenantService>,
         request: R,
         options: gax::options::RequestOptions,

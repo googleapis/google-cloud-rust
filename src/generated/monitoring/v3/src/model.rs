@@ -305,7 +305,7 @@ impl wkt::message::Message for AlertPolicy {
     }
 }
 
-/// Defines additional types related to AlertPolicy
+/// Defines additional types related to [AlertPolicy].
 pub mod alert_policy {
     #[allow(unused_imports)]
     use super::*;
@@ -394,7 +394,7 @@ pub mod alert_policy {
         }
     }
 
-    /// Defines additional types related to Documentation
+    /// Defines additional types related to [Documentation].
     pub mod documentation {
         #[allow(unused_imports)]
         use super::*;
@@ -760,7 +760,7 @@ pub mod alert_policy {
         }
     }
 
-    /// Defines additional types related to Condition
+    /// Defines additional types related to [Condition].
     pub mod condition {
         #[allow(unused_imports)]
         use super::*;
@@ -852,7 +852,7 @@ pub mod alert_policy {
             }
         }
 
-        /// Defines additional types related to Trigger
+        /// Defines additional types related to [Trigger].
         pub mod trigger {
             #[allow(unused_imports)]
             use super::*;
@@ -1084,7 +1084,7 @@ pub mod alert_policy {
             }
         }
 
-        /// Defines additional types related to MetricThreshold
+        /// Defines additional types related to [MetricThreshold].
         pub mod metric_threshold {
             #[allow(unused_imports)]
             use super::*;
@@ -1864,7 +1864,7 @@ pub mod alert_policy {
             }
         }
 
-        /// Defines additional types related to SqlCondition
+        /// Defines additional types related to [SqlCondition].
         pub mod sql_condition {
             #[allow(unused_imports)]
             use super::*;
@@ -2310,7 +2310,7 @@ pub mod alert_policy {
         }
     }
 
-    /// Defines additional types related to AlertStrategy
+    /// Defines additional types related to [AlertStrategy].
     pub mod alert_strategy {
         #[allow(unused_imports)]
         use super::*;
@@ -3120,7 +3120,7 @@ impl wkt::message::Message for TypedValue {
     }
 }
 
-/// Defines additional types related to TypedValue
+/// Defines additional types related to [TypedValue].
 pub mod typed_value {
     #[allow(unused_imports)]
     use super::*;
@@ -3380,7 +3380,7 @@ impl wkt::message::Message for Aggregation {
     }
 }
 
-/// Defines additional types related to Aggregation
+/// Defines additional types related to [Aggregation].
 pub mod aggregation {
     #[allow(unused_imports)]
     use super::*;
@@ -4107,7 +4107,7 @@ impl wkt::message::Message for ListGroupsRequest {
     }
 }
 
-/// Defines additional types related to ListGroupsRequest
+/// Defines additional types related to [ListGroupsRequest].
 pub mod list_groups_request {
     #[allow(unused_imports)]
     use super::*;
@@ -4807,7 +4807,7 @@ impl wkt::message::Message for TimeSeriesDescriptor {
     }
 }
 
-/// Defines additional types related to TimeSeriesDescriptor
+/// Defines additional types related to [TimeSeriesDescriptor].
 pub mod time_series_descriptor {
     #[allow(unused_imports)]
     use super::*;
@@ -4932,7 +4932,7 @@ impl wkt::message::Message for TimeSeriesData {
     }
 }
 
-/// Defines additional types related to TimeSeriesData
+/// Defines additional types related to [TimeSeriesData].
 pub mod time_series_data {
     #[allow(unused_imports)]
     use super::*;
@@ -5089,7 +5089,7 @@ impl wkt::message::Message for LabelValue {
     }
 }
 
-/// Defines additional types related to LabelValue
+/// Defines additional types related to [LabelValue].
 pub mod label_value {
     #[allow(unused_imports)]
     use super::*;
@@ -5268,7 +5268,7 @@ impl wkt::message::Message for TextLocator {
     }
 }
 
-/// Defines additional types related to TextLocator
+/// Defines additional types related to [TextLocator].
 pub mod text_locator {
     #[allow(unused_imports)]
     use super::*;
@@ -5917,7 +5917,7 @@ impl wkt::message::Message for ListTimeSeriesRequest {
     }
 }
 
-/// Defines additional types related to ListTimeSeriesRequest
+/// Defines additional types related to [ListTimeSeriesRequest].
 pub mod list_time_series_request {
     #[allow(unused_imports)]
     use super::*;
@@ -6220,7 +6220,7 @@ impl wkt::message::Message for CreateTimeSeriesSummary {
     }
 }
 
-/// Defines additional types related to CreateTimeSeriesSummary
+/// Defines additional types related to [CreateTimeSeriesSummary].
 pub mod create_time_series_summary {
     #[allow(unused_imports)]
     use super::*;
@@ -6847,7 +6847,7 @@ impl wkt::message::Message for NotificationChannel {
     }
 }
 
-/// Defines additional types related to NotificationChannel
+/// Defines additional types related to [NotificationChannel].
 pub mod notification_channel {
     #[allow(unused_imports)]
     use super::*;
@@ -8016,7 +8016,7 @@ impl wkt::message::Message for Service {
     }
 }
 
-/// Defines additional types related to Service
+/// Defines additional types related to [Service].
 pub mod service {
     #[allow(unused_imports)]
     use super::*;
@@ -8884,7 +8884,7 @@ impl wkt::message::Message for ServiceLevelObjective {
     }
 }
 
-/// Defines additional types related to ServiceLevelObjective
+/// Defines additional types related to [ServiceLevelObjective].
 pub mod service_level_objective {
     #[allow(unused_imports)]
     use super::*;
@@ -9108,7 +9108,7 @@ impl wkt::message::Message for ServiceLevelIndicator {
     }
 }
 
-/// Defines additional types related to ServiceLevelIndicator
+/// Defines additional types related to [ServiceLevelIndicator].
 pub mod service_level_indicator {
     #[allow(unused_imports)]
     use super::*;
@@ -9283,7 +9283,7 @@ impl wkt::message::Message for BasicSli {
     }
 }
 
-/// Defines additional types related to BasicSli
+/// Defines additional types related to [BasicSli].
 pub mod basic_sli {
     #[allow(unused_imports)]
     use super::*;
@@ -9490,7 +9490,7 @@ impl wkt::message::Message for RequestBasedSli {
     }
 }
 
-/// Defines additional types related to RequestBasedSli
+/// Defines additional types related to [RequestBasedSli].
 pub mod request_based_sli {
     #[allow(unused_imports)]
     use super::*;
@@ -9811,7 +9811,7 @@ impl wkt::message::Message for WindowsBasedSli {
     }
 }
 
-/// Defines additional types related to WindowsBasedSli
+/// Defines additional types related to [WindowsBasedSli].
 pub mod windows_based_sli {
     #[allow(unused_imports)]
     use super::*;
@@ -9930,7 +9930,7 @@ pub mod windows_based_sli {
         }
     }
 
-    /// Defines additional types related to PerformanceThreshold
+    /// Defines additional types related to [PerformanceThreshold].
     pub mod performance_threshold {
         #[allow(unused_imports)]
         use super::*;
@@ -10751,7 +10751,7 @@ impl wkt::message::Message for Snooze {
     }
 }
 
-/// Defines additional types related to Snooze
+/// Defines additional types related to [Snooze].
 pub mod snooze {
     #[allow(unused_imports)]
     use super::*;
@@ -11274,7 +11274,7 @@ impl wkt::message::Message for InternalChecker {
     }
 }
 
-/// Defines additional types related to InternalChecker
+/// Defines additional types related to [InternalChecker].
 pub mod internal_checker {
     #[allow(unused_imports)]
     use super::*;
@@ -11417,7 +11417,7 @@ impl wkt::message::Message for SyntheticMonitorTarget {
     }
 }
 
-/// Defines additional types related to SyntheticMonitorTarget
+/// Defines additional types related to [SyntheticMonitorTarget].
 pub mod synthetic_monitor_target {
     #[allow(unused_imports)]
     use super::*;
@@ -11865,7 +11865,7 @@ impl wkt::message::Message for UptimeCheckConfig {
     }
 }
 
-/// Defines additional types related to UptimeCheckConfig
+/// Defines additional types related to [UptimeCheckConfig].
 pub mod uptime_check_config {
     #[allow(unused_imports)]
     use super::*;
@@ -12239,7 +12239,7 @@ pub mod uptime_check_config {
         }
     }
 
-    /// Defines additional types related to HttpCheck
+    /// Defines additional types related to [HttpCheck].
     pub mod http_check {
         #[allow(unused_imports)]
         use super::*;
@@ -12379,7 +12379,7 @@ pub mod uptime_check_config {
             }
         }
 
-        /// Defines additional types related to ResponseStatusCode
+        /// Defines additional types related to [ResponseStatusCode].
         pub mod response_status_code {
             #[allow(unused_imports)]
             use super::*;
@@ -12510,7 +12510,7 @@ pub mod uptime_check_config {
             }
         }
 
-        /// Defines additional types related to ServiceAgentAuthentication
+        /// Defines additional types related to [ServiceAgentAuthentication].
         pub mod service_agent_authentication {
             #[allow(unused_imports)]
             use super::*;
@@ -12868,7 +12868,7 @@ pub mod uptime_check_config {
         }
     }
 
-    /// Defines additional types related to ContentMatcher
+    /// Defines additional types related to [ContentMatcher].
     pub mod content_matcher {
         #[allow(unused_imports)]
         use super::*;
@@ -12919,7 +12919,7 @@ pub mod uptime_check_config {
             }
         }
 
-        /// Defines additional types related to JsonPathMatcher
+        /// Defines additional types related to [JsonPathMatcher].
         pub mod json_path_matcher {
             #[allow(unused_imports)]
             use super::*;

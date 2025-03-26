@@ -234,7 +234,7 @@ impl wkt::message::Message for Execution {
     }
 }
 
-/// Defines additional types related to Execution
+/// Defines additional types related to [Execution].
 pub mod execution {
     #[allow(unused_imports)]
     use super::*;
@@ -295,7 +295,7 @@ pub mod execution {
         }
     }
 
-    /// Defines additional types related to StackTraceElement
+    /// Defines additional types related to [StackTraceElement].
     pub mod stack_trace_element {
         #[allow(unused_imports)]
         use super::*;
@@ -481,7 +481,7 @@ pub mod execution {
         }
     }
 
-    /// Defines additional types related to Status
+    /// Defines additional types related to [Status].
     pub mod status {
         #[allow(unused_imports)]
         use super::*;
@@ -568,7 +568,7 @@ pub mod execution {
         }
     }
 
-    /// Defines additional types related to StateError
+    /// Defines additional types related to [StateError].
     pub mod state_error {
         #[allow(unused_imports)]
         use super::*;

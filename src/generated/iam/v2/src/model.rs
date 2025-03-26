@@ -429,7 +429,7 @@ impl wkt::message::Message for PolicyRule {
     }
 }
 
-/// Defines additional types related to PolicyRule
+/// Defines additional types related to [PolicyRule].
 pub mod policy_rule {
     #[allow(unused_imports)]
     use super::*;

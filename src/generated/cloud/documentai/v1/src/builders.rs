@@ -20,7 +20,7 @@ pub mod document_processor_service {
 
     /// Common implementation for [super::super::client::DocumentProcessorService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
         request: R,
         options: gax::options::RequestOptions,

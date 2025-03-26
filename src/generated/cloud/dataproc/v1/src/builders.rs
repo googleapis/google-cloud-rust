@@ -20,7 +20,7 @@ pub mod autoscaling_policy_service {
 
     /// Common implementation for [super::super::client::AutoscalingPolicyService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::AutoscalingPolicyService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -714,7 +714,7 @@ pub mod batch_controller {
 
     /// Common implementation for [super::super::client::BatchController] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::BatchController>,
         request: R,
         options: gax::options::RequestOptions,
@@ -1375,7 +1375,7 @@ pub mod cluster_controller {
 
     /// Common implementation for [super::super::client::ClusterController] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::ClusterController>,
         request: R,
         options: gax::options::RequestOptions,
@@ -2594,7 +2594,7 @@ pub mod job_controller {
 
     /// Common implementation for [super::super::client::JobController] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::JobController>,
         request: R,
         options: gax::options::RequestOptions,
@@ -3465,7 +3465,7 @@ pub mod node_group_controller {
 
     /// Common implementation for [super::super::client::NodeGroupController] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::NodeGroupController>,
         request: R,
         options: gax::options::RequestOptions,
@@ -4129,7 +4129,7 @@ pub mod session_template_controller {
 
     /// Common implementation for [super::super::client::SessionTemplateController] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::SessionTemplateController>,
         request: R,
         options: gax::options::RequestOptions,
@@ -4819,7 +4819,7 @@ pub mod session_controller {
 
     /// Common implementation for [super::super::client::SessionController] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::SessionController>,
         request: R,
         options: gax::options::RequestOptions,
@@ -5609,7 +5609,7 @@ pub mod workflow_template_service {
 
     /// Common implementation for [super::super::client::WorkflowTemplateService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::WorkflowTemplateService>,
         request: R,
         options: gax::options::RequestOptions,

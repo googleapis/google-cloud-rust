@@ -103,7 +103,7 @@ impl wkt::message::Message for BigLakeConfiguration {
     }
 }
 
-/// Defines additional types related to BigLakeConfiguration
+/// Defines additional types related to [BigLakeConfiguration].
 pub mod big_lake_configuration {
     #[allow(unused_imports)]
     use super::*;
@@ -315,7 +315,7 @@ impl wkt::message::Message for DatasetAccessEntry {
     }
 }
 
-/// Defines additional types related to DatasetAccessEntry
+/// Defines additional types related to [DatasetAccessEntry].
 pub mod dataset_access_entry {
     #[allow(unused_imports)]
     use super::*;
@@ -1069,7 +1069,7 @@ impl wkt::message::Message for Dataset {
     }
 }
 
-/// Defines additional types related to Dataset
+/// Defines additional types related to [Dataset].
 pub mod dataset {
     #[allow(unused_imports)]
     use super::*;
@@ -1244,7 +1244,7 @@ impl wkt::message::Message for LinkedDatasetMetadata {
     }
 }
 
-/// Defines additional types related to LinkedDatasetMetadata
+/// Defines additional types related to [LinkedDatasetMetadata].
 pub mod linked_dataset_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -1397,7 +1397,7 @@ impl wkt::message::Message for GetDatasetRequest {
     }
 }
 
-/// Defines additional types related to GetDatasetRequest
+/// Defines additional types related to [GetDatasetRequest].
 pub mod get_dataset_request {
     #[allow(unused_imports)]
     use super::*;
@@ -3454,7 +3454,7 @@ impl wkt::message::Message for ExternalDataConfiguration {
     }
 }
 
-/// Defines additional types related to ExternalDataConfiguration
+/// Defines additional types related to [ExternalDataConfiguration].
 pub mod external_data_configuration {
     #[allow(unused_imports)]
     use super::*;
@@ -3928,7 +3928,7 @@ impl wkt::message::Message for RemoteModelInfo {
     }
 }
 
-/// Defines additional types related to RemoteModelInfo
+/// Defines additional types related to [RemoteModelInfo].
 pub mod remote_model_info {
     #[allow(unused_imports)]
     use super::*;
@@ -4388,7 +4388,7 @@ impl wkt::message::Message for Model {
     }
 }
 
-/// Defines additional types related to Model
+/// Defines additional types related to [Model].
 pub mod model {
     #[allow(unused_imports)]
     use super::*;
@@ -4412,7 +4412,7 @@ pub mod model {
         }
     }
 
-    /// Defines additional types related to SeasonalPeriod
+    /// Defines additional types related to [SeasonalPeriod].
     pub mod seasonal_period {
         #[allow(unused_imports)]
         use super::*;
@@ -4517,7 +4517,7 @@ pub mod model {
         }
     }
 
-    /// Defines additional types related to KmeansEnums
+    /// Defines additional types related to [KmeansEnums].
     pub mod kmeans_enums {
         #[allow(unused_imports)]
         use super::*;
@@ -4610,7 +4610,7 @@ pub mod model {
         }
     }
 
-    /// Defines additional types related to BoostedTreeOptionEnums
+    /// Defines additional types related to [BoostedTreeOptionEnums].
     pub mod boosted_tree_option_enums {
         #[allow(unused_imports)]
         use super::*;
@@ -4826,7 +4826,7 @@ pub mod model {
         }
     }
 
-    /// Defines additional types related to HparamTuningEnums
+    /// Defines additional types related to [HparamTuningEnums].
     pub mod hparam_tuning_enums {
         #[allow(unused_imports)]
         use super::*;
@@ -5283,7 +5283,7 @@ pub mod model {
         }
     }
 
-    /// Defines additional types related to BinaryClassificationMetrics
+    /// Defines additional types related to [BinaryClassificationMetrics].
     pub mod binary_classification_metrics {
         #[allow(unused_imports)]
         use super::*;
@@ -5496,7 +5496,7 @@ pub mod model {
         }
     }
 
-    /// Defines additional types related to MultiClassClassificationMetrics
+    /// Defines additional types related to [MultiClassClassificationMetrics].
     pub mod multi_class_classification_metrics {
         #[allow(unused_imports)]
         use super::*;
@@ -5553,7 +5553,7 @@ pub mod model {
             }
         }
 
-        /// Defines additional types related to ConfusionMatrix
+        /// Defines additional types related to [ConfusionMatrix].
         pub mod confusion_matrix {
             #[allow(unused_imports)]
             use super::*;
@@ -5722,7 +5722,7 @@ pub mod model {
         }
     }
 
-    /// Defines additional types related to ClusteringMetrics
+    /// Defines additional types related to [ClusteringMetrics].
     pub mod clustering_metrics {
         #[allow(unused_imports)]
         use super::*;
@@ -5788,7 +5788,7 @@ pub mod model {
             }
         }
 
-        /// Defines additional types related to Cluster
+        /// Defines additional types related to [Cluster].
         pub mod cluster {
             #[allow(unused_imports)]
             use super::*;
@@ -5895,7 +5895,7 @@ pub mod model {
                 }
             }
 
-            /// Defines additional types related to FeatureValue
+            /// Defines additional types related to [FeatureValue].
             pub mod feature_value {
                 #[allow(unused_imports)]
                 use super::*;
@@ -5940,7 +5940,7 @@ pub mod model {
                     }
                 }
 
-                /// Defines additional types related to CategoricalValue
+                /// Defines additional types related to [CategoricalValue].
                 pub mod categorical_value {
                     #[allow(unused_imports)]
                     use super::*;
@@ -6134,7 +6134,7 @@ pub mod model {
         }
     }
 
-    /// Defines additional types related to ArimaForecastingMetrics
+    /// Defines additional types related to [ArimaForecastingMetrics].
     pub mod arima_forecasting_metrics {
         #[allow(unused_imports)]
         use super::*;
@@ -6611,7 +6611,7 @@ pub mod model {
         }
     }
 
-    /// Defines additional types related to EvaluationMetrics
+    /// Defines additional types related to [EvaluationMetrics].
     pub mod evaluation_metrics {
         #[allow(unused_imports)]
         use super::*;
@@ -6878,7 +6878,7 @@ pub mod model {
         }
     }
 
-    /// Defines additional types related to GlobalExplanation
+    /// Defines additional types related to [GlobalExplanation].
     pub mod global_explanation {
         #[allow(unused_imports)]
         use super::*;
@@ -6950,7 +6950,7 @@ pub mod model {
         }
     }
 
-    /// Defines additional types related to CategoryEncodingMethod
+    /// Defines additional types related to [CategoryEncodingMethod].
     pub mod category_encoding_method {
         #[allow(unused_imports)]
         use super::*;
@@ -7039,7 +7039,7 @@ pub mod model {
         }
     }
 
-    /// Defines additional types related to PcaSolverOptionEnums
+    /// Defines additional types related to [PcaSolverOptionEnums].
     pub mod pca_solver_option_enums {
         #[allow(unused_imports)]
         use super::*;
@@ -7126,7 +7126,7 @@ pub mod model {
         }
     }
 
-    /// Defines additional types related to ModelRegistryOptionEnums
+    /// Defines additional types related to [ModelRegistryOptionEnums].
     pub mod model_registry_option_enums {
         #[allow(unused_imports)]
         use super::*;
@@ -7348,7 +7348,7 @@ pub mod model {
         }
     }
 
-    /// Defines additional types related to TrainingRun
+    /// Defines additional types related to [TrainingRun].
     pub mod training_run {
         #[allow(unused_imports)]
         use super::*;
@@ -8797,7 +8797,7 @@ pub mod model {
             }
         }
 
-        /// Defines additional types related to IterationResult
+        /// Defines additional types related to [IterationResult].
         pub mod iteration_result {
             #[allow(unused_imports)]
             use super::*;
@@ -8916,7 +8916,7 @@ pub mod model {
                 }
             }
 
-            /// Defines additional types related to ArimaResult
+            /// Defines additional types related to [ArimaResult].
             pub mod arima_result {
                 #[allow(unused_imports)]
                 use super::*;
@@ -9371,7 +9371,7 @@ pub mod model {
         }
     }
 
-    /// Defines additional types related to DoubleHparamSearchSpace
+    /// Defines additional types related to [DoubleHparamSearchSpace].
     pub mod double_hparam_search_space {
         #[allow(unused_imports)]
         use super::*;
@@ -9578,7 +9578,7 @@ pub mod model {
         }
     }
 
-    /// Defines additional types related to IntHparamSearchSpace
+    /// Defines additional types related to [IntHparamSearchSpace].
     pub mod int_hparam_search_space {
         #[allow(unused_imports)]
         use super::*;
@@ -9747,7 +9747,7 @@ pub mod model {
         }
     }
 
-    /// Defines additional types related to IntArrayHparamSearchSpace
+    /// Defines additional types related to [IntArrayHparamSearchSpace].
     pub mod int_array_hparam_search_space {
         #[allow(unused_imports)]
         use super::*;
@@ -10297,7 +10297,7 @@ pub mod model {
         }
     }
 
-    /// Defines additional types related to HparamTuningTrial
+    /// Defines additional types related to [HparamTuningTrial].
     pub mod hparam_tuning_trial {
         #[allow(unused_imports)]
         use super::*;
@@ -12163,7 +12163,7 @@ impl wkt::message::Message for JoinRestrictionPolicy {
     }
 }
 
-/// Defines additional types related to JoinRestrictionPolicy
+/// Defines additional types related to [JoinRestrictionPolicy].
 pub mod join_restriction_policy {
     #[allow(unused_imports)]
     use super::*;
@@ -12357,7 +12357,7 @@ impl wkt::message::Message for PrivacyPolicy {
     }
 }
 
-/// Defines additional types related to PrivacyPolicy
+/// Defines additional types related to [PrivacyPolicy].
 pub mod privacy_policy {
     #[allow(unused_imports)]
     use super::*;
@@ -12823,7 +12823,7 @@ impl wkt::message::Message for RangePartitioning {
     }
 }
 
-/// Defines additional types related to RangePartitioning
+/// Defines additional types related to [RangePartitioning].
 pub mod range_partitioning {
     #[allow(unused_imports)]
     use super::*;
@@ -12912,7 +12912,7 @@ impl wkt::message::Message for RestrictionConfig {
     }
 }
 
-/// Defines additional types related to RestrictionConfig
+/// Defines additional types related to [RestrictionConfig].
 pub mod restriction_config {
     #[allow(unused_imports)]
     use super::*;
@@ -13293,7 +13293,7 @@ impl wkt::message::Message for Routine {
     }
 }
 
-/// Defines additional types related to Routine
+/// Defines additional types related to [Routine].
 pub mod routine {
     #[allow(unused_imports)]
     use super::*;
@@ -13387,7 +13387,7 @@ pub mod routine {
         }
     }
 
-    /// Defines additional types related to Argument
+    /// Defines additional types related to [Argument].
     pub mod argument {
         #[allow(unused_imports)]
         use super::*;
@@ -15398,7 +15398,7 @@ impl wkt::message::Message for StandardSqlDataType {
     }
 }
 
-/// Defines additional types related to StandardSqlDataType
+/// Defines additional types related to [StandardSqlDataType].
 pub mod standard_sql_data_type {
     #[allow(unused_imports)]
     use super::*;
@@ -15807,7 +15807,7 @@ impl wkt::message::Message for TableReplicationInfo {
     }
 }
 
-/// Defines additional types related to TableReplicationInfo
+/// Defines additional types related to [TableReplicationInfo].
 pub mod table_replication_info {
     #[allow(unused_imports)]
     use super::*;
@@ -17204,7 +17204,7 @@ impl wkt::message::Message for GetTableRequest {
     }
 }
 
-/// Defines additional types related to GetTableRequest
+/// Defines additional types related to [GetTableRequest].
 pub mod get_table_request {
     #[allow(unused_imports)]
     use super::*;
@@ -18159,7 +18159,7 @@ impl wkt::message::Message for ForeignTypeInfo {
     }
 }
 
-/// Defines additional types related to ForeignTypeInfo
+/// Defines additional types related to [ForeignTypeInfo].
 pub mod foreign_type_info {
     #[allow(unused_imports)]
     use super::*;
@@ -18542,7 +18542,7 @@ impl wkt::message::Message for TableFieldSchema {
     }
 }
 
-/// Defines additional types related to TableFieldSchema
+/// Defines additional types related to [TableFieldSchema].
 pub mod table_field_schema {
     #[allow(unused_imports)]
     use super::*;

@@ -20,7 +20,7 @@ pub mod cloud_redis {
 
     /// Common implementation for [super::super::client::CloudRedis] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::CloudRedis>,
         request: R,
         options: gax::options::RequestOptions,

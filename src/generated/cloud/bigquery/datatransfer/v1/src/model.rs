@@ -236,7 +236,7 @@ impl wkt::message::Message for DataSourceParameter {
     }
 }
 
-/// Defines additional types related to DataSourceParameter
+/// Defines additional types related to [DataSourceParameter].
 pub mod data_source_parameter {
     #[allow(unused_imports)]
     use super::*;
@@ -564,7 +564,7 @@ impl wkt::message::Message for DataSource {
     }
 }
 
-/// Defines additional types related to DataSource
+/// Defines additional types related to [DataSource].
 pub mod data_source {
     #[allow(unused_imports)]
     use super::*;
@@ -1439,7 +1439,7 @@ impl wkt::message::Message for ListTransferRunsRequest {
     }
 }
 
-/// Defines additional types related to ListTransferRunsRequest
+/// Defines additional types related to [ListTransferRunsRequest].
 pub mod list_transfer_runs_request {
     #[allow(unused_imports)]
     use super::*;
@@ -1959,7 +1959,7 @@ impl wkt::message::Message for StartManualTransferRunsRequest {
     }
 }
 
-/// Defines additional types related to StartManualTransferRunsRequest
+/// Defines additional types related to [StartManualTransferRunsRequest].
 pub mod start_manual_transfer_runs_request {
     #[allow(unused_imports)]
     use super::*;
@@ -2391,7 +2391,7 @@ impl wkt::message::Message for ScheduleOptionsV2 {
     }
 }
 
-/// Defines additional types related to ScheduleOptionsV2
+/// Defines additional types related to [ScheduleOptionsV2].
 pub mod schedule_options_v_2 {
     #[allow(unused_imports)]
     use super::*;
@@ -2908,7 +2908,7 @@ impl wkt::message::Message for TransferConfig {
     }
 }
 
-/// Defines additional types related to TransferConfig
+/// Defines additional types related to [TransferConfig].
 pub mod transfer_config {
     #[allow(unused_imports)]
     use super::*;
@@ -3205,7 +3205,7 @@ impl wkt::message::Message for TransferRun {
     }
 }
 
-/// Defines additional types related to TransferRun
+/// Defines additional types related to [TransferRun].
 pub mod transfer_run {
     #[allow(unused_imports)]
     use super::*;
@@ -3274,7 +3274,7 @@ impl wkt::message::Message for TransferMessage {
     }
 }
 
-/// Defines additional types related to TransferMessage
+/// Defines additional types related to [TransferMessage].
 pub mod transfer_message {
     #[allow(unused_imports)]
     use super::*;

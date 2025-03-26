@@ -253,7 +253,7 @@ impl wkt::message::Message for DataSet {
     }
 }
 
-/// Defines additional types related to DataSet
+/// Defines additional types related to [DataSet].
 pub mod data_set {
     #[allow(unused_imports)]
     use super::*;
@@ -481,7 +481,7 @@ impl wkt::message::Message for EventDimension {
     }
 }
 
-/// Defines additional types related to EventDimension
+/// Defines additional types related to [EventDimension].
 pub mod event_dimension {
     #[allow(unused_imports)]
     use super::*;
@@ -956,7 +956,7 @@ impl wkt::message::Message for PinnedDimension {
     }
 }
 
-/// Defines additional types related to PinnedDimension
+/// Defines additional types related to [PinnedDimension].
 pub mod pinned_dimension {
     #[allow(unused_imports)]
     use super::*;
@@ -1083,7 +1083,7 @@ impl wkt::message::Message for ForecastParams {
     }
 }
 
-/// Defines additional types related to ForecastParams
+/// Defines additional types related to [ForecastParams].
 pub mod forecast_params {
     #[allow(unused_imports)]
     use super::*;
@@ -1741,7 +1741,7 @@ impl wkt::message::Message for TimeseriesParams {
     }
 }
 
-/// Defines additional types related to TimeseriesParams
+/// Defines additional types related to [TimeseriesParams].
 pub mod timeseries_params {
     #[allow(unused_imports)]
     use super::*;

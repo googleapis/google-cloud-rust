@@ -175,7 +175,7 @@ impl wkt::message::Message for Event {
     }
 }
 
-/// Defines additional types related to Event
+/// Defines additional types related to [Event].
 pub mod event {
     #[allow(unused_imports)]
     use super::*;
@@ -317,7 +317,7 @@ impl wkt::message::Message for NetworkInterface {
     }
 }
 
-/// Defines additional types related to NetworkInterface
+/// Defines additional types related to [NetworkInterface].
 pub mod network_interface {
     #[allow(unused_imports)]
     use super::*;
@@ -467,7 +467,7 @@ impl wkt::message::Message for VmImage {
     }
 }
 
-/// Defines additional types related to VmImage
+/// Defines additional types related to [VmImage].
 pub mod vm_image {
     #[allow(unused_imports)]
     use super::*;
@@ -574,7 +574,7 @@ impl wkt::message::Message for AcceleratorConfig {
     }
 }
 
-/// Defines additional types related to AcceleratorConfig
+/// Defines additional types related to [AcceleratorConfig].
 pub mod accelerator_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1222,7 +1222,7 @@ impl wkt::message::Message for GceSetup {
     }
 }
 
-/// Defines additional types related to GceSetup
+/// Defines additional types related to [GceSetup].
 pub mod gce_setup {
     #[allow(unused_imports)]
     use super::*;
@@ -1356,7 +1356,7 @@ impl wkt::message::Message for UpgradeHistoryEntry {
     }
 }
 
-/// Defines additional types related to UpgradeHistoryEntry
+/// Defines additional types related to [UpgradeHistoryEntry].
 pub mod upgrade_history_entry {
     #[allow(unused_imports)]
     use super::*;
@@ -1718,7 +1718,7 @@ impl wkt::message::Message for Instance {
     }
 }
 
-/// Defines additional types related to Instance
+/// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;

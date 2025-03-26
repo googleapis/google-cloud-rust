@@ -20,7 +20,7 @@ pub mod gke_hub {
 
     /// Common implementation for [super::super::client::GkeHub] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::GkeHub>,
         request: R,
         options: gax::options::RequestOptions,

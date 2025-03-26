@@ -20,7 +20,7 @@ pub mod dep_service {
 
     /// Common implementation for [super::super::client::DepService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::DepService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -1389,7 +1389,7 @@ pub mod network_services {
 
     /// Common implementation for [super::super::client::NetworkServices] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::NetworkServices>,
         request: R,
         options: gax::options::RequestOptions,

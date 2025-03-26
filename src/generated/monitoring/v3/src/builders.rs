@@ -20,7 +20,7 @@ pub mod alert_policy_service {
 
     /// Common implementation for [super::super::client::AlertPolicyService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::AlertPolicyService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -323,7 +323,7 @@ pub mod group_service {
 
     /// Common implementation for [super::super::client::GroupService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::GroupService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -706,7 +706,7 @@ pub mod metric_service {
 
     /// Common implementation for [super::super::client::MetricService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::MetricService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -1311,7 +1311,7 @@ pub mod notification_channel_service {
 
     /// Common implementation for [super::super::client::NotificationChannelService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::NotificationChannelService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -1941,7 +1941,7 @@ pub mod query_service {
 
     /// Common implementation for [super::super::client::QueryService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::QueryService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -2041,7 +2041,7 @@ pub mod service_monitoring_service {
 
     /// Common implementation for [super::super::client::ServiceMonitoringService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::ServiceMonitoringService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -2671,7 +2671,7 @@ pub mod snooze_service {
 
     /// Common implementation for [super::super::client::SnoozeService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::SnoozeService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -2915,7 +2915,7 @@ pub mod uptime_check_service {
 
     /// Common implementation for [super::super::client::UptimeCheckService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::UptimeCheckService>,
         request: R,
         options: gax::options::RequestOptions,

@@ -203,7 +203,7 @@ impl wkt::message::Message for Channel {
     }
 }
 
-/// Defines additional types related to Channel
+/// Defines additional types related to [Channel].
 pub mod channel {
     #[allow(unused_imports)]
     use super::*;
@@ -3898,7 +3898,7 @@ impl wkt::message::Message for LoggingConfig {
     }
 }
 
-/// Defines additional types related to LoggingConfig
+/// Defines additional types related to [LoggingConfig].
 pub mod logging_config {
     #[allow(unused_imports)]
     use super::*;
@@ -4424,7 +4424,7 @@ impl wkt::message::Message for Pipeline {
     }
 }
 
-/// Defines additional types related to Pipeline
+/// Defines additional types related to [Pipeline].
 pub mod pipeline {
     #[allow(unused_imports)]
     use super::*;
@@ -4576,7 +4576,7 @@ pub mod pipeline {
         }
     }
 
-    /// Defines additional types related to MessagePayloadFormat
+    /// Defines additional types related to [MessagePayloadFormat].
     pub mod message_payload_format {
         #[allow(unused_imports)]
         use super::*;
@@ -4887,7 +4887,7 @@ pub mod pipeline {
         }
     }
 
-    /// Defines additional types related to Destination
+    /// Defines additional types related to [Destination].
     pub mod destination {
         #[allow(unused_imports)]
         use super::*;
@@ -5252,7 +5252,7 @@ pub mod pipeline {
             }
         }
 
-        /// Defines additional types related to AuthenticationConfig
+        /// Defines additional types related to [AuthenticationConfig].
         pub mod authentication_config {
             #[allow(unused_imports)]
             use super::*;
@@ -5495,7 +5495,7 @@ pub mod pipeline {
         }
     }
 
-    /// Defines additional types related to Mediation
+    /// Defines additional types related to [Mediation].
     pub mod mediation {
         #[allow(unused_imports)]
         use super::*;
@@ -6170,7 +6170,7 @@ impl wkt::message::Message for Destination {
     }
 }
 
-/// Defines additional types related to Destination
+/// Defines additional types related to [Destination].
 pub mod destination {
     #[allow(unused_imports)]
     use super::*;
@@ -6262,7 +6262,7 @@ impl wkt::message::Message for Transport {
     }
 }
 
-/// Defines additional types related to Transport
+/// Defines additional types related to [Transport].
 pub mod transport {
     #[allow(unused_imports)]
     use super::*;

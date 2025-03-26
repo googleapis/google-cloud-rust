@@ -20,7 +20,7 @@ pub mod policy_bindings {
 
     /// Common implementation for [super::super::client::PolicyBindings] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::PolicyBindings>,
         request: R,
         options: gax::options::RequestOptions,
@@ -588,7 +588,7 @@ pub mod principal_access_boundary_policies {
 
     /// Common implementation for [super::super::client::PrincipalAccessBoundaryPolicies] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::PrincipalAccessBoundaryPolicies>,
         request: R,
         options: gax::options::RequestOptions,

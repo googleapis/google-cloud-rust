@@ -300,13 +300,10 @@ You can find the [full function](#manually-polling-a-long-running-operation-comp
 {{#rustdoc_include ../samples/src/lro.rs:manual}}
 ```
 
-<!--
-
 ## What's Next
 
-TODO(#574) - add links to polling policies
-
--->
+- [Configuring polling policies](/configuring_polling_policies.md) describes how
+  to customize error handling and backoff periods for LROs.
 
 [batch recognize]: https://cloud.google.com/speech-to-text/v2/docs/batch-recognize
 [configuring polling policies]: ./configuring_polling_policies.md

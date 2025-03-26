@@ -427,7 +427,7 @@ impl wkt::message::Message for Payload {
     }
 }
 
-/// Defines additional types related to Payload
+/// Defines additional types related to [Payload].
 pub mod payload {
     #[allow(unused_imports)]
     use super::*;

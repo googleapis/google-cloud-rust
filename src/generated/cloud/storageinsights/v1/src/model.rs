@@ -538,7 +538,7 @@ impl wkt::message::Message for ReportDetail {
     }
 }
 
-/// Defines additional types related to ReportDetail
+/// Defines additional types related to [ReportDetail].
 pub mod report_detail {
     #[allow(unused_imports)]
     use super::*;
@@ -904,7 +904,7 @@ impl wkt::message::Message for FrequencyOptions {
     }
 }
 
-/// Defines additional types related to FrequencyOptions
+/// Defines additional types related to [FrequencyOptions].
 pub mod frequency_options {
     #[allow(unused_imports)]
     use super::*;
@@ -1247,7 +1247,7 @@ impl wkt::message::Message for ObjectMetadataReportOptions {
     }
 }
 
-/// Defines additional types related to ObjectMetadataReportOptions
+/// Defines additional types related to [ObjectMetadataReportOptions].
 pub mod object_metadata_report_options {
     #[allow(unused_imports)]
     use super::*;
@@ -1498,7 +1498,7 @@ impl wkt::message::Message for ReportConfig {
     }
 }
 
-/// Defines additional types related to ReportConfig
+/// Defines additional types related to [ReportConfig].
 pub mod report_config {
     #[allow(unused_imports)]
     use super::*;

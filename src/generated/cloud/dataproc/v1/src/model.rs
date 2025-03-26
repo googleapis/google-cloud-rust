@@ -187,7 +187,7 @@ impl wkt::message::Message for AutoscalingPolicy {
     }
 }
 
-/// Defines additional types related to AutoscalingPolicy
+/// Defines additional types related to [AutoscalingPolicy].
 pub mod autoscaling_policy {
     #[allow(unused_imports)]
     use super::*;
@@ -282,7 +282,7 @@ impl wkt::message::Message for BasicAutoscalingAlgorithm {
     }
 }
 
-/// Defines additional types related to BasicAutoscalingAlgorithm
+/// Defines additional types related to [BasicAutoscalingAlgorithm].
 pub mod basic_autoscaling_algorithm {
     #[allow(unused_imports)]
     use super::*;
@@ -1372,7 +1372,7 @@ impl wkt::message::Message for Batch {
     }
 }
 
-/// Defines additional types related to Batch
+/// Defines additional types related to [Batch].
 pub mod batch {
     #[allow(unused_imports)]
     use super::*;
@@ -1797,7 +1797,7 @@ impl wkt::message::Message for SparkBatch {
     }
 }
 
-/// Defines additional types related to SparkBatch
+/// Defines additional types related to [SparkBatch].
 pub mod spark_batch {
     #[allow(unused_imports)]
     use super::*;
@@ -2523,7 +2523,7 @@ impl wkt::message::Message for VirtualClusterConfig {
     }
 }
 
-/// Defines additional types related to VirtualClusterConfig
+/// Defines additional types related to [VirtualClusterConfig].
 pub mod virtual_cluster_config {
     #[allow(unused_imports)]
     use super::*;
@@ -3004,7 +3004,7 @@ impl wkt::message::Message for GceClusterConfig {
     }
 }
 
-/// Defines additional types related to GceClusterConfig
+/// Defines additional types related to [GceClusterConfig].
 pub mod gce_cluster_config {
     #[allow(unused_imports)]
     use super::*;
@@ -3483,7 +3483,7 @@ impl wkt::message::Message for InstanceGroupConfig {
     }
 }
 
-/// Defines additional types related to InstanceGroupConfig
+/// Defines additional types related to [InstanceGroupConfig].
 pub mod instance_group_config {
     #[allow(unused_imports)]
     use super::*;
@@ -3803,7 +3803,7 @@ impl wkt::message::Message for InstanceFlexibilityPolicy {
     }
 }
 
-/// Defines additional types related to InstanceFlexibilityPolicy
+/// Defines additional types related to [InstanceFlexibilityPolicy].
 pub mod instance_flexibility_policy {
     #[allow(unused_imports)]
     use super::*;
@@ -4262,7 +4262,7 @@ impl wkt::message::Message for NodeGroup {
     }
 }
 
-/// Defines additional types related to NodeGroup
+/// Defines additional types related to [NodeGroup].
 pub mod node_group {
     #[allow(unused_imports)]
     use super::*;
@@ -4437,7 +4437,7 @@ impl wkt::message::Message for ClusterStatus {
     }
 }
 
-/// Defines additional types related to ClusterStatus
+/// Defines additional types related to [ClusterStatus].
 pub mod cluster_status {
     #[allow(unused_imports)]
     use super::*;
@@ -5112,7 +5112,7 @@ impl wkt::message::Message for LifecycleConfig {
     }
 }
 
-/// Defines additional types related to LifecycleConfig
+/// Defines additional types related to [LifecycleConfig].
 pub mod lifecycle_config {
     #[allow(unused_imports)]
     use super::*;
@@ -5261,7 +5261,7 @@ impl wkt::message::Message for DataprocMetricConfig {
     }
 }
 
-/// Defines additional types related to DataprocMetricConfig
+/// Defines additional types related to [DataprocMetricConfig].
 pub mod dataproc_metric_config {
     #[allow(unused_imports)]
     use super::*;
@@ -6258,7 +6258,7 @@ impl wkt::message::Message for DiagnoseClusterRequest {
     }
 }
 
-/// Defines additional types related to DiagnoseClusterRequest
+/// Defines additional types related to [DiagnoseClusterRequest].
 pub mod diagnose_cluster_request {
     #[allow(unused_imports)]
     use super::*;
@@ -6416,7 +6416,7 @@ impl wkt::message::Message for ReservationAffinity {
     }
 }
 
-/// Defines additional types related to ReservationAffinity
+/// Defines additional types related to [ReservationAffinity].
 pub mod reservation_affinity {
     #[allow(unused_imports)]
     use super::*;
@@ -6526,7 +6526,7 @@ impl wkt::message::Message for LoggingConfig {
     }
 }
 
-/// Defines additional types related to LoggingConfig
+/// Defines additional types related to [LoggingConfig].
 pub mod logging_config {
     #[allow(unused_imports)]
     use super::*;
@@ -6811,7 +6811,7 @@ impl wkt::message::Message for HadoopJob {
     }
 }
 
-/// Defines additional types related to HadoopJob
+/// Defines additional types related to [HadoopJob].
 pub mod hadoop_job {
     #[allow(unused_imports)]
     use super::*;
@@ -7026,7 +7026,7 @@ impl wkt::message::Message for SparkJob {
     }
 }
 
-/// Defines additional types related to SparkJob
+/// Defines additional types related to [SparkJob].
 pub mod spark_job {
     #[allow(unused_imports)]
     use super::*;
@@ -7401,7 +7401,7 @@ impl wkt::message::Message for HiveJob {
     }
 }
 
-/// Defines additional types related to HiveJob
+/// Defines additional types related to [HiveJob].
 pub mod hive_job {
     #[allow(unused_imports)]
     use super::*;
@@ -7567,7 +7567,7 @@ impl wkt::message::Message for SparkSqlJob {
     }
 }
 
-/// Defines additional types related to SparkSqlJob
+/// Defines additional types related to [SparkSqlJob].
 pub mod spark_sql_job {
     #[allow(unused_imports)]
     use super::*;
@@ -7746,7 +7746,7 @@ impl wkt::message::Message for PigJob {
     }
 }
 
-/// Defines additional types related to PigJob
+/// Defines additional types related to [PigJob].
 pub mod pig_job {
     #[allow(unused_imports)]
     use super::*;
@@ -8036,7 +8036,7 @@ impl wkt::message::Message for PrestoJob {
     }
 }
 
-/// Defines additional types related to PrestoJob
+/// Defines additional types related to [PrestoJob].
 pub mod presto_job {
     #[allow(unused_imports)]
     use super::*;
@@ -8210,7 +8210,7 @@ impl wkt::message::Message for TrinoJob {
     }
 }
 
-/// Defines additional types related to TrinoJob
+/// Defines additional types related to [TrinoJob].
 pub mod trino_job {
     #[allow(unused_imports)]
     use super::*;
@@ -8395,7 +8395,7 @@ impl wkt::message::Message for FlinkJob {
     }
 }
 
-/// Defines additional types related to FlinkJob
+/// Defines additional types related to [FlinkJob].
 pub mod flink_job {
     #[allow(unused_imports)]
     use super::*;
@@ -8549,7 +8549,7 @@ impl wkt::message::Message for JobStatus {
     }
 }
 
-/// Defines additional types related to JobStatus
+/// Defines additional types related to [JobStatus].
 pub mod job_status {
     #[allow(unused_imports)]
     use super::*;
@@ -8836,7 +8836,7 @@ impl wkt::message::Message for YarnApplication {
     }
 }
 
-/// Defines additional types related to YarnApplication
+/// Defines additional types related to [YarnApplication].
 pub mod yarn_application {
     #[allow(unused_imports)]
     use super::*;
@@ -9392,7 +9392,7 @@ impl wkt::message::Message for Job {
     }
 }
 
-/// Defines additional types related to Job
+/// Defines additional types related to [Job].
 pub mod job {
     #[allow(unused_imports)]
     use super::*;
@@ -9821,7 +9821,7 @@ impl wkt::message::Message for ListJobsRequest {
     }
 }
 
-/// Defines additional types related to ListJobsRequest
+/// Defines additional types related to [ListJobsRequest].
 pub mod list_jobs_request {
     #[allow(unused_imports)]
     use super::*;
@@ -10467,7 +10467,7 @@ impl wkt::message::Message for BatchOperationMetadata {
     }
 }
 
-/// Defines additional types related to BatchOperationMetadata
+/// Defines additional types related to [BatchOperationMetadata].
 pub mod batch_operation_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -10647,7 +10647,7 @@ impl wkt::message::Message for SessionOperationMetadata {
     }
 }
 
-/// Defines additional types related to SessionOperationMetadata
+/// Defines additional types related to [SessionOperationMetadata].
 pub mod session_operation_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -10782,7 +10782,7 @@ impl wkt::message::Message for ClusterOperationStatus {
     }
 }
 
-/// Defines additional types related to ClusterOperationStatus
+/// Defines additional types related to [ClusterOperationStatus].
 pub mod cluster_operation_status {
     #[allow(unused_imports)]
     use super::*;
@@ -11109,7 +11109,7 @@ impl wkt::message::Message for NodeGroupOperationMetadata {
     }
 }
 
-/// Defines additional types related to NodeGroupOperationMetadata
+/// Defines additional types related to [NodeGroupOperationMetadata].
 pub mod node_group_operation_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -11659,7 +11659,7 @@ impl wkt::message::Message for SessionTemplate {
     }
 }
 
-/// Defines additional types related to SessionTemplate
+/// Defines additional types related to [SessionTemplate].
 pub mod session_template {
     #[allow(unused_imports)]
     use super::*;
@@ -12300,7 +12300,7 @@ impl wkt::message::Message for Session {
     }
 }
 
-/// Defines additional types related to Session
+/// Defines additional types related to [Session].
 pub mod session {
     #[allow(unused_imports)]
     use super::*;
@@ -12489,7 +12489,7 @@ impl wkt::message::Message for JupyterConfig {
     }
 }
 
-/// Defines additional types related to JupyterConfig
+/// Defines additional types related to [JupyterConfig].
 pub mod jupyter_config {
     #[allow(unused_imports)]
     use super::*;
@@ -12918,7 +12918,7 @@ impl wkt::message::Message for ExecutionConfig {
     }
 }
 
-/// Defines additional types related to ExecutionConfig
+/// Defines additional types related to [ExecutionConfig].
 pub mod execution_config {
     #[allow(unused_imports)]
     use super::*;
@@ -13449,7 +13449,7 @@ impl wkt::message::Message for KubernetesClusterConfig {
     }
 }
 
-/// Defines additional types related to KubernetesClusterConfig
+/// Defines additional types related to [KubernetesClusterConfig].
 pub mod kubernetes_cluster_config {
     #[allow(unused_imports)]
     use super::*;
@@ -13598,7 +13598,7 @@ impl wkt::message::Message for GkeNodePoolTarget {
     }
 }
 
-/// Defines additional types related to GkeNodePoolTarget
+/// Defines additional types related to [GkeNodePoolTarget].
 pub mod gke_node_pool_target {
     #[allow(unused_imports)]
     use super::*;
@@ -13763,7 +13763,7 @@ impl wkt::message::Message for GkeNodePoolConfig {
     }
 }
 
-/// Defines additional types related to GkeNodePoolConfig
+/// Defines additional types related to [GkeNodePoolConfig].
 pub mod gke_node_pool_config {
     #[allow(unused_imports)]
     use super::*;
@@ -14040,7 +14040,7 @@ impl wkt::message::Message for AuthenticationConfig {
     }
 }
 
-/// Defines additional types related to AuthenticationConfig
+/// Defines additional types related to [AuthenticationConfig].
 pub mod authentication_config {
     #[allow(unused_imports)]
     use super::*;
@@ -14142,7 +14142,7 @@ impl wkt::message::Message for AutotuningConfig {
     }
 }
 
-/// Defines additional types related to AutotuningConfig
+/// Defines additional types related to [AutotuningConfig].
 pub mod autotuning_config {
     #[allow(unused_imports)]
     use super::*;
@@ -14477,7 +14477,7 @@ impl wkt::message::Message for WorkflowTemplate {
     }
 }
 
-/// Defines additional types related to WorkflowTemplate
+/// Defines additional types related to [WorkflowTemplate].
 pub mod workflow_template {
     #[allow(unused_imports)]
     use super::*;
@@ -14642,7 +14642,7 @@ impl wkt::message::Message for WorkflowTemplatePlacement {
     }
 }
 
-/// Defines additional types related to WorkflowTemplatePlacement
+/// Defines additional types related to [WorkflowTemplatePlacement].
 pub mod workflow_template_placement {
     #[allow(unused_imports)]
     use super::*;
@@ -15153,7 +15153,7 @@ impl wkt::message::Message for OrderedJob {
     }
 }
 
-/// Defines additional types related to OrderedJob
+/// Defines additional types related to [OrderedJob].
 pub mod ordered_job {
     #[allow(unused_imports)]
     use super::*;
@@ -15411,7 +15411,7 @@ impl wkt::message::Message for ParameterValidation {
     }
 }
 
-/// Defines additional types related to ParameterValidation
+/// Defines additional types related to [ParameterValidation].
 pub mod parameter_validation {
     #[allow(unused_imports)]
     use super::*;
@@ -15713,7 +15713,7 @@ impl wkt::message::Message for WorkflowMetadata {
     }
 }
 
-/// Defines additional types related to WorkflowMetadata
+/// Defines additional types related to [WorkflowMetadata].
 pub mod workflow_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -15939,7 +15939,7 @@ impl wkt::message::Message for WorkflowNode {
     }
 }
 
-/// Defines additional types related to WorkflowNode
+/// Defines additional types related to [WorkflowNode].
 pub mod workflow_node {
     #[allow(unused_imports)]
     use super::*;

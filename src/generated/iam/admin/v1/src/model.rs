@@ -68,7 +68,7 @@ impl wkt::message::Message for AuditData {
     }
 }
 
-/// Defines additional types related to AuditData
+/// Defines additional types related to [AuditData].
 pub mod audit_data {
     #[allow(unused_imports)]
     use super::*;
@@ -752,7 +752,7 @@ impl wkt::message::Message for ListServiceAccountKeysRequest {
     }
 }
 
-/// Defines additional types related to ListServiceAccountKeysRequest
+/// Defines additional types related to [ListServiceAccountKeysRequest].
 pub mod list_service_account_keys_request {
     #[allow(unused_imports)]
     use super::*;
@@ -1602,7 +1602,7 @@ impl wkt::message::Message for Role {
     }
 }
 
-/// Defines additional types related to Role
+/// Defines additional types related to [Role].
 pub mod role {
     #[allow(unused_imports)]
     use super::*;
@@ -2416,7 +2416,7 @@ impl wkt::message::Message for Permission {
     }
 }
 
-/// Defines additional types related to Permission
+/// Defines additional types related to [Permission].
 pub mod permission {
     #[allow(unused_imports)]
     use super::*;
@@ -2729,7 +2729,7 @@ impl wkt::message::Message for QueryAuditableServicesResponse {
     }
 }
 
-/// Defines additional types related to QueryAuditableServicesResponse
+/// Defines additional types related to [QueryAuditableServicesResponse].
 pub mod query_auditable_services_response {
     #[allow(unused_imports)]
     use super::*;
@@ -2848,7 +2848,7 @@ impl wkt::message::Message for LintPolicyRequest {
     }
 }
 
-/// Defines additional types related to LintPolicyRequest
+/// Defines additional types related to [LintPolicyRequest].
 pub mod lint_policy_request {
     #[allow(unused_imports)]
     use super::*;
@@ -2957,7 +2957,7 @@ impl wkt::message::Message for LintResult {
     }
 }
 
-/// Defines additional types related to LintResult
+/// Defines additional types related to [LintResult].
 pub mod lint_result {
     #[allow(unused_imports)]
     use super::*;

@@ -163,7 +163,7 @@ impl wkt::message::Message for ReplicationCycle {
     }
 }
 
-/// Defines additional types related to ReplicationCycle
+/// Defines additional types related to [ReplicationCycle].
 pub mod replication_cycle {
     #[allow(unused_imports)]
     use super::*;
@@ -384,7 +384,7 @@ impl wkt::message::Message for CycleStep {
     }
 }
 
-/// Defines additional types related to CycleStep
+/// Defines additional types related to [CycleStep].
 pub mod cycle_step {
     #[allow(unused_imports)]
     use super::*;
@@ -878,7 +878,7 @@ impl wkt::message::Message for MigratingVm {
     }
 }
 
-/// Defines additional types related to MigratingVm
+/// Defines additional types related to [MigratingVm].
 pub mod migrating_vm {
     #[allow(unused_imports)]
     use super::*;
@@ -1179,7 +1179,7 @@ impl wkt::message::Message for CloneJob {
     }
 }
 
-/// Defines additional types related to CloneJob
+/// Defines additional types related to [CloneJob].
 pub mod clone_job {
     #[allow(unused_imports)]
     use super::*;
@@ -1421,7 +1421,7 @@ impl wkt::message::Message for CloneStep {
     }
 }
 
-/// Defines additional types related to CloneStep
+/// Defines additional types related to [CloneStep].
 pub mod clone_step {
     #[allow(unused_imports)]
     use super::*;
@@ -1675,7 +1675,7 @@ impl wkt::message::Message for CutoverJob {
     }
 }
 
-/// Defines additional types related to CutoverJob
+/// Defines additional types related to [CutoverJob].
 pub mod cutover_job {
     #[allow(unused_imports)]
     use super::*;
@@ -1986,7 +1986,7 @@ impl wkt::message::Message for CutoverStep {
     }
 }
 
-/// Defines additional types related to CutoverStep
+/// Defines additional types related to [CutoverStep].
 pub mod cutover_step {
     #[allow(unused_imports)]
     use super::*;
@@ -2474,7 +2474,7 @@ impl wkt::message::Message for Source {
     }
 }
 
-/// Defines additional types related to Source
+/// Defines additional types related to [Source].
 pub mod source {
     #[allow(unused_imports)]
     use super::*;
@@ -2717,7 +2717,7 @@ impl wkt::message::Message for AwsSourceDetails {
     }
 }
 
-/// Defines additional types related to AwsSourceDetails
+/// Defines additional types related to [AwsSourceDetails].
 pub mod aws_source_details {
     #[allow(unused_imports)]
     use super::*;
@@ -3084,7 +3084,7 @@ impl wkt::message::Message for DatacenterConnector {
     }
 }
 
-/// Defines additional types related to DatacenterConnector
+/// Defines additional types related to [DatacenterConnector].
 pub mod datacenter_connector {
     #[allow(unused_imports)]
     use super::*;
@@ -3240,7 +3240,7 @@ impl wkt::message::Message for UpgradeStatus {
     }
 }
 
-/// Defines additional types related to UpgradeStatus
+/// Defines additional types related to [UpgradeStatus].
 pub mod upgrade_status {
     #[allow(unused_imports)]
     use super::*;
@@ -3986,7 +3986,7 @@ impl wkt::message::Message for VmwareVmDetails {
     }
 }
 
-/// Defines additional types related to VmwareVmDetails
+/// Defines additional types related to [VmwareVmDetails].
 pub mod vmware_vm_details {
     #[allow(unused_imports)]
     use super::*;
@@ -4335,7 +4335,7 @@ impl wkt::message::Message for AwsVmDetails {
     }
 }
 
-/// Defines additional types related to AwsVmDetails
+/// Defines additional types related to [AwsVmDetails].
 pub mod aws_vm_details {
     #[allow(unused_imports)]
     use super::*;
@@ -4818,7 +4818,7 @@ impl wkt::message::Message for FetchInventoryResponse {
     }
 }
 
-/// Defines additional types related to FetchInventoryResponse
+/// Defines additional types related to [FetchInventoryResponse].
 pub mod fetch_inventory_response {
     #[allow(unused_imports)]
     use super::*;
@@ -4982,7 +4982,7 @@ impl wkt::message::Message for UtilizationReport {
     }
 }
 
-/// Defines additional types related to UtilizationReport
+/// Defines additional types related to [UtilizationReport].
 pub mod utilization_report {
     #[allow(unused_imports)]
     use super::*;
@@ -5202,7 +5202,7 @@ impl wkt::message::Message for VmUtilizationInfo {
     }
 }
 
-/// Defines additional types related to VmUtilizationInfo
+/// Defines additional types related to [VmUtilizationInfo].
 pub mod vm_utilization_info {
     #[allow(unused_imports)]
     use super::*;
@@ -6631,7 +6631,7 @@ impl wkt::message::Message for AppliedLicense {
     }
 }
 
-/// Defines additional types related to AppliedLicense
+/// Defines additional types related to [AppliedLicense].
 pub mod applied_license {
     #[allow(unused_imports)]
     use super::*;
@@ -6758,7 +6758,7 @@ impl wkt::message::Message for SchedulingNodeAffinity {
     }
 }
 
-/// Defines additional types related to SchedulingNodeAffinity
+/// Defines additional types related to [SchedulingNodeAffinity].
 pub mod scheduling_node_affinity {
     #[allow(unused_imports)]
     use super::*;
@@ -6903,7 +6903,7 @@ impl wkt::message::Message for ComputeScheduling {
     }
 }
 
-/// Defines additional types related to ComputeScheduling
+/// Defines additional types related to [ComputeScheduling].
 pub mod compute_scheduling {
     #[allow(unused_imports)]
     use super::*;
@@ -9150,7 +9150,7 @@ impl wkt::message::Message for MigrationError {
     }
 }
 
-/// Defines additional types related to MigrationError
+/// Defines additional types related to [MigrationError].
 pub mod migration_error {
     #[allow(unused_imports)]
     use super::*;
@@ -9301,7 +9301,7 @@ impl wkt::message::Message for AwsSourceVmDetails {
     }
 }
 
-/// Defines additional types related to AwsSourceVmDetails
+/// Defines additional types related to [AwsSourceVmDetails].
 pub mod aws_source_vm_details {
     #[allow(unused_imports)]
     use super::*;

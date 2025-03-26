@@ -138,7 +138,7 @@ impl wkt::message::Message for Api {
     }
 }
 
-/// Defines additional types related to Api
+/// Defines additional types related to [Api].
 pub mod api {
     #[allow(unused_imports)]
     use super::*;
@@ -405,7 +405,7 @@ impl wkt::message::Message for ApiConfig {
     }
 }
 
-/// Defines additional types related to ApiConfig
+/// Defines additional types related to [ApiConfig].
 pub mod api_config {
     #[allow(unused_imports)]
     use super::*;
@@ -742,7 +742,7 @@ impl wkt::message::Message for Gateway {
     }
 }
 
-/// Defines additional types related to Gateway
+/// Defines additional types related to [Gateway].
 pub mod gateway {
     #[allow(unused_imports)]
     use super::*;
@@ -1612,7 +1612,7 @@ impl wkt::message::Message for GetApiConfigRequest {
     }
 }
 
-/// Defines additional types related to GetApiConfigRequest
+/// Defines additional types related to [GetApiConfigRequest].
 pub mod get_api_config_request {
     #[allow(unused_imports)]
     use super::*;
@@ -1923,7 +1923,7 @@ impl wkt::message::Message for OperationMetadata {
     }
 }
 
-/// Defines additional types related to OperationMetadata
+/// Defines additional types related to [OperationMetadata].
 pub mod operation_metadata {
     #[allow(unused_imports)]
     use super::*;

@@ -781,7 +781,7 @@ impl wkt::message::Message for Job {
     }
 }
 
-/// Defines additional types related to Job
+/// Defines additional types related to [Job].
 pub mod job {
     #[allow(unused_imports)]
     use super::*;
@@ -1225,7 +1225,7 @@ impl wkt::message::Message for HttpTarget {
     }
 }
 
-/// Defines additional types related to HttpTarget
+/// Defines additional types related to [HttpTarget].
 pub mod http_target {
     #[allow(unused_imports)]
     use super::*;

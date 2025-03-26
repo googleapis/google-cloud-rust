@@ -2465,7 +2465,7 @@ impl wkt::message::Message for ApiHubResource {
     }
 }
 
-/// Defines additional types related to ApiHubResource
+/// Defines additional types related to [ApiHubResource].
 pub mod api_hub_resource {
     #[allow(unused_imports)]
     use super::*;
@@ -3987,7 +3987,7 @@ impl wkt::message::Message for Spec {
     }
 }
 
-/// Defines additional types related to Spec
+/// Defines additional types related to [Spec].
 pub mod spec {
     #[allow(unused_imports)]
     use super::*;
@@ -4537,7 +4537,7 @@ impl wkt::message::Message for Definition {
     }
 }
 
-/// Defines additional types related to Definition
+/// Defines additional types related to [Definition].
 pub mod definition {
     #[allow(unused_imports)]
     use super::*;
@@ -4762,7 +4762,7 @@ impl wkt::message::Message for Attribute {
     }
 }
 
-/// Defines additional types related to Attribute
+/// Defines additional types related to [Attribute].
 pub mod attribute {
     #[allow(unused_imports)]
     use super::*;
@@ -5173,7 +5173,7 @@ impl wkt::message::Message for SpecDetails {
     }
 }
 
-/// Defines additional types related to SpecDetails
+/// Defines additional types related to [SpecDetails].
 pub mod spec_details {
     #[allow(unused_imports)]
     use super::*;
@@ -5253,7 +5253,7 @@ impl wkt::message::Message for OpenApiSpecDetails {
     }
 }
 
-/// Defines additional types related to OpenApiSpecDetails
+/// Defines additional types related to [OpenApiSpecDetails].
 pub mod open_api_spec_details {
     #[allow(unused_imports)]
     use super::*;
@@ -5424,7 +5424,7 @@ impl wkt::message::Message for OperationDetails {
     }
 }
 
-/// Defines additional types related to OperationDetails
+/// Defines additional types related to [OperationDetails].
 pub mod operation_details {
     #[allow(unused_imports)]
     use super::*;
@@ -5482,7 +5482,7 @@ impl wkt::message::Message for HttpOperation {
     }
 }
 
-/// Defines additional types related to HttpOperation
+/// Defines additional types related to [HttpOperation].
 pub mod http_operation {
     #[allow(unused_imports)]
     use super::*;
@@ -5864,7 +5864,7 @@ impl wkt::message::Message for AttributeValues {
     }
 }
 
-/// Defines additional types related to AttributeValues
+/// Defines additional types related to [AttributeValues].
 pub mod attribute_values {
     #[allow(unused_imports)]
     use super::*;
@@ -6117,7 +6117,7 @@ impl wkt::message::Message for Dependency {
     }
 }
 
-/// Defines additional types related to Dependency
+/// Defines additional types related to [Dependency].
 pub mod dependency {
     #[allow(unused_imports)]
     use super::*;
@@ -6340,7 +6340,7 @@ impl wkt::message::Message for DependencyEntityReference {
     }
 }
 
-/// Defines additional types related to DependencyEntityReference
+/// Defines additional types related to [DependencyEntityReference].
 pub mod dependency_entity_reference {
     #[allow(unused_imports)]
     use super::*;
@@ -6407,7 +6407,7 @@ impl wkt::message::Message for DependencyErrorDetail {
     }
 }
 
-/// Defines additional types related to DependencyErrorDetail
+/// Defines additional types related to [DependencyErrorDetail].
 pub mod dependency_error_detail {
     #[allow(unused_imports)]
     use super::*;
@@ -6560,7 +6560,7 @@ impl wkt::message::Message for LintResponse {
     }
 }
 
-/// Defines additional types related to LintResponse
+/// Defines additional types related to [LintResponse].
 pub mod lint_response {
     #[allow(unused_imports)]
     use super::*;
@@ -6985,7 +6985,7 @@ impl wkt::message::Message for ApiHubInstance {
     }
 }
 
-/// Defines additional types related to ApiHubInstance
+/// Defines additional types related to [ApiHubInstance].
 pub mod api_hub_instance {
     #[allow(unused_imports)]
     use super::*;
@@ -7883,7 +7883,7 @@ impl wkt::message::Message for Plugin {
     }
 }
 
-/// Defines additional types related to Plugin
+/// Defines additional types related to [Plugin].
 pub mod plugin {
     #[allow(unused_imports)]
     use super::*;

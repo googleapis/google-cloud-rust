@@ -20,7 +20,7 @@ pub mod api_hub {
 
     /// Common implementation for [super::super::client::ApiHub] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::ApiHub>,
         request: R,
         options: gax::options::RequestOptions,
@@ -2254,7 +2254,7 @@ pub mod api_hub_dependencies {
 
     /// Common implementation for [super::super::client::ApiHubDependencies] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::ApiHubDependencies>,
         request: R,
         options: gax::options::RequestOptions,
@@ -2884,7 +2884,7 @@ pub mod host_project_registration_service {
 
     /// Common implementation for [super::super::client::HostProjectRegistrationService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::HostProjectRegistrationService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -3456,7 +3456,7 @@ pub mod linting_service {
 
     /// Common implementation for [super::super::client::LintingService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::LintingService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -3991,7 +3991,7 @@ pub mod api_hub_plugin {
 
     /// Common implementation for [super::super::client::ApiHubPlugin] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::ApiHubPlugin>,
         request: R,
         options: gax::options::RequestOptions,
@@ -4467,7 +4467,7 @@ pub mod provisioning {
 
     /// Common implementation for [super::super::client::Provisioning] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Provisioning>,
         request: R,
         options: gax::options::RequestOptions,
@@ -5006,7 +5006,7 @@ pub mod runtime_project_attachment_service {
 
     /// Common implementation for [super::super::client::RuntimeProjectAttachmentService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::RuntimeProjectAttachmentService>,
         request: R,
         options: gax::options::RequestOptions,

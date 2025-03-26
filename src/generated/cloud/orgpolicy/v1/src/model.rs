@@ -219,7 +219,7 @@ impl wkt::message::Message for Policy {
     }
 }
 
-/// Defines additional types related to Policy
+/// Defines additional types related to [Policy].
 pub mod policy {
     #[allow(unused_imports)]
     use super::*;
@@ -430,7 +430,7 @@ pub mod policy {
         }
     }
 
-    /// Defines additional types related to ListPolicy
+    /// Defines additional types related to [ListPolicy].
     pub mod list_policy {
         #[allow(unused_imports)]
         use super::*;

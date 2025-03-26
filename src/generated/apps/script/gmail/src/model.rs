@@ -228,7 +228,7 @@ impl wkt::message::Message for UniversalAction {
     }
 }
 
-/// Defines additional types related to UniversalAction
+/// Defines additional types related to [UniversalAction].
 pub mod universal_action {
     #[allow(unused_imports)]
     use super::*;
@@ -295,7 +295,7 @@ impl wkt::message::Message for ComposeTrigger {
     }
 }
 
-/// Defines additional types related to ComposeTrigger
+/// Defines additional types related to [ComposeTrigger].
 pub mod compose_trigger {
     #[allow(unused_imports)]
     use super::*;
@@ -444,7 +444,7 @@ impl wkt::message::Message for ContextualTrigger {
     }
 }
 
-/// Defines additional types related to ContextualTrigger
+/// Defines additional types related to [ContextualTrigger].
 pub mod contextual_trigger {
     #[allow(unused_imports)]
     use super::*;

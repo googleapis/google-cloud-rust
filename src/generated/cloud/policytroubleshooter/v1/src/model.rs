@@ -468,7 +468,7 @@ impl wkt::message::Message for BindingExplanation {
     }
 }
 
-/// Defines additional types related to BindingExplanation
+/// Defines additional types related to [BindingExplanation].
 pub mod binding_explanation {
     #[allow(unused_imports)]
     use super::*;

@@ -294,7 +294,7 @@ impl wkt::message::Message for AccessReason {
     }
 }
 
-/// Defines additional types related to AccessReason
+/// Defines additional types related to [AccessReason].
 pub mod access_reason {
     #[allow(unused_imports)]
     use super::*;
@@ -627,7 +627,7 @@ impl wkt::message::Message for Workload {
     }
 }
 
-/// Defines additional types related to Workload
+/// Defines additional types related to [Workload].
 pub mod workload {
     #[allow(unused_imports)]
     use super::*;
@@ -1001,7 +1001,7 @@ impl wkt::message::Message for WorkloadOnboardingStep {
     }
 }
 
-/// Defines additional types related to WorkloadOnboardingStep
+/// Defines additional types related to [WorkloadOnboardingStep].
 pub mod workload_onboarding_step {
     #[allow(unused_imports)]
     use super::*;
@@ -1407,7 +1407,7 @@ impl wkt::message::Message for CustomerOnboardingStep {
     }
 }
 
-/// Defines additional types related to CustomerOnboardingStep
+/// Defines additional types related to [CustomerOnboardingStep].
 pub mod customer_onboarding_step {
     #[allow(unused_imports)]
     use super::*;
@@ -1604,7 +1604,7 @@ impl wkt::message::Message for EkmConnection {
     }
 }
 
-/// Defines additional types related to EkmConnection
+/// Defines additional types related to [EkmConnection].
 pub mod ekm_connection {
     #[allow(unused_imports)]
     use super::*;
@@ -1770,7 +1770,7 @@ impl wkt::message::Message for PartnerPermissions {
     }
 }
 
-/// Defines additional types related to PartnerPermissions
+/// Defines additional types related to [PartnerPermissions].
 pub mod partner_permissions {
     #[allow(unused_imports)]
     use super::*;
@@ -2123,7 +2123,7 @@ impl wkt::message::Message for EkmMetadata {
     }
 }
 
-/// Defines additional types related to EkmMetadata
+/// Defines additional types related to [EkmMetadata].
 pub mod ekm_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -2346,7 +2346,7 @@ impl wkt::message::Message for Violation {
     }
 }
 
-/// Defines additional types related to Violation
+/// Defines additional types related to [Violation].
 pub mod violation {
     #[allow(unused_imports)]
     use super::*;
@@ -2420,7 +2420,7 @@ pub mod violation {
         }
     }
 
-    /// Defines additional types related to Remediation
+    /// Defines additional types related to [Remediation].
     pub mod remediation {
         #[allow(unused_imports)]
         use super::*;
@@ -2484,7 +2484,7 @@ pub mod violation {
             }
         }
 
-        /// Defines additional types related to Instructions
+        /// Defines additional types related to [Instructions].
         pub mod instructions {
             #[allow(unused_imports)]
             use super::*;

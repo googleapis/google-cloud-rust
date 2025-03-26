@@ -437,7 +437,7 @@ impl wkt::message::Message for DisableServiceRequest {
     }
 }
 
-/// Defines additional types related to DisableServiceRequest
+/// Defines additional types related to [DisableServiceRequest].
 pub mod disable_service_request {
     #[allow(unused_imports)]
     use super::*;
@@ -807,7 +807,7 @@ impl wkt::message::Message for BatchEnableServicesResponse {
     }
 }
 
-/// Defines additional types related to BatchEnableServicesResponse
+/// Defines additional types related to [BatchEnableServicesResponse].
 pub mod batch_enable_services_response {
     #[allow(unused_imports)]
     use super::*;

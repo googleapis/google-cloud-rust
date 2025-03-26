@@ -825,7 +825,7 @@ impl wkt::message::Message for Restrictions {
     }
 }
 
-/// Defines additional types related to Restrictions
+/// Defines additional types related to [Restrictions].
 pub mod restrictions {
     #[allow(unused_imports)]
     use super::*;

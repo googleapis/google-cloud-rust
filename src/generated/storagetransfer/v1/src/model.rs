@@ -1433,7 +1433,7 @@ impl wkt::message::Message for AwsS3Data {
     }
 }
 
-/// Defines additional types related to AwsS3Data
+/// Defines additional types related to [AwsS3Data].
 pub mod aws_s_3_data {
     #[allow(unused_imports)]
     use super::*;
@@ -1810,7 +1810,7 @@ impl wkt::message::Message for AwsS3CompatibleData {
     }
 }
 
-/// Defines additional types related to AwsS3CompatibleData
+/// Defines additional types related to [AwsS3CompatibleData].
 pub mod aws_s_3_compatible_data {
     #[allow(unused_imports)]
     use super::*;
@@ -1907,7 +1907,7 @@ impl wkt::message::Message for S3CompatibleMetadata {
     }
 }
 
-/// Defines additional types related to S3CompatibleMetadata
+/// Defines additional types related to [S3CompatibleMetadata].
 pub mod s_3_compatible_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -2228,7 +2228,7 @@ impl wkt::message::Message for AgentPool {
     }
 }
 
-/// Defines additional types related to AgentPool
+/// Defines additional types related to [AgentPool].
 pub mod agent_pool {
     #[allow(unused_imports)]
     use super::*;
@@ -2430,7 +2430,7 @@ impl wkt::message::Message for TransferOptions {
     }
 }
 
-/// Defines additional types related to TransferOptions
+/// Defines additional types related to [TransferOptions].
 pub mod transfer_options {
     #[allow(unused_imports)]
     use super::*;
@@ -2961,7 +2961,7 @@ impl wkt::message::Message for TransferSpec {
     }
 }
 
-/// Defines additional types related to TransferSpec
+/// Defines additional types related to [TransferSpec].
 pub mod transfer_spec {
     #[allow(unused_imports)]
     use super::*;
@@ -3161,7 +3161,7 @@ impl wkt::message::Message for ReplicationSpec {
     }
 }
 
-/// Defines additional types related to ReplicationSpec
+/// Defines additional types related to [ReplicationSpec].
 pub mod replication_spec {
     #[allow(unused_imports)]
     use super::*;
@@ -3346,7 +3346,7 @@ impl wkt::message::Message for MetadataOptions {
     }
 }
 
-/// Defines additional types related to MetadataOptions
+/// Defines additional types related to [MetadataOptions].
 pub mod metadata_options {
     #[allow(unused_imports)]
     use super::*;
@@ -4421,7 +4421,7 @@ impl wkt::message::Message for TransferJob {
     }
 }
 
-/// Defines additional types related to TransferJob
+/// Defines additional types related to [TransferJob].
 pub mod transfer_job {
     #[allow(unused_imports)]
     use super::*;
@@ -4956,7 +4956,7 @@ impl wkt::message::Message for NotificationConfig {
     }
 }
 
-/// Defines additional types related to NotificationConfig
+/// Defines additional types related to [NotificationConfig].
 pub mod notification_config {
     #[allow(unused_imports)]
     use super::*;
@@ -5177,7 +5177,7 @@ impl wkt::message::Message for LoggingConfig {
     }
 }
 
-/// Defines additional types related to LoggingConfig
+/// Defines additional types related to [LoggingConfig].
 pub mod logging_config {
     #[allow(unused_imports)]
     use super::*;
@@ -5474,7 +5474,7 @@ impl wkt::message::Message for TransferOperation {
     }
 }
 
-/// Defines additional types related to TransferOperation
+/// Defines additional types related to [TransferOperation].
 pub mod transfer_operation {
     #[allow(unused_imports)]
     use super::*;

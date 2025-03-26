@@ -126,7 +126,7 @@ impl wkt::message::Message for ClientGateway {
     }
 }
 
-/// Defines additional types related to ClientGateway
+/// Defines additional types related to [ClientGateway].
 pub mod client_gateway {
     #[allow(unused_imports)]
     use super::*;

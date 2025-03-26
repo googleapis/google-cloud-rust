@@ -441,7 +441,7 @@ impl wkt::message::Message for CertificateIssuanceConfig {
     }
 }
 
-/// Defines additional types related to CertificateIssuanceConfig
+/// Defines additional types related to [CertificateIssuanceConfig].
 pub mod certificate_issuance_config {
     #[allow(unused_imports)]
     use super::*;
@@ -503,7 +503,7 @@ pub mod certificate_issuance_config {
         }
     }
 
-    /// Defines additional types related to CertificateAuthorityConfig
+    /// Defines additional types related to [CertificateAuthorityConfig].
     pub mod certificate_authority_config {
         #[allow(unused_imports)]
         use super::*;
@@ -2171,7 +2171,7 @@ impl wkt::message::Message for Certificate {
     }
 }
 
-/// Defines additional types related to Certificate
+/// Defines additional types related to [Certificate].
 pub mod certificate {
     #[allow(unused_imports)]
     use super::*;
@@ -2353,7 +2353,7 @@ pub mod certificate {
         }
     }
 
-    /// Defines additional types related to ManagedCertificate
+    /// Defines additional types related to [ManagedCertificate].
     pub mod managed_certificate {
         #[allow(unused_imports)]
         use super::*;
@@ -2405,7 +2405,7 @@ pub mod certificate {
             }
         }
 
-        /// Defines additional types related to ProvisioningIssue
+        /// Defines additional types related to [ProvisioningIssue].
         pub mod provisioning_issue {
             #[allow(unused_imports)]
             use super::*;
@@ -2536,7 +2536,7 @@ pub mod certificate {
             }
         }
 
-        /// Defines additional types related to AuthorizationAttemptInfo
+        /// Defines additional types related to [AuthorizationAttemptInfo].
         pub mod authorization_attempt_info {
             #[allow(unused_imports)]
             use super::*;
@@ -2915,7 +2915,7 @@ impl wkt::message::Message for CertificateMap {
     }
 }
 
-/// Defines additional types related to CertificateMap
+/// Defines additional types related to [CertificateMap].
 pub mod certificate_map {
     #[allow(unused_imports)]
     use super::*;
@@ -3029,7 +3029,7 @@ pub mod certificate_map {
         }
     }
 
-    /// Defines additional types related to GclbTarget
+    /// Defines additional types related to [GclbTarget].
     pub mod gclb_target {
         #[allow(unused_imports)]
         use super::*;
@@ -3272,7 +3272,7 @@ impl wkt::message::Message for CertificateMapEntry {
     }
 }
 
-/// Defines additional types related to CertificateMapEntry
+/// Defines additional types related to [CertificateMapEntry].
 pub mod certificate_map_entry {
     #[allow(unused_imports)]
     use super::*;
@@ -3474,7 +3474,7 @@ impl wkt::message::Message for DnsAuthorization {
     }
 }
 
-/// Defines additional types related to DnsAuthorization
+/// Defines additional types related to [DnsAuthorization].
 pub mod dns_authorization {
     #[allow(unused_imports)]
     use super::*;
@@ -4032,7 +4032,7 @@ impl wkt::message::Message for TrustConfig {
     }
 }
 
-/// Defines additional types related to TrustConfig
+/// Defines additional types related to [TrustConfig].
 pub mod trust_config {
     #[allow(unused_imports)]
     use super::*;
@@ -4098,7 +4098,7 @@ pub mod trust_config {
         }
     }
 
-    /// Defines additional types related to TrustAnchor
+    /// Defines additional types related to [TrustAnchor].
     pub mod trust_anchor {
         #[allow(unused_imports)]
         use super::*;
@@ -4177,7 +4177,7 @@ pub mod trust_config {
         }
     }
 
-    /// Defines additional types related to IntermediateCA
+    /// Defines additional types related to [IntermediateCA].
     pub mod intermediate_ca {
         #[allow(unused_imports)]
         use super::*;

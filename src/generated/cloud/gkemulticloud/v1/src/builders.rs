@@ -20,7 +20,7 @@ pub mod attached_clusters {
 
     /// Common implementation for [super::super::client::AttachedClusters] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::AttachedClusters>,
         request: R,
         options: gax::options::RequestOptions,
@@ -1005,7 +1005,7 @@ pub mod aws_clusters {
 
     /// Common implementation for [super::super::client::AwsClusters] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>,
         request: R,
         options: gax::options::RequestOptions,
@@ -2439,7 +2439,7 @@ pub mod azure_clusters {
 
     /// Common implementation for [super::super::client::AzureClusters] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>,
         request: R,
         options: gax::options::RequestOptions,

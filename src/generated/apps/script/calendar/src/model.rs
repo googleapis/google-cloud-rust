@@ -136,7 +136,7 @@ impl wkt::message::Message for CalendarAddOnManifest {
     }
 }
 
-/// Defines additional types related to CalendarAddOnManifest
+/// Defines additional types related to [CalendarAddOnManifest].
 pub mod calendar_add_on_manifest {
     #[allow(unused_imports)]
     use super::*;

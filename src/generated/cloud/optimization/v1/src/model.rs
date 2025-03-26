@@ -105,7 +105,7 @@ impl wkt::message::Message for InputConfig {
     }
 }
 
-/// Defines additional types related to InputConfig
+/// Defines additional types related to [InputConfig].
 pub mod input_config {
     #[allow(unused_imports)]
     use super::*;
@@ -201,7 +201,7 @@ impl wkt::message::Message for OutputConfig {
     }
 }
 
-/// Defines additional types related to OutputConfig
+/// Defines additional types related to [OutputConfig].
 pub mod output_config {
     #[allow(unused_imports)]
     use super::*;
@@ -343,7 +343,7 @@ impl wkt::message::Message for AsyncModelMetadata {
     }
 }
 
-/// Defines additional types related to AsyncModelMetadata
+/// Defines additional types related to [AsyncModelMetadata].
 pub mod async_model_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -828,7 +828,7 @@ impl wkt::message::Message for OptimizeToursRequest {
     }
 }
 
-/// Defines additional types related to OptimizeToursRequest
+/// Defines additional types related to [OptimizeToursRequest].
 pub mod optimize_tours_request {
     #[allow(unused_imports)]
     use super::*;
@@ -1098,7 +1098,7 @@ impl wkt::message::Message for OptimizeToursResponse {
     }
 }
 
-/// Defines additional types related to OptimizeToursResponse
+/// Defines additional types related to [OptimizeToursResponse].
 pub mod optimize_tours_response {
     #[allow(unused_imports)]
     use super::*;
@@ -1292,7 +1292,7 @@ impl wkt::message::Message for BatchOptimizeToursRequest {
     }
 }
 
-/// Defines additional types related to BatchOptimizeToursRequest
+/// Defines additional types related to [BatchOptimizeToursRequest].
 pub mod batch_optimize_tours_request {
     #[allow(unused_imports)]
     use super::*;
@@ -1767,7 +1767,7 @@ impl wkt::message::Message for ShipmentModel {
     }
 }
 
-/// Defines additional types related to ShipmentModel
+/// Defines additional types related to [ShipmentModel].
 pub mod shipment_model {
     #[allow(unused_imports)]
     use super::*;
@@ -1832,7 +1832,7 @@ pub mod shipment_model {
         }
     }
 
-    /// Defines additional types related to DurationDistanceMatrix
+    /// Defines additional types related to [DurationDistanceMatrix].
     pub mod duration_distance_matrix {
         #[allow(unused_imports)]
         use super::*;
@@ -2042,7 +2042,7 @@ pub mod shipment_model {
         }
     }
 
-    /// Defines additional types related to BreakRule
+    /// Defines additional types related to [BreakRule].
     pub mod break_rule {
         #[allow(unused_imports)]
         use super::*;
@@ -2506,7 +2506,7 @@ impl wkt::message::Message for Shipment {
     }
 }
 
-/// Defines additional types related to Shipment
+/// Defines additional types related to [Shipment].
 pub mod shipment {
     #[allow(unused_imports)]
     use super::*;
@@ -2845,7 +2845,7 @@ impl wkt::message::Message for ShipmentTypeIncompatibility {
     }
 }
 
-/// Defines additional types related to ShipmentTypeIncompatibility
+/// Defines additional types related to [ShipmentTypeIncompatibility].
 pub mod shipment_type_incompatibility {
     #[allow(unused_imports)]
     use super::*;
@@ -2995,7 +2995,7 @@ impl wkt::message::Message for ShipmentTypeRequirement {
     }
 }
 
-/// Defines additional types related to ShipmentTypeRequirement
+/// Defines additional types related to [ShipmentTypeRequirement].
 pub mod shipment_type_requirement {
     #[allow(unused_imports)]
     use super::*;
@@ -3705,7 +3705,7 @@ impl wkt::message::Message for Vehicle {
     }
 }
 
-/// Defines additional types related to Vehicle
+/// Defines additional types related to [Vehicle].
 pub mod vehicle {
     #[allow(unused_imports)]
     use super::*;
@@ -3814,7 +3814,7 @@ pub mod vehicle {
         }
     }
 
-    /// Defines additional types related to LoadLimit
+    /// Defines additional types related to [LoadLimit].
     pub mod load_limit {
         #[allow(unused_imports)]
         use super::*;
@@ -4715,7 +4715,7 @@ impl wkt::message::Message for Waypoint {
     }
 }
 
-/// Defines additional types related to Waypoint
+/// Defines additional types related to [Waypoint].
 pub mod waypoint {
     #[allow(unused_imports)]
     use super::*;
@@ -4837,7 +4837,7 @@ impl wkt::message::Message for BreakRule {
     }
 }
 
-/// Defines additional types related to BreakRule
+/// Defines additional types related to [BreakRule].
 pub mod break_rule {
     #[allow(unused_imports)]
     use super::*;
@@ -5385,7 +5385,7 @@ impl wkt::message::Message for ShipmentRoute {
     }
 }
 
-/// Defines additional types related to ShipmentRoute
+/// Defines additional types related to [ShipmentRoute].
 pub mod shipment_route {
     #[allow(unused_imports)]
     use super::*;
@@ -6137,7 +6137,7 @@ impl wkt::message::Message for SkippedShipment {
     }
 }
 
-/// Defines additional types related to SkippedShipment
+/// Defines additional types related to [SkippedShipment].
 pub mod skipped_shipment {
     #[allow(unused_imports)]
     use super::*;
@@ -6228,7 +6228,7 @@ pub mod skipped_shipment {
         }
     }
 
-    /// Defines additional types related to Reason
+    /// Defines additional types related to [Reason].
     pub mod reason {
         #[allow(unused_imports)]
         use super::*;
@@ -6628,7 +6628,7 @@ impl wkt::message::Message for InjectedSolutionConstraint {
     }
 }
 
-/// Defines additional types related to InjectedSolutionConstraint
+/// Defines additional types related to [InjectedSolutionConstraint].
 pub mod injected_solution_constraint {
     #[allow(unused_imports)]
     use super::*;
@@ -6703,7 +6703,7 @@ pub mod injected_solution_constraint {
         }
     }
 
-    /// Defines additional types related to ConstraintRelaxation
+    /// Defines additional types related to [ConstraintRelaxation].
     pub mod constraint_relaxation {
         #[allow(unused_imports)]
         use super::*;
@@ -6803,7 +6803,7 @@ pub mod injected_solution_constraint {
             }
         }
 
-        /// Defines additional types related to Relaxation
+        /// Defines additional types related to [Relaxation].
         pub mod relaxation {
             #[allow(unused_imports)]
             use super::*;
@@ -7254,7 +7254,7 @@ impl wkt::message::Message for OptimizeToursValidationError {
     }
 }
 
-/// Defines additional types related to OptimizeToursValidationError
+/// Defines additional types related to [OptimizeToursValidationError].
 pub mod optimize_tours_validation_error {
     #[allow(unused_imports)]
     use super::*;
@@ -7393,7 +7393,7 @@ pub mod optimize_tours_validation_error {
         }
     }
 
-    /// Defines additional types related to FieldReference
+    /// Defines additional types related to [FieldReference].
     pub mod field_reference {
         #[allow(unused_imports)]
         use super::*;

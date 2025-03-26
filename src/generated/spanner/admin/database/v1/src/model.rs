@@ -385,7 +385,7 @@ impl wkt::message::Message for Backup {
     }
 }
 
-/// Defines additional types related to Backup
+/// Defines additional types related to [Backup].
 pub mod backup {
     #[allow(unused_imports)]
     use super::*;
@@ -1482,7 +1482,7 @@ impl wkt::message::Message for CreateBackupEncryptionConfig {
     }
 }
 
-/// Defines additional types related to CreateBackupEncryptionConfig
+/// Defines additional types related to [CreateBackupEncryptionConfig].
 pub mod create_backup_encryption_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1646,7 +1646,7 @@ impl wkt::message::Message for CopyBackupEncryptionConfig {
     }
 }
 
-/// Defines additional types related to CopyBackupEncryptionConfig
+/// Defines additional types related to [CopyBackupEncryptionConfig].
 pub mod copy_backup_encryption_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1874,7 +1874,7 @@ impl wkt::message::Message for BackupScheduleSpec {
     }
 }
 
-/// Defines additional types related to BackupScheduleSpec
+/// Defines additional types related to [BackupScheduleSpec].
 pub mod backup_schedule_spec {
     #[allow(unused_imports)]
     use super::*;
@@ -2073,7 +2073,7 @@ impl wkt::message::Message for BackupSchedule {
     }
 }
 
-/// Defines additional types related to BackupSchedule
+/// Defines additional types related to [BackupSchedule].
 pub mod backup_schedule {
     #[allow(unused_imports)]
     use super::*;
@@ -2649,7 +2649,7 @@ impl wkt::message::Message for EncryptionInfo {
     }
 }
 
-/// Defines additional types related to EncryptionInfo
+/// Defines additional types related to [EncryptionInfo].
 pub mod encryption_info {
     #[allow(unused_imports)]
     use super::*;
@@ -2793,7 +2793,7 @@ impl wkt::message::Message for RestoreInfo {
     }
 }
 
-/// Defines additional types related to RestoreInfo
+/// Defines additional types related to [RestoreInfo].
 pub mod restore_info {
     #[allow(unused_imports)]
     use super::*;
@@ -3007,7 +3007,7 @@ impl wkt::message::Message for Database {
     }
 }
 
-/// Defines additional types related to Database
+/// Defines additional types related to [Database].
 pub mod database {
     #[allow(unused_imports)]
     use super::*;
@@ -4241,7 +4241,7 @@ impl wkt::message::Message for RestoreDatabaseRequest {
     }
 }
 
-/// Defines additional types related to RestoreDatabaseRequest
+/// Defines additional types related to [RestoreDatabaseRequest].
 pub mod restore_database_request {
     #[allow(unused_imports)]
     use super::*;
@@ -4336,7 +4336,7 @@ impl wkt::message::Message for RestoreDatabaseEncryptionConfig {
     }
 }
 
-/// Defines additional types related to RestoreDatabaseEncryptionConfig
+/// Defines additional types related to [RestoreDatabaseEncryptionConfig].
 pub mod restore_database_encryption_config {
     #[allow(unused_imports)]
     use super::*;
@@ -4583,7 +4583,7 @@ impl wkt::message::Message for RestoreDatabaseMetadata {
     }
 }
 
-/// Defines additional types related to RestoreDatabaseMetadata
+/// Defines additional types related to [RestoreDatabaseMetadata].
 pub mod restore_database_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -4960,7 +4960,7 @@ impl wkt::message::Message for SplitPoints {
     }
 }
 
-/// Defines additional types related to SplitPoints
+/// Defines additional types related to [SplitPoints].
 pub mod split_points {
     #[allow(unused_imports)]
     use super::*;

@@ -41,6 +41,7 @@ func TestDartFromProtobuf(t *testing.T) {
 			"copyright-year":        "2025",
 			"not-for-publication":   "true",
 			"version":               "0.1.0",
+			"skip-format":           "true",
 			"proto:google.protobuf": "package:google_cloud_protobuf/protobuf.dart",
 		},
 	}

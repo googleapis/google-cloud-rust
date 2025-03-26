@@ -593,7 +593,7 @@ impl wkt::message::Message for Workload {
     }
 }
 
-/// Defines additional types related to Workload
+/// Defines additional types related to [Workload].
 pub mod workload {
     #[allow(unused_imports)]
     use super::*;
@@ -642,7 +642,7 @@ pub mod workload {
         }
     }
 
-    /// Defines additional types related to ResourceInfo
+    /// Defines additional types related to [ResourceInfo].
     pub mod resource_info {
         #[allow(unused_imports)]
         use super::*;
@@ -895,7 +895,7 @@ pub mod workload {
         }
     }
 
-    /// Defines additional types related to SaaEnrollmentResponse
+    /// Defines additional types related to [SaaEnrollmentResponse].
     pub mod saa_enrollment_response {
         #[allow(unused_imports)]
         use super::*;
@@ -1385,7 +1385,7 @@ impl wkt::message::Message for RestrictAllowedResourcesRequest {
     }
 }
 
-/// Defines additional types related to RestrictAllowedResourcesRequest
+/// Defines additional types related to [RestrictAllowedResourcesRequest].
 pub mod restrict_allowed_resources_request {
     #[allow(unused_imports)]
     use super::*;
@@ -1966,7 +1966,7 @@ impl wkt::message::Message for Violation {
     }
 }
 
-/// Defines additional types related to Violation
+/// Defines additional types related to [Violation].
 pub mod violation {
     #[allow(unused_imports)]
     use super::*;
@@ -2039,7 +2039,7 @@ pub mod violation {
         }
     }
 
-    /// Defines additional types related to Remediation
+    /// Defines additional types related to [Remediation].
     pub mod remediation {
         #[allow(unused_imports)]
         use super::*;
@@ -2103,7 +2103,7 @@ pub mod violation {
             }
         }
 
-        /// Defines additional types related to Instructions
+        /// Defines additional types related to [Instructions].
         pub mod instructions {
             #[allow(unused_imports)]
             use super::*;

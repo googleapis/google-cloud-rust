@@ -20,7 +20,7 @@ pub mod essential_contacts_service {
 
     /// Common implementation for [super::super::client::EssentialContactsService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::EssentialContactsService>,
         request: R,
         options: gax::options::RequestOptions,

@@ -373,7 +373,7 @@ impl wkt::message::Message for BindingExplanation {
     }
 }
 
-/// Defines additional types related to BindingExplanation
+/// Defines additional types related to [BindingExplanation].
 pub mod binding_explanation {
     #[allow(unused_imports)]
     use super::*;
@@ -657,7 +657,7 @@ impl wkt::message::Message for Replay {
     }
 }
 
-/// Defines additional types related to Replay
+/// Defines additional types related to [Replay].
 pub mod replay {
     #[allow(unused_imports)]
     use super::*;
@@ -961,7 +961,7 @@ impl wkt::message::Message for ReplayResult {
     }
 }
 
-/// Defines additional types related to ReplayResult
+/// Defines additional types related to [ReplayResult].
 pub mod replay_result {
     #[allow(unused_imports)]
     use super::*;
@@ -1322,7 +1322,7 @@ impl wkt::message::Message for ReplayConfig {
     }
 }
 
-/// Defines additional types related to ReplayConfig
+/// Defines additional types related to [ReplayConfig].
 pub mod replay_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1508,7 +1508,7 @@ impl wkt::message::Message for AccessStateDiff {
     }
 }
 
-/// Defines additional types related to AccessStateDiff
+/// Defines additional types related to [AccessStateDiff].
 pub mod access_state_diff {
     #[allow(unused_imports)]
     use super::*;

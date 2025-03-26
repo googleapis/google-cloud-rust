@@ -631,7 +631,7 @@ impl wkt::message::Message for Spoke {
     }
 }
 
-/// Defines additional types related to Spoke
+/// Defines additional types related to [Spoke].
 pub mod spoke {
     #[allow(unused_imports)]
     use super::*;
@@ -690,7 +690,7 @@ pub mod spoke {
         }
     }
 
-    /// Defines additional types related to StateReason
+    /// Defines additional types related to [StateReason].
     pub mod state_reason {
         #[allow(unused_imports)]
         use super::*;
@@ -1772,7 +1772,7 @@ impl wkt::message::Message for ListHubSpokesRequest {
     }
 }
 
-/// Defines additional types related to ListHubSpokesRequest
+/// Defines additional types related to [ListHubSpokesRequest].
 pub mod list_hub_spokes_request {
     #[allow(unused_imports)]
     use super::*;
@@ -2241,7 +2241,7 @@ impl wkt::message::Message for PscPropagationStatus {
     }
 }
 
-/// Defines additional types related to PscPropagationStatus
+/// Defines additional types related to [PscPropagationStatus].
 pub mod psc_propagation_status {
     #[allow(unused_imports)]
     use super::*;
@@ -4184,7 +4184,7 @@ impl wkt::message::Message for SpokeSummary {
     }
 }
 
-/// Defines additional types related to SpokeSummary
+/// Defines additional types related to [SpokeSummary].
 pub mod spoke_summary {
     #[allow(unused_imports)]
     use super::*;
@@ -4746,7 +4746,7 @@ impl wkt::message::Message for PolicyBasedRoute {
     }
 }
 
-/// Defines additional types related to PolicyBasedRoute
+/// Defines additional types related to [PolicyBasedRoute].
 pub mod policy_based_route {
     #[allow(unused_imports)]
     use super::*;
@@ -4885,7 +4885,7 @@ pub mod policy_based_route {
         }
     }
 
-    /// Defines additional types related to Filter
+    /// Defines additional types related to [Filter].
     pub mod filter {
         #[allow(unused_imports)]
         use super::*;
@@ -5010,7 +5010,7 @@ pub mod policy_based_route {
         }
     }
 
-    /// Defines additional types related to Warnings
+    /// Defines additional types related to [Warnings].
     pub mod warnings {
         #[allow(unused_imports)]
         use super::*;

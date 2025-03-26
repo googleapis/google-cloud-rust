@@ -933,7 +933,7 @@ impl wkt::message::Message for AutonomousDatabaseProperties {
     }
 }
 
-/// Defines additional types related to AutonomousDatabaseProperties
+/// Defines additional types related to [AutonomousDatabaseProperties].
 pub mod autonomous_database_properties {
     #[allow(unused_imports)]
     use super::*;
@@ -1913,7 +1913,7 @@ impl wkt::message::Message for DatabaseConnectionStringProfile {
     }
 }
 
-/// Defines additional types related to DatabaseConnectionStringProfile
+/// Defines additional types related to [DatabaseConnectionStringProfile].
 pub mod database_connection_string_profile {
     #[allow(unused_imports)]
     use super::*;
@@ -2663,7 +2663,7 @@ impl wkt::message::Message for AutonomousDatabaseCharacterSet {
     }
 }
 
-/// Defines additional types related to AutonomousDatabaseCharacterSet
+/// Defines additional types related to [AutonomousDatabaseCharacterSet].
 pub mod autonomous_database_character_set {
     #[allow(unused_imports)]
     use super::*;
@@ -3065,7 +3065,7 @@ impl wkt::message::Message for AutonomousDatabaseBackupProperties {
     }
 }
 
-/// Defines additional types related to AutonomousDatabaseBackupProperties
+/// Defines additional types related to [AutonomousDatabaseBackupProperties].
 pub mod autonomous_database_backup_properties {
     #[allow(unused_imports)]
     use super::*;
@@ -3449,7 +3449,7 @@ impl wkt::message::Message for DbNodeProperties {
     }
 }
 
-/// Defines additional types related to DbNodeProperties
+/// Defines additional types related to [DbNodeProperties].
 pub mod db_node_properties {
     #[allow(unused_imports)]
     use super::*;
@@ -3722,7 +3722,7 @@ impl wkt::message::Message for DbServerProperties {
     }
 }
 
-/// Defines additional types related to DbServerProperties
+/// Defines additional types related to [DbServerProperties].
 pub mod db_server_properties {
     #[allow(unused_imports)]
     use super::*;
@@ -3998,7 +3998,7 @@ impl wkt::message::Message for Entitlement {
     }
 }
 
-/// Defines additional types related to Entitlement
+/// Defines additional types related to [Entitlement].
 pub mod entitlement {
     #[allow(unused_imports)]
     use super::*;
@@ -4582,7 +4582,7 @@ impl wkt::message::Message for CloudExadataInfrastructureProperties {
     }
 }
 
-/// Defines additional types related to CloudExadataInfrastructureProperties
+/// Defines additional types related to [CloudExadataInfrastructureProperties].
 pub mod cloud_exadata_infrastructure_properties {
     #[allow(unused_imports)]
     use super::*;
@@ -4825,7 +4825,7 @@ impl wkt::message::Message for MaintenanceWindow {
     }
 }
 
-/// Defines additional types related to MaintenanceWindow
+/// Defines additional types related to [MaintenanceWindow].
 pub mod maintenance_window {
     #[allow(unused_imports)]
     use super::*;
@@ -7527,7 +7527,7 @@ impl wkt::message::Message for CloudVmClusterProperties {
     }
 }
 
-/// Defines additional types related to CloudVmClusterProperties
+/// Defines additional types related to [CloudVmClusterProperties].
 pub mod cloud_vm_cluster_properties {
     #[allow(unused_imports)]
     use super::*;

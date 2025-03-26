@@ -16,7 +16,7 @@
 
 use super::*;
 use gax::loop_state::LoopState;
-use gax::polling_policy::PollingPolicy;
+use gax::polling_error_policy::PollingErrorPolicy;
 use std::sync::Arc;
 use std::time::Instant;
 
@@ -34,7 +34,7 @@ where
 }
 
 pub(crate) fn handle_poll<R, M>(
-    polling_policy: Arc<dyn PollingPolicy>,
+    error_policy: Arc<dyn PollingErrorPolicy>,
     loop_start: Instant,
     attempt_count: u32,
     operation_name: String,
@@ -46,7 +46,7 @@ where
 {
     match result {
         Err(e) => {
-            let state = polling_policy.on_error(loop_start, attempt_count, e);
+            let state = error_policy.on_error(loop_start, attempt_count, e);
             handle_polling_error(state, operation_name)
         }
         Ok(op) => {
@@ -54,8 +54,7 @@ where
             match &result {
                 PollingResult::Completed(_) => (name, result),
                 PollingResult::InProgress(_) => {
-                    match polling_policy.on_in_progress(loop_start, attempt_count, &operation_name)
-                    {
+                    match error_policy.on_in_progress(loop_start, attempt_count, &operation_name) {
                         None => (name, result),
                         Some(e) => (None, PollingResult::Completed(Err(e))),
                     }
@@ -123,7 +122,7 @@ where
 #[cfg(test)]
 mod test {
     use super::*;
-    use gax::polling_policy::*;
+    use gax::polling_error_policy::*;
     use wkt::Any;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;

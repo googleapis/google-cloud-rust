@@ -20,7 +20,7 @@ pub mod data_transfer_service {
 
     /// Common implementation for [super::super::client::DataTransferService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::DataTransferService>,
         request: R,
         options: gax::options::RequestOptions,

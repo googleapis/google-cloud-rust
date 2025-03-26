@@ -20,7 +20,7 @@ pub mod dataset_service {
 
     /// Common implementation for [super::super::client::DatasetService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::DatasetService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -471,7 +471,7 @@ pub mod model_service {
 
     /// Common implementation for [super::super::client::ModelService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::ModelService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -727,7 +727,7 @@ pub mod project_service {
 
     /// Common implementation for [super::super::client::ProjectService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::ProjectService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -797,7 +797,7 @@ pub mod routine_service {
 
     /// Common implementation for [super::super::client::RoutineService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::RoutineService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -1115,7 +1115,7 @@ pub mod row_access_policy_service {
 
     /// Common implementation for [super::super::client::RowAccessPolicyService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::RowAccessPolicyService>,
         request: R,
         options: gax::options::RequestOptions,
@@ -1583,7 +1583,7 @@ pub mod table_service {
 
     /// Common implementation for [super::super::client::TableService] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::TableService>,
         request: R,
         options: gax::options::RequestOptions,

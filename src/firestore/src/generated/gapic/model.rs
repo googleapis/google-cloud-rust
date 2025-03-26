@@ -304,7 +304,7 @@ impl wkt::message::Message for Precondition {
     }
 }
 
-/// Defines additional types related to Precondition
+/// Defines additional types related to [Precondition].
 pub mod precondition {
     #[allow(unused_imports)]
     use super::*;
@@ -428,7 +428,7 @@ impl wkt::message::Message for TransactionOptions {
     }
 }
 
-/// Defines additional types related to TransactionOptions
+/// Defines additional types related to [TransactionOptions].
 pub mod transaction_options {
     #[allow(unused_imports)]
     use super::*;
@@ -539,7 +539,7 @@ pub mod transaction_options {
         }
     }
 
-    /// Defines additional types related to ReadOnly
+    /// Defines additional types related to [ReadOnly].
     pub mod read_only {
         #[allow(unused_imports)]
         use super::*;
@@ -994,7 +994,7 @@ impl wkt::message::Message for Value {
     }
 }
 
-/// Defines additional types related to Value
+/// Defines additional types related to [Value].
 pub mod value {
     #[allow(unused_imports)]
     use super::*;
@@ -1293,7 +1293,7 @@ impl wkt::message::Message for GetDocumentRequest {
     }
 }
 
-/// Defines additional types related to GetDocumentRequest
+/// Defines additional types related to [GetDocumentRequest].
 pub mod get_document_request {
     #[allow(unused_imports)]
     use super::*;
@@ -1532,7 +1532,7 @@ impl wkt::message::Message for ListDocumentsRequest {
     }
 }
 
-/// Defines additional types related to ListDocumentsRequest
+/// Defines additional types related to [ListDocumentsRequest].
 pub mod list_documents_request {
     #[allow(unused_imports)]
     use super::*;
@@ -2024,7 +2024,7 @@ impl wkt::message::Message for BatchGetDocumentsRequest {
     }
 }
 
-/// Defines additional types related to BatchGetDocumentsRequest
+/// Defines additional types related to [BatchGetDocumentsRequest].
 pub mod batch_get_documents_request {
     #[allow(unused_imports)]
     use super::*;
@@ -2191,7 +2191,7 @@ impl wkt::message::Message for BatchGetDocumentsResponse {
     }
 }
 
-/// Defines additional types related to BatchGetDocumentsResponse
+/// Defines additional types related to [BatchGetDocumentsResponse].
 pub mod batch_get_documents_response {
     #[allow(unused_imports)]
     use super::*;
@@ -2662,7 +2662,7 @@ impl wkt::message::Message for RunQueryRequest {
     }
 }
 
-/// Defines additional types related to RunQueryRequest
+/// Defines additional types related to [RunQueryRequest].
 pub mod run_query_request {
     #[allow(unused_imports)]
     use super::*;
@@ -2871,7 +2871,7 @@ impl wkt::message::Message for RunQueryResponse {
     }
 }
 
-/// Defines additional types related to RunQueryResponse
+/// Defines additional types related to [RunQueryResponse].
 pub mod run_query_response {
     #[allow(unused_imports)]
     use super::*;
@@ -3105,7 +3105,7 @@ impl wkt::message::Message for RunAggregationQueryRequest {
     }
 }
 
-/// Defines additional types related to RunAggregationQueryRequest
+/// Defines additional types related to [RunAggregationQueryRequest].
 pub mod run_aggregation_query_request {
     #[allow(unused_imports)]
     use super::*;
@@ -3443,7 +3443,7 @@ impl wkt::message::Message for PartitionQueryRequest {
     }
 }
 
-/// Defines additional types related to PartitionQueryRequest
+/// Defines additional types related to [PartitionQueryRequest].
 pub mod partition_query_request {
     #[allow(unused_imports)]
     use super::*;
@@ -3875,7 +3875,7 @@ impl wkt::message::Message for ListenRequest {
     }
 }
 
-/// Defines additional types related to ListenRequest
+/// Defines additional types related to [ListenRequest].
 pub mod listen_request {
     #[allow(unused_imports)]
     use super::*;
@@ -4093,7 +4093,7 @@ impl wkt::message::Message for ListenResponse {
     }
 }
 
-/// Defines additional types related to ListenResponse
+/// Defines additional types related to [ListenResponse].
 pub mod listen_response {
     #[allow(unused_imports)]
     use super::*;
@@ -4368,7 +4368,7 @@ impl wkt::message::Message for Target {
     }
 }
 
-/// Defines additional types related to Target
+/// Defines additional types related to [Target].
 pub mod target {
     #[allow(unused_imports)]
     use super::*;
@@ -4491,7 +4491,7 @@ pub mod target {
         }
     }
 
-    /// Defines additional types related to QueryTarget
+    /// Defines additional types related to [QueryTarget].
     pub mod query_target {
         #[allow(unused_imports)]
         use super::*;
@@ -4678,7 +4678,7 @@ impl wkt::message::Message for TargetChange {
     }
 }
 
-/// Defines additional types related to TargetChange
+/// Defines additional types related to [TargetChange].
 pub mod target_change {
     #[allow(unused_imports)]
     use super::*;
@@ -4866,7 +4866,7 @@ impl wkt::message::Message for ListCollectionIdsRequest {
     }
 }
 
-/// Defines additional types related to ListCollectionIdsRequest
+/// Defines additional types related to [ListCollectionIdsRequest].
 pub mod list_collection_ids_request {
     #[allow(unused_imports)]
     use super::*;
@@ -5301,7 +5301,7 @@ impl wkt::message::Message for StructuredQuery {
     }
 }
 
-/// Defines additional types related to StructuredQuery
+/// Defines additional types related to [StructuredQuery].
 pub mod structured_query {
     #[allow(unused_imports)]
     use super::*;
@@ -5485,7 +5485,7 @@ pub mod structured_query {
         }
     }
 
-    /// Defines additional types related to Filter
+    /// Defines additional types related to [Filter].
     pub mod filter {
         #[allow(unused_imports)]
         use super::*;
@@ -5583,7 +5583,7 @@ pub mod structured_query {
         }
     }
 
-    /// Defines additional types related to CompositeFilter
+    /// Defines additional types related to [CompositeFilter].
     pub mod composite_filter {
         #[allow(unused_imports)]
         use super::*;
@@ -5707,7 +5707,7 @@ pub mod structured_query {
         }
     }
 
-    /// Defines additional types related to FieldFilter
+    /// Defines additional types related to [FieldFilter].
     pub mod field_filter {
         #[allow(unused_imports)]
         use super::*;
@@ -5938,7 +5938,7 @@ pub mod structured_query {
         }
     }
 
-    /// Defines additional types related to UnaryFilter
+    /// Defines additional types related to [UnaryFilter].
     pub mod unary_filter {
         #[allow(unused_imports)]
         use super::*;
@@ -6281,7 +6281,7 @@ pub mod structured_query {
         }
     }
 
-    /// Defines additional types related to FindNearest
+    /// Defines additional types related to [FindNearest].
     pub mod find_nearest {
         #[allow(unused_imports)]
         use super::*;
@@ -6512,7 +6512,7 @@ impl wkt::message::Message for StructuredAggregationQuery {
     }
 }
 
-/// Defines additional types related to StructuredAggregationQuery
+/// Defines additional types related to [StructuredAggregationQuery].
 pub mod structured_aggregation_query {
     #[allow(unused_imports)]
     use super::*;
@@ -6710,7 +6710,7 @@ pub mod structured_aggregation_query {
         }
     }
 
-    /// Defines additional types related to Aggregation
+    /// Defines additional types related to [Aggregation].
     pub mod aggregation {
         #[allow(unused_imports)]
         use super::*;
@@ -7350,7 +7350,7 @@ impl wkt::message::Message for Write {
     }
 }
 
-/// Defines additional types related to Write
+/// Defines additional types related to [Write].
 pub mod write {
     #[allow(unused_imports)]
     use super::*;
@@ -7435,7 +7435,7 @@ impl wkt::message::Message for DocumentTransform {
     }
 }
 
-/// Defines additional types related to DocumentTransform
+/// Defines additional types related to [DocumentTransform].
 pub mod document_transform {
     #[allow(unused_imports)]
     use super::*;
@@ -7676,7 +7676,7 @@ pub mod document_transform {
         }
     }
 
-    /// Defines additional types related to FieldTransform
+    /// Defines additional types related to [FieldTransform].
     pub mod field_transform {
         #[allow(unused_imports)]
         use super::*;

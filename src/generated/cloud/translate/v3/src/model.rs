@@ -464,7 +464,7 @@ impl wkt::message::Message for AdaptiveMtTranslateRequest {
     }
 }
 
-/// Defines additional types related to AdaptiveMtTranslateRequest
+/// Defines additional types related to [AdaptiveMtTranslateRequest].
 pub mod adaptive_mt_translate_request {
     #[allow(unused_imports)]
     use super::*;
@@ -1012,7 +1012,7 @@ impl wkt::message::Message for ImportAdaptiveMtFileRequest {
     }
 }
 
-/// Defines additional types related to ImportAdaptiveMtFileRequest
+/// Defines additional types related to [ImportAdaptiveMtFileRequest].
 pub mod import_adaptive_mt_file_request {
     #[allow(unused_imports)]
     use super::*;
@@ -1443,7 +1443,7 @@ impl wkt::message::Message for DatasetInputConfig {
     }
 }
 
-/// Defines additional types related to DatasetInputConfig
+/// Defines additional types related to [DatasetInputConfig].
 pub mod dataset_input_config {
     #[allow(unused_imports)]
     use super::*;
@@ -1529,7 +1529,7 @@ pub mod dataset_input_config {
         }
     }
 
-    /// Defines additional types related to InputFile
+    /// Defines additional types related to [InputFile].
     pub mod input_file {
         #[allow(unused_imports)]
         use super::*;
@@ -1725,7 +1725,7 @@ impl wkt::message::Message for DatasetOutputConfig {
     }
 }
 
-/// Defines additional types related to DatasetOutputConfig
+/// Defines additional types related to [DatasetOutputConfig].
 pub mod dataset_output_config {
     #[allow(unused_imports)]
     use super::*;
@@ -2373,7 +2373,7 @@ impl wkt::message::Message for BatchTransferResourcesResponse {
     }
 }
 
-/// Defines additional types related to BatchTransferResourcesResponse
+/// Defines additional types related to [BatchTransferResourcesResponse].
 pub mod batch_transfer_resources_response {
     #[allow(unused_imports)]
     use super::*;
@@ -3284,7 +3284,7 @@ impl wkt::message::Message for GlossaryEntry {
     }
 }
 
-/// Defines additional types related to GlossaryEntry
+/// Defines additional types related to [GlossaryEntry].
 pub mod glossary_entry {
     #[allow(unused_imports)]
     use super::*;
@@ -4063,7 +4063,7 @@ impl wkt::message::Message for DetectLanguageRequest {
     }
 }
 
-/// Defines additional types related to DetectLanguageRequest
+/// Defines additional types related to [DetectLanguageRequest].
 pub mod detect_language_request {
     #[allow(unused_imports)]
     use super::*;
@@ -4428,7 +4428,7 @@ impl wkt::message::Message for InputConfig {
     }
 }
 
-/// Defines additional types related to InputConfig
+/// Defines additional types related to [InputConfig].
 pub mod input_config {
     #[allow(unused_imports)]
     use super::*;
@@ -4562,7 +4562,7 @@ impl wkt::message::Message for OutputConfig {
     }
 }
 
-/// Defines additional types related to OutputConfig
+/// Defines additional types related to [OutputConfig].
 pub mod output_config {
     #[allow(unused_imports)]
     use super::*;
@@ -4759,7 +4759,7 @@ impl wkt::message::Message for DocumentInputConfig {
     }
 }
 
-/// Defines additional types related to DocumentInputConfig
+/// Defines additional types related to [DocumentInputConfig].
 pub mod document_input_config {
     #[allow(unused_imports)]
     use super::*;
@@ -4874,7 +4874,7 @@ impl wkt::message::Message for DocumentOutputConfig {
     }
 }
 
-/// Defines additional types related to DocumentOutputConfig
+/// Defines additional types related to [DocumentOutputConfig].
 pub mod document_output_config {
     #[allow(unused_imports)]
     use super::*;
@@ -5553,7 +5553,7 @@ impl wkt::message::Message for BatchTranslateMetadata {
     }
 }
 
-/// Defines additional types related to BatchTranslateMetadata
+/// Defines additional types related to [BatchTranslateMetadata].
 pub mod batch_translate_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -5781,7 +5781,7 @@ impl wkt::message::Message for GlossaryInputConfig {
     }
 }
 
-/// Defines additional types related to GlossaryInputConfig
+/// Defines additional types related to [GlossaryInputConfig].
 pub mod glossary_input_config {
     #[allow(unused_imports)]
     use super::*;
@@ -5982,7 +5982,7 @@ impl wkt::message::Message for Glossary {
     }
 }
 
-/// Defines additional types related to Glossary
+/// Defines additional types related to [Glossary].
 pub mod glossary {
     #[allow(unused_imports)]
     use super::*;
@@ -6669,7 +6669,7 @@ impl wkt::message::Message for CreateGlossaryMetadata {
     }
 }
 
-/// Defines additional types related to CreateGlossaryMetadata
+/// Defines additional types related to [CreateGlossaryMetadata].
 pub mod create_glossary_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -6810,7 +6810,7 @@ impl wkt::message::Message for UpdateGlossaryMetadata {
     }
 }
 
-/// Defines additional types related to UpdateGlossaryMetadata
+/// Defines additional types related to [UpdateGlossaryMetadata].
 pub mod update_glossary_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -6947,7 +6947,7 @@ impl wkt::message::Message for DeleteGlossaryMetadata {
     }
 }
 
-/// Defines additional types related to DeleteGlossaryMetadata
+/// Defines additional types related to [DeleteGlossaryMetadata].
 pub mod delete_glossary_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -7367,7 +7367,7 @@ impl wkt::message::Message for BatchDocumentInputConfig {
     }
 }
 
-/// Defines additional types related to BatchDocumentInputConfig
+/// Defines additional types related to [BatchDocumentInputConfig].
 pub mod batch_document_input_config {
     #[allow(unused_imports)]
     use super::*;
@@ -7470,7 +7470,7 @@ impl wkt::message::Message for BatchDocumentOutputConfig {
     }
 }
 
-/// Defines additional types related to BatchDocumentOutputConfig
+/// Defines additional types related to [BatchDocumentOutputConfig].
 pub mod batch_document_output_config {
     #[allow(unused_imports)]
     use super::*;
@@ -7804,7 +7804,7 @@ impl wkt::message::Message for BatchTranslateDocumentMetadata {
     }
 }
 
-/// Defines additional types related to BatchTranslateDocumentMetadata
+/// Defines additional types related to [BatchTranslateDocumentMetadata].
 pub mod batch_translate_document_metadata {
     #[allow(unused_imports)]
     use super::*;

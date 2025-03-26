@@ -20,7 +20,7 @@ pub mod builds {
 
     /// Common implementation for [super::super::client::Builds] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Builds>,
         request: R,
         options: gax::options::RequestOptions,
@@ -349,7 +349,7 @@ pub mod executions {
 
     /// Common implementation for [super::super::client::Executions] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Executions>,
         request: R,
         options: gax::options::RequestOptions,
@@ -881,7 +881,7 @@ pub mod jobs {
 
     /// Common implementation for [super::super::client::Jobs] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Jobs>,
         request: R,
         options: gax::options::RequestOptions,
@@ -1765,7 +1765,7 @@ pub mod revisions {
 
     /// Common implementation for [super::super::client::Revisions] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Revisions>,
         request: R,
         options: gax::options::RequestOptions,
@@ -2209,7 +2209,7 @@ pub mod services {
 
     /// Common implementation for [super::super::client::Services] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Services>,
         request: R,
         options: gax::options::RequestOptions,
@@ -3014,7 +3014,7 @@ pub mod tasks {
 
     /// Common implementation for [super::super::client::Tasks] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Tasks>,
         request: R,
         options: gax::options::RequestOptions,

@@ -126,7 +126,7 @@ impl wkt::message::Message for BigQueryConnectionSpec {
     }
 }
 
-/// Defines additional types related to BigQueryConnectionSpec
+/// Defines additional types related to [BigQueryConnectionSpec].
 pub mod big_query_connection_spec {
     #[allow(unused_imports)]
     use super::*;
@@ -248,7 +248,7 @@ impl wkt::message::Message for CloudSqlBigQueryConnectionSpec {
     }
 }
 
-/// Defines additional types related to CloudSqlBigQueryConnectionSpec
+/// Defines additional types related to [CloudSqlBigQueryConnectionSpec].
 pub mod cloud_sql_big_query_connection_spec {
     #[allow(unused_imports)]
     use super::*;
@@ -487,7 +487,7 @@ impl wkt::message::Message for DataSource {
     }
 }
 
-/// Defines additional types related to DataSource
+/// Defines additional types related to [DataSource].
 pub mod data_source {
     #[allow(unused_imports)]
     use super::*;
@@ -754,7 +754,7 @@ impl wkt::message::Message for SearchCatalogRequest {
     }
 }
 
-/// Defines additional types related to SearchCatalogRequest
+/// Defines additional types related to [SearchCatalogRequest].
 pub mod search_catalog_request {
     #[allow(unused_imports)]
     use super::*;
@@ -1631,7 +1631,7 @@ impl wkt::message::Message for LookupEntryRequest {
     }
 }
 
-/// Defines additional types related to LookupEntryRequest
+/// Defines additional types related to [LookupEntryRequest].
 pub mod lookup_entry_request {
     #[allow(unused_imports)]
     use super::*;
@@ -2489,7 +2489,7 @@ impl wkt::message::Message for Entry {
     }
 }
 
-/// Defines additional types related to Entry
+/// Defines additional types related to [Entry].
 pub mod entry {
     #[allow(unused_imports)]
     use super::*;
@@ -2677,7 +2677,7 @@ impl wkt::message::Message for DatabaseTableSpec {
     }
 }
 
-/// Defines additional types related to DatabaseTableSpec
+/// Defines additional types related to [DatabaseTableSpec].
 pub mod database_table_spec {
     #[allow(unused_imports)]
     use super::*;
@@ -2786,7 +2786,7 @@ pub mod database_table_spec {
         }
     }
 
-    /// Defines additional types related to DatabaseViewSpec
+    /// Defines additional types related to [DatabaseViewSpec].
     pub mod database_view_spec {
         #[allow(unused_imports)]
         use super::*;
@@ -3122,7 +3122,7 @@ impl wkt::message::Message for RoutineSpec {
     }
 }
 
-/// Defines additional types related to RoutineSpec
+/// Defines additional types related to [RoutineSpec].
 pub mod routine_spec {
     #[allow(unused_imports)]
     use super::*;
@@ -3181,7 +3181,7 @@ pub mod routine_spec {
         }
     }
 
-    /// Defines additional types related to Argument
+    /// Defines additional types related to [Argument].
     pub mod argument {
         #[allow(unused_imports)]
         use super::*;
@@ -3385,7 +3385,7 @@ impl wkt::message::Message for DatasetSpec {
     }
 }
 
-/// Defines additional types related to DatasetSpec
+/// Defines additional types related to [DatasetSpec].
 pub mod dataset_spec {
     #[allow(unused_imports)]
     use super::*;
@@ -3635,7 +3635,7 @@ impl wkt::message::Message for CloudBigtableInstanceSpec {
     }
 }
 
-/// Defines additional types related to CloudBigtableInstanceSpec
+/// Defines additional types related to [CloudBigtableInstanceSpec].
 pub mod cloud_bigtable_instance_spec {
     #[allow(unused_imports)]
     use super::*;
@@ -3774,7 +3774,7 @@ impl wkt::message::Message for ServiceSpec {
     }
 }
 
-/// Defines additional types related to ServiceSpec
+/// Defines additional types related to [ServiceSpec].
 pub mod service_spec {
     #[allow(unused_imports)]
     use super::*;
@@ -3836,7 +3836,7 @@ impl wkt::message::Message for VertexModelSourceInfo {
     }
 }
 
-/// Defines additional types related to VertexModelSourceInfo
+/// Defines additional types related to [VertexModelSourceInfo].
 pub mod vertex_model_source_info {
     #[allow(unused_imports)]
     use super::*;
@@ -4055,7 +4055,7 @@ impl wkt::message::Message for VertexDatasetSpec {
     }
 }
 
-/// Defines additional types related to VertexDatasetSpec
+/// Defines additional types related to [VertexDatasetSpec].
 pub mod vertex_dataset_spec {
     #[allow(unused_imports)]
     use super::*;
@@ -4241,7 +4241,7 @@ impl wkt::message::Message for ModelSpec {
     }
 }
 
-/// Defines additional types related to ModelSpec
+/// Defines additional types related to [ModelSpec].
 pub mod model_spec {
     #[allow(unused_imports)]
     use super::*;
@@ -4290,7 +4290,7 @@ impl wkt::message::Message for FeatureOnlineStoreSpec {
     }
 }
 
-/// Defines additional types related to FeatureOnlineStoreSpec
+/// Defines additional types related to [FeatureOnlineStoreSpec].
 pub mod feature_online_store_spec {
     #[allow(unused_imports)]
     use super::*;
@@ -4471,7 +4471,7 @@ impl wkt::message::Message for Contacts {
     }
 }
 
-/// Defines additional types related to Contacts
+/// Defines additional types related to [Contacts].
 pub mod contacts {
     #[allow(unused_imports)]
     use super::*;
@@ -5520,7 +5520,7 @@ impl wkt::message::Message for ReconcileTagsMetadata {
     }
 }
 
-/// Defines additional types related to ReconcileTagsMetadata
+/// Defines additional types related to [ReconcileTagsMetadata].
 pub mod reconcile_tags_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -5920,7 +5920,7 @@ impl wkt::message::Message for ImportEntriesRequest {
     }
 }
 
-/// Defines additional types related to ImportEntriesRequest
+/// Defines additional types related to [ImportEntriesRequest].
 pub mod import_entries_request {
     #[allow(unused_imports)]
     use super::*;
@@ -6042,7 +6042,7 @@ impl wkt::message::Message for ImportEntriesMetadata {
     }
 }
 
-/// Defines additional types related to ImportEntriesMetadata
+/// Defines additional types related to [ImportEntriesMetadata].
 pub mod import_entries_metadata {
     #[allow(unused_imports)]
     use super::*;
@@ -6316,7 +6316,7 @@ impl wkt::message::Message for SetConfigRequest {
     }
 }
 
-/// Defines additional types related to SetConfigRequest
+/// Defines additional types related to [SetConfigRequest].
 pub mod set_config_request {
     #[allow(unused_imports)]
     use super::*;
@@ -6823,7 +6823,7 @@ impl wkt::message::Message for TaggedEntry {
     }
 }
 
-/// Defines additional types related to TaggedEntry
+/// Defines additional types related to [TaggedEntry].
 pub mod tagged_entry {
     #[allow(unused_imports)]
     use super::*;
@@ -6895,7 +6895,7 @@ impl wkt::message::Message for DumpItem {
     }
 }
 
-/// Defines additional types related to DumpItem
+/// Defines additional types related to [DumpItem].
 pub mod dump_item {
     #[allow(unused_imports)]
     use super::*;
@@ -7250,7 +7250,7 @@ impl wkt::message::Message for PhysicalSchema {
     }
 }
 
-/// Defines additional types related to PhysicalSchema
+/// Defines additional types related to [PhysicalSchema].
 pub mod physical_schema {
     #[allow(unused_imports)]
     use super::*;
@@ -7559,7 +7559,7 @@ impl wkt::message::Message for Taxonomy {
     }
 }
 
-/// Defines additional types related to Taxonomy
+/// Defines additional types related to [Taxonomy].
 pub mod taxonomy {
     #[allow(unused_imports)]
     use super::*;
@@ -8639,7 +8639,7 @@ impl wkt::message::Message for ImportTaxonomiesRequest {
     }
 }
 
-/// Defines additional types related to ImportTaxonomiesRequest
+/// Defines additional types related to [ImportTaxonomiesRequest].
 pub mod import_taxonomies_request {
     #[allow(unused_imports)]
     use super::*;
@@ -8847,7 +8847,7 @@ impl wkt::message::Message for ExportTaxonomiesRequest {
     }
 }
 
-/// Defines additional types related to ExportTaxonomiesRequest
+/// Defines additional types related to [ExportTaxonomiesRequest].
 pub mod export_taxonomies_request {
     #[allow(unused_imports)]
     use super::*;
@@ -9138,7 +9138,7 @@ impl wkt::message::Message for ColumnSchema {
     }
 }
 
-/// Defines additional types related to ColumnSchema
+/// Defines additional types related to [ColumnSchema].
 pub mod column_schema {
     #[allow(unused_imports)]
     use super::*;
@@ -9177,7 +9177,7 @@ pub mod column_schema {
         }
     }
 
-    /// Defines additional types related to LookerColumnSpec
+    /// Defines additional types related to [LookerColumnSpec].
     pub mod looker_column_spec {
         #[allow(unused_imports)]
         use super::*;
@@ -9596,7 +9596,7 @@ impl wkt::message::Message for SearchCatalogResult {
     }
 }
 
-/// Defines additional types related to SearchCatalogResult
+/// Defines additional types related to [SearchCatalogResult].
 pub mod search_catalog_result {
     #[allow(unused_imports)]
     use super::*;
@@ -9717,7 +9717,7 @@ impl wkt::message::Message for BigQueryTableSpec {
     }
 }
 
-/// Defines additional types related to BigQueryTableSpec
+/// Defines additional types related to [BigQueryTableSpec].
 pub mod big_query_table_spec {
     #[allow(unused_imports)]
     use super::*;
@@ -10012,7 +10012,7 @@ impl wkt::message::Message for Tag {
     }
 }
 
-/// Defines additional types related to Tag
+/// Defines additional types related to [Tag].
 pub mod tag {
     #[allow(unused_imports)]
     use super::*;
@@ -10237,7 +10237,7 @@ impl wkt::message::Message for TagField {
     }
 }
 
-/// Defines additional types related to TagField
+/// Defines additional types related to [TagField].
 pub mod tag_field {
     #[allow(unused_imports)]
     use super::*;
@@ -10412,7 +10412,7 @@ impl wkt::message::Message for TagTemplate {
     }
 }
 
-/// Defines additional types related to TagTemplate
+/// Defines additional types related to [TagTemplate].
 pub mod tag_template {
     #[allow(unused_imports)]
     use super::*;
@@ -10672,7 +10672,7 @@ impl wkt::message::Message for FieldType {
     }
 }
 
-/// Defines additional types related to FieldType
+/// Defines additional types related to [FieldType].
 pub mod field_type {
     #[allow(unused_imports)]
     use super::*;
@@ -10718,7 +10718,7 @@ pub mod field_type {
         }
     }
 
-    /// Defines additional types related to EnumType
+    /// Defines additional types related to [EnumType].
     pub mod enum_type {
         #[allow(unused_imports)]
         use super::*;

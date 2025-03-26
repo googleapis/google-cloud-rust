@@ -160,7 +160,7 @@ impl wkt::message::Message for Folder {
     }
 }
 
-/// Defines additional types related to Folder
+/// Defines additional types related to [Folder].
 pub mod folder {
     #[allow(unused_imports)]
     use super::*;
@@ -1026,7 +1026,7 @@ impl wkt::message::Message for Organization {
     }
 }
 
-/// Defines additional types related to Organization
+/// Defines additional types related to [Organization].
 pub mod organization {
     #[allow(unused_imports)]
     use super::*;
@@ -1469,7 +1469,7 @@ impl wkt::message::Message for Project {
     }
 }
 
-/// Defines additional types related to Project
+/// Defines additional types related to [Project].
 pub mod project {
     #[allow(unused_imports)]
     use super::*;

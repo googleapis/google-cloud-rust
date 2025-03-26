@@ -142,7 +142,7 @@ impl wkt::message::Message for AccessReason {
     }
 }
 
-/// Defines additional types related to AccessReason
+/// Defines additional types related to [AccessReason].
 pub mod access_reason {
     #[allow(unused_imports)]
     use super::*;
@@ -346,7 +346,7 @@ impl wkt::message::Message for SignatureInfo {
     }
 }
 
-/// Defines additional types related to SignatureInfo
+/// Defines additional types related to [SignatureInfo].
 pub mod signature_info {
     #[allow(unused_imports)]
     use super::*;
@@ -709,7 +709,7 @@ impl wkt::message::Message for ApprovalRequest {
     }
 }
 
-/// Defines additional types related to ApprovalRequest
+/// Defines additional types related to [ApprovalRequest].
 pub mod approval_request {
     #[allow(unused_imports)]
     use super::*;

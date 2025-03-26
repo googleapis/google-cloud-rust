@@ -158,7 +158,7 @@ impl wkt::message::Message for TroubleshootIamPolicyResponse {
     }
 }
 
-/// Defines additional types related to TroubleshootIamPolicyResponse
+/// Defines additional types related to [TroubleshootIamPolicyResponse].
 pub mod troubleshoot_iam_policy_response {
     #[allow(unused_imports)]
     use super::*;
@@ -420,7 +420,7 @@ impl wkt::message::Message for ConditionContext {
     }
 }
 
-/// Defines additional types related to ConditionContext
+/// Defines additional types related to [ConditionContext].
 pub mod condition_context {
     #[allow(unused_imports)]
     use super::*;
@@ -1044,7 +1044,7 @@ impl wkt::message::Message for AllowBindingExplanation {
     }
 }
 
-/// Defines additional types related to AllowBindingExplanation
+/// Defines additional types related to [AllowBindingExplanation].
 pub mod allow_binding_explanation {
     #[allow(unused_imports)]
     use super::*;
@@ -1638,7 +1638,7 @@ impl wkt::message::Message for DenyRuleExplanation {
     }
 }
 
-/// Defines additional types related to DenyRuleExplanation
+/// Defines additional types related to [DenyRuleExplanation].
 pub mod deny_rule_explanation {
     #[allow(unused_imports)]
     use super::*;
@@ -1803,7 +1803,7 @@ impl wkt::message::Message for ConditionExplanation {
     }
 }
 
-/// Defines additional types related to ConditionExplanation
+/// Defines additional types related to [ConditionExplanation].
 pub mod condition_explanation {
     #[allow(unused_imports)]
     use super::*;

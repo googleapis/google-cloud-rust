@@ -20,7 +20,7 @@ pub mod domains {
 
     /// Common implementation for [super::super::client::Domains] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::Domains>,
         request: R,
         options: gax::options::RequestOptions,

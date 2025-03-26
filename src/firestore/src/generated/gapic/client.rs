@@ -57,7 +57,7 @@ impl Firestore {
     /// Creates a new client with the specified configuration.
     pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
         let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner }) 
+        Ok(Self { inner })
     }
 
     /// Creates a new client from the provided stub.
@@ -65,33 +65,43 @@ impl Firestore {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stubs::Firestore + 'static {
-        Self { inner: Arc::new(stub) }
+    where
+        T: super::stubs::Firestore + 'static,
+    {
+        Self {
+            inner: Arc::new(stub),
+        }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stubs::dynamic::Firestore>> {
+    async fn build_inner(
+        conf: gax::options::ClientConfig,
+    ) -> Result<Arc<dyn super::stubs::dynamic::Firestore>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stubs::Firestore> {
+    async fn build_transport(
+        conf: gax::options::ClientConfig,
+    ) -> Result<impl super::stubs::Firestore> {
         super::transport::Firestore::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stubs::Firestore> {
-        Self::build_transport(conf).await.map(super::tracing::Firestore::new)
+    async fn build_with_tracing(
+        conf: gax::options::ClientConfig,
+    ) -> Result<impl super::stubs::Firestore> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Firestore::new)
     }
 
     /// Gets a single document.
     pub fn get_document(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::firestore::GetDocument
-    {
-        super::builders::firestore::GetDocument::new(self.inner.clone())
-            .set_name ( name.into() )
+    ) -> super::builders::firestore::GetDocument {
+        super::builders::firestore::GetDocument::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists documents.
@@ -99,61 +109,52 @@ impl Firestore {
         &self,
         parent: impl Into<std::string::String>,
         collection_id: impl Into<std::string::String>,
-    ) -> super::builders::firestore::ListDocuments
-    {
+    ) -> super::builders::firestore::ListDocuments {
         super::builders::firestore::ListDocuments::new(self.inner.clone())
-            .set_parent ( parent.into() )
-            .set_collection_id ( collection_id.into() )
+            .set_parent(parent.into())
+            .set_collection_id(collection_id.into())
     }
 
     /// Updates or inserts a document.
     pub fn update_document(
         &self,
         document: impl Into<crate::model::Document>,
-    ) -> super::builders::firestore::UpdateDocument
-    {
+    ) -> super::builders::firestore::UpdateDocument {
         super::builders::firestore::UpdateDocument::new(self.inner.clone())
-            .set_document ( document.into() )
+            .set_document(document.into())
     }
 
     /// Deletes a document.
     pub fn delete_document(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::firestore::DeleteDocument
-    {
-        super::builders::firestore::DeleteDocument::new(self.inner.clone())
-            .set_name ( name.into() )
+    ) -> super::builders::firestore::DeleteDocument {
+        super::builders::firestore::DeleteDocument::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Starts a new transaction.
     pub fn begin_transaction(
         &self,
         database: impl Into<std::string::String>,
-    ) -> super::builders::firestore::BeginTransaction
-    {
+    ) -> super::builders::firestore::BeginTransaction {
         super::builders::firestore::BeginTransaction::new(self.inner.clone())
-            .set_database ( database.into() )
+            .set_database(database.into())
     }
 
     /// Commits a transaction, while optionally updating documents.
     pub fn commit(
         &self,
         database: impl Into<std::string::String>,
-    ) -> super::builders::firestore::Commit
-    {
-        super::builders::firestore::Commit::new(self.inner.clone())
-            .set_database ( database.into() )
+    ) -> super::builders::firestore::Commit {
+        super::builders::firestore::Commit::new(self.inner.clone()).set_database(database.into())
     }
 
     /// Rolls back a transaction.
     pub fn rollback(
         &self,
         database: impl Into<std::string::String>,
-    ) -> super::builders::firestore::Rollback
-    {
-        super::builders::firestore::Rollback::new(self.inner.clone())
-            .set_database ( database.into() )
+    ) -> super::builders::firestore::Rollback {
+        super::builders::firestore::Rollback::new(self.inner.clone()).set_database(database.into())
     }
 
     /// Partitions a query by returning partition cursors that can be used to run
@@ -162,20 +163,18 @@ impl Firestore {
     pub fn partition_query(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::firestore::PartitionQuery
-    {
+    ) -> super::builders::firestore::PartitionQuery {
         super::builders::firestore::PartitionQuery::new(self.inner.clone())
-            .set_parent ( parent.into() )
+            .set_parent(parent.into())
     }
 
     /// Lists all the collection IDs underneath a document.
     pub fn list_collection_ids(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::firestore::ListCollectionIds
-    {
+    ) -> super::builders::firestore::ListCollectionIds {
         super::builders::firestore::ListCollectionIds::new(self.inner.clone())
-            .set_parent ( parent.into() )
+            .set_parent(parent.into())
     }
 
     /// Applies a batch of write operations.
@@ -194,10 +193,9 @@ impl Firestore {
     pub fn batch_write(
         &self,
         database: impl Into<std::string::String>,
-    ) -> super::builders::firestore::BatchWrite
-    {
+    ) -> super::builders::firestore::BatchWrite {
         super::builders::firestore::BatchWrite::new(self.inner.clone())
-            .set_database ( database.into() )
+            .set_database(database.into())
     }
 
     /// Creates a new document.
@@ -205,11 +203,9 @@ impl Firestore {
         &self,
         parent: impl Into<std::string::String>,
         collection_id: impl Into<std::string::String>,
-    ) -> super::builders::firestore::CreateDocument
-    {
+    ) -> super::builders::firestore::CreateDocument {
         super::builders::firestore::CreateDocument::new(self.inner.clone())
-            .set_parent ( parent.into() )
-            .set_collection_id ( collection_id.into() )
+            .set_parent(parent.into())
+            .set_collection_id(collection_id.into())
     }
-
 }

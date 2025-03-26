@@ -270,7 +270,7 @@ impl wkt::message::Message for WorkstationCluster {
     }
 }
 
-/// Defines additional types related to WorkstationCluster
+/// Defines additional types related to [WorkstationCluster].
 pub mod workstation_cluster {
     #[allow(unused_imports)]
     use super::*;
@@ -718,7 +718,7 @@ impl wkt::message::Message for WorkstationConfig {
     }
 }
 
-/// Defines additional types related to WorkstationConfig
+/// Defines additional types related to [WorkstationConfig].
 pub mod workstation_config {
     #[allow(unused_imports)]
     use super::*;
@@ -793,7 +793,7 @@ pub mod workstation_config {
         }
     }
 
-    /// Defines additional types related to Host
+    /// Defines additional types related to [Host].
     pub mod host {
         #[allow(unused_imports)]
         use super::*;
@@ -1025,7 +1025,7 @@ pub mod workstation_config {
             }
         }
 
-        /// Defines additional types related to GceInstance
+        /// Defines additional types related to [GceInstance].
         pub mod gce_instance {
             #[allow(unused_imports)]
             use super::*;
@@ -1204,7 +1204,7 @@ pub mod workstation_config {
         }
     }
 
-    /// Defines additional types related to PersistentDirectory
+    /// Defines additional types related to [PersistentDirectory].
     pub mod persistent_directory {
         #[allow(unused_imports)]
         use super::*;
@@ -1324,7 +1324,7 @@ pub mod workstation_config {
             }
         }
 
-        /// Defines additional types related to GceRegionalPersistentDisk
+        /// Defines additional types related to [GceRegionalPersistentDisk].
         pub mod gce_regional_persistent_disk {
             #[allow(unused_imports)]
             use super::*;
@@ -1787,7 +1787,7 @@ impl wkt::message::Message for Workstation {
     }
 }
 
-/// Defines additional types related to Workstation
+/// Defines additional types related to [Workstation].
 pub mod workstation {
     #[allow(unused_imports)]
     use super::*;
@@ -3336,7 +3336,7 @@ impl wkt::message::Message for GenerateAccessTokenRequest {
     }
 }
 
-/// Defines additional types related to GenerateAccessTokenRequest
+/// Defines additional types related to [GenerateAccessTokenRequest].
 pub mod generate_access_token_request {
     #[allow(unused_imports)]
     use super::*;

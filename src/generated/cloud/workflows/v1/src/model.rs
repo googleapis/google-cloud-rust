@@ -383,7 +383,7 @@ impl wkt::message::Message for Workflow {
     }
 }
 
-/// Defines additional types related to Workflow
+/// Defines additional types related to [Workflow].
 pub mod workflow {
     #[allow(unused_imports)]
     use super::*;
@@ -430,7 +430,7 @@ pub mod workflow {
         }
     }
 
-    /// Defines additional types related to StateError
+    /// Defines additional types related to [StateError].
     pub mod state_error {
         #[allow(unused_imports)]
         use super::*;

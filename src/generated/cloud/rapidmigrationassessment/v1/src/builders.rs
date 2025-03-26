@@ -20,7 +20,7 @@ pub mod rapid_migration_assessment {
 
     /// Common implementation for [super::super::client::RapidMigrationAssessment] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::RapidMigrationAssessment>,
         request: R,
         options: gax::options::RequestOptions,

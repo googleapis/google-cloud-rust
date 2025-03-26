@@ -248,7 +248,7 @@ impl wkt::message::Message for QuotaFailure {
     }
 }
 
-/// Defines additional types related to QuotaFailure
+/// Defines additional types related to [QuotaFailure].
 pub mod quota_failure {
     #[allow(unused_imports)]
     use super::*;
@@ -343,7 +343,7 @@ impl wkt::message::Message for PreconditionFailure {
     }
 }
 
-/// Defines additional types related to PreconditionFailure
+/// Defines additional types related to [PreconditionFailure].
 pub mod precondition_failure {
     #[allow(unused_imports)]
     use super::*;
@@ -444,7 +444,7 @@ impl wkt::message::Message for BadRequest {
     }
 }
 
-/// Defines additional types related to BadRequest
+/// Defines additional types related to [BadRequest].
 pub mod bad_request {
     #[allow(unused_imports)]
     use super::*;
@@ -682,7 +682,7 @@ impl wkt::message::Message for Help {
     }
 }
 
-/// Defines additional types related to Help
+/// Defines additional types related to [Help].
 pub mod help {
     #[allow(unused_imports)]
     use super::*;

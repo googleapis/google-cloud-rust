@@ -103,7 +103,7 @@ class Duration extends Message {
   Duration({
     this.seconds,
     this.nanos,
-  }) : super(fullyQualifiedName)  {
+  }) : super(fullyQualifiedName) {
     _validate();
   }
 
@@ -329,7 +329,7 @@ class FieldMask extends Message {
 
   FieldMask({
     this.paths,
-  }) : super(fullyQualifiedName) ;
+  }) : super(fullyQualifiedName);
 
   factory FieldMask.fromJson(String json) => FieldMaskHelper.decode(json);
 

@@ -20,7 +20,7 @@ pub mod quota_controller {
 
     /// Common implementation for [super::super::client::QuotaController] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::QuotaController>,
         request: R,
         options: gax::options::RequestOptions,
@@ -104,7 +104,7 @@ pub mod service_controller {
 
     /// Common implementation for [super::super::client::ServiceController] request builders.
     #[derive(Clone, Debug)]
-    pub struct RequestBuilder<R: std::default::Default> {
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: Arc<dyn super::super::stubs::dynamic::ServiceController>,
         request: R,
         options: gax::options::RequestOptions,

@@ -712,7 +712,7 @@ impl wkt::message::Message for AuditLogConfig {
     }
 }
 
-/// Defines additional types related to AuditLogConfig
+/// Defines additional types related to [AuditLogConfig].
 pub mod audit_log_config {
     #[allow(unused_imports)]
     use super::*;
@@ -898,7 +898,7 @@ impl wkt::message::Message for BindingDelta {
     }
 }
 
-/// Defines additional types related to BindingDelta
+/// Defines additional types related to [BindingDelta].
 pub mod binding_delta {
     #[allow(unused_imports)]
     use super::*;
@@ -1031,7 +1031,7 @@ impl wkt::message::Message for AuditConfigDelta {
     }
 }
 
-/// Defines additional types related to AuditConfigDelta
+/// Defines additional types related to [AuditConfigDelta].
 pub mod audit_config_delta {
     #[allow(unused_imports)]
     use super::*;
