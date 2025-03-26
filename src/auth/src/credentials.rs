@@ -159,8 +159,8 @@ pub trait CredentialTrait: std::fmt::Debug {
 
     /// Retrieves the universe domain associated with the credential.
     ///
-    /// The universe domain associated with the credential determines the API
-    /// endpoints to use for making requests eg: `${service}.googleapis.com`.
+    /// The universe domain is used to determine the API endpoints
+    /// for making requests, eg: `${service}.${universe_domain}`.
     fn get_universe_domain(&self) -> impl Future<Output = Result<String>> + Send;
 }
 
@@ -188,8 +188,8 @@ pub(crate) mod dynamic {
 
         /// Retrieves the universe domain associated with the credential.
         ///
-        /// The universe domain associated with the credential determines the API
-        /// endpoints to use for making requests eg: `${service}.googleapis.com`.
+        /// The universe domain is used to determine the API endpoints
+        /// for making requests, eg: `${service}.${universe_domain}`.
         async fn get_universe_domain(&self) -> Result<String> {
             Ok(DEFAULT_UNIVERSE_DOMAIN.to_string())
         }
