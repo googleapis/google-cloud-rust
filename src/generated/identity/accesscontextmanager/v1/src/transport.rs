@@ -33,7 +33,9 @@ impl std::fmt::Debug for AccessContextManager {
 }
 
 impl AccessContextManager {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new<T: gaxi::http::ValidCredential>(
+        config: gax::options::ClientConfig<T>,
+    ) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }

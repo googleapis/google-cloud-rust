@@ -48,7 +48,10 @@ impl CompletionService {
     }
 
     /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new_with_config<T>(conf: gax::options::ClientConfig<T>) -> Result<Self>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         let inner = Self::build_inner(conf).await?;
         Ok(Self { inner })
     }
@@ -66,24 +69,33 @@ impl CompletionService {
         }
     }
 
-    async fn build_inner(
-        conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::CompletionService>> {
+    async fn build_inner<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<Arc<dyn super::stubs::dynamic::CompletionService>>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CompletionService> {
+    async fn build_transport<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::CompletionService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         super::transport::CompletionService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CompletionService> {
+    async fn build_with_tracing<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::CompletionService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CompletionService::new)
@@ -258,7 +270,10 @@ impl ControlService {
     }
 
     /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new_with_config<T>(conf: gax::options::ClientConfig<T>) -> Result<Self>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         let inner = Self::build_inner(conf).await?;
         Ok(Self { inner })
     }
@@ -276,24 +291,33 @@ impl ControlService {
         }
     }
 
-    async fn build_inner(
-        conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ControlService>> {
+    async fn build_inner<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<Arc<dyn super::stubs::dynamic::ControlService>>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ControlService> {
+    async fn build_transport<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::ControlService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         super::transport::ControlService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ControlService> {
+    async fn build_with_tracing<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::ControlService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ControlService::new)
@@ -427,7 +451,10 @@ impl ConversationalSearchService {
     }
 
     /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new_with_config<T>(conf: gax::options::ClientConfig<T>) -> Result<Self>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         let inner = Self::build_inner(conf).await?;
         Ok(Self { inner })
     }
@@ -445,24 +472,33 @@ impl ConversationalSearchService {
         }
     }
 
-    async fn build_inner(
-        conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ConversationalSearchService>> {
+    async fn build_inner<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<Arc<dyn super::stubs::dynamic::ConversationalSearchService>>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ConversationalSearchService> {
+    async fn build_transport<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::ConversationalSearchService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         super::transport::ConversationalSearchService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ConversationalSearchService> {
+    async fn build_with_tracing<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::ConversationalSearchService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ConversationalSearchService::new)
@@ -692,7 +728,10 @@ impl DataStoreService {
     }
 
     /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new_with_config<T>(conf: gax::options::ClientConfig<T>) -> Result<Self>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         let inner = Self::build_inner(conf).await?;
         Ok(Self { inner })
     }
@@ -710,24 +749,33 @@ impl DataStoreService {
         }
     }
 
-    async fn build_inner(
-        conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::DataStoreService>> {
+    async fn build_inner<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<Arc<dyn super::stubs::dynamic::DataStoreService>>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DataStoreService> {
+    async fn build_transport<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::DataStoreService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         super::transport::DataStoreService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DataStoreService> {
+    async fn build_with_tracing<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::DataStoreService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DataStoreService::new)
@@ -883,7 +931,10 @@ impl DocumentService {
     }
 
     /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new_with_config<T>(conf: gax::options::ClientConfig<T>) -> Result<Self>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         let inner = Self::build_inner(conf).await?;
         Ok(Self { inner })
     }
@@ -901,24 +952,33 @@ impl DocumentService {
         }
     }
 
-    async fn build_inner(
-        conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::DocumentService>> {
+    async fn build_inner<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<Arc<dyn super::stubs::dynamic::DocumentService>>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DocumentService> {
+    async fn build_transport<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::DocumentService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         super::transport::DocumentService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DocumentService> {
+    async fn build_with_tracing<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::DocumentService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DocumentService::new)
@@ -1124,7 +1184,10 @@ impl EngineService {
     }
 
     /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new_with_config<T>(conf: gax::options::ClientConfig<T>) -> Result<Self>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         let inner = Self::build_inner(conf).await?;
         Ok(Self { inner })
     }
@@ -1142,24 +1205,33 @@ impl EngineService {
         }
     }
 
-    async fn build_inner(
-        conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::EngineService>> {
+    async fn build_inner<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<Arc<dyn super::stubs::dynamic::EngineService>>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::EngineService> {
+    async fn build_transport<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::EngineService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         super::transport::EngineService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::EngineService> {
+    async fn build_with_tracing<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::EngineService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         Self::build_transport(conf)
             .await
             .map(super::tracing::EngineService::new)
@@ -1301,7 +1373,10 @@ impl GroundedGenerationService {
     }
 
     /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new_with_config<T>(conf: gax::options::ClientConfig<T>) -> Result<Self>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         let inner = Self::build_inner(conf).await?;
         Ok(Self { inner })
     }
@@ -1319,24 +1394,33 @@ impl GroundedGenerationService {
         }
     }
 
-    async fn build_inner(
-        conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::GroundedGenerationService>> {
+    async fn build_inner<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<Arc<dyn super::stubs::dynamic::GroundedGenerationService>>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::GroundedGenerationService> {
+    async fn build_transport<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::GroundedGenerationService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         super::transport::GroundedGenerationService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::GroundedGenerationService> {
+    async fn build_with_tracing<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::GroundedGenerationService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         Self::build_transport(conf)
             .await
             .map(super::tracing::GroundedGenerationService::new)
@@ -1428,7 +1512,10 @@ impl ProjectService {
     }
 
     /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new_with_config<T>(conf: gax::options::ClientConfig<T>) -> Result<Self>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         let inner = Self::build_inner(conf).await?;
         Ok(Self { inner })
     }
@@ -1446,24 +1533,33 @@ impl ProjectService {
         }
     }
 
-    async fn build_inner(
-        conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ProjectService>> {
+    async fn build_inner<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<Arc<dyn super::stubs::dynamic::ProjectService>>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ProjectService> {
+    async fn build_transport<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::ProjectService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         super::transport::ProjectService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ProjectService> {
+    async fn build_with_tracing<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::ProjectService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ProjectService::new)
@@ -1556,7 +1652,10 @@ impl RankService {
     }
 
     /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new_with_config<T>(conf: gax::options::ClientConfig<T>) -> Result<Self>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         let inner = Self::build_inner(conf).await?;
         Ok(Self { inner })
     }
@@ -1574,24 +1673,33 @@ impl RankService {
         }
     }
 
-    async fn build_inner(
-        conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::RankService>> {
+    async fn build_inner<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<Arc<dyn super::stubs::dynamic::RankService>>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::RankService> {
+    async fn build_transport<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::RankService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         super::transport::RankService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::RankService> {
+    async fn build_with_tracing<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::RankService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         Self::build_transport(conf)
             .await
             .map(super::tracing::RankService::new)
@@ -1667,7 +1775,10 @@ impl RecommendationService {
     }
 
     /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new_with_config<T>(conf: gax::options::ClientConfig<T>) -> Result<Self>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         let inner = Self::build_inner(conf).await?;
         Ok(Self { inner })
     }
@@ -1685,24 +1796,33 @@ impl RecommendationService {
         }
     }
 
-    async fn build_inner(
-        conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::RecommendationService>> {
+    async fn build_inner<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<Arc<dyn super::stubs::dynamic::RecommendationService>>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::RecommendationService> {
+    async fn build_transport<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::RecommendationService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         super::transport::RecommendationService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::RecommendationService> {
+    async fn build_with_tracing<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::RecommendationService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         Self::build_transport(conf)
             .await
             .map(super::tracing::RecommendationService::new)
@@ -1782,7 +1902,10 @@ impl SchemaService {
     }
 
     /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new_with_config<T>(conf: gax::options::ClientConfig<T>) -> Result<Self>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         let inner = Self::build_inner(conf).await?;
         Ok(Self { inner })
     }
@@ -1800,24 +1923,33 @@ impl SchemaService {
         }
     }
 
-    async fn build_inner(
-        conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::SchemaService>> {
+    async fn build_inner<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<Arc<dyn super::stubs::dynamic::SchemaService>>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SchemaService> {
+    async fn build_transport<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::SchemaService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         super::transport::SchemaService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SchemaService> {
+    async fn build_with_tracing<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::SchemaService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SchemaService::new)
@@ -1968,7 +2100,10 @@ impl SearchService {
     }
 
     /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new_with_config<T>(conf: gax::options::ClientConfig<T>) -> Result<Self>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         let inner = Self::build_inner(conf).await?;
         Ok(Self { inner })
     }
@@ -1986,24 +2121,33 @@ impl SearchService {
         }
     }
 
-    async fn build_inner(
-        conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::SearchService>> {
+    async fn build_inner<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<Arc<dyn super::stubs::dynamic::SearchService>>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SearchService> {
+    async fn build_transport<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::SearchService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         super::transport::SearchService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SearchService> {
+    async fn build_with_tracing<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::SearchService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SearchService::new)
@@ -2103,7 +2247,10 @@ impl SearchTuningService {
     }
 
     /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new_with_config<T>(conf: gax::options::ClientConfig<T>) -> Result<Self>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         let inner = Self::build_inner(conf).await?;
         Ok(Self { inner })
     }
@@ -2121,24 +2268,33 @@ impl SearchTuningService {
         }
     }
 
-    async fn build_inner(
-        conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::SearchTuningService>> {
+    async fn build_inner<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<Arc<dyn super::stubs::dynamic::SearchTuningService>>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SearchTuningService> {
+    async fn build_transport<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::SearchTuningService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         super::transport::SearchTuningService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SearchTuningService> {
+    async fn build_with_tracing<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::SearchTuningService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SearchTuningService::new)
@@ -2235,7 +2391,10 @@ impl SiteSearchEngineService {
     }
 
     /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new_with_config<T>(conf: gax::options::ClientConfig<T>) -> Result<Self>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         let inner = Self::build_inner(conf).await?;
         Ok(Self { inner })
     }
@@ -2253,24 +2412,33 @@ impl SiteSearchEngineService {
         }
     }
 
-    async fn build_inner(
-        conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::SiteSearchEngineService>> {
+    async fn build_inner<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<Arc<dyn super::stubs::dynamic::SiteSearchEngineService>>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SiteSearchEngineService> {
+    async fn build_transport<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::SiteSearchEngineService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         super::transport::SiteSearchEngineService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SiteSearchEngineService> {
+    async fn build_with_tracing<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::SiteSearchEngineService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SiteSearchEngineService::new)
@@ -2553,7 +2721,10 @@ impl UserEventService {
     }
 
     /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new_with_config<T>(conf: gax::options::ClientConfig<T>) -> Result<Self>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         let inner = Self::build_inner(conf).await?;
         Ok(Self { inner })
     }
@@ -2571,24 +2742,33 @@ impl UserEventService {
         }
     }
 
-    async fn build_inner(
-        conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::UserEventService>> {
+    async fn build_inner<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<Arc<dyn super::stubs::dynamic::UserEventService>>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::UserEventService> {
+    async fn build_transport<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::UserEventService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         super::transport::UserEventService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::UserEventService> {
+    async fn build_with_tracing<T>(
+        conf: gax::options::ClientConfig<T>,
+    ) -> Result<impl super::stubs::UserEventService>
+    where
+        T: gaxi::http::ValidCredential + 'static,
+    {
         Self::build_transport(conf)
             .await
             .map(super::tracing::UserEventService::new)

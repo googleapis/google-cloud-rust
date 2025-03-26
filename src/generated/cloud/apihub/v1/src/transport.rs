@@ -33,7 +33,9 @@ impl std::fmt::Debug for ApiHub {
 }
 
 impl ApiHub {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new<T: gaxi::http::ValidCredential>(
+        config: gax::options::ClientConfig<T>,
+    ) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -998,7 +1000,9 @@ impl std::fmt::Debug for ApiHubDependencies {
 }
 
 impl ApiHubDependencies {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new<T: gaxi::http::ValidCredential>(
+        config: gax::options::ClientConfig<T>,
+    ) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1263,7 +1267,9 @@ impl std::fmt::Debug for HostProjectRegistrationService {
 }
 
 impl HostProjectRegistrationService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new<T: gaxi::http::ValidCredential>(
+        config: gax::options::ClientConfig<T>,
+    ) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1475,7 +1481,9 @@ impl std::fmt::Debug for LintingService {
 }
 
 impl LintingService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new<T: gaxi::http::ValidCredential>(
+        config: gax::options::ClientConfig<T>,
+    ) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1709,7 +1717,9 @@ impl std::fmt::Debug for ApiHubPlugin {
 }
 
 impl ApiHubPlugin {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new<T: gaxi::http::ValidCredential>(
+        config: gax::options::ClientConfig<T>,
+    ) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1903,7 +1913,9 @@ impl std::fmt::Debug for Provisioning {
 }
 
 impl Provisioning {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new<T: gaxi::http::ValidCredential>(
+        config: gax::options::ClientConfig<T>,
+    ) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -2122,7 +2134,9 @@ impl std::fmt::Debug for RuntimeProjectAttachmentService {
 }
 
 impl RuntimeProjectAttachmentService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new<T: gaxi::http::ValidCredential>(
+        config: gax::options::ClientConfig<T>,
+    ) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }

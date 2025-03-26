@@ -33,7 +33,9 @@ impl std::fmt::Debug for LookupService {
 }
 
 impl LookupService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new<T: gaxi::http::ValidCredential>(
+        config: gax::options::ClientConfig<T>,
+    ) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -114,7 +116,9 @@ impl std::fmt::Debug for RegistrationService {
 }
 
 impl RegistrationService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new<T: gaxi::http::ValidCredential>(
+        config: gax::options::ClientConfig<T>,
+    ) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }

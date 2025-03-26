@@ -55,7 +55,7 @@ impl std::fmt::Debug for Firestore {
 }
 
 impl Firestore {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new<T>(config: gax::options::ClientConfig<T>) -> Result<Self> {
         let inner = Self::make_inner(&config).await?;
         let cred = Self::make_credentials(&config).await?;
         Ok(Self {
@@ -67,8 +67,8 @@ impl Firestore {
         })
     }
 
-    async fn make_inner(
-        config: &gax::options::ClientConfig,
+    async fn make_inner<T>(
+        config: &gax::options::ClientConfig<T>,
     ) -> Result<tonic::client::Grpc<tonic::transport::Channel>> {
         let endpoint = tonic::transport::Endpoint::new(
             config
@@ -81,12 +81,12 @@ impl Firestore {
         Ok(tonic::client::Grpc::new(conn))
     }
 
-    async fn make_credentials(
-        config: &gax::options::ClientConfig,
+    async fn make_credentials<T>(
+        _config: &gax::options::ClientConfig<T>,
     ) -> Result<auth::credentials::Credential> {
-        if let Some(c) = config.credential().clone() {
-            return Ok(c);
-        }
+        // if let Some(c) = config.credential().clone() {
+        //     return Ok(c);
+        // }
         auth::credentials::create_access_token_credential()
             .await
             .map_err(Error::authentication)

@@ -33,7 +33,9 @@ impl std::fmt::Debug for AutoscalingPolicyService {
 }
 
 impl AutoscalingPolicyService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new<T: gaxi::http::ValidCredential>(
+        config: gax::options::ClientConfig<T>,
+    ) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -303,7 +305,9 @@ impl std::fmt::Debug for BatchController {
 }
 
 impl BatchController {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new<T: gaxi::http::ValidCredential>(
+        config: gax::options::ClientConfig<T>,
+    ) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -559,7 +563,9 @@ impl std::fmt::Debug for ClusterController {
 }
 
 impl ClusterController {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new<T: gaxi::http::ValidCredential>(
+        config: gax::options::ClientConfig<T>,
+    ) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -960,7 +966,9 @@ impl std::fmt::Debug for JobController {
 }
 
 impl JobController {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new<T: gaxi::http::ValidCredential>(
+        config: gax::options::ClientConfig<T>,
+    ) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1318,7 +1326,9 @@ impl std::fmt::Debug for NodeGroupController {
 }
 
 impl NodeGroupController {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new<T: gaxi::http::ValidCredential>(
+        config: gax::options::ClientConfig<T>,
+    ) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1554,7 +1564,9 @@ impl std::fmt::Debug for SessionTemplateController {
 }
 
 impl SessionTemplateController {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new<T: gaxi::http::ValidCredential>(
+        config: gax::options::ClientConfig<T>,
+    ) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1829,7 +1841,9 @@ impl std::fmt::Debug for SessionController {
 }
 
 impl SessionController {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new<T: gaxi::http::ValidCredential>(
+        config: gax::options::ClientConfig<T>,
+    ) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -2107,7 +2121,9 @@ impl std::fmt::Debug for WorkflowTemplateService {
 }
 
 impl WorkflowTemplateService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new<T: gaxi::http::ValidCredential>(
+        config: gax::options::ClientConfig<T>,
+    ) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }

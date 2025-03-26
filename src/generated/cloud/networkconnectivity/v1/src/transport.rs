@@ -33,7 +33,9 @@ impl std::fmt::Debug for HubService {
 }
 
 impl HubService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new<T: gaxi::http::ValidCredential>(
+        config: gax::options::ClientConfig<T>,
+    ) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -756,7 +758,9 @@ impl std::fmt::Debug for PolicyBasedRoutingService {
 }
 
 impl PolicyBasedRoutingService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new<T: gaxi::http::ValidCredential>(
+        config: gax::options::ClientConfig<T>,
+    ) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
