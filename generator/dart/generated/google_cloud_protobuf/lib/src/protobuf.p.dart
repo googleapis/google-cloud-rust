@@ -117,6 +117,20 @@ class Any extends Message {
   String toString() => 'Any($typeName)';
 }
 
+/// A representation of the `bytes` (`api.BYTES_TYPE`) data type.
+class Bytes extends JsonEncodable {
+  final Uint8List data;
+
+  Bytes({required this.data});
+
+  factory Bytes.fromJson(String value) {
+    return Bytes(data: base64Decode(value));
+  }
+
+  @override
+  String toJson() => base64Encode(data);
+}
+
 /// Called from the Duration constructor to validate the construction
 /// parameters.
 extension DurationExtension on Duration {

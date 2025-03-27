@@ -188,6 +188,11 @@ func (annotate *annotateModel) annotateModel(options map[string]string) (*modelA
 			}
 			protoPackage := keys[1]
 			annotate.packageMapping[protoPackage] = definition
+		case key == "extra-imports":
+			extraImports := strings.Split(definition, ",")
+			for _, item := range extraImports {
+				annotate.imports[item] = item
+			}
 		}
 	}
 
@@ -489,6 +494,7 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 	isList := field.Repeated
 	isMessage := field.Typez == api.MESSAGE_TYPE
 	isEnum := field.Typez == api.ENUM_TYPE
+	isBytes := field.Typez == api.BYTES_TYPE
 	isMap := message != nil && message.IsMap
 	isMessageMap := isMap && message.Fields[1].Typez == api.MESSAGE_TYPE
 
@@ -497,6 +503,8 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 	} else if isEnum {
 		enum := state.EnumByID[field.TypezID]
 		typeName = enumName(enum)
+	} else if isBytes {
+		typeName = "Bytes"
 	}
 
 	data := "json['" + name + "']"
@@ -524,7 +532,7 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 			// primitive lists: (json['name'] as List?)?.cast(),
 			return "(" + data + " as List" + opt + ")" + opt + ".cast()"
 		}
-	} else if isMessage || isEnum {
+	} else if isMessage || isEnum || isBytes {
 		// enum or message
 		if required {
 			// FieldMask.fromJson(json['name']),
@@ -546,6 +554,7 @@ func createToJsonLine(field *api.Field, state *api.APIState, required bool) stri
 	isList := field.Repeated
 	isMessage := field.Typez == api.MESSAGE_TYPE
 	isEnum := field.Typez == api.ENUM_TYPE
+	isBytes := field.Typez == api.BYTES_TYPE
 	isMap := message != nil && message.IsMap
 	isMessageMap := isMap && message.Fields[1].Typez == api.MESSAGE_TYPE
 	bang := "!"
@@ -562,7 +571,7 @@ func createToJsonLine(field *api.Field, state *api.APIState, required bool) stri
 	} else if isMap {
 		// primitive maps
 		return name
-	} else if isMessage || isEnum {
+	} else if isMessage || isEnum || isBytes {
 		// message, enum, and custom: name!.toJson()
 		return name + bang + ".toJson()"
 	} else {
@@ -609,10 +618,8 @@ func (annotate *annotateModel) fieldType(f *api.Field) string {
 	case api.STRING_TYPE:
 		out = "String"
 	case api.BYTES_TYPE:
-		// TODO(#1563): We should instead reference a custom type (ProtoBuffer or
-		// similar), encode/decode to it, and add Uint8List related utility methods.
-		annotate.imports["typed_data"] = typedDataImport
-		out = "Uint8List"
+		annotate.imports["google.protobuf"] = annotate.packageMapping["google.protobuf"]
+		out = "Bytes"
 	case api.MESSAGE_TYPE:
 		message, ok := annotate.state.MessageByID[f.TypezID]
 		if !ok {

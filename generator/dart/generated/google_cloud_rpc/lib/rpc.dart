@@ -21,8 +21,6 @@
 /// Defines RPC types.
 library;
 
-import 'dart:typed_data';
-
 import 'package:google_cloud_gax/common.dart';
 import 'package:google_cloud_gax/src/json_helpers.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
@@ -733,7 +731,7 @@ class HttpRequest extends Message {
   final List<HttpHeader>? headers;
 
   /// The HTTP request body. If the body is not expected, it should be empty.
-  final Uint8List? body;
+  final Bytes? body;
 
   HttpRequest({
     this.method,
@@ -747,7 +745,7 @@ class HttpRequest extends Message {
       method: json['method'],
       uri: json['uri'],
       headers: decodeList(json['headers'], HttpHeader.fromJson),
-      body: json['body'],
+      body: decode(json['body'], Bytes.fromJson),
     );
   }
 
@@ -757,7 +755,7 @@ class HttpRequest extends Message {
       if (method != null) 'method': method,
       if (uri != null) 'uri': uri,
       if (headers != null) 'headers': encodeList(headers),
-      if (body != null) 'body': body,
+      if (body != null) 'body': body!.toJson(),
     };
   }
 
@@ -787,7 +785,7 @@ class HttpResponse extends Message {
   final List<HttpHeader>? headers;
 
   /// The HTTP response body. If the body is not expected, it should be empty.
-  final Uint8List? body;
+  final Bytes? body;
 
   HttpResponse({
     this.status,
@@ -801,7 +799,7 @@ class HttpResponse extends Message {
       status: json['status'],
       reason: json['reason'],
       headers: decodeList(json['headers'], HttpHeader.fromJson),
-      body: json['body'],
+      body: decode(json['body'], Bytes.fromJson),
     );
   }
 
@@ -811,7 +809,7 @@ class HttpResponse extends Message {
       if (status != null) 'status': status,
       if (reason != null) 'reason': reason,
       if (headers != null) 'headers': encodeList(headers),
-      if (body != null) 'body': body,
+      if (body != null) 'body': body!.toJson(),
     };
   }
 
