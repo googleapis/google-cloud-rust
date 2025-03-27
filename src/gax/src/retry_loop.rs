@@ -92,7 +92,10 @@ where
 {
     match retry_flow {
         LoopState::Permanent(e) | LoopState::Exhausted(e) => Err(e),
-        LoopState::Continue(_e) => Ok(backoff(backoff_delay).await),
+        LoopState::Continue(_e) => {
+            backoff(backoff_delay).await;
+            Ok(())
+        }
     }
 }
 
