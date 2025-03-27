@@ -105,7 +105,8 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDataSets {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDataSets {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -157,7 +158,8 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateDataSet {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateDataSet {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -200,7 +202,8 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteDataSet {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteDataSet {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -254,7 +257,8 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    impl gax::options::RequestBuilder for AppendEvents {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AppendEvents {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -347,7 +351,8 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    impl gax::options::RequestBuilder for QueryDataSet {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for QueryDataSet {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -430,7 +435,8 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    impl gax::options::RequestBuilder for EvaluateSlice {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for EvaluateSlice {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -503,7 +509,8 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    impl gax::options::RequestBuilder for EvaluateTimeseries {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for EvaluateTimeseries {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

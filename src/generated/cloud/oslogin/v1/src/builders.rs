@@ -88,7 +88,8 @@ pub mod os_login_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateSshPublicKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateSshPublicKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -132,7 +133,8 @@ pub mod os_login_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeletePosixAccount {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeletePosixAccount {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -176,7 +178,8 @@ pub mod os_login_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteSshPublicKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteSshPublicKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -229,7 +232,8 @@ pub mod os_login_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLoginProfile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLoginProfile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -270,7 +274,8 @@ pub mod os_login_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetSshPublicKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetSshPublicKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -342,7 +347,8 @@ pub mod os_login_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ImportSshPublicKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ImportSshPublicKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -406,7 +412,8 @@ pub mod os_login_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateSshPublicKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateSshPublicKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

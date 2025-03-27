@@ -80,7 +80,8 @@ pub mod transcoder_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -159,7 +160,8 @@ pub mod transcoder_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListJobs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListJobs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -198,7 +200,8 @@ pub mod transcoder_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -245,7 +248,8 @@ pub mod transcoder_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -304,7 +308,8 @@ pub mod transcoder_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateJobTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateJobTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -387,7 +392,8 @@ pub mod transcoder_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListJobTemplates {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListJobTemplates {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -428,7 +434,8 @@ pub mod transcoder_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetJobTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetJobTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -478,7 +485,8 @@ pub mod transcoder_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteJobTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteJobTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

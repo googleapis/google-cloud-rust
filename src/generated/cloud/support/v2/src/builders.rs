@@ -105,7 +105,8 @@ pub mod case_attachment_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAttachments {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAttachments {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -172,7 +173,8 @@ pub mod case_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCase {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCase {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -245,7 +247,8 @@ pub mod case_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListCases {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListCases {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -319,7 +322,8 @@ pub mod case_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SearchCases {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SearchCases {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -366,7 +370,8 @@ pub mod case_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateCase {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCase {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -416,7 +421,8 @@ pub mod case_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateCase {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateCase {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -466,7 +472,8 @@ pub mod case_service {
         }
     }
 
-    impl gax::options::RequestBuilder for EscalateCase {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for EscalateCase {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -507,7 +514,8 @@ pub mod case_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CloseCase {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CloseCase {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -582,7 +590,8 @@ pub mod case_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SearchCaseClassifications {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SearchCaseClassifications {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -676,7 +685,8 @@ pub mod comment_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListComments {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListComments {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -726,7 +736,8 @@ pub mod comment_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateComment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateComment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

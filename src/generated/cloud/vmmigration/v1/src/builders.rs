@@ -113,7 +113,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for ListSources {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListSources {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -154,7 +155,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for GetSource {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetSource {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -253,7 +255,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateSource {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateSource {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -349,7 +352,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateSource {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateSource {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -431,7 +435,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteSource {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteSource {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -478,7 +483,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for FetchInventory {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FetchInventory {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -569,7 +575,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for ListUtilizationReports {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListUtilizationReports {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -619,7 +626,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for GetUtilizationReport {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetUtilizationReport {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -727,7 +735,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateUtilizationReport {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateUtilizationReport {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -814,7 +823,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteUtilizationReport {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteUtilizationReport {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -901,7 +911,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDatacenterConnectors {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDatacenterConnectors {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -945,7 +956,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDatacenterConnector {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDatacenterConnector {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1053,7 +1065,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateDatacenterConnector {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateDatacenterConnector {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1140,7 +1153,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteDatacenterConnector {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteDatacenterConnector {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1231,7 +1245,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for UpgradeAppliance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpgradeAppliance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1334,7 +1349,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateMigratingVm {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateMigratingVm {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1423,7 +1439,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for ListMigratingVms {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListMigratingVms {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1470,7 +1487,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for GetMigratingVm {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetMigratingVm {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1570,7 +1588,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateMigratingVm {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateMigratingVm {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1649,7 +1668,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteMigratingVm {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteMigratingVm {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1731,7 +1751,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for StartMigration {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StartMigration {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1813,7 +1834,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for ResumeMigration {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResumeMigration {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1895,7 +1917,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for PauseMigration {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PauseMigration {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1980,7 +2003,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for FinalizeMigration {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FinalizeMigration {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2080,7 +2104,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateCloneJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCloneJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2162,7 +2187,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelCloneJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelCloneJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2242,7 +2268,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for ListCloneJobs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListCloneJobs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2283,7 +2310,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCloneJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCloneJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2386,7 +2414,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateCutoverJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCutoverJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2471,7 +2500,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelCutoverJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelCutoverJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2551,7 +2581,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for ListCutoverJobs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListCutoverJobs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2592,7 +2623,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCutoverJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCutoverJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2672,7 +2704,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for ListGroups {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListGroups {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2713,7 +2746,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for GetGroup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetGroup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2812,7 +2846,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateGroup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateGroup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2908,7 +2943,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateGroup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateGroup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2990,7 +3026,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteGroup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteGroup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3081,7 +3118,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for AddGroupMigration {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AddGroupMigration {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3172,7 +3210,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for RemoveGroupMigration {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RemoveGroupMigration {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3255,7 +3294,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for ListTargetProjects {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListTargetProjects {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3299,7 +3339,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for GetTargetProject {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetTargetProject {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3403,7 +3444,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateTargetProject {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateTargetProject {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3504,7 +3546,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateTargetProject {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateTargetProject {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3589,7 +3632,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteTargetProject {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteTargetProject {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3672,7 +3716,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for ListReplicationCycles {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListReplicationCycles {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3716,7 +3761,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for GetReplicationCycle {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetReplicationCycle {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3793,7 +3839,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3834,7 +3881,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3911,7 +3959,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3955,7 +4004,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3999,7 +4049,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4043,7 +4094,8 @@ pub mod vm_migration {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

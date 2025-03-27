@@ -74,7 +74,8 @@ pub mod simulator {
         }
     }
 
-    impl gax::options::RequestBuilder for GetReplay {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetReplay {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -162,7 +163,8 @@ pub mod simulator {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateReplay {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateReplay {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -233,7 +235,8 @@ pub mod simulator {
         }
     }
 
-    impl gax::options::RequestBuilder for ListReplayResults {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListReplayResults {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -310,7 +313,8 @@ pub mod simulator {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -354,7 +358,8 @@ pub mod simulator {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

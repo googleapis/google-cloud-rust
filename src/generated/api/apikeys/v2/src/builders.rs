@@ -121,7 +121,8 @@ pub mod api_keys {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -194,7 +195,8 @@ pub mod api_keys {
         }
     }
 
-    impl gax::options::RequestBuilder for ListKeys {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListKeys {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -233,7 +235,8 @@ pub mod api_keys {
         }
     }
 
-    impl gax::options::RequestBuilder for GetKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -274,7 +277,8 @@ pub mod api_keys {
         }
     }
 
-    impl gax::options::RequestBuilder for GetKeyString {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetKeyString {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -359,7 +363,8 @@ pub mod api_keys {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -441,7 +446,8 @@ pub mod api_keys {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -517,7 +523,8 @@ pub mod api_keys {
         }
     }
 
-    impl gax::options::RequestBuilder for UndeleteKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UndeleteKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -558,7 +565,8 @@ pub mod api_keys {
         }
     }
 
-    impl gax::options::RequestBuilder for LookupKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for LookupKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -602,7 +610,8 @@ pub mod api_keys {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

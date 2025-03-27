@@ -181,7 +181,8 @@ pub mod {{Codec.ModuleName}} {
         {{/InputType.OneOfs}}
     }
 
-    impl gax::options::RequestBuilder for {{Codec.BuilderName}} {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for {{Codec.BuilderName}} {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

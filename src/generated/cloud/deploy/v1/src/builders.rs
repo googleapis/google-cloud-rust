@@ -116,7 +116,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDeliveryPipelines {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDeliveryPipelines {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -160,7 +161,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDeliveryPipeline {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDeliveryPipeline {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -272,7 +274,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateDeliveryPipeline {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateDeliveryPipeline {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -387,7 +390,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateDeliveryPipeline {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateDeliveryPipeline {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -496,7 +500,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteDeliveryPipeline {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteDeliveryPipeline {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -576,7 +581,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for ListTargets {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListTargets {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -669,7 +675,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for RollbackTarget {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RollbackTarget {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -710,7 +717,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for GetTarget {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetTarget {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -815,7 +823,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateTarget {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateTarget {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -923,7 +932,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateTarget {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateTarget {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1023,7 +1033,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteTarget {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteTarget {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1106,7 +1117,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for ListCustomTargetTypes {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListCustomTargetTypes {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1150,7 +1162,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCustomTargetType {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCustomTargetType {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1262,7 +1275,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateCustomTargetType {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCustomTargetType {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1377,7 +1391,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateCustomTargetType {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateCustomTargetType {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1480,7 +1495,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteCustomTargetType {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteCustomTargetType {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1560,7 +1576,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for ListReleases {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListReleases {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1601,7 +1618,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for GetRelease {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetRelease {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1717,7 +1735,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateRelease {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateRelease {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1758,7 +1777,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for AbandonRelease {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AbandonRelease {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1867,7 +1887,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateDeployPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateDeployPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1979,7 +2000,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateDeployPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateDeployPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2082,7 +2104,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteDeployPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteDeployPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2165,7 +2188,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDeployPolicies {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDeployPolicies {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2206,7 +2230,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDeployPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDeployPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2264,7 +2289,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for ApproveRollout {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ApproveRollout {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2322,7 +2348,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for AdvanceRollout {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AdvanceRollout {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2374,7 +2401,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelRollout {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelRollout {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2454,7 +2482,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for ListRollouts {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListRollouts {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2495,7 +2524,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for GetRollout {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetRollout {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2617,7 +2647,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateRollout {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateRollout {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2681,7 +2712,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for IgnoreJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for IgnoreJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2745,7 +2777,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for RetryJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RetryJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2825,7 +2858,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for ListJobRuns {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListJobRuns {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2866,7 +2900,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for GetJobRun {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetJobRun {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2918,7 +2953,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for TerminateJobRun {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TerminateJobRun {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2959,7 +2995,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for GetConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3068,7 +3105,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateAutomation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAutomation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3180,7 +3218,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateAutomation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateAutomation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3283,7 +3322,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteAutomation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteAutomation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3324,7 +3364,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAutomation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAutomation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3404,7 +3445,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAutomations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAutomations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3448,7 +3490,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAutomationRun {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAutomationRun {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3531,7 +3574,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAutomationRuns {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAutomationRuns {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3575,7 +3619,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelAutomationRun {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelAutomationRun {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3652,7 +3697,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3693,7 +3739,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3752,7 +3799,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3802,7 +3850,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3857,7 +3906,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3934,7 +3984,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3978,7 +4029,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4022,7 +4074,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4066,7 +4119,8 @@ pub mod cloud_deploy {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

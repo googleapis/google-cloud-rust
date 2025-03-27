@@ -84,7 +84,8 @@ pub mod policy_troubleshooter {
         }
     }
 
-    impl gax::options::RequestBuilder for TroubleshootIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TroubleshootIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

@@ -74,7 +74,8 @@ pub mod grafeas {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOccurrence {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOccurrence {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -148,7 +149,8 @@ pub mod grafeas {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOccurrences {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOccurrences {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -192,7 +194,8 @@ pub mod grafeas {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOccurrence {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOccurrence {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -245,7 +248,8 @@ pub mod grafeas {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateOccurrence {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateOccurrence {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -300,7 +304,8 @@ pub mod grafeas {
         }
     }
 
-    impl gax::options::RequestBuilder for BatchCreateOccurrences {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BatchCreateOccurrences {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -362,7 +367,8 @@ pub mod grafeas {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateOccurrence {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateOccurrence {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -406,7 +412,8 @@ pub mod grafeas {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOccurrenceNote {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOccurrenceNote {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -447,7 +454,8 @@ pub mod grafeas {
         }
     }
 
-    impl gax::options::RequestBuilder for GetNote {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetNote {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -520,7 +528,8 @@ pub mod grafeas {
         }
     }
 
-    impl gax::options::RequestBuilder for ListNotes {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListNotes {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -561,7 +570,8 @@ pub mod grafeas {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteNote {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteNote {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -614,7 +624,8 @@ pub mod grafeas {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateNote {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateNote {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -669,7 +680,8 @@ pub mod grafeas {
         }
     }
 
-    impl gax::options::RequestBuilder for BatchCreateNotes {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BatchCreateNotes {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -725,7 +737,8 @@ pub mod grafeas {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateNote {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateNote {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -802,7 +815,8 @@ pub mod grafeas {
         }
     }
 
-    impl gax::options::RequestBuilder for ListNoteOccurrences {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListNoteOccurrences {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

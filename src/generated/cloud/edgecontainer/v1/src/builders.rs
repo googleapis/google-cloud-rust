@@ -113,7 +113,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for ListClusters {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListClusters {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -154,7 +155,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -253,7 +255,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -349,7 +352,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -448,7 +452,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for UpgradeCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpgradeCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -530,7 +535,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -574,7 +580,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for GenerateAccessToken {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GenerateAccessToken {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -620,7 +627,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for GenerateOfflineCredential {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GenerateOfflineCredential {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -700,7 +708,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for ListNodePools {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListNodePools {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -741,7 +750,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for GetNodePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetNodePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -841,7 +851,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateNodePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateNodePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -938,7 +949,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateNodePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateNodePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1020,7 +1032,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteNodePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteNodePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1100,7 +1113,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for ListMachines {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListMachines {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1141,7 +1155,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for GetMachine {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetMachine {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1224,7 +1239,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for ListVpnConnections {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListVpnConnections {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1268,7 +1284,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for GetVpnConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetVpnConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1372,7 +1389,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateVpnConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateVpnConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1457,7 +1475,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteVpnConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteVpnConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1498,7 +1517,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for GetServerConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetServerConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1575,7 +1595,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1616,7 +1637,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1693,7 +1715,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1737,7 +1760,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1781,7 +1805,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1825,7 +1850,8 @@ pub mod edge_container {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

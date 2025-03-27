@@ -116,7 +116,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for ListStoragePools {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListStoragePools {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -213,7 +214,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateStoragePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateStoragePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -254,7 +256,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for GetStoragePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetStoragePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -348,7 +351,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateStoragePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateStoragePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -427,7 +431,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteStoragePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteStoragePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -517,7 +522,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for ValidateDirectoryService {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ValidateDirectoryService {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -601,7 +607,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for SwitchActiveReplicaZone {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SwitchActiveReplicaZone {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -681,7 +688,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for ListVolumes {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListVolumes {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -722,7 +730,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for GetVolume {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetVolume {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -815,7 +824,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateVolume {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateVolume {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -905,7 +915,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateVolume {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateVolume {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -987,7 +998,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteVolume {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteVolume {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1071,7 +1083,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for RevertVolume {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RevertVolume {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1151,7 +1164,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for ListSnapshots {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListSnapshots {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1192,7 +1206,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for GetSnapshot {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetSnapshot {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1286,7 +1301,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateSnapshot {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateSnapshot {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1362,7 +1378,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteSnapshot {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteSnapshot {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1453,7 +1470,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateSnapshot {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateSnapshot {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1536,7 +1554,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for ListActiveDirectories {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListActiveDirectories {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1580,7 +1599,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for GetActiveDirectory {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetActiveDirectory {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1678,7 +1698,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateActiveDirectory {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateActiveDirectory {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1773,7 +1794,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateActiveDirectory {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateActiveDirectory {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1852,7 +1874,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteActiveDirectory {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteActiveDirectory {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1932,7 +1955,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for ListKmsConfigs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListKmsConfigs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2026,7 +2050,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateKmsConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateKmsConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2067,7 +2092,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for GetKmsConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetKmsConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2158,7 +2184,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateKmsConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateKmsConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2237,7 +2264,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for EncryptVolumes {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for EncryptVolumes {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2278,7 +2306,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for VerifyKmsConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for VerifyKmsConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2354,7 +2383,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteKmsConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteKmsConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2437,7 +2467,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for ListReplications {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListReplications {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2478,7 +2509,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for GetReplication {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetReplication {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2575,7 +2607,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateReplication {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateReplication {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2654,7 +2687,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteReplication {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteReplication {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2748,7 +2782,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateReplication {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateReplication {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2833,7 +2868,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for StopReplication {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StopReplication {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2915,7 +2951,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for ResumeReplication {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResumeReplication {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2999,7 +3036,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for ReverseReplicationDirection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ReverseReplicationDirection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3110,7 +3148,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for EstablishPeering {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for EstablishPeering {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3189,7 +3228,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for SyncReplication {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SyncReplication {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3286,7 +3326,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateBackupVault {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateBackupVault {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3327,7 +3368,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for GetBackupVault {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBackupVault {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3410,7 +3452,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for ListBackupVaults {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBackupVaults {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3504,7 +3547,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateBackupVault {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateBackupVault {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3583,7 +3627,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteBackupVault {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteBackupVault {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3676,7 +3721,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3717,7 +3763,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for GetBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3797,7 +3844,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for ListBackups {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBackups {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3873,7 +3921,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3963,7 +4012,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4060,7 +4110,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateBackupPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateBackupPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4101,7 +4152,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for GetBackupPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBackupPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4184,7 +4236,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for ListBackupPolicies {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBackupPolicies {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4278,7 +4331,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateBackupPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateBackupPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4357,7 +4411,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteBackupPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteBackupPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4437,7 +4492,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for ListQuotaRules {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListQuotaRules {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4478,7 +4534,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for GetQuotaRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetQuotaRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4572,7 +4629,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateQuotaRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateQuotaRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4663,7 +4721,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateQuotaRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateQuotaRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4739,7 +4798,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteQuotaRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteQuotaRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4816,7 +4876,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4857,7 +4918,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4934,7 +4996,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4978,7 +5041,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -5022,7 +5086,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -5066,7 +5131,8 @@ pub mod net_app {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

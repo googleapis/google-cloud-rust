@@ -107,7 +107,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for ListInstances {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListInstances {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -148,7 +149,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for GetInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -239,7 +241,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -286,7 +289,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for RenameInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RenameInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -368,7 +372,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for ResetInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResetInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -450,7 +455,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for StartInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StartInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -530,7 +536,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for StopInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StopInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -619,7 +626,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for EnableInteractiveSerialConsole {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for EnableInteractiveSerialConsole {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -708,7 +716,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for DisableInteractiveSerialConsole {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DisableInteractiveSerialConsole {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -799,7 +808,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for DetachLun {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DetachLun {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -867,7 +877,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for ListSSHKeys {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListSSHKeys {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -923,7 +934,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateSSHKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateSSHKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -964,7 +976,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteSSHKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteSSHKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1038,7 +1051,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for ListVolumes {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListVolumes {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1079,7 +1093,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for GetVolume {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetVolume {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1169,7 +1184,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateVolume {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateVolume {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1216,7 +1232,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for RenameVolume {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RenameVolume {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1292,7 +1309,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for EvictVolume {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for EvictVolume {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1376,7 +1394,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for ResizeVolume {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResizeVolume {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1450,7 +1469,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for ListNetworks {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListNetworks {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1494,7 +1514,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for ListNetworkUsage {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListNetworkUsage {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1535,7 +1556,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for GetNetwork {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetNetwork {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1625,7 +1647,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateNetwork {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateNetwork {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1678,7 +1701,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateVolumeSnapshot {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateVolumeSnapshot {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1761,7 +1785,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for RestoreVolumeSnapshot {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RestoreVolumeSnapshot {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1805,7 +1830,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteVolumeSnapshot {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteVolumeSnapshot {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1849,7 +1875,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for GetVolumeSnapshot {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetVolumeSnapshot {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1920,7 +1947,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for ListVolumeSnapshots {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListVolumeSnapshots {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1959,7 +1987,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLun {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLun {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2026,7 +2055,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLuns {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLuns {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2102,7 +2132,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for EvictLun {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for EvictLun {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2143,7 +2174,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for GetNfsShare {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetNfsShare {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2217,7 +2249,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for ListNfsShares {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListNfsShares {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2308,7 +2341,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateNfsShare {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateNfsShare {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2396,7 +2430,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateNfsShare {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateNfsShare {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2443,7 +2478,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for RenameNfsShare {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RenameNfsShare {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2519,7 +2555,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteNfsShare {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteNfsShare {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2592,7 +2629,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for ListProvisioningQuotas {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListProvisioningQuotas {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2655,7 +2693,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for SubmitProvisioningConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SubmitProvisioningConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2699,7 +2738,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for GetProvisioningConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetProvisioningConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2762,7 +2802,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateProvisioningConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateProvisioningConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2828,7 +2869,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateProvisioningConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateProvisioningConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2875,7 +2917,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for RenameNetwork {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RenameNetwork {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2943,7 +2986,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOSImages {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOSImages {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3020,7 +3064,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3061,7 +3106,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3105,7 +3151,8 @@ pub mod bare_metal_solution {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

@@ -86,7 +86,8 @@ pub mod data_policy_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateDataPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateDataPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -142,7 +143,8 @@ pub mod data_policy_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateDataPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateDataPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -192,7 +194,8 @@ pub mod data_policy_service {
         }
     }
 
-    impl gax::options::RequestBuilder for RenameDataPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RenameDataPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -236,7 +239,8 @@ pub mod data_policy_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteDataPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteDataPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -277,7 +281,8 @@ pub mod data_policy_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDataPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDataPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -354,7 +359,8 @@ pub mod data_policy_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDataPolicies {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDataPolicies {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -404,7 +410,8 @@ pub mod data_policy_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -463,7 +470,8 @@ pub mod data_policy_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -518,7 +526,8 @@ pub mod data_policy_service {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

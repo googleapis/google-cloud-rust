@@ -110,7 +110,8 @@ pub mod access_approval {
         }
     }
 
-    impl gax::options::RequestBuilder for ListApprovalRequests {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListApprovalRequests {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -154,7 +155,8 @@ pub mod access_approval {
         }
     }
 
-    impl gax::options::RequestBuilder for GetApprovalRequest {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetApprovalRequest {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -207,7 +209,8 @@ pub mod access_approval {
         }
     }
 
-    impl gax::options::RequestBuilder for ApproveApprovalRequest {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ApproveApprovalRequest {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -251,7 +254,8 @@ pub mod access_approval {
         }
     }
 
-    impl gax::options::RequestBuilder for DismissApprovalRequest {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DismissApprovalRequest {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -297,7 +301,8 @@ pub mod access_approval {
         }
     }
 
-    impl gax::options::RequestBuilder for InvalidateApprovalRequest {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for InvalidateApprovalRequest {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -343,7 +348,8 @@ pub mod access_approval {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAccessApprovalSettings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAccessApprovalSettings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -401,7 +407,8 @@ pub mod access_approval {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateAccessApprovalSettings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateAccessApprovalSettings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -447,7 +454,8 @@ pub mod access_approval {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteAccessApprovalSettings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteAccessApprovalSettings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -493,7 +501,8 @@ pub mod access_approval {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAccessApprovalServiceAccount {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAccessApprovalServiceAccount {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

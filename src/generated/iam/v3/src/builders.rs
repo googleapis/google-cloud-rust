@@ -137,7 +137,8 @@ pub mod policy_bindings {
         }
     }
 
-    impl gax::options::RequestBuilder for CreatePolicyBinding {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreatePolicyBinding {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -181,7 +182,8 @@ pub mod policy_bindings {
         }
     }
 
-    impl gax::options::RequestBuilder for GetPolicyBinding {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetPolicyBinding {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -282,7 +284,8 @@ pub mod policy_bindings {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdatePolicyBinding {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdatePolicyBinding {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -373,7 +376,8 @@ pub mod policy_bindings {
         }
     }
 
-    impl gax::options::RequestBuilder for DeletePolicyBinding {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeletePolicyBinding {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -450,7 +454,8 @@ pub mod policy_bindings {
         }
     }
 
-    impl gax::options::RequestBuilder for ListPolicyBindings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListPolicyBindings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -531,7 +536,8 @@ pub mod policy_bindings {
         }
     }
 
-    impl gax::options::RequestBuilder for SearchTargetPolicyBindings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SearchTargetPolicyBindings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -575,7 +581,8 @@ pub mod policy_bindings {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -718,7 +725,8 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    impl gax::options::RequestBuilder for CreatePrincipalAccessBoundaryPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreatePrincipalAccessBoundaryPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -766,7 +774,8 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    impl gax::options::RequestBuilder for GetPrincipalAccessBoundaryPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetPrincipalAccessBoundaryPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -875,7 +884,8 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdatePrincipalAccessBoundaryPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdatePrincipalAccessBoundaryPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -976,7 +986,8 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    impl gax::options::RequestBuilder for DeletePrincipalAccessBoundaryPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeletePrincipalAccessBoundaryPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1055,7 +1066,8 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    impl gax::options::RequestBuilder for ListPrincipalAccessBoundaryPolicies {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListPrincipalAccessBoundaryPolicies {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1136,7 +1148,8 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    impl gax::options::RequestBuilder for SearchPrincipalAccessBoundaryPolicyBindings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SearchPrincipalAccessBoundaryPolicyBindings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1182,7 +1195,8 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

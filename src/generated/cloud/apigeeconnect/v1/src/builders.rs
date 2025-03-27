@@ -101,7 +101,8 @@ pub mod connection_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListConnections {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListConnections {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

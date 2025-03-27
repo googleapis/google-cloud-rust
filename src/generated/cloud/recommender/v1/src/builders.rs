@@ -107,7 +107,8 @@ pub mod recommender {
         }
     }
 
-    impl gax::options::RequestBuilder for ListInsights {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListInsights {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -148,7 +149,8 @@ pub mod recommender {
         }
     }
 
-    impl gax::options::RequestBuilder for GetInsight {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetInsight {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -210,7 +212,8 @@ pub mod recommender {
         }
     }
 
-    impl gax::options::RequestBuilder for MarkInsightAccepted {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for MarkInsightAccepted {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -287,7 +290,8 @@ pub mod recommender {
         }
     }
 
-    impl gax::options::RequestBuilder for ListRecommendations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListRecommendations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -331,7 +335,8 @@ pub mod recommender {
         }
     }
 
-    impl gax::options::RequestBuilder for GetRecommendation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetRecommendation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -383,7 +388,8 @@ pub mod recommender {
         }
     }
 
-    impl gax::options::RequestBuilder for MarkRecommendationDismissed {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for MarkRecommendationDismissed {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -447,7 +453,8 @@ pub mod recommender {
         }
     }
 
-    impl gax::options::RequestBuilder for MarkRecommendationClaimed {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for MarkRecommendationClaimed {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -511,7 +518,8 @@ pub mod recommender {
         }
     }
 
-    impl gax::options::RequestBuilder for MarkRecommendationSucceeded {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for MarkRecommendationSucceeded {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -575,7 +583,8 @@ pub mod recommender {
         }
     }
 
-    impl gax::options::RequestBuilder for MarkRecommendationFailed {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for MarkRecommendationFailed {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -619,7 +628,8 @@ pub mod recommender {
         }
     }
 
-    impl gax::options::RequestBuilder for GetRecommenderConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetRecommenderConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -685,7 +695,8 @@ pub mod recommender {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateRecommenderConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateRecommenderConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -729,7 +740,8 @@ pub mod recommender {
         }
     }
 
-    impl gax::options::RequestBuilder for GetInsightTypeConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetInsightTypeConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -795,7 +807,8 @@ pub mod recommender {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateInsightTypeConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateInsightTypeConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

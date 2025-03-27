@@ -86,7 +86,8 @@ pub mod lookup_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ResolveService {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResolveService {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -163,7 +164,8 @@ pub mod lookup_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -204,7 +206,8 @@ pub mod lookup_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -290,7 +293,8 @@ pub mod registration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateNamespace {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateNamespace {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -372,7 +376,8 @@ pub mod registration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListNamespaces {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListNamespaces {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -415,7 +420,8 @@ pub mod registration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetNamespace {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetNamespace {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -470,7 +476,8 @@ pub mod registration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateNamespace {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateNamespace {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -513,7 +520,8 @@ pub mod registration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteNamespace {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteNamespace {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -571,7 +579,8 @@ pub mod registration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateService {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateService {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -653,7 +662,8 @@ pub mod registration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListServices {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListServices {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -696,7 +706,8 @@ pub mod registration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetService {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetService {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -751,7 +762,8 @@ pub mod registration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateService {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateService {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -794,7 +806,8 @@ pub mod registration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteService {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteService {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -852,7 +865,8 @@ pub mod registration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateEndpoint {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateEndpoint {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -934,7 +948,8 @@ pub mod registration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListEndpoints {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListEndpoints {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -977,7 +992,8 @@ pub mod registration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetEndpoint {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetEndpoint {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1032,7 +1048,8 @@ pub mod registration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateEndpoint {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateEndpoint {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1075,7 +1092,8 @@ pub mod registration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteEndpoint {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteEndpoint {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1127,7 +1145,8 @@ pub mod registration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1188,7 +1207,8 @@ pub mod registration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1245,7 +1265,8 @@ pub mod registration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1324,7 +1345,8 @@ pub mod registration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1367,7 +1389,8 @@ pub mod registration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

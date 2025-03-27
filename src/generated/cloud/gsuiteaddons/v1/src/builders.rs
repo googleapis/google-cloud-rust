@@ -77,7 +77,8 @@ pub mod g_suite_add_ons {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAuthorization {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAuthorization {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -136,7 +137,8 @@ pub mod g_suite_add_ons {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateDeployment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateDeployment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -183,7 +185,8 @@ pub mod g_suite_add_ons {
         }
     }
 
-    impl gax::options::RequestBuilder for ReplaceDeployment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ReplaceDeployment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -224,7 +227,8 @@ pub mod g_suite_add_ons {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDeployment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDeployment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -292,7 +296,8 @@ pub mod g_suite_add_ons {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDeployments {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDeployments {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -342,7 +347,8 @@ pub mod g_suite_add_ons {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteDeployment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteDeployment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -386,7 +392,8 @@ pub mod g_suite_add_ons {
         }
     }
 
-    impl gax::options::RequestBuilder for InstallDeployment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for InstallDeployment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -430,7 +437,8 @@ pub mod g_suite_add_ons {
         }
     }
 
-    impl gax::options::RequestBuilder for UninstallDeployment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UninstallDeployment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -474,7 +482,8 @@ pub mod g_suite_add_ons {
         }
     }
 
-    impl gax::options::RequestBuilder for GetInstallStatus {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetInstallStatus {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

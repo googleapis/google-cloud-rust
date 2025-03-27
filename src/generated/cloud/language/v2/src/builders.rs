@@ -86,7 +86,8 @@ pub mod language_service {
         }
     }
 
-    impl gax::options::RequestBuilder for AnalyzeSentiment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AnalyzeSentiment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -136,7 +137,8 @@ pub mod language_service {
         }
     }
 
-    impl gax::options::RequestBuilder for AnalyzeEntities {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AnalyzeEntities {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -180,7 +182,8 @@ pub mod language_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ClassifyText {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ClassifyText {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -233,7 +236,8 @@ pub mod language_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ModerateText {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ModerateText {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -294,7 +298,8 @@ pub mod language_service {
         }
     }
 
-    impl gax::options::RequestBuilder for AnnotateText {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AnnotateText {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

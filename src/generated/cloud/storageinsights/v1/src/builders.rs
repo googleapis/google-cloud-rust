@@ -116,7 +116,8 @@ pub mod storage_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for ListReportConfigs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListReportConfigs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -157,7 +158,8 @@ pub mod storage_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for GetReportConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetReportConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -216,7 +218,8 @@ pub mod storage_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateReportConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateReportConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -278,7 +281,8 @@ pub mod storage_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateReportConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateReportConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -334,7 +338,8 @@ pub mod storage_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteReportConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteReportConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -417,7 +422,8 @@ pub mod storage_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for ListReportDetails {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListReportDetails {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -458,7 +464,8 @@ pub mod storage_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for GetReportDetail {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetReportDetail {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -535,7 +542,8 @@ pub mod storage_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -576,7 +584,8 @@ pub mod storage_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -653,7 +662,8 @@ pub mod storage_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -697,7 +707,8 @@ pub mod storage_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -741,7 +752,8 @@ pub mod storage_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -785,7 +797,8 @@ pub mod storage_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

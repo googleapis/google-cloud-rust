@@ -94,7 +94,8 @@ pub mod profiler_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateProfile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateProfile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -147,7 +148,8 @@ pub mod profiler_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateOfflineProfile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateOfflineProfile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -200,7 +202,8 @@ pub mod profiler_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateProfile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateProfile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -294,7 +297,8 @@ pub mod export_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListProfiles {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListProfiles {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

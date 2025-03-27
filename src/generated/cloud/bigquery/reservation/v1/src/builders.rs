@@ -92,7 +92,8 @@ pub mod reservation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateReservation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateReservation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -163,7 +164,8 @@ pub mod reservation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListReservations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListReservations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -204,7 +206,8 @@ pub mod reservation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetReservation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetReservation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -248,7 +251,8 @@ pub mod reservation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteReservation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteReservation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -304,7 +308,8 @@ pub mod reservation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateReservation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateReservation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -348,7 +353,8 @@ pub mod reservation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for FailoverReservation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FailoverReservation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -417,7 +423,8 @@ pub mod reservation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateCapacityCommitment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCapacityCommitment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -492,7 +499,8 @@ pub mod reservation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListCapacityCommitments {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListCapacityCommitments {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -536,7 +544,8 @@ pub mod reservation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCapacityCommitment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCapacityCommitment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -588,7 +597,8 @@ pub mod reservation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteCapacityCommitment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteCapacityCommitment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -648,7 +658,8 @@ pub mod reservation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateCapacityCommitment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateCapacityCommitment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -700,7 +711,8 @@ pub mod reservation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SplitCapacityCommitment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SplitCapacityCommitment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -757,7 +769,8 @@ pub mod reservation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for MergeCapacityCommitments {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for MergeCapacityCommitments {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -816,7 +829,8 @@ pub mod reservation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateAssignment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAssignment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -884,7 +898,8 @@ pub mod reservation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAssignments {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAssignments {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -928,7 +943,8 @@ pub mod reservation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteAssignment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteAssignment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1005,7 +1021,8 @@ pub mod reservation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SearchAssignments {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SearchAssignments {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1082,7 +1099,8 @@ pub mod reservation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SearchAllAssignments {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SearchAllAssignments {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1135,7 +1153,8 @@ pub mod reservation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for MoveAssignment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for MoveAssignment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1191,7 +1210,8 @@ pub mod reservation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateAssignment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateAssignment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1235,7 +1255,8 @@ pub mod reservation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetBiReservation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBiReservation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1291,7 +1312,8 @@ pub mod reservation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateBiReservation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateBiReservation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

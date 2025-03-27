@@ -111,7 +111,8 @@ pub mod secret_manager_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListSecrets {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListSecrets {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -169,7 +170,8 @@ pub mod secret_manager_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateSecret {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateSecret {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -224,7 +226,8 @@ pub mod secret_manager_service {
         }
     }
 
-    impl gax::options::RequestBuilder for AddSecretVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AddSecretVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -267,7 +270,8 @@ pub mod secret_manager_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetSecret {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetSecret {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -322,7 +326,8 @@ pub mod secret_manager_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateSecret {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateSecret {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -371,7 +376,8 @@ pub mod secret_manager_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteSecret {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteSecret {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -450,7 +456,8 @@ pub mod secret_manager_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListSecretVersions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListSecretVersions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -496,7 +503,8 @@ pub mod secret_manager_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetSecretVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetSecretVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -542,7 +550,8 @@ pub mod secret_manager_service {
         }
     }
 
-    impl gax::options::RequestBuilder for AccessSecretVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AccessSecretVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -594,7 +603,8 @@ pub mod secret_manager_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DisableSecretVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DisableSecretVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -646,7 +656,8 @@ pub mod secret_manager_service {
         }
     }
 
-    impl gax::options::RequestBuilder for EnableSecretVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for EnableSecretVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -698,7 +709,8 @@ pub mod secret_manager_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DestroySecretVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DestroySecretVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -759,7 +771,8 @@ pub mod secret_manager_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -811,7 +824,8 @@ pub mod secret_manager_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -868,7 +882,8 @@ pub mod secret_manager_service {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -947,7 +962,8 @@ pub mod secret_manager_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -990,7 +1006,8 @@ pub mod secret_manager_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

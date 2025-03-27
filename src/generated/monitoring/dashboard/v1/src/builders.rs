@@ -89,7 +89,8 @@ pub mod dashboards_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateDashboard {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateDashboard {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -157,7 +158,8 @@ pub mod dashboards_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDashboards {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDashboards {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -198,7 +200,8 @@ pub mod dashboards_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDashboard {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDashboard {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -239,7 +242,8 @@ pub mod dashboards_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteDashboard {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteDashboard {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -289,7 +293,8 @@ pub mod dashboards_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateDashboard {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateDashboard {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

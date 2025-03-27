@@ -85,7 +85,8 @@ pub mod trace_service {
         }
     }
 
-    impl gax::options::RequestBuilder for BatchWriteSpans {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BatchWriteSpans {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -231,7 +232,8 @@ pub mod trace_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateSpan {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateSpan {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

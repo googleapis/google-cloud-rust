@@ -127,7 +127,8 @@ pub mod os_config_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ExecutePatchJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ExecutePatchJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -168,7 +169,8 @@ pub mod os_config_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetPatchJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetPatchJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -209,7 +211,8 @@ pub mod os_config_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelPatchJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelPatchJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -283,7 +286,8 @@ pub mod os_config_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListPatchJobs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListPatchJobs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -364,7 +368,8 @@ pub mod os_config_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListPatchJobInstanceDetails {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListPatchJobInstanceDetails {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -423,7 +428,8 @@ pub mod os_config_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreatePatchDeployment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreatePatchDeployment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -467,7 +473,8 @@ pub mod os_config_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetPatchDeployment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetPatchDeployment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -538,7 +545,8 @@ pub mod os_config_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListPatchDeployments {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListPatchDeployments {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -582,7 +590,8 @@ pub mod os_config_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeletePatchDeployment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeletePatchDeployment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -638,7 +647,8 @@ pub mod os_config_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdatePatchDeployment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdatePatchDeployment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -682,7 +692,8 @@ pub mod os_config_service {
         }
     }
 
-    impl gax::options::RequestBuilder for PausePatchDeployment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PausePatchDeployment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -726,7 +737,8 @@ pub mod os_config_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ResumePatchDeployment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResumePatchDeployment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -770,7 +782,8 @@ pub mod os_config_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -814,7 +827,8 @@ pub mod os_config_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -950,7 +964,8 @@ pub mod os_config_zonal_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateOSPolicyAssignment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateOSPolicyAssignment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1055,7 +1070,8 @@ pub mod os_config_zonal_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateOSPolicyAssignment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateOSPolicyAssignment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1101,7 +1117,8 @@ pub mod os_config_zonal_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOSPolicyAssignment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOSPolicyAssignment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1178,7 +1195,8 @@ pub mod os_config_zonal_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOSPolicyAssignments {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOSPolicyAssignments {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1255,7 +1273,8 @@ pub mod os_config_zonal_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOSPolicyAssignmentRevisions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOSPolicyAssignmentRevisions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1342,7 +1361,8 @@ pub mod os_config_zonal_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOSPolicyAssignment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOSPolicyAssignment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1390,7 +1410,8 @@ pub mod os_config_zonal_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOSPolicyAssignmentReport {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOSPolicyAssignmentReport {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1473,7 +1494,8 @@ pub mod os_config_zonal_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOSPolicyAssignmentReports {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOSPolicyAssignmentReports {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1522,7 +1544,8 @@ pub mod os_config_zonal_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetInventory {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetInventory {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1604,7 +1627,8 @@ pub mod os_config_zonal_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListInventories {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListInventories {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1650,7 +1674,8 @@ pub mod os_config_zonal_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetVulnerabilityReport {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetVulnerabilityReport {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1733,7 +1758,8 @@ pub mod os_config_zonal_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListVulnerabilityReports {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListVulnerabilityReports {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1779,7 +1805,8 @@ pub mod os_config_zonal_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1825,7 +1852,8 @@ pub mod os_config_zonal_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

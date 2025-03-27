@@ -107,7 +107,8 @@ pub mod cloud_tasks {
         }
     }
 
-    impl gax::options::RequestBuilder for ListQueues {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListQueues {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -148,7 +149,8 @@ pub mod cloud_tasks {
         }
     }
 
-    impl gax::options::RequestBuilder for GetQueue {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetQueue {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -198,7 +200,8 @@ pub mod cloud_tasks {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateQueue {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateQueue {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -251,7 +254,8 @@ pub mod cloud_tasks {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateQueue {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateQueue {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -292,7 +296,8 @@ pub mod cloud_tasks {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteQueue {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteQueue {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -333,7 +338,8 @@ pub mod cloud_tasks {
         }
     }
 
-    impl gax::options::RequestBuilder for PurgeQueue {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PurgeQueue {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -374,7 +380,8 @@ pub mod cloud_tasks {
         }
     }
 
-    impl gax::options::RequestBuilder for PauseQueue {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PauseQueue {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -415,7 +422,8 @@ pub mod cloud_tasks {
         }
     }
 
-    impl gax::options::RequestBuilder for ResumeQueue {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResumeQueue {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -465,7 +473,8 @@ pub mod cloud_tasks {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -524,7 +533,8 @@ pub mod cloud_tasks {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -579,7 +589,8 @@ pub mod cloud_tasks {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -652,7 +663,8 @@ pub mod cloud_tasks {
         }
     }
 
-    impl gax::options::RequestBuilder for ListTasks {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListTasks {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -699,7 +711,8 @@ pub mod cloud_tasks {
         }
     }
 
-    impl gax::options::RequestBuilder for GetTask {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetTask {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -752,7 +765,8 @@ pub mod cloud_tasks {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateTask {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateTask {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -793,7 +807,8 @@ pub mod cloud_tasks {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteTask {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteTask {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -840,7 +855,8 @@ pub mod cloud_tasks {
         }
     }
 
-    impl gax::options::RequestBuilder for RunTask {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RunTask {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -917,7 +933,8 @@ pub mod cloud_tasks {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -958,7 +975,8 @@ pub mod cloud_tasks {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
