@@ -75,7 +75,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteInspectTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_deidentify_template(
         &self,
@@ -105,7 +105,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteDeidentifyTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_job_trigger(
         &self,
@@ -141,7 +141,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteJobTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn activate_job_trigger(
         &self,
@@ -177,7 +177,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteDiscoveryConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_dlp_job(
         &self,
@@ -201,13 +201,13 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_dlp_job(
         &self,
         req: crate::model::CancelDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_stored_info_type(
         &self,
@@ -237,7 +237,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteStoredInfoTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_project_data_profiles(
         &self,
@@ -279,7 +279,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteFileStoreDataProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_table_data_profile(
         &self,
@@ -297,7 +297,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteTableDataProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn hybrid_inspect_dlp_job(
         &self,
@@ -309,7 +309,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::FinishDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_connection(
         &self,
@@ -339,7 +339,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn update_connection(
         &self,
@@ -437,7 +437,7 @@ impl<T: super::DlpService> DlpService for T {
         &self,
         req: crate::model::DeleteInspectTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_inspect_template(self, req, options).await
     }
 
@@ -482,7 +482,7 @@ impl<T: super::DlpService> DlpService for T {
         &self,
         req: crate::model::DeleteDeidentifyTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_deidentify_template(self, req, options).await
     }
 
@@ -536,7 +536,7 @@ impl<T: super::DlpService> DlpService for T {
         &self,
         req: crate::model::DeleteJobTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_job_trigger(self, req, options).await
     }
 
@@ -590,7 +590,7 @@ impl<T: super::DlpService> DlpService for T {
         &self,
         req: crate::model::DeleteDiscoveryConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_discovery_config(self, req, options).await
     }
 
@@ -626,7 +626,7 @@ impl<T: super::DlpService> DlpService for T {
         &self,
         req: crate::model::DeleteDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_dlp_job(self, req, options).await
     }
 
@@ -635,7 +635,7 @@ impl<T: super::DlpService> DlpService for T {
         &self,
         req: crate::model::CancelDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_dlp_job(self, req, options).await
     }
 
@@ -680,7 +680,7 @@ impl<T: super::DlpService> DlpService for T {
         &self,
         req: crate::model::DeleteStoredInfoTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_stored_info_type(self, req, options).await
     }
 
@@ -743,7 +743,7 @@ impl<T: super::DlpService> DlpService for T {
         &self,
         req: crate::model::DeleteFileStoreDataProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_file_store_data_profile(self, req, options).await
     }
 
@@ -770,7 +770,7 @@ impl<T: super::DlpService> DlpService for T {
         &self,
         req: crate::model::DeleteTableDataProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_table_data_profile(self, req, options).await
     }
 
@@ -788,7 +788,7 @@ impl<T: super::DlpService> DlpService for T {
         &self,
         req: crate::model::FinishDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::finish_dlp_job(self, req, options).await
     }
 
@@ -833,7 +833,7 @@ impl<T: super::DlpService> DlpService for T {
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_connection(self, req, options).await
     }
 

@@ -110,7 +110,7 @@ impl super::stubs::DashboardsService for DashboardsService {
         &self,
         req: crate::model::DeleteDashboardRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -123,6 +123,7 @@ impl super::stubs::DashboardsService for DashboardsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn update_dashboard(

@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::DeleteDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_deployment(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::InstallDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.install_deployment(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::UninstallDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.uninstall_deployment(req, options).await
     }
 

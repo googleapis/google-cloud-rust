@@ -102,8 +102,8 @@ pub async fn basic(config: Option<gax::options::ClientConfig>) -> Result<()> {
         .await?;
     println!("SUCCESS on update_document: {response:?}");
 
-    let response = client.delete_document(&document_name).send().await?;
-    println!("SUCCESS on delete_document: {response:?}");
+    client.delete_document(&document_name).send().await?;
+    println!("SUCCESS on delete_document");
 
     Ok(())
 }

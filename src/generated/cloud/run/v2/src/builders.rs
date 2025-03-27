@@ -273,7 +273,7 @@ pub mod builds {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -805,7 +805,7 @@ pub mod executions {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -1689,7 +1689,7 @@ pub mod jobs {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -2133,7 +2133,7 @@ pub mod revisions {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -2938,7 +2938,7 @@ pub mod services {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -3293,7 +3293,7 @@ pub mod tasks {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await

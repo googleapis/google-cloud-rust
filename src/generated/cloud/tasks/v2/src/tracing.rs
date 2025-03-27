@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::DeleteQueueRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_queue(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::DeleteTaskRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_task(req, options).await
     }
 

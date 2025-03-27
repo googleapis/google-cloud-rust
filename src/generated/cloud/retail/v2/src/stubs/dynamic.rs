@@ -112,7 +112,7 @@ pub trait CatalogService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SetDefaultBranchRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_default_branch(
         &self,
@@ -201,7 +201,7 @@ impl<T: super::CatalogService> CatalogService for T {
         &self,
         req: crate::model::SetDefaultBranchRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::set_default_branch(self, req, options).await
     }
 
@@ -401,7 +401,7 @@ pub trait ControlService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteControlRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn update_control(
         &self,
@@ -451,7 +451,7 @@ impl<T: super::ControlService> ControlService for T {
         &self,
         req: crate::model::DeleteControlRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_control(self, req, options).await
     }
 
@@ -645,7 +645,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_models(
         &self,
@@ -732,7 +732,7 @@ impl<T: super::ModelService> ModelService for T {
         &self,
         req: crate::model::DeleteModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_model(self, req, options).await
     }
 
@@ -880,7 +880,7 @@ pub trait ProductService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteProductRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn purge_products(
         &self,
@@ -991,7 +991,7 @@ impl<T: super::ProductService> ProductService for T {
         &self,
         req: crate::model::DeleteProductRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_product(self, req, options).await
     }
 
@@ -1157,7 +1157,7 @@ pub trait ServingConfigService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteServingConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn update_serving_config(
         &self,
@@ -1219,7 +1219,7 @@ impl<T: super::ServingConfigService> ServingConfigService for T {
         &self,
         req: crate::model::DeleteServingConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_serving_config(self, req, options).await
     }
 

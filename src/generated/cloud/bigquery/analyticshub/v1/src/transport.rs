@@ -172,7 +172,7 @@ impl super::stubs::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: crate::model::DeleteDataExchangeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -185,6 +185,7 @@ impl super::stubs::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_listings(
@@ -292,7 +293,7 @@ impl super::stubs::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: crate::model::DeleteListingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -305,6 +306,7 @@ impl super::stubs::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn subscribe_listing(

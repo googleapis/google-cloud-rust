@@ -65,7 +65,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteFeedRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn search_all_resources(
         &self,
@@ -131,7 +131,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteSavedQueryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn batch_get_effective_iam_policies(
         &self,
@@ -245,7 +245,7 @@ impl<T: super::AssetService> AssetService for T {
         &self,
         req: crate::model::DeleteFeedRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_feed(self, req, options).await
     }
 
@@ -344,7 +344,7 @@ impl<T: super::AssetService> AssetService for T {
         &self,
         req: crate::model::DeleteSavedQueryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_saved_query(self, req, options).await
     }
 

@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::DeleteInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_instance(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::DeleteClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_cluster(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: crate::model::DeleteAppProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_app_profile(req, options).await
     }
 
@@ -267,7 +267,7 @@ where
         &self,
         req: crate::model::DeleteLogicalViewRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_logical_view(req, options).await
     }
 
@@ -312,7 +312,7 @@ where
         &self,
         req: crate::model::DeleteMaterializedViewRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_materialized_view(req, options).await
     }
 
@@ -339,7 +339,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -348,7 +348,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 
@@ -439,7 +439,7 @@ where
         &self,
         req: crate::model::DeleteTableRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_table(req, options).await
     }
 
@@ -493,7 +493,7 @@ where
         &self,
         req: crate::model::DeleteAuthorizedViewRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_authorized_view(req, options).await
     }
 
@@ -511,7 +511,7 @@ where
         &self,
         req: crate::model::DropRowRangeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.drop_row_range(req, options).await
     }
 
@@ -565,7 +565,7 @@ where
         &self,
         req: crate::model::DeleteSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_snapshot(req, options).await
     }
 
@@ -601,7 +601,7 @@ where
         &self,
         req: crate::model::DeleteBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_backup(req, options).await
     }
 
@@ -682,7 +682,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -691,7 +691,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 

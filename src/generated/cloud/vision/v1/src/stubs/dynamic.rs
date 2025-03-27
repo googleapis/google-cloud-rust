@@ -154,7 +154,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_product(
         &self,
@@ -184,7 +184,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteProductRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_reference_image(
         &self,
@@ -196,7 +196,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteReferenceImageRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_reference_images(
         &self,
@@ -214,13 +214,13 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::AddProductToProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn remove_product_from_product_set(
         &self,
         req: crate::model::RemoveProductFromProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_products_in_product_set(
         &self,
@@ -301,7 +301,7 @@ impl<T: super::ProductSearch> ProductSearch for T {
         &self,
         req: crate::model::DeleteProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_product_set(self, req, options).await
     }
 
@@ -346,7 +346,7 @@ impl<T: super::ProductSearch> ProductSearch for T {
         &self,
         req: crate::model::DeleteProductRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_product(self, req, options).await
     }
 
@@ -364,7 +364,7 @@ impl<T: super::ProductSearch> ProductSearch for T {
         &self,
         req: crate::model::DeleteReferenceImageRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_reference_image(self, req, options).await
     }
 
@@ -391,7 +391,7 @@ impl<T: super::ProductSearch> ProductSearch for T {
         &self,
         req: crate::model::AddProductToProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::add_product_to_product_set(self, req, options).await
     }
 
@@ -400,7 +400,7 @@ impl<T: super::ProductSearch> ProductSearch for T {
         &self,
         req: crate::model::RemoveProductFromProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::remove_product_from_product_set(self, req, options).await
     }
 

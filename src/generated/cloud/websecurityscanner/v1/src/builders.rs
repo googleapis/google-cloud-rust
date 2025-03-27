@@ -117,7 +117,7 @@ pub mod web_security_scanner {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_scan_config(self.0.request, self.0.options)
                 .await

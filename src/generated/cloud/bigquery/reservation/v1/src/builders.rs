@@ -235,7 +235,7 @@ pub mod reservation_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_reservation(self.0.request, self.0.options)
                 .await
@@ -569,7 +569,7 @@ pub mod reservation_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_capacity_commitment(self.0.request, self.0.options)
                 .await
@@ -915,7 +915,7 @@ pub mod reservation_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_assignment(self.0.request, self.0.options)
                 .await

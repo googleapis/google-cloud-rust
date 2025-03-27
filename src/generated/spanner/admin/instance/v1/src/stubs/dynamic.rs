@@ -47,7 +47,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteInstanceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_instance_config_operations(
         &self,
@@ -89,7 +89,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn set_iam_policy(
         &self,
@@ -125,7 +125,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteInstancePartitionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn update_instance_partition(
         &self,
@@ -161,13 +161,13 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -224,7 +224,7 @@ impl<T: super::InstanceAdmin> InstanceAdmin for T {
         &self,
         req: crate::model::DeleteInstanceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_instance_config(self, req, options).await
     }
 
@@ -287,7 +287,7 @@ impl<T: super::InstanceAdmin> InstanceAdmin for T {
         &self,
         req: crate::model::DeleteInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_instance(self, req, options).await
     }
 
@@ -341,7 +341,7 @@ impl<T: super::InstanceAdmin> InstanceAdmin for T {
         &self,
         req: crate::model::DeleteInstancePartitionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_instance_partition(self, req, options).await
     }
 
@@ -395,7 +395,7 @@ impl<T: super::InstanceAdmin> InstanceAdmin for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -404,7 +404,7 @@ impl<T: super::InstanceAdmin> InstanceAdmin for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 

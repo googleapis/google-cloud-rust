@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::DeleteReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_reservation(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::DeleteCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_capacity_commitment(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::DeleteAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_assignment(req, options).await
     }
 

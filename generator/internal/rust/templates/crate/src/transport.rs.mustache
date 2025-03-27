@@ -53,7 +53,7 @@ impl super::stubs::{{Codec.Name}} for {{Codec.Name}} {
         &self,
         req: {{InputType.Codec.QualifiedName}},
         options: gax::options::RequestOptions,
-    ) -> Result<{{OutputType.Codec.QualifiedName}}> {
+    ) -> Result<{{Codec.ReturnType}}> {
         let options = options.set_default_idempotency(reqwest::Method::{{PathInfo.Codec.Method}}.is_idempotent());
         let builder = self
             .inner
@@ -84,6 +84,9 @@ impl super::stubs::{{Codec.Name}} for {{Codec.Name}} {
             {{^PathInfo.Codec.HasBody}}None::<gaxi::http::NoBody>{{/PathInfo.Codec.HasBody}},
             options,
         ).await
+        {{#ReturnsEmpty}}
+        .map(|_: {{OutputType.Codec.QualifiedName}}| ())
+        {{/ReturnsEmpty}}
     }
 
     {{/Codec.Methods}}

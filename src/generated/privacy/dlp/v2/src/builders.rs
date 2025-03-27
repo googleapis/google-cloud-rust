@@ -712,7 +712,7 @@ pub mod dlp_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_inspect_template(self.0.request, self.0.options)
                 .await
@@ -1024,7 +1024,7 @@ pub mod dlp_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_deidentify_template(self.0.request, self.0.options)
                 .await
@@ -1383,7 +1383,7 @@ pub mod dlp_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_job_trigger(self.0.request, self.0.options)
                 .await
@@ -1713,7 +1713,7 @@ pub mod dlp_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_discovery_config(self.0.request, self.0.options)
                 .await
@@ -1949,7 +1949,7 @@ pub mod dlp_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_dlp_job(self.0.request, self.0.options)
                 .await
@@ -1990,7 +1990,7 @@ pub mod dlp_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_dlp_job(self.0.request, self.0.options)
                 .await
@@ -2288,7 +2288,7 @@ pub mod dlp_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_stored_info_type(self.0.request, self.0.options)
                 .await
@@ -2766,7 +2766,7 @@ pub mod dlp_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_file_store_data_profile(self.0.request, self.0.options)
                 .await
@@ -2898,7 +2898,7 @@ pub mod dlp_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_table_data_profile(self.0.request, self.0.options)
                 .await
@@ -2992,7 +2992,7 @@ pub mod dlp_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .finish_dlp_job(self.0.request, self.0.options)
                 .await
@@ -3281,7 +3281,7 @@ pub mod dlp_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_connection(self.0.request, self.0.options)
                 .await

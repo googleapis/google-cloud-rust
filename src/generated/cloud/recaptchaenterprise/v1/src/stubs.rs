@@ -120,8 +120,8 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::migrate_key].
@@ -230,8 +230,8 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteFirewallPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::reorder_firewall_policies].

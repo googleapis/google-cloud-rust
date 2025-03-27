@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::DeleteKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_key(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: crate::model::DeleteFirewallPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_firewall_policy(req, options).await
     }
 

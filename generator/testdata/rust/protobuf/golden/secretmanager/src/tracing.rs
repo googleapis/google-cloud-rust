@@ -35,7 +35,7 @@ where T: super::stubs::SecretManagerService + std::fmt::Debug + Send + Sync {
     async fn list_secrets(
         &self,
         req: crate::model::ListSecretsRequest,
-        options: gax::options::RequestOptions
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::ListSecretsResponse> {
         self.inner.list_secrets(req, options).await
     }
@@ -44,7 +44,7 @@ where T: super::stubs::SecretManagerService + std::fmt::Debug + Send + Sync {
     async fn create_secret(
         &self,
         req: crate::model::CreateSecretRequest,
-        options: gax::options::RequestOptions
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::Secret> {
         self.inner.create_secret(req, options).await
     }
@@ -53,7 +53,7 @@ where T: super::stubs::SecretManagerService + std::fmt::Debug + Send + Sync {
     async fn add_secret_version(
         &self,
         req: crate::model::AddSecretVersionRequest,
-        options: gax::options::RequestOptions
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::SecretVersion> {
         self.inner.add_secret_version(req, options).await
     }
@@ -62,7 +62,7 @@ where T: super::stubs::SecretManagerService + std::fmt::Debug + Send + Sync {
     async fn get_secret(
         &self,
         req: crate::model::GetSecretRequest,
-        options: gax::options::RequestOptions
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::Secret> {
         self.inner.get_secret(req, options).await
     }
@@ -71,7 +71,7 @@ where T: super::stubs::SecretManagerService + std::fmt::Debug + Send + Sync {
     async fn update_secret(
         &self,
         req: crate::model::UpdateSecretRequest,
-        options: gax::options::RequestOptions
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::Secret> {
         self.inner.update_secret(req, options).await
     }
@@ -80,8 +80,8 @@ where T: super::stubs::SecretManagerService + std::fmt::Debug + Send + Sync {
     async fn delete_secret(
         &self,
         req: crate::model::DeleteSecretRequest,
-        options: gax::options::RequestOptions
-    ) -> Result<wkt::Empty> {
+        options: gax::options::RequestOptions,
+    ) -> Result<()> {
         self.inner.delete_secret(req, options).await
     }
 
@@ -89,7 +89,7 @@ where T: super::stubs::SecretManagerService + std::fmt::Debug + Send + Sync {
     async fn list_secret_versions(
         &self,
         req: crate::model::ListSecretVersionsRequest,
-        options: gax::options::RequestOptions
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::ListSecretVersionsResponse> {
         self.inner.list_secret_versions(req, options).await
     }
@@ -98,7 +98,7 @@ where T: super::stubs::SecretManagerService + std::fmt::Debug + Send + Sync {
     async fn get_secret_version(
         &self,
         req: crate::model::GetSecretVersionRequest,
-        options: gax::options::RequestOptions
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::SecretVersion> {
         self.inner.get_secret_version(req, options).await
     }
@@ -107,7 +107,7 @@ where T: super::stubs::SecretManagerService + std::fmt::Debug + Send + Sync {
     async fn access_secret_version(
         &self,
         req: crate::model::AccessSecretVersionRequest,
-        options: gax::options::RequestOptions
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::AccessSecretVersionResponse> {
         self.inner.access_secret_version(req, options).await
     }
@@ -116,7 +116,7 @@ where T: super::stubs::SecretManagerService + std::fmt::Debug + Send + Sync {
     async fn disable_secret_version(
         &self,
         req: crate::model::DisableSecretVersionRequest,
-        options: gax::options::RequestOptions
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::SecretVersion> {
         self.inner.disable_secret_version(req, options).await
     }
@@ -125,7 +125,7 @@ where T: super::stubs::SecretManagerService + std::fmt::Debug + Send + Sync {
     async fn enable_secret_version(
         &self,
         req: crate::model::EnableSecretVersionRequest,
-        options: gax::options::RequestOptions
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::SecretVersion> {
         self.inner.enable_secret_version(req, options).await
     }
@@ -134,7 +134,7 @@ where T: super::stubs::SecretManagerService + std::fmt::Debug + Send + Sync {
     async fn destroy_secret_version(
         &self,
         req: crate::model::DestroySecretVersionRequest,
-        options: gax::options::RequestOptions
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::SecretVersion> {
         self.inner.destroy_secret_version(req, options).await
     }
@@ -143,7 +143,7 @@ where T: super::stubs::SecretManagerService + std::fmt::Debug + Send + Sync {
     async fn set_iam_policy(
         &self,
         req: iam::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions
+        options: gax::options::RequestOptions,
     ) -> Result<iam::model::Policy> {
         self.inner.set_iam_policy(req, options).await
     }
@@ -152,7 +152,7 @@ where T: super::stubs::SecretManagerService + std::fmt::Debug + Send + Sync {
     async fn get_iam_policy(
         &self,
         req: iam::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions
+        options: gax::options::RequestOptions,
     ) -> Result<iam::model::Policy> {
         self.inner.get_iam_policy(req, options).await
     }
@@ -161,7 +161,7 @@ where T: super::stubs::SecretManagerService + std::fmt::Debug + Send + Sync {
     async fn test_iam_permissions(
         &self,
         req: iam::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions
+        options: gax::options::RequestOptions,
     ) -> Result<iam::model::TestIamPermissionsResponse> {
         self.inner.test_iam_permissions(req, options).await
     }
@@ -170,7 +170,7 @@ where T: super::stubs::SecretManagerService + std::fmt::Debug + Send + Sync {
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions
+        options: gax::options::RequestOptions,
     ) -> Result<location::model::ListLocationsResponse> {
         self.inner.list_locations(req, options).await
     }
@@ -179,7 +179,7 @@ where T: super::stubs::SecretManagerService + std::fmt::Debug + Send + Sync {
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
-        options: gax::options::RequestOptions
+        options: gax::options::RequestOptions,
     ) -> Result<location::model::Location> {
         self.inner.get_location(req, options).await
     }

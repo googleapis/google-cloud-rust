@@ -116,6 +116,7 @@ type methodAnnotation struct {
 	ServiceNameToSnake  string
 	OperationInfo       *operationInfo
 	SystemParameters    []systemParameter
+	ReturnType          string
 }
 
 type pathInfoAnnotation struct {
@@ -419,6 +420,10 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 	pathInfoAnnotation.HasPathArgs = len(pathInfoAnnotation.PathArgs) > 0
 
 	m.PathInfo.Codec = pathInfoAnnotation
+	returnType := methodInOutTypeName(m.OutputTypeID, state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
+	if m.ReturnsEmpty {
+		returnType = "()"
+	}
 	annotation := &methodAnnotation{
 		Name:                strcase.ToSnake(m.Name),
 		BuilderName:         toPascal(m.Name),
@@ -431,6 +436,7 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		ServiceNameToCamel:  toCamel(s.Name),
 		ServiceNameToSnake:  toSnake(s.Name),
 		SystemParameters:    c.systemParameters,
+		ReturnType:          returnType,
 	}
 	if m.OperationInfo != nil {
 		metadataType := methodInOutTypeName(m.OperationInfo.MetadataTypeID, state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)

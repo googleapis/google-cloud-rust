@@ -107,7 +107,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteLineageEventRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn search_links(
         &self,
@@ -137,13 +137,13 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -290,7 +290,7 @@ impl<T: super::Lineage> Lineage for T {
         &self,
         req: crate::model::DeleteLineageEventRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_lineage_event(self, req, options).await
     }
 
@@ -335,7 +335,7 @@ impl<T: super::Lineage> Lineage for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -344,7 +344,7 @@ impl<T: super::Lineage> Lineage for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 

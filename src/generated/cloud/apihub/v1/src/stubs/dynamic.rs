@@ -47,7 +47,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteApiRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_version(
         &self,
@@ -77,7 +77,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_spec(
         &self,
@@ -113,7 +113,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteSpecRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_api_operation(
         &self,
@@ -161,7 +161,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_attribute(
         &self,
@@ -185,7 +185,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteAttributeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_attributes(
         &self,
@@ -221,7 +221,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteExternalApiRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_external_apis(
         &self,
@@ -257,13 +257,13 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::ApiHub] also implement [ApiHub].
@@ -310,7 +310,7 @@ impl<T: super::ApiHub> ApiHub for T {
         &self,
         req: crate::model::DeleteApiRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_api(self, req, options).await
     }
 
@@ -355,7 +355,7 @@ impl<T: super::ApiHub> ApiHub for T {
         &self,
         req: crate::model::DeleteVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_version(self, req, options).await
     }
 
@@ -409,7 +409,7 @@ impl<T: super::ApiHub> ApiHub for T {
         &self,
         req: crate::model::DeleteSpecRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_spec(self, req, options).await
     }
 
@@ -481,7 +481,7 @@ impl<T: super::ApiHub> ApiHub for T {
         &self,
         req: crate::model::DeleteDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_deployment(self, req, options).await
     }
 
@@ -517,7 +517,7 @@ impl<T: super::ApiHub> ApiHub for T {
         &self,
         req: crate::model::DeleteAttributeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_attribute(self, req, options).await
     }
 
@@ -571,7 +571,7 @@ impl<T: super::ApiHub> ApiHub for T {
         &self,
         req: crate::model::DeleteExternalApiRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_external_api(self, req, options).await
     }
 
@@ -625,7 +625,7 @@ impl<T: super::ApiHub> ApiHub for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -634,7 +634,7 @@ impl<T: super::ApiHub> ApiHub for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -664,7 +664,7 @@ pub trait ApiHubDependencies: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteDependencyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_dependencies(
         &self,
@@ -700,13 +700,13 @@ pub trait ApiHubDependencies: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::ApiHubDependencies] also implement [ApiHubDependencies].
@@ -744,7 +744,7 @@ impl<T: super::ApiHubDependencies> ApiHubDependencies for T {
         &self,
         req: crate::model::DeleteDependencyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_dependency(self, req, options).await
     }
 
@@ -798,7 +798,7 @@ impl<T: super::ApiHubDependencies> ApiHubDependencies for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -807,7 +807,7 @@ impl<T: super::ApiHubDependencies> ApiHubDependencies for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -861,13 +861,13 @@ pub trait HostProjectRegistrationService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::HostProjectRegistrationService] also implement [HostProjectRegistrationService].
@@ -941,7 +941,7 @@ impl<T: super::HostProjectRegistrationService> HostProjectRegistrationService fo
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -950,7 +950,7 @@ impl<T: super::HostProjectRegistrationService> HostProjectRegistrationService fo
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -980,7 +980,7 @@ pub trait LintingService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::LintSpecRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_locations(
         &self,
@@ -1010,13 +1010,13 @@ pub trait LintingService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::LintingService] also implement [LintingService].
@@ -1054,7 +1054,7 @@ impl<T: super::LintingService> LintingService for T {
         &self,
         req: crate::model::LintSpecRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::lint_spec(self, req, options).await
     }
 
@@ -1099,7 +1099,7 @@ impl<T: super::LintingService> LintingService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -1108,7 +1108,7 @@ impl<T: super::LintingService> LintingService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -1162,13 +1162,13 @@ pub trait ApiHubPlugin: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::ApiHubPlugin] also implement [ApiHubPlugin].
@@ -1242,7 +1242,7 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -1251,7 +1251,7 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -1305,13 +1305,13 @@ pub trait Provisioning: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -1395,7 +1395,7 @@ impl<T: super::Provisioning> Provisioning for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -1404,7 +1404,7 @@ impl<T: super::Provisioning> Provisioning for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -1448,7 +1448,7 @@ pub trait RuntimeProjectAttachmentService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteRuntimeProjectAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn lookup_runtime_project_attachment(
         &self,
@@ -1484,13 +1484,13 @@ pub trait RuntimeProjectAttachmentService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::RuntimeProjectAttachmentService] also implement [RuntimeProjectAttachmentService].
@@ -1528,7 +1528,7 @@ impl<T: super::RuntimeProjectAttachmentService> RuntimeProjectAttachmentService 
         &self,
         req: crate::model::DeleteRuntimeProjectAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_runtime_project_attachment(self, req, options).await
     }
 
@@ -1582,7 +1582,7 @@ impl<T: super::RuntimeProjectAttachmentService> RuntimeProjectAttachmentService 
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -1591,7 +1591,7 @@ impl<T: super::RuntimeProjectAttachmentService> RuntimeProjectAttachmentService 
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 }

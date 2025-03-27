@@ -128,7 +128,7 @@ where
         &self,
         req: crate::model::DeleteNamespaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_namespace(req, options).await
     }
 
@@ -173,7 +173,7 @@ where
         &self,
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_service(req, options).await
     }
 
@@ -218,7 +218,7 @@ where
         &self,
         req: crate::model::DeleteEndpointRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_endpoint(req, options).await
     }
 

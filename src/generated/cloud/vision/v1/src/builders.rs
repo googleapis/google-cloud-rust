@@ -721,7 +721,7 @@ pub mod product_search {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_product_set(self.0.request, self.0.options)
                 .await
@@ -980,7 +980,7 @@ pub mod product_search {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_product(self.0.request, self.0.options)
                 .await
@@ -1083,7 +1083,7 @@ pub mod product_search {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_reference_image(self.0.request, self.0.options)
                 .await
@@ -1242,7 +1242,7 @@ pub mod product_search {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .add_product_to_product_set(self.0.request, self.0.options)
                 .await
@@ -1294,7 +1294,7 @@ pub mod product_search {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .remove_product_from_product_set(self.0.request, self.0.options)
                 .await

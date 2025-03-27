@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::DeleteContactRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_contact(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::SendTestMessageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.send_test_message(req, options).await
     }
 }

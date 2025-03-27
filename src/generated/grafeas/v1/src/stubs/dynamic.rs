@@ -33,7 +33,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_occurrence(
         &self,
@@ -75,7 +75,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_note(
         &self,
@@ -128,7 +128,7 @@ impl<T: super::Grafeas> Grafeas for T {
         &self,
         req: crate::model::DeleteOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_occurrence(self, req, options).await
     }
 
@@ -191,7 +191,7 @@ impl<T: super::Grafeas> Grafeas for T {
         &self,
         req: crate::model::DeleteNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_note(self, req, options).await
     }
 

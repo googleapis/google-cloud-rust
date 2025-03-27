@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::DeleteInstanceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_instance_config(req, options).await
     }
 
@@ -143,7 +143,7 @@ where
         &self,
         req: crate::model::DeleteInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_instance(req, options).await
     }
 
@@ -197,7 +197,7 @@ where
         &self,
         req: crate::model::DeleteInstancePartitionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_instance_partition(req, options).await
     }
 
@@ -253,7 +253,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -262,7 +262,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 

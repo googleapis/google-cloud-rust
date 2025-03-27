@@ -62,6 +62,19 @@ func TestServiceAnnotations(t *testing.T) {
 			},
 		},
 	}
+	emptyMethod := &api.Method{
+		Name:         "DeleteResource",
+		ID:           ".test.v1.Service.DeleteResource",
+		InputTypeID:  ".test.v1.Request",
+		OutputTypeID: ".google.protobuf.Empty",
+		PathInfo: &api.PathInfo{
+			Verb: "DELETE",
+			PathTemplate: []api.PathSegment{
+				api.NewLiteralPathSegment("/v1/resource"),
+			},
+		},
+		ReturnsEmpty: true,
+	}
 	noHttpMethod := &api.Method{
 		Name:         "DoAThing",
 		ID:           ".test.v1.Service.DoAThing",
@@ -72,7 +85,7 @@ func TestServiceAnnotations(t *testing.T) {
 		Name:    "ResourceService",
 		ID:      ".test.v1.ResourceService",
 		Package: "test.v1",
-		Methods: []*api.Method{method, noHttpMethod},
+		Methods: []*api.Method{method, emptyMethod, noHttpMethod},
 	}
 
 	model := api.NewTestAPI(
@@ -98,7 +111,7 @@ func TestServiceAnnotations(t *testing.T) {
 	// The `noHttpMethod` should be excluded from the list of methods in the
 	// Codec.
 	serviceAnn := service.Codec.(*serviceAnnotations)
-	wantMethodList := []*api.Method{method}
+	wantMethodList := []*api.Method{method, emptyMethod}
 	if diff := cmp.Diff(wantMethodList, serviceAnn.Methods, cmpopts.IgnoreFields(api.Method{}, "Model", "Service")); diff != "" {
 		t.Errorf("mismatch in method list (-want, +got)\n:%s", diff)
 	}
@@ -114,9 +127,27 @@ func TestServiceAnnotations(t *testing.T) {
 		ServiceNameToPascal: "ResourceService",
 		ServiceNameToCamel:  "resourceService",
 		ServiceNameToSnake:  "resource_service",
+		ReturnType:          "crate::model::Response",
 	}
 	if diff := cmp.Diff(wantMethod, method.Codec); diff != "" {
-		t.Errorf("mismatch in nested message annotations (-want, +got)\n:%s", diff)
+		t.Errorf("mismatch in method annotations (-want, +got)\n:%s", diff)
+	}
+
+	wantMethod = &methodAnnotation{
+		Name:         "delete_resource",
+		BuilderName:  "DeleteResource",
+		BodyAccessor: ".",
+		PathInfo:     emptyMethod.PathInfo,
+		SystemParameters: []systemParameter{
+			{Name: "$alt", Value: "json;enum-encoding=int"},
+		},
+		ServiceNameToPascal: "ResourceService",
+		ServiceNameToCamel:  "resourceService",
+		ServiceNameToSnake:  "resource_service",
+		ReturnType:          "()",
+	}
+	if diff := cmp.Diff(wantMethod, emptyMethod.Codec); diff != "" {
+		t.Errorf("mismatch in method annotations (-want, +got)\n:%s", diff)
 	}
 }
 

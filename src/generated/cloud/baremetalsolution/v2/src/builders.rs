@@ -951,7 +951,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_ssh_key(self.0.request, self.0.options)
                 .await
@@ -1792,7 +1792,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_volume_snapshot(self.0.request, self.0.options)
                 .await

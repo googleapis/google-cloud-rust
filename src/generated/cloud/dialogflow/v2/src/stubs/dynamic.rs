@@ -35,7 +35,7 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteAgentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn search_agents(
         &self,
@@ -101,7 +101,7 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -140,7 +140,7 @@ impl<T: super::Agents> Agents for T {
         &self,
         req: crate::model::DeleteAgentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_agent(self, req, options).await
     }
 
@@ -239,7 +239,7 @@ impl<T: super::Agents> Agents for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -301,7 +301,7 @@ pub trait AnswerRecords: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::AnswerRecords] also implement [AnswerRecords].
@@ -366,7 +366,7 @@ impl<T: super::AnswerRecords> AnswerRecords for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -402,13 +402,13 @@ pub trait Contexts: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteContextRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn delete_all_contexts(
         &self,
         req: crate::model::DeleteAllContextsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_locations(
         &self,
@@ -438,7 +438,7 @@ pub trait Contexts: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::Contexts] also implement [Contexts].
@@ -485,7 +485,7 @@ impl<T: super::Contexts> Contexts for T {
         &self,
         req: crate::model::DeleteContextRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_context(self, req, options).await
     }
 
@@ -494,7 +494,7 @@ impl<T: super::Contexts> Contexts for T {
         &self,
         req: crate::model::DeleteAllContextsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_all_contexts(self, req, options).await
     }
 
@@ -539,7 +539,7 @@ impl<T: super::Contexts> Contexts for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -641,7 +641,7 @@ pub trait Conversations: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::Conversations] also implement [Conversations].
@@ -787,7 +787,7 @@ impl<T: super::Conversations> Conversations for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -853,7 +853,7 @@ pub trait ConversationDatasets: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -955,7 +955,7 @@ impl<T: super::ConversationDatasets> ConversationDatasets for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -1059,7 +1059,7 @@ pub trait ConversationModels: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -1197,7 +1197,7 @@ impl<T: super::ConversationModels> ConversationModels for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -1247,7 +1247,7 @@ pub trait ConversationProfiles: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteConversationProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn set_suggestion_feature_config(
         &self,
@@ -1289,7 +1289,7 @@ pub trait ConversationProfiles: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -1346,7 +1346,7 @@ impl<T: super::ConversationProfiles> ConversationProfiles for T {
         &self,
         req: crate::model::DeleteConversationProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_conversation_profile(self, req, options).await
     }
 
@@ -1409,7 +1409,7 @@ impl<T: super::ConversationProfiles> ConversationProfiles for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -1507,7 +1507,7 @@ pub trait Documents: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -1636,7 +1636,7 @@ impl<T: super::Documents> Documents for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -1698,7 +1698,7 @@ pub trait EncryptionSpecService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -1773,7 +1773,7 @@ impl<T: super::EncryptionSpecService> EncryptionSpecService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -1823,7 +1823,7 @@ pub trait EntityTypes: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteEntityTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn batch_update_entity_types(
         &self,
@@ -1883,7 +1883,7 @@ pub trait EntityTypes: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -1940,7 +1940,7 @@ impl<T: super::EntityTypes> EntityTypes for T {
         &self,
         req: crate::model::DeleteEntityTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_entity_type(self, req, options).await
     }
 
@@ -2030,7 +2030,7 @@ impl<T: super::EntityTypes> EntityTypes for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -2080,7 +2080,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteEnvironmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_environment_history(
         &self,
@@ -2116,7 +2116,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::Environments] also implement [Environments].
@@ -2163,7 +2163,7 @@ impl<T: super::Environments> Environments for T {
         &self,
         req: crate::model::DeleteEnvironmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_environment(self, req, options).await
     }
 
@@ -2217,7 +2217,7 @@ impl<T: super::Environments> Environments for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -2265,7 +2265,7 @@ pub trait Fulfillments: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::Fulfillments] also implement [Fulfillments].
@@ -2330,7 +2330,7 @@ impl<T: super::Fulfillments> Fulfillments for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -2360,7 +2360,7 @@ pub trait Generators: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteGeneratorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn update_generator(
         &self,
@@ -2396,7 +2396,7 @@ pub trait Generators: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::Generators] also implement [Generators].
@@ -2434,7 +2434,7 @@ impl<T: super::Generators> Generators for T {
         &self,
         req: crate::model::DeleteGeneratorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_generator(self, req, options).await
     }
 
@@ -2488,7 +2488,7 @@ impl<T: super::Generators> Generators for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -2524,7 +2524,7 @@ pub trait Intents: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteIntentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn batch_update_intents(
         &self,
@@ -2566,7 +2566,7 @@ pub trait Intents: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -2623,7 +2623,7 @@ impl<T: super::Intents> Intents for T {
         &self,
         req: crate::model::DeleteIntentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_intent(self, req, options).await
     }
 
@@ -2686,7 +2686,7 @@ impl<T: super::Intents> Intents for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -2730,7 +2730,7 @@ pub trait KnowledgeBases: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteKnowledgeBaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn update_knowledge_base(
         &self,
@@ -2766,7 +2766,7 @@ pub trait KnowledgeBases: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::KnowledgeBases] also implement [KnowledgeBases].
@@ -2804,7 +2804,7 @@ impl<T: super::KnowledgeBases> KnowledgeBases for T {
         &self,
         req: crate::model::DeleteKnowledgeBaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_knowledge_base(self, req, options).await
     }
 
@@ -2858,7 +2858,7 @@ impl<T: super::KnowledgeBases> KnowledgeBases for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -2948,7 +2948,7 @@ pub trait Participants: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::Participants] also implement [Participants].
@@ -3076,7 +3076,7 @@ impl<T: super::Participants> Participants for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -3118,7 +3118,7 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::Sessions] also implement [Sessions].
@@ -3174,7 +3174,7 @@ impl<T: super::Sessions> Sessions for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -3210,7 +3210,7 @@ pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteSessionEntityTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_locations(
         &self,
@@ -3240,7 +3240,7 @@ pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::SessionEntityTypes] also implement [SessionEntityTypes].
@@ -3287,7 +3287,7 @@ impl<T: super::SessionEntityTypes> SessionEntityTypes for T {
         &self,
         req: crate::model::DeleteSessionEntityTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_session_entity_type(self, req, options).await
     }
 
@@ -3332,7 +3332,7 @@ impl<T: super::SessionEntityTypes> SessionEntityTypes for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -3368,7 +3368,7 @@ pub trait Versions: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_locations(
         &self,
@@ -3398,7 +3398,7 @@ pub trait Versions: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::Versions] also implement [Versions].
@@ -3445,7 +3445,7 @@ impl<T: super::Versions> Versions for T {
         &self,
         req: crate::model::DeleteVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_version(self, req, options).await
     }
 
@@ -3490,7 +3490,7 @@ impl<T: super::Versions> Versions for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 }

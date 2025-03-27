@@ -51,7 +51,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteSecretRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_secret_versions(
         &self,
@@ -173,7 +173,7 @@ impl<T: super::SecretManagerService> SecretManagerService for T {
         &self,
         req: crate::model::DeleteSecretRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_secret(self, req, options).await
     }
 

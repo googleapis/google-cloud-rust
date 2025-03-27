@@ -90,8 +90,8 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteTransferConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataTransferService::get_transfer_config].
@@ -158,8 +158,8 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteTransferRunRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataTransferService::list_transfer_runs].
@@ -203,8 +203,8 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::EnrollDataSourcesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataTransferService::unenroll_data_sources].
@@ -212,8 +212,8 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UnenrollDataSourcesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataTransferService::list_locations].

@@ -33,7 +33,7 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteDataSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn append_events(
         &self,
@@ -86,7 +86,7 @@ impl<T: super::TimeseriesInsightsController> TimeseriesInsightsController for T 
         &self,
         req: crate::model::DeleteDataSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_data_set(self, req, options).await
     }
 

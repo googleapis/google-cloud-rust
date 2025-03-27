@@ -357,7 +357,7 @@ pub mod storage_transfer_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .pause_transfer_operation(self.0.request, self.0.options)
                 .await
@@ -405,7 +405,7 @@ pub mod storage_transfer_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .resume_transfer_operation(self.0.request, self.0.options)
                 .await
@@ -535,7 +535,7 @@ pub mod storage_transfer_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_transfer_job(self.0.request, self.0.options)
                 .await
@@ -816,7 +816,7 @@ pub mod storage_transfer_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_agent_pool(self.0.request, self.0.options)
                 .await
@@ -987,7 +987,7 @@ pub mod storage_transfer_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await

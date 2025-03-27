@@ -455,7 +455,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
                 .await
@@ -917,7 +917,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_cluster(self.0.request, self.0.options)
                 .await
@@ -1246,7 +1246,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_app_profile(self.0.request, self.0.options)
                 .await
@@ -1866,7 +1866,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_logical_view(self.0.request, self.0.options)
                 .await
@@ -2242,7 +2242,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_materialized_view(self.0.request, self.0.options)
                 .await
@@ -2419,7 +2419,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -2465,7 +2465,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -2913,7 +2913,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_table(self.0.request, self.0.options)
                 .await
@@ -3372,7 +3372,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_authorized_view(self.0.request, self.0.options)
                 .await
@@ -3480,7 +3480,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .drop_row_range(self.0.request, self.0.options)
                 .await
@@ -3847,7 +3847,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_snapshot(self.0.request, self.0.options)
                 .await
@@ -4076,7 +4076,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
                 .await
@@ -4678,7 +4678,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -4722,7 +4722,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await

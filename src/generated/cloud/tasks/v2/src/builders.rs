@@ -279,7 +279,7 @@ pub mod cloud_tasks {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_queue(self.0.request, self.0.options)
                 .await
@@ -780,7 +780,7 @@ pub mod cloud_tasks {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_task(self.0.request, self.0.options)
                 .await

@@ -57,7 +57,7 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteAttestorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::BinauthzManagementServiceV1] also implement [BinauthzManagementServiceV1].
@@ -122,7 +122,7 @@ impl<T: super::BinauthzManagementServiceV1> BinauthzManagementServiceV1 for T {
         &self,
         req: crate::model::DeleteAttestorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_attestor(self, req, options).await
     }
 }

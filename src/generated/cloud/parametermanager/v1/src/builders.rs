@@ -303,7 +303,7 @@ pub mod parameter_manager {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_parameter(self.0.request, self.0.options)
                 .await
@@ -661,7 +661,7 @@ pub mod parameter_manager {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_parameter_version(self.0.request, self.0.options)
                 .await

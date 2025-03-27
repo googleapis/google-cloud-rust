@@ -103,8 +103,8 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteConversationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ContactCenterInsights::create_analysis].
@@ -147,8 +147,8 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteAnalysisRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ContactCenterInsights::bulk_analyze_conversations].
@@ -340,8 +340,8 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteIssueRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ContactCenterInsights::calculate_issue_model_stats].
@@ -396,8 +396,8 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeletePhraseMatcherRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ContactCenterInsights::update_phrase_matcher].
@@ -495,8 +495,8 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteAnalysisRuleRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ContactCenterInsights::get_encryption_spec].
@@ -566,8 +566,8 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ContactCenterInsights::query_metrics].
@@ -620,8 +620,8 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteQaQuestionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ContactCenterInsights::list_qa_questions].
@@ -674,8 +674,8 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteQaScorecardRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ContactCenterInsights::list_qa_scorecards].
@@ -755,8 +755,8 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteQaScorecardRevisionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ContactCenterInsights::list_qa_scorecard_revisions].
@@ -822,8 +822,8 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteFeedbackLabelRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ContactCenterInsights::list_all_feedback_labels].
@@ -892,8 +892,8 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Returns the polling error policy.

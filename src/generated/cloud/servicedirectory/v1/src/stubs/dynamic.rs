@@ -98,7 +98,7 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteNamespaceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_service(
         &self,
@@ -128,7 +128,7 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_endpoint(
         &self,
@@ -158,7 +158,7 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteEndpointRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_iam_policy(
         &self,
@@ -235,7 +235,7 @@ impl<T: super::RegistrationService> RegistrationService for T {
         &self,
         req: crate::model::DeleteNamespaceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_namespace(self, req, options).await
     }
 
@@ -280,7 +280,7 @@ impl<T: super::RegistrationService> RegistrationService for T {
         &self,
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_service(self, req, options).await
     }
 
@@ -325,7 +325,7 @@ impl<T: super::RegistrationService> RegistrationService for T {
         &self,
         req: crate::model::DeleteEndpointRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_endpoint(self, req, options).await
     }
 

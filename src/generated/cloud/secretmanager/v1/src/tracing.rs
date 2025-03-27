@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::DeleteSecretRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_secret(req, options).await
     }
 

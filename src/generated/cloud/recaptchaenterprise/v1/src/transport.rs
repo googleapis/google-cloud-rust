@@ -198,7 +198,7 @@ impl super::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         &self,
         req: crate::model::DeleteKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -211,6 +211,7 @@ impl super::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn migrate_key(
@@ -420,7 +421,7 @@ impl super::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         &self,
         req: crate::model::DeleteFirewallPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -433,6 +434,7 @@ impl super::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn reorder_firewall_policies(

@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::DeleteCompanyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_company(req, options).await
     }
 
@@ -246,7 +246,7 @@ where
         &self,
         req: crate::model::DeleteJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_job(req, options).await
     }
 
@@ -364,7 +364,7 @@ where
         &self,
         req: crate::model::DeleteTenantRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_tenant(req, options).await
     }
 

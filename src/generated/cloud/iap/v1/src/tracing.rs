@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::DeleteTunnelDestGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_tunnel_dest_group(req, options).await
     }
 
@@ -226,7 +226,7 @@ where
         &self,
         req: crate::model::DeleteIdentityAwareProxyClientRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner
             .delete_identity_aware_proxy_client(req, options)
             .await

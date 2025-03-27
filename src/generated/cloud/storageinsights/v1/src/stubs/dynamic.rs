@@ -45,7 +45,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteReportConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_report_details(
         &self,
@@ -87,13 +87,13 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::StorageInsights] also implement [StorageInsights].
@@ -140,7 +140,7 @@ impl<T: super::StorageInsights> StorageInsights for T {
         &self,
         req: crate::model::DeleteReportConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_report_config(self, req, options).await
     }
 
@@ -203,7 +203,7 @@ impl<T: super::StorageInsights> StorageInsights for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -212,7 +212,7 @@ impl<T: super::StorageInsights> StorageInsights for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 }

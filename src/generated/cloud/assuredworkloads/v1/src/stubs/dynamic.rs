@@ -41,7 +41,7 @@ pub trait AssuredWorkloadsService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_workload(
         &self,
@@ -113,7 +113,7 @@ impl<T: super::AssuredWorkloadsService> AssuredWorkloadsService for T {
         &self,
         req: crate::model::DeleteWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_workload(self, req, options).await
     }
 

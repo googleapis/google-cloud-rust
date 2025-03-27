@@ -383,7 +383,7 @@ pub mod iam {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_service_account(self.0.request, self.0.options)
                 .await
@@ -471,7 +471,7 @@ pub mod iam {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .enable_service_account(self.0.request, self.0.options)
                 .await
@@ -515,7 +515,7 @@ pub mod iam {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .disable_service_account(self.0.request, self.0.options)
                 .await
@@ -785,7 +785,7 @@ pub mod iam {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_service_account_key(self.0.request, self.0.options)
                 .await
@@ -831,7 +831,7 @@ pub mod iam {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .disable_service_account_key(self.0.request, self.0.options)
                 .await
@@ -877,7 +877,7 @@ pub mod iam {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .enable_service_account_key(self.0.request, self.0.options)
                 .await

@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_connection(req, options).await
     }
 

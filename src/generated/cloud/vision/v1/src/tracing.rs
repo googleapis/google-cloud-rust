@@ -160,7 +160,7 @@ where
         &self,
         req: crate::model::DeleteProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_product_set(req, options).await
     }
 
@@ -205,7 +205,7 @@ where
         &self,
         req: crate::model::DeleteProductRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_product(req, options).await
     }
 
@@ -223,7 +223,7 @@ where
         &self,
         req: crate::model::DeleteReferenceImageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_reference_image(req, options).await
     }
 
@@ -250,7 +250,7 @@ where
         &self,
         req: crate::model::AddProductToProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.add_product_to_product_set(req, options).await
     }
 
@@ -259,7 +259,7 @@ where
         &self,
         req: crate::model::RemoveProductFromProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner
             .remove_product_from_product_set(req, options)
             .await

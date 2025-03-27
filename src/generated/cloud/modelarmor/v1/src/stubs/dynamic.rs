@@ -45,7 +45,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_floor_setting(
         &self,
@@ -128,7 +128,7 @@ impl<T: super::ModelArmor> ModelArmor for T {
         &self,
         req: crate::model::DeleteTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_template(self, req, options).await
     }
 
