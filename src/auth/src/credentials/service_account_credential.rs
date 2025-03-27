@@ -18,6 +18,7 @@ use crate::credentials::dynamic::CredentialTrait;
 use crate::credentials::{Credential, Result};
 use crate::errors::CredentialError;
 use crate::token::{Token, TokenProvider};
+use crate::token_cache::TokenCache;
 use async_trait::async_trait;
 use derive_builder::Builder;
 use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
@@ -36,9 +37,12 @@ pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
     let token_provider = ServiceAccountTokenProvider {
         service_account_info,
     };
+    let cached_token_provider = TokenCache::new(token_provider);
 
     Ok(Credential {
-        inner: Arc::new(ServiceAccountCredential { token_provider }),
+        inner: Arc::new(ServiceAccountCredential {
+            token_provider: cached_token_provider,
+        }),
     })
 }
 
@@ -181,6 +185,8 @@ where
 
 #[cfg(test)]
 mod test {
+    use std::time::Duration;
+
     use super::*;
     use crate::credentials::test::HV;
     use crate::token::test::MockTokenProvider;
@@ -190,8 +196,11 @@ mod test {
     use rsa::pkcs8::EncodePrivateKey;
     use rsa::pkcs8::LineEnding;
     use rustls_pemfile::Item;
+    use serde_json::json;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    const SSJ_REGEX: &str = r"(?<header>[^\.]+)\.(?<claims>[^\.]+)\.(?<sig>[^\.]+)";
 
     #[test]
     fn debug_token_provider() {
@@ -351,8 +360,7 @@ mod test {
             service_account_info,
         };
         let token = token_provider.get_token().await?;
-        let re =
-            regex::Regex::new(r"(?<header>[^\.]+)\.(?<claims>[^\.]+)\.(?<sig>[^\.]+)").unwrap();
+        let re = regex::Regex::new(SSJ_REGEX).unwrap();
         let captures = re.captures(&token.token).ok_or_else(|| {
             format!(
                 r#"Expected token in form: "<header>.<claims>.<sig>". Found token: {}"#,
@@ -370,6 +378,45 @@ mod test {
         assert!(claims["iat"].is_number());
         assert!(claims["exp"].is_number());
         assert_eq!(claims["sub"], "test-client-email");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn token_caching() -> TestResult {
+        let private_key = generate_pkcs8_key();
+
+        let json_value = json!({
+            "client_email": "test-client-email",
+            "private_key_id": "test-private-key-id",
+            "private_key": private_key,
+            "project_id": "test-project-id",
+            "universe_domain": "test-universe-domain"
+        });
+
+        let credential = creds_from(json_value)?;
+        let token = credential.get_token().await?;
+
+        let re = regex::Regex::new(SSJ_REGEX).unwrap();
+        let captures = re.captures(&token.token).unwrap();
+
+        let claims = b64_decode_to_json(captures["claims"].to_string());
+        let first_iat = claims["iat"].as_f64().unwrap();
+
+        // Need real sleep because iat is not built using tokio::time::Instant.
+        // Need 1 second sleep because OffsetDateTime's granularity is seconds.
+        std::thread::sleep(Duration::from_secs(1));
+
+        // Get token again
+        let token = credential.get_token().await?;
+        let captures = re.captures(&token.token).unwrap();
+
+        let claims = b64_decode_to_json(captures["claims"].to_string());
+        let second_iat = claims["iat"].as_f64().unwrap();
+
+        // Validate that the issued at claim is exactly same for the 2 tokens.
+        // If the 2nd token is not from the cache, iat will be different.
+        assert_eq!(first_iat, second_iat);
 
         Ok(())
     }
