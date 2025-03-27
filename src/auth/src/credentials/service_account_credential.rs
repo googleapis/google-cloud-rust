@@ -37,12 +37,10 @@ pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
     let token_provider = ServiceAccountTokenProvider {
         service_account_info,
     };
-    let cached_token_provider = TokenCache::new(token_provider);
+    let token_provider = TokenCache::new(token_provider);
 
     Ok(Credential {
-        inner: Arc::new(ServiceAccountCredential {
-            token_provider: cached_token_provider,
-        }),
+        inner: Arc::new(ServiceAccountCredential { token_provider }),
     })
 }
 
@@ -185,8 +183,6 @@ where
 
 #[cfg(test)]
 mod test {
-    use std::time::Duration;
-
     use super::*;
     use crate::credentials::test::HV;
     use crate::token::test::MockTokenProvider;
@@ -197,6 +193,7 @@ mod test {
     use rsa::pkcs8::LineEnding;
     use rustls_pemfile::Item;
     use serde_json::json;
+    use std::time::Duration;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -401,21 +398,23 @@ mod test {
         let captures = re.captures(&token.token).unwrap();
 
         let claims = b64_decode_to_json(captures["claims"].to_string());
-        let first_iat = claims["iat"].as_f64().unwrap();
+        let first_iat = claims["iat"].as_i64().unwrap();
 
-        // Need real sleep because iat is not built using tokio::time::Instant.
-        // Need 1 second sleep because OffsetDateTime's granularity is seconds.
+        // The issued at claim (`iat`) encodes a unix timestamp, in seconds.
+        // Sleeping for one second ensures that a subsequent claim has a
+        // different `iat`. We need a real sleep, because we cannot fake the
+        // current unix timestamp.
         std::thread::sleep(Duration::from_secs(1));
 
-        // Get token again
+        // Get the token again.
         let token = credential.get_token().await?;
         let captures = re.captures(&token.token).unwrap();
 
         let claims = b64_decode_to_json(captures["claims"].to_string());
-        let second_iat = claims["iat"].as_f64().unwrap();
+        let second_iat = claims["iat"].as_i64().unwrap();
 
-        // Validate that the issued at claim is exactly same for the 2 tokens.
-        // If the 2nd token is not from the cache, iat will be different.
+        // Validate that the issued at claim is the same for the two tokens. If
+        // the 2nd token is not from the cache, its `iat` will be different.
         assert_eq!(first_iat, second_iat);
 
         Ok(())
