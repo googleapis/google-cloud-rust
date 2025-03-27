@@ -44,7 +44,7 @@ impl super::stubs::LoggingServiceV2 for LoggingServiceV2 {
         &self,
         req: crate::model::DeleteLogRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -54,9 +54,11 @@ impl super::stubs::LoggingServiceV2 for LoggingServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(())
     }
 
     async fn write_log_entries(
@@ -187,7 +189,7 @@ impl super::stubs::LoggingServiceV2 for LoggingServiceV2 {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -197,7 +199,8 @@ impl super::stubs::LoggingServiceV2 for LoggingServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 }
 
@@ -363,7 +366,7 @@ impl super::stubs::ConfigServiceV2 for ConfigServiceV2 {
         &self,
         req: crate::model::DeleteBucketRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -373,16 +376,18 @@ impl super::stubs::ConfigServiceV2 for ConfigServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(())
     }
 
     async fn undelete_bucket(
         &self,
         req: crate::model::UndeleteBucketRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -392,7 +397,8 @@ impl super::stubs::ConfigServiceV2 for ConfigServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 
     async fn list_views(
@@ -484,7 +490,7 @@ impl super::stubs::ConfigServiceV2 for ConfigServiceV2 {
         &self,
         req: crate::model::DeleteViewRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -494,9 +500,11 @@ impl super::stubs::ConfigServiceV2 for ConfigServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(())
     }
 
     async fn list_sinks(
@@ -589,7 +597,7 @@ impl super::stubs::ConfigServiceV2 for ConfigServiceV2 {
         &self,
         req: crate::model::DeleteSinkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -599,9 +607,11 @@ impl super::stubs::ConfigServiceV2 for ConfigServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(())
     }
 
     async fn create_link(
@@ -779,7 +789,7 @@ impl super::stubs::ConfigServiceV2 for ConfigServiceV2 {
         &self,
         req: crate::model::DeleteExclusionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -789,9 +799,11 @@ impl super::stubs::ConfigServiceV2 for ConfigServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(())
     }
 
     async fn get_cmek_settings(
@@ -958,7 +970,7 @@ impl super::stubs::ConfigServiceV2 for ConfigServiceV2 {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -968,7 +980,8 @@ impl super::stubs::ConfigServiceV2 for ConfigServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 
     fn get_polling_error_policy(
@@ -1086,7 +1099,7 @@ impl super::stubs::MetricsServiceV2 for MetricsServiceV2 {
         &self,
         req: crate::model::DeleteLogMetricRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1096,9 +1109,11 @@ impl super::stubs::MetricsServiceV2 for MetricsServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(())
     }
 
     async fn list_operations(
@@ -1146,7 +1161,7 @@ impl super::stubs::MetricsServiceV2 for MetricsServiceV2 {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1156,6 +1171,7 @@ impl super::stubs::MetricsServiceV2 for MetricsServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 }

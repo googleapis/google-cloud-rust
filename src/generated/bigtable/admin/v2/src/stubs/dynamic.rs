@@ -53,7 +53,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_cluster(
         &self,
@@ -89,7 +89,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_app_profile(
         &self,
@@ -119,7 +119,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteAppProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_iam_policy(
         &self,
@@ -173,7 +173,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteLogicalViewRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_materialized_view(
         &self,
@@ -203,7 +203,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteMaterializedViewRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_operations(
         &self,
@@ -221,13 +221,13 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -293,7 +293,7 @@ impl<T: super::BigtableInstanceAdmin> BigtableInstanceAdmin for T {
         &self,
         req: crate::model::DeleteInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_instance(self, req, options).await
     }
 
@@ -347,7 +347,7 @@ impl<T: super::BigtableInstanceAdmin> BigtableInstanceAdmin for T {
         &self,
         req: crate::model::DeleteClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_cluster(self, req, options).await
     }
 
@@ -392,7 +392,7 @@ impl<T: super::BigtableInstanceAdmin> BigtableInstanceAdmin for T {
         &self,
         req: crate::model::DeleteAppProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_app_profile(self, req, options).await
     }
 
@@ -473,7 +473,7 @@ impl<T: super::BigtableInstanceAdmin> BigtableInstanceAdmin for T {
         &self,
         req: crate::model::DeleteLogicalViewRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_logical_view(self, req, options).await
     }
 
@@ -518,7 +518,7 @@ impl<T: super::BigtableInstanceAdmin> BigtableInstanceAdmin for T {
         &self,
         req: crate::model::DeleteMaterializedViewRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_materialized_view(self, req, options).await
     }
 
@@ -545,7 +545,7 @@ impl<T: super::BigtableInstanceAdmin> BigtableInstanceAdmin for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -554,7 +554,7 @@ impl<T: super::BigtableInstanceAdmin> BigtableInstanceAdmin for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -610,7 +610,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteTableRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn undelete_table(
         &self,
@@ -646,7 +646,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteAuthorizedViewRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn modify_column_families(
         &self,
@@ -658,7 +658,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DropRowRangeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn generate_consistency_token(
         &self,
@@ -694,7 +694,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_backup(
         &self,
@@ -718,7 +718,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_backups(
         &self,
@@ -772,13 +772,13 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -844,7 +844,7 @@ impl<T: super::BigtableTableAdmin> BigtableTableAdmin for T {
         &self,
         req: crate::model::DeleteTableRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_table(self, req, options).await
     }
 
@@ -898,7 +898,7 @@ impl<T: super::BigtableTableAdmin> BigtableTableAdmin for T {
         &self,
         req: crate::model::DeleteAuthorizedViewRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_authorized_view(self, req, options).await
     }
 
@@ -916,7 +916,7 @@ impl<T: super::BigtableTableAdmin> BigtableTableAdmin for T {
         &self,
         req: crate::model::DropRowRangeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::drop_row_range(self, req, options).await
     }
 
@@ -970,7 +970,7 @@ impl<T: super::BigtableTableAdmin> BigtableTableAdmin for T {
         &self,
         req: crate::model::DeleteSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_snapshot(self, req, options).await
     }
 
@@ -1006,7 +1006,7 @@ impl<T: super::BigtableTableAdmin> BigtableTableAdmin for T {
         &self,
         req: crate::model::DeleteBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_backup(self, req, options).await
     }
 
@@ -1087,7 +1087,7 @@ impl<T: super::BigtableTableAdmin> BigtableTableAdmin for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -1096,7 +1096,7 @@ impl<T: super::BigtableTableAdmin> BigtableTableAdmin for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 

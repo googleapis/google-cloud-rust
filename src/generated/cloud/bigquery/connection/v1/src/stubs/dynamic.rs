@@ -45,7 +45,7 @@ pub trait ConnectionService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_iam_policy(
         &self,
@@ -110,7 +110,7 @@ impl<T: super::ConnectionService> ConnectionService for T {
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_connection(self, req, options).await
     }
 

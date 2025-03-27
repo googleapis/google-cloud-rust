@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::DeleteScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_scan_config(req, options).await
     }
 

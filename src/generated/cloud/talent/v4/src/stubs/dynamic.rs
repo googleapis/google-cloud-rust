@@ -41,7 +41,7 @@ pub trait CompanyService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteCompanyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_companies(
         &self,
@@ -91,7 +91,7 @@ impl<T: super::CompanyService> CompanyService for T {
         &self,
         req: crate::model::DeleteCompanyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_company(self, req, options).await
     }
 
@@ -227,7 +227,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn batch_delete_jobs(
         &self,
@@ -323,7 +323,7 @@ impl<T: super::JobService> JobService for T {
         &self,
         req: crate::model::DeleteJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_job(self, req, options).await
     }
 
@@ -412,7 +412,7 @@ pub trait TenantService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteTenantRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_tenants(
         &self,
@@ -462,7 +462,7 @@ impl<T: super::TenantService> TenantService for T {
         &self,
         req: crate::model::DeleteTenantRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_tenant(self, req, options).await
     }
 

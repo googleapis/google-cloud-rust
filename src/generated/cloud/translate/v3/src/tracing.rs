@@ -186,7 +186,7 @@ where
         &self,
         req: crate::model::DeleteGlossaryEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_glossary_entry(req, options).await
     }
 
@@ -240,7 +240,7 @@ where
         &self,
         req: crate::model::DeleteAdaptiveMtDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_adaptive_mt_dataset(req, options).await
     }
 
@@ -285,7 +285,7 @@ where
         &self,
         req: crate::model::DeleteAdaptiveMtFileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_adaptive_mt_file(req, options).await
     }
 
@@ -420,7 +420,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -429,7 +429,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 

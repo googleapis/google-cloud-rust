@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::DeleteInspectTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_inspect_template(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::DeleteDeidentifyTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_deidentify_template(req, options).await
     }
 
@@ -222,7 +222,7 @@ where
         &self,
         req: crate::model::DeleteJobTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_job_trigger(req, options).await
     }
 
@@ -276,7 +276,7 @@ where
         &self,
         req: crate::model::DeleteDiscoveryConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_discovery_config(req, options).await
     }
 
@@ -312,7 +312,7 @@ where
         &self,
         req: crate::model::DeleteDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_dlp_job(req, options).await
     }
 
@@ -321,7 +321,7 @@ where
         &self,
         req: crate::model::CancelDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_dlp_job(req, options).await
     }
 
@@ -366,7 +366,7 @@ where
         &self,
         req: crate::model::DeleteStoredInfoTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_stored_info_type(req, options).await
     }
 
@@ -429,7 +429,7 @@ where
         &self,
         req: crate::model::DeleteFileStoreDataProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner
             .delete_file_store_data_profile(req, options)
             .await
@@ -458,7 +458,7 @@ where
         &self,
         req: crate::model::DeleteTableDataProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_table_data_profile(req, options).await
     }
 
@@ -476,7 +476,7 @@ where
         &self,
         req: crate::model::FinishDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.finish_dlp_job(req, options).await
     }
 
@@ -521,7 +521,7 @@ where
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_connection(req, options).await
     }
 

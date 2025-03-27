@@ -53,7 +53,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteConversationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_analysis(
         &self,
@@ -77,7 +77,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteAnalysisRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn bulk_analyze_conversations(
         &self,
@@ -179,7 +179,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteIssueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn calculate_issue_model_stats(
         &self,
@@ -209,7 +209,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeletePhraseMatcherRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn update_phrase_matcher(
         &self,
@@ -263,7 +263,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteAnalysisRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_encryption_spec(
         &self,
@@ -305,7 +305,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteViewRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn query_metrics(
         &self,
@@ -335,7 +335,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteQaQuestionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_qa_questions(
         &self,
@@ -365,7 +365,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteQaScorecardRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_qa_scorecards(
         &self,
@@ -407,7 +407,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_qa_scorecard_revisions(
         &self,
@@ -443,7 +443,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteFeedbackLabelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_all_feedback_labels(
         &self,
@@ -479,7 +479,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -545,7 +545,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::DeleteConversationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_conversation(self, req, options).await
     }
 
@@ -581,7 +581,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::DeleteAnalysisRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_analysis(self, req, options).await
     }
 
@@ -734,7 +734,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::DeleteIssueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_issue(self, req, options).await
     }
 
@@ -779,7 +779,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::DeletePhraseMatcherRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_phrase_matcher(self, req, options).await
     }
 
@@ -860,7 +860,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::DeleteAnalysisRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_analysis_rule(self, req, options).await
     }
 
@@ -923,7 +923,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::DeleteViewRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_view(self, req, options).await
     }
 
@@ -968,7 +968,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::DeleteQaQuestionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_qa_question(self, req, options).await
     }
 
@@ -1013,7 +1013,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::DeleteQaScorecardRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_qa_scorecard(self, req, options).await
     }
 
@@ -1076,7 +1076,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::DeleteQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_qa_scorecard_revision(self, req, options).await
     }
 
@@ -1130,7 +1130,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::DeleteFeedbackLabelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_feedback_label(self, req, options).await
     }
 
@@ -1184,7 +1184,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 

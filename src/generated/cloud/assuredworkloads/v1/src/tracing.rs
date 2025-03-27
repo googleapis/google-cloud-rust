@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::DeleteWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_workload(req, options).await
     }
 

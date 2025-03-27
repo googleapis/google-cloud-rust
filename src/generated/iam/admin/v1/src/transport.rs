@@ -148,7 +148,7 @@ impl super::stubs::Iam for Iam {
         &self,
         req: crate::model::DeleteServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -158,9 +158,11 @@ impl super::stubs::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(())
     }
 
     async fn undelete_service_account(
@@ -184,7 +186,7 @@ impl super::stubs::Iam for Iam {
         &self,
         req: crate::model::EnableServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -194,14 +196,15 @@ impl super::stubs::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 
     async fn disable_service_account(
         &self,
         req: crate::model::DisableServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -211,7 +214,8 @@ impl super::stubs::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 
     async fn list_service_account_keys(
@@ -297,7 +301,7 @@ impl super::stubs::Iam for Iam {
         &self,
         req: crate::model::DeleteServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -307,16 +311,18 @@ impl super::stubs::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(())
     }
 
     async fn disable_service_account_key(
         &self,
         req: crate::model::DisableServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -326,14 +332,15 @@ impl super::stubs::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 
     async fn enable_service_account_key(
         &self,
         req: crate::model::EnableServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -343,7 +350,8 @@ impl super::stubs::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 
     async fn sign_blob(

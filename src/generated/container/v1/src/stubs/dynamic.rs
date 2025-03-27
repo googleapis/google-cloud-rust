@@ -111,7 +111,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_server_config(
         &self,
@@ -153,7 +153,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CompleteNodePoolUpgradeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn rollback_node_pool_upgrade(
         &self,
@@ -365,7 +365,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -428,7 +428,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::CompleteNodePoolUpgradeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::complete_node_pool_upgrade(self, req, options).await
     }
 

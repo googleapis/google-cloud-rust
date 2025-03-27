@@ -191,7 +191,7 @@ impl super::stubs::CompletionService for CompletionService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -201,7 +201,8 @@ impl super::stubs::CompletionService for CompletionService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 
     fn get_polling_error_policy(
@@ -268,7 +269,7 @@ impl super::stubs::ControlService for ControlService {
         &self,
         req: crate::model::DeleteControlRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -278,9 +279,11 @@ impl super::stubs::ControlService for ControlService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(())
     }
 
     async fn update_control(
@@ -407,7 +410,7 @@ impl super::stubs::ControlService for ControlService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -417,7 +420,8 @@ impl super::stubs::ControlService for ControlService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 }
 
@@ -486,7 +490,7 @@ impl super::stubs::ConversationalSearchService for ConversationalSearchService {
         &self,
         req: crate::model::DeleteConversationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -496,9 +500,11 @@ impl super::stubs::ConversationalSearchService for ConversationalSearchService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(())
     }
 
     async fn update_conversation(
@@ -649,7 +655,7 @@ impl super::stubs::ConversationalSearchService for ConversationalSearchService {
         &self,
         req: crate::model::DeleteSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -659,9 +665,11 @@ impl super::stubs::ConversationalSearchService for ConversationalSearchService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(())
     }
 
     async fn update_session(
@@ -789,7 +797,7 @@ impl super::stubs::ConversationalSearchService for ConversationalSearchService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -799,7 +807,8 @@ impl super::stubs::ConversationalSearchService for ConversationalSearchService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 }
 
@@ -1000,7 +1009,7 @@ impl super::stubs::DataStoreService for DataStoreService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1010,7 +1019,8 @@ impl super::stubs::DataStoreService for DataStoreService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 
     fn get_polling_error_policy(
@@ -1159,7 +1169,7 @@ impl super::stubs::DocumentService for DocumentService {
         &self,
         req: crate::model::DeleteDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1169,9 +1179,11 @@ impl super::stubs::DocumentService for DocumentService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(())
     }
 
     async fn import_documents(
@@ -1291,7 +1303,7 @@ impl super::stubs::DocumentService for DocumentService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1301,7 +1313,8 @@ impl super::stubs::DocumentService for DocumentService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 
     fn get_polling_error_policy(
@@ -1500,7 +1513,7 @@ impl super::stubs::EngineService for EngineService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1510,7 +1523,8 @@ impl super::stubs::EngineService for EngineService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 
     fn get_polling_error_policy(
@@ -1635,7 +1649,7 @@ impl super::stubs::GroundedGenerationService for GroundedGenerationService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1645,7 +1659,8 @@ impl super::stubs::GroundedGenerationService for GroundedGenerationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 }
 
@@ -1733,7 +1748,7 @@ impl super::stubs::ProjectService for ProjectService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1743,7 +1758,8 @@ impl super::stubs::ProjectService for ProjectService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 
     fn get_polling_error_policy(
@@ -1848,7 +1864,7 @@ impl super::stubs::RankService for RankService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1858,7 +1874,8 @@ impl super::stubs::RankService for RankService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 }
 
@@ -1949,7 +1966,7 @@ impl super::stubs::RecommendationService for RecommendationService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1959,7 +1976,8 @@ impl super::stubs::RecommendationService for RecommendationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 }
 
@@ -2134,7 +2152,7 @@ impl super::stubs::SchemaService for SchemaService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2144,7 +2162,8 @@ impl super::stubs::SchemaService for SchemaService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 
     fn get_polling_error_policy(
@@ -2269,7 +2288,7 @@ impl super::stubs::SearchService for SearchService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2279,7 +2298,8 @@ impl super::stubs::SearchService for SearchService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 }
 
@@ -2392,7 +2412,7 @@ impl super::stubs::SearchTuningService for SearchTuningService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2402,7 +2422,8 @@ impl super::stubs::SearchTuningService for SearchTuningService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 
     fn get_polling_error_policy(
@@ -2745,7 +2766,7 @@ impl super::stubs::SiteSearchEngineService for SiteSearchEngineService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2755,7 +2776,8 @@ impl super::stubs::SiteSearchEngineService for SiteSearchEngineService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 
     fn get_polling_error_policy(
@@ -2934,7 +2956,7 @@ impl super::stubs::UserEventService for UserEventService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2944,7 +2966,8 @@ impl super::stubs::UserEventService for UserEventService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(())
     }
 
     fn get_polling_error_policy(

@@ -504,7 +504,7 @@ pub mod security_center {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_big_query_export(self.0.request, self.0.options)
                 .await
@@ -548,7 +548,7 @@ pub mod security_center {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_mute_config(self.0.request, self.0.options)
                 .await
@@ -594,7 +594,7 @@ pub mod security_center {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_notification_config(self.0.request, self.0.options)
                 .await
@@ -640,7 +640,7 @@ pub mod security_center {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_resource_value_config(self.0.request, self.0.options)
                 .await
@@ -2495,7 +2495,7 @@ pub mod security_center {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -2539,7 +2539,7 @@ pub mod security_center {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await

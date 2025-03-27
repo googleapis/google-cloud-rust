@@ -45,7 +45,7 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn pause_job(
         &self,
@@ -122,7 +122,7 @@ impl<T: super::CloudScheduler> CloudScheduler for T {
         &self,
         req: crate::model::DeleteJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_job(self, req, options).await
     }
 

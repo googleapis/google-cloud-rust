@@ -51,7 +51,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn undelete_service_account(
         &self,
@@ -63,13 +63,13 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::EnableServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn disable_service_account(
         &self,
         req: crate::model::DisableServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_service_account_keys(
         &self,
@@ -99,19 +99,19 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn disable_service_account_key(
         &self,
         req: crate::model::DisableServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn enable_service_account_key(
         &self,
         req: crate::model::EnableServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn sign_blob(
         &self,
@@ -257,7 +257,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::DeleteServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_service_account(self, req, options).await
     }
 
@@ -275,7 +275,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::EnableServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::enable_service_account(self, req, options).await
     }
 
@@ -284,7 +284,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::DisableServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::disable_service_account(self, req, options).await
     }
 
@@ -329,7 +329,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::DeleteServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_service_account_key(self, req, options).await
     }
 
@@ -338,7 +338,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::DisableServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::disable_service_account_key(self, req, options).await
     }
 
@@ -347,7 +347,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::EnableServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::enable_service_account_key(self, req, options).await
     }
 

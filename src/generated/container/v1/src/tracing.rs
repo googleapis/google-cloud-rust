@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 
@@ -240,7 +240,7 @@ where
         &self,
         req: crate::model::CompleteNodePoolUpgradeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.complete_node_pool_upgrade(req, options).await
     }
 

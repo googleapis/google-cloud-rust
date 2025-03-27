@@ -169,7 +169,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::DeleteSecretRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -182,12 +182,13 @@ impl super::stubs::SecretManagerService for SecretManagerService {
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = builder.query(&[("etag", &req.etag)]);
-        self.inner.execute(
+        let _ : wkt::Empty = self.inner.execute(
             builder,
             
             None::<gaxi::http::NoBody>,
             options,
-        ).await
+        ).await?;
+        Ok(())
     }
 
     async fn list_secret_versions(

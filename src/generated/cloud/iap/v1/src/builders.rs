@@ -521,7 +521,7 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_tunnel_dest_group(self.0.request, self.0.options)
                 .await
@@ -1027,7 +1027,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_identity_aware_proxy_client(self.0.request, self.0.options)
                 .await

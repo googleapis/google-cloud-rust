@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::DeleteDataSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_data_set(req, options).await
     }
 

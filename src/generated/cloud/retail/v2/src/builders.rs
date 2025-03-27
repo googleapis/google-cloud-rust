@@ -432,7 +432,7 @@ pub mod catalog_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .set_default_branch(self.0.request, self.0.options)
                 .await
@@ -1456,7 +1456,7 @@ pub mod control_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_control(self.0.request, self.0.options)
                 .await
@@ -2464,7 +2464,7 @@ pub mod model_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_model(self.0.request, self.0.options)
                 .await
@@ -3330,7 +3330,7 @@ pub mod product_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_product(self.0.request, self.0.options)
                 .await
@@ -4778,7 +4778,7 @@ pub mod serving_config_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_serving_config(self.0.request, self.0.options)
                 .await

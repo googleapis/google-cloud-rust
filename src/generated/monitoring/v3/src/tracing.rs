@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::DeleteAlertPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_alert_policy(req, options).await
     }
 
@@ -146,7 +146,7 @@ where
         &self,
         req: crate::model::DeleteGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_group(req, options).await
     }
 
@@ -236,7 +236,7 @@ where
         &self,
         req: crate::model::DeleteMetricDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_metric_descriptor(req, options).await
     }
 
@@ -254,7 +254,7 @@ where
         &self,
         req: crate::model::CreateTimeSeriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.create_time_series(req, options).await
     }
 
@@ -263,7 +263,7 @@ where
         &self,
         req: crate::model::CreateTimeSeriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.create_service_time_series(req, options).await
     }
 }
@@ -353,7 +353,7 @@ where
         &self,
         req: crate::model::DeleteNotificationChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_notification_channel(req, options).await
     }
 
@@ -362,7 +362,7 @@ where
         &self,
         req: crate::model::SendNotificationChannelVerificationCodeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner
             .send_notification_channel_verification_code(req, options)
             .await
@@ -484,7 +484,7 @@ where
         &self,
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_service(req, options).await
     }
 
@@ -533,7 +533,7 @@ where
         &self,
         req: crate::model::DeleteServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner
             .delete_service_level_objective(req, options)
             .await
@@ -662,7 +662,7 @@ where
         &self,
         req: crate::model::DeleteUptimeCheckConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_uptime_check_config(req, options).await
     }
 

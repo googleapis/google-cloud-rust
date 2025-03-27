@@ -53,7 +53,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DropDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_database_ddl(
         &self,
@@ -107,7 +107,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_backups(
         &self,
@@ -167,7 +167,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteBackupScheduleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_backup_schedules(
         &self,
@@ -191,13 +191,13 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -263,7 +263,7 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
         &self,
         req: crate::model::DropDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::drop_database(self, req, options).await
     }
 
@@ -344,7 +344,7 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
         &self,
         req: crate::model::DeleteBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_backup(self, req, options).await
     }
 
@@ -434,7 +434,7 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
         &self,
         req: crate::model::DeleteBackupScheduleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_backup_schedule(self, req, options).await
     }
 
@@ -470,7 +470,7 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -479,7 +479,7 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 

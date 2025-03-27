@@ -45,7 +45,7 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteQueueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn purge_queue(
         &self,
@@ -105,7 +105,7 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteTaskRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn run_task(
         &self,
@@ -170,7 +170,7 @@ impl<T: super::CloudTasks> CloudTasks for T {
         &self,
         req: crate::model::DeleteQueueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_queue(self, req, options).await
     }
 
@@ -260,7 +260,7 @@ impl<T: super::CloudTasks> CloudTasks for T {
         &self,
         req: crate::model::DeleteTaskRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_task(self, req, options).await
     }
 

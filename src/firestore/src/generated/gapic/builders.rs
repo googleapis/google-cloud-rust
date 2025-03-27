@@ -299,7 +299,7 @@ pub mod firestore {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_document(self.0.request, self.0.options)
                 .await
@@ -458,7 +458,7 @@ pub mod firestore {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .rollback(self.0.request, self.0.options)
                 .await

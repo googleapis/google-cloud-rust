@@ -556,7 +556,7 @@ pub trait Firewall: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteIngressRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_operations(
         &self,
@@ -624,7 +624,7 @@ impl<T: super::Firewall> Firewall for T {
         &self,
         req: crate::model::DeleteIngressRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_ingress_rule(self, req, options).await
     }
 
@@ -731,7 +731,7 @@ pub trait AuthorizedCertificates: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteAuthorizedCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_operations(
         &self,
@@ -790,7 +790,7 @@ impl<T: super::AuthorizedCertificates> AuthorizedCertificates for T {
         &self,
         req: crate::model::DeleteAuthorizedCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_authorized_certificate(self, req, options).await
     }
 

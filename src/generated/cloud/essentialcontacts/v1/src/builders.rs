@@ -285,7 +285,7 @@ pub mod essential_contacts_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_contact(self.0.request, self.0.options)
                 .await
@@ -409,7 +409,7 @@ pub mod essential_contacts_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .send_test_message(self.0.request, self.0.options)
                 .await

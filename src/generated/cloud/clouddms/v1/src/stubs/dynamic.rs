@@ -191,7 +191,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteMappingRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_mapping_rules(
         &self,
@@ -311,13 +311,13 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -590,7 +590,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::DeleteMappingRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_mapping_rule(self, req, options).await
     }
 
@@ -770,7 +770,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -779,7 +779,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 

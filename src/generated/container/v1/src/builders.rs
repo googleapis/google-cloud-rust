@@ -1283,7 +1283,7 @@ pub mod cluster_manager {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -1698,7 +1698,7 @@ pub mod cluster_manager {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .complete_node_pool_upgrade(self.0.request, self.0.options)
                 .await

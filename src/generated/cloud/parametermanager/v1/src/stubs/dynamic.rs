@@ -45,7 +45,7 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteParameterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_parameter_versions(
         &self,
@@ -81,7 +81,7 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_locations(
         &self,
@@ -140,7 +140,7 @@ impl<T: super::ParameterManager> ParameterManager for T {
         &self,
         req: crate::model::DeleteParameterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_parameter(self, req, options).await
     }
 
@@ -194,7 +194,7 @@ impl<T: super::ParameterManager> ParameterManager for T {
         &self,
         req: crate::model::DeleteParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_parameter_version(self, req, options).await
     }
 

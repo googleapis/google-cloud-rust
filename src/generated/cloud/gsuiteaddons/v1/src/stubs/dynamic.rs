@@ -51,19 +51,19 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn install_deployment(
         &self,
         req: crate::model::InstallDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn uninstall_deployment(
         &self,
         req: crate::model::UninstallDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_install_status(
         &self,
@@ -125,7 +125,7 @@ impl<T: super::GSuiteAddOns> GSuiteAddOns for T {
         &self,
         req: crate::model::DeleteDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_deployment(self, req, options).await
     }
 
@@ -134,7 +134,7 @@ impl<T: super::GSuiteAddOns> GSuiteAddOns for T {
         &self,
         req: crate::model::InstallDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::install_deployment(self, req, options).await
     }
 
@@ -143,7 +143,7 @@ impl<T: super::GSuiteAddOns> GSuiteAddOns for T {
         &self,
         req: crate::model::UninstallDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::uninstall_deployment(self, req, options).await
     }
 

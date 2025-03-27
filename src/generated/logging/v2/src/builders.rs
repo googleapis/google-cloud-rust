@@ -61,7 +61,7 @@ pub mod logging_service_v_2 {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_log(self.0.request, self.0.options)
                 .await
@@ -528,7 +528,7 @@ pub mod logging_service_v_2 {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -1008,7 +1008,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_bucket(self.0.request, self.0.options)
                 .await
@@ -1049,7 +1049,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .undelete_bucket(self.0.request, self.0.options)
                 .await
@@ -1313,7 +1313,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_view(self.0.request, self.0.options)
                 .await
@@ -1583,7 +1583,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_sink(self.0.request, self.0.options)
                 .await
@@ -2114,7 +2114,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_exclusion(self.0.request, self.0.options)
                 .await
@@ -2576,7 +2576,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -2852,7 +2852,7 @@ pub mod metrics_service_v_2 {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_log_metric(self.0.request, self.0.options)
                 .await
@@ -3017,7 +3017,7 @@ pub mod metrics_service_v_2 {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await

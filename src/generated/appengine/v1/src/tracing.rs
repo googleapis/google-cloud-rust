@@ -460,7 +460,7 @@ where
         &self,
         req: crate::model::DeleteIngressRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_ingress_rule(req, options).await
     }
 
@@ -596,7 +596,7 @@ where
         &self,
         req: crate::model::DeleteAuthorizedCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_authorized_certificate(req, options).await
     }
 

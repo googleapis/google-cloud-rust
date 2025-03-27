@@ -63,7 +63,7 @@ pub trait AccessApproval: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_access_approval_service_account(
         &self,
@@ -143,7 +143,7 @@ impl<T: super::AccessApproval> AccessApproval for T {
         &self,
         req: crate::model::DeleteAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_access_approval_settings(self, req, options).await
     }
 

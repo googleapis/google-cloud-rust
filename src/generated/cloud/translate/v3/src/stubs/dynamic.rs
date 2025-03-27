@@ -119,7 +119,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteGlossaryEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_dataset(
         &self,
@@ -155,7 +155,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteAdaptiveMtDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_adaptive_mt_dataset(
         &self,
@@ -185,7 +185,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteAdaptiveMtFileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn import_adaptive_mt_file(
         &self,
@@ -275,13 +275,13 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -452,7 +452,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::DeleteGlossaryEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_glossary_entry(self, req, options).await
     }
 
@@ -506,7 +506,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::DeleteAdaptiveMtDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_adaptive_mt_dataset(self, req, options).await
     }
 
@@ -551,7 +551,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::DeleteAdaptiveMtFileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_adaptive_mt_file(self, req, options).await
     }
 
@@ -686,7 +686,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -695,7 +695,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 

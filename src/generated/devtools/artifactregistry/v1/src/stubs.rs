@@ -394,8 +394,8 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteTagRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ArtifactRegistry::create_rule].
@@ -442,8 +442,8 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteRuleRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ArtifactRegistry::set_iam_policy].

@@ -27,7 +27,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_scan_config(
         &self,
@@ -113,7 +113,7 @@ impl<T: super::WebSecurityScanner> WebSecurityScanner for T {
         &self,
         req: crate::model::DeleteScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_scan_config(self, req, options).await
     }
 
