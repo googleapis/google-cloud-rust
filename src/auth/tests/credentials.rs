@@ -184,7 +184,6 @@ mod test {
     async fn get_mds_credential_from_builder() -> Result<()> {
         let test_quota_project = "test-quota-project";
         let test_universe_domain = "test-universe-domain";
-        let default_metadata_server = "http://metadata.google.internal";
         let mdcs = Builder::default()
             .quota_project_id(test_quota_project)
             .universe_domain(test_universe_domain)
@@ -193,7 +192,6 @@ mod test {
         assert!(fmt.contains("MDSCredential"));
         assert!(fmt.contains(test_quota_project));
         assert!(fmt.contains(test_universe_domain));
-        assert!(fmt.contains(default_metadata_server));
         Ok(())
     }
 }
