@@ -391,6 +391,7 @@ mod test {
     use crate::polling_error_policy;
     use crate::retry_policy::LimitedAttemptCount;
     use crate::retry_throttler::AdaptiveThrottler;
+    use scoped_env::ScopedEnv;
     use std::time::Duration;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -511,28 +512,21 @@ mod test {
         Ok(())
     }
 
-    // This test must run serially because `std::env::remove_var` and
-    // `std::env::set_var` are unsafe otherwise.
+    // This test must run serially because it manipulates the environment.
     #[test]
     #[serial_test::serial]
     fn config_tracing() {
-        unsafe {
-            std::env::remove_var(LOGGING_VAR);
-        }
+        let _e = ScopedEnv::remove(LOGGING_VAR);
         let config = ClientConfig::new();
         assert!(!config.tracing_enabled(), "expected tracing to be disabled");
         let config = ClientConfig::new().enable_tracing();
         assert!(config.tracing_enabled(), "expected tracing to be enabled");
 
-        unsafe {
-            std::env::set_var(LOGGING_VAR, "true");
-        }
+        let _e = ScopedEnv::set(LOGGING_VAR, "true");
         let config = ClientConfig::new();
         assert!(config.tracing_enabled(), "expected tracing to be enabled");
 
-        unsafe {
-            std::env::set_var(LOGGING_VAR, "not-true");
-        }
+        let _e = ScopedEnv::set(LOGGING_VAR, "not-true");
         let config = ClientConfig::new();
         assert!(!config.tracing_enabled(), "expected tracing to be disabled");
     }
