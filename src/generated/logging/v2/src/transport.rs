@@ -54,11 +54,10 @@ impl super::stubs::LoggingServiceV2 for LoggingServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn write_log_entries(
@@ -199,8 +198,10 @@ impl super::stubs::LoggingServiceV2 for LoggingServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
-        Ok(())
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
@@ -376,11 +377,10 @@ impl super::stubs::ConfigServiceV2 for ConfigServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn undelete_bucket(
@@ -397,8 +397,10 @@ impl super::stubs::ConfigServiceV2 for ConfigServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
-        Ok(())
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_views(
@@ -500,11 +502,10 @@ impl super::stubs::ConfigServiceV2 for ConfigServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_sinks(
@@ -607,11 +608,10 @@ impl super::stubs::ConfigServiceV2 for ConfigServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_link(
@@ -799,11 +799,10 @@ impl super::stubs::ConfigServiceV2 for ConfigServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn get_cmek_settings(
@@ -980,8 +979,10 @@ impl super::stubs::ConfigServiceV2 for ConfigServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
-        Ok(())
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -1109,11 +1110,10 @@ impl super::stubs::MetricsServiceV2 for MetricsServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_operations(
@@ -1171,7 +1171,9 @@ impl super::stubs::MetricsServiceV2 for MetricsServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
-        Ok(())
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 }

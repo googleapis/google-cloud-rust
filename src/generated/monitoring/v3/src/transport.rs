@@ -121,11 +121,10 @@ impl super::stubs::AlertPolicyService for AlertPolicyService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn update_alert_policy(
@@ -307,11 +306,10 @@ impl super::stubs::GroupService for GroupService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("recursive", &req.recursive)]);
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_group_members(
@@ -494,11 +492,10 @@ impl super::stubs::MetricService for MetricService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_time_series(
@@ -572,8 +569,10 @@ impl super::stubs::MetricService for MetricService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
-        Ok(())
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_service_time_series(
@@ -593,8 +592,10 @@ impl super::stubs::MetricService for MetricService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
-        Ok(())
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
@@ -783,11 +784,10 @@ impl super::stubs::NotificationChannelService for NotificationChannelService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("force", &req.force)]);
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn send_notification_channel_verification_code(
@@ -807,8 +807,10 @@ impl super::stubs::NotificationChannelService for NotificationChannelService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
-        Ok(())
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn get_notification_channel_verification_code(
@@ -1030,11 +1032,10 @@ impl super::stubs::ServiceMonitoringService for ServiceMonitoringService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_service_level_objective(
@@ -1159,11 +1160,10 @@ impl super::stubs::ServiceMonitoringService for ServiceMonitoringService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
@@ -1424,11 +1424,10 @@ impl super::stubs::UptimeCheckService for UptimeCheckService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_uptime_check_ips(

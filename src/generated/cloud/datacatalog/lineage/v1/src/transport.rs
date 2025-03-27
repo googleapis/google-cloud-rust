@@ -384,11 +384,10 @@ impl super::stubs::Lineage for Lineage {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn search_links(
@@ -486,11 +485,10 @@ impl super::stubs::Lineage for Lineage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
@@ -507,8 +505,10 @@ impl super::stubs::Lineage for Lineage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
-        Ok(())
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(

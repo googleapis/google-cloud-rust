@@ -163,11 +163,10 @@ impl super::stubs::ParameterManager for ParameterManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_parameter_versions(
@@ -310,11 +309,10 @@ impl super::stubs::ParameterManager for ParameterManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_locations(

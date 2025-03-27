@@ -147,11 +147,10 @@ impl super::stubs::Agents for Agents {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn export_agent(
@@ -379,11 +378,10 @@ impl super::stubs::Agents for Agents {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -563,11 +561,10 @@ impl super::stubs::Changelogs for Changelogs {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
@@ -732,11 +729,10 @@ impl super::stubs::Deployments for Deployments {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
@@ -859,11 +855,10 @@ impl super::stubs::EntityTypes for EntityTypes {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("force", &req.force)]);
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_entity_types(
@@ -1027,11 +1022,10 @@ impl super::stubs::EntityTypes for EntityTypes {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -1188,11 +1182,10 @@ impl super::stubs::Environments for Environments {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn lookup_environment_history(
@@ -1379,11 +1372,10 @@ impl super::stubs::Environments for Environments {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -1540,11 +1532,10 @@ impl super::stubs::Experiments for Experiments {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn start_experiment(
@@ -1677,11 +1668,10 @@ impl super::stubs::Experiments for Experiments {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
@@ -1738,11 +1728,10 @@ impl super::stubs::Flows for Flows {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("force", &req.force)]);
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_flows(
@@ -2011,11 +2000,10 @@ impl super::stubs::Flows for Flows {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -2177,11 +2165,10 @@ impl super::stubs::Generators for Generators {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("force", &req.force)]);
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_locations(
@@ -2280,11 +2267,10 @@ impl super::stubs::Generators for Generators {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
@@ -2422,11 +2408,10 @@ impl super::stubs::Intents for Intents {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn import_intents(
@@ -2565,11 +2550,10 @@ impl super::stubs::Intents for Intents {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -2719,11 +2703,10 @@ impl super::stubs::Pages for Pages {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("force", &req.force)]);
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_locations(
@@ -2822,11 +2805,10 @@ impl super::stubs::Pages for Pages {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
@@ -2969,11 +2951,10 @@ impl super::stubs::SecuritySettingsService for SecuritySettingsService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_locations(
@@ -3072,11 +3053,10 @@ impl super::stubs::SecuritySettingsService for SecuritySettingsService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
@@ -3284,11 +3264,10 @@ impl super::stubs::Sessions for Sessions {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
@@ -3431,11 +3410,10 @@ impl super::stubs::SessionEntityTypes for SessionEntityTypes {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_locations(
@@ -3534,11 +3512,10 @@ impl super::stubs::SessionEntityTypes for SessionEntityTypes {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
@@ -3606,8 +3583,10 @@ impl super::stubs::TestCases for TestCases {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
-        Ok(())
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn get_test_case(
@@ -3926,11 +3905,10 @@ impl super::stubs::TestCases for TestCases {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -4092,11 +4070,10 @@ impl super::stubs::TransitionRouteGroups for TransitionRouteGroups {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("force", &req.force)]);
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_locations(
@@ -4195,11 +4172,10 @@ impl super::stubs::TransitionRouteGroups for TransitionRouteGroups {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
@@ -4339,11 +4315,10 @@ impl super::stubs::Versions for Versions {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn load_version(
@@ -4479,11 +4454,10 @@ impl super::stubs::Versions for Versions {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -4638,11 +4612,10 @@ impl super::stubs::Webhooks for Webhooks {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("force", &req.force)]);
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_locations(
@@ -4741,10 +4714,9 @@ impl super::stubs::Webhooks for Webhooks {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self
-            .inner
+        self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await?;
-        Ok(())
+            .await
+            .map(|_: wkt::Empty| ())
     }
 }

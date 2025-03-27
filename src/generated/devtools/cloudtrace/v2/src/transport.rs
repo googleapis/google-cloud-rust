@@ -57,8 +57,10 @@ impl super::stubs::TraceService for TraceService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
-        Ok(())
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_span(

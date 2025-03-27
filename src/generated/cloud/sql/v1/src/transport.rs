@@ -1414,13 +1414,13 @@ impl super::stubs::SqlOperationsService for SqlOperationsService {
             )
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let _ : wkt::Empty = self.inner.execute(
+        self.inner.execute(
             builder,
             
             None::<gaxi::http::NoBody>,
             options,
-        ).await?;
-        Ok(())
+        ).await
+        .map(|_: wkt::Empty| ())
     }
 
 }
