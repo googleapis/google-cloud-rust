@@ -2250,6 +2250,7 @@ dependencies = [
  "mockall",
  "pin-project",
  "rand 0.9.0",
+ "scoped-env",
  "serde",
  "serde_json",
  "serial_test",
