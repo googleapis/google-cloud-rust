@@ -272,7 +272,7 @@ impl TryFrom<&str> for Timestamp {
         let seconds = (nanos_since_epoch / NS) as i64;
         let nanos = (nanos_since_epoch % NS) as i32;
         if nanos < 0 {
-            return Timestamp::new(seconds - 1, NS as i32 + nanos);
+            return Timestamp::new(seconds - 1, Self::NS + nanos);
         }
         Timestamp::new(seconds, nanos)
     }
