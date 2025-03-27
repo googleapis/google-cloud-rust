@@ -83,6 +83,8 @@ class LanguageService {
 }
 
 /// Represents the input to API methods.
+///
+/// Only one of [content] or [gcsContentUri] can be specified.
 class Document extends Message {
   static const String fullyQualifiedName = 'google.cloud.language.v2.Document';
 

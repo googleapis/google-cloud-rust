@@ -213,6 +213,8 @@ class SecretManagerService {
 /// A `Secret` is made up of zero or more
 /// `SecretVersions` that represent
 /// the secret data.
+///
+/// Only one of [expireTime] or [ttl] can be specified.
 class Secret extends Message {
   static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.Secret';
 
@@ -522,6 +524,8 @@ class SecretVersion$State extends Enum {
 }
 
 /// A policy that defines the replication and encryption configuration of data.
+///
+/// Only one of [automatic] or [userManaged] can be specified.
 class Replication extends Message {
   static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.Replication';
 
@@ -725,6 +729,8 @@ class CustomerManagedEncryption extends Message {
 
 /// The replication status of a
 /// `SecretVersion`.
+///
+/// Only one of [automatic] or [userManaged] can be specified.
 class ReplicationStatus extends Message {
   static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.ReplicationStatus';
 

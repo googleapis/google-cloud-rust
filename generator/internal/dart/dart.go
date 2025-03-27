@@ -64,6 +64,10 @@ func qualifiedName(m *api.Message) string {
 	return strings.TrimPrefix(m.ID, ".")
 }
 
+func fieldName(field *api.Field) string {
+	return strcase.ToLowerCamel(field.Name)
+}
+
 func enumName(e *api.Enum) string {
 	if e.Parent != nil {
 		return messageName(e.Parent) + "$" + strcase.ToCamel(e.Name)
@@ -177,4 +181,26 @@ func runExternalCommand(c string, arg ...string) error {
 		return fmt.Errorf("%v: %v\n%s", cmd, err, output)
 	}
 	return nil
+}
+
+func describeOneOf(oneof *api.OneOf) string {
+	fields := oneof.Fields
+
+	names := make([]string, len(fields))
+	for i, field := range fields {
+		names[i] = "[" + fieldName(field) + "]"
+	}
+
+	description := ""
+
+	if len(fields) == 1 {
+		description = names[0]
+	} else if len(fields) > 0 {
+		list := strings.Join(names[:len(names)-1], ", ")
+		last := names[len(names)-1]
+
+		description = list + " or " + last
+	}
+
+	return "Only one of " + description + " can be specified."
 }

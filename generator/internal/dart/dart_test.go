@@ -591,3 +591,62 @@ func TestHttpPathFmt(t *testing.T) {
 		})
 	}
 }
+
+func TestDescribeOneOf(t *testing.T) {
+	field1 := &api.Field{
+		Name:     "oneof_field",
+		JSONName: "oneofField",
+		ID:       ".test.Message.oneof_field",
+		Typez:    api.STRING_TYPE,
+		IsOneOf:  true,
+	}
+	field2 := &api.Field{
+		Name:     "oneof_field_repeated",
+		JSONName: "oneofFieldRepeated",
+		ID:       ".test.Message.oneof_field_repeated",
+		Typez:    api.STRING_TYPE,
+		Repeated: true,
+		IsOneOf:  true,
+	}
+	field3 := &api.Field{
+		Name:     "oneof_field_map",
+		JSONName: "oneofFieldMap",
+		ID:       ".test.Message.oneof_field_map",
+		Typez:    api.MESSAGE_TYPE,
+		TypezID:  ".test.$Map",
+		Repeated: false,
+		IsOneOf:  true,
+	}
+
+	for _, test := range []struct {
+		name   string
+		fields []*api.Field
+		want   string
+	}{
+		{
+			name: "one", fields: []*api.Field{field1},
+			want: "Only one of [oneofField] can be specified.",
+		},
+		{
+			name: "two", fields: []*api.Field{field1, field2},
+			want: "Only one of [oneofField] or [oneofFieldRepeated] can be specified.",
+		},
+		{
+			name: "several", fields: []*api.Field{field1, field2, field3},
+			want: "Only one of [oneofField], [oneofFieldRepeated] or [oneofFieldMap] can be specified.",
+		},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			oneof := &api.OneOf{
+				Name:          "type",
+				ID:            ".test.Message.type",
+				Documentation: "Say something clever about this oneof.",
+				Fields:        test.fields,
+			}
+
+			if got := describeOneOf(oneof); got != test.want {
+				t.Errorf("unexpected describeOneOf, got=%q, want=%q", got, test.want)
+			}
+		})
+	}
+}

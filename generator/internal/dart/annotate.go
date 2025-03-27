@@ -92,11 +92,6 @@ type pathInfoAnnotation struct {
 	PathArgs []string
 }
 
-type oneOfAnnotation struct {
-	Name     string
-	DocLines []string
-}
-
 type fieldAnnotation struct {
 	Name     string
 	Type     string
@@ -359,9 +354,6 @@ func (annotate *annotateModel) annotateMessage(m *api.Message, imports map[strin
 	for _, f := range m.Fields {
 		annotate.annotateField(f)
 	}
-	for _, f := range m.OneOfs {
-		annotate.annotateOneOf(f)
-	}
 	for _, e := range m.Enums {
 		annotate.annotateEnum(e)
 	}
@@ -380,10 +372,21 @@ func (annotate *annotateModel) annotateMessage(m *api.Message, imports map[strin
 	_, hasCustomEncoding := usesCustomEncoding[m.ID]
 	toStringLines := createToStringLines(m)
 
+	docLines := formatDocComments(m.Documentation, annotate.state)
+
+	// Handle OneOfs by appending to the message docs.
+	for _, oneof := range m.OneOfs {
+		// Only document if the OneOf applies to more than one field.
+		if len(oneof.Fields) > 1 {
+			docLines = append(docLines, "///")
+			docLines = append(docLines, "/// "+describeOneOf(oneof))
+		}
+	}
+
 	m.Codec = &messageAnnotation{
 		Name:              messageName(m),
 		QualifiedName:     qualifiedName(m),
-		DocLines:          formatDocComments(m.Documentation, annotate.state),
+		DocLines:          docLines,
 		ConstructorBody:   constructorBody,
 		HasFields:         len(m.Fields) > 0,
 		HasCustomEncoding: hasCustomEncoding,
@@ -459,19 +462,12 @@ func (annotate *annotateModel) annotateMethod(method *api.Method) {
 	method.Codec = annotation
 }
 
-func (annotate *annotateModel) annotateOneOf(field *api.OneOf) {
-	field.Codec = &oneOfAnnotation{
-		Name:     strcase.ToLowerCamel(field.Name),
-		DocLines: formatDocComments(field.Documentation, annotate.state),
-	}
-}
-
 func (annotate *annotateModel) annotateField(field *api.Field) {
 	_, required := annotate.requiredFields[field.ID]
 	state := annotate.state
 
 	field.Codec = &fieldAnnotation{
-		Name:     strcase.ToLowerCamel(field.Name),
+		Name:     fieldName(field),
 		Type:     annotate.fieldType(field),
 		DocLines: formatDocComments(field.Documentation, state),
 		Required: required,
@@ -482,7 +478,7 @@ func (annotate *annotateModel) annotateField(field *api.Field) {
 }
 
 func createFromJsonLine(field *api.Field, state *api.APIState, required bool) string {
-	name := strcase.ToLowerCamel(field.Name)
+	name := fieldName(field)
 	message := state.MessageByID[field.TypezID]
 	typeName := ""
 
@@ -540,7 +536,7 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 }
 
 func createToJsonLine(field *api.Field, state *api.APIState, required bool) string {
-	name := strcase.ToLowerCamel(field.Name)
+	name := fieldName(field)
 	message := state.MessageByID[field.TypezID]
 
 	isList := field.Repeated
