@@ -271,8 +271,8 @@ impl TryFrom<&str> for Timestamp {
         let nanos_since_epoch = odt.unix_timestamp_nanos();
         let seconds = (nanos_since_epoch / NS) as i64;
         let nanos = (nanos_since_epoch % NS) as i32;
-        if !(0..Self::NS).contains(&nanos) {
-            return Timestamp::new(seconds - 1, Self::NS + nanos);
+        if nanos < 0 {
+            return Timestamp::new(seconds - 1, NS as i32 + nanos);
         }
         Timestamp::new(seconds, nanos)
     }
