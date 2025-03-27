@@ -53,7 +53,12 @@ impl super::stubs::{{Codec.Name}} for {{Codec.Name}} {
         &self,
         req: {{InputType.Codec.QualifiedName}},
         options: gax::options::RequestOptions,
+    {{#ReturnsEmpty}}
+    ) -> Result<()> {
+    {{/ReturnsEmpty}}
+    {{^ReturnsEmpty}}
     ) -> Result<{{OutputType.Codec.QualifiedName}}> {
+    {{/ReturnsEmpty}}
         let options = options.set_default_idempotency(reqwest::Method::{{PathInfo.Codec.Method}}.is_idempotent());
         let builder = self
             .inner
@@ -78,12 +83,23 @@ impl super::stubs::{{Codec.Name}} for {{Codec.Name}} {
         {{#Codec.QueryParams}}
         {{{Codec.AddQueryParameter}}}
         {{/Codec.QueryParams}}
+        {{#ReturnsEmpty}}
+        let _ : wkt::Empty = self.inner.execute(
+            builder,
+            {{#PathInfo.Codec.HasBody}}Some(req{{Codec.BodyAccessor}}){{/PathInfo.Codec.HasBody}}
+            {{^PathInfo.Codec.HasBody}}None::<gaxi::http::NoBody>{{/PathInfo.Codec.HasBody}},
+            options,
+        ).await?;
+        Ok(())
+        {{/ReturnsEmpty}}
+        {{^ReturnsEmpty}}
         self.inner.execute(
             builder,
             {{#PathInfo.Codec.HasBody}}Some(req{{Codec.BodyAccessor}}){{/PathInfo.Codec.HasBody}}
             {{^PathInfo.Codec.HasBody}}None::<gaxi::http::NoBody>{{/PathInfo.Codec.HasBody}},
             options,
         ).await
+        {{/ReturnsEmpty}}
     }
 
     {{/Codec.Methods}}

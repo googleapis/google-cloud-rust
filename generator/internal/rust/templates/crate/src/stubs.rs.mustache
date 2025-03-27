@@ -57,10 +57,17 @@ pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
     fn {{Codec.Name}}(
         &self,
         _req: {{InputType.Codec.QualifiedName}},
-        _options: gax::options::RequestOptions
+        _options: gax::options::RequestOptions,
+    {{#ReturnsEmpty}}
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    }
+    {{/ReturnsEmpty}}
+    {{^ReturnsEmpty}}
     ) -> impl std::future::Future<Output = crate::Result<{{OutputType.Codec.QualifiedName}}>> + Send {
         std::future::ready::<crate::Result<{{OutputType.Codec.QualifiedName}}>>(Err(Error::other("unimplemented")))
     }
+    {{/ReturnsEmpty}}
     {{/Codec.Methods}}
     {{#Codec.HasLROs}}
 
