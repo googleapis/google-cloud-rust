@@ -271,6 +271,9 @@ impl TryFrom<&str> for Timestamp {
         let nanos_since_epoch = odt.unix_timestamp_nanos();
         let seconds = (nanos_since_epoch / NS) as i64;
         let nanos = (nanos_since_epoch % NS) as i32;
+        if !(0..Self::NS).contains(&nanos) {
+            return Timestamp::new(seconds - 1, Self::NS + nanos);
+        }
         Timestamp::new(seconds, nanos)
     }
 }
@@ -358,8 +361,23 @@ mod test {
     }
 
     // Verify timestamps can roundtrip from string -> struct -> string without loss.
+    #[test_case("0001-01-01T00:00:00.123456789Z")]
+    #[test_case("0001-01-01T00:00:00.123456Z")]
+    #[test_case("0001-01-01T00:00:00.123Z")]
     #[test_case("0001-01-01T00:00:00Z")]
+    #[test_case("1960-01-01T00:00:00.123456789Z")]
+    #[test_case("1960-01-01T00:00:00.123456Z")]
+    #[test_case("1960-01-01T00:00:00.123Z")]
+    #[test_case("1960-01-01T00:00:00Z")]
+    #[test_case("1970-01-01T00:00:00.123456789Z")]
+    #[test_case("1970-01-01T00:00:00.123456Z")]
+    #[test_case("1970-01-01T00:00:00.123Z")]
+    #[test_case("1970-01-01T00:00:00Z")]
     #[test_case("9999-12-31T23:59:59.999999999Z")]
+    #[test_case("9999-12-31T23:59:59.123456789Z")]
+    #[test_case("9999-12-31T23:59:59.123456Z")]
+    #[test_case("9999-12-31T23:59:59.123Z")]
+    #[test_case("2024-10-19T12:34:56Z")]
     #[test_case("2024-10-19T12:34:56.789Z")]
     #[test_case("2024-10-19T12:34:56.789123456Z")]
     fn roundtrip(input: &str) -> Result {
@@ -371,6 +389,57 @@ mod test {
             roundtrip,
             "mismatched value for input={input}"
         );
+        Ok(())
+    }
+
+    // Verify timestamps work for some well know times, including fractional
+    // seconds.
+    #[test_case(
+        "0001-01-01T00:00:00.123456789Z",
+        Timestamp::clamp(Timestamp::MIN_SECONDS, 123_456_789)
+    )]
+    #[test_case(
+        "0001-01-01T00:00:00.123456Z",
+        Timestamp::clamp(Timestamp::MIN_SECONDS, 123_456_000)
+    )]
+    #[test_case(
+        "0001-01-01T00:00:00.123Z",
+        Timestamp::clamp(Timestamp::MIN_SECONDS, 123_000_000)
+    )]
+    #[test_case("0001-01-01T00:00:00Z", Timestamp::clamp(Timestamp::MIN_SECONDS, 0))]
+    #[test_case("1970-01-01T00:00:00.123456789Z", Timestamp::clamp(0, 123_456_789))]
+    #[test_case("1970-01-01T00:00:00.123456Z", Timestamp::clamp(0, 123_456_000))]
+    #[test_case("1970-01-01T00:00:00.123Z", Timestamp::clamp(0, 123_000_000))]
+    #[test_case("1970-01-01T00:00:00Z", Timestamp::clamp(0, 0))]
+    #[test_case(
+        "9999-12-31T23:59:59.123456789Z",
+        Timestamp::clamp(Timestamp::MAX_SECONDS, 123_456_789)
+    )]
+    #[test_case(
+        "9999-12-31T23:59:59.123456Z",
+        Timestamp::clamp(Timestamp::MAX_SECONDS, 123_456_000)
+    )]
+    #[test_case(
+        "9999-12-31T23:59:59.123Z",
+        Timestamp::clamp(Timestamp::MAX_SECONDS, 123_000_000)
+    )]
+    #[test_case("9999-12-31T23:59:59Z", Timestamp::clamp(Timestamp::MAX_SECONDS, 0))]
+    fn well_known(input: &str, want: Timestamp) -> Result {
+        let json = serde_json::Value::String(input.to_string());
+        let got = serde_json::from_value::<Timestamp>(json)?;
+        assert_eq!(want, got);
+        Ok(())
+    }
+
+    #[test_case("1970-01-01T00:00:00Z", Timestamp::clamp(0, 0); "zulu offset")]
+    #[test_case("1970-01-01T00:00:00+02:00", Timestamp::clamp(-2 * 60 * 60, 0); "2h positive")]
+    #[test_case("1970-01-01T00:00:00+02:45", Timestamp::clamp(-2 * 60 * 60 - 45 * 60, 0); "2h45m positive")]
+    #[test_case("1970-01-01T00:00:00-02:00", Timestamp::clamp(2 * 60 * 60, 0); "2h negative")]
+    #[test_case("1970-01-01T00:00:00-02:45", Timestamp::clamp(2 * 60 * 60 + 45 * 60, 0); "2h45m negative")]
+    fn deserialize_offsets(input: &str, want: Timestamp) -> Result {
+        let json = serde_json::Value::String(input.to_string());
+        let got = serde_json::from_value::<Timestamp>(json)?;
+        assert_eq!(want, got);
         Ok(())
     }
 
