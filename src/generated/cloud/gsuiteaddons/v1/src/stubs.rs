@@ -101,8 +101,8 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::GSuiteAddOns::install_deployment].
@@ -110,8 +110,8 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::InstallDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::GSuiteAddOns::uninstall_deployment].
@@ -119,8 +119,8 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UninstallDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::GSuiteAddOns::get_install_status].

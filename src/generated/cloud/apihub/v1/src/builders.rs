@@ -276,7 +276,7 @@ pub mod api_hub {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_api(self.0.request, self.0.options)
                 .await
@@ -547,7 +547,7 @@ pub mod api_hub {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_version(self.0.request, self.0.options)
                 .await
@@ -852,7 +852,7 @@ pub mod api_hub {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_spec(self.0.request, self.0.options)
                 .await
@@ -1285,7 +1285,7 @@ pub mod api_hub {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_deployment(self.0.request, self.0.options)
                 .await
@@ -1476,7 +1476,7 @@ pub mod api_hub {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_attribute(self.0.request, self.0.options)
                 .await
@@ -1830,7 +1830,7 @@ pub mod api_hub {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_external_api(self.0.request, self.0.options)
                 .await
@@ -2184,7 +2184,7 @@ pub mod api_hub {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -2228,7 +2228,7 @@ pub mod api_hub {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -2454,7 +2454,7 @@ pub mod api_hub_dependencies {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_dependency(self.0.request, self.0.options)
                 .await
@@ -2814,7 +2814,7 @@ pub mod api_hub_dependencies {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -2858,7 +2858,7 @@ pub mod api_hub_dependencies {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -3384,7 +3384,7 @@ pub mod host_project_registration_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -3430,7 +3430,7 @@ pub mod host_project_registration_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -3638,7 +3638,7 @@ pub mod linting_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .lint_spec(self.0.request, self.0.options)
                 .await
@@ -3921,7 +3921,7 @@ pub mod linting_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -3965,7 +3965,7 @@ pub mod linting_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -4397,7 +4397,7 @@ pub mod api_hub_plugin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -4441,7 +4441,7 @@ pub mod api_hub_plugin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -4936,7 +4936,7 @@ pub mod provisioning {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -4980,7 +4980,7 @@ pub mod provisioning {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -5261,7 +5261,7 @@ pub mod runtime_project_attachment_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_runtime_project_attachment(self.0.request, self.0.options)
                 .await
@@ -5602,7 +5602,7 @@ pub mod runtime_project_attachment_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -5648,7 +5648,7 @@ pub mod runtime_project_attachment_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await

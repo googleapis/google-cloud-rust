@@ -20,19 +20,19 @@ pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
     async fn set_iam_policy(
         &self,
         req: crate::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Policy>;
 
     async fn get_iam_policy(
         &self,
         req: crate::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Policy>;
 
     async fn test_iam_permissions(
         &self,
         req: crate::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::TestIamPermissionsResponse>;
 
 }
@@ -44,7 +44,7 @@ impl<T: super::IAMPolicy> IAMPolicy for T {
     async fn set_iam_policy(
         &self,
         req: crate::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Policy> {
         T::set_iam_policy(self, req, options).await
     }
@@ -53,7 +53,7 @@ impl<T: super::IAMPolicy> IAMPolicy for T {
     async fn get_iam_policy(
         &self,
         req: crate::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Policy> {
         T::get_iam_policy(self, req, options).await
     }
@@ -62,7 +62,7 @@ impl<T: super::IAMPolicy> IAMPolicy for T {
     async fn test_iam_permissions(
         &self,
         req: crate::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::TestIamPermissionsResponse> {
         T::test_iam_permissions(self, req, options).await
     }

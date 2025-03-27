@@ -57,7 +57,7 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeletePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_custom_constraint(
         &self,
@@ -87,7 +87,7 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteCustomConstraintRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::OrgPolicy] also implement [OrgPolicy].
@@ -152,7 +152,7 @@ impl<T: super::OrgPolicy> OrgPolicy for T {
         &self,
         req: crate::model::DeletePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_policy(self, req, options).await
     }
 
@@ -197,7 +197,7 @@ impl<T: super::OrgPolicy> OrgPolicy for T {
         &self,
         req: crate::model::DeleteCustomConstraintRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_custom_constraint(self, req, options).await
     }
 }

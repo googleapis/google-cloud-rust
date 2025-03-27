@@ -309,7 +309,7 @@ pub mod dataset_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_dataset(self.0.request, self.0.options)
                 .await
@@ -689,7 +689,7 @@ pub mod model_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_model(self.0.request, self.0.options)
                 .await
@@ -1009,7 +1009,7 @@ pub mod routine_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_routine(self.0.request, self.0.options)
                 .await
@@ -1456,7 +1456,7 @@ pub mod row_access_policy_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_row_access_policy(self.0.request, self.0.options)
                 .await
@@ -1528,7 +1528,7 @@ pub mod row_access_policy_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .batch_delete_row_access_policies(self.0.request, self.0.options)
                 .await
@@ -1890,7 +1890,7 @@ pub mod table_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_table(self.0.request, self.0.options)
                 .await

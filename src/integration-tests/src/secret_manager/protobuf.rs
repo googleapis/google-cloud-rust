@@ -112,8 +112,8 @@ pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
     run_locations(&client, &project_id).await?;
 
     println!("\nTesting delete_secret()");
-    let delete = client.delete_secret(get.name).send().await?;
-    println!("DELETE = {delete:?}");
+    client.delete_secret(get.name).send().await?;
+    println!("DELETE finished");
 
     Ok(())
 }

@@ -69,7 +69,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteTunnelDestGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn update_tunnel_dest_group(
         &self,
@@ -158,7 +158,7 @@ impl<T: super::IdentityAwareProxyAdminService> IdentityAwareProxyAdminService fo
         &self,
         req: crate::model::DeleteTunnelDestGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_tunnel_dest_group(self, req, options).await
     }
 
@@ -221,7 +221,7 @@ pub trait IdentityAwareProxyOAuthService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteIdentityAwareProxyClientRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::IdentityAwareProxyOAuthService] also implement [IdentityAwareProxyOAuthService].
@@ -295,7 +295,7 @@ impl<T: super::IdentityAwareProxyOAuthService> IdentityAwareProxyOAuthService fo
         &self,
         req: crate::model::DeleteIdentityAwareProxyClientRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_identity_aware_proxy_client(self, req, options).await
     }
 }

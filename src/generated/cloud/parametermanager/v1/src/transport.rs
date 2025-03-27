@@ -152,7 +152,7 @@ impl super::stubs::ParameterManager for ParameterManager {
         &self,
         req: crate::model::DeleteParameterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -166,6 +166,7 @@ impl super::stubs::ParameterManager for ParameterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_parameter_versions(
@@ -297,7 +298,7 @@ impl super::stubs::ParameterManager for ParameterManager {
         &self,
         req: crate::model::DeleteParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -311,6 +312,7 @@ impl super::stubs::ParameterManager for ParameterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_locations(

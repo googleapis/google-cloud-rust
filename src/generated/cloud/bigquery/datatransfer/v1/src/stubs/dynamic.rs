@@ -45,7 +45,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteTransferConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_transfer_config(
         &self,
@@ -81,7 +81,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteTransferRunRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_transfer_runs(
         &self,
@@ -105,13 +105,13 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::EnrollDataSourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn unenroll_data_sources(
         &self,
         req: crate::model::UnenrollDataSourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_locations(
         &self,
@@ -170,7 +170,7 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::DeleteTransferConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_transfer_config(self, req, options).await
     }
 
@@ -224,7 +224,7 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::DeleteTransferRunRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_transfer_run(self, req, options).await
     }
 
@@ -260,7 +260,7 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::EnrollDataSourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::enroll_data_sources(self, req, options).await
     }
 
@@ -269,7 +269,7 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::UnenrollDataSourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::unenroll_data_sources(self, req, options).await
     }
 

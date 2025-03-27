@@ -757,7 +757,7 @@ impl super::stubs::ArtifactRegistry for ArtifactRegistry {
         &self,
         req: crate::model::DeleteTagRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -770,6 +770,7 @@ impl super::stubs::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_rule(
@@ -870,7 +871,7 @@ impl super::stubs::ArtifactRegistry for ArtifactRegistry {
         &self,
         req: crate::model::DeleteRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -883,6 +884,7 @@ impl super::stubs::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn set_iam_policy(

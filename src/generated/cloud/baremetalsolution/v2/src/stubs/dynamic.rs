@@ -95,7 +95,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteSSHKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_volumes(
         &self,
@@ -173,7 +173,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_volume_snapshot(
         &self,
@@ -428,7 +428,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::DeleteSSHKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_ssh_key(self, req, options).await
     }
 
@@ -545,7 +545,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::DeleteVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_volume_snapshot(self, req, options).await
     }
 

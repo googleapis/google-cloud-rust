@@ -1134,7 +1134,7 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -1180,7 +1180,7 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await

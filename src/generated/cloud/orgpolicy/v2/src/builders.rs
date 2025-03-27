@@ -385,7 +385,7 @@ pub mod org_policy {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_policy(self.0.request, self.0.options)
                 .await
@@ -654,7 +654,7 @@ pub mod org_policy {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_custom_constraint(self.0.request, self.0.options)
                 .await

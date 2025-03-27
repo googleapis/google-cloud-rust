@@ -179,13 +179,13 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -446,7 +446,7 @@ impl<T: super::DatasetService> DatasetService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -455,7 +455,7 @@ impl<T: super::DatasetService> DatasetService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -568,13 +568,13 @@ pub trait DeploymentResourcePoolService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -718,7 +718,7 @@ impl<T: super::DeploymentResourcePoolService> DeploymentResourcePoolService for 
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -727,7 +727,7 @@ impl<T: super::DeploymentResourcePoolService> DeploymentResourcePoolService for 
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -858,13 +858,13 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -1035,7 +1035,7 @@ impl<T: super::EndpointService> EndpointService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -1044,7 +1044,7 @@ impl<T: super::EndpointService> EndpointService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -1127,13 +1127,13 @@ pub trait EvaluationService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -1222,7 +1222,7 @@ impl<T: super::EvaluationService> EvaluationService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -1231,7 +1231,7 @@ impl<T: super::EvaluationService> EvaluationService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -1372,13 +1372,13 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -1585,7 +1585,7 @@ impl<T: super::FeatureOnlineStoreAdminService> FeatureOnlineStoreAdminService fo
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -1594,7 +1594,7 @@ impl<T: super::FeatureOnlineStoreAdminService> FeatureOnlineStoreAdminService fo
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -1683,13 +1683,13 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -1787,7 +1787,7 @@ impl<T: super::FeatureOnlineStoreService> FeatureOnlineStoreService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -1796,7 +1796,7 @@ impl<T: super::FeatureOnlineStoreService> FeatureOnlineStoreService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -1925,13 +1925,13 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -2120,7 +2120,7 @@ impl<T: super::FeatureRegistryService> FeatureRegistryService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -2129,7 +2129,7 @@ impl<T: super::FeatureRegistryService> FeatureRegistryService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -2218,13 +2218,13 @@ pub trait FeaturestoreOnlineServingService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -2322,7 +2322,7 @@ impl<T: super::FeaturestoreOnlineServingService> FeaturestoreOnlineServingServic
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -2331,7 +2331,7 @@ impl<T: super::FeaturestoreOnlineServingService> FeaturestoreOnlineServingServic
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -2520,13 +2520,13 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -2805,7 +2805,7 @@ impl<T: super::FeaturestoreService> FeaturestoreService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -2814,7 +2814,7 @@ impl<T: super::FeaturestoreService> FeaturestoreService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -2867,7 +2867,7 @@ pub trait GenAiCacheService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteCachedContentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_cached_contents(
         &self,
@@ -2921,13 +2921,13 @@ pub trait GenAiCacheService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -2971,7 +2971,7 @@ impl<T: super::GenAiCacheService> GenAiCacheService for T {
         &self,
         req: crate::model::DeleteCachedContentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_cached_content(self, req, options).await
     }
 
@@ -3052,7 +3052,7 @@ impl<T: super::GenAiCacheService> GenAiCacheService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -3061,7 +3061,7 @@ impl<T: super::GenAiCacheService> GenAiCacheService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -3100,7 +3100,7 @@ pub trait GenAiTuningService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CancelTuningJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn rebase_tuned_model(
         &self,
@@ -3154,13 +3154,13 @@ pub trait GenAiTuningService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -3214,7 +3214,7 @@ impl<T: super::GenAiTuningService> GenAiTuningService for T {
         &self,
         req: crate::model::CancelTuningJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_tuning_job(self, req, options).await
     }
 
@@ -3295,7 +3295,7 @@ impl<T: super::GenAiTuningService> GenAiTuningService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -3304,7 +3304,7 @@ impl<T: super::GenAiTuningService> GenAiTuningService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -3429,13 +3429,13 @@ pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -3597,7 +3597,7 @@ impl<T: super::IndexEndpointService> IndexEndpointService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -3606,7 +3606,7 @@ impl<T: super::IndexEndpointService> IndexEndpointService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -3725,13 +3725,13 @@ pub trait IndexService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -3884,7 +3884,7 @@ impl<T: super::IndexService> IndexService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -3893,7 +3893,7 @@ impl<T: super::IndexService> IndexService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -3952,7 +3952,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CancelCustomJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_data_labeling_job(
         &self,
@@ -3982,7 +3982,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CancelDataLabelingJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_hyperparameter_tuning_job(
         &self,
@@ -4012,7 +4012,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CancelHyperparameterTuningJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_nas_job(
         &self,
@@ -4042,7 +4042,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CancelNasJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_nas_trial_detail(
         &self,
@@ -4084,7 +4084,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CancelBatchPredictionJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_model_deployment_monitoring_job(
         &self,
@@ -4126,13 +4126,13 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::PauseModelDeploymentMonitoringJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn resume_model_deployment_monitoring_job(
         &self,
         req: crate::model::ResumeModelDeploymentMonitoringJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_locations(
         &self,
@@ -4180,13 +4180,13 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -4249,7 +4249,7 @@ impl<T: super::JobService> JobService for T {
         &self,
         req: crate::model::CancelCustomJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_custom_job(self, req, options).await
     }
 
@@ -4294,7 +4294,7 @@ impl<T: super::JobService> JobService for T {
         &self,
         req: crate::model::CancelDataLabelingJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_data_labeling_job(self, req, options).await
     }
 
@@ -4339,7 +4339,7 @@ impl<T: super::JobService> JobService for T {
         &self,
         req: crate::model::CancelHyperparameterTuningJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_hyperparameter_tuning_job(self, req, options).await
     }
 
@@ -4384,7 +4384,7 @@ impl<T: super::JobService> JobService for T {
         &self,
         req: crate::model::CancelNasJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_nas_job(self, req, options).await
     }
 
@@ -4447,7 +4447,7 @@ impl<T: super::JobService> JobService for T {
         &self,
         req: crate::model::CancelBatchPredictionJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_batch_prediction_job(self, req, options).await
     }
 
@@ -4510,7 +4510,7 @@ impl<T: super::JobService> JobService for T {
         &self,
         req: crate::model::PauseModelDeploymentMonitoringJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::pause_model_deployment_monitoring_job(self, req, options).await
     }
 
@@ -4519,7 +4519,7 @@ impl<T: super::JobService> JobService for T {
         &self,
         req: crate::model::ResumeModelDeploymentMonitoringJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::resume_model_deployment_monitoring_job(self, req, options).await
     }
 
@@ -4591,7 +4591,7 @@ impl<T: super::JobService> JobService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -4600,7 +4600,7 @@ impl<T: super::JobService> JobService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -4689,13 +4689,13 @@ pub trait LlmUtilityService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -4793,7 +4793,7 @@ impl<T: super::LlmUtilityService> LlmUtilityService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -4802,7 +4802,7 @@ impl<T: super::LlmUtilityService> LlmUtilityService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -4877,13 +4877,13 @@ pub trait MatchService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -4981,7 +4981,7 @@ impl<T: super::MatchService> MatchService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -4990,7 +4990,7 @@ impl<T: super::MatchService> MatchService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -5245,13 +5245,13 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -5629,7 +5629,7 @@ impl<T: super::MetadataService> MetadataService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -5638,7 +5638,7 @@ impl<T: super::MetadataService> MetadataService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -5727,13 +5727,13 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -5841,7 +5841,7 @@ impl<T: super::MigrationService> MigrationService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -5850,7 +5850,7 @@ impl<T: super::MigrationService> MigrationService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -5933,13 +5933,13 @@ pub trait ModelGardenService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -6028,7 +6028,7 @@ impl<T: super::ModelGardenService> ModelGardenService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -6037,7 +6037,7 @@ impl<T: super::ModelGardenService> ModelGardenService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -6214,13 +6214,13 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -6481,7 +6481,7 @@ impl<T: super::ModelService> ModelService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -6490,7 +6490,7 @@ impl<T: super::ModelService> ModelService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -6663,13 +6663,13 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -6903,7 +6903,7 @@ impl<T: super::NotebookService> NotebookService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -6912,7 +6912,7 @@ impl<T: super::NotebookService> NotebookService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -7025,13 +7025,13 @@ pub trait PersistentResourceService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -7175,7 +7175,7 @@ impl<T: super::PersistentResourceService> PersistentResourceService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -7184,7 +7184,7 @@ impl<T: super::PersistentResourceService> PersistentResourceService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -7243,7 +7243,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CancelTrainingPipelineRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_pipeline_job(
         &self,
@@ -7279,7 +7279,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CancelPipelineJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn batch_cancel_pipeline_jobs(
         &self,
@@ -7333,13 +7333,13 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -7402,7 +7402,7 @@ impl<T: super::PipelineService> PipelineService for T {
         &self,
         req: crate::model::CancelTrainingPipelineRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_training_pipeline(self, req, options).await
     }
 
@@ -7456,7 +7456,7 @@ impl<T: super::PipelineService> PipelineService for T {
         &self,
         req: crate::model::CancelPipelineJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_pipeline_job(self, req, options).await
     }
 
@@ -7537,7 +7537,7 @@ impl<T: super::PipelineService> PipelineService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -7546,7 +7546,7 @@ impl<T: super::PipelineService> PipelineService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -7659,13 +7659,13 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -7799,7 +7799,7 @@ impl<T: super::PredictionService> PredictionService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -7808,7 +7808,7 @@ impl<T: super::PredictionService> PredictionService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -7877,13 +7877,13 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -7972,7 +7972,7 @@ impl<T: super::ReasoningEngineExecutionService> ReasoningEngineExecutionService 
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -7981,7 +7981,7 @@ impl<T: super::ReasoningEngineExecutionService> ReasoningEngineExecutionService 
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -8074,13 +8074,13 @@ pub trait ReasoningEngineService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -8215,7 +8215,7 @@ impl<T: super::ReasoningEngineService> ReasoningEngineService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -8224,7 +8224,7 @@ impl<T: super::ReasoningEngineService> ReasoningEngineService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -8283,13 +8283,13 @@ pub trait ScheduleService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::PauseScheduleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn resume_schedule(
         &self,
         req: crate::model::ResumeScheduleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn update_schedule(
         &self,
@@ -8343,13 +8343,13 @@ pub trait ScheduleService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -8412,7 +8412,7 @@ impl<T: super::ScheduleService> ScheduleService for T {
         &self,
         req: crate::model::PauseScheduleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::pause_schedule(self, req, options).await
     }
 
@@ -8421,7 +8421,7 @@ impl<T: super::ScheduleService> ScheduleService for T {
         &self,
         req: crate::model::ResumeScheduleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::resume_schedule(self, req, options).await
     }
 
@@ -8502,7 +8502,7 @@ impl<T: super::ScheduleService> ScheduleService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -8511,7 +8511,7 @@ impl<T: super::ScheduleService> ScheduleService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -8618,13 +8618,13 @@ pub trait SpecialistPoolService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -8759,7 +8759,7 @@ impl<T: super::SpecialistPoolService> SpecialistPoolService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -8768,7 +8768,7 @@ impl<T: super::SpecialistPoolService> SpecialistPoolService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -9019,13 +9019,13 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -9376,7 +9376,7 @@ impl<T: super::TensorboardService> TensorboardService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -9385,7 +9385,7 @@ impl<T: super::TensorboardService> TensorboardService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -9522,13 +9522,13 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -9708,7 +9708,7 @@ impl<T: super::VertexRagDataService> VertexRagDataService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -9717,7 +9717,7 @@ impl<T: super::VertexRagDataService> VertexRagDataService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -9812,13 +9812,13 @@ pub trait VertexRagService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -9925,7 +9925,7 @@ impl<T: super::VertexRagService> VertexRagService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -9934,7 +9934,7 @@ impl<T: super::VertexRagService> VertexRagService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -9973,7 +9973,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteStudyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn lookup_study(
         &self,
@@ -10021,7 +10021,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteTrialRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn check_trial_early_stopping_state(
         &self,
@@ -10087,13 +10087,13 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn wait_operation(
         &self,
@@ -10147,7 +10147,7 @@ impl<T: super::VizierService> VizierService for T {
         &self,
         req: crate::model::DeleteStudyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_study(self, req, options).await
     }
 
@@ -10219,7 +10219,7 @@ impl<T: super::VizierService> VizierService for T {
         &self,
         req: crate::model::DeleteTrialRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_trial(self, req, options).await
     }
 
@@ -10318,7 +10318,7 @@ impl<T: super::VizierService> VizierService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -10327,7 +10327,7 @@ impl<T: super::VizierService> VizierService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 

@@ -39,7 +39,7 @@ pub trait DashboardsService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteDashboardRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn update_dashboard(
         &self,
@@ -83,7 +83,7 @@ impl<T: super::DashboardsService> DashboardsService for T {
         &self,
         req: crate::model::DeleteDashboardRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_dashboard(self, req, options).await
     }
 

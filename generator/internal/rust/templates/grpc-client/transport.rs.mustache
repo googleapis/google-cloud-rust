@@ -280,7 +280,7 @@ impl super::stubs::{{Codec.Name}} for {{Codec.Name}} {
         &self,
         req: {{InputType.Codec.QualifiedName}},
         options: gax::options::RequestOptions,
-    ) -> Result<{{OutputType.Codec.QualifiedName}}> {
+    ) -> Result<{{Codec.ReturnType}}> {
         use wkt::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: {{InputType.Codec.QualifiedName}}, h: http::header::HeaderMap| async {
@@ -300,7 +300,7 @@ impl super::stubs::{{Codec.Name}} for {{Codec.Name}} {
             {{#ReturnsEmpty}}
             let _ : tonic::Response<()> =
                 inner.unary(request, path, codec).await.map_err(Error::rpc)?;
-            Ok(wkt::Empty::default())
+            Ok(())
             {{/ReturnsEmpty}}
             {{^ReturnsEmpty}}
             let response : tonic::Response<crate::{{Service.Codec.PackageModuleName}}::{{OutputType.Codec.RelativeName}}> =

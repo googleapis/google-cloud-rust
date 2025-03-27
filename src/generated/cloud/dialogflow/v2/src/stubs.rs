@@ -64,8 +64,8 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteAgentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Agents::search_agents].
@@ -192,8 +192,8 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Returns the polling error policy.
@@ -306,8 +306,8 @@ pub trait AnswerRecords: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 }
 
@@ -373,8 +373,8 @@ pub trait Contexts: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteContextRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Contexts::delete_all_contexts].
@@ -382,8 +382,8 @@ pub trait Contexts: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteAllContextsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Contexts::list_locations].
@@ -438,8 +438,8 @@ pub trait Contexts: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 }
 
@@ -640,8 +640,8 @@ pub trait Conversations: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 }
 
@@ -770,8 +770,8 @@ pub trait ConversationDatasets: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Returns the polling error policy.
@@ -971,8 +971,8 @@ pub trait ConversationModels: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Returns the polling error policy.
@@ -1064,8 +1064,8 @@ pub trait ConversationProfiles: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteConversationProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ConversationProfiles::set_suggestion_feature_config].
@@ -1144,8 +1144,8 @@ pub trait ConversationProfiles: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Returns the polling error policy.
@@ -1330,8 +1330,8 @@ pub trait Documents: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Returns the polling error policy.
@@ -1444,8 +1444,8 @@ pub trait EncryptionSpecService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Returns the polling error policy.
@@ -1533,8 +1533,8 @@ pub trait EntityTypes: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteEntityTypeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::EntityTypes::batch_update_entity_types].
@@ -1649,8 +1649,8 @@ pub trait EntityTypes: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Returns the polling error policy.
@@ -1738,8 +1738,8 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteEnvironmentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Environments::get_environment_history].
@@ -1806,8 +1806,8 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 }
 
@@ -1897,8 +1897,8 @@ pub trait Fulfillments: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 }
 
@@ -1953,8 +1953,8 @@ pub trait Generators: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteGeneratorRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Generators::update_generator].
@@ -2020,8 +2020,8 @@ pub trait Generators: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 }
 
@@ -2087,8 +2087,8 @@ pub trait Intents: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteIntentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Intents::batch_update_intents].
@@ -2167,8 +2167,8 @@ pub trait Intents: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Returns the polling error policy.
@@ -2245,8 +2245,8 @@ pub trait KnowledgeBases: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteKnowledgeBaseRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::KnowledgeBases::update_knowledge_base].
@@ -2312,8 +2312,8 @@ pub trait KnowledgeBases: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 }
 
@@ -2487,8 +2487,8 @@ pub trait Participants: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 }
 
@@ -2568,8 +2568,8 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 }
 
@@ -2639,8 +2639,8 @@ pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteSessionEntityTypeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::SessionEntityTypes::list_locations].
@@ -2695,8 +2695,8 @@ pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 }
 
@@ -2762,8 +2762,8 @@ pub trait Versions: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Versions::list_locations].
@@ -2818,7 +2818,7 @@ pub trait Versions: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 }

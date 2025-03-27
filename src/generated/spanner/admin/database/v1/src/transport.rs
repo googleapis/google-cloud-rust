@@ -162,7 +162,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
         &self,
         req: crate::model::DropDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -175,6 +175,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn get_database_ddl(
@@ -363,7 +364,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
         &self,
         req: crate::model::DeleteBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -376,6 +377,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_backups(
@@ -598,7 +600,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
         &self,
         req: crate::model::DeleteBackupScheduleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -611,6 +613,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_backup_schedules(
@@ -682,7 +685,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -695,13 +698,14 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -714,6 +718,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(

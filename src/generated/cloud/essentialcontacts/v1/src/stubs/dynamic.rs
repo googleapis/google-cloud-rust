@@ -45,7 +45,7 @@ pub trait EssentialContactsService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteContactRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn compute_contacts(
         &self,
@@ -57,7 +57,7 @@ pub trait EssentialContactsService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SendTestMessageRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::EssentialContactsService] also implement [EssentialContactsService].
@@ -104,7 +104,7 @@ impl<T: super::EssentialContactsService> EssentialContactsService for T {
         &self,
         req: crate::model::DeleteContactRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_contact(self, req, options).await
     }
 
@@ -122,7 +122,7 @@ impl<T: super::EssentialContactsService> EssentialContactsService for T {
         &self,
         req: crate::model::SendTestMessageRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::send_test_message(self, req, options).await
     }
 }

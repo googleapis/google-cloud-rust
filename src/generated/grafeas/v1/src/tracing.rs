@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::DeleteOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_occurrence(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::DeleteNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_note(req, options).await
     }
 

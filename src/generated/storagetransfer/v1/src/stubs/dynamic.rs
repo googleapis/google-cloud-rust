@@ -53,13 +53,13 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::PauseTransferOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn resume_transfer_operation(
         &self,
         req: crate::model::ResumeTransferOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn run_transfer_job(
         &self,
@@ -71,7 +71,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteTransferJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_agent_pool(
         &self,
@@ -101,7 +101,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteAgentPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_operations(
         &self,
@@ -119,7 +119,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -185,7 +185,7 @@ impl<T: super::StorageTransferService> StorageTransferService for T {
         &self,
         req: crate::model::PauseTransferOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::pause_transfer_operation(self, req, options).await
     }
 
@@ -194,7 +194,7 @@ impl<T: super::StorageTransferService> StorageTransferService for T {
         &self,
         req: crate::model::ResumeTransferOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::resume_transfer_operation(self, req, options).await
     }
 
@@ -212,7 +212,7 @@ impl<T: super::StorageTransferService> StorageTransferService for T {
         &self,
         req: crate::model::DeleteTransferJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_transfer_job(self, req, options).await
     }
 
@@ -257,7 +257,7 @@ impl<T: super::StorageTransferService> StorageTransferService for T {
         &self,
         req: crate::model::DeleteAgentPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_agent_pool(self, req, options).await
     }
 
@@ -284,7 +284,7 @@ impl<T: super::StorageTransferService> StorageTransferService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 

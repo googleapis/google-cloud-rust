@@ -447,7 +447,7 @@ pub mod contact_center_insights {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_conversation(self.0.request, self.0.options)
                 .await
@@ -708,7 +708,7 @@ pub mod contact_center_insights {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_analysis(self.0.request, self.0.options)
                 .await
@@ -2087,7 +2087,7 @@ pub mod contact_center_insights {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_issue(self.0.request, self.0.options)
                 .await
@@ -2361,7 +2361,7 @@ pub mod contact_center_insights {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_phrase_matcher(self.0.request, self.0.options)
                 .await
@@ -2841,7 +2841,7 @@ pub mod contact_center_insights {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_analysis_rule(self.0.request, self.0.options)
                 .await
@@ -3237,7 +3237,7 @@ pub mod contact_center_insights {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_view(self.0.request, self.0.options)
                 .await
@@ -3566,7 +3566,7 @@ pub mod contact_center_insights {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_qa_question(self.0.request, self.0.options)
                 .await
@@ -3844,7 +3844,7 @@ pub mod contact_center_insights {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_qa_scorecard(self.0.request, self.0.options)
                 .await
@@ -4281,7 +4281,7 @@ pub mod contact_center_insights {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_qa_scorecard_revision(self.0.request, self.0.options)
                 .await
@@ -4660,7 +4660,7 @@ pub mod contact_center_insights {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_feedback_label(self.0.request, self.0.options)
                 .await
@@ -5160,7 +5160,7 @@ pub mod contact_center_insights {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await

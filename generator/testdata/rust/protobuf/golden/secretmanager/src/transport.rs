@@ -169,7 +169,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::DeleteSecretRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -188,6 +188,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|_: wkt::Empty| ())
     }
 
     async fn list_secret_versions(

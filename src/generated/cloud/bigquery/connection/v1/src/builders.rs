@@ -294,7 +294,7 @@ pub mod connection_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_connection(self.0.request, self.0.options)
                 .await

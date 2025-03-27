@@ -47,7 +47,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteEntryGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_entry_groups(
         &self,
@@ -71,7 +71,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_entry(
         &self,
@@ -125,7 +125,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteTagTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_tag_template_field(
         &self,
@@ -155,7 +155,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteTagTemplateFieldRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_tag(
         &self,
@@ -173,7 +173,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteTagRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_tags(
         &self,
@@ -257,13 +257,13 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -320,7 +320,7 @@ impl<T: super::DataCatalog> DataCatalog for T {
         &self,
         req: crate::model::DeleteEntryGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_entry_group(self, req, options).await
     }
 
@@ -356,7 +356,7 @@ impl<T: super::DataCatalog> DataCatalog for T {
         &self,
         req: crate::model::DeleteEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_entry(self, req, options).await
     }
 
@@ -437,7 +437,7 @@ impl<T: super::DataCatalog> DataCatalog for T {
         &self,
         req: crate::model::DeleteTagTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_tag_template(self, req, options).await
     }
 
@@ -482,7 +482,7 @@ impl<T: super::DataCatalog> DataCatalog for T {
         &self,
         req: crate::model::DeleteTagTemplateFieldRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_tag_template_field(self, req, options).await
     }
 
@@ -509,7 +509,7 @@ impl<T: super::DataCatalog> DataCatalog for T {
         &self,
         req: crate::model::DeleteTagRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_tag(self, req, options).await
     }
 
@@ -635,7 +635,7 @@ impl<T: super::DataCatalog> DataCatalog for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -644,7 +644,7 @@ impl<T: super::DataCatalog> DataCatalog for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -676,7 +676,7 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteTaxonomyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn update_taxonomy(
         &self,
@@ -706,7 +706,7 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeletePolicyTagRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn update_policy_tag(
         &self,
@@ -760,13 +760,13 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::PolicyTagManager] also implement [PolicyTagManager].
@@ -786,7 +786,7 @@ impl<T: super::PolicyTagManager> PolicyTagManager for T {
         &self,
         req: crate::model::DeleteTaxonomyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_taxonomy(self, req, options).await
     }
 
@@ -831,7 +831,7 @@ impl<T: super::PolicyTagManager> PolicyTagManager for T {
         &self,
         req: crate::model::DeletePolicyTagRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_policy_tag(self, req, options).await
     }
 
@@ -912,7 +912,7 @@ impl<T: super::PolicyTagManager> PolicyTagManager for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -921,7 +921,7 @@ impl<T: super::PolicyTagManager> PolicyTagManager for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -963,13 +963,13 @@ pub trait PolicyTagManagerSerialization: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::PolicyTagManagerSerialization] also implement [PolicyTagManagerSerialization].
@@ -1025,7 +1025,7 @@ impl<T: super::PolicyTagManagerSerialization> PolicyTagManagerSerialization for 
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -1034,7 +1034,7 @@ impl<T: super::PolicyTagManagerSerialization> PolicyTagManagerSerialization for 
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 }

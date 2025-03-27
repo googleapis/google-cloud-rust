@@ -110,7 +110,7 @@ impl super::stubs::ReservationService for ReservationService {
         &self,
         req: crate::model::DeleteReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -123,6 +123,7 @@ impl super::stubs::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn update_reservation(
@@ -257,7 +258,7 @@ impl super::stubs::ReservationService for ReservationService {
         &self,
         req: crate::model::DeleteCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -271,6 +272,7 @@ impl super::stubs::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn update_capacity_commitment(
@@ -399,7 +401,7 @@ impl super::stubs::ReservationService for ReservationService {
         &self,
         req: crate::model::DeleteAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -412,6 +414,7 @@ impl super::stubs::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn search_assignments(

@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::DeleteMigrationWorkflowRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_migration_workflow(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::StartMigrationWorkflowRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.start_migration_workflow(req, options).await
     }
 

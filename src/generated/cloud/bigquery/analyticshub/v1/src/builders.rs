@@ -376,7 +376,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_data_exchange(self.0.request, self.0.options)
                 .await
@@ -645,7 +645,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_listing(self.0.request, self.0.options)
                 .await

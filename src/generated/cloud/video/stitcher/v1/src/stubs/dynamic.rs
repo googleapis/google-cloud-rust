@@ -215,13 +215,13 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -530,7 +530,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -539,7 +539,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 

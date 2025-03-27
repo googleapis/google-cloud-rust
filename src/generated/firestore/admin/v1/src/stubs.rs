@@ -79,8 +79,8 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteIndexRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::FirestoreAdmin::get_field].
@@ -239,8 +239,8 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteBackupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::FirestoreAdmin::restore_database].
@@ -305,8 +305,8 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteBackupScheduleRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::FirestoreAdmin::list_operations].
@@ -338,8 +338,8 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::FirestoreAdmin::cancel_operation].
@@ -347,8 +347,8 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Returns the polling error policy.

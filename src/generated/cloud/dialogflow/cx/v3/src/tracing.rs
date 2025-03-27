@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::DeleteAgentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_agent(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 
@@ -277,7 +277,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 }
@@ -363,7 +363,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 }
@@ -422,7 +422,7 @@ where
         &self,
         req: crate::model::DeleteEntityTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_entity_type(req, options).await
     }
 
@@ -494,7 +494,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 
@@ -576,7 +576,7 @@ where
         &self,
         req: crate::model::DeleteEnvironmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_environment(req, options).await
     }
 
@@ -657,7 +657,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 
@@ -739,7 +739,7 @@ where
         &self,
         req: crate::model::DeleteExperimentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_experiment(req, options).await
     }
 
@@ -802,7 +802,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 }
@@ -843,7 +843,7 @@ where
         &self,
         req: crate::model::DeleteFlowRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_flow(req, options).await
     }
 
@@ -960,7 +960,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 
@@ -1042,7 +1042,7 @@ where
         &self,
         req: crate::model::DeleteGeneratorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_generator(req, options).await
     }
 
@@ -1087,7 +1087,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 }
@@ -1155,7 +1155,7 @@ where
         &self,
         req: crate::model::DeleteIntentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_intent(req, options).await
     }
 
@@ -1218,7 +1218,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 
@@ -1300,7 +1300,7 @@ where
         &self,
         req: crate::model::DeletePageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_page(req, options).await
     }
 
@@ -1345,7 +1345,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 }
@@ -1413,7 +1413,7 @@ where
         &self,
         req: crate::model::DeleteSecuritySettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_security_settings(req, options).await
     }
 
@@ -1458,7 +1458,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 }
@@ -1562,7 +1562,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 }
@@ -1630,7 +1630,7 @@ where
         &self,
         req: crate::model::DeleteSessionEntityTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_session_entity_type(req, options).await
     }
 
@@ -1675,7 +1675,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 }
@@ -1716,7 +1716,7 @@ where
         &self,
         req: crate::model::BatchDeleteTestCasesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.batch_delete_test_cases(req, options).await
     }
 
@@ -1851,7 +1851,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 
@@ -1933,7 +1933,7 @@ where
         &self,
         req: crate::model::DeleteTransitionRouteGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_transition_route_group(req, options).await
     }
 
@@ -1978,7 +1978,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 }
@@ -2046,7 +2046,7 @@ where
         &self,
         req: crate::model::DeleteVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_version(req, options).await
     }
 
@@ -2109,7 +2109,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 
@@ -2191,7 +2191,7 @@ where
         &self,
         req: crate::model::DeleteWebhookRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_webhook(req, options).await
     }
 
@@ -2236,7 +2236,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 }

@@ -241,7 +241,7 @@ pub mod alert_policy_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_alert_policy(self.0.request, self.0.options)
                 .await
@@ -588,7 +588,7 @@ pub mod group_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_group(self.0.request, self.0.options)
                 .await
@@ -1057,7 +1057,7 @@ pub mod metric_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_metric_descriptor(self.0.request, self.0.options)
                 .await
@@ -1219,7 +1219,7 @@ pub mod metric_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .create_time_series(self.0.request, self.0.options)
                 .await
@@ -1274,7 +1274,7 @@ pub mod metric_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .create_service_time_series(self.0.request, self.0.options)
                 .await
@@ -1744,7 +1744,7 @@ pub mod notification_channel_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_notification_channel(self.0.request, self.0.options)
                 .await
@@ -1800,7 +1800,7 @@ pub mod notification_channel_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .send_notification_channel_verification_code(self.0.request, self.0.options)
                 .await
@@ -2318,7 +2318,7 @@ pub mod service_monitoring_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_service(self.0.request, self.0.options)
                 .await
@@ -2645,7 +2645,7 @@ pub mod service_monitoring_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_service_level_objective(self.0.request, self.0.options)
                 .await
@@ -3201,7 +3201,7 @@ pub mod uptime_check_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_uptime_check_config(self.0.request, self.0.options)
                 .await

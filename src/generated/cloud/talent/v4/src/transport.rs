@@ -123,7 +123,7 @@ impl super::stubs::CompanyService for CompanyService {
         &self,
         req: crate::model::DeleteCompanyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -136,6 +136,7 @@ impl super::stubs::CompanyService for CompanyService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_companies(
@@ -458,7 +459,7 @@ impl super::stubs::JobService for JobService {
         &self,
         req: crate::model::DeleteJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -471,6 +472,7 @@ impl super::stubs::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn batch_delete_jobs(
@@ -688,7 +690,7 @@ impl super::stubs::TenantService for TenantService {
         &self,
         req: crate::model::DeleteTenantRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -701,6 +703,7 @@ impl super::stubs::TenantService for TenantService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_tenants(

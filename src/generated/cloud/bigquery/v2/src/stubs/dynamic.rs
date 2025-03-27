@@ -45,7 +45,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_datasets(
         &self,
@@ -104,7 +104,7 @@ impl<T: super::DatasetService> DatasetService for T {
         &self,
         req: crate::model::DeleteDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_dataset(self, req, options).await
     }
 
@@ -152,7 +152,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::ModelService] also implement [ModelService].
@@ -190,7 +190,7 @@ impl<T: super::ModelService> ModelService for T {
         &self,
         req: crate::model::DeleteModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_model(self, req, options).await
     }
 }
@@ -243,7 +243,7 @@ pub trait RoutineService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteRoutineRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_routines(
         &self,
@@ -287,7 +287,7 @@ impl<T: super::RoutineService> RoutineService for T {
         &self,
         req: crate::model::DeleteRoutineRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_routine(self, req, options).await
     }
 
@@ -332,13 +332,13 @@ pub trait RowAccessPolicyService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteRowAccessPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn batch_delete_row_access_policies(
         &self,
         req: crate::model::BatchDeleteRowAccessPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::RowAccessPolicyService] also implement [RowAccessPolicyService].
@@ -385,7 +385,7 @@ impl<T: super::RowAccessPolicyService> RowAccessPolicyService for T {
         &self,
         req: crate::model::DeleteRowAccessPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_row_access_policy(self, req, options).await
     }
 
@@ -394,7 +394,7 @@ impl<T: super::RowAccessPolicyService> RowAccessPolicyService for T {
         &self,
         req: crate::model::BatchDeleteRowAccessPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::batch_delete_row_access_policies(self, req, options).await
     }
 }
@@ -430,7 +430,7 @@ pub trait TableService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteTableRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_tables(
         &self,
@@ -483,7 +483,7 @@ impl<T: super::TableService> TableService for T {
         &self,
         req: crate::model::DeleteTableRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_table(self, req, options).await
     }
 

@@ -231,7 +231,7 @@ impl super::stubs::RegistrationService for RegistrationService {
         &self,
         req: crate::model::DeleteNamespaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -244,6 +244,7 @@ impl super::stubs::RegistrationService for RegistrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_service(
@@ -353,7 +354,7 @@ impl super::stubs::RegistrationService for RegistrationService {
         &self,
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -366,6 +367,7 @@ impl super::stubs::RegistrationService for RegistrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_endpoint(
@@ -478,7 +480,7 @@ impl super::stubs::RegistrationService for RegistrationService {
         &self,
         req: crate::model::DeleteEndpointRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -491,6 +493,7 @@ impl super::stubs::RegistrationService for RegistrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn get_iam_policy(

@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::DeletePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_policy(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::DeleteCustomConstraintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_custom_constraint(req, options).await
     }
 }

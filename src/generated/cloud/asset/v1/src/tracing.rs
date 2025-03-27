@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::DeleteFeedRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_feed(req, options).await
     }
 
@@ -206,7 +206,7 @@ where
         &self,
         req: crate::model::DeleteSavedQueryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_saved_query(req, options).await
     }
 

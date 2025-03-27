@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::DeleteDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_dataset(req, options).await
     }
 
@@ -155,7 +155,7 @@ where
         &self,
         req: crate::model::DeleteModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_model(req, options).await
     }
 }
@@ -246,7 +246,7 @@ where
         &self,
         req: crate::model::DeleteRoutineRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_routine(req, options).await
     }
 
@@ -323,7 +323,7 @@ where
         &self,
         req: crate::model::DeleteRowAccessPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_row_access_policy(req, options).await
     }
 
@@ -332,7 +332,7 @@ where
         &self,
         req: crate::model::BatchDeleteRowAccessPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner
             .batch_delete_row_access_policies(req, options)
             .await
@@ -402,7 +402,7 @@ where
         &self,
         req: crate::model::DeleteTableRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_table(req, options).await
     }
 

@@ -77,7 +77,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn update_build_trigger(
         &self,
@@ -137,7 +137,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -239,7 +239,7 @@ impl<T: super::CloudBuild> CloudBuild for T {
         &self,
         req: crate::model::DeleteBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_build_trigger(self, req, options).await
     }
 
@@ -329,7 +329,7 @@ impl<T: super::CloudBuild> CloudBuild for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 

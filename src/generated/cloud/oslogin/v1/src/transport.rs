@@ -66,7 +66,7 @@ impl super::stubs::OsLoginService for OsLoginService {
         &self,
         req: crate::model::DeletePosixAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -79,13 +79,14 @@ impl super::stubs::OsLoginService for OsLoginService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn delete_ssh_public_key(
         &self,
         req: crate::model::DeleteSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -98,6 +99,7 @@ impl super::stubs::OsLoginService for OsLoginService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn get_login_profile(

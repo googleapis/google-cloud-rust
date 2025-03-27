@@ -212,8 +212,8 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ClusterManager::get_server_config].
@@ -289,8 +289,8 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CompleteNodePoolUpgradeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ClusterManager::rollback_node_pool_upgrade].

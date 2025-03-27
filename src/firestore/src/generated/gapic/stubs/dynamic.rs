@@ -39,7 +39,7 @@ pub trait Firestore: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn begin_transaction(
         &self,
@@ -57,7 +57,7 @@ pub trait Firestore: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::RollbackRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn partition_query(
         &self,
@@ -119,7 +119,7 @@ impl<T: super::Firestore> Firestore for T {
         &self,
         req: crate::model::DeleteDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_document(self, req, options).await
     }
 
@@ -146,7 +146,7 @@ impl<T: super::Firestore> Firestore for T {
         &self,
         req: crate::model::RollbackRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::rollback(self, req, options).await
     }
 

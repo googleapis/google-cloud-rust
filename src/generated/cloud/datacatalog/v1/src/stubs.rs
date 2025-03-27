@@ -91,8 +91,8 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteEntryGroupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataCatalog::list_entry_groups].
@@ -130,8 +130,8 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteEntryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataCatalog::get_entry].
@@ -224,8 +224,8 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteTagTemplateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataCatalog::create_tag_template_field].
@@ -281,8 +281,8 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteTagTemplateFieldRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataCatalog::create_tag].
@@ -308,8 +308,8 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteTagRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataCatalog::list_tags].
@@ -471,8 +471,8 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataCatalog::cancel_operation].
@@ -480,8 +480,8 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Returns the polling error policy.
@@ -535,8 +535,8 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteTaxonomyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::PolicyTagManager::update_taxonomy].
@@ -589,8 +589,8 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeletePolicyTagRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::PolicyTagManager::update_policy_tag].
@@ -690,8 +690,8 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::PolicyTagManager::cancel_operation].
@@ -699,8 +699,8 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 }
 
@@ -780,8 +780,8 @@ pub trait PolicyTagManagerSerialization: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::PolicyTagManagerSerialization::cancel_operation].
@@ -789,7 +789,7 @@ pub trait PolicyTagManagerSerialization: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 }

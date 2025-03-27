@@ -154,7 +154,7 @@ where
         &self,
         req: crate::model::DeleteSSHKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_ssh_key(req, options).await
     }
 
@@ -271,7 +271,7 @@ where
         &self,
         req: crate::model::DeleteVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_volume_snapshot(req, options).await
     }
 

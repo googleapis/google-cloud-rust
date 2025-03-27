@@ -113,8 +113,8 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeletePolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::OrgPolicy::create_custom_constraint].
@@ -171,7 +171,7 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteCustomConstraintRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 }

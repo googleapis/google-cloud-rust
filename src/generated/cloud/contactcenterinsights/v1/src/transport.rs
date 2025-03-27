@@ -172,7 +172,7 @@ impl super::stubs::ContactCenterInsights for ContactCenterInsights {
         &self,
         req: crate::model::DeleteConversationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -186,6 +186,7 @@ impl super::stubs::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_analysis(
@@ -255,7 +256,7 @@ impl super::stubs::ContactCenterInsights for ContactCenterInsights {
         &self,
         req: crate::model::DeleteAnalysisRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -268,6 +269,7 @@ impl super::stubs::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn bulk_analyze_conversations(
@@ -619,7 +621,7 @@ impl super::stubs::ContactCenterInsights for ContactCenterInsights {
         &self,
         req: crate::model::DeleteIssueRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -632,6 +634,7 @@ impl super::stubs::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn calculate_issue_model_stats(
@@ -726,7 +729,7 @@ impl super::stubs::ContactCenterInsights for ContactCenterInsights {
         &self,
         req: crate::model::DeletePhraseMatcherRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -739,6 +742,7 @@ impl super::stubs::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn update_phrase_matcher(
@@ -966,7 +970,7 @@ impl super::stubs::ContactCenterInsights for ContactCenterInsights {
         &self,
         req: crate::model::DeleteAnalysisRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -979,6 +983,7 @@ impl super::stubs::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn get_encryption_spec(
@@ -1123,7 +1128,7 @@ impl super::stubs::ContactCenterInsights for ContactCenterInsights {
         &self,
         req: crate::model::DeleteViewRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1136,6 +1141,7 @@ impl super::stubs::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn query_metrics(
@@ -1242,7 +1248,7 @@ impl super::stubs::ContactCenterInsights for ContactCenterInsights {
         &self,
         req: crate::model::DeleteQaQuestionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1255,6 +1261,7 @@ impl super::stubs::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_qa_questions(
@@ -1365,7 +1372,7 @@ impl super::stubs::ContactCenterInsights for ContactCenterInsights {
         &self,
         req: crate::model::DeleteQaScorecardRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1379,6 +1386,7 @@ impl super::stubs::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_qa_scorecards(
@@ -1505,7 +1513,7 @@ impl super::stubs::ContactCenterInsights for ContactCenterInsights {
         &self,
         req: crate::model::DeleteQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1519,6 +1527,7 @@ impl super::stubs::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_qa_scorecard_revisions(
@@ -1655,7 +1664,7 @@ impl super::stubs::ContactCenterInsights for ContactCenterInsights {
         &self,
         req: crate::model::DeleteFeedbackLabelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1668,6 +1677,7 @@ impl super::stubs::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_all_feedback_labels(
@@ -1780,7 +1790,7 @@ impl super::stubs::ContactCenterInsights for ContactCenterInsights {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1793,6 +1803,7 @@ impl super::stubs::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(

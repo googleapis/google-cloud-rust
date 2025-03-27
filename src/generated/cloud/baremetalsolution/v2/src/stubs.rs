@@ -187,8 +187,8 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteSSHKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BareMetalSolution::list_volumes].
@@ -336,8 +336,8 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteVolumeSnapshotRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BareMetalSolution::get_volume_snapshot].

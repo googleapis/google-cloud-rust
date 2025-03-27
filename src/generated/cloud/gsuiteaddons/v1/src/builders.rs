@@ -323,7 +323,7 @@ pub mod g_suite_add_ons {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_deployment(self.0.request, self.0.options)
                 .await
@@ -373,7 +373,7 @@ pub mod g_suite_add_ons {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .install_deployment(self.0.request, self.0.options)
                 .await
@@ -417,7 +417,7 @@ pub mod g_suite_add_ons {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .uninstall_deployment(self.0.request, self.0.options)
                 .await

@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::DeleteDashboardRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_dashboard(req, options).await
     }
 

@@ -209,7 +209,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteTagRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_rule(
         &self,
@@ -239,7 +239,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn set_iam_policy(
         &self,
@@ -629,7 +629,7 @@ impl<T: super::ArtifactRegistry> ArtifactRegistry for T {
         &self,
         req: crate::model::DeleteTagRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_tag(self, req, options).await
     }
 
@@ -674,7 +674,7 @@ impl<T: super::ArtifactRegistry> ArtifactRegistry for T {
         &self,
         req: crate::model::DeleteRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_rule(self, req, options).await
     }
 

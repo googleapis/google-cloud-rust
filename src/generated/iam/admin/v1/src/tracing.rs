@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::DeleteServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_service_account(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::EnableServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.enable_service_account(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::DisableServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.disable_service_account(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::DeleteServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_service_account_key(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::DisableServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.disable_service_account_key(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::EnableServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.enable_service_account_key(req, options).await
     }
 
