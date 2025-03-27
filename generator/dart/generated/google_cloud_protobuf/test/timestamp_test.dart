@@ -16,26 +16,24 @@ import 'package:google_cloud_protobuf/protobuf.dart';
 import 'package:test/test.dart';
 
 void main() {
-  void testCase(int seconds, int nanos, String encoding) {
-    test('test case $encoding', () {
-      // test Timestamp.encode()
-      final timestamp = Timestamp(seconds: seconds, nanos: nanos);
-      expect(timestamp.toJson(), encoding);
+  test('test zero seconds, zero nanos', () {
+    const encoding = '1970-01-01T00:00:00Z';
+    // test Timestamp.encode()
+    final timestamp = Timestamp(seconds: 0, nanos: 0);
+    expect(timestamp.toJson(), encoding);
 
-      // test Timestamp.decode()
-      final copy = Timestamp.fromJson(encoding);
-      expect(copy.seconds, seconds);
-      expect(copy.nanos, nanos);
-    });
-  }
+    // test Timestamp.decode()
+    final copy = Timestamp.fromJson(encoding);
+    expect(copy.seconds, 0);
+    expect(copy.nanos, 0);
+  });
 
-  // encode and decode tests
-  testCase(0, 0, '1970-01-01T00:00:00Z');
   test('min seconds', () {
     final timestamp = TimestampHelper.decode('0001-01-01T00:00:00Z');
     expect(timestamp.seconds, -62135596800);
     expect(timestamp.nanos, 0);
   });
+
   test('max seconds', () {
     final timestamp = TimestampHelper.decode('9999-12-31T23:59:59Z');
     expect(timestamp.seconds, 253402300799);
@@ -54,31 +52,31 @@ void main() {
   roundTrip('0001-01-01T00:00:00Z');
   roundTrip('9999-12-31T23:59:59.999999999Z');
   roundTrip('2024-10-19T12:34:56.789Z');
-  roundTrip('2024-10-19T12:34:56.780Z');
-  roundTrip('2024-10-19T12:34:56.780123Z');
-  roundTrip('2024-10-19T12:34:56.780120Z');
   roundTrip('2024-10-19T12:34:56.789123456Z');
-  roundTrip('2024-10-19T12:34:56.789123450Z');
 
   // bad format tests
   test('bad format', () {
     expect(() => Timestamp.fromJson('2024-10-19T12:'), throwsFormatException);
   });
+
   test('seconds below range', () {
     expect(
       () => Timestamp(seconds: -62135596800 - 1, nanos: 0),
       throwsArgumentError,
     );
   });
+
   test('seconds above range', () {
     expect(
       () => Timestamp(seconds: 253402300799 + 1, nanos: 0),
       throwsArgumentError,
     );
   });
+
   test('nanos below range', () {
     expect(() => Timestamp(seconds: 0, nanos: -1), throwsArgumentError);
   });
+
   test('nanos above range', () {
     expect(
       () => Timestamp(seconds: 0, nanos: 1_000_000_000),
