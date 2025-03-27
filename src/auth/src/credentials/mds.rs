@@ -129,7 +129,6 @@ impl Builder {
     /// the API endpoints to use for making requests.
     /// If not set, credentials fetch the `universe_domain` from the [Metadata Service]
     /// when a call to [get_universe_domain](Credential::get_universe_domain) is made.
-    /// Any value provided or obtained is cached for the credential lifetime.
     ///
     /// [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
     pub fn universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
@@ -163,25 +162,26 @@ impl Builder {
             .maybe_scopes(self.scopes)
             .build();
 
-        let (universe_domain_tx, universe_domain_rx) = match self.universe_domain.clone() {
-            Some(universe_domain) => watch::channel(Some(Ok(universe_domain))),
-            None => watch::channel(None),
-        };
-
         let notify = Arc::new(Notify::new());
+        let (universe_domain_tx, universe_domain_rx) =
+            watch::channel::<Option<Result<String>>>(None);
+
+        if let Some(universe_domain) = self.universe_domain {
+            let _ = universe_domain_tx.send(Some(Ok(universe_domain)));
+        } else {
+            let notify_clone = notify.clone();
+            tokio::spawn(async move {
+                universe_domain_background_task(endpoint, universe_domain_tx, notify_clone).await;
+            });
+        }
 
         let mdsc = MDSCredential {
             quota_project_id: self.quota_project_id,
             token_provider,
             universe_domain_rx,
-            wakeup_signal: notify.clone(),
+            wakeup_signal: notify,
         };
 
-        if self.universe_domain.is_none() {
-            tokio::spawn(async move {
-                universe_domain_background_task(endpoint, universe_domain_tx, notify).await;
-            });
-        }
         Credential {
             inner: Arc::new(mdsc),
         }
@@ -215,7 +215,7 @@ async fn get_universe_domain_from_mds(endpoint: &String) -> Result<String> {
     }
     let universe_domain = response.text().await.map_err(CredentialError::retryable)?;
 
-    /* Earlier versions of MDS that supports universe_domain return empty string instead of GDU. */
+    // Earlier versions of MDS that supports universe_domain return empty string instead of GDU.
     if universe_domain.is_empty() {
         return Ok(DEFAULT_UNIVERSE_DOMAIN.to_string());
     }

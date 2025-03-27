@@ -160,7 +160,7 @@ pub trait CredentialTrait: std::fmt::Debug {
     /// Retrieves the universe domain associated with the credential.
     ///
     /// The universe domain is used to determine the API endpoints
-    /// for making requests, eg: `${service}.${universe_domain}`.
+    /// for making requests, such as: `${service}.${universe_domain}`.
     fn get_universe_domain(&self) -> impl Future<Output = Result<String>> + Send;
 }
 
@@ -171,25 +171,10 @@ pub(crate) mod dynamic {
     /// A dyn-compatible, crate-private version of `CredentialTrait`.
     #[async_trait::async_trait]
     pub trait CredentialTrait: Send + Sync + std::fmt::Debug {
-        /// Asynchronously retrieves a token.
-        ///
-        /// Returns a [Token][crate::token::Token] for the current credentials.
-        /// The underlying implementation refreshes the token as needed.
         async fn get_token(&self) -> Result<crate::token::Token>;
 
-        /// Asynchronously constructs the auth headers.
-        ///
-        /// Different auth tokens are sent via different headers. The
-        /// [Credential] constructs the headers (and header values) that should be
-        /// sent with a request.
-        ///
-        /// The underlying implementation refreshes the token as needed.
         async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>>;
 
-        /// Retrieves the universe domain associated with the credential.
-        ///
-        /// The universe domain is used to determine the API endpoints
-        /// for making requests, eg: `${service}.${universe_domain}`.
         async fn get_universe_domain(&self) -> Result<String> {
             Ok(DEFAULT_UNIVERSE_DOMAIN.to_string())
         }
