@@ -403,8 +403,9 @@ mod test {
         let claims = b64_decode_to_json(captures["claims"].to_string());
         let first_iat = claims["iat"].as_f64().unwrap();
 
-        // Need real sleep because iat is not built using tokio::time::Instant.
-        // Need 1 second sleep because OffsetDateTime's granularity is seconds.
+        // The `iat` claim encodes the unix timestamp, in seconds. Sleeping for
+        // one second ensures that a subsequent claim has a different `iat`. We
+        // need a real sleep, because we cannot fake the current unix timestamp.
         std::thread::sleep(Duration::from_secs(1));
 
         // Get token again
@@ -414,7 +415,7 @@ mod test {
         let claims = b64_decode_to_json(captures["claims"].to_string());
         let second_iat = claims["iat"].as_f64().unwrap();
 
-        // Validate that the issued at claim is exactly same for the 2 tokens.
+        // Validate that the issued at claim is the same for the 2 tokens.
         // If the 2nd token is not from the cache, iat will be different.
         assert_eq!(first_iat, second_iat);
 
