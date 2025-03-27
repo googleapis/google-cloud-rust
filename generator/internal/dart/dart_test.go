@@ -330,7 +330,7 @@ func TestFieldType_Maps(t *testing.T) {
 }
 
 func TestFieldType_Bytes(t *testing.T) {
-	sampleDartImpot := "package:sample/sample.dart"
+	sampleDartImport := "package:sample/sample.dart"
 
 	field := &api.Field{
 		Name:     "test",
@@ -347,7 +347,7 @@ func TestFieldType_Bytes(t *testing.T) {
 	annotate := newAnnotateModel(model)
 	annotate.annotateModel(map[string]string{})
 	annotate.imports = map[string]string{}
-	annotate.packageMapping["google.protobuf"] = sampleDartImpot
+	annotate.packageMapping["google.protobuf"] = sampleDartImport
 
 	{
 		got := annotate.fieldType(field)
@@ -363,7 +363,7 @@ func TestFieldType_Bytes(t *testing.T) {
 	}
 
 	for _, got := range annotate.imports {
-		want := sampleDartImpot
+		want := sampleDartImport
 		if got != want {
 			t.Errorf("unexpected import, got: %s want: %s", got, want)
 		}
