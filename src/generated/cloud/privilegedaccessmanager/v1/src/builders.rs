@@ -81,7 +81,8 @@ pub mod privileged_access_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CheckOnboardingStatus {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CheckOnboardingStatus {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -166,7 +167,8 @@ pub mod privileged_access_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListEntitlements {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListEntitlements {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -256,7 +258,8 @@ pub mod privileged_access_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for SearchEntitlements {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SearchEntitlements {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -299,7 +302,8 @@ pub mod privileged_access_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetEntitlement {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetEntitlement {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -404,7 +408,8 @@ pub mod privileged_access_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateEntitlement {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateEntitlement {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -500,7 +505,8 @@ pub mod privileged_access_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteEntitlement {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteEntitlement {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -596,7 +602,8 @@ pub mod privileged_access_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateEntitlement {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateEntitlement {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -678,7 +685,8 @@ pub mod privileged_access_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListGrants {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListGrants {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -765,7 +773,8 @@ pub mod privileged_access_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for SearchGrants {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SearchGrants {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -808,7 +817,8 @@ pub mod privileged_access_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetGrant {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetGrant {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -866,7 +876,8 @@ pub mod privileged_access_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateGrant {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateGrant {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -915,7 +926,8 @@ pub mod privileged_access_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ApproveGrant {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ApproveGrant {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -964,7 +976,8 @@ pub mod privileged_access_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for DenyGrant {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DenyGrant {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1050,7 +1063,8 @@ pub mod privileged_access_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for RevokeGrant {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RevokeGrant {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1129,7 +1143,8 @@ pub mod privileged_access_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1172,7 +1187,8 @@ pub mod privileged_access_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1251,7 +1267,8 @@ pub mod privileged_access_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1297,7 +1314,8 @@ pub mod privileged_access_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1343,7 +1361,8 @@ pub mod privileged_access_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

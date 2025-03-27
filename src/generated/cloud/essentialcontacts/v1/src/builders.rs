@@ -87,7 +87,8 @@ pub mod essential_contacts_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateContact {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateContact {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -142,7 +143,8 @@ pub mod essential_contacts_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateContact {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateContact {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -212,7 +214,8 @@ pub mod essential_contacts_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListContacts {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListContacts {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -255,7 +258,8 @@ pub mod essential_contacts_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetContact {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetContact {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -298,7 +302,8 @@ pub mod essential_contacts_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteContact {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteContact {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -379,7 +384,8 @@ pub mod essential_contacts_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ComputeContacts {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ComputeContacts {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -442,7 +448,8 @@ pub mod essential_contacts_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SendTestMessage {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SendTestMessage {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

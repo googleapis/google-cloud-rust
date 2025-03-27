@@ -113,7 +113,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListClusters {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListClusters {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -160,7 +161,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -265,7 +267,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -373,7 +376,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -473,7 +477,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -569,7 +574,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for PromoteCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PromoteCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -662,7 +668,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for SwitchoverCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SwitchoverCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -776,7 +783,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for RestoreCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RestoreCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -884,7 +892,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateSecondaryCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateSecondaryCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -964,7 +973,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListInstances {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListInstances {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1011,7 +1021,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1117,7 +1128,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1228,7 +1240,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateSecondaryInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateSecondaryInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1328,7 +1341,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for BatchCreateInstances {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BatchCreateInstances {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1437,7 +1451,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1531,7 +1546,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1625,7 +1641,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for FailoverInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FailoverInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1725,7 +1742,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for InjectFault {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for InjectFault {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1827,7 +1845,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for RestartInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RestartInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1897,7 +1916,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ExecuteSql {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ExecuteSql {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1977,7 +1997,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListBackups {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBackups {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2018,7 +2039,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2123,7 +2145,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2231,7 +2254,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2325,7 +2349,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2400,7 +2425,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListSupportedDatabaseFlags {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListSupportedDatabaseFlags {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2473,7 +2499,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GenerateClientCertificate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GenerateClientCertificate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2523,7 +2550,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetConnectionInfo {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetConnectionInfo {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2602,7 +2630,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListUsers {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListUsers {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2643,7 +2672,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetUser {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetUser {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2708,7 +2738,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateUser {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateUser {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2776,7 +2807,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateUser {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateUser {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2829,7 +2861,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteUser {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteUser {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2903,7 +2936,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDatabases {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDatabases {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2980,7 +3014,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3021,7 +3056,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3098,7 +3134,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3142,7 +3179,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3186,7 +3224,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3230,7 +3269,8 @@ pub mod alloy_db_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

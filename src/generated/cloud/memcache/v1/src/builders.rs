@@ -113,7 +113,8 @@ pub mod cloud_memcache {
         }
     }
 
-    impl gax::options::RequestBuilder for ListInstances {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListInstances {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -154,7 +155,8 @@ pub mod cloud_memcache {
         }
     }
 
-    impl gax::options::RequestBuilder for GetInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -248,7 +250,8 @@ pub mod cloud_memcache {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -339,7 +342,8 @@ pub mod cloud_memcache {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -439,7 +443,8 @@ pub mod cloud_memcache {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateParameters {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateParameters {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -515,7 +520,8 @@ pub mod cloud_memcache {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -611,7 +617,8 @@ pub mod cloud_memcache {
         }
     }
 
-    impl gax::options::RequestBuilder for ApplyParameters {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ApplyParameters {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -713,7 +720,8 @@ pub mod cloud_memcache {
         }
     }
 
-    impl gax::options::RequestBuilder for RescheduleMaintenance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RescheduleMaintenance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -790,7 +798,8 @@ pub mod cloud_memcache {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -831,7 +840,8 @@ pub mod cloud_memcache {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -908,7 +918,8 @@ pub mod cloud_memcache {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -952,7 +963,8 @@ pub mod cloud_memcache {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -996,7 +1008,8 @@ pub mod cloud_memcache {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1040,7 +1053,8 @@ pub mod cloud_memcache {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

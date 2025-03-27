@@ -117,7 +117,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListInstances {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListInstances {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -160,7 +161,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -262,7 +264,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -346,7 +349,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -431,7 +435,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListRepositories {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListRepositories {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -474,7 +479,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetRepository {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetRepository {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -573,7 +579,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateRepository {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateRepository {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -660,7 +667,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteRepository {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteRepository {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -712,7 +720,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicyRepo {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicyRepo {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -773,7 +782,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicyRepo {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicyRepo {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -830,7 +840,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissionsRepo {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissionsRepo {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -929,7 +940,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateBranchRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateBranchRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -999,7 +1011,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListBranchRules {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBranchRules {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1042,7 +1055,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetBranchRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBranchRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1144,7 +1158,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateBranchRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateBranchRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1231,7 +1246,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteBranchRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteBranchRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1310,7 +1326,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1353,7 +1370,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1414,7 +1432,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1466,7 +1485,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1523,7 +1543,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1602,7 +1623,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1648,7 +1670,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1694,7 +1717,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1740,7 +1764,8 @@ pub mod secure_source_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

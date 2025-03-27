@@ -92,7 +92,8 @@ pub mod connection_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -133,7 +134,8 @@ pub mod connection_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -201,7 +203,8 @@ pub mod connection_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListConnections {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListConnections {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -263,7 +266,8 @@ pub mod connection_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -307,7 +311,8 @@ pub mod connection_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -357,7 +362,8 @@ pub mod connection_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -416,7 +422,8 @@ pub mod connection_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -471,7 +478,8 @@ pub mod connection_service {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

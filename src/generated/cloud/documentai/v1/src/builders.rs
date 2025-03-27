@@ -128,7 +128,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ProcessDocument {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ProcessDocument {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -260,7 +261,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for BatchProcessDocuments {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BatchProcessDocuments {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -306,7 +308,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for FetchProcessorTypes {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FetchProcessorTypes {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -379,7 +382,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListProcessorTypes {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListProcessorTypes {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -425,7 +429,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetProcessorType {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetProcessorType {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -495,7 +500,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListProcessors {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListProcessors {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -538,7 +544,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetProcessor {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetProcessor {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -675,7 +682,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for TrainProcessorVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TrainProcessorVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -721,7 +729,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetProcessorVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetProcessorVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -794,7 +803,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListProcessorVersions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListProcessorVersions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -878,7 +888,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteProcessorVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteProcessorVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -967,7 +978,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeployProcessorVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeployProcessorVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1058,7 +1070,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UndeployProcessorVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UndeployProcessorVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1110,7 +1123,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateProcessor {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateProcessor {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1188,7 +1202,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteProcessor {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteProcessor {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1272,7 +1287,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for EnableProcessor {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for EnableProcessor {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1361,7 +1377,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DisableProcessor {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DisableProcessor {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1458,7 +1475,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SetDefaultProcessorVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetDefaultProcessorVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1577,7 +1595,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ReviewDocument {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ReviewDocument {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1679,7 +1698,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for EvaluateProcessorVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for EvaluateProcessorVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1722,7 +1742,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetEvaluation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetEvaluation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1792,7 +1813,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListEvaluations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListEvaluations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1871,7 +1893,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1914,7 +1937,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1993,7 +2017,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2039,7 +2064,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2085,7 +2111,8 @@ pub mod document_processor_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

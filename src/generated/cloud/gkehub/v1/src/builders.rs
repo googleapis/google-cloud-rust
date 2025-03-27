@@ -113,7 +113,8 @@ pub mod gke_hub {
         }
     }
 
-    impl gax::options::RequestBuilder for ListMemberships {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListMemberships {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -193,7 +194,8 @@ pub mod gke_hub {
         }
     }
 
-    impl gax::options::RequestBuilder for ListFeatures {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListFeatures {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -234,7 +236,8 @@ pub mod gke_hub {
         }
     }
 
-    impl gax::options::RequestBuilder for GetMembership {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetMembership {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -275,7 +278,8 @@ pub mod gke_hub {
         }
     }
 
-    impl gax::options::RequestBuilder for GetFeature {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetFeature {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -378,7 +382,8 @@ pub mod gke_hub {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateMembership {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateMembership {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -477,7 +482,8 @@ pub mod gke_hub {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateFeature {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateFeature {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -568,7 +574,8 @@ pub mod gke_hub {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteMembership {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteMembership {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -656,7 +663,8 @@ pub mod gke_hub {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteFeature {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteFeature {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -762,7 +770,8 @@ pub mod gke_hub {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateMembership {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateMembership {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -864,7 +873,8 @@ pub mod gke_hub {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateFeature {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateFeature {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -946,7 +956,8 @@ pub mod gke_hub {
         }
     }
 
-    impl gax::options::RequestBuilder for GenerateConnectManifest {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GenerateConnectManifest {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1023,7 +1034,8 @@ pub mod gke_hub {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1067,7 +1079,8 @@ pub mod gke_hub {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1111,7 +1124,8 @@ pub mod gke_hub {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1155,7 +1169,8 @@ pub mod gke_hub {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

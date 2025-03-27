@@ -78,7 +78,8 @@ pub mod license_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLicensePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLicensePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -136,7 +137,8 @@ pub mod license_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateLicensePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateLicensePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -188,7 +190,8 @@ pub mod license_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Assign {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Assign {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -242,7 +245,8 @@ pub mod license_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Unassign {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Unassign {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -317,7 +321,8 @@ pub mod license_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for EnumerateLicensedUsers {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for EnumerateLicensedUsers {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -363,7 +368,8 @@ pub mod license_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -494,7 +500,8 @@ pub mod consumer_procurement_service {
         }
     }
 
-    impl gax::options::RequestBuilder for PlaceOrder {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PlaceOrder {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -537,7 +544,8 @@ pub mod consumer_procurement_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOrder {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOrder {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -613,7 +621,8 @@ pub mod consumer_procurement_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOrders {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOrders {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -716,7 +725,8 @@ pub mod consumer_procurement_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ModifyOrder {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ModifyOrder {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -813,7 +823,8 @@ pub mod consumer_procurement_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOrder {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOrder {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -859,7 +870,8 @@ pub mod consumer_procurement_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

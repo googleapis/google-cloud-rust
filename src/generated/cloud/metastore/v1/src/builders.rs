@@ -113,7 +113,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for ListServices {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListServices {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -154,7 +155,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for GetService {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetService {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -253,7 +255,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateService {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateService {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -349,7 +352,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateService {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateService {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -431,7 +435,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteService {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteService {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -514,7 +519,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for ListMetadataImports {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListMetadataImports {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -558,7 +564,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for GetMetadataImport {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetMetadataImport {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -662,7 +669,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateMetadataImport {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateMetadataImport {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -763,7 +771,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateMetadataImport {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateMetadataImport {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -869,7 +878,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for ExportMetadata {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ExportMetadata {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -968,7 +978,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for RestoreService {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RestoreService {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1048,7 +1059,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for ListBackups {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBackups {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1089,7 +1101,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for GetBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1188,7 +1201,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1270,7 +1284,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1358,7 +1373,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for QueryMetadata {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for QueryMetadata {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1461,7 +1477,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for MoveTableToDatabase {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for MoveTableToDatabase {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1562,7 +1579,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for AlterMetadataResourceLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AlterMetadataResourceLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1639,7 +1657,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1680,7 +1699,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1739,7 +1759,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1789,7 +1810,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1844,7 +1866,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1921,7 +1944,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1965,7 +1989,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2009,7 +2034,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2053,7 +2079,8 @@ pub mod dataproc_metastore {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2163,7 +2190,8 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    impl gax::options::RequestBuilder for ListFederations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListFederations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2206,7 +2234,8 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    impl gax::options::RequestBuilder for GetFederation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetFederation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2311,7 +2340,8 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateFederation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateFederation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2413,7 +2443,8 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateFederation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateFederation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2500,7 +2531,8 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteFederation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteFederation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2579,7 +2611,8 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2622,7 +2655,8 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2683,7 +2717,8 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2735,7 +2770,8 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2792,7 +2828,8 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2871,7 +2908,8 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2917,7 +2955,8 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2963,7 +3002,8 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3009,7 +3049,8 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

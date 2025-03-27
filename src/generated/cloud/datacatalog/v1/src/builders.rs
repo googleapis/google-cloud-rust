@@ -124,7 +124,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for SearchCatalog {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SearchCatalog {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -183,7 +184,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateEntryGroup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateEntryGroup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -230,7 +232,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for GetEntryGroup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetEntryGroup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -286,7 +289,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateEntryGroup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateEntryGroup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -336,7 +340,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteEntryGroup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteEntryGroup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -404,7 +409,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for ListEntryGroups {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListEntryGroups {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -460,7 +466,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateEntry {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateEntry {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -513,7 +520,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateEntry {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateEntry {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -554,7 +562,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteEntry {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteEntry {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -595,7 +604,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for GetEntry {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetEntry {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -651,7 +661,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for LookupEntry {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for LookupEntry {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -725,7 +736,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for ListEntries {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListEntries {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -778,7 +790,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for ModifyEntryOverview {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ModifyEntryOverview {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -831,7 +844,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for ModifyEntryContacts {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ModifyEntryContacts {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -890,7 +904,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateTagTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateTagTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -931,7 +946,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for GetTagTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetTagTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -987,7 +1003,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateTagTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateTagTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1037,7 +1054,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteTagTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteTagTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1098,7 +1116,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateTagTemplateField {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateTagTemplateField {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1162,7 +1181,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateTagTemplateField {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateTagTemplateField {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1212,7 +1232,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for RenameTagTemplateField {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RenameTagTemplateField {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1267,7 +1288,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for RenameTagTemplateFieldEnumValue {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RenameTagTemplateFieldEnumValue {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1317,7 +1339,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteTagTemplateField {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteTagTemplateField {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1364,7 +1387,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateTag {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateTag {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1414,7 +1438,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateTag {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateTag {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1455,7 +1480,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteTag {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteTag {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1522,7 +1548,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for ListTags {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListTags {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1627,7 +1654,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for ReconcileTags {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ReconcileTags {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1668,7 +1696,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for StarEntry {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StarEntry {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1709,7 +1738,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for UnstarEntry {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UnstarEntry {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1768,7 +1798,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1818,7 +1849,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1873,7 +1905,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1970,7 +2003,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for ImportEntries {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ImportEntries {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2022,7 +2056,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for SetConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2063,7 +2098,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for RetrieveConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RetrieveConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2109,7 +2145,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for RetrieveEffectiveConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RetrieveEffectiveConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2186,7 +2223,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2230,7 +2268,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2274,7 +2313,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2318,7 +2358,8 @@ pub mod data_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2394,7 +2435,8 @@ pub mod policy_tag_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateTaxonomy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateTaxonomy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2435,7 +2477,8 @@ pub mod policy_tag_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteTaxonomy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteTaxonomy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2488,7 +2531,8 @@ pub mod policy_tag_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateTaxonomy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateTaxonomy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2562,7 +2606,8 @@ pub mod policy_tag_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListTaxonomies {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListTaxonomies {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2603,7 +2648,8 @@ pub mod policy_tag_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetTaxonomy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetTaxonomy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2653,7 +2699,8 @@ pub mod policy_tag_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CreatePolicyTag {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreatePolicyTag {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2694,7 +2741,8 @@ pub mod policy_tag_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for DeletePolicyTag {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeletePolicyTag {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2747,7 +2795,8 @@ pub mod policy_tag_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdatePolicyTag {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdatePolicyTag {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2815,7 +2864,8 @@ pub mod policy_tag_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListPolicyTags {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListPolicyTags {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2856,7 +2906,8 @@ pub mod policy_tag_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetPolicyTag {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetPolicyTag {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2906,7 +2957,8 @@ pub mod policy_tag_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2965,7 +3017,8 @@ pub mod policy_tag_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3020,7 +3073,8 @@ pub mod policy_tag_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3097,7 +3151,8 @@ pub mod policy_tag_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3141,7 +3196,8 @@ pub mod policy_tag_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3185,7 +3241,8 @@ pub mod policy_tag_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3229,7 +3286,8 @@ pub mod policy_tag_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3311,7 +3369,8 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    impl gax::options::RequestBuilder for ReplaceTaxonomy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ReplaceTaxonomy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3366,7 +3425,8 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    impl gax::options::RequestBuilder for ImportTaxonomies {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ImportTaxonomies {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3434,7 +3494,8 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    impl gax::options::RequestBuilder for ExportTaxonomies {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ExportTaxonomies {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3513,7 +3574,8 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3559,7 +3621,8 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3605,7 +3668,8 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3651,7 +3715,8 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

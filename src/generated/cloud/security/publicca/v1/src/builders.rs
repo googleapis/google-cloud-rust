@@ -94,7 +94,8 @@ pub mod public_certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateExternalAccountKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateExternalAccountKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

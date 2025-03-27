@@ -86,7 +86,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListClusters {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListClusters {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -145,7 +146,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -207,7 +209,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -275,7 +278,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -591,7 +595,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateNodePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateNodePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -668,7 +673,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for SetNodePoolAutoscaling {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetNodePoolAutoscaling {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -736,7 +742,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for SetLoggingService {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetLoggingService {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -804,7 +811,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for SetMonitoringService {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetMonitoringService {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -872,7 +880,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for SetAddonsConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetAddonsConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -942,7 +951,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for SetLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1007,7 +1017,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateMaster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateMaster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1084,7 +1095,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for SetMasterAuth {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetMasterAuth {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1143,7 +1155,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1196,7 +1209,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1255,7 +1269,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1314,7 +1329,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1367,7 +1383,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetServerConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetServerConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1408,7 +1425,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetJSONWebKeys {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetJSONWebKeys {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1467,7 +1485,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListNodePools {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListNodePools {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1532,7 +1551,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetNodePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetNodePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1600,7 +1620,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateNodePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateNodePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1665,7 +1686,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteNodePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteNodePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1711,7 +1733,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CompleteNodePoolUpgrade {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CompleteNodePoolUpgrade {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1787,7 +1810,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for RollbackNodePoolUpgrade {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RollbackNodePoolUpgrade {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1864,7 +1888,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for SetNodePoolManagement {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetNodePoolManagement {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1941,7 +1966,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for SetLabels {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetLabels {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2006,7 +2032,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for SetLegacyAbac {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetLegacyAbac {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2071,7 +2098,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for StartIPRotation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StartIPRotation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2133,7 +2161,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CompleteIPRotation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CompleteIPRotation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2204,7 +2233,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for SetNodePoolSize {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetNodePoolSize {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2275,7 +2305,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for SetNetworkPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetNetworkPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2348,7 +2379,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for SetMaintenancePolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetMaintenancePolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2425,7 +2457,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListUsableSubnetworks {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListUsableSubnetworks {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2471,7 +2504,8 @@ pub mod cluster_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CheckAutopilotCompatibility {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CheckAutopilotCompatibility {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

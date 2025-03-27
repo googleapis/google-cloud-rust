@@ -78,7 +78,8 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    impl gax::options::RequestBuilder for GetWorkload {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetWorkload {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -160,7 +161,8 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    impl gax::options::RequestBuilder for ListWorkloads {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListWorkloads {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -203,7 +205,8 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCustomer {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCustomer {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -285,7 +288,8 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    impl gax::options::RequestBuilder for ListCustomers {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListCustomers {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -331,7 +335,8 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    impl gax::options::RequestBuilder for GetEkmConnections {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetEkmConnections {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -377,7 +382,8 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    impl gax::options::RequestBuilder for GetPartnerPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetPartnerPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -466,7 +472,8 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAccessApprovalRequests {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAccessApprovalRequests {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -509,7 +516,8 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    impl gax::options::RequestBuilder for GetPartner {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetPartner {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -628,7 +636,8 @@ pub mod cloud_controls_partner_monitoring {
         }
     }
 
-    impl gax::options::RequestBuilder for ListViolations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListViolations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -671,7 +680,8 @@ pub mod cloud_controls_partner_monitoring {
         }
     }
 
-    impl gax::options::RequestBuilder for GetViolation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetViolation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

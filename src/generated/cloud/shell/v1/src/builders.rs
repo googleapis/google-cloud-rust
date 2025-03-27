@@ -74,7 +74,8 @@ pub mod cloud_shell_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetEnvironment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetEnvironment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -178,7 +179,8 @@ pub mod cloud_shell_service {
         }
     }
 
-    impl gax::options::RequestBuilder for StartEnvironment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StartEnvironment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -286,7 +288,8 @@ pub mod cloud_shell_service {
         }
     }
 
-    impl gax::options::RequestBuilder for AuthorizeEnvironment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AuthorizeEnvironment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -374,7 +377,8 @@ pub mod cloud_shell_service {
         }
     }
 
-    impl gax::options::RequestBuilder for AddPublicKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AddPublicKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -462,7 +466,8 @@ pub mod cloud_shell_service {
         }
     }
 
-    impl gax::options::RequestBuilder for RemovePublicKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RemovePublicKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -506,7 +511,8 @@ pub mod cloud_shell_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

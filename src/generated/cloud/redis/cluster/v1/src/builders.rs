@@ -101,7 +101,8 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    impl gax::options::RequestBuilder for ListClusters {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListClusters {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -142,7 +143,8 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -236,7 +238,8 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -318,7 +321,8 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -415,7 +419,8 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -461,7 +466,8 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    impl gax::options::RequestBuilder for GetClusterCertificateAuthority {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetClusterCertificateAuthority {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -562,7 +568,8 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    impl gax::options::RequestBuilder for RescheduleClusterMaintenance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RescheduleClusterMaintenance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -633,7 +640,8 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    impl gax::options::RequestBuilder for ListBackupCollections {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBackupCollections {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -677,7 +685,8 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    impl gax::options::RequestBuilder for GetBackupCollection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBackupCollection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -745,7 +754,8 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    impl gax::options::RequestBuilder for ListBackups {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBackups {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -786,7 +796,8 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    impl gax::options::RequestBuilder for GetBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -868,7 +879,8 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -955,7 +967,8 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    impl gax::options::RequestBuilder for ExportBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ExportBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1046,7 +1059,8 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    impl gax::options::RequestBuilder for BackupCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BackupCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1123,7 +1137,8 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1164,7 +1179,8 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1241,7 +1257,8 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1285,7 +1302,8 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1329,7 +1347,8 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1373,7 +1392,8 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

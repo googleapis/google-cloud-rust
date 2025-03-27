@@ -113,7 +113,8 @@ pub mod developer_connect {
         }
     }
 
-    impl gax::options::RequestBuilder for ListConnections {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListConnections {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -154,7 +155,8 @@ pub mod developer_connect {
         }
     }
 
-    impl gax::options::RequestBuilder for GetConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -263,7 +265,8 @@ pub mod developer_connect {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -375,7 +378,8 @@ pub mod developer_connect {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -472,7 +476,8 @@ pub mod developer_connect {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -586,7 +591,8 @@ pub mod developer_connect {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateGitRepositoryLink {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateGitRepositoryLink {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -685,7 +691,8 @@ pub mod developer_connect {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteGitRepositoryLink {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteGitRepositoryLink {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -770,7 +777,8 @@ pub mod developer_connect {
         }
     }
 
-    impl gax::options::RequestBuilder for ListGitRepositoryLinks {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListGitRepositoryLinks {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -814,7 +822,8 @@ pub mod developer_connect {
         }
     }
 
-    impl gax::options::RequestBuilder for GetGitRepositoryLink {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetGitRepositoryLink {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -858,7 +867,8 @@ pub mod developer_connect {
         }
     }
 
-    impl gax::options::RequestBuilder for FetchReadWriteToken {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FetchReadWriteToken {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -899,7 +909,8 @@ pub mod developer_connect {
         }
     }
 
-    impl gax::options::RequestBuilder for FetchReadToken {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FetchReadToken {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -974,7 +985,8 @@ pub mod developer_connect {
         }
     }
 
-    impl gax::options::RequestBuilder for FetchLinkableGitRepositories {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FetchLinkableGitRepositories {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1020,7 +1032,8 @@ pub mod developer_connect {
         }
     }
 
-    impl gax::options::RequestBuilder for FetchGitHubInstallations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FetchGitHubInstallations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1082,7 +1095,8 @@ pub mod developer_connect {
         }
     }
 
-    impl gax::options::RequestBuilder for FetchGitRefs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FetchGitRefs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1159,7 +1173,8 @@ pub mod developer_connect {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1200,7 +1215,8 @@ pub mod developer_connect {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1277,7 +1293,8 @@ pub mod developer_connect {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1321,7 +1338,8 @@ pub mod developer_connect {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1365,7 +1383,8 @@ pub mod developer_connect {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1409,7 +1428,8 @@ pub mod developer_connect {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

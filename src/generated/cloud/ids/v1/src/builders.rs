@@ -113,7 +113,8 @@ pub mod ids {
         }
     }
 
-    impl gax::options::RequestBuilder for ListEndpoints {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListEndpoints {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -154,7 +155,8 @@ pub mod ids {
         }
     }
 
-    impl gax::options::RequestBuilder for GetEndpoint {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetEndpoint {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -254,7 +256,8 @@ pub mod ids {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateEndpoint {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateEndpoint {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -336,7 +339,8 @@ pub mod ids {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteEndpoint {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteEndpoint {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -413,7 +417,8 @@ pub mod ids {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -457,7 +462,8 @@ pub mod ids {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -501,7 +507,8 @@ pub mod ids {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -545,7 +552,8 @@ pub mod ids {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

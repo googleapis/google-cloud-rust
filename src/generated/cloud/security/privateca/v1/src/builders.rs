@@ -117,7 +117,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateCertificate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCertificate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -160,7 +161,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCertificate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCertificate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -245,7 +247,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListCertificates {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListCertificates {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -303,7 +306,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for RevokeCertificate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RevokeCertificate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -367,7 +371,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateCertificate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateCertificate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -477,7 +482,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ActivateCertificateAuthority {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ActivateCertificateAuthority {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -587,7 +593,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateCertificateAuthority {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCertificateAuthority {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -686,7 +693,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DisableCertificateAuthority {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DisableCertificateAuthority {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -779,7 +787,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for EnableCertificateAuthority {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for EnableCertificateAuthority {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -827,7 +836,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for FetchCertificateAuthorityCsr {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FetchCertificateAuthorityCsr {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -875,7 +885,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCertificateAuthority {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCertificateAuthority {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -964,7 +975,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListCertificateAuthorities {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListCertificateAuthorities {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1057,7 +1069,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UndeleteCertificateAuthority {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UndeleteCertificateAuthority {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1168,7 +1181,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteCertificateAuthority {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteCertificateAuthority {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1275,7 +1289,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateCertificateAuthority {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateCertificateAuthority {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1376,7 +1391,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateCaPool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCaPool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1474,7 +1490,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateCaPool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateCaPool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1517,7 +1534,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCaPool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCaPool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1599,7 +1617,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListCaPools {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListCaPools {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1689,7 +1708,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteCaPool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteCaPool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1738,7 +1758,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for FetchCaCerts {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FetchCaCerts {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1786,7 +1807,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCertificateRevocationList {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCertificateRevocationList {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1875,7 +1897,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListCertificateRevocationLists {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListCertificateRevocationLists {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1984,7 +2007,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateCertificateRevocationList {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateCertificateRevocationList {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2094,7 +2118,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateCertificateTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCertificateTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2183,7 +2208,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteCertificateTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteCertificateTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2229,7 +2255,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCertificateTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCertificateTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2318,7 +2345,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListCertificateTemplates {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListCertificateTemplates {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2425,7 +2453,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateCertificateTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateCertificateTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2504,7 +2533,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2547,7 +2577,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2608,7 +2639,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2660,7 +2692,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2717,7 +2750,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2796,7 +2830,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2842,7 +2877,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2888,7 +2924,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2934,7 +2971,8 @@ pub mod certificate_authority_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

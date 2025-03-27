@@ -83,7 +83,8 @@ pub mod storage_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetGoogleServiceAccount {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetGoogleServiceAccount {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -132,7 +133,8 @@ pub mod storage_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateTransferJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateTransferJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -202,7 +204,8 @@ pub mod storage_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateTransferJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateTransferJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -251,7 +254,8 @@ pub mod storage_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetTransferJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetTransferJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -324,7 +328,8 @@ pub mod storage_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListTransferJobs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListTransferJobs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -370,7 +375,8 @@ pub mod storage_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for PauseTransferOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PauseTransferOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -418,7 +424,8 @@ pub mod storage_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ResumeTransferOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResumeTransferOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -502,7 +509,8 @@ pub mod storage_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for RunTransferJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RunTransferJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -554,7 +562,8 @@ pub mod storage_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteTransferJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteTransferJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -612,7 +621,8 @@ pub mod storage_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateAgentPool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAgentPool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -667,7 +677,8 @@ pub mod storage_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateAgentPool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateAgentPool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -710,7 +721,8 @@ pub mod storage_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAgentPool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAgentPool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -786,7 +798,8 @@ pub mod storage_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAgentPools {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAgentPools {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -829,7 +842,8 @@ pub mod storage_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteAgentPool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteAgentPool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -908,7 +922,8 @@ pub mod storage_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -954,7 +969,8 @@ pub mod storage_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1000,7 +1016,8 @@ pub mod storage_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

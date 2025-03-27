@@ -99,7 +99,8 @@ pub mod image_annotator {
         }
     }
 
-    impl gax::options::RequestBuilder for BatchAnnotateImages {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BatchAnnotateImages {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -165,7 +166,8 @@ pub mod image_annotator {
         }
     }
 
-    impl gax::options::RequestBuilder for BatchAnnotateFiles {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BatchAnnotateFiles {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -285,7 +287,8 @@ pub mod image_annotator {
         }
     }
 
-    impl gax::options::RequestBuilder for AsyncBatchAnnotateImages {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AsyncBatchAnnotateImages {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -396,7 +399,8 @@ pub mod image_annotator {
         }
     }
 
-    impl gax::options::RequestBuilder for AsyncBatchAnnotateFiles {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AsyncBatchAnnotateFiles {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -440,7 +444,8 @@ pub mod image_annotator {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -525,7 +530,8 @@ pub mod product_search {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateProductSet {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateProductSet {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -593,7 +599,8 @@ pub mod product_search {
         }
     }
 
-    impl gax::options::RequestBuilder for ListProductSets {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListProductSets {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -634,7 +641,8 @@ pub mod product_search {
         }
     }
 
-    impl gax::options::RequestBuilder for GetProductSet {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetProductSet {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -690,7 +698,8 @@ pub mod product_search {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateProductSet {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateProductSet {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -734,7 +743,8 @@ pub mod product_search {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteProductSet {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteProductSet {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -790,7 +800,8 @@ pub mod product_search {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateProduct {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateProduct {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -858,7 +869,8 @@ pub mod product_search {
         }
     }
 
-    impl gax::options::RequestBuilder for ListProducts {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListProducts {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -899,7 +911,8 @@ pub mod product_search {
         }
     }
 
-    impl gax::options::RequestBuilder for GetProduct {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetProduct {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -952,7 +965,8 @@ pub mod product_search {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateProduct {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateProduct {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -993,7 +1007,8 @@ pub mod product_search {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteProduct {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteProduct {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1052,7 +1067,8 @@ pub mod product_search {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateReferenceImage {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateReferenceImage {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1096,7 +1112,8 @@ pub mod product_search {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteReferenceImage {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteReferenceImage {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1167,7 +1184,8 @@ pub mod product_search {
         }
     }
 
-    impl gax::options::RequestBuilder for ListReferenceImages {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListReferenceImages {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1211,7 +1229,8 @@ pub mod product_search {
         }
     }
 
-    impl gax::options::RequestBuilder for GetReferenceImage {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetReferenceImage {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1261,7 +1280,8 @@ pub mod product_search {
         }
     }
 
-    impl gax::options::RequestBuilder for AddProductToProductSet {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AddProductToProductSet {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1313,7 +1333,8 @@ pub mod product_search {
         }
     }
 
-    impl gax::options::RequestBuilder for RemoveProductFromProductSet {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RemoveProductFromProductSet {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1388,7 +1409,8 @@ pub mod product_search {
         }
     }
 
-    impl gax::options::RequestBuilder for ListProductsInProductSet {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListProductsInProductSet {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1486,7 +1508,8 @@ pub mod product_search {
         }
     }
 
-    impl gax::options::RequestBuilder for ImportProductSets {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ImportProductSets {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1577,7 +1600,8 @@ pub mod product_search {
         }
     }
 
-    impl gax::options::RequestBuilder for PurgeProducts {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PurgeProducts {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1621,7 +1645,8 @@ pub mod product_search {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

@@ -113,7 +113,8 @@ pub mod notebook_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListInstances {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListInstances {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -154,7 +155,8 @@ pub mod notebook_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -254,7 +256,8 @@ pub mod notebook_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -351,7 +354,8 @@ pub mod notebook_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -433,7 +437,8 @@ pub mod notebook_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -512,7 +517,8 @@ pub mod notebook_service {
         }
     }
 
-    impl gax::options::RequestBuilder for StartInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StartInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -591,7 +597,8 @@ pub mod notebook_service {
         }
     }
 
-    impl gax::options::RequestBuilder for StopInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StopInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -670,7 +677,8 @@ pub mod notebook_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ResetInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResetInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -716,7 +724,8 @@ pub mod notebook_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CheckInstanceUpgradability {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CheckInstanceUpgradability {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -795,7 +804,8 @@ pub mod notebook_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpgradeInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpgradeInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -889,7 +899,8 @@ pub mod notebook_service {
         }
     }
 
-    impl gax::options::RequestBuilder for RollbackInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RollbackInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -988,7 +999,8 @@ pub mod notebook_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DiagnoseInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DiagnoseInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1065,7 +1077,8 @@ pub mod notebook_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1106,7 +1119,8 @@ pub mod notebook_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1165,7 +1179,8 @@ pub mod notebook_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1215,7 +1230,8 @@ pub mod notebook_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1270,7 +1286,8 @@ pub mod notebook_service {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1347,7 +1364,8 @@ pub mod notebook_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1391,7 +1409,8 @@ pub mod notebook_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1435,7 +1454,8 @@ pub mod notebook_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1479,7 +1499,8 @@ pub mod notebook_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

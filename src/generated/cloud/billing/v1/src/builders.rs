@@ -77,7 +77,8 @@ pub mod cloud_billing {
         }
     }
 
-    impl gax::options::RequestBuilder for GetBillingAccount {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBillingAccount {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -154,7 +155,8 @@ pub mod cloud_billing {
         }
     }
 
-    impl gax::options::RequestBuilder for ListBillingAccounts {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBillingAccounts {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -216,7 +218,8 @@ pub mod cloud_billing {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateBillingAccount {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateBillingAccount {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -269,7 +272,8 @@ pub mod cloud_billing {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateBillingAccount {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateBillingAccount {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -342,7 +346,8 @@ pub mod cloud_billing {
         }
     }
 
-    impl gax::options::RequestBuilder for ListProjectBillingInfo {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListProjectBillingInfo {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -386,7 +391,8 @@ pub mod cloud_billing {
         }
     }
 
-    impl gax::options::RequestBuilder for GetProjectBillingInfo {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetProjectBillingInfo {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -443,7 +449,8 @@ pub mod cloud_billing {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateProjectBillingInfo {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateProjectBillingInfo {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -493,7 +500,8 @@ pub mod cloud_billing {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -552,7 +560,8 @@ pub mod cloud_billing {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -607,7 +616,8 @@ pub mod cloud_billing {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -657,7 +667,8 @@ pub mod cloud_billing {
         }
     }
 
-    impl gax::options::RequestBuilder for MoveBillingAccount {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for MoveBillingAccount {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -745,7 +756,8 @@ pub mod cloud_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for ListServices {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListServices {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -833,7 +845,8 @@ pub mod cloud_catalog {
         }
     }
 
-    impl gax::options::RequestBuilder for ListSkus {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListSkus {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

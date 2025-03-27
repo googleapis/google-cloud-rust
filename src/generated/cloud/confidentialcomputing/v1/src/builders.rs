@@ -87,7 +87,8 @@ pub mod confidential_computing {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateChallenge {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateChallenge {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -188,7 +189,8 @@ pub mod confidential_computing {
         }
     }
 
-    impl gax::options::RequestBuilder for VerifyAttestation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for VerifyAttestation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -267,7 +269,8 @@ pub mod confidential_computing {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -310,7 +313,8 @@ pub mod confidential_computing {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

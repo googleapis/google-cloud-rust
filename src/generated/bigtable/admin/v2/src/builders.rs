@@ -143,7 +143,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -186,7 +187,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -235,7 +237,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListInstances {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListInstances {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -328,7 +331,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -425,7 +429,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for PartialUpdateInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PartialUpdateInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -468,7 +473,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -564,7 +570,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -607,7 +614,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -656,7 +664,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListClusters {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListClusters {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -790,7 +799,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -887,7 +897,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for PartialUpdateCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PartialUpdateCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -930,7 +941,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -997,7 +1009,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateAppProfile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAppProfile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1040,7 +1053,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAppProfile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAppProfile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1110,7 +1124,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAppProfiles {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAppProfiles {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1213,7 +1228,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateAppProfile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateAppProfile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1265,7 +1281,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteAppProfile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteAppProfile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1317,7 +1334,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1378,7 +1396,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1435,7 +1454,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1520,7 +1540,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListHotTablets {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListHotTablets {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1620,7 +1641,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateLogicalView {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateLogicalView {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1663,7 +1685,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLogicalView {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLogicalView {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1736,7 +1759,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLogicalViews {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLogicalViews {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1833,7 +1857,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateLogicalView {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateLogicalView {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1885,7 +1910,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteLogicalView {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteLogicalView {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1989,7 +2015,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateMaterializedView {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateMaterializedView {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2035,7 +2062,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetMaterializedView {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetMaterializedView {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2108,7 +2136,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListMaterializedViews {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListMaterializedViews {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2209,7 +2238,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateMaterializedView {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateMaterializedView {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2261,7 +2291,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteMaterializedView {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteMaterializedView {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2340,7 +2371,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2386,7 +2418,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2432,7 +2465,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2478,7 +2512,8 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2571,7 +2606,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateTable {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateTable {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2668,7 +2704,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateTableFromSnapshot {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateTableFromSnapshot {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2742,7 +2779,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListTables {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListTables {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2789,7 +2827,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetTable {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetTable {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2885,7 +2924,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateTable {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateTable {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2926,7 +2966,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteTable {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteTable {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3005,7 +3046,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UndeleteTable {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UndeleteTable {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3105,7 +3147,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateAuthorizedView {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAuthorizedView {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3185,7 +3228,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAuthorizedViews {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAuthorizedViews {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3238,7 +3282,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAuthorizedView {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAuthorizedView {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3341,7 +3386,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateAuthorizedView {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateAuthorizedView {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3391,7 +3437,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteAuthorizedView {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteAuthorizedView {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3452,7 +3499,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ModifyColumnFamilies {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ModifyColumnFamilies {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3502,7 +3550,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DropRowRange {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DropRowRange {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3548,7 +3597,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GenerateConsistencyToken {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GenerateConsistencyToken {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3607,7 +3657,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CheckConsistency {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CheckConsistency {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3710,7 +3761,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for SnapshotTable {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SnapshotTable {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3751,7 +3803,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetSnapshot {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetSnapshot {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3819,7 +3872,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListSnapshots {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListSnapshots {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3860,7 +3914,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteSnapshot {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteSnapshot {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3954,7 +4009,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3995,7 +4051,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4048,7 +4105,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4089,7 +4147,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4169,7 +4228,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListBackups {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBackups {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4263,7 +4323,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for RestoreTable {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RestoreTable {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4362,7 +4423,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CopyBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CopyBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4412,7 +4474,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4471,7 +4534,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4526,7 +4590,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4603,7 +4668,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4647,7 +4713,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4691,7 +4758,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4735,7 +4803,8 @@ pub mod bigtable_table_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

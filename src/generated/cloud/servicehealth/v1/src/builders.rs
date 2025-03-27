@@ -113,7 +113,8 @@ pub mod service_health {
         }
     }
 
-    impl gax::options::RequestBuilder for ListEvents {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListEvents {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -154,7 +155,8 @@ pub mod service_health {
         }
     }
 
-    impl gax::options::RequestBuilder for GetEvent {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetEvent {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -239,7 +241,8 @@ pub mod service_health {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOrganizationEvents {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOrganizationEvents {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -283,7 +286,8 @@ pub mod service_health {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOrganizationEvent {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOrganizationEvent {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -364,7 +368,8 @@ pub mod service_health {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOrganizationImpacts {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOrganizationImpacts {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -408,7 +413,8 @@ pub mod service_health {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOrganizationImpact {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOrganizationImpact {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -485,7 +491,8 @@ pub mod service_health {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -526,7 +533,8 @@ pub mod service_health {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
