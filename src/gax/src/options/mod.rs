@@ -163,7 +163,7 @@ impl RequestOptions {
 /// These builders can be used to set the request parameters, e.g., the name of
 /// the resource targeted by the RPC, as well as any options affecting the
 /// request, such as additional headers or timeouts.
-pub trait RequestOptionsBuilder : internal::RequestBuilder {
+pub trait RequestOptionsBuilder: internal::RequestBuilder {
     /// If `v` is `true`, treat the RPC underlying this method as idempotent.
     fn with_idempotency(self, v: bool) -> Self;
 
