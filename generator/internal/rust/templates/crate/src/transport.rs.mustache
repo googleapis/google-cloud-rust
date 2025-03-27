@@ -53,12 +53,7 @@ impl super::stubs::{{Codec.Name}} for {{Codec.Name}} {
         &self,
         req: {{InputType.Codec.QualifiedName}},
         options: gax::options::RequestOptions,
-    {{#ReturnsEmpty}}
-    ) -> Result<()> {
-    {{/ReturnsEmpty}}
-    {{^ReturnsEmpty}}
-    ) -> Result<{{OutputType.Codec.QualifiedName}}> {
-    {{/ReturnsEmpty}}
+    ) -> Result<{{Codec.ReturnType}}> {
         let options = options.set_default_idempotency(reqwest::Method::{{PathInfo.Codec.Method}}.is_idempotent());
         let builder = self
             .inner

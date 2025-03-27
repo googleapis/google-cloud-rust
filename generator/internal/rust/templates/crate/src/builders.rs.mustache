@@ -74,18 +74,13 @@ pub mod {{Codec.ModuleName}} {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [{{Method.Codec.Name}}][super::super::client::{{Method.Codec.ServiceNameToPascal}}::{{Method.Codec.Name}}].
         {{/OperationInfo}}
-        {{!
-            In rare cases `self.0.stub.foo` is ambiguous: we are calling
-            via `Arc<dyn T>` which implements `T` but also implements other
-            traits (e.g. `std::clone::Clone`) making the call ambiguous.
-            Using `*self.0.stub` makes the call not-ambiguous.
-        }}
-        {{#ReturnsEmpty}}
-        pub async fn send(self) -> Result<()> {
-        {{/ReturnsEmpty}}
-        {{^ReturnsEmpty}}
-        pub async fn send(self) -> Result<{{OutputType.Codec.QualifiedName}}> {
-        {{/ReturnsEmpty}}
+        pub async fn send(self) -> Result<{{Codec.ReturnType}}> {
+            {{!
+                In rare cases `self.0.stub.foo` is ambiguous: we are calling
+                via `Arc<dyn T>` which implements `T` but also implements other
+                traits (e.g. `std::clone::Clone`) making the call ambiguous.
+                Using `*self.0.stub` makes the call not-ambiguous.
+            }}
             (*self.0.stub).{{Codec.Name}}(self.0.request, self.0.options).await
         }
         {{#Pagination}}

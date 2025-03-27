@@ -280,12 +280,7 @@ impl super::stubs::{{Codec.Name}} for {{Codec.Name}} {
         &self,
         req: {{InputType.Codec.QualifiedName}},
         options: gax::options::RequestOptions,
-    {{#ReturnsEmpty}}
-    ) -> Result<()> {
-    {{/ReturnsEmpty}}
-    {{^ReturnsEmpty}}
-    ) -> Result<{{OutputType.Codec.QualifiedName}}> {
-    {{/ReturnsEmpty}}
+    ) -> Result<{{Codec.ReturnType}}> {
         use wkt::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: {{InputType.Codec.QualifiedName}}, h: http::header::HeaderMap| async {
