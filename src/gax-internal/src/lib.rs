@@ -35,3 +35,7 @@ pub mod query_parameter;
 #[cfg(feature = "_internal_http_client")]
 #[doc(hidden)]
 pub mod http;
+
+#[cfg(feature = "_internal_grpc_client")]
+#[doc(hidden)]
+pub mod grpc;

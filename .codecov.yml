@@ -22,6 +22,8 @@ coverage:
 ignore:
   - guide/samples
   - src/generated
+  - src/gax-internal/echo-server
+  - src/gax-internal/grpc-server
   - src/wkt/src/generated
   - src/firestore/src/generated
   - src/integration-tests
