@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [GatewayControl](super::stubs::GatewayControl) using a [gaxi::http::ReqwestClient].
+/// Implements [GatewayControl](super::stub::GatewayControl) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct GatewayControl {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl GatewayControl {
     }
 }
 
-impl super::stubs::GatewayControl for GatewayControl {
+impl super::stub::GatewayControl for GatewayControl {
     async fn generate_credentials(
         &self,
         req: crate::model::GenerateCredentialsRequest,

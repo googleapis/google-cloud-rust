@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Applications](super::stubs::Applications) using a [gaxi::http::ReqwestClient].
+/// Implements [Applications](super::stub::Applications) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Applications {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl Applications {
     }
 }
 
-impl super::stubs::Applications for Applications {
+impl super::stub::Applications for Applications {
     async fn get_application(
         &self,
         req: crate::model::GetApplicationRequest,
@@ -180,7 +180,7 @@ impl super::stubs::Applications for Applications {
     }
 }
 
-/// Implements [Services](super::stubs::Services) using a [gaxi::http::ReqwestClient].
+/// Implements [Services](super::stub::Services) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Services {
     inner: gaxi::http::ReqwestClient,
@@ -201,7 +201,7 @@ impl Services {
     }
 }
 
-impl super::stubs::Services for Services {
+impl super::stub::Services for Services {
     async fn list_services(
         &self,
         req: crate::model::ListServicesRequest,
@@ -347,7 +347,7 @@ impl super::stubs::Services for Services {
     }
 }
 
-/// Implements [Versions](super::stubs::Versions) using a [gaxi::http::ReqwestClient].
+/// Implements [Versions](super::stub::Versions) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Versions {
     inner: gaxi::http::ReqwestClient,
@@ -368,7 +368,7 @@ impl Versions {
     }
 }
 
-impl super::stubs::Versions for Versions {
+impl super::stub::Versions for Versions {
     async fn list_versions(
         &self,
         req: crate::model::ListVersionsRequest,
@@ -537,7 +537,7 @@ impl super::stubs::Versions for Versions {
     }
 }
 
-/// Implements [Instances](super::stubs::Instances) using a [gaxi::http::ReqwestClient].
+/// Implements [Instances](super::stub::Instances) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Instances {
     inner: gaxi::http::ReqwestClient,
@@ -558,7 +558,7 @@ impl Instances {
     }
 }
 
-impl super::stubs::Instances for Instances {
+impl super::stub::Instances for Instances {
     async fn list_instances(
         &self,
         req: crate::model::ListInstancesRequest,
@@ -694,7 +694,7 @@ impl super::stubs::Instances for Instances {
     }
 }
 
-/// Implements [Firewall](super::stubs::Firewall) using a [gaxi::http::ReqwestClient].
+/// Implements [Firewall](super::stub::Firewall) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Firewall {
     inner: gaxi::http::ReqwestClient,
@@ -715,7 +715,7 @@ impl Firewall {
     }
 }
 
-impl super::stubs::Firewall for Firewall {
+impl super::stub::Firewall for Firewall {
     async fn list_ingress_rules(
         &self,
         req: crate::model::ListIngressRulesRequest,
@@ -889,7 +889,7 @@ impl super::stubs::Firewall for Firewall {
     }
 }
 
-/// Implements [AuthorizedDomains](super::stubs::AuthorizedDomains) using a [gaxi::http::ReqwestClient].
+/// Implements [AuthorizedDomains](super::stub::AuthorizedDomains) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct AuthorizedDomains {
     inner: gaxi::http::ReqwestClient,
@@ -910,7 +910,7 @@ impl AuthorizedDomains {
     }
 }
 
-impl super::stubs::AuthorizedDomains for AuthorizedDomains {
+impl super::stub::AuthorizedDomains for AuthorizedDomains {
     async fn list_authorized_domains(
         &self,
         req: crate::model::ListAuthorizedDomainsRequest,
@@ -977,7 +977,7 @@ impl super::stubs::AuthorizedDomains for AuthorizedDomains {
     }
 }
 
-/// Implements [AuthorizedCertificates](super::stubs::AuthorizedCertificates) using a [gaxi::http::ReqwestClient].
+/// Implements [AuthorizedCertificates](super::stub::AuthorizedCertificates) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct AuthorizedCertificates {
     inner: gaxi::http::ReqwestClient,
@@ -998,7 +998,7 @@ impl AuthorizedCertificates {
     }
 }
 
-impl super::stubs::AuthorizedCertificates for AuthorizedCertificates {
+impl super::stub::AuthorizedCertificates for AuthorizedCertificates {
     async fn list_authorized_certificates(
         &self,
         req: crate::model::ListAuthorizedCertificatesRequest,
@@ -1157,7 +1157,7 @@ impl super::stubs::AuthorizedCertificates for AuthorizedCertificates {
     }
 }
 
-/// Implements [DomainMappings](super::stubs::DomainMappings) using a [gaxi::http::ReqwestClient].
+/// Implements [DomainMappings](super::stub::DomainMappings) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DomainMappings {
     inner: gaxi::http::ReqwestClient,
@@ -1178,7 +1178,7 @@ impl DomainMappings {
     }
 }
 
-impl super::stubs::DomainMappings for DomainMappings {
+impl super::stub::DomainMappings for DomainMappings {
     async fn list_domain_mappings(
         &self,
         req: crate::model::ListDomainMappingsRequest,

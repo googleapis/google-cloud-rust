@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [HubService](super::stubs::HubService) using a [gaxi::http::ReqwestClient].
+/// Implements [HubService](super::stub::HubService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct HubService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl HubService {
     }
 }
 
-impl super::stubs::HubService for HubService {
+impl super::stub::HubService for HubService {
     async fn list_hubs(
         &self,
         req: crate::model::ListHubsRequest,
@@ -745,7 +745,7 @@ impl super::stubs::HubService for HubService {
     }
 }
 
-/// Implements [PolicyBasedRoutingService](super::stubs::PolicyBasedRoutingService) using a [gaxi::http::ReqwestClient].
+/// Implements [PolicyBasedRoutingService](super::stub::PolicyBasedRoutingService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct PolicyBasedRoutingService {
     inner: gaxi::http::ReqwestClient,
@@ -766,7 +766,7 @@ impl PolicyBasedRoutingService {
     }
 }
 
-impl super::stubs::PolicyBasedRoutingService for PolicyBasedRoutingService {
+impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
     async fn list_policy_based_routes(
         &self,
         req: crate::model::ListPolicyBasedRoutesRequest,

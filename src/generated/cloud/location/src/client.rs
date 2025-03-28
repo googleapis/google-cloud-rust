@@ -42,7 +42,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Locations {
-    inner: Arc<dyn super::stubs::dynamic::Locations>,
+    inner: Arc<dyn super::stub::dynamic::Locations>,
 }
 
 impl Locations {
@@ -63,7 +63,7 @@ impl Locations {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Locations + 'static,
+        T: super::stub::Locations + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -72,7 +72,7 @@ impl Locations {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Locations>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Locations>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -81,13 +81,13 @@ impl Locations {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Locations> {
+    ) -> Result<impl super::stub::Locations> {
         super::transport::Locations::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Locations> {
+    ) -> Result<impl super::stub::Locations> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Locations::new)
@@ -97,15 +97,15 @@ impl Locations {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::locations::ListLocations {
-        super::builders::locations::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::locations::ListLocations {
+        super::builder::locations::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::locations::GetLocation {
-        super::builders::locations::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::locations::GetLocation {
+        super::builder::locations::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 }

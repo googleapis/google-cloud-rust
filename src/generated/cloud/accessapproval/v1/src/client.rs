@@ -72,7 +72,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AccessApproval {
-    inner: Arc<dyn super::stubs::dynamic::AccessApproval>,
+    inner: Arc<dyn super::stub::dynamic::AccessApproval>,
 }
 
 impl AccessApproval {
@@ -93,7 +93,7 @@ impl AccessApproval {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::AccessApproval + 'static,
+        T: super::stub::AccessApproval + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -102,7 +102,7 @@ impl AccessApproval {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::AccessApproval>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::AccessApproval>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -111,13 +111,13 @@ impl AccessApproval {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AccessApproval> {
+    ) -> Result<impl super::stub::AccessApproval> {
         super::transport::AccessApproval::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AccessApproval> {
+    ) -> Result<impl super::stub::AccessApproval> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AccessApproval::new)
@@ -129,8 +129,8 @@ impl AccessApproval {
     pub fn list_approval_requests(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::access_approval::ListApprovalRequests {
-        super::builders::access_approval::ListApprovalRequests::new(self.inner.clone())
+    ) -> super::builder::access_approval::ListApprovalRequests {
+        super::builder::access_approval::ListApprovalRequests::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -138,8 +138,8 @@ impl AccessApproval {
     pub fn get_approval_request(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_approval::GetApprovalRequest {
-        super::builders::access_approval::GetApprovalRequest::new(self.inner.clone())
+    ) -> super::builder::access_approval::GetApprovalRequest {
+        super::builder::access_approval::GetApprovalRequest::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -150,8 +150,8 @@ impl AccessApproval {
     pub fn approve_approval_request(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_approval::ApproveApprovalRequest {
-        super::builders::access_approval::ApproveApprovalRequest::new(self.inner.clone())
+    ) -> super::builder::access_approval::ApproveApprovalRequest {
+        super::builder::access_approval::ApproveApprovalRequest::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -168,8 +168,8 @@ impl AccessApproval {
     pub fn dismiss_approval_request(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_approval::DismissApprovalRequest {
-        super::builders::access_approval::DismissApprovalRequest::new(self.inner.clone())
+    ) -> super::builder::access_approval::DismissApprovalRequest {
+        super::builder::access_approval::DismissApprovalRequest::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -184,8 +184,8 @@ impl AccessApproval {
     pub fn invalidate_approval_request(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_approval::InvalidateApprovalRequest {
-        super::builders::access_approval::InvalidateApprovalRequest::new(self.inner.clone())
+    ) -> super::builder::access_approval::InvalidateApprovalRequest {
+        super::builder::access_approval::InvalidateApprovalRequest::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -193,8 +193,8 @@ impl AccessApproval {
     pub fn get_access_approval_settings(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_approval::GetAccessApprovalSettings {
-        super::builders::access_approval::GetAccessApprovalSettings::new(self.inner.clone())
+    ) -> super::builder::access_approval::GetAccessApprovalSettings {
+        super::builder::access_approval::GetAccessApprovalSettings::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -203,8 +203,8 @@ impl AccessApproval {
     pub fn update_access_approval_settings(
         &self,
         settings: impl Into<crate::model::AccessApprovalSettings>,
-    ) -> super::builders::access_approval::UpdateAccessApprovalSettings {
-        super::builders::access_approval::UpdateAccessApprovalSettings::new(self.inner.clone())
+    ) -> super::builder::access_approval::UpdateAccessApprovalSettings {
+        super::builder::access_approval::UpdateAccessApprovalSettings::new(self.inner.clone())
             .set_settings(settings.into())
     }
 
@@ -217,8 +217,8 @@ impl AccessApproval {
     pub fn delete_access_approval_settings(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_approval::DeleteAccessApprovalSettings {
-        super::builders::access_approval::DeleteAccessApprovalSettings::new(self.inner.clone())
+    ) -> super::builder::access_approval::DeleteAccessApprovalSettings {
+        super::builder::access_approval::DeleteAccessApprovalSettings::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -227,8 +227,8 @@ impl AccessApproval {
     pub fn get_access_approval_service_account(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_approval::GetAccessApprovalServiceAccount {
-        super::builders::access_approval::GetAccessApprovalServiceAccount::new(self.inner.clone())
+    ) -> super::builder::access_approval::GetAccessApprovalServiceAccount {
+        super::builder::access_approval::GetAccessApprovalServiceAccount::new(self.inner.clone())
             .set_name(name.into())
     }
 }

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ContactCenterInsights](super::stubs::ContactCenterInsights) using a [gaxi::http::ReqwestClient].
+/// Implements [ContactCenterInsights](super::stub::ContactCenterInsights) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ContactCenterInsights {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl ContactCenterInsights {
     }
 }
 
-impl super::stubs::ContactCenterInsights for ContactCenterInsights {
+impl super::stub::ContactCenterInsights for ContactCenterInsights {
     async fn create_conversation(
         &self,
         req: crate::model::CreateConversationRequest,

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [VmwareEngine](super::stubs::VmwareEngine) using a [gaxi::http::ReqwestClient].
+/// Implements [VmwareEngine](super::stub::VmwareEngine) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct VmwareEngine {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl VmwareEngine {
     }
 }
 
-impl super::stubs::VmwareEngine for VmwareEngine {
+impl super::stub::VmwareEngine for VmwareEngine {
     async fn list_private_clouds(
         &self,
         req: crate::model::ListPrivateCloudsRequest,

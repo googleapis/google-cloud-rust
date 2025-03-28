@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [MigrationCenter](super::stubs::MigrationCenter) using a [gaxi::http::ReqwestClient].
+/// Implements [MigrationCenter](super::stub::MigrationCenter) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct MigrationCenter {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl MigrationCenter {
     }
 }
 
-impl super::stubs::MigrationCenter for MigrationCenter {
+impl super::stub::MigrationCenter for MigrationCenter {
     async fn list_assets(
         &self,
         req: crate::model::ListAssetsRequest,

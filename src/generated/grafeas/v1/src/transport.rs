@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Grafeas](super::stubs::Grafeas) using a [gaxi::http::ReqwestClient].
+/// Implements [Grafeas](super::stub::Grafeas) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Grafeas {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl Grafeas {
     }
 }
 
-impl super::stubs::Grafeas for Grafeas {
+impl super::stub::Grafeas for Grafeas {
     async fn get_occurrence(
         &self,
         req: crate::model::GetOccurrenceRequest,

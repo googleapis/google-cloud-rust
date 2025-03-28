@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Operations](super::stubs::Operations) using a [gaxi::http::ReqwestClient].
+/// Implements [Operations](super::stub::Operations) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Operations {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl Operations {
     }
 }
 
-impl super::stubs::Operations for Operations {
+impl super::stub::Operations for Operations {
     async fn list_operations(
         &self,
         req: crate::model::ListOperationsRequest,

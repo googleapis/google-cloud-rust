@@ -19,10 +19,10 @@
 pub mod model;
 
 #[allow(rustdoc::redundant_explicit_links)]
-pub mod stubs;
+pub mod stub;
 
 /// Request builders.
-pub mod builders;
+pub mod builder;
 
 /// The client(s) for this client library.
 pub mod client;

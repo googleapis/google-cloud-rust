@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ArtifactRegistry](super::stubs::ArtifactRegistry) using a [gaxi::http::ReqwestClient].
+/// Implements [ArtifactRegistry](super::stub::ArtifactRegistry) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ArtifactRegistry {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl ArtifactRegistry {
     }
 }
 
-impl super::stubs::ArtifactRegistry for ArtifactRegistry {
+impl super::stub::ArtifactRegistry for ArtifactRegistry {
     async fn list_docker_images(
         &self,
         req: crate::model::ListDockerImagesRequest,

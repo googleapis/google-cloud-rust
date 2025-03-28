@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CloudControlsPartnerCore](super::stubs::CloudControlsPartnerCore) using a [gaxi::http::ReqwestClient].
+/// Implements [CloudControlsPartnerCore](super::stub::CloudControlsPartnerCore) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudControlsPartnerCore {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl CloudControlsPartnerCore {
     }
 }
 
-impl super::stubs::CloudControlsPartnerCore for CloudControlsPartnerCore {
+impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
     async fn get_workload(
         &self,
         req: crate::model::GetWorkloadRequest,
@@ -214,7 +214,7 @@ impl super::stubs::CloudControlsPartnerCore for CloudControlsPartnerCore {
     }
 }
 
-/// Implements [CloudControlsPartnerMonitoring](super::stubs::CloudControlsPartnerMonitoring) using a [gaxi::http::ReqwestClient].
+/// Implements [CloudControlsPartnerMonitoring](super::stub::CloudControlsPartnerMonitoring) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudControlsPartnerMonitoring {
     inner: gaxi::http::ReqwestClient,
@@ -235,7 +235,7 @@ impl CloudControlsPartnerMonitoring {
     }
 }
 
-impl super::stubs::CloudControlsPartnerMonitoring for CloudControlsPartnerMonitoring {
+impl super::stub::CloudControlsPartnerMonitoring for CloudControlsPartnerMonitoring {
     async fn list_violations(
         &self,
         req: crate::model::ListViolationsRequest,

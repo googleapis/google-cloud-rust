@@ -54,7 +54,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct FleetRouting {
-    inner: Arc<dyn super::stubs::dynamic::FleetRouting>,
+    inner: Arc<dyn super::stub::dynamic::FleetRouting>,
 }
 
 impl FleetRouting {
@@ -75,7 +75,7 @@ impl FleetRouting {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::FleetRouting + 'static,
+        T: super::stub::FleetRouting + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -84,7 +84,7 @@ impl FleetRouting {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::FleetRouting>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::FleetRouting>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -93,13 +93,13 @@ impl FleetRouting {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::FleetRouting> {
+    ) -> Result<impl super::stub::FleetRouting> {
         super::transport::FleetRouting::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::FleetRouting> {
+    ) -> Result<impl super::stub::FleetRouting> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::FleetRouting::new)
@@ -122,8 +122,8 @@ impl FleetRouting {
     pub fn optimize_tours(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::fleet_routing::OptimizeTours {
-        super::builders::fleet_routing::OptimizeTours::new(self.inner.clone())
+    ) -> super::builder::fleet_routing::OptimizeTours {
+        super::builder::fleet_routing::OptimizeTours::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -150,8 +150,8 @@ impl FleetRouting {
     pub fn batch_optimize_tours(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::fleet_routing::BatchOptimizeTours {
-        super::builders::fleet_routing::BatchOptimizeTours::new(self.inner.clone())
+    ) -> super::builder::fleet_routing::BatchOptimizeTours {
+        super::builder::fleet_routing::BatchOptimizeTours::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -161,7 +161,7 @@ impl FleetRouting {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::fleet_routing::GetOperation {
-        super::builders::fleet_routing::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::fleet_routing::GetOperation {
+        super::builder::fleet_routing::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

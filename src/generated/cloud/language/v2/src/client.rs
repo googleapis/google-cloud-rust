@@ -39,7 +39,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct LanguageService {
-    inner: Arc<dyn super::stubs::dynamic::LanguageService>,
+    inner: Arc<dyn super::stub::dynamic::LanguageService>,
 }
 
 impl LanguageService {
@@ -60,7 +60,7 @@ impl LanguageService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::LanguageService + 'static,
+        T: super::stub::LanguageService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -69,7 +69,7 @@ impl LanguageService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::LanguageService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::LanguageService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,42 +78,42 @@ impl LanguageService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::LanguageService> {
+    ) -> Result<impl super::stub::LanguageService> {
         super::transport::LanguageService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::LanguageService> {
+    ) -> Result<impl super::stub::LanguageService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::LanguageService::new)
     }
 
     /// Analyzes the sentiment of the provided text.
-    pub fn analyze_sentiment(&self) -> super::builders::language_service::AnalyzeSentiment {
-        super::builders::language_service::AnalyzeSentiment::new(self.inner.clone())
+    pub fn analyze_sentiment(&self) -> super::builder::language_service::AnalyzeSentiment {
+        super::builder::language_service::AnalyzeSentiment::new(self.inner.clone())
     }
 
     /// Finds named entities (currently proper names and common nouns) in the text
     /// along with entity types, probability, mentions for each entity, and
     /// other properties.
-    pub fn analyze_entities(&self) -> super::builders::language_service::AnalyzeEntities {
-        super::builders::language_service::AnalyzeEntities::new(self.inner.clone())
+    pub fn analyze_entities(&self) -> super::builder::language_service::AnalyzeEntities {
+        super::builder::language_service::AnalyzeEntities::new(self.inner.clone())
     }
 
     /// Classifies a document into categories.
-    pub fn classify_text(&self) -> super::builders::language_service::ClassifyText {
-        super::builders::language_service::ClassifyText::new(self.inner.clone())
+    pub fn classify_text(&self) -> super::builder::language_service::ClassifyText {
+        super::builder::language_service::ClassifyText::new(self.inner.clone())
     }
 
     /// Moderates a document for harmful and sensitive categories.
-    pub fn moderate_text(&self) -> super::builders::language_service::ModerateText {
-        super::builders::language_service::ModerateText::new(self.inner.clone())
+    pub fn moderate_text(&self) -> super::builder::language_service::ModerateText {
+        super::builder::language_service::ModerateText::new(self.inner.clone())
     }
 
     /// A convenience method that provides all features in one call.
-    pub fn annotate_text(&self) -> super::builders::language_service::AnnotateText {
-        super::builders::language_service::AnnotateText::new(self.inner.clone())
+    pub fn annotate_text(&self) -> super::builder::language_service::AnnotateText {
+        super::builder::language_service::AnnotateText::new(self.inner.clone())
     }
 }

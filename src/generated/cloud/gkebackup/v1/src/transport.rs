@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [BackupForGKE](super::stubs::BackupForGKE) using a [gaxi::http::ReqwestClient].
+/// Implements [BackupForGKE](super::stub::BackupForGKE) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct BackupForGKE {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl BackupForGKE {
     }
 }
 
-impl super::stubs::BackupForGKE for BackupForGKE {
+impl super::stub::BackupForGKE for BackupForGKE {
     async fn create_backup_plan(
         &self,
         req: crate::model::CreateBackupPlanRequest,

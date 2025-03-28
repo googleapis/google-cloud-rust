@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [EssentialContactsService](super::stubs::EssentialContactsService) using a [gaxi::http::ReqwestClient].
+/// Implements [EssentialContactsService](super::stub::EssentialContactsService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct EssentialContactsService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl EssentialContactsService {
     }
 }
 
-impl super::stubs::EssentialContactsService for EssentialContactsService {
+impl super::stub::EssentialContactsService for EssentialContactsService {
     async fn create_contact(
         &self,
         req: crate::model::CreateContactRequest,

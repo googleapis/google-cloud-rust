@@ -41,7 +41,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct OsLoginService {
-    inner: Arc<dyn super::stubs::dynamic::OsLoginService>,
+    inner: Arc<dyn super::stub::dynamic::OsLoginService>,
 }
 
 impl OsLoginService {
@@ -62,7 +62,7 @@ impl OsLoginService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::OsLoginService + 'static,
+        T: super::stub::OsLoginService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -71,7 +71,7 @@ impl OsLoginService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::OsLoginService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::OsLoginService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -80,13 +80,13 @@ impl OsLoginService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::OsLoginService> {
+    ) -> Result<impl super::stub::OsLoginService> {
         super::transport::OsLoginService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::OsLoginService> {
+    ) -> Result<impl super::stub::OsLoginService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::OsLoginService::new)
@@ -96,8 +96,8 @@ impl OsLoginService {
     pub fn create_ssh_public_key(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::os_login_service::CreateSshPublicKey {
-        super::builders::os_login_service::CreateSshPublicKey::new(self.inner.clone())
+    ) -> super::builder::os_login_service::CreateSshPublicKey {
+        super::builder::os_login_service::CreateSshPublicKey::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -105,8 +105,8 @@ impl OsLoginService {
     pub fn delete_posix_account(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::os_login_service::DeletePosixAccount {
-        super::builders::os_login_service::DeletePosixAccount::new(self.inner.clone())
+    ) -> super::builder::os_login_service::DeletePosixAccount {
+        super::builder::os_login_service::DeletePosixAccount::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -114,8 +114,8 @@ impl OsLoginService {
     pub fn delete_ssh_public_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::os_login_service::DeleteSshPublicKey {
-        super::builders::os_login_service::DeleteSshPublicKey::new(self.inner.clone())
+    ) -> super::builder::os_login_service::DeleteSshPublicKey {
+        super::builder::os_login_service::DeleteSshPublicKey::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -124,8 +124,8 @@ impl OsLoginService {
     pub fn get_login_profile(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::os_login_service::GetLoginProfile {
-        super::builders::os_login_service::GetLoginProfile::new(self.inner.clone())
+    ) -> super::builder::os_login_service::GetLoginProfile {
+        super::builder::os_login_service::GetLoginProfile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -133,8 +133,8 @@ impl OsLoginService {
     pub fn get_ssh_public_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::os_login_service::GetSshPublicKey {
-        super::builders::os_login_service::GetSshPublicKey::new(self.inner.clone())
+    ) -> super::builder::os_login_service::GetSshPublicKey {
+        super::builder::os_login_service::GetSshPublicKey::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -144,8 +144,8 @@ impl OsLoginService {
     pub fn import_ssh_public_key(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::os_login_service::ImportSshPublicKey {
-        super::builders::os_login_service::ImportSshPublicKey::new(self.inner.clone())
+    ) -> super::builder::os_login_service::ImportSshPublicKey {
+        super::builder::os_login_service::ImportSshPublicKey::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -154,8 +154,8 @@ impl OsLoginService {
     pub fn update_ssh_public_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::os_login_service::UpdateSshPublicKey {
-        super::builders::os_login_service::UpdateSshPublicKey::new(self.inner.clone())
+    ) -> super::builder::os_login_service::UpdateSshPublicKey {
+        super::builder::os_login_service::UpdateSshPublicKey::new(self.inner.clone())
             .set_name(name.into())
     }
 }

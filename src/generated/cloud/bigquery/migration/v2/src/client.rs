@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct MigrationService {
-    inner: Arc<dyn super::stubs::dynamic::MigrationService>,
+    inner: Arc<dyn super::stub::dynamic::MigrationService>,
 }
 
 impl MigrationService {
@@ -59,7 +59,7 @@ impl MigrationService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::MigrationService + 'static,
+        T: super::stub::MigrationService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl MigrationService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::MigrationService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::MigrationService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +77,13 @@ impl MigrationService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::MigrationService> {
+    ) -> Result<impl super::stub::MigrationService> {
         super::transport::MigrationService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::MigrationService> {
+    ) -> Result<impl super::stub::MigrationService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::MigrationService::new)
@@ -93,8 +93,8 @@ impl MigrationService {
     pub fn create_migration_workflow(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::CreateMigrationWorkflow {
-        super::builders::migration_service::CreateMigrationWorkflow::new(self.inner.clone())
+    ) -> super::builder::migration_service::CreateMigrationWorkflow {
+        super::builder::migration_service::CreateMigrationWorkflow::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,8 +102,8 @@ impl MigrationService {
     pub fn get_migration_workflow(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::GetMigrationWorkflow {
-        super::builders::migration_service::GetMigrationWorkflow::new(self.inner.clone())
+    ) -> super::builder::migration_service::GetMigrationWorkflow {
+        super::builder::migration_service::GetMigrationWorkflow::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -111,8 +111,8 @@ impl MigrationService {
     pub fn list_migration_workflows(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::ListMigrationWorkflows {
-        super::builders::migration_service::ListMigrationWorkflows::new(self.inner.clone())
+    ) -> super::builder::migration_service::ListMigrationWorkflows {
+        super::builder::migration_service::ListMigrationWorkflows::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -120,8 +120,8 @@ impl MigrationService {
     pub fn delete_migration_workflow(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::DeleteMigrationWorkflow {
-        super::builders::migration_service::DeleteMigrationWorkflow::new(self.inner.clone())
+    ) -> super::builder::migration_service::DeleteMigrationWorkflow {
+        super::builder::migration_service::DeleteMigrationWorkflow::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -132,8 +132,8 @@ impl MigrationService {
     pub fn start_migration_workflow(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::StartMigrationWorkflow {
-        super::builders::migration_service::StartMigrationWorkflow::new(self.inner.clone())
+    ) -> super::builder::migration_service::StartMigrationWorkflow {
+        super::builder::migration_service::StartMigrationWorkflow::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -141,8 +141,8 @@ impl MigrationService {
     pub fn get_migration_subtask(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::GetMigrationSubtask {
-        super::builders::migration_service::GetMigrationSubtask::new(self.inner.clone())
+    ) -> super::builder::migration_service::GetMigrationSubtask {
+        super::builder::migration_service::GetMigrationSubtask::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -150,8 +150,8 @@ impl MigrationService {
     pub fn list_migration_subtasks(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::ListMigrationSubtasks {
-        super::builders::migration_service::ListMigrationSubtasks::new(self.inner.clone())
+    ) -> super::builder::migration_service::ListMigrationSubtasks {
+        super::builder::migration_service::ListMigrationSubtasks::new(self.inner.clone())
             .set_parent(parent.into())
     }
 }

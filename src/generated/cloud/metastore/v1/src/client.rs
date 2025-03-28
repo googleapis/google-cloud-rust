@@ -58,7 +58,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct DataprocMetastore {
-    inner: Arc<dyn super::stubs::dynamic::DataprocMetastore>,
+    inner: Arc<dyn super::stub::dynamic::DataprocMetastore>,
 }
 
 impl DataprocMetastore {
@@ -79,7 +79,7 @@ impl DataprocMetastore {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::DataprocMetastore + 'static,
+        T: super::stub::DataprocMetastore + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -88,7 +88,7 @@ impl DataprocMetastore {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::DataprocMetastore>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::DataprocMetastore>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -97,13 +97,13 @@ impl DataprocMetastore {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DataprocMetastore> {
+    ) -> Result<impl super::stub::DataprocMetastore> {
         super::transport::DataprocMetastore::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DataprocMetastore> {
+    ) -> Result<impl super::stub::DataprocMetastore> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DataprocMetastore::new)
@@ -113,8 +113,8 @@ impl DataprocMetastore {
     pub fn list_services(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::ListServices {
-        super::builders::dataproc_metastore::ListServices::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::ListServices {
+        super::builder::dataproc_metastore::ListServices::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -122,8 +122,8 @@ impl DataprocMetastore {
     pub fn get_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::GetService {
-        super::builders::dataproc_metastore::GetService::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::GetService {
+        super::builder::dataproc_metastore::GetService::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -141,8 +141,8 @@ impl DataprocMetastore {
     pub fn create_service(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::CreateService {
-        super::builders::dataproc_metastore::CreateService::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::CreateService {
+        super::builder::dataproc_metastore::CreateService::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -160,8 +160,8 @@ impl DataprocMetastore {
     pub fn update_service(
         &self,
         service: impl Into<crate::model::Service>,
-    ) -> super::builders::dataproc_metastore::UpdateService {
-        super::builders::dataproc_metastore::UpdateService::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::UpdateService {
+        super::builder::dataproc_metastore::UpdateService::new(self.inner.clone())
             .set_service(service.into())
     }
 
@@ -179,8 +179,8 @@ impl DataprocMetastore {
     pub fn delete_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::DeleteService {
-        super::builders::dataproc_metastore::DeleteService::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::DeleteService {
+        super::builder::dataproc_metastore::DeleteService::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -188,8 +188,8 @@ impl DataprocMetastore {
     pub fn list_metadata_imports(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::ListMetadataImports {
-        super::builders::dataproc_metastore::ListMetadataImports::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::ListMetadataImports {
+        super::builder::dataproc_metastore::ListMetadataImports::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -197,8 +197,8 @@ impl DataprocMetastore {
     pub fn get_metadata_import(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::GetMetadataImport {
-        super::builders::dataproc_metastore::GetMetadataImport::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::GetMetadataImport {
+        super::builder::dataproc_metastore::GetMetadataImport::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -216,8 +216,8 @@ impl DataprocMetastore {
     pub fn create_metadata_import(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::CreateMetadataImport {
-        super::builders::dataproc_metastore::CreateMetadataImport::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::CreateMetadataImport {
+        super::builder::dataproc_metastore::CreateMetadataImport::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -236,8 +236,8 @@ impl DataprocMetastore {
     pub fn update_metadata_import(
         &self,
         metadata_import: impl Into<crate::model::MetadataImport>,
-    ) -> super::builders::dataproc_metastore::UpdateMetadataImport {
-        super::builders::dataproc_metastore::UpdateMetadataImport::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::UpdateMetadataImport {
+        super::builder::dataproc_metastore::UpdateMetadataImport::new(self.inner.clone())
             .set_metadata_import(metadata_import.into())
     }
 
@@ -255,8 +255,8 @@ impl DataprocMetastore {
     pub fn export_metadata(
         &self,
         service: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::ExportMetadata {
-        super::builders::dataproc_metastore::ExportMetadata::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::ExportMetadata {
+        super::builder::dataproc_metastore::ExportMetadata::new(self.inner.clone())
             .set_service(service.into())
     }
 
@@ -274,8 +274,8 @@ impl DataprocMetastore {
     pub fn restore_service(
         &self,
         service: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::RestoreService {
-        super::builders::dataproc_metastore::RestoreService::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::RestoreService {
+        super::builder::dataproc_metastore::RestoreService::new(self.inner.clone())
             .set_service(service.into())
     }
 
@@ -283,8 +283,8 @@ impl DataprocMetastore {
     pub fn list_backups(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::ListBackups {
-        super::builders::dataproc_metastore::ListBackups::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::ListBackups {
+        super::builder::dataproc_metastore::ListBackups::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -292,9 +292,8 @@ impl DataprocMetastore {
     pub fn get_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::GetBackup {
-        super::builders::dataproc_metastore::GetBackup::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::dataproc_metastore::GetBackup {
+        super::builder::dataproc_metastore::GetBackup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new backup in a given project and location.
@@ -311,8 +310,8 @@ impl DataprocMetastore {
     pub fn create_backup(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::CreateBackup {
-        super::builders::dataproc_metastore::CreateBackup::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::CreateBackup {
+        super::builder::dataproc_metastore::CreateBackup::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -330,8 +329,8 @@ impl DataprocMetastore {
     pub fn delete_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::DeleteBackup {
-        super::builders::dataproc_metastore::DeleteBackup::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::DeleteBackup {
+        super::builder::dataproc_metastore::DeleteBackup::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -349,8 +348,8 @@ impl DataprocMetastore {
     pub fn query_metadata(
         &self,
         service: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::QueryMetadata {
-        super::builders::dataproc_metastore::QueryMetadata::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::QueryMetadata {
+        super::builder::dataproc_metastore::QueryMetadata::new(self.inner.clone())
             .set_service(service.into())
     }
 
@@ -368,8 +367,8 @@ impl DataprocMetastore {
     pub fn move_table_to_database(
         &self,
         service: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::MoveTableToDatabase {
-        super::builders::dataproc_metastore::MoveTableToDatabase::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::MoveTableToDatabase {
+        super::builder::dataproc_metastore::MoveTableToDatabase::new(self.inner.clone())
             .set_service(service.into())
     }
 
@@ -390,8 +389,8 @@ impl DataprocMetastore {
     pub fn alter_metadata_resource_location(
         &self,
         service: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::AlterMetadataResourceLocation {
-        super::builders::dataproc_metastore::AlterMetadataResourceLocation::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::AlterMetadataResourceLocation {
+        super::builder::dataproc_metastore::AlterMetadataResourceLocation::new(self.inner.clone())
             .set_service(service.into())
     }
 
@@ -399,8 +398,8 @@ impl DataprocMetastore {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::ListLocations {
-        super::builders::dataproc_metastore::ListLocations::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::ListLocations {
+        super::builder::dataproc_metastore::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -408,8 +407,8 @@ impl DataprocMetastore {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::GetLocation {
-        super::builders::dataproc_metastore::GetLocation::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::GetLocation {
+        super::builder::dataproc_metastore::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -421,8 +420,8 @@ impl DataprocMetastore {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::SetIamPolicy {
-        super::builders::dataproc_metastore::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::SetIamPolicy {
+        super::builder::dataproc_metastore::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -431,8 +430,8 @@ impl DataprocMetastore {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::GetIamPolicy {
-        super::builders::dataproc_metastore::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::GetIamPolicy {
+        super::builder::dataproc_metastore::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -446,8 +445,8 @@ impl DataprocMetastore {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::TestIamPermissions {
-        super::builders::dataproc_metastore::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::TestIamPermissions {
+        super::builder::dataproc_metastore::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -457,8 +456,8 @@ impl DataprocMetastore {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::ListOperations {
-        super::builders::dataproc_metastore::ListOperations::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::ListOperations {
+        super::builder::dataproc_metastore::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -468,8 +467,8 @@ impl DataprocMetastore {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::GetOperation {
-        super::builders::dataproc_metastore::GetOperation::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::GetOperation {
+        super::builder::dataproc_metastore::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -479,8 +478,8 @@ impl DataprocMetastore {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::DeleteOperation {
-        super::builders::dataproc_metastore::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::DeleteOperation {
+        super::builder::dataproc_metastore::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -490,8 +489,8 @@ impl DataprocMetastore {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore::CancelOperation {
-        super::builders::dataproc_metastore::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore::CancelOperation {
+        super::builder::dataproc_metastore::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -528,7 +527,7 @@ impl DataprocMetastore {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct DataprocMetastoreFederation {
-    inner: Arc<dyn super::stubs::dynamic::DataprocMetastoreFederation>,
+    inner: Arc<dyn super::stub::dynamic::DataprocMetastoreFederation>,
 }
 
 impl DataprocMetastoreFederation {
@@ -549,7 +548,7 @@ impl DataprocMetastoreFederation {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::DataprocMetastoreFederation + 'static,
+        T: super::stub::DataprocMetastoreFederation + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -558,7 +557,7 @@ impl DataprocMetastoreFederation {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::DataprocMetastoreFederation>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::DataprocMetastoreFederation>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -567,13 +566,13 @@ impl DataprocMetastoreFederation {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DataprocMetastoreFederation> {
+    ) -> Result<impl super::stub::DataprocMetastoreFederation> {
         super::transport::DataprocMetastoreFederation::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DataprocMetastoreFederation> {
+    ) -> Result<impl super::stub::DataprocMetastoreFederation> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DataprocMetastoreFederation::new)
@@ -583,8 +582,8 @@ impl DataprocMetastoreFederation {
     pub fn list_federations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore_federation::ListFederations {
-        super::builders::dataproc_metastore_federation::ListFederations::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore_federation::ListFederations {
+        super::builder::dataproc_metastore_federation::ListFederations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -592,8 +591,8 @@ impl DataprocMetastoreFederation {
     pub fn get_federation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore_federation::GetFederation {
-        super::builders::dataproc_metastore_federation::GetFederation::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore_federation::GetFederation {
+        super::builder::dataproc_metastore_federation::GetFederation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -611,8 +610,8 @@ impl DataprocMetastoreFederation {
     pub fn create_federation(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore_federation::CreateFederation {
-        super::builders::dataproc_metastore_federation::CreateFederation::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore_federation::CreateFederation {
+        super::builder::dataproc_metastore_federation::CreateFederation::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -630,8 +629,8 @@ impl DataprocMetastoreFederation {
     pub fn update_federation(
         &self,
         federation: impl Into<crate::model::Federation>,
-    ) -> super::builders::dataproc_metastore_federation::UpdateFederation {
-        super::builders::dataproc_metastore_federation::UpdateFederation::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore_federation::UpdateFederation {
+        super::builder::dataproc_metastore_federation::UpdateFederation::new(self.inner.clone())
             .set_federation(federation.into())
     }
 
@@ -649,8 +648,8 @@ impl DataprocMetastoreFederation {
     pub fn delete_federation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore_federation::DeleteFederation {
-        super::builders::dataproc_metastore_federation::DeleteFederation::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore_federation::DeleteFederation {
+        super::builder::dataproc_metastore_federation::DeleteFederation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -658,8 +657,8 @@ impl DataprocMetastoreFederation {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore_federation::ListLocations {
-        super::builders::dataproc_metastore_federation::ListLocations::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore_federation::ListLocations {
+        super::builder::dataproc_metastore_federation::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -667,8 +666,8 @@ impl DataprocMetastoreFederation {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore_federation::GetLocation {
-        super::builders::dataproc_metastore_federation::GetLocation::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore_federation::GetLocation {
+        super::builder::dataproc_metastore_federation::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -680,8 +679,8 @@ impl DataprocMetastoreFederation {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore_federation::SetIamPolicy {
-        super::builders::dataproc_metastore_federation::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore_federation::SetIamPolicy {
+        super::builder::dataproc_metastore_federation::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -690,8 +689,8 @@ impl DataprocMetastoreFederation {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore_federation::GetIamPolicy {
-        super::builders::dataproc_metastore_federation::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore_federation::GetIamPolicy {
+        super::builder::dataproc_metastore_federation::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -705,8 +704,8 @@ impl DataprocMetastoreFederation {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore_federation::TestIamPermissions {
-        super::builders::dataproc_metastore_federation::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore_federation::TestIamPermissions {
+        super::builder::dataproc_metastore_federation::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -716,8 +715,8 @@ impl DataprocMetastoreFederation {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore_federation::ListOperations {
-        super::builders::dataproc_metastore_federation::ListOperations::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore_federation::ListOperations {
+        super::builder::dataproc_metastore_federation::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -727,8 +726,8 @@ impl DataprocMetastoreFederation {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore_federation::GetOperation {
-        super::builders::dataproc_metastore_federation::GetOperation::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore_federation::GetOperation {
+        super::builder::dataproc_metastore_federation::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -738,8 +737,8 @@ impl DataprocMetastoreFederation {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore_federation::DeleteOperation {
-        super::builders::dataproc_metastore_federation::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore_federation::DeleteOperation {
+        super::builder::dataproc_metastore_federation::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -749,8 +748,8 @@ impl DataprocMetastoreFederation {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataproc_metastore_federation::CancelOperation {
-        super::builders::dataproc_metastore_federation::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::dataproc_metastore_federation::CancelOperation {
+        super::builder::dataproc_metastore_federation::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

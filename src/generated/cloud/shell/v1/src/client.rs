@@ -44,7 +44,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CloudShellService {
-    inner: Arc<dyn super::stubs::dynamic::CloudShellService>,
+    inner: Arc<dyn super::stub::dynamic::CloudShellService>,
 }
 
 impl CloudShellService {
@@ -65,7 +65,7 @@ impl CloudShellService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::CloudShellService + 'static,
+        T: super::stub::CloudShellService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -74,7 +74,7 @@ impl CloudShellService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::CloudShellService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::CloudShellService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -83,13 +83,13 @@ impl CloudShellService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CloudShellService> {
+    ) -> Result<impl super::stub::CloudShellService> {
         super::transport::CloudShellService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CloudShellService> {
+    ) -> Result<impl super::stub::CloudShellService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CloudShellService::new)
@@ -99,8 +99,8 @@ impl CloudShellService {
     pub fn get_environment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_shell_service::GetEnvironment {
-        super::builders::cloud_shell_service::GetEnvironment::new(self.inner.clone())
+    ) -> super::builder::cloud_shell_service::GetEnvironment {
+        super::builder::cloud_shell_service::GetEnvironment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -123,8 +123,8 @@ impl CloudShellService {
     pub fn start_environment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_shell_service::StartEnvironment {
-        super::builders::cloud_shell_service::StartEnvironment::new(self.inner.clone())
+    ) -> super::builder::cloud_shell_service::StartEnvironment {
+        super::builder::cloud_shell_service::StartEnvironment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -145,8 +145,8 @@ impl CloudShellService {
     pub fn authorize_environment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_shell_service::AuthorizeEnvironment {
-        super::builders::cloud_shell_service::AuthorizeEnvironment::new(self.inner.clone())
+    ) -> super::builder::cloud_shell_service::AuthorizeEnvironment {
+        super::builder::cloud_shell_service::AuthorizeEnvironment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -166,8 +166,8 @@ impl CloudShellService {
     pub fn add_public_key(
         &self,
         environment: impl Into<std::string::String>,
-    ) -> super::builders::cloud_shell_service::AddPublicKey {
-        super::builders::cloud_shell_service::AddPublicKey::new(self.inner.clone())
+    ) -> super::builder::cloud_shell_service::AddPublicKey {
+        super::builder::cloud_shell_service::AddPublicKey::new(self.inner.clone())
             .set_environment(environment.into())
     }
 
@@ -188,8 +188,8 @@ impl CloudShellService {
     pub fn remove_public_key(
         &self,
         environment: impl Into<std::string::String>,
-    ) -> super::builders::cloud_shell_service::RemovePublicKey {
-        super::builders::cloud_shell_service::RemovePublicKey::new(self.inner.clone())
+    ) -> super::builder::cloud_shell_service::RemovePublicKey {
+        super::builder::cloud_shell_service::RemovePublicKey::new(self.inner.clone())
             .set_environment(environment.into())
     }
 
@@ -199,8 +199,8 @@ impl CloudShellService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_shell_service::GetOperation {
-        super::builders::cloud_shell_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::cloud_shell_service::GetOperation {
+        super::builder::cloud_shell_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

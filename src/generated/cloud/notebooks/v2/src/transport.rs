@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [NotebookService](super::stubs::NotebookService) using a [gaxi::http::ReqwestClient].
+/// Implements [NotebookService](super::stub::NotebookService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct NotebookService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl NotebookService {
     }
 }
 
-impl super::stubs::NotebookService for NotebookService {
+impl super::stub::NotebookService for NotebookService {
     async fn list_instances(
         &self,
         req: crate::model::ListInstancesRequest,

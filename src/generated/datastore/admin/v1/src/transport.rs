@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DatastoreAdmin](super::stubs::DatastoreAdmin) using a [gaxi::http::ReqwestClient].
+/// Implements [DatastoreAdmin](super::stub::DatastoreAdmin) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DatastoreAdmin {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl DatastoreAdmin {
     }
 }
 
-impl super::stubs::DatastoreAdmin for DatastoreAdmin {
+impl super::stub::DatastoreAdmin for DatastoreAdmin {
     async fn export_entities(
         &self,
         req: crate::model::ExportEntitiesRequest,

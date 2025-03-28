@@ -39,7 +39,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Eventarc {
-    inner: Arc<dyn super::stubs::dynamic::Eventarc>,
+    inner: Arc<dyn super::stub::dynamic::Eventarc>,
 }
 
 impl Eventarc {
@@ -60,7 +60,7 @@ impl Eventarc {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Eventarc + 'static,
+        T: super::stub::Eventarc + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -69,7 +69,7 @@ impl Eventarc {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Eventarc>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Eventarc>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,13 +78,13 @@ impl Eventarc {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Eventarc> {
+    ) -> Result<impl super::stub::Eventarc> {
         super::transport::Eventarc::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Eventarc> {
+    ) -> Result<impl super::stub::Eventarc> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Eventarc::new)
@@ -94,16 +94,16 @@ impl Eventarc {
     pub fn get_trigger(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::GetTrigger {
-        super::builders::eventarc::GetTrigger::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::eventarc::GetTrigger {
+        super::builder::eventarc::GetTrigger::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List triggers.
     pub fn list_triggers(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::ListTriggers {
-        super::builders::eventarc::ListTriggers::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::eventarc::ListTriggers {
+        super::builder::eventarc::ListTriggers::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Create a new trigger in a particular project and location.
@@ -120,8 +120,8 @@ impl Eventarc {
     pub fn create_trigger(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::CreateTrigger {
-        super::builders::eventarc::CreateTrigger::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::eventarc::CreateTrigger {
+        super::builder::eventarc::CreateTrigger::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Update a single trigger.
@@ -138,9 +138,8 @@ impl Eventarc {
     pub fn update_trigger(
         &self,
         trigger: impl Into<crate::model::Trigger>,
-    ) -> super::builders::eventarc::UpdateTrigger {
-        super::builders::eventarc::UpdateTrigger::new(self.inner.clone())
-            .set_trigger(trigger.into())
+    ) -> super::builder::eventarc::UpdateTrigger {
+        super::builder::eventarc::UpdateTrigger::new(self.inner.clone()).set_trigger(trigger.into())
     }
 
     /// Delete a single trigger.
@@ -157,24 +156,24 @@ impl Eventarc {
     pub fn delete_trigger(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::DeleteTrigger {
-        super::builders::eventarc::DeleteTrigger::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::eventarc::DeleteTrigger {
+        super::builder::eventarc::DeleteTrigger::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Get a single Channel.
     pub fn get_channel(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::GetChannel {
-        super::builders::eventarc::GetChannel::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::eventarc::GetChannel {
+        super::builder::eventarc::GetChannel::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List channels.
     pub fn list_channels(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::ListChannels {
-        super::builders::eventarc::ListChannels::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::eventarc::ListChannels {
+        super::builder::eventarc::ListChannels::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Create a new channel in a particular project and location.
@@ -191,8 +190,8 @@ impl Eventarc {
     pub fn create_channel(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::CreateChannel {
-        super::builders::eventarc::CreateChannel::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::eventarc::CreateChannel {
+        super::builder::eventarc::CreateChannel::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Update a single channel.
@@ -209,9 +208,8 @@ impl Eventarc {
     pub fn update_channel(
         &self,
         channel: impl Into<crate::model::Channel>,
-    ) -> super::builders::eventarc::UpdateChannel {
-        super::builders::eventarc::UpdateChannel::new(self.inner.clone())
-            .set_channel(channel.into())
+    ) -> super::builder::eventarc::UpdateChannel {
+        super::builder::eventarc::UpdateChannel::new(self.inner.clone()).set_channel(channel.into())
     }
 
     /// Delete a single channel.
@@ -228,32 +226,32 @@ impl Eventarc {
     pub fn delete_channel(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::DeleteChannel {
-        super::builders::eventarc::DeleteChannel::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::eventarc::DeleteChannel {
+        super::builder::eventarc::DeleteChannel::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Get a single Provider.
     pub fn get_provider(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::GetProvider {
-        super::builders::eventarc::GetProvider::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::eventarc::GetProvider {
+        super::builder::eventarc::GetProvider::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List providers.
     pub fn list_providers(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::ListProviders {
-        super::builders::eventarc::ListProviders::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::eventarc::ListProviders {
+        super::builder::eventarc::ListProviders::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Get a single ChannelConnection.
     pub fn get_channel_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::GetChannelConnection {
-        super::builders::eventarc::GetChannelConnection::new(self.inner.clone())
+    ) -> super::builder::eventarc::GetChannelConnection {
+        super::builder::eventarc::GetChannelConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -261,8 +259,8 @@ impl Eventarc {
     pub fn list_channel_connections(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::ListChannelConnections {
-        super::builders::eventarc::ListChannelConnections::new(self.inner.clone())
+    ) -> super::builder::eventarc::ListChannelConnections {
+        super::builder::eventarc::ListChannelConnections::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -280,8 +278,8 @@ impl Eventarc {
     pub fn create_channel_connection(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::CreateChannelConnection {
-        super::builders::eventarc::CreateChannelConnection::new(self.inner.clone())
+    ) -> super::builder::eventarc::CreateChannelConnection {
+        super::builder::eventarc::CreateChannelConnection::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -299,8 +297,8 @@ impl Eventarc {
     pub fn delete_channel_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::DeleteChannelConnection {
-        super::builders::eventarc::DeleteChannelConnection::new(self.inner.clone())
+    ) -> super::builder::eventarc::DeleteChannelConnection {
+        super::builder::eventarc::DeleteChannelConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -308,8 +306,8 @@ impl Eventarc {
     pub fn get_google_channel_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::GetGoogleChannelConfig {
-        super::builders::eventarc::GetGoogleChannelConfig::new(self.inner.clone())
+    ) -> super::builder::eventarc::GetGoogleChannelConfig {
+        super::builder::eventarc::GetGoogleChannelConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -317,8 +315,8 @@ impl Eventarc {
     pub fn update_google_channel_config(
         &self,
         google_channel_config: impl Into<crate::model::GoogleChannelConfig>,
-    ) -> super::builders::eventarc::UpdateGoogleChannelConfig {
-        super::builders::eventarc::UpdateGoogleChannelConfig::new(self.inner.clone())
+    ) -> super::builder::eventarc::UpdateGoogleChannelConfig {
+        super::builder::eventarc::UpdateGoogleChannelConfig::new(self.inner.clone())
             .set_google_channel_config(google_channel_config.into())
     }
 
@@ -326,16 +324,16 @@ impl Eventarc {
     pub fn get_message_bus(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::GetMessageBus {
-        super::builders::eventarc::GetMessageBus::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::eventarc::GetMessageBus {
+        super::builder::eventarc::GetMessageBus::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List message buses.
     pub fn list_message_buses(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::ListMessageBuses {
-        super::builders::eventarc::ListMessageBuses::new(self.inner.clone())
+    ) -> super::builder::eventarc::ListMessageBuses {
+        super::builder::eventarc::ListMessageBuses::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -343,8 +341,8 @@ impl Eventarc {
     pub fn list_message_bus_enrollments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::ListMessageBusEnrollments {
-        super::builders::eventarc::ListMessageBusEnrollments::new(self.inner.clone())
+    ) -> super::builder::eventarc::ListMessageBusEnrollments {
+        super::builder::eventarc::ListMessageBusEnrollments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -362,8 +360,8 @@ impl Eventarc {
     pub fn create_message_bus(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::CreateMessageBus {
-        super::builders::eventarc::CreateMessageBus::new(self.inner.clone())
+    ) -> super::builder::eventarc::CreateMessageBus {
+        super::builder::eventarc::CreateMessageBus::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -381,8 +379,8 @@ impl Eventarc {
     pub fn update_message_bus(
         &self,
         message_bus: impl Into<crate::model::MessageBus>,
-    ) -> super::builders::eventarc::UpdateMessageBus {
-        super::builders::eventarc::UpdateMessageBus::new(self.inner.clone())
+    ) -> super::builder::eventarc::UpdateMessageBus {
+        super::builder::eventarc::UpdateMessageBus::new(self.inner.clone())
             .set_message_bus(message_bus.into())
     }
 
@@ -400,25 +398,24 @@ impl Eventarc {
     pub fn delete_message_bus(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::DeleteMessageBus {
-        super::builders::eventarc::DeleteMessageBus::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::eventarc::DeleteMessageBus {
+        super::builder::eventarc::DeleteMessageBus::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Get a single Enrollment.
     pub fn get_enrollment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::GetEnrollment {
-        super::builders::eventarc::GetEnrollment::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::eventarc::GetEnrollment {
+        super::builder::eventarc::GetEnrollment::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List Enrollments.
     pub fn list_enrollments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::ListEnrollments {
-        super::builders::eventarc::ListEnrollments::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::eventarc::ListEnrollments {
+        super::builder::eventarc::ListEnrollments::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Create a new Enrollment in a particular project and location.
@@ -435,8 +432,8 @@ impl Eventarc {
     pub fn create_enrollment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::CreateEnrollment {
-        super::builders::eventarc::CreateEnrollment::new(self.inner.clone())
+    ) -> super::builder::eventarc::CreateEnrollment {
+        super::builder::eventarc::CreateEnrollment::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -454,8 +451,8 @@ impl Eventarc {
     pub fn update_enrollment(
         &self,
         enrollment: impl Into<crate::model::Enrollment>,
-    ) -> super::builders::eventarc::UpdateEnrollment {
-        super::builders::eventarc::UpdateEnrollment::new(self.inner.clone())
+    ) -> super::builder::eventarc::UpdateEnrollment {
+        super::builder::eventarc::UpdateEnrollment::new(self.inner.clone())
             .set_enrollment(enrollment.into())
     }
 
@@ -473,24 +470,24 @@ impl Eventarc {
     pub fn delete_enrollment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::DeleteEnrollment {
-        super::builders::eventarc::DeleteEnrollment::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::eventarc::DeleteEnrollment {
+        super::builder::eventarc::DeleteEnrollment::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Get a single Pipeline.
     pub fn get_pipeline(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::GetPipeline {
-        super::builders::eventarc::GetPipeline::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::eventarc::GetPipeline {
+        super::builder::eventarc::GetPipeline::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List pipelines.
     pub fn list_pipelines(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::ListPipelines {
-        super::builders::eventarc::ListPipelines::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::eventarc::ListPipelines {
+        super::builder::eventarc::ListPipelines::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Create a new Pipeline in a particular project and location.
@@ -507,8 +504,8 @@ impl Eventarc {
     pub fn create_pipeline(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::CreatePipeline {
-        super::builders::eventarc::CreatePipeline::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::eventarc::CreatePipeline {
+        super::builder::eventarc::CreatePipeline::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Update a single pipeline.
@@ -525,8 +522,8 @@ impl Eventarc {
     pub fn update_pipeline(
         &self,
         pipeline: impl Into<crate::model::Pipeline>,
-    ) -> super::builders::eventarc::UpdatePipeline {
-        super::builders::eventarc::UpdatePipeline::new(self.inner.clone())
+    ) -> super::builder::eventarc::UpdatePipeline {
+        super::builder::eventarc::UpdatePipeline::new(self.inner.clone())
             .set_pipeline(pipeline.into())
     }
 
@@ -544,24 +541,24 @@ impl Eventarc {
     pub fn delete_pipeline(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::DeletePipeline {
-        super::builders::eventarc::DeletePipeline::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::eventarc::DeletePipeline {
+        super::builder::eventarc::DeletePipeline::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Get a single GoogleApiSource.
     pub fn get_google_api_source(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::GetGoogleApiSource {
-        super::builders::eventarc::GetGoogleApiSource::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::eventarc::GetGoogleApiSource {
+        super::builder::eventarc::GetGoogleApiSource::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List GoogleApiSources.
     pub fn list_google_api_sources(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::ListGoogleApiSources {
-        super::builders::eventarc::ListGoogleApiSources::new(self.inner.clone())
+    ) -> super::builder::eventarc::ListGoogleApiSources {
+        super::builder::eventarc::ListGoogleApiSources::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -579,8 +576,8 @@ impl Eventarc {
     pub fn create_google_api_source(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::CreateGoogleApiSource {
-        super::builders::eventarc::CreateGoogleApiSource::new(self.inner.clone())
+    ) -> super::builder::eventarc::CreateGoogleApiSource {
+        super::builder::eventarc::CreateGoogleApiSource::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -598,8 +595,8 @@ impl Eventarc {
     pub fn update_google_api_source(
         &self,
         google_api_source: impl Into<crate::model::GoogleApiSource>,
-    ) -> super::builders::eventarc::UpdateGoogleApiSource {
-        super::builders::eventarc::UpdateGoogleApiSource::new(self.inner.clone())
+    ) -> super::builder::eventarc::UpdateGoogleApiSource {
+        super::builder::eventarc::UpdateGoogleApiSource::new(self.inner.clone())
             .set_google_api_source(google_api_source.into())
     }
 
@@ -617,8 +614,8 @@ impl Eventarc {
     pub fn delete_google_api_source(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::DeleteGoogleApiSource {
-        super::builders::eventarc::DeleteGoogleApiSource::new(self.inner.clone())
+    ) -> super::builder::eventarc::DeleteGoogleApiSource {
+        super::builder::eventarc::DeleteGoogleApiSource::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -626,16 +623,16 @@ impl Eventarc {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::ListLocations {
-        super::builders::eventarc::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::eventarc::ListLocations {
+        super::builder::eventarc::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::GetLocation {
-        super::builders::eventarc::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::eventarc::GetLocation {
+        super::builder::eventarc::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -646,8 +643,8 @@ impl Eventarc {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::SetIamPolicy {
-        super::builders::eventarc::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::eventarc::SetIamPolicy {
+        super::builder::eventarc::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -656,8 +653,8 @@ impl Eventarc {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::GetIamPolicy {
-        super::builders::eventarc::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::eventarc::GetIamPolicy {
+        super::builder::eventarc::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -671,8 +668,8 @@ impl Eventarc {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::TestIamPermissions {
-        super::builders::eventarc::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::eventarc::TestIamPermissions {
+        super::builder::eventarc::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -682,8 +679,8 @@ impl Eventarc {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::ListOperations {
-        super::builders::eventarc::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::eventarc::ListOperations {
+        super::builder::eventarc::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -692,8 +689,8 @@ impl Eventarc {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::GetOperation {
-        super::builders::eventarc::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::eventarc::GetOperation {
+        super::builder::eventarc::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -702,8 +699,8 @@ impl Eventarc {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::DeleteOperation {
-        super::builders::eventarc::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::eventarc::DeleteOperation {
+        super::builder::eventarc::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -712,7 +709,7 @@ impl Eventarc {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::eventarc::CancelOperation {
-        super::builders::eventarc::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::eventarc::CancelOperation {
+        super::builder::eventarc::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

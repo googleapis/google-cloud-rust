@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DataMigrationService](super::stubs::DataMigrationService) using a [gaxi::http::ReqwestClient].
+/// Implements [DataMigrationService](super::stub::DataMigrationService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DataMigrationService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl DataMigrationService {
     }
 }
 
-impl super::stubs::DataMigrationService for DataMigrationService {
+impl super::stub::DataMigrationService for DataMigrationService {
     async fn list_migration_jobs(
         &self,
         req: crate::model::ListMigrationJobsRequest,

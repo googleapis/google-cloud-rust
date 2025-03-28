@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ContainerAnalysis](super::stubs::ContainerAnalysis) using a [gaxi::http::ReqwestClient].
+/// Implements [ContainerAnalysis](super::stub::ContainerAnalysis) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ContainerAnalysis {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl ContainerAnalysis {
     }
 }
 
-impl super::stubs::ContainerAnalysis for ContainerAnalysis {
+impl super::stub::ContainerAnalysis for ContainerAnalysis {
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,

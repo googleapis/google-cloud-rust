@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [EdgeContainer](super::stubs::EdgeContainer) using a [gaxi::http::ReqwestClient].
+/// Implements [EdgeContainer](super::stub::EdgeContainer) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct EdgeContainer {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl EdgeContainer {
     }
 }
 
-impl super::stubs::EdgeContainer for EdgeContainer {
+impl super::stub::EdgeContainer for EdgeContainer {
     async fn list_clusters(
         &self,
         req: crate::model::ListClustersRequest,

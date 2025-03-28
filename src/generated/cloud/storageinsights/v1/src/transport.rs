@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [StorageInsights](super::stubs::StorageInsights) using a [gaxi::http::ReqwestClient].
+/// Implements [StorageInsights](super::stub::StorageInsights) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct StorageInsights {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl StorageInsights {
     }
 }
 
-impl super::stubs::StorageInsights for StorageInsights {
+impl super::stub::StorageInsights for StorageInsights {
     async fn list_report_configs(
         &self,
         req: crate::model::ListReportConfigsRequest,

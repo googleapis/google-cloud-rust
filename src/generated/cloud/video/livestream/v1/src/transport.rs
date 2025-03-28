@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [LivestreamService](super::stubs::LivestreamService) using a [gaxi::http::ReqwestClient].
+/// Implements [LivestreamService](super::stub::LivestreamService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct LivestreamService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl LivestreamService {
     }
 }
 
-impl super::stubs::LivestreamService for LivestreamService {
+impl super::stub::LivestreamService for LivestreamService {
     async fn create_channel(
         &self,
         req: crate::model::CreateChannelRequest,

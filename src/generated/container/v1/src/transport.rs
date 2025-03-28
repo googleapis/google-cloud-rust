@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ClusterManager](super::stubs::ClusterManager) using a [gaxi::http::ReqwestClient].
+/// Implements [ClusterManager](super::stub::ClusterManager) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ClusterManager {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl ClusterManager {
     }
 }
 
-impl super::stubs::ClusterManager for ClusterManager {
+impl super::stub::ClusterManager for ClusterManager {
     async fn list_clusters(
         &self,
         req: crate::model::ListClustersRequest,

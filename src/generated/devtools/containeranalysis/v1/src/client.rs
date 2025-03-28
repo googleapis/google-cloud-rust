@@ -50,7 +50,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ContainerAnalysis {
-    inner: Arc<dyn super::stubs::dynamic::ContainerAnalysis>,
+    inner: Arc<dyn super::stub::dynamic::ContainerAnalysis>,
 }
 
 impl ContainerAnalysis {
@@ -71,7 +71,7 @@ impl ContainerAnalysis {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ContainerAnalysis + 'static,
+        T: super::stub::ContainerAnalysis + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -80,7 +80,7 @@ impl ContainerAnalysis {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ContainerAnalysis>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ContainerAnalysis>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -89,13 +89,13 @@ impl ContainerAnalysis {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ContainerAnalysis> {
+    ) -> Result<impl super::stub::ContainerAnalysis> {
         super::transport::ContainerAnalysis::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ContainerAnalysis> {
+    ) -> Result<impl super::stub::ContainerAnalysis> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ContainerAnalysis::new)
@@ -112,8 +112,8 @@ impl ContainerAnalysis {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::container_analysis::SetIamPolicy {
-        super::builders::container_analysis::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::container_analysis::SetIamPolicy {
+        super::builder::container_analysis::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -128,8 +128,8 @@ impl ContainerAnalysis {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::container_analysis::GetIamPolicy {
-        super::builders::container_analysis::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::container_analysis::GetIamPolicy {
+        super::builder::container_analysis::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -143,8 +143,8 @@ impl ContainerAnalysis {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::container_analysis::TestIamPermissions {
-        super::builders::container_analysis::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::container_analysis::TestIamPermissions {
+        super::builder::container_analysis::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -152,8 +152,8 @@ impl ContainerAnalysis {
     pub fn get_vulnerability_occurrences_summary(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::container_analysis::GetVulnerabilityOccurrencesSummary {
-        super::builders::container_analysis::GetVulnerabilityOccurrencesSummary::new(
+    ) -> super::builder::container_analysis::GetVulnerabilityOccurrencesSummary {
+        super::builder::container_analysis::GetVulnerabilityOccurrencesSummary::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())

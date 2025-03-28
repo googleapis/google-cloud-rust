@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [NetworkSecurity](super::stubs::NetworkSecurity) using a [gaxi::http::ReqwestClient].
+/// Implements [NetworkSecurity](super::stub::NetworkSecurity) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct NetworkSecurity {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl NetworkSecurity {
     }
 }
 
-impl super::stubs::NetworkSecurity for NetworkSecurity {
+impl super::stub::NetworkSecurity for NetworkSecurity {
     async fn list_authorization_policies(
         &self,
         req: crate::model::ListAuthorizationPoliciesRequest,

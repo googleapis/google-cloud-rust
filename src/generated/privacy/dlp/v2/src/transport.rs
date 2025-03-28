@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DlpService](super::stubs::DlpService) using a [gaxi::http::ReqwestClient].
+/// Implements [DlpService](super::stub::DlpService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DlpService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl DlpService {
     }
 }
 
-impl super::stubs::DlpService for DlpService {
+impl super::stub::DlpService for DlpService {
     async fn inspect_content(
         &self,
         req: crate::model::InspectContentRequest,

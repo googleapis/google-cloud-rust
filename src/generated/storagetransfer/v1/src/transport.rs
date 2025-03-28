@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [StorageTransferService](super::stubs::StorageTransferService) using a [gaxi::http::ReqwestClient].
+/// Implements [StorageTransferService](super::stub::StorageTransferService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct StorageTransferService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl StorageTransferService {
     }
 }
 
-impl super::stubs::StorageTransferService for StorageTransferService {
+impl super::stub::StorageTransferService for StorageTransferService {
     async fn get_google_service_account(
         &self,
         req: crate::model::GetGoogleServiceAccountRequest,

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [BigtableInstanceAdmin](super::stubs::BigtableInstanceAdmin) using a [gaxi::http::ReqwestClient].
+/// Implements [BigtableInstanceAdmin](super::stub::BigtableInstanceAdmin) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct BigtableInstanceAdmin {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl BigtableInstanceAdmin {
     }
 }
 
-impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
+impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
     async fn create_instance(
         &self,
         req: crate::model::CreateInstanceRequest,
@@ -891,7 +891,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
     }
 }
 
-/// Implements [BigtableTableAdmin](super::stubs::BigtableTableAdmin) using a [gaxi::http::ReqwestClient].
+/// Implements [BigtableTableAdmin](super::stub::BigtableTableAdmin) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct BigtableTableAdmin {
     inner: gaxi::http::ReqwestClient,
@@ -912,7 +912,7 @@ impl BigtableTableAdmin {
     }
 }
 
-impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
+impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
     async fn create_table(
         &self,
         req: crate::model::CreateTableRequest,

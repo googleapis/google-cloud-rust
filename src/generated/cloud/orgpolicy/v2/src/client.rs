@@ -57,7 +57,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct OrgPolicy {
-    inner: Arc<dyn super::stubs::dynamic::OrgPolicy>,
+    inner: Arc<dyn super::stub::dynamic::OrgPolicy>,
 }
 
 impl OrgPolicy {
@@ -78,7 +78,7 @@ impl OrgPolicy {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::OrgPolicy + 'static,
+        T: super::stub::OrgPolicy + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -87,7 +87,7 @@ impl OrgPolicy {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::OrgPolicy>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::OrgPolicy>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -96,13 +96,13 @@ impl OrgPolicy {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::OrgPolicy> {
+    ) -> Result<impl super::stub::OrgPolicy> {
         super::transport::OrgPolicy::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::OrgPolicy> {
+    ) -> Result<impl super::stub::OrgPolicy> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::OrgPolicy::new)
@@ -112,8 +112,8 @@ impl OrgPolicy {
     pub fn list_constraints(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::org_policy::ListConstraints {
-        super::builders::org_policy::ListConstraints::new(self.inner.clone())
+    ) -> super::builder::org_policy::ListConstraints {
+        super::builder::org_policy::ListConstraints::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -121,8 +121,8 @@ impl OrgPolicy {
     pub fn list_policies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::org_policy::ListPolicies {
-        super::builders::org_policy::ListPolicies::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::org_policy::ListPolicies {
+        super::builder::org_policy::ListPolicies::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets a policy on a resource.
@@ -133,8 +133,8 @@ impl OrgPolicy {
     pub fn get_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::org_policy::GetPolicy {
-        super::builders::org_policy::GetPolicy::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::org_policy::GetPolicy {
+        super::builder::org_policy::GetPolicy::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets the effective policy on a resource. This is the result of merging
@@ -146,8 +146,8 @@ impl OrgPolicy {
     pub fn get_effective_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::org_policy::GetEffectivePolicy {
-        super::builders::org_policy::GetEffectivePolicy::new(self.inner.clone())
+    ) -> super::builder::org_policy::GetEffectivePolicy {
+        super::builder::org_policy::GetEffectivePolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -160,8 +160,8 @@ impl OrgPolicy {
     pub fn create_policy(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::org_policy::CreatePolicy {
-        super::builders::org_policy::CreatePolicy::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::org_policy::CreatePolicy {
+        super::builder::org_policy::CreatePolicy::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates a policy.
@@ -176,8 +176,8 @@ impl OrgPolicy {
     pub fn update_policy(
         &self,
         policy: impl Into<crate::model::Policy>,
-    ) -> super::builders::org_policy::UpdatePolicy {
-        super::builders::org_policy::UpdatePolicy::new(self.inner.clone()).set_policy(policy.into())
+    ) -> super::builder::org_policy::UpdatePolicy {
+        super::builder::org_policy::UpdatePolicy::new(self.inner.clone()).set_policy(policy.into())
     }
 
     /// Deletes a policy.
@@ -187,8 +187,8 @@ impl OrgPolicy {
     pub fn delete_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::org_policy::DeletePolicy {
-        super::builders::org_policy::DeletePolicy::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::org_policy::DeletePolicy {
+        super::builder::org_policy::DeletePolicy::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a custom constraint.
@@ -200,8 +200,8 @@ impl OrgPolicy {
     pub fn create_custom_constraint(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::org_policy::CreateCustomConstraint {
-        super::builders::org_policy::CreateCustomConstraint::new(self.inner.clone())
+    ) -> super::builder::org_policy::CreateCustomConstraint {
+        super::builder::org_policy::CreateCustomConstraint::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -215,8 +215,8 @@ impl OrgPolicy {
     pub fn update_custom_constraint(
         &self,
         custom_constraint: impl Into<crate::model::CustomConstraint>,
-    ) -> super::builders::org_policy::UpdateCustomConstraint {
-        super::builders::org_policy::UpdateCustomConstraint::new(self.inner.clone())
+    ) -> super::builder::org_policy::UpdateCustomConstraint {
+        super::builder::org_policy::UpdateCustomConstraint::new(self.inner.clone())
             .set_custom_constraint(custom_constraint.into())
     }
 
@@ -227,8 +227,8 @@ impl OrgPolicy {
     pub fn get_custom_constraint(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::org_policy::GetCustomConstraint {
-        super::builders::org_policy::GetCustomConstraint::new(self.inner.clone())
+    ) -> super::builder::org_policy::GetCustomConstraint {
+        super::builder::org_policy::GetCustomConstraint::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -237,8 +237,8 @@ impl OrgPolicy {
     pub fn list_custom_constraints(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::org_policy::ListCustomConstraints {
-        super::builders::org_policy::ListCustomConstraints::new(self.inner.clone())
+    ) -> super::builder::org_policy::ListCustomConstraints {
+        super::builder::org_policy::ListCustomConstraints::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -249,8 +249,8 @@ impl OrgPolicy {
     pub fn delete_custom_constraint(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::org_policy::DeleteCustomConstraint {
-        super::builders::org_policy::DeleteCustomConstraint::new(self.inner.clone())
+    ) -> super::builder::org_policy::DeleteCustomConstraint {
+        super::builder::org_policy::DeleteCustomConstraint::new(self.inner.clone())
             .set_name(name.into())
     }
 }

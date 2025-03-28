@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ApiHub](super::stubs::ApiHub) using a [gaxi::http::ReqwestClient].
+/// Implements [ApiHub](super::stub::ApiHub) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ApiHub {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl ApiHub {
     }
 }
 
-impl super::stubs::ApiHub for ApiHub {
+impl super::stub::ApiHub for ApiHub {
     async fn create_api(
         &self,
         req: crate::model::CreateApiRequest,
@@ -993,7 +993,7 @@ impl super::stubs::ApiHub for ApiHub {
     }
 }
 
-/// Implements [ApiHubDependencies](super::stubs::ApiHubDependencies) using a [gaxi::http::ReqwestClient].
+/// Implements [ApiHubDependencies](super::stub::ApiHubDependencies) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ApiHubDependencies {
     inner: gaxi::http::ReqwestClient,
@@ -1014,7 +1014,7 @@ impl ApiHubDependencies {
     }
 }
 
-impl super::stubs::ApiHubDependencies for ApiHubDependencies {
+impl super::stub::ApiHubDependencies for ApiHubDependencies {
     async fn create_dependency(
         &self,
         req: crate::model::CreateDependencyRequest,
@@ -1263,7 +1263,7 @@ impl super::stubs::ApiHubDependencies for ApiHubDependencies {
     }
 }
 
-/// Implements [HostProjectRegistrationService](super::stubs::HostProjectRegistrationService) using a [gaxi::http::ReqwestClient].
+/// Implements [HostProjectRegistrationService](super::stub::HostProjectRegistrationService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct HostProjectRegistrationService {
     inner: gaxi::http::ReqwestClient,
@@ -1284,7 +1284,7 @@ impl HostProjectRegistrationService {
     }
 }
 
-impl super::stubs::HostProjectRegistrationService for HostProjectRegistrationService {
+impl super::stub::HostProjectRegistrationService for HostProjectRegistrationService {
     async fn create_host_project_registration(
         &self,
         req: crate::model::CreateHostProjectRegistrationRequest,
@@ -1479,7 +1479,7 @@ impl super::stubs::HostProjectRegistrationService for HostProjectRegistrationSer
     }
 }
 
-/// Implements [LintingService](super::stubs::LintingService) using a [gaxi::http::ReqwestClient].
+/// Implements [LintingService](super::stub::LintingService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct LintingService {
     inner: gaxi::http::ReqwestClient,
@@ -1500,7 +1500,7 @@ impl LintingService {
     }
 }
 
-impl super::stubs::LintingService for LintingService {
+impl super::stub::LintingService for LintingService {
     async fn get_style_guide(
         &self,
         req: crate::model::GetStyleGuideRequest,
@@ -1720,7 +1720,7 @@ impl super::stubs::LintingService for LintingService {
     }
 }
 
-/// Implements [ApiHubPlugin](super::stubs::ApiHubPlugin) using a [gaxi::http::ReqwestClient].
+/// Implements [ApiHubPlugin](super::stub::ApiHubPlugin) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ApiHubPlugin {
     inner: gaxi::http::ReqwestClient,
@@ -1741,7 +1741,7 @@ impl ApiHubPlugin {
     }
 }
 
-impl super::stubs::ApiHubPlugin for ApiHubPlugin {
+impl super::stub::ApiHubPlugin for ApiHubPlugin {
     async fn get_plugin(
         &self,
         req: crate::model::GetPluginRequest,
@@ -1918,7 +1918,7 @@ impl super::stubs::ApiHubPlugin for ApiHubPlugin {
     }
 }
 
-/// Implements [Provisioning](super::stubs::Provisioning) using a [gaxi::http::ReqwestClient].
+/// Implements [Provisioning](super::stub::Provisioning) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Provisioning {
     inner: gaxi::http::ReqwestClient,
@@ -1939,7 +1939,7 @@ impl Provisioning {
     }
 }
 
-impl super::stubs::Provisioning for Provisioning {
+impl super::stub::Provisioning for Provisioning {
     async fn create_api_hub_instance(
         &self,
         req: crate::model::CreateApiHubInstanceRequest,
@@ -2141,7 +2141,7 @@ impl super::stubs::Provisioning for Provisioning {
     }
 }
 
-/// Implements [RuntimeProjectAttachmentService](super::stubs::RuntimeProjectAttachmentService) using a [gaxi::http::ReqwestClient].
+/// Implements [RuntimeProjectAttachmentService](super::stub::RuntimeProjectAttachmentService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct RuntimeProjectAttachmentService {
     inner: gaxi::http::ReqwestClient,
@@ -2162,7 +2162,7 @@ impl RuntimeProjectAttachmentService {
     }
 }
 
-impl super::stubs::RuntimeProjectAttachmentService for RuntimeProjectAttachmentService {
+impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentService {
     async fn create_runtime_project_attachment(
         &self,
         req: crate::model::CreateRuntimeProjectAttachmentRequest,

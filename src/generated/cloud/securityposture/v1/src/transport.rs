@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [SecurityPosture](super::stubs::SecurityPosture) using a [gaxi::http::ReqwestClient].
+/// Implements [SecurityPosture](super::stub::SecurityPosture) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct SecurityPosture {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl SecurityPosture {
     }
 }
 
-impl super::stubs::SecurityPosture for SecurityPosture {
+impl super::stub::SecurityPosture for SecurityPosture {
     async fn list_postures(
         &self,
         req: crate::model::ListPosturesRequest,

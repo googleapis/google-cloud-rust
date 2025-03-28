@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [IdentityAwareProxyAdminService](super::stubs::IdentityAwareProxyAdminService) using a [gaxi::http::ReqwestClient].
+/// Implements [IdentityAwareProxyAdminService](super::stub::IdentityAwareProxyAdminService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct IdentityAwareProxyAdminService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl IdentityAwareProxyAdminService {
     }
 }
 
-impl super::stubs::IdentityAwareProxyAdminService for IdentityAwareProxyAdminService {
+impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminService {
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
@@ -285,7 +285,7 @@ impl super::stubs::IdentityAwareProxyAdminService for IdentityAwareProxyAdminSer
     }
 }
 
-/// Implements [IdentityAwareProxyOAuthService](super::stubs::IdentityAwareProxyOAuthService) using a [gaxi::http::ReqwestClient].
+/// Implements [IdentityAwareProxyOAuthService](super::stub::IdentityAwareProxyOAuthService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct IdentityAwareProxyOAuthService {
     inner: gaxi::http::ReqwestClient,
@@ -306,7 +306,7 @@ impl IdentityAwareProxyOAuthService {
     }
 }
 
-impl super::stubs::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthService {
+impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthService {
     async fn list_brands(
         &self,
         req: crate::model::ListBrandsRequest,

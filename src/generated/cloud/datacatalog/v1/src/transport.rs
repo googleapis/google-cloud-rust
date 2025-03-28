@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DataCatalog](super::stubs::DataCatalog) using a [gaxi::http::ReqwestClient].
+/// Implements [DataCatalog](super::stub::DataCatalog) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DataCatalog {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl DataCatalog {
     }
 }
 
-impl super::stubs::DataCatalog for DataCatalog {
+impl super::stub::DataCatalog for DataCatalog {
     async fn search_catalog(
         &self,
         req: crate::model::SearchCatalogRequest,
@@ -983,7 +983,7 @@ impl super::stubs::DataCatalog for DataCatalog {
     }
 }
 
-/// Implements [PolicyTagManager](super::stubs::PolicyTagManager) using a [gaxi::http::ReqwestClient].
+/// Implements [PolicyTagManager](super::stub::PolicyTagManager) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct PolicyTagManager {
     inner: gaxi::http::ReqwestClient,
@@ -1004,7 +1004,7 @@ impl PolicyTagManager {
     }
 }
 
-impl super::stubs::PolicyTagManager for PolicyTagManager {
+impl super::stub::PolicyTagManager for PolicyTagManager {
     async fn create_taxonomy(
         &self,
         req: crate::model::CreateTaxonomyRequest,
@@ -1394,7 +1394,7 @@ impl super::stubs::PolicyTagManager for PolicyTagManager {
     }
 }
 
-/// Implements [PolicyTagManagerSerialization](super::stubs::PolicyTagManagerSerialization) using a [gaxi::http::ReqwestClient].
+/// Implements [PolicyTagManagerSerialization](super::stub::PolicyTagManagerSerialization) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct PolicyTagManagerSerialization {
     inner: gaxi::http::ReqwestClient,
@@ -1415,7 +1415,7 @@ impl PolicyTagManagerSerialization {
     }
 }
 
-impl super::stubs::PolicyTagManagerSerialization for PolicyTagManagerSerialization {
+impl super::stub::PolicyTagManagerSerialization for PolicyTagManagerSerialization {
     async fn replace_taxonomy(
         &self,
         req: crate::model::ReplaceTaxonomyRequest,

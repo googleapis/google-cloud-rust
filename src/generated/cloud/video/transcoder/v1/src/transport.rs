@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [TranscoderService](super::stubs::TranscoderService) using a [gaxi::http::ReqwestClient].
+/// Implements [TranscoderService](super::stub::TranscoderService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct TranscoderService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl TranscoderService {
     }
 }
 
-impl super::stubs::TranscoderService for TranscoderService {
+impl super::stub::TranscoderService for TranscoderService {
     async fn create_job(
         &self,
         req: crate::model::CreateJobRequest,

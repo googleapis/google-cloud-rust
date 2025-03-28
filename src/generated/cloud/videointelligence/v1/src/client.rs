@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct VideoIntelligenceService {
-    inner: Arc<dyn super::stubs::dynamic::VideoIntelligenceService>,
+    inner: Arc<dyn super::stub::dynamic::VideoIntelligenceService>,
 }
 
 impl VideoIntelligenceService {
@@ -59,7 +59,7 @@ impl VideoIntelligenceService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::VideoIntelligenceService + 'static,
+        T: super::stub::VideoIntelligenceService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl VideoIntelligenceService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::VideoIntelligenceService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::VideoIntelligenceService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +77,13 @@ impl VideoIntelligenceService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::VideoIntelligenceService> {
+    ) -> Result<impl super::stub::VideoIntelligenceService> {
         super::transport::VideoIntelligenceService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::VideoIntelligenceService> {
+    ) -> Result<impl super::stub::VideoIntelligenceService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::VideoIntelligenceService::new)
@@ -103,8 +103,8 @@ impl VideoIntelligenceService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn annotate_video(&self) -> super::builders::video_intelligence_service::AnnotateVideo {
-        super::builders::video_intelligence_service::AnnotateVideo::new(self.inner.clone())
+    pub fn annotate_video(&self) -> super::builder::video_intelligence_service::AnnotateVideo {
+        super::builder::video_intelligence_service::AnnotateVideo::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -113,8 +113,8 @@ impl VideoIntelligenceService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_intelligence_service::ListOperations {
-        super::builders::video_intelligence_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::video_intelligence_service::ListOperations {
+        super::builder::video_intelligence_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -124,8 +124,8 @@ impl VideoIntelligenceService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_intelligence_service::GetOperation {
-        super::builders::video_intelligence_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::video_intelligence_service::GetOperation {
+        super::builder::video_intelligence_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -135,8 +135,8 @@ impl VideoIntelligenceService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_intelligence_service::DeleteOperation {
-        super::builders::video_intelligence_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::video_intelligence_service::DeleteOperation {
+        super::builder::video_intelligence_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -146,8 +146,8 @@ impl VideoIntelligenceService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_intelligence_service::CancelOperation {
-        super::builders::video_intelligence_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::video_intelligence_service::CancelOperation {
+        super::builder::video_intelligence_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

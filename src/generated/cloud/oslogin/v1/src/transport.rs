@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [OsLoginService](super::stubs::OsLoginService) using a [gaxi::http::ReqwestClient].
+/// Implements [OsLoginService](super::stub::OsLoginService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct OsLoginService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl OsLoginService {
     }
 }
 
-impl super::stubs::OsLoginService for OsLoginService {
+impl super::stub::OsLoginService for OsLoginService {
     async fn create_ssh_public_key(
         &self,
         req: crate::model::CreateSshPublicKeyRequest,

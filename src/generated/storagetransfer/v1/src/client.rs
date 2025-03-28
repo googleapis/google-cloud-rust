@@ -40,7 +40,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct StorageTransferService {
-    inner: Arc<dyn super::stubs::dynamic::StorageTransferService>,
+    inner: Arc<dyn super::stub::dynamic::StorageTransferService>,
 }
 
 impl StorageTransferService {
@@ -61,7 +61,7 @@ impl StorageTransferService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::StorageTransferService + 'static,
+        T: super::stub::StorageTransferService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -70,7 +70,7 @@ impl StorageTransferService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::StorageTransferService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::StorageTransferService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -79,13 +79,13 @@ impl StorageTransferService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::StorageTransferService> {
+    ) -> Result<impl super::stub::StorageTransferService> {
         super::transport::StorageTransferService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::StorageTransferService> {
+    ) -> Result<impl super::stub::StorageTransferService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::StorageTransferService::new)
@@ -102,16 +102,16 @@ impl StorageTransferService {
     pub fn get_google_service_account(
         &self,
         project_id: impl Into<std::string::String>,
-    ) -> super::builders::storage_transfer_service::GetGoogleServiceAccount {
-        super::builders::storage_transfer_service::GetGoogleServiceAccount::new(self.inner.clone())
+    ) -> super::builder::storage_transfer_service::GetGoogleServiceAccount {
+        super::builder::storage_transfer_service::GetGoogleServiceAccount::new(self.inner.clone())
             .set_project_id(project_id.into())
     }
 
     /// Creates a transfer job that runs periodically.
     pub fn create_transfer_job(
         &self,
-    ) -> super::builders::storage_transfer_service::CreateTransferJob {
-        super::builders::storage_transfer_service::CreateTransferJob::new(self.inner.clone())
+    ) -> super::builder::storage_transfer_service::CreateTransferJob {
+        super::builder::storage_transfer_service::CreateTransferJob::new(self.inner.clone())
     }
 
     /// Updates a transfer job. Updating a job's transfer spec does not affect
@@ -130,8 +130,8 @@ impl StorageTransferService {
     pub fn update_transfer_job(
         &self,
         job_name: impl Into<std::string::String>,
-    ) -> super::builders::storage_transfer_service::UpdateTransferJob {
-        super::builders::storage_transfer_service::UpdateTransferJob::new(self.inner.clone())
+    ) -> super::builder::storage_transfer_service::UpdateTransferJob {
+        super::builder::storage_transfer_service::UpdateTransferJob::new(self.inner.clone())
             .set_job_name(job_name.into())
     }
 
@@ -139,24 +139,22 @@ impl StorageTransferService {
     pub fn get_transfer_job(
         &self,
         job_name: impl Into<std::string::String>,
-    ) -> super::builders::storage_transfer_service::GetTransferJob {
-        super::builders::storage_transfer_service::GetTransferJob::new(self.inner.clone())
+    ) -> super::builder::storage_transfer_service::GetTransferJob {
+        super::builder::storage_transfer_service::GetTransferJob::new(self.inner.clone())
             .set_job_name(job_name.into())
     }
 
     /// Lists transfer jobs.
-    pub fn list_transfer_jobs(
-        &self,
-    ) -> super::builders::storage_transfer_service::ListTransferJobs {
-        super::builders::storage_transfer_service::ListTransferJobs::new(self.inner.clone())
+    pub fn list_transfer_jobs(&self) -> super::builder::storage_transfer_service::ListTransferJobs {
+        super::builder::storage_transfer_service::ListTransferJobs::new(self.inner.clone())
     }
 
     /// Pauses a transfer operation.
     pub fn pause_transfer_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::storage_transfer_service::PauseTransferOperation {
-        super::builders::storage_transfer_service::PauseTransferOperation::new(self.inner.clone())
+    ) -> super::builder::storage_transfer_service::PauseTransferOperation {
+        super::builder::storage_transfer_service::PauseTransferOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -164,8 +162,8 @@ impl StorageTransferService {
     pub fn resume_transfer_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::storage_transfer_service::ResumeTransferOperation {
-        super::builders::storage_transfer_service::ResumeTransferOperation::new(self.inner.clone())
+    ) -> super::builder::storage_transfer_service::ResumeTransferOperation {
+        super::builder::storage_transfer_service::ResumeTransferOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -186,8 +184,8 @@ impl StorageTransferService {
     pub fn run_transfer_job(
         &self,
         job_name: impl Into<std::string::String>,
-    ) -> super::builders::storage_transfer_service::RunTransferJob {
-        super::builders::storage_transfer_service::RunTransferJob::new(self.inner.clone())
+    ) -> super::builder::storage_transfer_service::RunTransferJob {
+        super::builder::storage_transfer_service::RunTransferJob::new(self.inner.clone())
             .set_job_name(job_name.into())
     }
 
@@ -198,8 +196,8 @@ impl StorageTransferService {
     pub fn delete_transfer_job(
         &self,
         job_name: impl Into<std::string::String>,
-    ) -> super::builders::storage_transfer_service::DeleteTransferJob {
-        super::builders::storage_transfer_service::DeleteTransferJob::new(self.inner.clone())
+    ) -> super::builder::storage_transfer_service::DeleteTransferJob {
+        super::builder::storage_transfer_service::DeleteTransferJob::new(self.inner.clone())
             .set_job_name(job_name.into())
     }
 
@@ -207,8 +205,8 @@ impl StorageTransferService {
     pub fn create_agent_pool(
         &self,
         project_id: impl Into<std::string::String>,
-    ) -> super::builders::storage_transfer_service::CreateAgentPool {
-        super::builders::storage_transfer_service::CreateAgentPool::new(self.inner.clone())
+    ) -> super::builder::storage_transfer_service::CreateAgentPool {
+        super::builder::storage_transfer_service::CreateAgentPool::new(self.inner.clone())
             .set_project_id(project_id.into())
     }
 
@@ -216,8 +214,8 @@ impl StorageTransferService {
     pub fn update_agent_pool(
         &self,
         agent_pool: impl Into<crate::model::AgentPool>,
-    ) -> super::builders::storage_transfer_service::UpdateAgentPool {
-        super::builders::storage_transfer_service::UpdateAgentPool::new(self.inner.clone())
+    ) -> super::builder::storage_transfer_service::UpdateAgentPool {
+        super::builder::storage_transfer_service::UpdateAgentPool::new(self.inner.clone())
             .set_agent_pool(agent_pool.into())
     }
 
@@ -225,8 +223,8 @@ impl StorageTransferService {
     pub fn get_agent_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::storage_transfer_service::GetAgentPool {
-        super::builders::storage_transfer_service::GetAgentPool::new(self.inner.clone())
+    ) -> super::builder::storage_transfer_service::GetAgentPool {
+        super::builder::storage_transfer_service::GetAgentPool::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -234,8 +232,8 @@ impl StorageTransferService {
     pub fn list_agent_pools(
         &self,
         project_id: impl Into<std::string::String>,
-    ) -> super::builders::storage_transfer_service::ListAgentPools {
-        super::builders::storage_transfer_service::ListAgentPools::new(self.inner.clone())
+    ) -> super::builder::storage_transfer_service::ListAgentPools {
+        super::builder::storage_transfer_service::ListAgentPools::new(self.inner.clone())
             .set_project_id(project_id.into())
     }
 
@@ -243,8 +241,8 @@ impl StorageTransferService {
     pub fn delete_agent_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::storage_transfer_service::DeleteAgentPool {
-        super::builders::storage_transfer_service::DeleteAgentPool::new(self.inner.clone())
+    ) -> super::builder::storage_transfer_service::DeleteAgentPool {
+        super::builder::storage_transfer_service::DeleteAgentPool::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -253,8 +251,8 @@ impl StorageTransferService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::storage_transfer_service::ListOperations {
-        super::builders::storage_transfer_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::storage_transfer_service::ListOperations {
+        super::builder::storage_transfer_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -264,8 +262,8 @@ impl StorageTransferService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::storage_transfer_service::GetOperation {
-        super::builders::storage_transfer_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::storage_transfer_service::GetOperation {
+        super::builder::storage_transfer_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -293,8 +291,8 @@ impl StorageTransferService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::storage_transfer_service::CancelOperation {
-        super::builders::storage_transfer_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::storage_transfer_service::CancelOperation {
+        super::builder::storage_transfer_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

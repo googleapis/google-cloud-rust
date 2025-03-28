@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CompanyService](super::stubs::CompanyService) using a [gaxi::http::ReqwestClient].
+/// Implements [CompanyService](super::stub::CompanyService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CompanyService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl CompanyService {
     }
 }
 
-impl super::stubs::CompanyService for CompanyService {
+impl super::stub::CompanyService for CompanyService {
     async fn create_company(
         &self,
         req: crate::model::CreateCompanyRequest,
@@ -184,7 +184,7 @@ impl super::stubs::CompanyService for CompanyService {
     }
 }
 
-/// Implements [Completion](super::stubs::Completion) using a [gaxi::http::ReqwestClient].
+/// Implements [Completion](super::stub::Completion) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Completion {
     inner: gaxi::http::ReqwestClient,
@@ -205,7 +205,7 @@ impl Completion {
     }
 }
 
-impl super::stubs::Completion for Completion {
+impl super::stub::Completion for Completion {
     async fn complete_query(
         &self,
         req: crate::model::CompleteQueryRequest,
@@ -257,7 +257,7 @@ impl super::stubs::Completion for Completion {
     }
 }
 
-/// Implements [EventService](super::stubs::EventService) using a [gaxi::http::ReqwestClient].
+/// Implements [EventService](super::stub::EventService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct EventService {
     inner: gaxi::http::ReqwestClient,
@@ -278,7 +278,7 @@ impl EventService {
     }
 }
 
-impl super::stubs::EventService for EventService {
+impl super::stub::EventService for EventService {
     async fn create_client_event(
         &self,
         req: crate::model::CreateClientEventRequest,
@@ -321,7 +321,7 @@ impl super::stubs::EventService for EventService {
     }
 }
 
-/// Implements [JobService](super::stubs::JobService) using a [gaxi::http::ReqwestClient].
+/// Implements [JobService](super::stub::JobService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct JobService {
     inner: gaxi::http::ReqwestClient,
@@ -342,7 +342,7 @@ impl JobService {
     }
 }
 
-impl super::stubs::JobService for JobService {
+impl super::stub::JobService for JobService {
     async fn create_job(
         &self,
         req: crate::model::CreateJobRequest,
@@ -592,7 +592,7 @@ impl super::stubs::JobService for JobService {
     }
 }
 
-/// Implements [TenantService](super::stubs::TenantService) using a [gaxi::http::ReqwestClient].
+/// Implements [TenantService](super::stub::TenantService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct TenantService {
     inner: gaxi::http::ReqwestClient,
@@ -613,7 +613,7 @@ impl TenantService {
     }
 }
 
-impl super::stubs::TenantService for TenantService {
+impl super::stub::TenantService for TenantService {
     async fn create_tenant(
         &self,
         req: crate::model::CreateTenantRequest,

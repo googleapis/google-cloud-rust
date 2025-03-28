@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [RapidMigrationAssessment](super::stubs::RapidMigrationAssessment) using a [gaxi::http::ReqwestClient].
+/// Implements [RapidMigrationAssessment](super::stub::RapidMigrationAssessment) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct RapidMigrationAssessment {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl RapidMigrationAssessment {
     }
 }
 
-impl super::stubs::RapidMigrationAssessment for RapidMigrationAssessment {
+impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
     async fn create_collector(
         &self,
         req: crate::model::CreateCollectorRequest,

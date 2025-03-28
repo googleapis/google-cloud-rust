@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [PublicCertificateAuthorityService](super::stubs::PublicCertificateAuthorityService) using a [gaxi::http::ReqwestClient].
+/// Implements [PublicCertificateAuthorityService](super::stub::PublicCertificateAuthorityService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct PublicCertificateAuthorityService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl PublicCertificateAuthorityService {
     }
 }
 
-impl super::stubs::PublicCertificateAuthorityService for PublicCertificateAuthorityService {
+impl super::stub::PublicCertificateAuthorityService for PublicCertificateAuthorityService {
     async fn create_external_account_key(
         &self,
         req: crate::model::CreateExternalAccountKeyRequest,

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [VideoIntelligenceService](super::stubs::VideoIntelligenceService) using a [gaxi::http::ReqwestClient].
+/// Implements [VideoIntelligenceService](super::stub::VideoIntelligenceService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct VideoIntelligenceService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl VideoIntelligenceService {
     }
 }
 
-impl super::stubs::VideoIntelligenceService for VideoIntelligenceService {
+impl super::stub::VideoIntelligenceService for VideoIntelligenceService {
     async fn annotate_video(
         &self,
         req: crate::model::AnnotateVideoRequest,

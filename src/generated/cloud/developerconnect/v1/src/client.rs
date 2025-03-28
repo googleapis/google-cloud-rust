@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct DeveloperConnect {
-    inner: Arc<dyn super::stubs::dynamic::DeveloperConnect>,
+    inner: Arc<dyn super::stub::dynamic::DeveloperConnect>,
 }
 
 impl DeveloperConnect {
@@ -59,7 +59,7 @@ impl DeveloperConnect {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::DeveloperConnect + 'static,
+        T: super::stub::DeveloperConnect + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl DeveloperConnect {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::DeveloperConnect>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::DeveloperConnect>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +77,13 @@ impl DeveloperConnect {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DeveloperConnect> {
+    ) -> Result<impl super::stub::DeveloperConnect> {
         super::transport::DeveloperConnect::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DeveloperConnect> {
+    ) -> Result<impl super::stub::DeveloperConnect> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DeveloperConnect::new)
@@ -93,8 +93,8 @@ impl DeveloperConnect {
     pub fn list_connections(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::developer_connect::ListConnections {
-        super::builders::developer_connect::ListConnections::new(self.inner.clone())
+    ) -> super::builder::developer_connect::ListConnections {
+        super::builder::developer_connect::ListConnections::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,8 +102,8 @@ impl DeveloperConnect {
     pub fn get_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::developer_connect::GetConnection {
-        super::builders::developer_connect::GetConnection::new(self.inner.clone())
+    ) -> super::builder::developer_connect::GetConnection {
+        super::builder::developer_connect::GetConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -121,8 +121,8 @@ impl DeveloperConnect {
     pub fn create_connection(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::developer_connect::CreateConnection {
-        super::builders::developer_connect::CreateConnection::new(self.inner.clone())
+    ) -> super::builder::developer_connect::CreateConnection {
+        super::builder::developer_connect::CreateConnection::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -140,8 +140,8 @@ impl DeveloperConnect {
     pub fn update_connection(
         &self,
         connection: impl Into<crate::model::Connection>,
-    ) -> super::builders::developer_connect::UpdateConnection {
-        super::builders::developer_connect::UpdateConnection::new(self.inner.clone())
+    ) -> super::builder::developer_connect::UpdateConnection {
+        super::builder::developer_connect::UpdateConnection::new(self.inner.clone())
             .set_connection(connection.into())
     }
 
@@ -159,8 +159,8 @@ impl DeveloperConnect {
     pub fn delete_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::developer_connect::DeleteConnection {
-        super::builders::developer_connect::DeleteConnection::new(self.inner.clone())
+    ) -> super::builder::developer_connect::DeleteConnection {
+        super::builder::developer_connect::DeleteConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -182,8 +182,8 @@ impl DeveloperConnect {
     pub fn create_git_repository_link(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::developer_connect::CreateGitRepositoryLink {
-        super::builders::developer_connect::CreateGitRepositoryLink::new(self.inner.clone())
+    ) -> super::builder::developer_connect::CreateGitRepositoryLink {
+        super::builder::developer_connect::CreateGitRepositoryLink::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -201,8 +201,8 @@ impl DeveloperConnect {
     pub fn delete_git_repository_link(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::developer_connect::DeleteGitRepositoryLink {
-        super::builders::developer_connect::DeleteGitRepositoryLink::new(self.inner.clone())
+    ) -> super::builder::developer_connect::DeleteGitRepositoryLink {
+        super::builder::developer_connect::DeleteGitRepositoryLink::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -210,8 +210,8 @@ impl DeveloperConnect {
     pub fn list_git_repository_links(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::developer_connect::ListGitRepositoryLinks {
-        super::builders::developer_connect::ListGitRepositoryLinks::new(self.inner.clone())
+    ) -> super::builder::developer_connect::ListGitRepositoryLinks {
+        super::builder::developer_connect::ListGitRepositoryLinks::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -219,8 +219,8 @@ impl DeveloperConnect {
     pub fn get_git_repository_link(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::developer_connect::GetGitRepositoryLink {
-        super::builders::developer_connect::GetGitRepositoryLink::new(self.inner.clone())
+    ) -> super::builder::developer_connect::GetGitRepositoryLink {
+        super::builder::developer_connect::GetGitRepositoryLink::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -228,8 +228,8 @@ impl DeveloperConnect {
     pub fn fetch_read_write_token(
         &self,
         git_repository_link: impl Into<std::string::String>,
-    ) -> super::builders::developer_connect::FetchReadWriteToken {
-        super::builders::developer_connect::FetchReadWriteToken::new(self.inner.clone())
+    ) -> super::builder::developer_connect::FetchReadWriteToken {
+        super::builder::developer_connect::FetchReadWriteToken::new(self.inner.clone())
             .set_git_repository_link(git_repository_link.into())
     }
 
@@ -237,8 +237,8 @@ impl DeveloperConnect {
     pub fn fetch_read_token(
         &self,
         git_repository_link: impl Into<std::string::String>,
-    ) -> super::builders::developer_connect::FetchReadToken {
-        super::builders::developer_connect::FetchReadToken::new(self.inner.clone())
+    ) -> super::builder::developer_connect::FetchReadToken {
+        super::builder::developer_connect::FetchReadToken::new(self.inner.clone())
             .set_git_repository_link(git_repository_link.into())
     }
 
@@ -247,8 +247,8 @@ impl DeveloperConnect {
     pub fn fetch_linkable_git_repositories(
         &self,
         connection: impl Into<std::string::String>,
-    ) -> super::builders::developer_connect::FetchLinkableGitRepositories {
-        super::builders::developer_connect::FetchLinkableGitRepositories::new(self.inner.clone())
+    ) -> super::builder::developer_connect::FetchLinkableGitRepositories {
+        super::builder::developer_connect::FetchLinkableGitRepositories::new(self.inner.clone())
             .set_connection(connection.into())
     }
 
@@ -259,8 +259,8 @@ impl DeveloperConnect {
     pub fn fetch_git_hub_installations(
         &self,
         connection: impl Into<std::string::String>,
-    ) -> super::builders::developer_connect::FetchGitHubInstallations {
-        super::builders::developer_connect::FetchGitHubInstallations::new(self.inner.clone())
+    ) -> super::builder::developer_connect::FetchGitHubInstallations {
+        super::builder::developer_connect::FetchGitHubInstallations::new(self.inner.clone())
             .set_connection(connection.into())
     }
 
@@ -268,8 +268,8 @@ impl DeveloperConnect {
     pub fn fetch_git_refs(
         &self,
         git_repository_link: impl Into<std::string::String>,
-    ) -> super::builders::developer_connect::FetchGitRefs {
-        super::builders::developer_connect::FetchGitRefs::new(self.inner.clone())
+    ) -> super::builder::developer_connect::FetchGitRefs {
+        super::builder::developer_connect::FetchGitRefs::new(self.inner.clone())
             .set_git_repository_link(git_repository_link.into())
     }
 
@@ -277,8 +277,8 @@ impl DeveloperConnect {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::developer_connect::ListLocations {
-        super::builders::developer_connect::ListLocations::new(self.inner.clone())
+    ) -> super::builder::developer_connect::ListLocations {
+        super::builder::developer_connect::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -286,8 +286,8 @@ impl DeveloperConnect {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::developer_connect::GetLocation {
-        super::builders::developer_connect::GetLocation::new(self.inner.clone())
+    ) -> super::builder::developer_connect::GetLocation {
+        super::builder::developer_connect::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -297,8 +297,8 @@ impl DeveloperConnect {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::developer_connect::ListOperations {
-        super::builders::developer_connect::ListOperations::new(self.inner.clone())
+    ) -> super::builder::developer_connect::ListOperations {
+        super::builder::developer_connect::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -308,8 +308,8 @@ impl DeveloperConnect {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::developer_connect::GetOperation {
-        super::builders::developer_connect::GetOperation::new(self.inner.clone())
+    ) -> super::builder::developer_connect::GetOperation {
+        super::builder::developer_connect::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -319,8 +319,8 @@ impl DeveloperConnect {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::developer_connect::DeleteOperation {
-        super::builders::developer_connect::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::developer_connect::DeleteOperation {
+        super::builder::developer_connect::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -330,8 +330,8 @@ impl DeveloperConnect {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::developer_connect::CancelOperation {
-        super::builders::developer_connect::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::developer_connect::CancelOperation {
+        super::builder::developer_connect::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

@@ -42,7 +42,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct LivestreamService {
-    inner: Arc<dyn super::stubs::dynamic::LivestreamService>,
+    inner: Arc<dyn super::stub::dynamic::LivestreamService>,
 }
 
 impl LivestreamService {
@@ -63,7 +63,7 @@ impl LivestreamService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::LivestreamService + 'static,
+        T: super::stub::LivestreamService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -72,7 +72,7 @@ impl LivestreamService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::LivestreamService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::LivestreamService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -81,13 +81,13 @@ impl LivestreamService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::LivestreamService> {
+    ) -> Result<impl super::stub::LivestreamService> {
         super::transport::LivestreamService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::LivestreamService> {
+    ) -> Result<impl super::stub::LivestreamService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::LivestreamService::new)
@@ -108,8 +108,8 @@ impl LivestreamService {
     pub fn create_channel(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::CreateChannel {
-        super::builders::livestream_service::CreateChannel::new(self.inner.clone())
+    ) -> super::builder::livestream_service::CreateChannel {
+        super::builder::livestream_service::CreateChannel::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -117,8 +117,8 @@ impl LivestreamService {
     pub fn list_channels(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::ListChannels {
-        super::builders::livestream_service::ListChannels::new(self.inner.clone())
+    ) -> super::builder::livestream_service::ListChannels {
+        super::builder::livestream_service::ListChannels::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -126,8 +126,8 @@ impl LivestreamService {
     pub fn get_channel(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::GetChannel {
-        super::builders::livestream_service::GetChannel::new(self.inner.clone())
+    ) -> super::builder::livestream_service::GetChannel {
+        super::builder::livestream_service::GetChannel::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -145,8 +145,8 @@ impl LivestreamService {
     pub fn delete_channel(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::DeleteChannel {
-        super::builders::livestream_service::DeleteChannel::new(self.inner.clone())
+    ) -> super::builder::livestream_service::DeleteChannel {
+        super::builder::livestream_service::DeleteChannel::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -164,8 +164,8 @@ impl LivestreamService {
     pub fn update_channel(
         &self,
         channel: impl Into<crate::model::Channel>,
-    ) -> super::builders::livestream_service::UpdateChannel {
-        super::builders::livestream_service::UpdateChannel::new(self.inner.clone())
+    ) -> super::builder::livestream_service::UpdateChannel {
+        super::builder::livestream_service::UpdateChannel::new(self.inner.clone())
             .set_channel(channel.into())
     }
 
@@ -184,8 +184,8 @@ impl LivestreamService {
     pub fn start_channel(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::StartChannel {
-        super::builders::livestream_service::StartChannel::new(self.inner.clone())
+    ) -> super::builder::livestream_service::StartChannel {
+        super::builder::livestream_service::StartChannel::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -204,8 +204,8 @@ impl LivestreamService {
     pub fn stop_channel(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::StopChannel {
-        super::builders::livestream_service::StopChannel::new(self.inner.clone())
+    ) -> super::builder::livestream_service::StopChannel {
+        super::builder::livestream_service::StopChannel::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -223,8 +223,8 @@ impl LivestreamService {
     pub fn create_input(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::CreateInput {
-        super::builders::livestream_service::CreateInput::new(self.inner.clone())
+    ) -> super::builder::livestream_service::CreateInput {
+        super::builder::livestream_service::CreateInput::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -232,8 +232,8 @@ impl LivestreamService {
     pub fn list_inputs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::ListInputs {
-        super::builders::livestream_service::ListInputs::new(self.inner.clone())
+    ) -> super::builder::livestream_service::ListInputs {
+        super::builder::livestream_service::ListInputs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -241,8 +241,8 @@ impl LivestreamService {
     pub fn get_input(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::GetInput {
-        super::builders::livestream_service::GetInput::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::livestream_service::GetInput {
+        super::builder::livestream_service::GetInput::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes the specified input.
@@ -259,8 +259,8 @@ impl LivestreamService {
     pub fn delete_input(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::DeleteInput {
-        super::builders::livestream_service::DeleteInput::new(self.inner.clone())
+    ) -> super::builder::livestream_service::DeleteInput {
+        super::builder::livestream_service::DeleteInput::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -278,8 +278,8 @@ impl LivestreamService {
     pub fn update_input(
         &self,
         input: impl Into<crate::model::Input>,
-    ) -> super::builders::livestream_service::UpdateInput {
-        super::builders::livestream_service::UpdateInput::new(self.inner.clone())
+    ) -> super::builder::livestream_service::UpdateInput {
+        super::builder::livestream_service::UpdateInput::new(self.inner.clone())
             .set_input(input.into())
     }
 
@@ -287,8 +287,8 @@ impl LivestreamService {
     pub fn create_event(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::CreateEvent {
-        super::builders::livestream_service::CreateEvent::new(self.inner.clone())
+    ) -> super::builder::livestream_service::CreateEvent {
+        super::builder::livestream_service::CreateEvent::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -296,8 +296,8 @@ impl LivestreamService {
     pub fn list_events(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::ListEvents {
-        super::builders::livestream_service::ListEvents::new(self.inner.clone())
+    ) -> super::builder::livestream_service::ListEvents {
+        super::builder::livestream_service::ListEvents::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -305,16 +305,16 @@ impl LivestreamService {
     pub fn get_event(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::GetEvent {
-        super::builders::livestream_service::GetEvent::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::livestream_service::GetEvent {
+        super::builder::livestream_service::GetEvent::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes the specified event.
     pub fn delete_event(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::DeleteEvent {
-        super::builders::livestream_service::DeleteEvent::new(self.inner.clone())
+    ) -> super::builder::livestream_service::DeleteEvent {
+        super::builder::livestream_service::DeleteEvent::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -322,8 +322,8 @@ impl LivestreamService {
     pub fn list_clips(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::ListClips {
-        super::builders::livestream_service::ListClips::new(self.inner.clone())
+    ) -> super::builder::livestream_service::ListClips {
+        super::builder::livestream_service::ListClips::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -331,8 +331,8 @@ impl LivestreamService {
     pub fn get_clip(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::GetClip {
-        super::builders::livestream_service::GetClip::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::livestream_service::GetClip {
+        super::builder::livestream_service::GetClip::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a clip with the provided clip ID in the specified channel.
@@ -349,8 +349,8 @@ impl LivestreamService {
     pub fn create_clip(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::CreateClip {
-        super::builders::livestream_service::CreateClip::new(self.inner.clone())
+    ) -> super::builder::livestream_service::CreateClip {
+        super::builder::livestream_service::CreateClip::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -369,8 +369,8 @@ impl LivestreamService {
     pub fn delete_clip(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::DeleteClip {
-        super::builders::livestream_service::DeleteClip::new(self.inner.clone())
+    ) -> super::builder::livestream_service::DeleteClip {
+        super::builder::livestream_service::DeleteClip::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -389,8 +389,8 @@ impl LivestreamService {
     pub fn create_asset(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::CreateAsset {
-        super::builders::livestream_service::CreateAsset::new(self.inner.clone())
+    ) -> super::builder::livestream_service::CreateAsset {
+        super::builder::livestream_service::CreateAsset::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -408,8 +408,8 @@ impl LivestreamService {
     pub fn delete_asset(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::DeleteAsset {
-        super::builders::livestream_service::DeleteAsset::new(self.inner.clone())
+    ) -> super::builder::livestream_service::DeleteAsset {
+        super::builder::livestream_service::DeleteAsset::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -417,16 +417,16 @@ impl LivestreamService {
     pub fn get_asset(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::GetAsset {
-        super::builders::livestream_service::GetAsset::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::livestream_service::GetAsset {
+        super::builder::livestream_service::GetAsset::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Returns a list of all assets in the specified region.
     pub fn list_assets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::ListAssets {
-        super::builders::livestream_service::ListAssets::new(self.inner.clone())
+    ) -> super::builder::livestream_service::ListAssets {
+        super::builder::livestream_service::ListAssets::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -434,8 +434,8 @@ impl LivestreamService {
     pub fn get_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::GetPool {
-        super::builders::livestream_service::GetPool::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::livestream_service::GetPool {
+        super::builder::livestream_service::GetPool::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the specified pool.
@@ -452,8 +452,8 @@ impl LivestreamService {
     pub fn update_pool(
         &self,
         pool: impl Into<crate::model::Pool>,
-    ) -> super::builders::livestream_service::UpdatePool {
-        super::builders::livestream_service::UpdatePool::new(self.inner.clone())
+    ) -> super::builder::livestream_service::UpdatePool {
+        super::builder::livestream_service::UpdatePool::new(self.inner.clone())
             .set_pool(pool.into())
     }
 
@@ -461,8 +461,8 @@ impl LivestreamService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::ListLocations {
-        super::builders::livestream_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::livestream_service::ListLocations {
+        super::builder::livestream_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -470,8 +470,8 @@ impl LivestreamService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::GetLocation {
-        super::builders::livestream_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::livestream_service::GetLocation {
+        super::builder::livestream_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -481,8 +481,8 @@ impl LivestreamService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::ListOperations {
-        super::builders::livestream_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::livestream_service::ListOperations {
+        super::builder::livestream_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -492,8 +492,8 @@ impl LivestreamService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::GetOperation {
-        super::builders::livestream_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::livestream_service::GetOperation {
+        super::builder::livestream_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -503,8 +503,8 @@ impl LivestreamService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::DeleteOperation {
-        super::builders::livestream_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::livestream_service::DeleteOperation {
+        super::builder::livestream_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -514,8 +514,8 @@ impl LivestreamService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::livestream_service::CancelOperation {
-        super::builders::livestream_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::livestream_service::CancelOperation {
+        super::builder::livestream_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

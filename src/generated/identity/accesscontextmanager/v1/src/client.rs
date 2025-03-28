@@ -48,7 +48,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AccessContextManager {
-    inner: Arc<dyn super::stubs::dynamic::AccessContextManager>,
+    inner: Arc<dyn super::stub::dynamic::AccessContextManager>,
 }
 
 impl AccessContextManager {
@@ -69,7 +69,7 @@ impl AccessContextManager {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::AccessContextManager + 'static,
+        T: super::stub::AccessContextManager + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -78,7 +78,7 @@ impl AccessContextManager {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::AccessContextManager>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::AccessContextManager>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -87,13 +87,13 @@ impl AccessContextManager {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AccessContextManager> {
+    ) -> Result<impl super::stub::AccessContextManager> {
         super::transport::AccessContextManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AccessContextManager> {
+    ) -> Result<impl super::stub::AccessContextManager> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AccessContextManager::new)
@@ -104,8 +104,8 @@ impl AccessContextManager {
     /// organization.
     pub fn list_access_policies(
         &self,
-    ) -> super::builders::access_context_manager::ListAccessPolicies {
-        super::builders::access_context_manager::ListAccessPolicies::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::ListAccessPolicies {
+        super::builder::access_context_manager::ListAccessPolicies::new(self.inner.clone())
     }
 
     /// Returns an [access policy]
@@ -113,8 +113,8 @@ impl AccessContextManager {
     pub fn get_access_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_context_manager::GetAccessPolicy {
-        super::builders::access_context_manager::GetAccessPolicy::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::GetAccessPolicy {
+        super::builder::access_context_manager::GetAccessPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -135,8 +135,8 @@ impl AccessContextManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_access_policy(
         &self,
-    ) -> super::builders::access_context_manager::CreateAccessPolicy {
-        super::builders::access_context_manager::CreateAccessPolicy::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::CreateAccessPolicy {
+        super::builder::access_context_manager::CreateAccessPolicy::new(self.inner.clone())
     }
 
     /// Updates an [access policy]
@@ -158,8 +158,8 @@ impl AccessContextManager {
     pub fn update_access_policy(
         &self,
         policy: impl Into<crate::model::AccessPolicy>,
-    ) -> super::builders::access_context_manager::UpdateAccessPolicy {
-        super::builders::access_context_manager::UpdateAccessPolicy::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::UpdateAccessPolicy {
+        super::builder::access_context_manager::UpdateAccessPolicy::new(self.inner.clone())
             .set_policy(policy.into())
     }
 
@@ -181,8 +181,8 @@ impl AccessContextManager {
     pub fn delete_access_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_context_manager::DeleteAccessPolicy {
-        super::builders::access_context_manager::DeleteAccessPolicy::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::DeleteAccessPolicy {
+        super::builder::access_context_manager::DeleteAccessPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -192,8 +192,8 @@ impl AccessContextManager {
     pub fn list_access_levels(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::access_context_manager::ListAccessLevels {
-        super::builders::access_context_manager::ListAccessLevels::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::ListAccessLevels {
+        super::builder::access_context_manager::ListAccessLevels::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -203,8 +203,8 @@ impl AccessContextManager {
     pub fn get_access_level(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_context_manager::GetAccessLevel {
-        super::builders::access_context_manager::GetAccessLevel::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::GetAccessLevel {
+        super::builder::access_context_manager::GetAccessLevel::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -228,8 +228,8 @@ impl AccessContextManager {
     pub fn create_access_level(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::access_context_manager::CreateAccessLevel {
-        super::builders::access_context_manager::CreateAccessLevel::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::CreateAccessLevel {
+        super::builder::access_context_manager::CreateAccessLevel::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -254,8 +254,8 @@ impl AccessContextManager {
     pub fn update_access_level(
         &self,
         access_level: impl Into<crate::model::AccessLevel>,
-    ) -> super::builders::access_context_manager::UpdateAccessLevel {
-        super::builders::access_context_manager::UpdateAccessLevel::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::UpdateAccessLevel {
+        super::builder::access_context_manager::UpdateAccessLevel::new(self.inner.clone())
             .set_access_level(access_level.into())
     }
 
@@ -278,8 +278,8 @@ impl AccessContextManager {
     pub fn delete_access_level(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_context_manager::DeleteAccessLevel {
-        super::builders::access_context_manager::DeleteAccessLevel::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::DeleteAccessLevel {
+        super::builder::access_context_manager::DeleteAccessLevel::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -313,8 +313,8 @@ impl AccessContextManager {
     pub fn replace_access_levels(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::access_context_manager::ReplaceAccessLevels {
-        super::builders::access_context_manager::ReplaceAccessLevels::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::ReplaceAccessLevels {
+        super::builder::access_context_manager::ReplaceAccessLevels::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -324,8 +324,8 @@ impl AccessContextManager {
     pub fn list_service_perimeters(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::access_context_manager::ListServicePerimeters {
-        super::builders::access_context_manager::ListServicePerimeters::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::ListServicePerimeters {
+        super::builder::access_context_manager::ListServicePerimeters::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -335,8 +335,8 @@ impl AccessContextManager {
     pub fn get_service_perimeter(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_context_manager::GetServicePerimeter {
-        super::builders::access_context_manager::GetServicePerimeter::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::GetServicePerimeter {
+        super::builder::access_context_manager::GetServicePerimeter::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -361,8 +361,8 @@ impl AccessContextManager {
     pub fn create_service_perimeter(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::access_context_manager::CreateServicePerimeter {
-        super::builders::access_context_manager::CreateServicePerimeter::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::CreateServicePerimeter {
+        super::builder::access_context_manager::CreateServicePerimeter::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -387,8 +387,8 @@ impl AccessContextManager {
     pub fn update_service_perimeter(
         &self,
         service_perimeter: impl Into<crate::model::ServicePerimeter>,
-    ) -> super::builders::access_context_manager::UpdateServicePerimeter {
-        super::builders::access_context_manager::UpdateServicePerimeter::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::UpdateServicePerimeter {
+        super::builder::access_context_manager::UpdateServicePerimeter::new(self.inner.clone())
             .set_service_perimeter(service_perimeter.into())
     }
 
@@ -411,8 +411,8 @@ impl AccessContextManager {
     pub fn delete_service_perimeter(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_context_manager::DeleteServicePerimeter {
-        super::builders::access_context_manager::DeleteServicePerimeter::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::DeleteServicePerimeter {
+        super::builder::access_context_manager::DeleteServicePerimeter::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -442,8 +442,8 @@ impl AccessContextManager {
     pub fn replace_service_perimeters(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::access_context_manager::ReplaceServicePerimeters {
-        super::builders::access_context_manager::ReplaceServicePerimeters::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::ReplaceServicePerimeters {
+        super::builder::access_context_manager::ReplaceServicePerimeters::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -477,8 +477,8 @@ impl AccessContextManager {
     pub fn commit_service_perimeters(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::access_context_manager::CommitServicePerimeters {
-        super::builders::access_context_manager::CommitServicePerimeters::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::CommitServicePerimeters {
+        super::builder::access_context_manager::CommitServicePerimeters::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -488,8 +488,8 @@ impl AccessContextManager {
     pub fn list_gcp_user_access_bindings(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::access_context_manager::ListGcpUserAccessBindings {
-        super::builders::access_context_manager::ListGcpUserAccessBindings::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::ListGcpUserAccessBindings {
+        super::builder::access_context_manager::ListGcpUserAccessBindings::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -499,8 +499,8 @@ impl AccessContextManager {
     pub fn get_gcp_user_access_binding(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_context_manager::GetGcpUserAccessBinding {
-        super::builders::access_context_manager::GetGcpUserAccessBinding::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::GetGcpUserAccessBinding {
+        super::builder::access_context_manager::GetGcpUserAccessBinding::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -527,8 +527,8 @@ impl AccessContextManager {
     pub fn create_gcp_user_access_binding(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::access_context_manager::CreateGcpUserAccessBinding {
-        super::builders::access_context_manager::CreateGcpUserAccessBinding::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::CreateGcpUserAccessBinding {
+        super::builder::access_context_manager::CreateGcpUserAccessBinding::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -550,8 +550,8 @@ impl AccessContextManager {
     pub fn update_gcp_user_access_binding(
         &self,
         gcp_user_access_binding: impl Into<crate::model::GcpUserAccessBinding>,
-    ) -> super::builders::access_context_manager::UpdateGcpUserAccessBinding {
-        super::builders::access_context_manager::UpdateGcpUserAccessBinding::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::UpdateGcpUserAccessBinding {
+        super::builder::access_context_manager::UpdateGcpUserAccessBinding::new(self.inner.clone())
             .set_gcp_user_access_binding(gcp_user_access_binding.into())
     }
 
@@ -573,8 +573,8 @@ impl AccessContextManager {
     pub fn delete_gcp_user_access_binding(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_context_manager::DeleteGcpUserAccessBinding {
-        super::builders::access_context_manager::DeleteGcpUserAccessBinding::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::DeleteGcpUserAccessBinding {
+        super::builder::access_context_manager::DeleteGcpUserAccessBinding::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -589,8 +589,8 @@ impl AccessContextManager {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::access_context_manager::SetIamPolicy {
-        super::builders::access_context_manager::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::SetIamPolicy {
+        super::builder::access_context_manager::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -601,8 +601,8 @@ impl AccessContextManager {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::access_context_manager::GetIamPolicy {
-        super::builders::access_context_manager::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::GetIamPolicy {
+        super::builder::access_context_manager::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -618,8 +618,8 @@ impl AccessContextManager {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::access_context_manager::TestIamPermissions {
-        super::builders::access_context_manager::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::TestIamPermissions {
+        super::builder::access_context_manager::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -629,8 +629,8 @@ impl AccessContextManager {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_context_manager::GetOperation {
-        super::builders::access_context_manager::GetOperation::new(self.inner.clone())
+    ) -> super::builder::access_context_manager::GetOperation {
+        super::builder::access_context_manager::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

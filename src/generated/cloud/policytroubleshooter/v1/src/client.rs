@@ -40,7 +40,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct IamChecker {
-    inner: Arc<dyn super::stubs::dynamic::IamChecker>,
+    inner: Arc<dyn super::stub::dynamic::IamChecker>,
 }
 
 impl IamChecker {
@@ -61,7 +61,7 @@ impl IamChecker {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::IamChecker + 'static,
+        T: super::stub::IamChecker + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -70,7 +70,7 @@ impl IamChecker {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::IamChecker>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::IamChecker>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -79,13 +79,13 @@ impl IamChecker {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::IamChecker> {
+    ) -> Result<impl super::stub::IamChecker> {
         super::transport::IamChecker::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::IamChecker> {
+    ) -> Result<impl super::stub::IamChecker> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::IamChecker::new)
@@ -94,7 +94,7 @@ impl IamChecker {
     /// Checks whether a principal has a specific permission for a specific
     /// resource, and explains why the principal does or does not have that
     /// permission.
-    pub fn troubleshoot_iam_policy(&self) -> super::builders::iam_checker::TroubleshootIamPolicy {
-        super::builders::iam_checker::TroubleshootIamPolicy::new(self.inner.clone())
+    pub fn troubleshoot_iam_policy(&self) -> super::builder::iam_checker::TroubleshootIamPolicy {
+        super::builder::iam_checker::TroubleshootIamPolicy::new(self.inner.clone())
     }
 }

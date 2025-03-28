@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ParameterManager](super::stubs::ParameterManager) using a [gaxi::http::ReqwestClient].
+/// Implements [ParameterManager](super::stub::ParameterManager) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ParameterManager {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl ParameterManager {
     }
 }
 
-impl super::stubs::ParameterManager for ParameterManager {
+impl super::stub::ParameterManager for ParameterManager {
     async fn list_parameters(
         &self,
         req: crate::model::ListParametersRequest,

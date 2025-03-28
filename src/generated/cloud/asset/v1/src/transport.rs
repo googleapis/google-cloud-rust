@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AssetService](super::stubs::AssetService) using a [gaxi::http::ReqwestClient].
+/// Implements [AssetService](super::stub::AssetService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct AssetService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl AssetService {
     }
 }
 
-impl super::stubs::AssetService for AssetService {
+impl super::stub::AssetService for AssetService {
     async fn export_assets(
         &self,
         req: crate::model::ExportAssetsRequest,

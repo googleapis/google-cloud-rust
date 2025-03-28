@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct KeyDashboardService {
-    inner: Arc<dyn super::stubs::dynamic::KeyDashboardService>,
+    inner: Arc<dyn super::stub::dynamic::KeyDashboardService>,
 }
 
 impl KeyDashboardService {
@@ -59,7 +59,7 @@ impl KeyDashboardService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::KeyDashboardService + 'static,
+        T: super::stub::KeyDashboardService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl KeyDashboardService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::KeyDashboardService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::KeyDashboardService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +77,13 @@ impl KeyDashboardService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::KeyDashboardService> {
+    ) -> Result<impl super::stub::KeyDashboardService> {
         super::transport::KeyDashboardService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::KeyDashboardService> {
+    ) -> Result<impl super::stub::KeyDashboardService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::KeyDashboardService::new)
@@ -95,8 +95,8 @@ impl KeyDashboardService {
     pub fn list_crypto_keys(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::key_dashboard_service::ListCryptoKeys {
-        super::builders::key_dashboard_service::ListCryptoKeys::new(self.inner.clone())
+    ) -> super::builder::key_dashboard_service::ListCryptoKeys {
+        super::builder::key_dashboard_service::ListCryptoKeys::new(self.inner.clone())
             .set_parent(parent.into())
     }
 }
@@ -121,7 +121,7 @@ impl KeyDashboardService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct KeyTrackingService {
-    inner: Arc<dyn super::stubs::dynamic::KeyTrackingService>,
+    inner: Arc<dyn super::stub::dynamic::KeyTrackingService>,
 }
 
 impl KeyTrackingService {
@@ -142,7 +142,7 @@ impl KeyTrackingService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::KeyTrackingService + 'static,
+        T: super::stub::KeyTrackingService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -151,7 +151,7 @@ impl KeyTrackingService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::KeyTrackingService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::KeyTrackingService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -160,13 +160,13 @@ impl KeyTrackingService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::KeyTrackingService> {
+    ) -> Result<impl super::stub::KeyTrackingService> {
         super::transport::KeyTrackingService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::KeyTrackingService> {
+    ) -> Result<impl super::stub::KeyTrackingService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::KeyTrackingService::new)
@@ -182,8 +182,8 @@ impl KeyTrackingService {
     pub fn get_protected_resources_summary(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::key_tracking_service::GetProtectedResourcesSummary {
-        super::builders::key_tracking_service::GetProtectedResourcesSummary::new(self.inner.clone())
+    ) -> super::builder::key_tracking_service::GetProtectedResourcesSummary {
+        super::builder::key_tracking_service::GetProtectedResourcesSummary::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -194,8 +194,8 @@ impl KeyTrackingService {
     pub fn search_protected_resources(
         &self,
         scope: impl Into<std::string::String>,
-    ) -> super::builders::key_tracking_service::SearchProtectedResources {
-        super::builders::key_tracking_service::SearchProtectedResources::new(self.inner.clone())
+    ) -> super::builder::key_tracking_service::SearchProtectedResources {
+        super::builder::key_tracking_service::SearchProtectedResources::new(self.inner.clone())
             .set_scope(scope.into())
     }
 }

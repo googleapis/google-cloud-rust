@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CertificateManager](super::stubs::CertificateManager) using a [gaxi::http::ReqwestClient].
+/// Implements [CertificateManager](super::stub::CertificateManager) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CertificateManager {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl CertificateManager {
     }
 }
 
-impl super::stubs::CertificateManager for CertificateManager {
+impl super::stub::CertificateManager for CertificateManager {
     async fn list_certificates(
         &self,
         req: crate::model::ListCertificatesRequest,

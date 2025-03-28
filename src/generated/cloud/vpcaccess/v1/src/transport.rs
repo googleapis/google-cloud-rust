@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [VpcAccessService](super::stubs::VpcAccessService) using a [gaxi::http::ReqwestClient].
+/// Implements [VpcAccessService](super::stub::VpcAccessService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct VpcAccessService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl VpcAccessService {
     }
 }
 
-impl super::stubs::VpcAccessService for VpcAccessService {
+impl super::stub::VpcAccessService for VpcAccessService {
     async fn create_connector(
         &self,
         req: crate::model::CreateConnectorRequest,

@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct StorageInsights {
-    inner: Arc<dyn super::stubs::dynamic::StorageInsights>,
+    inner: Arc<dyn super::stub::dynamic::StorageInsights>,
 }
 
 impl StorageInsights {
@@ -59,7 +59,7 @@ impl StorageInsights {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::StorageInsights + 'static,
+        T: super::stub::StorageInsights + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl StorageInsights {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::StorageInsights>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::StorageInsights>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +77,13 @@ impl StorageInsights {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::StorageInsights> {
+    ) -> Result<impl super::stub::StorageInsights> {
         super::transport::StorageInsights::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::StorageInsights> {
+    ) -> Result<impl super::stub::StorageInsights> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::StorageInsights::new)
@@ -93,8 +93,8 @@ impl StorageInsights {
     pub fn list_report_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::storage_insights::ListReportConfigs {
-        super::builders::storage_insights::ListReportConfigs::new(self.inner.clone())
+    ) -> super::builder::storage_insights::ListReportConfigs {
+        super::builder::storage_insights::ListReportConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,8 +102,8 @@ impl StorageInsights {
     pub fn get_report_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::storage_insights::GetReportConfig {
-        super::builders::storage_insights::GetReportConfig::new(self.inner.clone())
+    ) -> super::builder::storage_insights::GetReportConfig {
+        super::builder::storage_insights::GetReportConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -111,8 +111,8 @@ impl StorageInsights {
     pub fn create_report_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::storage_insights::CreateReportConfig {
-        super::builders::storage_insights::CreateReportConfig::new(self.inner.clone())
+    ) -> super::builder::storage_insights::CreateReportConfig {
+        super::builder::storage_insights::CreateReportConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -120,8 +120,8 @@ impl StorageInsights {
     pub fn update_report_config(
         &self,
         report_config: impl Into<crate::model::ReportConfig>,
-    ) -> super::builders::storage_insights::UpdateReportConfig {
-        super::builders::storage_insights::UpdateReportConfig::new(self.inner.clone())
+    ) -> super::builder::storage_insights::UpdateReportConfig {
+        super::builder::storage_insights::UpdateReportConfig::new(self.inner.clone())
             .set_report_config(report_config.into())
     }
 
@@ -129,8 +129,8 @@ impl StorageInsights {
     pub fn delete_report_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::storage_insights::DeleteReportConfig {
-        super::builders::storage_insights::DeleteReportConfig::new(self.inner.clone())
+    ) -> super::builder::storage_insights::DeleteReportConfig {
+        super::builder::storage_insights::DeleteReportConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -138,8 +138,8 @@ impl StorageInsights {
     pub fn list_report_details(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::storage_insights::ListReportDetails {
-        super::builders::storage_insights::ListReportDetails::new(self.inner.clone())
+    ) -> super::builder::storage_insights::ListReportDetails {
+        super::builder::storage_insights::ListReportDetails::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -147,8 +147,8 @@ impl StorageInsights {
     pub fn get_report_detail(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::storage_insights::GetReportDetail {
-        super::builders::storage_insights::GetReportDetail::new(self.inner.clone())
+    ) -> super::builder::storage_insights::GetReportDetail {
+        super::builder::storage_insights::GetReportDetail::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -156,8 +156,8 @@ impl StorageInsights {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::storage_insights::ListLocations {
-        super::builders::storage_insights::ListLocations::new(self.inner.clone())
+    ) -> super::builder::storage_insights::ListLocations {
+        super::builder::storage_insights::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -165,9 +165,8 @@ impl StorageInsights {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::storage_insights::GetLocation {
-        super::builders::storage_insights::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::storage_insights::GetLocation {
+        super::builder::storage_insights::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -176,8 +175,8 @@ impl StorageInsights {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::storage_insights::ListOperations {
-        super::builders::storage_insights::ListOperations::new(self.inner.clone())
+    ) -> super::builder::storage_insights::ListOperations {
+        super::builder::storage_insights::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -187,8 +186,8 @@ impl StorageInsights {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::storage_insights::GetOperation {
-        super::builders::storage_insights::GetOperation::new(self.inner.clone())
+    ) -> super::builder::storage_insights::GetOperation {
+        super::builder::storage_insights::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -198,8 +197,8 @@ impl StorageInsights {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::storage_insights::DeleteOperation {
-        super::builders::storage_insights::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::storage_insights::DeleteOperation {
+        super::builder::storage_insights::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -209,8 +208,8 @@ impl StorageInsights {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::storage_insights::CancelOperation {
-        super::builders::storage_insights::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::storage_insights::CancelOperation {
+        super::builder::storage_insights::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Ids](super::stubs::Ids) using a [gaxi::http::ReqwestClient].
+/// Implements [Ids](super::stub::Ids) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Ids {
     inner: gaxi::http::ReqwestClient,
@@ -37,7 +37,7 @@ impl Ids {
     }
 }
 
-impl super::stubs::Ids for Ids {
+impl super::stub::Ids for Ids {
     async fn list_endpoints(
         &self,
         req: crate::model::ListEndpointsRequest,

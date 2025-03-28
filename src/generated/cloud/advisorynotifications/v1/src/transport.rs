@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AdvisoryNotificationsService](super::stubs::AdvisoryNotificationsService) using a [gaxi::http::ReqwestClient].
+/// Implements [AdvisoryNotificationsService](super::stub::AdvisoryNotificationsService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct AdvisoryNotificationsService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl AdvisoryNotificationsService {
     }
 }
 
-impl super::stubs::AdvisoryNotificationsService for AdvisoryNotificationsService {
+impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService {
     async fn list_notifications(
         &self,
         req: crate::model::ListNotificationsRequest,

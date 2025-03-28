@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ImageAnnotator](super::stubs::ImageAnnotator) using a [gaxi::http::ReqwestClient].
+/// Implements [ImageAnnotator](super::stub::ImageAnnotator) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ImageAnnotator {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl ImageAnnotator {
     }
 }
 
-impl super::stubs::ImageAnnotator for ImageAnnotator {
+impl super::stub::ImageAnnotator for ImageAnnotator {
     async fn batch_annotate_images(
         &self,
         req: crate::model::BatchAnnotateImagesRequest,
@@ -148,7 +148,7 @@ impl super::stubs::ImageAnnotator for ImageAnnotator {
     }
 }
 
-/// Implements [ProductSearch](super::stubs::ProductSearch) using a [gaxi::http::ReqwestClient].
+/// Implements [ProductSearch](super::stub::ProductSearch) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ProductSearch {
     inner: gaxi::http::ReqwestClient,
@@ -169,7 +169,7 @@ impl ProductSearch {
     }
 }
 
-impl super::stubs::ProductSearch for ProductSearch {
+impl super::stub::ProductSearch for ProductSearch {
     async fn create_product_set(
         &self,
         req: crate::model::CreateProductSetRequest,

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Autokey](super::stubs::Autokey) using a [gaxi::http::ReqwestClient].
+/// Implements [Autokey](super::stub::Autokey) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Autokey {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl Autokey {
     }
 }
 
-impl super::stubs::Autokey for Autokey {
+impl super::stub::Autokey for Autokey {
     async fn create_key_handle(
         &self,
         req: crate::model::CreateKeyHandleRequest,
@@ -254,7 +254,7 @@ impl super::stubs::Autokey for Autokey {
     }
 }
 
-/// Implements [AutokeyAdmin](super::stubs::AutokeyAdmin) using a [gaxi::http::ReqwestClient].
+/// Implements [AutokeyAdmin](super::stub::AutokeyAdmin) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct AutokeyAdmin {
     inner: gaxi::http::ReqwestClient,
@@ -275,7 +275,7 @@ impl AutokeyAdmin {
     }
 }
 
-impl super::stubs::AutokeyAdmin for AutokeyAdmin {
+impl super::stub::AutokeyAdmin for AutokeyAdmin {
     async fn update_autokey_config(
         &self,
         req: crate::model::UpdateAutokeyConfigRequest,
@@ -488,7 +488,7 @@ impl super::stubs::AutokeyAdmin for AutokeyAdmin {
     }
 }
 
-/// Implements [EkmService](super::stubs::EkmService) using a [gaxi::http::ReqwestClient].
+/// Implements [EkmService](super::stub::EkmService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct EkmService {
     inner: gaxi::http::ReqwestClient,
@@ -509,7 +509,7 @@ impl EkmService {
     }
 }
 
-impl super::stubs::EkmService for EkmService {
+impl super::stub::EkmService for EkmService {
     async fn list_ekm_connections(
         &self,
         req: crate::model::ListEkmConnectionsRequest,
@@ -828,7 +828,7 @@ impl super::stubs::EkmService for EkmService {
     }
 }
 
-/// Implements [KeyManagementService](super::stubs::KeyManagementService) using a [gaxi::http::ReqwestClient].
+/// Implements [KeyManagementService](super::stub::KeyManagementService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct KeyManagementService {
     inner: gaxi::http::ReqwestClient,
@@ -849,7 +849,7 @@ impl KeyManagementService {
     }
 }
 
-impl super::stubs::KeyManagementService for KeyManagementService {
+impl super::stub::KeyManagementService for KeyManagementService {
     async fn list_key_rings(
         &self,
         req: crate::model::ListKeyRingsRequest,

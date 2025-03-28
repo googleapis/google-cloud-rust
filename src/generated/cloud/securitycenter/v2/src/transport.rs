@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [SecurityCenter](super::stubs::SecurityCenter) using a [gaxi::http::ReqwestClient].
+/// Implements [SecurityCenter](super::stub::SecurityCenter) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct SecurityCenter {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl SecurityCenter {
     }
 }
 
-impl super::stubs::SecurityCenter for SecurityCenter {
+impl super::stub::SecurityCenter for SecurityCenter {
     async fn batch_create_resource_value_configs(
         &self,
         req: crate::model::BatchCreateResourceValueConfigsRequest,

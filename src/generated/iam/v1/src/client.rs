@@ -62,7 +62,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct IAMPolicy {
-    inner: Arc<dyn super::stubs::dynamic::IAMPolicy>,
+    inner: Arc<dyn super::stub::dynamic::IAMPolicy>,
 }
 
 impl IAMPolicy {
@@ -83,7 +83,7 @@ impl IAMPolicy {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::IAMPolicy + 'static,
+        T: super::stub::IAMPolicy + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -92,7 +92,7 @@ impl IAMPolicy {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::IAMPolicy>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::IAMPolicy>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -101,13 +101,13 @@ impl IAMPolicy {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::IAMPolicy> {
+    ) -> Result<impl super::stub::IAMPolicy> {
         super::transport::IAMPolicy::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::IAMPolicy> {
+    ) -> Result<impl super::stub::IAMPolicy> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::IAMPolicy::new)
@@ -120,8 +120,8 @@ impl IAMPolicy {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::iam_policy::SetIamPolicy {
-        super::builders::iam_policy::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::iam_policy::SetIamPolicy {
+        super::builder::iam_policy::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -131,8 +131,8 @@ impl IAMPolicy {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::iam_policy::GetIamPolicy {
-        super::builders::iam_policy::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::iam_policy::GetIamPolicy {
+        super::builder::iam_policy::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -146,8 +146,8 @@ impl IAMPolicy {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::iam_policy::TestIamPermissions {
-        super::builders::iam_policy::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::iam_policy::TestIamPermissions {
+        super::builder::iam_policy::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 }

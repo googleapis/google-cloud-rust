@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CloudFilestoreManager](super::stubs::CloudFilestoreManager) using a [gaxi::http::ReqwestClient].
+/// Implements [CloudFilestoreManager](super::stub::CloudFilestoreManager) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudFilestoreManager {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl CloudFilestoreManager {
     }
 }
 
-impl super::stubs::CloudFilestoreManager for CloudFilestoreManager {
+impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
     async fn list_instances(
         &self,
         req: crate::model::ListInstancesRequest,

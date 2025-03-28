@@ -45,7 +45,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct BareMetalSolution {
-    inner: Arc<dyn super::stubs::dynamic::BareMetalSolution>,
+    inner: Arc<dyn super::stub::dynamic::BareMetalSolution>,
 }
 
 impl BareMetalSolution {
@@ -66,7 +66,7 @@ impl BareMetalSolution {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::BareMetalSolution + 'static,
+        T: super::stub::BareMetalSolution + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -75,7 +75,7 @@ impl BareMetalSolution {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::BareMetalSolution>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::BareMetalSolution>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -84,13 +84,13 @@ impl BareMetalSolution {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::BareMetalSolution> {
+    ) -> Result<impl super::stub::BareMetalSolution> {
         super::transport::BareMetalSolution::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::BareMetalSolution> {
+    ) -> Result<impl super::stub::BareMetalSolution> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::BareMetalSolution::new)
@@ -100,8 +100,8 @@ impl BareMetalSolution {
     pub fn list_instances(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::ListInstances {
-        super::builders::bare_metal_solution::ListInstances::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::ListInstances {
+        super::builder::bare_metal_solution::ListInstances::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -109,8 +109,8 @@ impl BareMetalSolution {
     pub fn get_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::GetInstance {
-        super::builders::bare_metal_solution::GetInstance::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::GetInstance {
+        super::builder::bare_metal_solution::GetInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -128,8 +128,8 @@ impl BareMetalSolution {
     pub fn update_instance(
         &self,
         instance: impl Into<crate::model::Instance>,
-    ) -> super::builders::bare_metal_solution::UpdateInstance {
-        super::builders::bare_metal_solution::UpdateInstance::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::UpdateInstance {
+        super::builder::bare_metal_solution::UpdateInstance::new(self.inner.clone())
             .set_instance(instance.into())
     }
 
@@ -138,8 +138,8 @@ impl BareMetalSolution {
     pub fn rename_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::RenameInstance {
-        super::builders::bare_metal_solution::RenameInstance::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::RenameInstance {
+        super::builder::bare_metal_solution::RenameInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -158,8 +158,8 @@ impl BareMetalSolution {
     pub fn reset_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::ResetInstance {
-        super::builders::bare_metal_solution::ResetInstance::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::ResetInstance {
+        super::builder::bare_metal_solution::ResetInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -177,8 +177,8 @@ impl BareMetalSolution {
     pub fn start_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::StartInstance {
-        super::builders::bare_metal_solution::StartInstance::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::StartInstance {
+        super::builder::bare_metal_solution::StartInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -196,8 +196,8 @@ impl BareMetalSolution {
     pub fn stop_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::StopInstance {
-        super::builders::bare_metal_solution::StopInstance::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::StopInstance {
+        super::builder::bare_metal_solution::StopInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -215,11 +215,9 @@ impl BareMetalSolution {
     pub fn enable_interactive_serial_console(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::EnableInteractiveSerialConsole {
-        super::builders::bare_metal_solution::EnableInteractiveSerialConsole::new(
-            self.inner.clone(),
-        )
-        .set_name(name.into())
+    ) -> super::builder::bare_metal_solution::EnableInteractiveSerialConsole {
+        super::builder::bare_metal_solution::EnableInteractiveSerialConsole::new(self.inner.clone())
+            .set_name(name.into())
     }
 
     /// Disable the interactive serial console feature on an instance.
@@ -236,8 +234,8 @@ impl BareMetalSolution {
     pub fn disable_interactive_serial_console(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::DisableInteractiveSerialConsole {
-        super::builders::bare_metal_solution::DisableInteractiveSerialConsole::new(
+    ) -> super::builder::bare_metal_solution::DisableInteractiveSerialConsole {
+        super::builder::bare_metal_solution::DisableInteractiveSerialConsole::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -257,8 +255,8 @@ impl BareMetalSolution {
     pub fn detach_lun(
         &self,
         instance: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::DetachLun {
-        super::builders::bare_metal_solution::DetachLun::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::DetachLun {
+        super::builder::bare_metal_solution::DetachLun::new(self.inner.clone())
             .set_instance(instance.into())
     }
 
@@ -267,8 +265,8 @@ impl BareMetalSolution {
     pub fn list_ssh_keys(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::ListSSHKeys {
-        super::builders::bare_metal_solution::ListSSHKeys::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::ListSSHKeys {
+        super::builder::bare_metal_solution::ListSSHKeys::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -277,8 +275,8 @@ impl BareMetalSolution {
     pub fn create_ssh_key(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::CreateSSHKey {
-        super::builders::bare_metal_solution::CreateSSHKey::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::CreateSSHKey {
+        super::builder::bare_metal_solution::CreateSSHKey::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -286,8 +284,8 @@ impl BareMetalSolution {
     pub fn delete_ssh_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::DeleteSSHKey {
-        super::builders::bare_metal_solution::DeleteSSHKey::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::DeleteSSHKey {
+        super::builder::bare_metal_solution::DeleteSSHKey::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -295,8 +293,8 @@ impl BareMetalSolution {
     pub fn list_volumes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::ListVolumes {
-        super::builders::bare_metal_solution::ListVolumes::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::ListVolumes {
+        super::builder::bare_metal_solution::ListVolumes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -304,8 +302,8 @@ impl BareMetalSolution {
     pub fn get_volume(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::GetVolume {
-        super::builders::bare_metal_solution::GetVolume::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::GetVolume {
+        super::builder::bare_metal_solution::GetVolume::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -323,8 +321,8 @@ impl BareMetalSolution {
     pub fn update_volume(
         &self,
         volume: impl Into<crate::model::Volume>,
-    ) -> super::builders::bare_metal_solution::UpdateVolume {
-        super::builders::bare_metal_solution::UpdateVolume::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::UpdateVolume {
+        super::builder::bare_metal_solution::UpdateVolume::new(self.inner.clone())
             .set_volume(volume.into())
     }
 
@@ -333,8 +331,8 @@ impl BareMetalSolution {
     pub fn rename_volume(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::RenameVolume {
-        super::builders::bare_metal_solution::RenameVolume::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::RenameVolume {
+        super::builder::bare_metal_solution::RenameVolume::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -353,8 +351,8 @@ impl BareMetalSolution {
     pub fn evict_volume(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::EvictVolume {
-        super::builders::bare_metal_solution::EvictVolume::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::EvictVolume {
+        super::builder::bare_metal_solution::EvictVolume::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -372,8 +370,8 @@ impl BareMetalSolution {
     pub fn resize_volume(
         &self,
         volume: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::ResizeVolume {
-        super::builders::bare_metal_solution::ResizeVolume::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::ResizeVolume {
+        super::builder::bare_metal_solution::ResizeVolume::new(self.inner.clone())
             .set_volume(volume.into())
     }
 
@@ -381,8 +379,8 @@ impl BareMetalSolution {
     pub fn list_networks(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::ListNetworks {
-        super::builders::bare_metal_solution::ListNetworks::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::ListNetworks {
+        super::builder::bare_metal_solution::ListNetworks::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -391,8 +389,8 @@ impl BareMetalSolution {
     pub fn list_network_usage(
         &self,
         location: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::ListNetworkUsage {
-        super::builders::bare_metal_solution::ListNetworkUsage::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::ListNetworkUsage {
+        super::builder::bare_metal_solution::ListNetworkUsage::new(self.inner.clone())
             .set_location(location.into())
     }
 
@@ -400,8 +398,8 @@ impl BareMetalSolution {
     pub fn get_network(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::GetNetwork {
-        super::builders::bare_metal_solution::GetNetwork::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::GetNetwork {
+        super::builder::bare_metal_solution::GetNetwork::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -419,8 +417,8 @@ impl BareMetalSolution {
     pub fn update_network(
         &self,
         network: impl Into<crate::model::Network>,
-    ) -> super::builders::bare_metal_solution::UpdateNetwork {
-        super::builders::bare_metal_solution::UpdateNetwork::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::UpdateNetwork {
+        super::builder::bare_metal_solution::UpdateNetwork::new(self.inner.clone())
             .set_network(network.into())
     }
 
@@ -429,8 +427,8 @@ impl BareMetalSolution {
     pub fn create_volume_snapshot(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::CreateVolumeSnapshot {
-        super::builders::bare_metal_solution::CreateVolumeSnapshot::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::CreateVolumeSnapshot {
+        super::builder::bare_metal_solution::CreateVolumeSnapshot::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -449,8 +447,8 @@ impl BareMetalSolution {
     pub fn restore_volume_snapshot(
         &self,
         volume_snapshot: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::RestoreVolumeSnapshot {
-        super::builders::bare_metal_solution::RestoreVolumeSnapshot::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::RestoreVolumeSnapshot {
+        super::builder::bare_metal_solution::RestoreVolumeSnapshot::new(self.inner.clone())
             .set_volume_snapshot(volume_snapshot.into())
     }
 
@@ -459,8 +457,8 @@ impl BareMetalSolution {
     pub fn delete_volume_snapshot(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::DeleteVolumeSnapshot {
-        super::builders::bare_metal_solution::DeleteVolumeSnapshot::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::DeleteVolumeSnapshot {
+        super::builder::bare_metal_solution::DeleteVolumeSnapshot::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -469,8 +467,8 @@ impl BareMetalSolution {
     pub fn get_volume_snapshot(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::GetVolumeSnapshot {
-        super::builders::bare_metal_solution::GetVolumeSnapshot::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::GetVolumeSnapshot {
+        super::builder::bare_metal_solution::GetVolumeSnapshot::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -480,8 +478,8 @@ impl BareMetalSolution {
     pub fn list_volume_snapshots(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::ListVolumeSnapshots {
-        super::builders::bare_metal_solution::ListVolumeSnapshots::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::ListVolumeSnapshots {
+        super::builder::bare_metal_solution::ListVolumeSnapshots::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -489,16 +487,16 @@ impl BareMetalSolution {
     pub fn get_lun(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::GetLun {
-        super::builders::bare_metal_solution::GetLun::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::bare_metal_solution::GetLun {
+        super::builder::bare_metal_solution::GetLun::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List storage volume luns for given storage volume.
     pub fn list_luns(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::ListLuns {
-        super::builders::bare_metal_solution::ListLuns::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::ListLuns {
+        super::builder::bare_metal_solution::ListLuns::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -517,17 +515,16 @@ impl BareMetalSolution {
     pub fn evict_lun(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::EvictLun {
-        super::builders::bare_metal_solution::EvictLun::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::bare_metal_solution::EvictLun {
+        super::builder::bare_metal_solution::EvictLun::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Get details of a single NFS share.
     pub fn get_nfs_share(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::GetNfsShare {
-        super::builders::bare_metal_solution::GetNfsShare::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::GetNfsShare {
+        super::builder::bare_metal_solution::GetNfsShare::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -535,8 +532,8 @@ impl BareMetalSolution {
     pub fn list_nfs_shares(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::ListNfsShares {
-        super::builders::bare_metal_solution::ListNfsShares::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::ListNfsShares {
+        super::builder::bare_metal_solution::ListNfsShares::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -554,8 +551,8 @@ impl BareMetalSolution {
     pub fn update_nfs_share(
         &self,
         nfs_share: impl Into<crate::model::NfsShare>,
-    ) -> super::builders::bare_metal_solution::UpdateNfsShare {
-        super::builders::bare_metal_solution::UpdateNfsShare::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::UpdateNfsShare {
+        super::builder::bare_metal_solution::UpdateNfsShare::new(self.inner.clone())
             .set_nfs_share(nfs_share.into())
     }
 
@@ -573,8 +570,8 @@ impl BareMetalSolution {
     pub fn create_nfs_share(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::CreateNfsShare {
-        super::builders::bare_metal_solution::CreateNfsShare::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::CreateNfsShare {
+        super::builder::bare_metal_solution::CreateNfsShare::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -583,8 +580,8 @@ impl BareMetalSolution {
     pub fn rename_nfs_share(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::RenameNfsShare {
-        super::builders::bare_metal_solution::RenameNfsShare::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::RenameNfsShare {
+        super::builder::bare_metal_solution::RenameNfsShare::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -602,8 +599,8 @@ impl BareMetalSolution {
     pub fn delete_nfs_share(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::DeleteNfsShare {
-        super::builders::bare_metal_solution::DeleteNfsShare::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::DeleteNfsShare {
+        super::builder::bare_metal_solution::DeleteNfsShare::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -611,8 +608,8 @@ impl BareMetalSolution {
     pub fn list_provisioning_quotas(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::ListProvisioningQuotas {
-        super::builders::bare_metal_solution::ListProvisioningQuotas::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::ListProvisioningQuotas {
+        super::builder::bare_metal_solution::ListProvisioningQuotas::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -620,8 +617,8 @@ impl BareMetalSolution {
     pub fn submit_provisioning_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::SubmitProvisioningConfig {
-        super::builders::bare_metal_solution::SubmitProvisioningConfig::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::SubmitProvisioningConfig {
+        super::builder::bare_metal_solution::SubmitProvisioningConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -629,8 +626,8 @@ impl BareMetalSolution {
     pub fn get_provisioning_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::GetProvisioningConfig {
-        super::builders::bare_metal_solution::GetProvisioningConfig::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::GetProvisioningConfig {
+        super::builder::bare_metal_solution::GetProvisioningConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -638,8 +635,8 @@ impl BareMetalSolution {
     pub fn create_provisioning_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::CreateProvisioningConfig {
-        super::builders::bare_metal_solution::CreateProvisioningConfig::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::CreateProvisioningConfig {
+        super::builder::bare_metal_solution::CreateProvisioningConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -647,8 +644,8 @@ impl BareMetalSolution {
     pub fn update_provisioning_config(
         &self,
         provisioning_config: impl Into<crate::model::ProvisioningConfig>,
-    ) -> super::builders::bare_metal_solution::UpdateProvisioningConfig {
-        super::builders::bare_metal_solution::UpdateProvisioningConfig::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::UpdateProvisioningConfig {
+        super::builder::bare_metal_solution::UpdateProvisioningConfig::new(self.inner.clone())
             .set_provisioning_config(provisioning_config.into())
     }
 
@@ -657,8 +654,8 @@ impl BareMetalSolution {
     pub fn rename_network(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::RenameNetwork {
-        super::builders::bare_metal_solution::RenameNetwork::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::RenameNetwork {
+        super::builder::bare_metal_solution::RenameNetwork::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -666,8 +663,8 @@ impl BareMetalSolution {
     pub fn list_os_images(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::ListOSImages {
-        super::builders::bare_metal_solution::ListOSImages::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::ListOSImages {
+        super::builder::bare_metal_solution::ListOSImages::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -675,8 +672,8 @@ impl BareMetalSolution {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::ListLocations {
-        super::builders::bare_metal_solution::ListLocations::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::ListLocations {
+        super::builder::bare_metal_solution::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -684,8 +681,8 @@ impl BareMetalSolution {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::GetLocation {
-        super::builders::bare_metal_solution::GetLocation::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::GetLocation {
+        super::builder::bare_metal_solution::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -695,8 +692,8 @@ impl BareMetalSolution {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bare_metal_solution::GetOperation {
-        super::builders::bare_metal_solution::GetOperation::new(self.inner.clone())
+    ) -> super::builder::bare_metal_solution::GetOperation {
+        super::builder::bare_metal_solution::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

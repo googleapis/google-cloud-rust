@@ -43,7 +43,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Lineage {
-    inner: Arc<dyn super::stubs::dynamic::Lineage>,
+    inner: Arc<dyn super::stub::dynamic::Lineage>,
 }
 
 impl Lineage {
@@ -64,7 +64,7 @@ impl Lineage {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Lineage + 'static,
+        T: super::stub::Lineage + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -73,7 +73,7 @@ impl Lineage {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Lineage>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Lineage>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -82,13 +82,13 @@ impl Lineage {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Lineage> {
+    ) -> Result<impl super::stub::Lineage> {
         super::transport::Lineage::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Lineage> {
+    ) -> Result<impl super::stub::Lineage> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Lineage::new)
@@ -101,8 +101,8 @@ impl Lineage {
     pub fn process_open_lineage_run_event(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::lineage::ProcessOpenLineageRunEvent {
-        super::builders::lineage::ProcessOpenLineageRunEvent::new(self.inner.clone())
+    ) -> super::builder::lineage::ProcessOpenLineageRunEvent {
+        super::builder::lineage::ProcessOpenLineageRunEvent::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -110,24 +110,24 @@ impl Lineage {
     pub fn create_process(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::lineage::CreateProcess {
-        super::builders::lineage::CreateProcess::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::lineage::CreateProcess {
+        super::builder::lineage::CreateProcess::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates a process.
     pub fn update_process(
         &self,
         process: impl Into<crate::model::Process>,
-    ) -> super::builders::lineage::UpdateProcess {
-        super::builders::lineage::UpdateProcess::new(self.inner.clone()).set_process(process.into())
+    ) -> super::builder::lineage::UpdateProcess {
+        super::builder::lineage::UpdateProcess::new(self.inner.clone()).set_process(process.into())
     }
 
     /// Gets the details of the specified process.
     pub fn get_process(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::lineage::GetProcess {
-        super::builders::lineage::GetProcess::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::lineage::GetProcess {
+        super::builder::lineage::GetProcess::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List processes in the given project and location. List order is descending
@@ -135,8 +135,8 @@ impl Lineage {
     pub fn list_processes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::lineage::ListProcesses {
-        super::builders::lineage::ListProcesses::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::lineage::ListProcesses {
+        super::builder::lineage::ListProcesses::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Deletes the process with the specified name.
@@ -153,32 +153,29 @@ impl Lineage {
     pub fn delete_process(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::lineage::DeleteProcess {
-        super::builders::lineage::DeleteProcess::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::lineage::DeleteProcess {
+        super::builder::lineage::DeleteProcess::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new run.
     pub fn create_run(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::lineage::CreateRun {
-        super::builders::lineage::CreateRun::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::lineage::CreateRun {
+        super::builder::lineage::CreateRun::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates a run.
     pub fn update_run(
         &self,
         run: impl Into<crate::model::Run>,
-    ) -> super::builders::lineage::UpdateRun {
-        super::builders::lineage::UpdateRun::new(self.inner.clone()).set_run(run.into())
+    ) -> super::builder::lineage::UpdateRun {
+        super::builder::lineage::UpdateRun::new(self.inner.clone()).set_run(run.into())
     }
 
     /// Gets the details of the specified run.
-    pub fn get_run(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builders::lineage::GetRun {
-        super::builders::lineage::GetRun::new(self.inner.clone()).set_name(name.into())
+    pub fn get_run(&self, name: impl Into<std::string::String>) -> super::builder::lineage::GetRun {
+        super::builder::lineage::GetRun::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists runs in the given project and location. List order is descending by
@@ -186,8 +183,8 @@ impl Lineage {
     pub fn list_runs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::lineage::ListRuns {
-        super::builders::lineage::ListRuns::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::lineage::ListRuns {
+        super::builder::lineage::ListRuns::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Deletes the run with the specified name.
@@ -204,16 +201,16 @@ impl Lineage {
     pub fn delete_run(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::lineage::DeleteRun {
-        super::builders::lineage::DeleteRun::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::lineage::DeleteRun {
+        super::builder::lineage::DeleteRun::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new lineage event.
     pub fn create_lineage_event(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::lineage::CreateLineageEvent {
-        super::builders::lineage::CreateLineageEvent::new(self.inner.clone())
+    ) -> super::builder::lineage::CreateLineageEvent {
+        super::builder::lineage::CreateLineageEvent::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -221,8 +218,8 @@ impl Lineage {
     pub fn get_lineage_event(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::lineage::GetLineageEvent {
-        super::builders::lineage::GetLineageEvent::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::lineage::GetLineageEvent {
+        super::builder::lineage::GetLineageEvent::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists lineage events in the given project and location. The list order is
@@ -230,8 +227,8 @@ impl Lineage {
     pub fn list_lineage_events(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::lineage::ListLineageEvents {
-        super::builders::lineage::ListLineageEvents::new(self.inner.clone())
+    ) -> super::builder::lineage::ListLineageEvents {
+        super::builder::lineage::ListLineageEvents::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -239,8 +236,8 @@ impl Lineage {
     pub fn delete_lineage_event(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::lineage::DeleteLineageEvent {
-        super::builders::lineage::DeleteLineageEvent::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::lineage::DeleteLineageEvent {
+        super::builder::lineage::DeleteLineageEvent::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Retrieve a list of links connected to a specific asset.
@@ -255,8 +252,8 @@ impl Lineage {
     pub fn search_links(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::lineage::SearchLinks {
-        super::builders::lineage::SearchLinks::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::lineage::SearchLinks {
+        super::builder::lineage::SearchLinks::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Retrieve information about LineageProcesses associated with specific
@@ -278,8 +275,8 @@ impl Lineage {
     pub fn batch_search_link_processes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::lineage::BatchSearchLinkProcesses {
-        super::builders::lineage::BatchSearchLinkProcesses::new(self.inner.clone())
+    ) -> super::builder::lineage::BatchSearchLinkProcesses {
+        super::builder::lineage::BatchSearchLinkProcesses::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -289,8 +286,8 @@ impl Lineage {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::lineage::ListOperations {
-        super::builders::lineage::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::lineage::ListOperations {
+        super::builder::lineage::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -299,8 +296,8 @@ impl Lineage {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::lineage::GetOperation {
-        super::builders::lineage::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::lineage::GetOperation {
+        super::builder::lineage::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -309,8 +306,8 @@ impl Lineage {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::lineage::DeleteOperation {
-        super::builders::lineage::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::lineage::DeleteOperation {
+        super::builder::lineage::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -319,7 +316,7 @@ impl Lineage {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::lineage::CancelOperation {
-        super::builders::lineage::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::lineage::CancelOperation {
+        super::builder::lineage::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

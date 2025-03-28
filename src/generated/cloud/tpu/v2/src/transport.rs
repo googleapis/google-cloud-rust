@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Tpu](super::stubs::Tpu) using a [gaxi::http::ReqwestClient].
+/// Implements [Tpu](super::stub::Tpu) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Tpu {
     inner: gaxi::http::ReqwestClient,
@@ -37,7 +37,7 @@ impl Tpu {
     }
 }
 
-impl super::stubs::Tpu for Tpu {
+impl super::stub::Tpu for Tpu {
     async fn list_nodes(
         &self,
         req: crate::model::ListNodesRequest,

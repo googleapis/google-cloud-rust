@@ -58,7 +58,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct InstanceAdmin {
-    inner: Arc<dyn super::stubs::dynamic::InstanceAdmin>,
+    inner: Arc<dyn super::stub::dynamic::InstanceAdmin>,
 }
 
 impl InstanceAdmin {
@@ -79,7 +79,7 @@ impl InstanceAdmin {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::InstanceAdmin + 'static,
+        T: super::stub::InstanceAdmin + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -88,7 +88,7 @@ impl InstanceAdmin {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::InstanceAdmin>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::InstanceAdmin>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -97,13 +97,13 @@ impl InstanceAdmin {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::InstanceAdmin> {
+    ) -> Result<impl super::stub::InstanceAdmin> {
         super::transport::InstanceAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::InstanceAdmin> {
+    ) -> Result<impl super::stub::InstanceAdmin> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::InstanceAdmin::new)
@@ -116,8 +116,8 @@ impl InstanceAdmin {
     pub fn list_instance_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::instance_admin::ListInstanceConfigs {
-        super::builders::instance_admin::ListInstanceConfigs::new(self.inner.clone())
+    ) -> super::builder::instance_admin::ListInstanceConfigs {
+        super::builder::instance_admin::ListInstanceConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -125,8 +125,8 @@ impl InstanceAdmin {
     pub fn get_instance_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::instance_admin::GetInstanceConfig {
-        super::builders::instance_admin::GetInstanceConfig::new(self.inner.clone())
+    ) -> super::builder::instance_admin::GetInstanceConfig {
+        super::builder::instance_admin::GetInstanceConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -189,8 +189,8 @@ impl InstanceAdmin {
     pub fn create_instance_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::instance_admin::CreateInstanceConfig {
-        super::builders::instance_admin::CreateInstanceConfig::new(self.inner.clone())
+    ) -> super::builder::instance_admin::CreateInstanceConfig {
+        super::builder::instance_admin::CreateInstanceConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -257,8 +257,8 @@ impl InstanceAdmin {
     pub fn update_instance_config(
         &self,
         instance_config: impl Into<crate::model::InstanceConfig>,
-    ) -> super::builders::instance_admin::UpdateInstanceConfig {
-        super::builders::instance_admin::UpdateInstanceConfig::new(self.inner.clone())
+    ) -> super::builder::instance_admin::UpdateInstanceConfig {
+        super::builder::instance_admin::UpdateInstanceConfig::new(self.inner.clone())
             .set_instance_config(instance_config.into())
     }
 
@@ -275,8 +275,8 @@ impl InstanceAdmin {
     pub fn delete_instance_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::instance_admin::DeleteInstanceConfig {
-        super::builders::instance_admin::DeleteInstanceConfig::new(self.inner.clone())
+    ) -> super::builder::instance_admin::DeleteInstanceConfig {
+        super::builder::instance_admin::DeleteInstanceConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -294,8 +294,8 @@ impl InstanceAdmin {
     pub fn list_instance_config_operations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::instance_admin::ListInstanceConfigOperations {
-        super::builders::instance_admin::ListInstanceConfigOperations::new(self.inner.clone())
+    ) -> super::builder::instance_admin::ListInstanceConfigOperations {
+        super::builder::instance_admin::ListInstanceConfigOperations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -303,8 +303,8 @@ impl InstanceAdmin {
     pub fn list_instances(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::instance_admin::ListInstances {
-        super::builders::instance_admin::ListInstances::new(self.inner.clone())
+    ) -> super::builder::instance_admin::ListInstances {
+        super::builder::instance_admin::ListInstances::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -312,8 +312,8 @@ impl InstanceAdmin {
     pub fn list_instance_partitions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::instance_admin::ListInstancePartitions {
-        super::builders::instance_admin::ListInstancePartitions::new(self.inner.clone())
+    ) -> super::builder::instance_admin::ListInstancePartitions {
+        super::builder::instance_admin::ListInstancePartitions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -321,8 +321,8 @@ impl InstanceAdmin {
     pub fn get_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::instance_admin::GetInstance {
-        super::builders::instance_admin::GetInstance::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::instance_admin::GetInstance {
+        super::builder::instance_admin::GetInstance::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates an instance and begins preparing it to begin serving. The
@@ -375,8 +375,8 @@ impl InstanceAdmin {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::instance_admin::CreateInstance {
-        super::builders::instance_admin::CreateInstance::new(self.inner.clone())
+    ) -> super::builder::instance_admin::CreateInstance {
+        super::builder::instance_admin::CreateInstance::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -437,8 +437,8 @@ impl InstanceAdmin {
     pub fn update_instance(
         &self,
         instance: impl Into<crate::model::Instance>,
-    ) -> super::builders::instance_admin::UpdateInstance {
-        super::builders::instance_admin::UpdateInstance::new(self.inner.clone())
+    ) -> super::builder::instance_admin::UpdateInstance {
+        super::builder::instance_admin::UpdateInstance::new(self.inner.clone())
             .set_instance(instance.into())
     }
 
@@ -456,8 +456,8 @@ impl InstanceAdmin {
     pub fn delete_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::instance_admin::DeleteInstance {
-        super::builders::instance_admin::DeleteInstance::new(self.inner.clone())
+    ) -> super::builder::instance_admin::DeleteInstance {
+        super::builder::instance_admin::DeleteInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -471,8 +471,8 @@ impl InstanceAdmin {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::instance_admin::SetIamPolicy {
-        super::builders::instance_admin::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::instance_admin::SetIamPolicy {
+        super::builder::instance_admin::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -486,8 +486,8 @@ impl InstanceAdmin {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::instance_admin::GetIamPolicy {
-        super::builders::instance_admin::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::instance_admin::GetIamPolicy {
+        super::builder::instance_admin::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -500,8 +500,8 @@ impl InstanceAdmin {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::instance_admin::TestIamPermissions {
-        super::builders::instance_admin::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::instance_admin::TestIamPermissions {
+        super::builder::instance_admin::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -509,8 +509,8 @@ impl InstanceAdmin {
     pub fn get_instance_partition(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::instance_admin::GetInstancePartition {
-        super::builders::instance_admin::GetInstancePartition::new(self.inner.clone())
+    ) -> super::builder::instance_admin::GetInstancePartition {
+        super::builder::instance_admin::GetInstancePartition::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -567,8 +567,8 @@ impl InstanceAdmin {
     pub fn create_instance_partition(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::instance_admin::CreateInstancePartition {
-        super::builders::instance_admin::CreateInstancePartition::new(self.inner.clone())
+    ) -> super::builder::instance_admin::CreateInstancePartition {
+        super::builder::instance_admin::CreateInstancePartition::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -584,8 +584,8 @@ impl InstanceAdmin {
     pub fn delete_instance_partition(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::instance_admin::DeleteInstancePartition {
-        super::builders::instance_admin::DeleteInstancePartition::new(self.inner.clone())
+    ) -> super::builder::instance_admin::DeleteInstancePartition {
+        super::builder::instance_admin::DeleteInstancePartition::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -650,8 +650,8 @@ impl InstanceAdmin {
     pub fn update_instance_partition(
         &self,
         instance_partition: impl Into<crate::model::InstancePartition>,
-    ) -> super::builders::instance_admin::UpdateInstancePartition {
-        super::builders::instance_admin::UpdateInstancePartition::new(self.inner.clone())
+    ) -> super::builder::instance_admin::UpdateInstancePartition {
+        super::builder::instance_admin::UpdateInstancePartition::new(self.inner.clone())
             .set_instance_partition(instance_partition.into())
     }
 
@@ -674,8 +674,8 @@ impl InstanceAdmin {
     pub fn list_instance_partition_operations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::instance_admin::ListInstancePartitionOperations {
-        super::builders::instance_admin::ListInstancePartitionOperations::new(self.inner.clone())
+    ) -> super::builder::instance_admin::ListInstancePartitionOperations {
+        super::builder::instance_admin::ListInstancePartitionOperations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -759,8 +759,8 @@ impl InstanceAdmin {
     pub fn move_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::instance_admin::MoveInstance {
-        super::builders::instance_admin::MoveInstance::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::instance_admin::MoveInstance {
+        super::builder::instance_admin::MoveInstance::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -769,8 +769,8 @@ impl InstanceAdmin {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::instance_admin::ListOperations {
-        super::builders::instance_admin::ListOperations::new(self.inner.clone())
+    ) -> super::builder::instance_admin::ListOperations {
+        super::builder::instance_admin::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -780,8 +780,8 @@ impl InstanceAdmin {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::instance_admin::GetOperation {
-        super::builders::instance_admin::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::instance_admin::GetOperation {
+        super::builder::instance_admin::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -790,8 +790,8 @@ impl InstanceAdmin {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::instance_admin::DeleteOperation {
-        super::builders::instance_admin::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::instance_admin::DeleteOperation {
+        super::builder::instance_admin::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -801,8 +801,8 @@ impl InstanceAdmin {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::instance_admin::CancelOperation {
-        super::builders::instance_admin::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::instance_admin::CancelOperation {
+        super::builder::instance_admin::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

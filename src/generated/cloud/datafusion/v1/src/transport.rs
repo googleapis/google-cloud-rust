@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DataFusion](super::stubs::DataFusion) using a [gaxi::http::ReqwestClient].
+/// Implements [DataFusion](super::stub::DataFusion) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DataFusion {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl DataFusion {
     }
 }
 
-impl super::stubs::DataFusion for DataFusion {
+impl super::stub::DataFusion for DataFusion {
     async fn list_available_versions(
         &self,
         req: crate::model::ListAvailableVersionsRequest,

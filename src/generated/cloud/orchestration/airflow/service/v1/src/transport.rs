@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Environments](super::stubs::Environments) using a [gaxi::http::ReqwestClient].
+/// Implements [Environments](super::stub::Environments) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Environments {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl Environments {
     }
 }
 
-impl super::stubs::Environments for Environments {
+impl super::stub::Environments for Environments {
     async fn create_environment(
         &self,
         req: crate::model::CreateEnvironmentRequest,
@@ -642,7 +642,7 @@ impl super::stubs::Environments for Environments {
     }
 }
 
-/// Implements [ImageVersions](super::stubs::ImageVersions) using a [gaxi::http::ReqwestClient].
+/// Implements [ImageVersions](super::stub::ImageVersions) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ImageVersions {
     inner: gaxi::http::ReqwestClient,
@@ -663,7 +663,7 @@ impl ImageVersions {
     }
 }
 
-impl super::stubs::ImageVersions for ImageVersions {
+impl super::stub::ImageVersions for ImageVersions {
     async fn list_image_versions(
         &self,
         req: crate::model::ListImageVersionsRequest,

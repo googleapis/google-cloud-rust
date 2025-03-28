@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AssetService {
-    inner: Arc<dyn super::stubs::dynamic::AssetService>,
+    inner: Arc<dyn super::stub::dynamic::AssetService>,
 }
 
 impl AssetService {
@@ -59,7 +59,7 @@ impl AssetService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::AssetService + 'static,
+        T: super::stub::AssetService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl AssetService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::AssetService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::AssetService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +77,13 @@ impl AssetService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AssetService> {
+    ) -> Result<impl super::stub::AssetService> {
         super::transport::AssetService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AssetService> {
+    ) -> Result<impl super::stub::AssetService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AssetService::new)
@@ -116,8 +116,8 @@ impl AssetService {
     pub fn export_assets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::asset_service::ExportAssets {
-        super::builders::asset_service::ExportAssets::new(self.inner.clone())
+    ) -> super::builder::asset_service::ExportAssets {
+        super::builder::asset_service::ExportAssets::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -126,9 +126,8 @@ impl AssetService {
     pub fn list_assets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::asset_service::ListAssets {
-        super::builders::asset_service::ListAssets::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::asset_service::ListAssets {
+        super::builder::asset_service::ListAssets::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Batch gets the update history of assets that overlap a time window.
@@ -141,8 +140,8 @@ impl AssetService {
     pub fn batch_get_assets_history(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::asset_service::BatchGetAssetsHistory {
-        super::builders::asset_service::BatchGetAssetsHistory::new(self.inner.clone())
+    ) -> super::builder::asset_service::BatchGetAssetsHistory {
+        super::builder::asset_service::BatchGetAssetsHistory::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -151,41 +150,40 @@ impl AssetService {
     pub fn create_feed(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::asset_service::CreateFeed {
-        super::builders::asset_service::CreateFeed::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::asset_service::CreateFeed {
+        super::builder::asset_service::CreateFeed::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets details about an asset feed.
     pub fn get_feed(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::asset_service::GetFeed {
-        super::builders::asset_service::GetFeed::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::asset_service::GetFeed {
+        super::builder::asset_service::GetFeed::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists all asset feeds in a parent project/folder/organization.
     pub fn list_feeds(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::asset_service::ListFeeds {
-        super::builders::asset_service::ListFeeds::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::asset_service::ListFeeds {
+        super::builder::asset_service::ListFeeds::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates an asset feed configuration.
     pub fn update_feed(
         &self,
         feed: impl Into<crate::model::Feed>,
-    ) -> super::builders::asset_service::UpdateFeed {
-        super::builders::asset_service::UpdateFeed::new(self.inner.clone()).set_feed(feed.into())
+    ) -> super::builder::asset_service::UpdateFeed {
+        super::builder::asset_service::UpdateFeed::new(self.inner.clone()).set_feed(feed.into())
     }
 
     /// Deletes an asset feed.
     pub fn delete_feed(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::asset_service::DeleteFeed {
-        super::builders::asset_service::DeleteFeed::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::asset_service::DeleteFeed {
+        super::builder::asset_service::DeleteFeed::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Searches all Google Cloud resources within the specified scope, such as a
@@ -195,8 +193,8 @@ impl AssetService {
     pub fn search_all_resources(
         &self,
         scope: impl Into<std::string::String>,
-    ) -> super::builders::asset_service::SearchAllResources {
-        super::builders::asset_service::SearchAllResources::new(self.inner.clone())
+    ) -> super::builder::asset_service::SearchAllResources {
+        super::builder::asset_service::SearchAllResources::new(self.inner.clone())
             .set_scope(scope.into())
     }
 
@@ -207,8 +205,8 @@ impl AssetService {
     pub fn search_all_iam_policies(
         &self,
         scope: impl Into<std::string::String>,
-    ) -> super::builders::asset_service::SearchAllIamPolicies {
-        super::builders::asset_service::SearchAllIamPolicies::new(self.inner.clone())
+    ) -> super::builder::asset_service::SearchAllIamPolicies {
+        super::builder::asset_service::SearchAllIamPolicies::new(self.inner.clone())
             .set_scope(scope.into())
     }
 
@@ -217,8 +215,8 @@ impl AssetService {
     pub fn analyze_iam_policy(
         &self,
         analysis_query: impl Into<crate::model::IamPolicyAnalysisQuery>,
-    ) -> super::builders::asset_service::AnalyzeIamPolicy {
-        super::builders::asset_service::AnalyzeIamPolicy::new(self.inner.clone())
+    ) -> super::builder::asset_service::AnalyzeIamPolicy {
+        super::builder::asset_service::AnalyzeIamPolicy::new(self.inner.clone())
             .set_analysis_query(analysis_query.into())
     }
 
@@ -248,8 +246,8 @@ impl AssetService {
     pub fn analyze_iam_policy_longrunning(
         &self,
         analysis_query: impl Into<crate::model::IamPolicyAnalysisQuery>,
-    ) -> super::builders::asset_service::AnalyzeIamPolicyLongrunning {
-        super::builders::asset_service::AnalyzeIamPolicyLongrunning::new(self.inner.clone())
+    ) -> super::builder::asset_service::AnalyzeIamPolicyLongrunning {
+        super::builder::asset_service::AnalyzeIamPolicyLongrunning::new(self.inner.clone())
             .set_analysis_query(analysis_query.into())
     }
 
@@ -261,8 +259,8 @@ impl AssetService {
     pub fn analyze_move(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::asset_service::AnalyzeMove {
-        super::builders::asset_service::AnalyzeMove::new(self.inner.clone())
+    ) -> super::builder::asset_service::AnalyzeMove {
+        super::builder::asset_service::AnalyzeMove::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -281,8 +279,8 @@ impl AssetService {
     pub fn query_assets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::asset_service::QueryAssets {
-        super::builders::asset_service::QueryAssets::new(self.inner.clone())
+    ) -> super::builder::asset_service::QueryAssets {
+        super::builder::asset_service::QueryAssets::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -290,8 +288,8 @@ impl AssetService {
     pub fn create_saved_query(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::asset_service::CreateSavedQuery {
-        super::builders::asset_service::CreateSavedQuery::new(self.inner.clone())
+    ) -> super::builder::asset_service::CreateSavedQuery {
+        super::builder::asset_service::CreateSavedQuery::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -299,16 +297,16 @@ impl AssetService {
     pub fn get_saved_query(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::asset_service::GetSavedQuery {
-        super::builders::asset_service::GetSavedQuery::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::asset_service::GetSavedQuery {
+        super::builder::asset_service::GetSavedQuery::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists all saved queries in a parent project/folder/organization.
     pub fn list_saved_queries(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::asset_service::ListSavedQueries {
-        super::builders::asset_service::ListSavedQueries::new(self.inner.clone())
+    ) -> super::builder::asset_service::ListSavedQueries {
+        super::builder::asset_service::ListSavedQueries::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -316,8 +314,8 @@ impl AssetService {
     pub fn update_saved_query(
         &self,
         saved_query: impl Into<crate::model::SavedQuery>,
-    ) -> super::builders::asset_service::UpdateSavedQuery {
-        super::builders::asset_service::UpdateSavedQuery::new(self.inner.clone())
+    ) -> super::builder::asset_service::UpdateSavedQuery {
+        super::builder::asset_service::UpdateSavedQuery::new(self.inner.clone())
             .set_saved_query(saved_query.into())
     }
 
@@ -325,8 +323,8 @@ impl AssetService {
     pub fn delete_saved_query(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::asset_service::DeleteSavedQuery {
-        super::builders::asset_service::DeleteSavedQuery::new(self.inner.clone())
+    ) -> super::builder::asset_service::DeleteSavedQuery {
+        super::builder::asset_service::DeleteSavedQuery::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -334,8 +332,8 @@ impl AssetService {
     pub fn batch_get_effective_iam_policies(
         &self,
         scope: impl Into<std::string::String>,
-    ) -> super::builders::asset_service::BatchGetEffectiveIamPolicies {
-        super::builders::asset_service::BatchGetEffectiveIamPolicies::new(self.inner.clone())
+    ) -> super::builder::asset_service::BatchGetEffectiveIamPolicies {
+        super::builder::asset_service::BatchGetEffectiveIamPolicies::new(self.inner.clone())
             .set_scope(scope.into())
     }
 
@@ -343,8 +341,8 @@ impl AssetService {
     pub fn analyze_org_policies(
         &self,
         scope: impl Into<std::string::String>,
-    ) -> super::builders::asset_service::AnalyzeOrgPolicies {
-        super::builders::asset_service::AnalyzeOrgPolicies::new(self.inner.clone())
+    ) -> super::builder::asset_service::AnalyzeOrgPolicies {
+        super::builder::asset_service::AnalyzeOrgPolicies::new(self.inner.clone())
             .set_scope(scope.into())
     }
 
@@ -353,8 +351,8 @@ impl AssetService {
     pub fn analyze_org_policy_governed_containers(
         &self,
         scope: impl Into<std::string::String>,
-    ) -> super::builders::asset_service::AnalyzeOrgPolicyGovernedContainers {
-        super::builders::asset_service::AnalyzeOrgPolicyGovernedContainers::new(self.inner.clone())
+    ) -> super::builder::asset_service::AnalyzeOrgPolicyGovernedContainers {
+        super::builder::asset_service::AnalyzeOrgPolicyGovernedContainers::new(self.inner.clone())
             .set_scope(scope.into())
     }
 
@@ -410,8 +408,8 @@ impl AssetService {
     pub fn analyze_org_policy_governed_assets(
         &self,
         scope: impl Into<std::string::String>,
-    ) -> super::builders::asset_service::AnalyzeOrgPolicyGovernedAssets {
-        super::builders::asset_service::AnalyzeOrgPolicyGovernedAssets::new(self.inner.clone())
+    ) -> super::builder::asset_service::AnalyzeOrgPolicyGovernedAssets {
+        super::builder::asset_service::AnalyzeOrgPolicyGovernedAssets::new(self.inner.clone())
             .set_scope(scope.into())
     }
 
@@ -421,7 +419,7 @@ impl AssetService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::asset_service::GetOperation {
-        super::builders::asset_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::asset_service::GetOperation {
+        super::builder::asset_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
