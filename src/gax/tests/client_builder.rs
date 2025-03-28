@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Verify `ClientBuilder` can be used outside the crate.
 #[cfg(all(test, feature = "unstable-sdk-client"))]
 mod test {
     use gax::client_builder::internal::ClientConfig;
