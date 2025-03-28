@@ -273,7 +273,7 @@ class TimestampHelper {
       nanos = int.parse(fractionalSeconds.substring(1).padRight(9, '0'));
     }
 
-    // If seconds is negative adjust for a postive nanos value.
+    // If seconds is negative adjust for a positive nanos value.
     return Timestamp(
       seconds: seconds < 0 && nanos > 0 ? seconds - 1 : seconds,
       nanos: nanos,
