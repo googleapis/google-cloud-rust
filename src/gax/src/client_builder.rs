@@ -640,6 +640,19 @@ pub mod examples {
         }
 
         #[test]
+        fn retry_throttler() {
+            use crate::retry_throttler::CircuitBreaker;
+            let client = Client::builder()
+                .with_retry_throttler(CircuitBreaker::default())
+                .build();
+            let config = client.0;
+            assert!(
+                format!("{:?}", &config).contains("CircuitBreaker"),
+                "{config:?}"
+            );
+        }
+
+        #[test]
         fn polling_error_policy() {
             use crate::polling_error_policy::PollingErrorPolicyExt;
             let client = Client::builder()
