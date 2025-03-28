@@ -29,12 +29,12 @@ rust-version.workspace = true
 _internal_http_client = [
   "_internal_common",
   "dep:auth",
-  "dep:gax",
   "dep:reqwest",
   "dep:rpc",
   "dep:serde",
   "dep:serde_json",
   "dep:tokio",
+  "gax/unstable-sdk-client",
 ]
 _internal_grpc_client = ["_internal_common", "dep:auth", "dep:gax", "dep:rpc", "dep:tokio", "dep:tonic"]
 _internal_common = ["dep:gax", "dep:thiserror"]
