@@ -263,7 +263,7 @@ class TimestampHelper {
   static Timestamp decode(String value) {
     // DateTime will throw a FormatException on parse issues.
     final dateTime = DateTime.parse(value);
-    final seconds = dateTime.millisecondsSinceEpoch ~/ 1000;
+    final seconds = dateTime.millisecondsSinceEpoch ~/ 1_000;
 
     // Parse nanos separately as DateTime only has microseconds resolution.
     var nanos = 0;
@@ -273,6 +273,10 @@ class TimestampHelper {
       nanos = int.parse(fractionalSeconds.substring(1).padRight(9, '0'));
     }
 
-    return Timestamp(seconds: seconds, nanos: nanos);
+    // If seconds is negative adjust for a postive nanos value.
+    return Timestamp(
+      seconds: seconds < 0 && nanos > 0 ? seconds - 1 : seconds,
+      nanos: nanos,
+    );
   }
 }

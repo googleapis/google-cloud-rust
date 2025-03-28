@@ -30,13 +30,13 @@ void main() {
 
   test('min seconds', () {
     final timestamp = TimestampHelper.decode('0001-01-01T00:00:00Z');
-    expect(timestamp.seconds, -62135596800);
+    expect(timestamp.seconds, TimestampExtension.minSeconds);
     expect(timestamp.nanos, 0);
   });
 
   test('max seconds', () {
     final timestamp = TimestampHelper.decode('9999-12-31T23:59:59Z');
-    expect(timestamp.seconds, 253402300799);
+    expect(timestamp.seconds, TimestampExtension.maxSeconds);
     expect(timestamp.nanos, 0);
   });
 
@@ -49,10 +49,54 @@ void main() {
     });
   }
 
+  roundTrip('0001-01-01T00:00:00.123456789Z');
+  roundTrip('0001-01-01T00:00:00.123456Z');
+  roundTrip('0001-01-01T00:00:00.123Z');
   roundTrip('0001-01-01T00:00:00Z');
+  roundTrip('1960-01-01T00:00:00.123456789Z');
+  roundTrip('1960-01-01T00:00:00.123456Z');
+  roundTrip('1960-01-01T00:00:00.123Z');
+  roundTrip('1960-01-01T00:00:00Z');
+  roundTrip('1970-01-01T00:00:00.123456789Z');
+  roundTrip('1970-01-01T00:00:00.123456Z');
+  roundTrip('1970-01-01T00:00:00.123Z');
+  roundTrip('1970-01-01T00:00:00Z');
   roundTrip('9999-12-31T23:59:59.999999999Z');
+  roundTrip('9999-12-31T23:59:59.123456789Z');
+  roundTrip('9999-12-31T23:59:59.123456Z');
+  roundTrip('9999-12-31T23:59:59.123Z');
+  roundTrip('2024-10-19T12:34:56Z');
   roundTrip('2024-10-19T12:34:56.789Z');
   roundTrip('2024-10-19T12:34:56.789123456Z');
+
+  void validate(String rfc3339, int seconds, int nanos) {
+    test('validate $rfc3339', () {
+      final timestamp = Timestamp.fromJson(rfc3339);
+      expect(timestamp.seconds, seconds);
+      expect(timestamp.nanos, nanos);
+      expect(timestamp.toJson(), rfc3339);
+    });
+  }
+
+  // Validate that a given RFC3339 gives the expected seconds and nanos.
+  validate('0001-01-01T00:00:00.123456789Z', TimestampExtension.minSeconds,
+      123_456_789);
+  validate('0001-01-01T00:00:00.123456Z', TimestampExtension.minSeconds,
+      123_456_000);
+  validate(
+      '0001-01-01T00:00:00.123Z', TimestampExtension.minSeconds, 123_000_000);
+  validate('0001-01-01T00:00:00Z', TimestampExtension.minSeconds, 0);
+  validate('1970-01-01T00:00:00.123456789Z', 0, 123_456_789);
+  validate('1970-01-01T00:00:00.123456Z', 0, 123_456_000);
+  validate('1970-01-01T00:00:00.123Z', 0, 123_000_000);
+  validate('1970-01-01T00:00:00Z', 0, 0);
+  validate('9999-12-31T23:59:59.123456789Z', TimestampExtension.maxSeconds,
+      123_456_789);
+  validate('9999-12-31T23:59:59.123456Z', TimestampExtension.maxSeconds,
+      123_456_000);
+  validate(
+      '9999-12-31T23:59:59.123Z', TimestampExtension.maxSeconds, 123_000_000);
+  validate('9999-12-31T23:59:59Z', TimestampExtension.maxSeconds, 0);
 
   // bad format tests
   test('bad format', () {
@@ -61,14 +105,14 @@ void main() {
 
   test('seconds below range', () {
     expect(
-      () => Timestamp(seconds: -62135596800 - 1, nanos: 0),
+      () => Timestamp(seconds: TimestampExtension.minSeconds - 1, nanos: 0),
       throwsArgumentError,
     );
   });
 
   test('seconds above range', () {
     expect(
-      () => Timestamp(seconds: 253402300799 + 1, nanos: 0),
+      () => Timestamp(seconds: TimestampExtension.maxSeconds + 1, nanos: 0),
       throwsArgumentError,
     );
   });
