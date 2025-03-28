@@ -14,13 +14,13 @@
 
 mod jws;
 
+use crate::credentials::QUOTA_PROJECT_KEY;
 use crate::credentials::dynamic::CredentialTrait;
 use crate::credentials::{Credential, Result};
 use crate::errors::CredentialError;
 use crate::token::{Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use async_trait::async_trait;
-use derive_builder::Builder;
 use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
 use jws::{CLOCK_SKEW_FUDGE, DEFAULT_TOKEN_TIMEOUT, JwsClaims, JwsHeader};
 use rustls::crypto::CryptoProvider;
@@ -34,26 +34,75 @@ const DEFAULT_SCOPES: &str = "https://www.googleapis.com/auth/cloud-platform";
 pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
     let service_account_info =
         serde_json::from_value::<ServiceAccountInfo>(js).map_err(CredentialError::non_retryable)?;
-    let token_provider = ServiceAccountTokenProvider {
-        service_account_info,
-    };
-    let token_provider = TokenCache::new(token_provider);
-
-    Ok(Credential {
-        inner: Arc::new(ServiceAccountCredential { token_provider }),
-    })
+    Builder::default()
+        .service_account_info(service_account_info)
+        .build()
 }
 
-/// A representation of a Service Account File. See [Service Account Keys](https://google.aip.dev/auth/4112)
-/// for more details.
-#[derive(serde::Deserialize, Builder)]
-#[builder(setter(into))]
-struct ServiceAccountInfo {
-    client_email: String,
-    private_key_id: String,
-    private_key: String,
-    project_id: String,
-    universe_domain: String,
+#[derive(Default)]
+struct Builder {
+    service_account_info: ServiceAccountInfo,
+    aud: Option<String>,
+    scopes: Option<Vec<String>>,
+    quota_project_id: Option<String>,
+}
+
+impl Builder {
+    /// Sets the service account info for this credential.
+    pub fn service_account_info(mut self, service_account_info: ServiceAccountInfo) -> Self {
+        self.service_account_info = service_account_info;
+        self
+    }
+
+    /// Sets the audience for this credential.
+    pub fn aud<S: Into<String>>(mut self, aud: S) -> Self {
+        self.aud = Some(aud.into());
+        self
+    }
+
+    /// Sets the scopes for this credential.
+    pub fn scopes<I, S>(mut self, scopes: I) -> Self
+    where
+        I: IntoIterator<Item = S>,
+        S: Into<String>,
+    {
+        self.scopes = Some(scopes.into_iter().map(|s| s.into()).collect());
+        self
+    }
+
+    /// Sets the quota project id for this credential.
+    pub fn quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
+        self.quota_project_id = Some(quota_project_id.into());
+        self
+    }
+
+    pub fn build(self) -> Result<Credential> {
+        let token_provider = ServiceAccountTokenProvider {
+            service_account_info: self.service_account_info,
+            aud: self.aud,
+            scopes: self.scopes,
+        };
+        let token_provider = TokenCache::new(token_provider);
+
+        Ok(Credential {
+            inner: Arc::new(ServiceAccountCredential {
+                token_provider,
+                quota_project_id: self.quota_project_id,
+            }),
+        })
+    }
+}
+
+/// A representation of a [Service Account File]
+///
+/// Service Account File: https://google.aip.dev/auth/4112
+#[derive(serde::Deserialize, Default)]
+pub struct ServiceAccountInfo {
+    pub client_email: String,
+    pub private_key_id: String,
+    pub private_key: String,
+    pub project_id: String,
+    pub universe_domain: String,
 }
 
 impl std::fmt::Debug for ServiceAccountInfo {
@@ -74,11 +123,14 @@ where
     T: TokenProvider,
 {
     token_provider: T,
+    quota_project_id: Option<String>,
 }
 
 #[derive(Debug)]
 struct ServiceAccountTokenProvider {
     service_account_info: ServiceAccountInfo,
+    aud: Option<String>,
+    scopes: Option<Vec<String>>,
 }
 
 #[async_trait]
@@ -92,13 +144,18 @@ impl TokenProvider for ServiceAccountTokenProvider {
         // the implementation.
         let now = OffsetDateTime::now_utc() - CLOCK_SKEW_FUDGE;
         let exp = now + DEFAULT_TOKEN_TIMEOUT;
+        let scopes = if self.aud.is_none() && self.scopes.is_none() {
+            Some(DEFAULT_SCOPES.to_string())
+        } else {
+            Some(self.scopes.clone().unwrap().join(" "))
+        };
+
         let claims = JwsClaims {
             iss: self.service_account_info.client_email.clone(),
-            scope: Some(DEFAULT_SCOPES.to_string()),
-            aud: None,
+            scope: scopes,
+            aud: self.aud.clone(),
             exp,
             iat: now,
-            typ: None,
             sub: Some(self.service_account_info.client_email.clone()),
         };
 
@@ -150,7 +207,7 @@ impl ServiceAccountTokenProvider {
             }
         };
         let sk = pk.map_err(CredentialError::non_retryable)?;
-        //TODO(#679) add support for ECDSA
+
         sk.choose_scheme(&[rustls::SignatureScheme::RSA_PKCS1_SHA256])
             .ok_or_else(|| CredentialError::non_retryable_from_str("Unable to choose RSA_PKCS1_SHA256 signing scheme as it is not supported by current signer"))
     }
@@ -177,7 +234,14 @@ where
         let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
             .map_err(CredentialError::non_retryable)?;
         value.set_sensitive(true);
-        Ok(vec![(AUTHORIZATION, value)])
+        let mut headers = vec![(AUTHORIZATION, value)];
+        if let Some(project) = &self.quota_project_id {
+            headers.push((
+                HeaderName::from_static(QUOTA_PROJECT_KEY),
+                HeaderValue::from_str(project).map_err(CredentialError::non_retryable)?,
+            ));
+        }
+        Ok(headers)
     }
 }
 
@@ -233,6 +297,7 @@ mod test {
 
         let sac = ServiceAccountCredential {
             token_provider: mock,
+            quota_project_id: None,
         };
         let actual = sac.get_token().await.unwrap();
         assert_eq!(actual, expected);
@@ -247,6 +312,7 @@ mod test {
 
         let sac = ServiceAccountCredential {
             token_provider: mock,
+            quota_project_id: None,
         };
         assert!(sac.get_token().await.is_err());
     }
@@ -265,6 +331,7 @@ mod test {
 
         let sac = ServiceAccountCredential {
             token_provider: mock,
+            quota_project_id: None,
         };
         let headers: Vec<HV> = HV::from(sac.get_headers().await.unwrap());
 
@@ -287,19 +354,21 @@ mod test {
 
         let sac = ServiceAccountCredential {
             token_provider: mock,
+            quota_project_id: None,
         };
         assert!(sac.get_headers().await.is_err());
     }
 
     fn get_mock_service_account() -> ServiceAccountInfo {
-        ServiceAccountInfoBuilder::default()
-            .client_email("test-client-email")
-            .private_key_id("test-private-key-id")
-            .private_key("")
-            .project_id("test-project-id")
-            .universe_domain("test-universe-domain")
-            .build()
-            .unwrap()
+        let service_account_info_json = json!({
+            "client_email": "test-client-email",
+            "private_key_id": "test-private-key-id",
+            "private_key": "",
+            "project_id": "test-project-id",
+            "universe_domain": "test-universe-domain",
+        });
+        serde_json::from_value::<ServiceAccountInfo>(service_account_info_json)
+            .map_err(CredentialError::non_retryable).unwrap()
     }
 
     fn generate_pkcs1_key() -> String {
@@ -318,6 +387,8 @@ mod test {
         service_account_info.private_key = generate_pkcs1_key();
         let token_provider = ServiceAccountTokenProvider {
             service_account_info,
+            aud: None,
+            scopes: None,
         };
         let expected_error_message = "expected key to be in form of PKCS8, found Pkcs1Key";
         assert!(
@@ -355,6 +426,8 @@ mod test {
         service_account_info.private_key = generate_pkcs8_key();
         let token_provider = ServiceAccountTokenProvider {
             service_account_info,
+            aud: None,
+            scopes: None,
         };
         let token = token_provider.get_token().await?;
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
@@ -427,6 +500,8 @@ mod test {
         service_account_info.private_key = pem_data.to_string();
         let token_provider = ServiceAccountTokenProvider {
             service_account_info,
+            scopes: None,
+            aud: None,
         };
         let token = token_provider.get_token().await;
         let expected_error_message = "failed to parse private key";
@@ -438,6 +513,8 @@ mod test {
     fn signer_failure() -> TestResult {
         let tp = ServiceAccountTokenProvider {
             service_account_info: get_mock_service_account(),
+            aud: None,
+            scopes: None,
         };
         let signer = tp.signer(&tp.service_account_info.private_key);
         let expected_error_message = "missing PEM section in service account key";

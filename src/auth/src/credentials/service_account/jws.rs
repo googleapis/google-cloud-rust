@@ -39,8 +39,6 @@ pub struct JwsClaims {
     #[serde(with = "time::serde::timestamp")]
     pub iat: OffsetDateTime,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub typ: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub sub: Option<String>,
 }
 
@@ -100,7 +98,6 @@ mod tests {
             aud: Some("test_aud".to_string()),
             exp: then,
             iat: now,
-            typ: None,
             sub: None,
         };
 
@@ -133,7 +130,6 @@ mod tests {
             aud: None,
             exp: then,
             iat: now,
-            typ: Some("test_typ".to_string()),
             sub: Some("test_sub".to_string()),
         };
 
@@ -151,7 +147,6 @@ mod tests {
 
         assert_eq!(v["iat"], now.unix_timestamp());
         assert_eq!(v["exp"], then.unix_timestamp());
-        assert_eq!(v["typ"], "test_typ");
         assert_eq!(v["sub"], "test_sub");
     }
 
@@ -166,7 +161,6 @@ mod tests {
             aud: None,
             exp: then,
             iat: now,
-            typ: None,
             sub: None,
         };
         let expected_error_message = "must be later than issued time";
@@ -188,7 +182,6 @@ mod tests {
             aud: Some("test-aud".to_string()),
             exp: then,
             iat: now,
-            typ: None,
             sub: None,
         };
         let expected_error_message = "expecting only 1 of them to be set";
