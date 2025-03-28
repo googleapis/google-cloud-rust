@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AppConnectionsService](super::stubs::AppConnectionsService) using a [gaxi::http::ReqwestClient].
+/// Implements [AppConnectionsService](super::stub::AppConnectionsService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct AppConnectionsService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl AppConnectionsService {
     }
 }
 
-impl super::stubs::AppConnectionsService for AppConnectionsService {
+impl super::stub::AppConnectionsService for AppConnectionsService {
     async fn list_app_connections(
         &self,
         req: crate::model::ListAppConnectionsRequest,

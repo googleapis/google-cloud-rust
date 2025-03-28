@@ -31,10 +31,10 @@ pub use gax::error::Error;
 #[allow(rustdoc::broken_intra_doc_links)]
 pub(crate) mod generated;
 
-pub use generated::gapic::builders;
+pub use generated::gapic::builder;
 pub use generated::gapic::client;
 pub use generated::gapic::model;
-pub use generated::gapic::stubs;
+pub use generated::gapic::stub;
 
 pub(crate) mod google {
     pub mod firestore {

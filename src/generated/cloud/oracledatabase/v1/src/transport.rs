@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [OracleDatabase](super::stubs::OracleDatabase) using a [gaxi::http::ReqwestClient].
+/// Implements [OracleDatabase](super::stub::OracleDatabase) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct OracleDatabase {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl OracleDatabase {
     }
 }
 
-impl super::stubs::OracleDatabase for OracleDatabase {
+impl super::stub::OracleDatabase for OracleDatabase {
     async fn list_cloud_exadata_infrastructures(
         &self,
         req: crate::model::ListCloudExadataInfrastructuresRequest,

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AutoscalingPolicyService](super::stubs::AutoscalingPolicyService) using a [gaxi::http::ReqwestClient].
+/// Implements [AutoscalingPolicyService](super::stub::AutoscalingPolicyService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct AutoscalingPolicyService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl AutoscalingPolicyService {
     }
 }
 
-impl super::stubs::AutoscalingPolicyService for AutoscalingPolicyService {
+impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
     async fn create_autoscaling_policy(
         &self,
         req: crate::model::CreateAutoscalingPolicyRequest,
@@ -291,7 +291,7 @@ impl super::stubs::AutoscalingPolicyService for AutoscalingPolicyService {
     }
 }
 
-/// Implements [BatchController](super::stubs::BatchController) using a [gaxi::http::ReqwestClient].
+/// Implements [BatchController](super::stub::BatchController) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct BatchController {
     inner: gaxi::http::ReqwestClient,
@@ -312,7 +312,7 @@ impl BatchController {
     }
 }
 
-impl super::stubs::BatchController for BatchController {
+impl super::stub::BatchController for BatchController {
     async fn create_batch(
         &self,
         req: crate::model::CreateBatchRequest,
@@ -550,7 +550,7 @@ impl super::stubs::BatchController for BatchController {
     }
 }
 
-/// Implements [ClusterController](super::stubs::ClusterController) using a [gaxi::http::ReqwestClient].
+/// Implements [ClusterController](super::stub::ClusterController) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ClusterController {
     inner: gaxi::http::ReqwestClient,
@@ -571,7 +571,7 @@ impl ClusterController {
     }
 }
 
-impl super::stubs::ClusterController for ClusterController {
+impl super::stub::ClusterController for ClusterController {
     async fn create_cluster(
         &self,
         req: crate::model::CreateClusterRequest,
@@ -953,7 +953,7 @@ impl super::stubs::ClusterController for ClusterController {
     }
 }
 
-/// Implements [JobController](super::stubs::JobController) using a [gaxi::http::ReqwestClient].
+/// Implements [JobController](super::stub::JobController) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct JobController {
     inner: gaxi::http::ReqwestClient,
@@ -974,7 +974,7 @@ impl JobController {
     }
 }
 
-impl super::stubs::JobController for JobController {
+impl super::stub::JobController for JobController {
     async fn submit_job(
         &self,
         req: crate::model::SubmitJobRequest,
@@ -1314,7 +1314,7 @@ impl super::stubs::JobController for JobController {
     }
 }
 
-/// Implements [NodeGroupController](super::stubs::NodeGroupController) using a [gaxi::http::ReqwestClient].
+/// Implements [NodeGroupController](super::stub::NodeGroupController) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct NodeGroupController {
     inner: gaxi::http::ReqwestClient,
@@ -1335,7 +1335,7 @@ impl NodeGroupController {
     }
 }
 
-impl super::stubs::NodeGroupController for NodeGroupController {
+impl super::stub::NodeGroupController for NodeGroupController {
     async fn create_node_group(
         &self,
         req: crate::model::CreateNodeGroupRequest,
@@ -1552,7 +1552,7 @@ impl super::stubs::NodeGroupController for NodeGroupController {
     }
 }
 
-/// Implements [SessionTemplateController](super::stubs::SessionTemplateController) using a [gaxi::http::ReqwestClient].
+/// Implements [SessionTemplateController](super::stub::SessionTemplateController) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct SessionTemplateController {
     inner: gaxi::http::ReqwestClient,
@@ -1573,7 +1573,7 @@ impl SessionTemplateController {
     }
 }
 
-impl super::stubs::SessionTemplateController for SessionTemplateController {
+impl super::stub::SessionTemplateController for SessionTemplateController {
     async fn create_session_template(
         &self,
         req: crate::model::CreateSessionTemplateRequest,
@@ -1830,7 +1830,7 @@ impl super::stubs::SessionTemplateController for SessionTemplateController {
     }
 }
 
-/// Implements [SessionController](super::stubs::SessionController) using a [gaxi::http::ReqwestClient].
+/// Implements [SessionController](super::stub::SessionController) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct SessionController {
     inner: gaxi::http::ReqwestClient,
@@ -1851,7 +1851,7 @@ impl SessionController {
     }
 }
 
-impl super::stubs::SessionController for SessionController {
+impl super::stub::SessionController for SessionController {
     async fn create_session(
         &self,
         req: crate::model::CreateSessionRequest,
@@ -2110,7 +2110,7 @@ impl super::stubs::SessionController for SessionController {
     }
 }
 
-/// Implements [WorkflowTemplateService](super::stubs::WorkflowTemplateService) using a [gaxi::http::ReqwestClient].
+/// Implements [WorkflowTemplateService](super::stub::WorkflowTemplateService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct WorkflowTemplateService {
     inner: gaxi::http::ReqwestClient,
@@ -2131,7 +2131,7 @@ impl WorkflowTemplateService {
     }
 }
 
-impl super::stubs::WorkflowTemplateService for WorkflowTemplateService {
+impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
     async fn create_workflow_template(
         &self,
         req: crate::model::CreateWorkflowTemplateRequest,

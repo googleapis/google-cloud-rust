@@ -45,7 +45,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ServiceController {
-    inner: Arc<dyn super::stubs::dynamic::ServiceController>,
+    inner: Arc<dyn super::stub::dynamic::ServiceController>,
 }
 
 impl ServiceController {
@@ -66,7 +66,7 @@ impl ServiceController {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ServiceController + 'static,
+        T: super::stub::ServiceController + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -75,7 +75,7 @@ impl ServiceController {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ServiceController>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ServiceController>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -84,13 +84,13 @@ impl ServiceController {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ServiceController> {
+    ) -> Result<impl super::stub::ServiceController> {
         super::transport::ServiceController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ServiceController> {
+    ) -> Result<impl super::stub::ServiceController> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ServiceController::new)
@@ -121,8 +121,8 @@ impl ServiceController {
     pub fn check(
         &self,
         service_name: impl Into<std::string::String>,
-    ) -> super::builders::service_controller::Check {
-        super::builders::service_controller::Check::new(self.inner.clone())
+    ) -> super::builder::service_controller::Check {
+        super::builder::service_controller::Check::new(self.inner.clone())
             .set_service_name(service_name.into())
     }
 
@@ -147,8 +147,8 @@ impl ServiceController {
     pub fn report(
         &self,
         service_name: impl Into<std::string::String>,
-    ) -> super::builders::service_controller::Report {
-        super::builders::service_controller::Report::new(self.inner.clone())
+    ) -> super::builder::service_controller::Report {
+        super::builder::service_controller::Report::new(self.inner.clone())
             .set_service_name(service_name.into())
     }
 }

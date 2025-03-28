@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Eventarc](super::stubs::Eventarc) using a [gaxi::http::ReqwestClient].
+/// Implements [Eventarc](super::stub::Eventarc) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Eventarc {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl Eventarc {
     }
 }
 
-impl super::stubs::Eventarc for Eventarc {
+impl super::stub::Eventarc for Eventarc {
     async fn get_trigger(
         &self,
         req: crate::model::GetTriggerRequest,

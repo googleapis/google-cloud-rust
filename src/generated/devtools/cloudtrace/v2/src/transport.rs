@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [TraceService](super::stubs::TraceService) using a [gaxi::http::ReqwestClient].
+/// Implements [TraceService](super::stub::TraceService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct TraceService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl TraceService {
     }
 }
 
-impl super::stubs::TraceService for TraceService {
+impl super::stub::TraceService for TraceService {
     async fn batch_write_spans(
         &self,
         req: crate::model::BatchWriteSpansRequest,

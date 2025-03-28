@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [FleetRouting](super::stubs::FleetRouting) using a [gaxi::http::ReqwestClient].
+/// Implements [FleetRouting](super::stub::FleetRouting) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct FleetRouting {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl FleetRouting {
     }
 }
 
-impl super::stubs::FleetRouting for FleetRouting {
+impl super::stub::FleetRouting for FleetRouting {
     async fn optimize_tours(
         &self,
         req: crate::model::OptimizeToursRequest,

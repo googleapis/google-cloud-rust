@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [BareMetalSolution](super::stubs::BareMetalSolution) using a [gaxi::http::ReqwestClient].
+/// Implements [BareMetalSolution](super::stub::BareMetalSolution) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct BareMetalSolution {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl BareMetalSolution {
     }
 }
 
-impl super::stubs::BareMetalSolution for BareMetalSolution {
+impl super::stub::BareMetalSolution for BareMetalSolution {
     async fn list_instances(
         &self,
         req: crate::model::ListInstancesRequest,

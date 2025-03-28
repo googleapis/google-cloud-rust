@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ReachabilityService](super::stubs::ReachabilityService) using a [gaxi::http::ReqwestClient].
+/// Implements [ReachabilityService](super::stub::ReachabilityService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ReachabilityService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl ReachabilityService {
     }
 }
 
-impl super::stubs::ReachabilityService for ReachabilityService {
+impl super::stub::ReachabilityService for ReachabilityService {
     async fn list_connectivity_tests(
         &self,
         req: crate::model::ListConnectivityTestsRequest,
@@ -391,7 +391,7 @@ impl super::stubs::ReachabilityService for ReachabilityService {
     }
 }
 
-/// Implements [VpcFlowLogsService](super::stubs::VpcFlowLogsService) using a [gaxi::http::ReqwestClient].
+/// Implements [VpcFlowLogsService](super::stub::VpcFlowLogsService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct VpcFlowLogsService {
     inner: gaxi::http::ReqwestClient,
@@ -412,7 +412,7 @@ impl VpcFlowLogsService {
     }
 }
 
-impl super::stubs::VpcFlowLogsService for VpcFlowLogsService {
+impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
     async fn list_vpc_flow_logs_configs(
         &self,
         req: crate::model::ListVpcFlowLogsConfigsRequest,

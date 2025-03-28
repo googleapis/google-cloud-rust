@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CloudTasks](super::stubs::CloudTasks) using a [gaxi::http::ReqwestClient].
+/// Implements [CloudTasks](super::stub::CloudTasks) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudTasks {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl CloudTasks {
     }
 }
 
-impl super::stubs::CloudTasks for CloudTasks {
+impl super::stub::CloudTasks for CloudTasks {
     async fn list_queues(
         &self,
         req: crate::model::ListQueuesRequest,

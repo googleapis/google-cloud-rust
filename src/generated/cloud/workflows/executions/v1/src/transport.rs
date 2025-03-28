@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Executions](super::stubs::Executions) using a [gaxi::http::ReqwestClient].
+/// Implements [Executions](super::stub::Executions) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Executions {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl Executions {
     }
 }
 
-impl super::stubs::Executions for Executions {
+impl super::stub::Executions for Executions {
     async fn list_executions(
         &self,
         req: crate::model::ListExecutionsRequest,

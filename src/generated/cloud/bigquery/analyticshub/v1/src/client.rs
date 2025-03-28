@@ -43,7 +43,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AnalyticsHubService {
-    inner: Arc<dyn super::stubs::dynamic::AnalyticsHubService>,
+    inner: Arc<dyn super::stub::dynamic::AnalyticsHubService>,
 }
 
 impl AnalyticsHubService {
@@ -64,7 +64,7 @@ impl AnalyticsHubService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::AnalyticsHubService + 'static,
+        T: super::stub::AnalyticsHubService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -73,7 +73,7 @@ impl AnalyticsHubService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::AnalyticsHubService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::AnalyticsHubService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -82,13 +82,13 @@ impl AnalyticsHubService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AnalyticsHubService> {
+    ) -> Result<impl super::stub::AnalyticsHubService> {
         super::transport::AnalyticsHubService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AnalyticsHubService> {
+    ) -> Result<impl super::stub::AnalyticsHubService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AnalyticsHubService::new)
@@ -98,8 +98,8 @@ impl AnalyticsHubService {
     pub fn list_data_exchanges(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::analytics_hub_service::ListDataExchanges {
-        super::builders::analytics_hub_service::ListDataExchanges::new(self.inner.clone())
+    ) -> super::builder::analytics_hub_service::ListDataExchanges {
+        super::builder::analytics_hub_service::ListDataExchanges::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -108,8 +108,8 @@ impl AnalyticsHubService {
     pub fn list_org_data_exchanges(
         &self,
         organization: impl Into<std::string::String>,
-    ) -> super::builders::analytics_hub_service::ListOrgDataExchanges {
-        super::builders::analytics_hub_service::ListOrgDataExchanges::new(self.inner.clone())
+    ) -> super::builder::analytics_hub_service::ListOrgDataExchanges {
+        super::builder::analytics_hub_service::ListOrgDataExchanges::new(self.inner.clone())
             .set_organization(organization.into())
     }
 
@@ -117,8 +117,8 @@ impl AnalyticsHubService {
     pub fn get_data_exchange(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::analytics_hub_service::GetDataExchange {
-        super::builders::analytics_hub_service::GetDataExchange::new(self.inner.clone())
+    ) -> super::builder::analytics_hub_service::GetDataExchange {
+        super::builder::analytics_hub_service::GetDataExchange::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -126,8 +126,8 @@ impl AnalyticsHubService {
     pub fn create_data_exchange(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::analytics_hub_service::CreateDataExchange {
-        super::builders::analytics_hub_service::CreateDataExchange::new(self.inner.clone())
+    ) -> super::builder::analytics_hub_service::CreateDataExchange {
+        super::builder::analytics_hub_service::CreateDataExchange::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -135,8 +135,8 @@ impl AnalyticsHubService {
     pub fn update_data_exchange(
         &self,
         data_exchange: impl Into<crate::model::DataExchange>,
-    ) -> super::builders::analytics_hub_service::UpdateDataExchange {
-        super::builders::analytics_hub_service::UpdateDataExchange::new(self.inner.clone())
+    ) -> super::builder::analytics_hub_service::UpdateDataExchange {
+        super::builder::analytics_hub_service::UpdateDataExchange::new(self.inner.clone())
             .set_data_exchange(data_exchange.into())
     }
 
@@ -144,8 +144,8 @@ impl AnalyticsHubService {
     pub fn delete_data_exchange(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::analytics_hub_service::DeleteDataExchange {
-        super::builders::analytics_hub_service::DeleteDataExchange::new(self.inner.clone())
+    ) -> super::builder::analytics_hub_service::DeleteDataExchange {
+        super::builder::analytics_hub_service::DeleteDataExchange::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -153,8 +153,8 @@ impl AnalyticsHubService {
     pub fn list_listings(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::analytics_hub_service::ListListings {
-        super::builders::analytics_hub_service::ListListings::new(self.inner.clone())
+    ) -> super::builder::analytics_hub_service::ListListings {
+        super::builder::analytics_hub_service::ListListings::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -162,8 +162,8 @@ impl AnalyticsHubService {
     pub fn get_listing(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::analytics_hub_service::GetListing {
-        super::builders::analytics_hub_service::GetListing::new(self.inner.clone())
+    ) -> super::builder::analytics_hub_service::GetListing {
+        super::builder::analytics_hub_service::GetListing::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -171,8 +171,8 @@ impl AnalyticsHubService {
     pub fn create_listing(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::analytics_hub_service::CreateListing {
-        super::builders::analytics_hub_service::CreateListing::new(self.inner.clone())
+    ) -> super::builder::analytics_hub_service::CreateListing {
+        super::builder::analytics_hub_service::CreateListing::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -180,8 +180,8 @@ impl AnalyticsHubService {
     pub fn update_listing(
         &self,
         listing: impl Into<crate::model::Listing>,
-    ) -> super::builders::analytics_hub_service::UpdateListing {
-        super::builders::analytics_hub_service::UpdateListing::new(self.inner.clone())
+    ) -> super::builder::analytics_hub_service::UpdateListing {
+        super::builder::analytics_hub_service::UpdateListing::new(self.inner.clone())
             .set_listing(listing.into())
     }
 
@@ -189,8 +189,8 @@ impl AnalyticsHubService {
     pub fn delete_listing(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::analytics_hub_service::DeleteListing {
-        super::builders::analytics_hub_service::DeleteListing::new(self.inner.clone())
+    ) -> super::builder::analytics_hub_service::DeleteListing {
+        super::builder::analytics_hub_service::DeleteListing::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -203,8 +203,8 @@ impl AnalyticsHubService {
     pub fn subscribe_listing(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::analytics_hub_service::SubscribeListing {
-        super::builders::analytics_hub_service::SubscribeListing::new(self.inner.clone())
+    ) -> super::builder::analytics_hub_service::SubscribeListing {
+        super::builder::analytics_hub_service::SubscribeListing::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -223,8 +223,8 @@ impl AnalyticsHubService {
     pub fn subscribe_data_exchange(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::analytics_hub_service::SubscribeDataExchange {
-        super::builders::analytics_hub_service::SubscribeDataExchange::new(self.inner.clone())
+    ) -> super::builder::analytics_hub_service::SubscribeDataExchange {
+        super::builder::analytics_hub_service::SubscribeDataExchange::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -244,8 +244,8 @@ impl AnalyticsHubService {
     pub fn refresh_subscription(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::analytics_hub_service::RefreshSubscription {
-        super::builders::analytics_hub_service::RefreshSubscription::new(self.inner.clone())
+    ) -> super::builder::analytics_hub_service::RefreshSubscription {
+        super::builder::analytics_hub_service::RefreshSubscription::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -253,8 +253,8 @@ impl AnalyticsHubService {
     pub fn get_subscription(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::analytics_hub_service::GetSubscription {
-        super::builders::analytics_hub_service::GetSubscription::new(self.inner.clone())
+    ) -> super::builder::analytics_hub_service::GetSubscription {
+        super::builder::analytics_hub_service::GetSubscription::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -262,8 +262,8 @@ impl AnalyticsHubService {
     pub fn list_subscriptions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::analytics_hub_service::ListSubscriptions {
-        super::builders::analytics_hub_service::ListSubscriptions::new(self.inner.clone())
+    ) -> super::builder::analytics_hub_service::ListSubscriptions {
+        super::builder::analytics_hub_service::ListSubscriptions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -271,8 +271,8 @@ impl AnalyticsHubService {
     pub fn list_shared_resource_subscriptions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::analytics_hub_service::ListSharedResourceSubscriptions {
-        super::builders::analytics_hub_service::ListSharedResourceSubscriptions::new(
+    ) -> super::builder::analytics_hub_service::ListSharedResourceSubscriptions {
+        super::builder::analytics_hub_service::ListSharedResourceSubscriptions::new(
             self.inner.clone(),
         )
         .set_resource(resource.into())
@@ -282,8 +282,8 @@ impl AnalyticsHubService {
     pub fn revoke_subscription(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::analytics_hub_service::RevokeSubscription {
-        super::builders::analytics_hub_service::RevokeSubscription::new(self.inner.clone())
+    ) -> super::builder::analytics_hub_service::RevokeSubscription {
+        super::builder::analytics_hub_service::RevokeSubscription::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -301,8 +301,8 @@ impl AnalyticsHubService {
     pub fn delete_subscription(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::analytics_hub_service::DeleteSubscription {
-        super::builders::analytics_hub_service::DeleteSubscription::new(self.inner.clone())
+    ) -> super::builder::analytics_hub_service::DeleteSubscription {
+        super::builder::analytics_hub_service::DeleteSubscription::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -310,8 +310,8 @@ impl AnalyticsHubService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::analytics_hub_service::GetIamPolicy {
-        super::builders::analytics_hub_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::analytics_hub_service::GetIamPolicy {
+        super::builder::analytics_hub_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -319,8 +319,8 @@ impl AnalyticsHubService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::analytics_hub_service::SetIamPolicy {
-        super::builders::analytics_hub_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::analytics_hub_service::SetIamPolicy {
+        super::builder::analytics_hub_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -328,8 +328,8 @@ impl AnalyticsHubService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::analytics_hub_service::TestIamPermissions {
-        super::builders::analytics_hub_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::analytics_hub_service::TestIamPermissions {
+        super::builder::analytics_hub_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -339,8 +339,8 @@ impl AnalyticsHubService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::analytics_hub_service::GetOperation {
-        super::builders::analytics_hub_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::analytics_hub_service::GetOperation {
+        super::builder::analytics_hub_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

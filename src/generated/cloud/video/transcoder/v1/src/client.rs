@@ -43,7 +43,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct TranscoderService {
-    inner: Arc<dyn super::stubs::dynamic::TranscoderService>,
+    inner: Arc<dyn super::stub::dynamic::TranscoderService>,
 }
 
 impl TranscoderService {
@@ -64,7 +64,7 @@ impl TranscoderService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::TranscoderService + 'static,
+        T: super::stub::TranscoderService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -73,7 +73,7 @@ impl TranscoderService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::TranscoderService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::TranscoderService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -82,13 +82,13 @@ impl TranscoderService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::TranscoderService> {
+    ) -> Result<impl super::stub::TranscoderService> {
         super::transport::TranscoderService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::TranscoderService> {
+    ) -> Result<impl super::stub::TranscoderService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TranscoderService::new)
@@ -98,8 +98,8 @@ impl TranscoderService {
     pub fn create_job(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::transcoder_service::CreateJob {
-        super::builders::transcoder_service::CreateJob::new(self.inner.clone())
+    ) -> super::builder::transcoder_service::CreateJob {
+        super::builder::transcoder_service::CreateJob::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -107,8 +107,8 @@ impl TranscoderService {
     pub fn list_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::transcoder_service::ListJobs {
-        super::builders::transcoder_service::ListJobs::new(self.inner.clone())
+    ) -> super::builder::transcoder_service::ListJobs {
+        super::builder::transcoder_service::ListJobs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -116,25 +116,24 @@ impl TranscoderService {
     pub fn get_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::transcoder_service::GetJob {
-        super::builders::transcoder_service::GetJob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::transcoder_service::GetJob {
+        super::builder::transcoder_service::GetJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes a job.
     pub fn delete_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::transcoder_service::DeleteJob {
-        super::builders::transcoder_service::DeleteJob::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::transcoder_service::DeleteJob {
+        super::builder::transcoder_service::DeleteJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a job template in the specified region.
     pub fn create_job_template(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::transcoder_service::CreateJobTemplate {
-        super::builders::transcoder_service::CreateJobTemplate::new(self.inner.clone())
+    ) -> super::builder::transcoder_service::CreateJobTemplate {
+        super::builder::transcoder_service::CreateJobTemplate::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -142,8 +141,8 @@ impl TranscoderService {
     pub fn list_job_templates(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::transcoder_service::ListJobTemplates {
-        super::builders::transcoder_service::ListJobTemplates::new(self.inner.clone())
+    ) -> super::builder::transcoder_service::ListJobTemplates {
+        super::builder::transcoder_service::ListJobTemplates::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -151,8 +150,8 @@ impl TranscoderService {
     pub fn get_job_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::transcoder_service::GetJobTemplate {
-        super::builders::transcoder_service::GetJobTemplate::new(self.inner.clone())
+    ) -> super::builder::transcoder_service::GetJobTemplate {
+        super::builder::transcoder_service::GetJobTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -160,8 +159,8 @@ impl TranscoderService {
     pub fn delete_job_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::transcoder_service::DeleteJobTemplate {
-        super::builders::transcoder_service::DeleteJobTemplate::new(self.inner.clone())
+    ) -> super::builder::transcoder_service::DeleteJobTemplate {
+        super::builder::transcoder_service::DeleteJobTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 }

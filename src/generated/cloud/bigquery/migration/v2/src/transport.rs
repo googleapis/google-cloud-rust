@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [MigrationService](super::stubs::MigrationService) using a [gaxi::http::ReqwestClient].
+/// Implements [MigrationService](super::stub::MigrationService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct MigrationService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl MigrationService {
     }
 }
 
-impl super::stubs::MigrationService for MigrationService {
+impl super::stub::MigrationService for MigrationService {
     async fn create_migration_workflow(
         &self,
         req: crate::model::CreateMigrationWorkflowRequest,

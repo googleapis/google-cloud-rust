@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [MetricsScopes](super::stubs::MetricsScopes) using a [gaxi::http::ReqwestClient].
+/// Implements [MetricsScopes](super::stub::MetricsScopes) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct MetricsScopes {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl MetricsScopes {
     }
 }
 
-impl super::stubs::MetricsScopes for MetricsScopes {
+impl super::stub::MetricsScopes for MetricsScopes {
     async fn get_metrics_scope(
         &self,
         req: crate::model::GetMetricsScopeRequest,

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DocumentProcessorService](super::stubs::DocumentProcessorService) using a [gaxi::http::ReqwestClient].
+/// Implements [DocumentProcessorService](super::stub::DocumentProcessorService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DocumentProcessorService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl DocumentProcessorService {
     }
 }
 
-impl super::stubs::DocumentProcessorService for DocumentProcessorService {
+impl super::stub::DocumentProcessorService for DocumentProcessorService {
     async fn process_document(
         &self,
         req: crate::model::ProcessRequest,

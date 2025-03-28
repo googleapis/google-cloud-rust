@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ConnectionService {
-    inner: Arc<dyn super::stubs::dynamic::ConnectionService>,
+    inner: Arc<dyn super::stub::dynamic::ConnectionService>,
 }
 
 impl ConnectionService {
@@ -59,7 +59,7 @@ impl ConnectionService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ConnectionService + 'static,
+        T: super::stub::ConnectionService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl ConnectionService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ConnectionService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ConnectionService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +77,13 @@ impl ConnectionService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ConnectionService> {
+    ) -> Result<impl super::stub::ConnectionService> {
         super::transport::ConnectionService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ConnectionService> {
+    ) -> Result<impl super::stub::ConnectionService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ConnectionService::new)
@@ -94,8 +94,8 @@ impl ConnectionService {
     pub fn list_connections(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::connection_service::ListConnections {
-        super::builders::connection_service::ListConnections::new(self.inner.clone())
+    ) -> super::builder::connection_service::ListConnections {
+        super::builder::connection_service::ListConnections::new(self.inner.clone())
             .set_parent(parent.into())
     }
 }

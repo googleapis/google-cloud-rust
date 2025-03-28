@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Lineage](super::stubs::Lineage) using a [gaxi::http::ReqwestClient].
+/// Implements [Lineage](super::stub::Lineage) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Lineage {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl Lineage {
     }
 }
 
-impl super::stubs::Lineage for Lineage {
+impl super::stub::Lineage for Lineage {
     async fn process_open_lineage_run_event(
         &self,
         req: crate::model::ProcessOpenLineageRunEventRequest,

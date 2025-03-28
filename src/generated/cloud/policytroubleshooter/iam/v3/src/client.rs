@@ -40,7 +40,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct PolicyTroubleshooter {
-    inner: Arc<dyn super::stubs::dynamic::PolicyTroubleshooter>,
+    inner: Arc<dyn super::stub::dynamic::PolicyTroubleshooter>,
 }
 
 impl PolicyTroubleshooter {
@@ -61,7 +61,7 @@ impl PolicyTroubleshooter {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::PolicyTroubleshooter + 'static,
+        T: super::stub::PolicyTroubleshooter + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -70,7 +70,7 @@ impl PolicyTroubleshooter {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::PolicyTroubleshooter>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::PolicyTroubleshooter>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -79,13 +79,13 @@ impl PolicyTroubleshooter {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PolicyTroubleshooter> {
+    ) -> Result<impl super::stub::PolicyTroubleshooter> {
         super::transport::PolicyTroubleshooter::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PolicyTroubleshooter> {
+    ) -> Result<impl super::stub::PolicyTroubleshooter> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PolicyTroubleshooter::new)
@@ -96,7 +96,7 @@ impl PolicyTroubleshooter {
     /// permission.
     pub fn troubleshoot_iam_policy(
         &self,
-    ) -> super::builders::policy_troubleshooter::TroubleshootIamPolicy {
-        super::builders::policy_troubleshooter::TroubleshootIamPolicy::new(self.inner.clone())
+    ) -> super::builder::policy_troubleshooter::TroubleshootIamPolicy {
+        super::builder::policy_troubleshooter::TroubleshootIamPolicy::new(self.inner.clone())
     }
 }

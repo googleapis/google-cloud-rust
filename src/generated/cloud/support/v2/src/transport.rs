@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CaseAttachmentService](super::stubs::CaseAttachmentService) using a [gaxi::http::ReqwestClient].
+/// Implements [CaseAttachmentService](super::stub::CaseAttachmentService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CaseAttachmentService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl CaseAttachmentService {
     }
 }
 
-impl super::stubs::CaseAttachmentService for CaseAttachmentService {
+impl super::stub::CaseAttachmentService for CaseAttachmentService {
     async fn list_attachments(
         &self,
         req: crate::model::ListAttachmentsRequest,
@@ -65,7 +65,7 @@ impl super::stubs::CaseAttachmentService for CaseAttachmentService {
     }
 }
 
-/// Implements [CaseService](super::stubs::CaseService) using a [gaxi::http::ReqwestClient].
+/// Implements [CaseService](super::stub::CaseService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CaseService {
     inner: gaxi::http::ReqwestClient,
@@ -86,7 +86,7 @@ impl CaseService {
     }
 }
 
-impl super::stubs::CaseService for CaseService {
+impl super::stub::CaseService for CaseService {
     async fn get_case(
         &self,
         req: crate::model::GetCaseRequest,
@@ -266,7 +266,7 @@ impl super::stubs::CaseService for CaseService {
     }
 }
 
-/// Implements [CommentService](super::stubs::CommentService) using a [gaxi::http::ReqwestClient].
+/// Implements [CommentService](super::stub::CommentService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CommentService {
     inner: gaxi::http::ReqwestClient,
@@ -287,7 +287,7 @@ impl CommentService {
     }
 }
 
-impl super::stubs::CommentService for CommentService {
+impl super::stub::CommentService for CommentService {
     async fn list_comments(
         &self,
         req: crate::model::ListCommentsRequest,

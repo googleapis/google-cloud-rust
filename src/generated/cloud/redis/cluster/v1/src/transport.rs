@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CloudRedisCluster](super::stubs::CloudRedisCluster) using a [gaxi::http::ReqwestClient].
+/// Implements [CloudRedisCluster](super::stub::CloudRedisCluster) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudRedisCluster {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl CloudRedisCluster {
     }
 }
 
-impl super::stubs::CloudRedisCluster for CloudRedisCluster {
+impl super::stub::CloudRedisCluster for CloudRedisCluster {
     async fn list_clusters(
         &self,
         req: crate::model::ListClustersRequest,

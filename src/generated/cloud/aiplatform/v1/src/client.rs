@@ -39,7 +39,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct DatasetService {
-    inner: Arc<dyn super::stubs::dynamic::DatasetService>,
+    inner: Arc<dyn super::stub::dynamic::DatasetService>,
 }
 
 impl DatasetService {
@@ -60,7 +60,7 @@ impl DatasetService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::DatasetService + 'static,
+        T: super::stub::DatasetService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -69,7 +69,7 @@ impl DatasetService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::DatasetService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::DatasetService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,13 +78,13 @@ impl DatasetService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DatasetService> {
+    ) -> Result<impl super::stub::DatasetService> {
         super::transport::DatasetService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DatasetService> {
+    ) -> Result<impl super::stub::DatasetService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DatasetService::new)
@@ -104,8 +104,8 @@ impl DatasetService {
     pub fn create_dataset(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::CreateDataset {
-        super::builders::dataset_service::CreateDataset::new(self.inner.clone())
+    ) -> super::builder::dataset_service::CreateDataset {
+        super::builder::dataset_service::CreateDataset::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -113,16 +113,16 @@ impl DatasetService {
     pub fn get_dataset(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::GetDataset {
-        super::builders::dataset_service::GetDataset::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::dataset_service::GetDataset {
+        super::builder::dataset_service::GetDataset::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates a Dataset.
     pub fn update_dataset(
         &self,
         dataset: impl Into<crate::model::Dataset>,
-    ) -> super::builders::dataset_service::UpdateDataset {
-        super::builders::dataset_service::UpdateDataset::new(self.inner.clone())
+    ) -> super::builder::dataset_service::UpdateDataset {
+        super::builder::dataset_service::UpdateDataset::new(self.inner.clone())
             .set_dataset(dataset.into())
     }
 
@@ -130,8 +130,8 @@ impl DatasetService {
     pub fn list_datasets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::ListDatasets {
-        super::builders::dataset_service::ListDatasets::new(self.inner.clone())
+    ) -> super::builder::dataset_service::ListDatasets {
+        super::builder::dataset_service::ListDatasets::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -149,8 +149,8 @@ impl DatasetService {
     pub fn delete_dataset(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::DeleteDataset {
-        super::builders::dataset_service::DeleteDataset::new(self.inner.clone())
+    ) -> super::builder::dataset_service::DeleteDataset {
+        super::builder::dataset_service::DeleteDataset::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -168,8 +168,8 @@ impl DatasetService {
     pub fn import_data(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::ImportData {
-        super::builders::dataset_service::ImportData::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::dataset_service::ImportData {
+        super::builder::dataset_service::ImportData::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Exports data from a Dataset.
@@ -186,8 +186,8 @@ impl DatasetService {
     pub fn export_data(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::ExportData {
-        super::builders::dataset_service::ExportData::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::dataset_service::ExportData {
+        super::builder::dataset_service::ExportData::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Create a version from a Dataset.
@@ -204,8 +204,8 @@ impl DatasetService {
     pub fn create_dataset_version(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::CreateDatasetVersion {
-        super::builders::dataset_service::CreateDatasetVersion::new(self.inner.clone())
+    ) -> super::builder::dataset_service::CreateDatasetVersion {
+        super::builder::dataset_service::CreateDatasetVersion::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -213,8 +213,8 @@ impl DatasetService {
     pub fn update_dataset_version(
         &self,
         dataset_version: impl Into<crate::model::DatasetVersion>,
-    ) -> super::builders::dataset_service::UpdateDatasetVersion {
-        super::builders::dataset_service::UpdateDatasetVersion::new(self.inner.clone())
+    ) -> super::builder::dataset_service::UpdateDatasetVersion {
+        super::builder::dataset_service::UpdateDatasetVersion::new(self.inner.clone())
             .set_dataset_version(dataset_version.into())
     }
 
@@ -232,8 +232,8 @@ impl DatasetService {
     pub fn delete_dataset_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::DeleteDatasetVersion {
-        super::builders::dataset_service::DeleteDatasetVersion::new(self.inner.clone())
+    ) -> super::builder::dataset_service::DeleteDatasetVersion {
+        super::builder::dataset_service::DeleteDatasetVersion::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -241,8 +241,8 @@ impl DatasetService {
     pub fn get_dataset_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::GetDatasetVersion {
-        super::builders::dataset_service::GetDatasetVersion::new(self.inner.clone())
+    ) -> super::builder::dataset_service::GetDatasetVersion {
+        super::builder::dataset_service::GetDatasetVersion::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -250,8 +250,8 @@ impl DatasetService {
     pub fn list_dataset_versions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::ListDatasetVersions {
-        super::builders::dataset_service::ListDatasetVersions::new(self.inner.clone())
+    ) -> super::builder::dataset_service::ListDatasetVersions {
+        super::builder::dataset_service::ListDatasetVersions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -269,8 +269,8 @@ impl DatasetService {
     pub fn restore_dataset_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::RestoreDatasetVersion {
-        super::builders::dataset_service::RestoreDatasetVersion::new(self.inner.clone())
+    ) -> super::builder::dataset_service::RestoreDatasetVersion {
+        super::builder::dataset_service::RestoreDatasetVersion::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -278,8 +278,8 @@ impl DatasetService {
     pub fn list_data_items(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::ListDataItems {
-        super::builders::dataset_service::ListDataItems::new(self.inner.clone())
+    ) -> super::builder::dataset_service::ListDataItems {
+        super::builder::dataset_service::ListDataItems::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -287,8 +287,8 @@ impl DatasetService {
     pub fn search_data_items(
         &self,
         dataset: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::SearchDataItems {
-        super::builders::dataset_service::SearchDataItems::new(self.inner.clone())
+    ) -> super::builder::dataset_service::SearchDataItems {
+        super::builder::dataset_service::SearchDataItems::new(self.inner.clone())
             .set_dataset(dataset.into())
     }
 
@@ -296,8 +296,8 @@ impl DatasetService {
     pub fn list_saved_queries(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::ListSavedQueries {
-        super::builders::dataset_service::ListSavedQueries::new(self.inner.clone())
+    ) -> super::builder::dataset_service::ListSavedQueries {
+        super::builder::dataset_service::ListSavedQueries::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -315,8 +315,8 @@ impl DatasetService {
     pub fn delete_saved_query(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::DeleteSavedQuery {
-        super::builders::dataset_service::DeleteSavedQuery::new(self.inner.clone())
+    ) -> super::builder::dataset_service::DeleteSavedQuery {
+        super::builder::dataset_service::DeleteSavedQuery::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -324,8 +324,8 @@ impl DatasetService {
     pub fn get_annotation_spec(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::GetAnnotationSpec {
-        super::builders::dataset_service::GetAnnotationSpec::new(self.inner.clone())
+    ) -> super::builder::dataset_service::GetAnnotationSpec {
+        super::builder::dataset_service::GetAnnotationSpec::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -335,8 +335,8 @@ impl DatasetService {
     pub fn list_annotations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::ListAnnotations {
-        super::builders::dataset_service::ListAnnotations::new(self.inner.clone())
+    ) -> super::builder::dataset_service::ListAnnotations {
+        super::builder::dataset_service::ListAnnotations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -344,8 +344,8 @@ impl DatasetService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::ListLocations {
-        super::builders::dataset_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::dataset_service::ListLocations {
+        super::builder::dataset_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -353,8 +353,8 @@ impl DatasetService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::GetLocation {
-        super::builders::dataset_service::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::dataset_service::GetLocation {
+        super::builder::dataset_service::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -365,8 +365,8 @@ impl DatasetService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::SetIamPolicy {
-        super::builders::dataset_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::dataset_service::SetIamPolicy {
+        super::builder::dataset_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -375,8 +375,8 @@ impl DatasetService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::GetIamPolicy {
-        super::builders::dataset_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::dataset_service::GetIamPolicy {
+        super::builder::dataset_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -390,8 +390,8 @@ impl DatasetService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::TestIamPermissions {
-        super::builders::dataset_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::dataset_service::TestIamPermissions {
+        super::builder::dataset_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -401,8 +401,8 @@ impl DatasetService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::ListOperations {
-        super::builders::dataset_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::dataset_service::ListOperations {
+        super::builder::dataset_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -412,9 +412,8 @@ impl DatasetService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::GetOperation {
-        super::builders::dataset_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::dataset_service::GetOperation {
+        super::builder::dataset_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -423,8 +422,8 @@ impl DatasetService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::DeleteOperation {
-        super::builders::dataset_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::dataset_service::DeleteOperation {
+        super::builder::dataset_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -434,8 +433,8 @@ impl DatasetService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::CancelOperation {
-        super::builders::dataset_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::dataset_service::CancelOperation {
+        super::builder::dataset_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -445,8 +444,8 @@ impl DatasetService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::WaitOperation {
-        super::builders::dataset_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::dataset_service::WaitOperation {
+        super::builder::dataset_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -470,7 +469,7 @@ impl DatasetService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct DeploymentResourcePoolService {
-    inner: Arc<dyn super::stubs::dynamic::DeploymentResourcePoolService>,
+    inner: Arc<dyn super::stub::dynamic::DeploymentResourcePoolService>,
 }
 
 impl DeploymentResourcePoolService {
@@ -491,7 +490,7 @@ impl DeploymentResourcePoolService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::DeploymentResourcePoolService + 'static,
+        T: super::stub::DeploymentResourcePoolService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -500,7 +499,7 @@ impl DeploymentResourcePoolService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::DeploymentResourcePoolService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::DeploymentResourcePoolService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -509,13 +508,13 @@ impl DeploymentResourcePoolService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DeploymentResourcePoolService> {
+    ) -> Result<impl super::stub::DeploymentResourcePoolService> {
         super::transport::DeploymentResourcePoolService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DeploymentResourcePoolService> {
+    ) -> Result<impl super::stub::DeploymentResourcePoolService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DeploymentResourcePoolService::new)
@@ -535,8 +534,8 @@ impl DeploymentResourcePoolService {
     pub fn create_deployment_resource_pool(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::deployment_resource_pool_service::CreateDeploymentResourcePool {
-        super::builders::deployment_resource_pool_service::CreateDeploymentResourcePool::new(
+    ) -> super::builder::deployment_resource_pool_service::CreateDeploymentResourcePool {
+        super::builder::deployment_resource_pool_service::CreateDeploymentResourcePool::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -546,8 +545,8 @@ impl DeploymentResourcePoolService {
     pub fn get_deployment_resource_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::deployment_resource_pool_service::GetDeploymentResourcePool {
-        super::builders::deployment_resource_pool_service::GetDeploymentResourcePool::new(
+    ) -> super::builder::deployment_resource_pool_service::GetDeploymentResourcePool {
+        super::builder::deployment_resource_pool_service::GetDeploymentResourcePool::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -557,8 +556,8 @@ impl DeploymentResourcePoolService {
     pub fn list_deployment_resource_pools(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::deployment_resource_pool_service::ListDeploymentResourcePools {
-        super::builders::deployment_resource_pool_service::ListDeploymentResourcePools::new(
+    ) -> super::builder::deployment_resource_pool_service::ListDeploymentResourcePools {
+        super::builder::deployment_resource_pool_service::ListDeploymentResourcePools::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -578,8 +577,8 @@ impl DeploymentResourcePoolService {
     pub fn update_deployment_resource_pool(
         &self,
         deployment_resource_pool: impl Into<crate::model::DeploymentResourcePool>,
-    ) -> super::builders::deployment_resource_pool_service::UpdateDeploymentResourcePool {
-        super::builders::deployment_resource_pool_service::UpdateDeploymentResourcePool::new(
+    ) -> super::builder::deployment_resource_pool_service::UpdateDeploymentResourcePool {
+        super::builder::deployment_resource_pool_service::UpdateDeploymentResourcePool::new(
             self.inner.clone(),
         )
         .set_deployment_resource_pool(deployment_resource_pool.into())
@@ -599,8 +598,8 @@ impl DeploymentResourcePoolService {
     pub fn delete_deployment_resource_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::deployment_resource_pool_service::DeleteDeploymentResourcePool {
-        super::builders::deployment_resource_pool_service::DeleteDeploymentResourcePool::new(
+    ) -> super::builder::deployment_resource_pool_service::DeleteDeploymentResourcePool {
+        super::builder::deployment_resource_pool_service::DeleteDeploymentResourcePool::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -610,8 +609,8 @@ impl DeploymentResourcePoolService {
     pub fn query_deployed_models(
         &self,
         deployment_resource_pool: impl Into<std::string::String>,
-    ) -> super::builders::deployment_resource_pool_service::QueryDeployedModels {
-        super::builders::deployment_resource_pool_service::QueryDeployedModels::new(
+    ) -> super::builder::deployment_resource_pool_service::QueryDeployedModels {
+        super::builder::deployment_resource_pool_service::QueryDeployedModels::new(
             self.inner.clone(),
         )
         .set_deployment_resource_pool(deployment_resource_pool.into())
@@ -621,8 +620,8 @@ impl DeploymentResourcePoolService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::deployment_resource_pool_service::ListLocations {
-        super::builders::deployment_resource_pool_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::deployment_resource_pool_service::ListLocations {
+        super::builder::deployment_resource_pool_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -630,8 +629,8 @@ impl DeploymentResourcePoolService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::deployment_resource_pool_service::GetLocation {
-        super::builders::deployment_resource_pool_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::deployment_resource_pool_service::GetLocation {
+        super::builder::deployment_resource_pool_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -643,8 +642,8 @@ impl DeploymentResourcePoolService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::deployment_resource_pool_service::SetIamPolicy {
-        super::builders::deployment_resource_pool_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::deployment_resource_pool_service::SetIamPolicy {
+        super::builder::deployment_resource_pool_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -653,8 +652,8 @@ impl DeploymentResourcePoolService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::deployment_resource_pool_service::GetIamPolicy {
-        super::builders::deployment_resource_pool_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::deployment_resource_pool_service::GetIamPolicy {
+        super::builder::deployment_resource_pool_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -668,8 +667,8 @@ impl DeploymentResourcePoolService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::deployment_resource_pool_service::TestIamPermissions {
-        super::builders::deployment_resource_pool_service::TestIamPermissions::new(
+    ) -> super::builder::deployment_resource_pool_service::TestIamPermissions {
+        super::builder::deployment_resource_pool_service::TestIamPermissions::new(
             self.inner.clone(),
         )
         .set_resource(resource.into())
@@ -681,8 +680,8 @@ impl DeploymentResourcePoolService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::deployment_resource_pool_service::ListOperations {
-        super::builders::deployment_resource_pool_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::deployment_resource_pool_service::ListOperations {
+        super::builder::deployment_resource_pool_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -692,8 +691,8 @@ impl DeploymentResourcePoolService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::deployment_resource_pool_service::GetOperation {
-        super::builders::deployment_resource_pool_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::deployment_resource_pool_service::GetOperation {
+        super::builder::deployment_resource_pool_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -703,8 +702,8 @@ impl DeploymentResourcePoolService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::deployment_resource_pool_service::DeleteOperation {
-        super::builders::deployment_resource_pool_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::deployment_resource_pool_service::DeleteOperation {
+        super::builder::deployment_resource_pool_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -714,8 +713,8 @@ impl DeploymentResourcePoolService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::deployment_resource_pool_service::CancelOperation {
-        super::builders::deployment_resource_pool_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::deployment_resource_pool_service::CancelOperation {
+        super::builder::deployment_resource_pool_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -725,8 +724,8 @@ impl DeploymentResourcePoolService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::deployment_resource_pool_service::WaitOperation {
-        super::builders::deployment_resource_pool_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::deployment_resource_pool_service::WaitOperation {
+        super::builder::deployment_resource_pool_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -750,7 +749,7 @@ impl DeploymentResourcePoolService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct EndpointService {
-    inner: Arc<dyn super::stubs::dynamic::EndpointService>,
+    inner: Arc<dyn super::stub::dynamic::EndpointService>,
 }
 
 impl EndpointService {
@@ -771,7 +770,7 @@ impl EndpointService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::EndpointService + 'static,
+        T: super::stub::EndpointService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -780,7 +779,7 @@ impl EndpointService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::EndpointService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::EndpointService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -789,13 +788,13 @@ impl EndpointService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::EndpointService> {
+    ) -> Result<impl super::stub::EndpointService> {
         super::transport::EndpointService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::EndpointService> {
+    ) -> Result<impl super::stub::EndpointService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::EndpointService::new)
@@ -815,8 +814,8 @@ impl EndpointService {
     pub fn create_endpoint(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::endpoint_service::CreateEndpoint {
-        super::builders::endpoint_service::CreateEndpoint::new(self.inner.clone())
+    ) -> super::builder::endpoint_service::CreateEndpoint {
+        super::builder::endpoint_service::CreateEndpoint::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -824,17 +823,16 @@ impl EndpointService {
     pub fn get_endpoint(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::endpoint_service::GetEndpoint {
-        super::builders::endpoint_service::GetEndpoint::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::endpoint_service::GetEndpoint {
+        super::builder::endpoint_service::GetEndpoint::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists Endpoints in a Location.
     pub fn list_endpoints(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::endpoint_service::ListEndpoints {
-        super::builders::endpoint_service::ListEndpoints::new(self.inner.clone())
+    ) -> super::builder::endpoint_service::ListEndpoints {
+        super::builder::endpoint_service::ListEndpoints::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -842,8 +840,8 @@ impl EndpointService {
     pub fn update_endpoint(
         &self,
         endpoint: impl Into<crate::model::Endpoint>,
-    ) -> super::builders::endpoint_service::UpdateEndpoint {
-        super::builders::endpoint_service::UpdateEndpoint::new(self.inner.clone())
+    ) -> super::builder::endpoint_service::UpdateEndpoint {
+        super::builder::endpoint_service::UpdateEndpoint::new(self.inner.clone())
             .set_endpoint(endpoint.into())
     }
 
@@ -861,8 +859,8 @@ impl EndpointService {
     pub fn update_endpoint_long_running(
         &self,
         endpoint: impl Into<crate::model::Endpoint>,
-    ) -> super::builders::endpoint_service::UpdateEndpointLongRunning {
-        super::builders::endpoint_service::UpdateEndpointLongRunning::new(self.inner.clone())
+    ) -> super::builder::endpoint_service::UpdateEndpointLongRunning {
+        super::builder::endpoint_service::UpdateEndpointLongRunning::new(self.inner.clone())
             .set_endpoint(endpoint.into())
     }
 
@@ -880,8 +878,8 @@ impl EndpointService {
     pub fn delete_endpoint(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::endpoint_service::DeleteEndpoint {
-        super::builders::endpoint_service::DeleteEndpoint::new(self.inner.clone())
+    ) -> super::builder::endpoint_service::DeleteEndpoint {
+        super::builder::endpoint_service::DeleteEndpoint::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -899,8 +897,8 @@ impl EndpointService {
     pub fn deploy_model(
         &self,
         endpoint: impl Into<std::string::String>,
-    ) -> super::builders::endpoint_service::DeployModel {
-        super::builders::endpoint_service::DeployModel::new(self.inner.clone())
+    ) -> super::builder::endpoint_service::DeployModel {
+        super::builder::endpoint_service::DeployModel::new(self.inner.clone())
             .set_endpoint(endpoint.into())
     }
 
@@ -919,8 +917,8 @@ impl EndpointService {
     pub fn undeploy_model(
         &self,
         endpoint: impl Into<std::string::String>,
-    ) -> super::builders::endpoint_service::UndeployModel {
-        super::builders::endpoint_service::UndeployModel::new(self.inner.clone())
+    ) -> super::builder::endpoint_service::UndeployModel {
+        super::builder::endpoint_service::UndeployModel::new(self.inner.clone())
             .set_endpoint(endpoint.into())
     }
 
@@ -941,8 +939,8 @@ impl EndpointService {
     pub fn mutate_deployed_model(
         &self,
         endpoint: impl Into<std::string::String>,
-    ) -> super::builders::endpoint_service::MutateDeployedModel {
-        super::builders::endpoint_service::MutateDeployedModel::new(self.inner.clone())
+    ) -> super::builder::endpoint_service::MutateDeployedModel {
+        super::builder::endpoint_service::MutateDeployedModel::new(self.inner.clone())
             .set_endpoint(endpoint.into())
     }
 
@@ -950,8 +948,8 @@ impl EndpointService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::endpoint_service::ListLocations {
-        super::builders::endpoint_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::endpoint_service::ListLocations {
+        super::builder::endpoint_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -959,9 +957,8 @@ impl EndpointService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::endpoint_service::GetLocation {
-        super::builders::endpoint_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::endpoint_service::GetLocation {
+        super::builder::endpoint_service::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -972,8 +969,8 @@ impl EndpointService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::endpoint_service::SetIamPolicy {
-        super::builders::endpoint_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::endpoint_service::SetIamPolicy {
+        super::builder::endpoint_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -982,8 +979,8 @@ impl EndpointService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::endpoint_service::GetIamPolicy {
-        super::builders::endpoint_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::endpoint_service::GetIamPolicy {
+        super::builder::endpoint_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -997,8 +994,8 @@ impl EndpointService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::endpoint_service::TestIamPermissions {
-        super::builders::endpoint_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::endpoint_service::TestIamPermissions {
+        super::builder::endpoint_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1008,8 +1005,8 @@ impl EndpointService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::endpoint_service::ListOperations {
-        super::builders::endpoint_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::endpoint_service::ListOperations {
+        super::builder::endpoint_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1019,8 +1016,8 @@ impl EndpointService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::endpoint_service::GetOperation {
-        super::builders::endpoint_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::endpoint_service::GetOperation {
+        super::builder::endpoint_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1030,8 +1027,8 @@ impl EndpointService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::endpoint_service::DeleteOperation {
-        super::builders::endpoint_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::endpoint_service::DeleteOperation {
+        super::builder::endpoint_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1041,8 +1038,8 @@ impl EndpointService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::endpoint_service::CancelOperation {
-        super::builders::endpoint_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::endpoint_service::CancelOperation {
+        super::builder::endpoint_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1052,8 +1049,8 @@ impl EndpointService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::endpoint_service::WaitOperation {
-        super::builders::endpoint_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::endpoint_service::WaitOperation {
+        super::builder::endpoint_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -1077,7 +1074,7 @@ impl EndpointService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct EvaluationService {
-    inner: Arc<dyn super::stubs::dynamic::EvaluationService>,
+    inner: Arc<dyn super::stub::dynamic::EvaluationService>,
 }
 
 impl EvaluationService {
@@ -1098,7 +1095,7 @@ impl EvaluationService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::EvaluationService + 'static,
+        T: super::stub::EvaluationService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1107,7 +1104,7 @@ impl EvaluationService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::EvaluationService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::EvaluationService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1116,13 +1113,13 @@ impl EvaluationService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::EvaluationService> {
+    ) -> Result<impl super::stub::EvaluationService> {
         super::transport::EvaluationService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::EvaluationService> {
+    ) -> Result<impl super::stub::EvaluationService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::EvaluationService::new)
@@ -1132,8 +1129,8 @@ impl EvaluationService {
     pub fn evaluate_instances(
         &self,
         location: impl Into<std::string::String>,
-    ) -> super::builders::evaluation_service::EvaluateInstances {
-        super::builders::evaluation_service::EvaluateInstances::new(self.inner.clone())
+    ) -> super::builder::evaluation_service::EvaluateInstances {
+        super::builder::evaluation_service::EvaluateInstances::new(self.inner.clone())
             .set_location(location.into())
     }
 
@@ -1141,8 +1138,8 @@ impl EvaluationService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::evaluation_service::ListLocations {
-        super::builders::evaluation_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::evaluation_service::ListLocations {
+        super::builder::evaluation_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1150,8 +1147,8 @@ impl EvaluationService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::evaluation_service::GetLocation {
-        super::builders::evaluation_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::evaluation_service::GetLocation {
+        super::builder::evaluation_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1163,8 +1160,8 @@ impl EvaluationService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::evaluation_service::SetIamPolicy {
-        super::builders::evaluation_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::evaluation_service::SetIamPolicy {
+        super::builder::evaluation_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1173,8 +1170,8 @@ impl EvaluationService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::evaluation_service::GetIamPolicy {
-        super::builders::evaluation_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::evaluation_service::GetIamPolicy {
+        super::builder::evaluation_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1188,8 +1185,8 @@ impl EvaluationService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::evaluation_service::TestIamPermissions {
-        super::builders::evaluation_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::evaluation_service::TestIamPermissions {
+        super::builder::evaluation_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1199,8 +1196,8 @@ impl EvaluationService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::evaluation_service::ListOperations {
-        super::builders::evaluation_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::evaluation_service::ListOperations {
+        super::builder::evaluation_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1210,8 +1207,8 @@ impl EvaluationService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::evaluation_service::GetOperation {
-        super::builders::evaluation_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::evaluation_service::GetOperation {
+        super::builder::evaluation_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1221,8 +1218,8 @@ impl EvaluationService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::evaluation_service::DeleteOperation {
-        super::builders::evaluation_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::evaluation_service::DeleteOperation {
+        super::builder::evaluation_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1232,8 +1229,8 @@ impl EvaluationService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::evaluation_service::CancelOperation {
-        super::builders::evaluation_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::evaluation_service::CancelOperation {
+        super::builder::evaluation_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1243,8 +1240,8 @@ impl EvaluationService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::evaluation_service::WaitOperation {
-        super::builders::evaluation_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::evaluation_service::WaitOperation {
+        super::builder::evaluation_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -1269,7 +1266,7 @@ impl EvaluationService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct FeatureOnlineStoreAdminService {
-    inner: Arc<dyn super::stubs::dynamic::FeatureOnlineStoreAdminService>,
+    inner: Arc<dyn super::stub::dynamic::FeatureOnlineStoreAdminService>,
 }
 
 impl FeatureOnlineStoreAdminService {
@@ -1290,7 +1287,7 @@ impl FeatureOnlineStoreAdminService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::FeatureOnlineStoreAdminService + 'static,
+        T: super::stub::FeatureOnlineStoreAdminService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1299,7 +1296,7 @@ impl FeatureOnlineStoreAdminService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::FeatureOnlineStoreAdminService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::FeatureOnlineStoreAdminService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1308,13 +1305,13 @@ impl FeatureOnlineStoreAdminService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::FeatureOnlineStoreAdminService> {
+    ) -> Result<impl super::stub::FeatureOnlineStoreAdminService> {
         super::transport::FeatureOnlineStoreAdminService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::FeatureOnlineStoreAdminService> {
+    ) -> Result<impl super::stub::FeatureOnlineStoreAdminService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::FeatureOnlineStoreAdminService::new)
@@ -1334,8 +1331,8 @@ impl FeatureOnlineStoreAdminService {
     pub fn create_feature_online_store(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_admin_service::CreateFeatureOnlineStore {
-        super::builders::feature_online_store_admin_service::CreateFeatureOnlineStore::new(
+    ) -> super::builder::feature_online_store_admin_service::CreateFeatureOnlineStore {
+        super::builder::feature_online_store_admin_service::CreateFeatureOnlineStore::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -1345,8 +1342,8 @@ impl FeatureOnlineStoreAdminService {
     pub fn get_feature_online_store(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_admin_service::GetFeatureOnlineStore {
-        super::builders::feature_online_store_admin_service::GetFeatureOnlineStore::new(
+    ) -> super::builder::feature_online_store_admin_service::GetFeatureOnlineStore {
+        super::builder::feature_online_store_admin_service::GetFeatureOnlineStore::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -1356,8 +1353,8 @@ impl FeatureOnlineStoreAdminService {
     pub fn list_feature_online_stores(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_admin_service::ListFeatureOnlineStores {
-        super::builders::feature_online_store_admin_service::ListFeatureOnlineStores::new(
+    ) -> super::builder::feature_online_store_admin_service::ListFeatureOnlineStores {
+        super::builder::feature_online_store_admin_service::ListFeatureOnlineStores::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -1377,8 +1374,8 @@ impl FeatureOnlineStoreAdminService {
     pub fn update_feature_online_store(
         &self,
         feature_online_store: impl Into<crate::model::FeatureOnlineStore>,
-    ) -> super::builders::feature_online_store_admin_service::UpdateFeatureOnlineStore {
-        super::builders::feature_online_store_admin_service::UpdateFeatureOnlineStore::new(
+    ) -> super::builder::feature_online_store_admin_service::UpdateFeatureOnlineStore {
+        super::builder::feature_online_store_admin_service::UpdateFeatureOnlineStore::new(
             self.inner.clone(),
         )
         .set_feature_online_store(feature_online_store.into())
@@ -1399,8 +1396,8 @@ impl FeatureOnlineStoreAdminService {
     pub fn delete_feature_online_store(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_admin_service::DeleteFeatureOnlineStore {
-        super::builders::feature_online_store_admin_service::DeleteFeatureOnlineStore::new(
+    ) -> super::builder::feature_online_store_admin_service::DeleteFeatureOnlineStore {
+        super::builder::feature_online_store_admin_service::DeleteFeatureOnlineStore::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -1420,8 +1417,8 @@ impl FeatureOnlineStoreAdminService {
     pub fn create_feature_view(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_admin_service::CreateFeatureView {
-        super::builders::feature_online_store_admin_service::CreateFeatureView::new(
+    ) -> super::builder::feature_online_store_admin_service::CreateFeatureView {
+        super::builder::feature_online_store_admin_service::CreateFeatureView::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -1431,8 +1428,8 @@ impl FeatureOnlineStoreAdminService {
     pub fn get_feature_view(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_admin_service::GetFeatureView {
-        super::builders::feature_online_store_admin_service::GetFeatureView::new(self.inner.clone())
+    ) -> super::builder::feature_online_store_admin_service::GetFeatureView {
+        super::builder::feature_online_store_admin_service::GetFeatureView::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1440,8 +1437,8 @@ impl FeatureOnlineStoreAdminService {
     pub fn list_feature_views(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_admin_service::ListFeatureViews {
-        super::builders::feature_online_store_admin_service::ListFeatureViews::new(
+    ) -> super::builder::feature_online_store_admin_service::ListFeatureViews {
+        super::builder::feature_online_store_admin_service::ListFeatureViews::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -1461,8 +1458,8 @@ impl FeatureOnlineStoreAdminService {
     pub fn update_feature_view(
         &self,
         feature_view: impl Into<crate::model::FeatureView>,
-    ) -> super::builders::feature_online_store_admin_service::UpdateFeatureView {
-        super::builders::feature_online_store_admin_service::UpdateFeatureView::new(
+    ) -> super::builder::feature_online_store_admin_service::UpdateFeatureView {
+        super::builder::feature_online_store_admin_service::UpdateFeatureView::new(
             self.inner.clone(),
         )
         .set_feature_view(feature_view.into())
@@ -1482,8 +1479,8 @@ impl FeatureOnlineStoreAdminService {
     pub fn delete_feature_view(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_admin_service::DeleteFeatureView {
-        super::builders::feature_online_store_admin_service::DeleteFeatureView::new(
+    ) -> super::builder::feature_online_store_admin_service::DeleteFeatureView {
+        super::builder::feature_online_store_admin_service::DeleteFeatureView::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -1493,19 +1490,17 @@ impl FeatureOnlineStoreAdminService {
     pub fn sync_feature_view(
         &self,
         feature_view: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_admin_service::SyncFeatureView {
-        super::builders::feature_online_store_admin_service::SyncFeatureView::new(
-            self.inner.clone(),
-        )
-        .set_feature_view(feature_view.into())
+    ) -> super::builder::feature_online_store_admin_service::SyncFeatureView {
+        super::builder::feature_online_store_admin_service::SyncFeatureView::new(self.inner.clone())
+            .set_feature_view(feature_view.into())
     }
 
     /// Gets details of a single FeatureViewSync.
     pub fn get_feature_view_sync(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_admin_service::GetFeatureViewSync {
-        super::builders::feature_online_store_admin_service::GetFeatureViewSync::new(
+    ) -> super::builder::feature_online_store_admin_service::GetFeatureViewSync {
+        super::builder::feature_online_store_admin_service::GetFeatureViewSync::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -1515,8 +1510,8 @@ impl FeatureOnlineStoreAdminService {
     pub fn list_feature_view_syncs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_admin_service::ListFeatureViewSyncs {
-        super::builders::feature_online_store_admin_service::ListFeatureViewSyncs::new(
+    ) -> super::builder::feature_online_store_admin_service::ListFeatureViewSyncs {
+        super::builder::feature_online_store_admin_service::ListFeatureViewSyncs::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -1526,8 +1521,8 @@ impl FeatureOnlineStoreAdminService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_admin_service::ListLocations {
-        super::builders::feature_online_store_admin_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::feature_online_store_admin_service::ListLocations {
+        super::builder::feature_online_store_admin_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1535,8 +1530,8 @@ impl FeatureOnlineStoreAdminService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_admin_service::GetLocation {
-        super::builders::feature_online_store_admin_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::feature_online_store_admin_service::GetLocation {
+        super::builder::feature_online_store_admin_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1548,8 +1543,8 @@ impl FeatureOnlineStoreAdminService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_admin_service::SetIamPolicy {
-        super::builders::feature_online_store_admin_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::feature_online_store_admin_service::SetIamPolicy {
+        super::builder::feature_online_store_admin_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1558,8 +1553,8 @@ impl FeatureOnlineStoreAdminService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_admin_service::GetIamPolicy {
-        super::builders::feature_online_store_admin_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::feature_online_store_admin_service::GetIamPolicy {
+        super::builder::feature_online_store_admin_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1573,8 +1568,8 @@ impl FeatureOnlineStoreAdminService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_admin_service::TestIamPermissions {
-        super::builders::feature_online_store_admin_service::TestIamPermissions::new(
+    ) -> super::builder::feature_online_store_admin_service::TestIamPermissions {
+        super::builder::feature_online_store_admin_service::TestIamPermissions::new(
             self.inner.clone(),
         )
         .set_resource(resource.into())
@@ -1586,8 +1581,8 @@ impl FeatureOnlineStoreAdminService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_admin_service::ListOperations {
-        super::builders::feature_online_store_admin_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::feature_online_store_admin_service::ListOperations {
+        super::builder::feature_online_store_admin_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1597,8 +1592,8 @@ impl FeatureOnlineStoreAdminService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_admin_service::GetOperation {
-        super::builders::feature_online_store_admin_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::feature_online_store_admin_service::GetOperation {
+        super::builder::feature_online_store_admin_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1608,11 +1603,9 @@ impl FeatureOnlineStoreAdminService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_admin_service::DeleteOperation {
-        super::builders::feature_online_store_admin_service::DeleteOperation::new(
-            self.inner.clone(),
-        )
-        .set_name(name.into())
+    ) -> super::builder::feature_online_store_admin_service::DeleteOperation {
+        super::builder::feature_online_store_admin_service::DeleteOperation::new(self.inner.clone())
+            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1621,11 +1614,9 @@ impl FeatureOnlineStoreAdminService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_admin_service::CancelOperation {
-        super::builders::feature_online_store_admin_service::CancelOperation::new(
-            self.inner.clone(),
-        )
-        .set_name(name.into())
+    ) -> super::builder::feature_online_store_admin_service::CancelOperation {
+        super::builder::feature_online_store_admin_service::CancelOperation::new(self.inner.clone())
+            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1634,8 +1625,8 @@ impl FeatureOnlineStoreAdminService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_admin_service::WaitOperation {
-        super::builders::feature_online_store_admin_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::feature_online_store_admin_service::WaitOperation {
+        super::builder::feature_online_store_admin_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -1659,7 +1650,7 @@ impl FeatureOnlineStoreAdminService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct FeatureOnlineStoreService {
-    inner: Arc<dyn super::stubs::dynamic::FeatureOnlineStoreService>,
+    inner: Arc<dyn super::stub::dynamic::FeatureOnlineStoreService>,
 }
 
 impl FeatureOnlineStoreService {
@@ -1680,7 +1671,7 @@ impl FeatureOnlineStoreService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::FeatureOnlineStoreService + 'static,
+        T: super::stub::FeatureOnlineStoreService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1689,7 +1680,7 @@ impl FeatureOnlineStoreService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::FeatureOnlineStoreService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::FeatureOnlineStoreService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1698,13 +1689,13 @@ impl FeatureOnlineStoreService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::FeatureOnlineStoreService> {
+    ) -> Result<impl super::stub::FeatureOnlineStoreService> {
         super::transport::FeatureOnlineStoreService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::FeatureOnlineStoreService> {
+    ) -> Result<impl super::stub::FeatureOnlineStoreService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::FeatureOnlineStoreService::new)
@@ -1714,8 +1705,8 @@ impl FeatureOnlineStoreService {
     pub fn fetch_feature_values(
         &self,
         feature_view: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_service::FetchFeatureValues {
-        super::builders::feature_online_store_service::FetchFeatureValues::new(self.inner.clone())
+    ) -> super::builder::feature_online_store_service::FetchFeatureValues {
+        super::builder::feature_online_store_service::FetchFeatureValues::new(self.inner.clone())
             .set_feature_view(feature_view.into())
     }
 
@@ -1725,19 +1716,17 @@ impl FeatureOnlineStoreService {
     pub fn search_nearest_entities(
         &self,
         feature_view: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_service::SearchNearestEntities {
-        super::builders::feature_online_store_service::SearchNearestEntities::new(
-            self.inner.clone(),
-        )
-        .set_feature_view(feature_view.into())
+    ) -> super::builder::feature_online_store_service::SearchNearestEntities {
+        super::builder::feature_online_store_service::SearchNearestEntities::new(self.inner.clone())
+            .set_feature_view(feature_view.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_service::ListLocations {
-        super::builders::feature_online_store_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::feature_online_store_service::ListLocations {
+        super::builder::feature_online_store_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1745,8 +1734,8 @@ impl FeatureOnlineStoreService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_service::GetLocation {
-        super::builders::feature_online_store_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::feature_online_store_service::GetLocation {
+        super::builder::feature_online_store_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1758,8 +1747,8 @@ impl FeatureOnlineStoreService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_service::SetIamPolicy {
-        super::builders::feature_online_store_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::feature_online_store_service::SetIamPolicy {
+        super::builder::feature_online_store_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1768,8 +1757,8 @@ impl FeatureOnlineStoreService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_service::GetIamPolicy {
-        super::builders::feature_online_store_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::feature_online_store_service::GetIamPolicy {
+        super::builder::feature_online_store_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1783,8 +1772,8 @@ impl FeatureOnlineStoreService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_service::TestIamPermissions {
-        super::builders::feature_online_store_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::feature_online_store_service::TestIamPermissions {
+        super::builder::feature_online_store_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1794,8 +1783,8 @@ impl FeatureOnlineStoreService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_service::ListOperations {
-        super::builders::feature_online_store_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::feature_online_store_service::ListOperations {
+        super::builder::feature_online_store_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1805,8 +1794,8 @@ impl FeatureOnlineStoreService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_service::GetOperation {
-        super::builders::feature_online_store_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::feature_online_store_service::GetOperation {
+        super::builder::feature_online_store_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1816,8 +1805,8 @@ impl FeatureOnlineStoreService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_service::DeleteOperation {
-        super::builders::feature_online_store_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::feature_online_store_service::DeleteOperation {
+        super::builder::feature_online_store_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1827,8 +1816,8 @@ impl FeatureOnlineStoreService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_service::CancelOperation {
-        super::builders::feature_online_store_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::feature_online_store_service::CancelOperation {
+        super::builder::feature_online_store_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1838,8 +1827,8 @@ impl FeatureOnlineStoreService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_online_store_service::WaitOperation {
-        super::builders::feature_online_store_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::feature_online_store_service::WaitOperation {
+        super::builder::feature_online_store_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -1864,7 +1853,7 @@ impl FeatureOnlineStoreService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct FeatureRegistryService {
-    inner: Arc<dyn super::stubs::dynamic::FeatureRegistryService>,
+    inner: Arc<dyn super::stub::dynamic::FeatureRegistryService>,
 }
 
 impl FeatureRegistryService {
@@ -1885,7 +1874,7 @@ impl FeatureRegistryService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::FeatureRegistryService + 'static,
+        T: super::stub::FeatureRegistryService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1894,7 +1883,7 @@ impl FeatureRegistryService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::FeatureRegistryService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::FeatureRegistryService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1903,13 +1892,13 @@ impl FeatureRegistryService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::FeatureRegistryService> {
+    ) -> Result<impl super::stub::FeatureRegistryService> {
         super::transport::FeatureRegistryService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::FeatureRegistryService> {
+    ) -> Result<impl super::stub::FeatureRegistryService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::FeatureRegistryService::new)
@@ -1929,8 +1918,8 @@ impl FeatureRegistryService {
     pub fn create_feature_group(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::feature_registry_service::CreateFeatureGroup {
-        super::builders::feature_registry_service::CreateFeatureGroup::new(self.inner.clone())
+    ) -> super::builder::feature_registry_service::CreateFeatureGroup {
+        super::builder::feature_registry_service::CreateFeatureGroup::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1938,8 +1927,8 @@ impl FeatureRegistryService {
     pub fn get_feature_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_registry_service::GetFeatureGroup {
-        super::builders::feature_registry_service::GetFeatureGroup::new(self.inner.clone())
+    ) -> super::builder::feature_registry_service::GetFeatureGroup {
+        super::builder::feature_registry_service::GetFeatureGroup::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1947,8 +1936,8 @@ impl FeatureRegistryService {
     pub fn list_feature_groups(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::feature_registry_service::ListFeatureGroups {
-        super::builders::feature_registry_service::ListFeatureGroups::new(self.inner.clone())
+    ) -> super::builder::feature_registry_service::ListFeatureGroups {
+        super::builder::feature_registry_service::ListFeatureGroups::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1966,8 +1955,8 @@ impl FeatureRegistryService {
     pub fn update_feature_group(
         &self,
         feature_group: impl Into<crate::model::FeatureGroup>,
-    ) -> super::builders::feature_registry_service::UpdateFeatureGroup {
-        super::builders::feature_registry_service::UpdateFeatureGroup::new(self.inner.clone())
+    ) -> super::builder::feature_registry_service::UpdateFeatureGroup {
+        super::builder::feature_registry_service::UpdateFeatureGroup::new(self.inner.clone())
             .set_feature_group(feature_group.into())
     }
 
@@ -1985,8 +1974,8 @@ impl FeatureRegistryService {
     pub fn delete_feature_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_registry_service::DeleteFeatureGroup {
-        super::builders::feature_registry_service::DeleteFeatureGroup::new(self.inner.clone())
+    ) -> super::builder::feature_registry_service::DeleteFeatureGroup {
+        super::builder::feature_registry_service::DeleteFeatureGroup::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2004,8 +1993,8 @@ impl FeatureRegistryService {
     pub fn create_feature(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::feature_registry_service::CreateFeature {
-        super::builders::feature_registry_service::CreateFeature::new(self.inner.clone())
+    ) -> super::builder::feature_registry_service::CreateFeature {
+        super::builder::feature_registry_service::CreateFeature::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2023,8 +2012,8 @@ impl FeatureRegistryService {
     pub fn batch_create_features(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::feature_registry_service::BatchCreateFeatures {
-        super::builders::feature_registry_service::BatchCreateFeatures::new(self.inner.clone())
+    ) -> super::builder::feature_registry_service::BatchCreateFeatures {
+        super::builder::feature_registry_service::BatchCreateFeatures::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2032,8 +2021,8 @@ impl FeatureRegistryService {
     pub fn get_feature(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_registry_service::GetFeature {
-        super::builders::feature_registry_service::GetFeature::new(self.inner.clone())
+    ) -> super::builder::feature_registry_service::GetFeature {
+        super::builder::feature_registry_service::GetFeature::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2041,8 +2030,8 @@ impl FeatureRegistryService {
     pub fn list_features(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::feature_registry_service::ListFeatures {
-        super::builders::feature_registry_service::ListFeatures::new(self.inner.clone())
+    ) -> super::builder::feature_registry_service::ListFeatures {
+        super::builder::feature_registry_service::ListFeatures::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2060,8 +2049,8 @@ impl FeatureRegistryService {
     pub fn update_feature(
         &self,
         feature: impl Into<crate::model::Feature>,
-    ) -> super::builders::feature_registry_service::UpdateFeature {
-        super::builders::feature_registry_service::UpdateFeature::new(self.inner.clone())
+    ) -> super::builder::feature_registry_service::UpdateFeature {
+        super::builder::feature_registry_service::UpdateFeature::new(self.inner.clone())
             .set_feature(feature.into())
     }
 
@@ -2079,8 +2068,8 @@ impl FeatureRegistryService {
     pub fn delete_feature(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_registry_service::DeleteFeature {
-        super::builders::feature_registry_service::DeleteFeature::new(self.inner.clone())
+    ) -> super::builder::feature_registry_service::DeleteFeature {
+        super::builder::feature_registry_service::DeleteFeature::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2088,8 +2077,8 @@ impl FeatureRegistryService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_registry_service::ListLocations {
-        super::builders::feature_registry_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::feature_registry_service::ListLocations {
+        super::builder::feature_registry_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2097,8 +2086,8 @@ impl FeatureRegistryService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_registry_service::GetLocation {
-        super::builders::feature_registry_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::feature_registry_service::GetLocation {
+        super::builder::feature_registry_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2110,8 +2099,8 @@ impl FeatureRegistryService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::feature_registry_service::SetIamPolicy {
-        super::builders::feature_registry_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::feature_registry_service::SetIamPolicy {
+        super::builder::feature_registry_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -2120,8 +2109,8 @@ impl FeatureRegistryService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::feature_registry_service::GetIamPolicy {
-        super::builders::feature_registry_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::feature_registry_service::GetIamPolicy {
+        super::builder::feature_registry_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -2135,8 +2124,8 @@ impl FeatureRegistryService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::feature_registry_service::TestIamPermissions {
-        super::builders::feature_registry_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::feature_registry_service::TestIamPermissions {
+        super::builder::feature_registry_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -2146,8 +2135,8 @@ impl FeatureRegistryService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_registry_service::ListOperations {
-        super::builders::feature_registry_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::feature_registry_service::ListOperations {
+        super::builder::feature_registry_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2157,8 +2146,8 @@ impl FeatureRegistryService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_registry_service::GetOperation {
-        super::builders::feature_registry_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::feature_registry_service::GetOperation {
+        super::builder::feature_registry_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2168,8 +2157,8 @@ impl FeatureRegistryService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_registry_service::DeleteOperation {
-        super::builders::feature_registry_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::feature_registry_service::DeleteOperation {
+        super::builder::feature_registry_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2179,8 +2168,8 @@ impl FeatureRegistryService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_registry_service::CancelOperation {
-        super::builders::feature_registry_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::feature_registry_service::CancelOperation {
+        super::builder::feature_registry_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2190,8 +2179,8 @@ impl FeatureRegistryService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::feature_registry_service::WaitOperation {
-        super::builders::feature_registry_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::feature_registry_service::WaitOperation {
+        super::builder::feature_registry_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -2215,7 +2204,7 @@ impl FeatureRegistryService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct FeaturestoreOnlineServingService {
-    inner: Arc<dyn super::stubs::dynamic::FeaturestoreOnlineServingService>,
+    inner: Arc<dyn super::stub::dynamic::FeaturestoreOnlineServingService>,
 }
 
 impl FeaturestoreOnlineServingService {
@@ -2236,7 +2225,7 @@ impl FeaturestoreOnlineServingService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::FeaturestoreOnlineServingService + 'static,
+        T: super::stub::FeaturestoreOnlineServingService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -2245,7 +2234,7 @@ impl FeaturestoreOnlineServingService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::FeaturestoreOnlineServingService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::FeaturestoreOnlineServingService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -2254,13 +2243,13 @@ impl FeaturestoreOnlineServingService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::FeaturestoreOnlineServingService> {
+    ) -> Result<impl super::stub::FeaturestoreOnlineServingService> {
         super::transport::FeaturestoreOnlineServingService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::FeaturestoreOnlineServingService> {
+    ) -> Result<impl super::stub::FeaturestoreOnlineServingService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::FeaturestoreOnlineServingService::new)
@@ -2272,8 +2261,8 @@ impl FeaturestoreOnlineServingService {
     pub fn read_feature_values(
         &self,
         entity_type: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_online_serving_service::ReadFeatureValues {
-        super::builders::featurestore_online_serving_service::ReadFeatureValues::new(
+    ) -> super::builder::featurestore_online_serving_service::ReadFeatureValues {
+        super::builder::featurestore_online_serving_service::ReadFeatureValues::new(
             self.inner.clone(),
         )
         .set_entity_type(entity_type.into())
@@ -2287,8 +2276,8 @@ impl FeaturestoreOnlineServingService {
     pub fn write_feature_values(
         &self,
         entity_type: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_online_serving_service::WriteFeatureValues {
-        super::builders::featurestore_online_serving_service::WriteFeatureValues::new(
+    ) -> super::builder::featurestore_online_serving_service::WriteFeatureValues {
+        super::builder::featurestore_online_serving_service::WriteFeatureValues::new(
             self.inner.clone(),
         )
         .set_entity_type(entity_type.into())
@@ -2298,8 +2287,8 @@ impl FeaturestoreOnlineServingService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_online_serving_service::ListLocations {
-        super::builders::featurestore_online_serving_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::featurestore_online_serving_service::ListLocations {
+        super::builder::featurestore_online_serving_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2307,8 +2296,8 @@ impl FeaturestoreOnlineServingService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_online_serving_service::GetLocation {
-        super::builders::featurestore_online_serving_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::featurestore_online_serving_service::GetLocation {
+        super::builder::featurestore_online_serving_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2320,8 +2309,8 @@ impl FeaturestoreOnlineServingService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_online_serving_service::SetIamPolicy {
-        super::builders::featurestore_online_serving_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::featurestore_online_serving_service::SetIamPolicy {
+        super::builder::featurestore_online_serving_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -2330,8 +2319,8 @@ impl FeaturestoreOnlineServingService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_online_serving_service::GetIamPolicy {
-        super::builders::featurestore_online_serving_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::featurestore_online_serving_service::GetIamPolicy {
+        super::builder::featurestore_online_serving_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -2345,8 +2334,8 @@ impl FeaturestoreOnlineServingService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_online_serving_service::TestIamPermissions {
-        super::builders::featurestore_online_serving_service::TestIamPermissions::new(
+    ) -> super::builder::featurestore_online_serving_service::TestIamPermissions {
+        super::builder::featurestore_online_serving_service::TestIamPermissions::new(
             self.inner.clone(),
         )
         .set_resource(resource.into())
@@ -2358,11 +2347,9 @@ impl FeaturestoreOnlineServingService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_online_serving_service::ListOperations {
-        super::builders::featurestore_online_serving_service::ListOperations::new(
-            self.inner.clone(),
-        )
-        .set_name(name.into())
+    ) -> super::builder::featurestore_online_serving_service::ListOperations {
+        super::builder::featurestore_online_serving_service::ListOperations::new(self.inner.clone())
+            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2371,8 +2358,8 @@ impl FeaturestoreOnlineServingService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_online_serving_service::GetOperation {
-        super::builders::featurestore_online_serving_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::featurestore_online_serving_service::GetOperation {
+        super::builder::featurestore_online_serving_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2382,8 +2369,8 @@ impl FeaturestoreOnlineServingService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_online_serving_service::DeleteOperation {
-        super::builders::featurestore_online_serving_service::DeleteOperation::new(
+    ) -> super::builder::featurestore_online_serving_service::DeleteOperation {
+        super::builder::featurestore_online_serving_service::DeleteOperation::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -2395,8 +2382,8 @@ impl FeaturestoreOnlineServingService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_online_serving_service::CancelOperation {
-        super::builders::featurestore_online_serving_service::CancelOperation::new(
+    ) -> super::builder::featurestore_online_serving_service::CancelOperation {
+        super::builder::featurestore_online_serving_service::CancelOperation::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -2408,8 +2395,8 @@ impl FeaturestoreOnlineServingService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_online_serving_service::WaitOperation {
-        super::builders::featurestore_online_serving_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::featurestore_online_serving_service::WaitOperation {
+        super::builder::featurestore_online_serving_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -2433,7 +2420,7 @@ impl FeaturestoreOnlineServingService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct FeaturestoreService {
-    inner: Arc<dyn super::stubs::dynamic::FeaturestoreService>,
+    inner: Arc<dyn super::stub::dynamic::FeaturestoreService>,
 }
 
 impl FeaturestoreService {
@@ -2454,7 +2441,7 @@ impl FeaturestoreService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::FeaturestoreService + 'static,
+        T: super::stub::FeaturestoreService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -2463,7 +2450,7 @@ impl FeaturestoreService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::FeaturestoreService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::FeaturestoreService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -2472,13 +2459,13 @@ impl FeaturestoreService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::FeaturestoreService> {
+    ) -> Result<impl super::stub::FeaturestoreService> {
         super::transport::FeaturestoreService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::FeaturestoreService> {
+    ) -> Result<impl super::stub::FeaturestoreService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::FeaturestoreService::new)
@@ -2498,8 +2485,8 @@ impl FeaturestoreService {
     pub fn create_featurestore(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::CreateFeaturestore {
-        super::builders::featurestore_service::CreateFeaturestore::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::CreateFeaturestore {
+        super::builder::featurestore_service::CreateFeaturestore::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2507,8 +2494,8 @@ impl FeaturestoreService {
     pub fn get_featurestore(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::GetFeaturestore {
-        super::builders::featurestore_service::GetFeaturestore::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::GetFeaturestore {
+        super::builder::featurestore_service::GetFeaturestore::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2516,8 +2503,8 @@ impl FeaturestoreService {
     pub fn list_featurestores(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::ListFeaturestores {
-        super::builders::featurestore_service::ListFeaturestores::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::ListFeaturestores {
+        super::builder::featurestore_service::ListFeaturestores::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2535,8 +2522,8 @@ impl FeaturestoreService {
     pub fn update_featurestore(
         &self,
         featurestore: impl Into<crate::model::Featurestore>,
-    ) -> super::builders::featurestore_service::UpdateFeaturestore {
-        super::builders::featurestore_service::UpdateFeaturestore::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::UpdateFeaturestore {
+        super::builder::featurestore_service::UpdateFeaturestore::new(self.inner.clone())
             .set_featurestore(featurestore.into())
     }
 
@@ -2555,8 +2542,8 @@ impl FeaturestoreService {
     pub fn delete_featurestore(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::DeleteFeaturestore {
-        super::builders::featurestore_service::DeleteFeaturestore::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::DeleteFeaturestore {
+        super::builder::featurestore_service::DeleteFeaturestore::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2574,8 +2561,8 @@ impl FeaturestoreService {
     pub fn create_entity_type(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::CreateEntityType {
-        super::builders::featurestore_service::CreateEntityType::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::CreateEntityType {
+        super::builder::featurestore_service::CreateEntityType::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2583,8 +2570,8 @@ impl FeaturestoreService {
     pub fn get_entity_type(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::GetEntityType {
-        super::builders::featurestore_service::GetEntityType::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::GetEntityType {
+        super::builder::featurestore_service::GetEntityType::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2592,8 +2579,8 @@ impl FeaturestoreService {
     pub fn list_entity_types(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::ListEntityTypes {
-        super::builders::featurestore_service::ListEntityTypes::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::ListEntityTypes {
+        super::builder::featurestore_service::ListEntityTypes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2601,8 +2588,8 @@ impl FeaturestoreService {
     pub fn update_entity_type(
         &self,
         entity_type: impl Into<crate::model::EntityType>,
-    ) -> super::builders::featurestore_service::UpdateEntityType {
-        super::builders::featurestore_service::UpdateEntityType::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::UpdateEntityType {
+        super::builder::featurestore_service::UpdateEntityType::new(self.inner.clone())
             .set_entity_type(entity_type.into())
     }
 
@@ -2621,8 +2608,8 @@ impl FeaturestoreService {
     pub fn delete_entity_type(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::DeleteEntityType {
-        super::builders::featurestore_service::DeleteEntityType::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::DeleteEntityType {
+        super::builder::featurestore_service::DeleteEntityType::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2640,8 +2627,8 @@ impl FeaturestoreService {
     pub fn create_feature(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::CreateFeature {
-        super::builders::featurestore_service::CreateFeature::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::CreateFeature {
+        super::builder::featurestore_service::CreateFeature::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2659,8 +2646,8 @@ impl FeaturestoreService {
     pub fn batch_create_features(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::BatchCreateFeatures {
-        super::builders::featurestore_service::BatchCreateFeatures::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::BatchCreateFeatures {
+        super::builder::featurestore_service::BatchCreateFeatures::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2668,8 +2655,8 @@ impl FeaturestoreService {
     pub fn get_feature(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::GetFeature {
-        super::builders::featurestore_service::GetFeature::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::GetFeature {
+        super::builder::featurestore_service::GetFeature::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2677,8 +2664,8 @@ impl FeaturestoreService {
     pub fn list_features(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::ListFeatures {
-        super::builders::featurestore_service::ListFeatures::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::ListFeatures {
+        super::builder::featurestore_service::ListFeatures::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2686,8 +2673,8 @@ impl FeaturestoreService {
     pub fn update_feature(
         &self,
         feature: impl Into<crate::model::Feature>,
-    ) -> super::builders::featurestore_service::UpdateFeature {
-        super::builders::featurestore_service::UpdateFeature::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::UpdateFeature {
+        super::builder::featurestore_service::UpdateFeature::new(self.inner.clone())
             .set_feature(feature.into())
     }
 
@@ -2705,8 +2692,8 @@ impl FeaturestoreService {
     pub fn delete_feature(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::DeleteFeature {
-        super::builders::featurestore_service::DeleteFeature::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::DeleteFeature {
+        super::builder::featurestore_service::DeleteFeature::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2743,8 +2730,8 @@ impl FeaturestoreService {
     pub fn import_feature_values(
         &self,
         entity_type: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::ImportFeatureValues {
-        super::builders::featurestore_service::ImportFeatureValues::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::ImportFeatureValues {
+        super::builder::featurestore_service::ImportFeatureValues::new(self.inner.clone())
             .set_entity_type(entity_type.into())
     }
 
@@ -2767,8 +2754,8 @@ impl FeaturestoreService {
     pub fn batch_read_feature_values(
         &self,
         featurestore: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::BatchReadFeatureValues {
-        super::builders::featurestore_service::BatchReadFeatureValues::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::BatchReadFeatureValues {
+        super::builder::featurestore_service::BatchReadFeatureValues::new(self.inner.clone())
             .set_featurestore(featurestore.into())
     }
 
@@ -2786,8 +2773,8 @@ impl FeaturestoreService {
     pub fn export_feature_values(
         &self,
         entity_type: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::ExportFeatureValues {
-        super::builders::featurestore_service::ExportFeatureValues::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::ExportFeatureValues {
+        super::builder::featurestore_service::ExportFeatureValues::new(self.inner.clone())
             .set_entity_type(entity_type.into())
     }
 
@@ -2814,8 +2801,8 @@ impl FeaturestoreService {
     pub fn delete_feature_values(
         &self,
         entity_type: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::DeleteFeatureValues {
-        super::builders::featurestore_service::DeleteFeatureValues::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::DeleteFeatureValues {
+        super::builder::featurestore_service::DeleteFeatureValues::new(self.inner.clone())
             .set_entity_type(entity_type.into())
     }
 
@@ -2823,8 +2810,8 @@ impl FeaturestoreService {
     pub fn search_features(
         &self,
         location: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::SearchFeatures {
-        super::builders::featurestore_service::SearchFeatures::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::SearchFeatures {
+        super::builder::featurestore_service::SearchFeatures::new(self.inner.clone())
             .set_location(location.into())
     }
 
@@ -2832,8 +2819,8 @@ impl FeaturestoreService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::ListLocations {
-        super::builders::featurestore_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::ListLocations {
+        super::builder::featurestore_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2841,8 +2828,8 @@ impl FeaturestoreService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::GetLocation {
-        super::builders::featurestore_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::GetLocation {
+        super::builder::featurestore_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2854,8 +2841,8 @@ impl FeaturestoreService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::SetIamPolicy {
-        super::builders::featurestore_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::SetIamPolicy {
+        super::builder::featurestore_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -2864,8 +2851,8 @@ impl FeaturestoreService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::GetIamPolicy {
-        super::builders::featurestore_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::GetIamPolicy {
+        super::builder::featurestore_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -2879,8 +2866,8 @@ impl FeaturestoreService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::TestIamPermissions {
-        super::builders::featurestore_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::TestIamPermissions {
+        super::builder::featurestore_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -2890,8 +2877,8 @@ impl FeaturestoreService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::ListOperations {
-        super::builders::featurestore_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::ListOperations {
+        super::builder::featurestore_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2901,8 +2888,8 @@ impl FeaturestoreService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::GetOperation {
-        super::builders::featurestore_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::GetOperation {
+        super::builder::featurestore_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2912,8 +2899,8 @@ impl FeaturestoreService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::DeleteOperation {
-        super::builders::featurestore_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::DeleteOperation {
+        super::builder::featurestore_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2923,8 +2910,8 @@ impl FeaturestoreService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::CancelOperation {
-        super::builders::featurestore_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::CancelOperation {
+        super::builder::featurestore_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2934,8 +2921,8 @@ impl FeaturestoreService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::featurestore_service::WaitOperation {
-        super::builders::featurestore_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::featurestore_service::WaitOperation {
+        super::builder::featurestore_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -2959,7 +2946,7 @@ impl FeaturestoreService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct GenAiCacheService {
-    inner: Arc<dyn super::stubs::dynamic::GenAiCacheService>,
+    inner: Arc<dyn super::stub::dynamic::GenAiCacheService>,
 }
 
 impl GenAiCacheService {
@@ -2980,7 +2967,7 @@ impl GenAiCacheService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::GenAiCacheService + 'static,
+        T: super::stub::GenAiCacheService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -2989,7 +2976,7 @@ impl GenAiCacheService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::GenAiCacheService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::GenAiCacheService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -2998,13 +2985,13 @@ impl GenAiCacheService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::GenAiCacheService> {
+    ) -> Result<impl super::stub::GenAiCacheService> {
         super::transport::GenAiCacheService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::GenAiCacheService> {
+    ) -> Result<impl super::stub::GenAiCacheService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::GenAiCacheService::new)
@@ -3015,8 +3002,8 @@ impl GenAiCacheService {
     pub fn create_cached_content(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_cache_service::CreateCachedContent {
-        super::builders::gen_ai_cache_service::CreateCachedContent::new(self.inner.clone())
+    ) -> super::builder::gen_ai_cache_service::CreateCachedContent {
+        super::builder::gen_ai_cache_service::CreateCachedContent::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -3024,8 +3011,8 @@ impl GenAiCacheService {
     pub fn get_cached_content(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_cache_service::GetCachedContent {
-        super::builders::gen_ai_cache_service::GetCachedContent::new(self.inner.clone())
+    ) -> super::builder::gen_ai_cache_service::GetCachedContent {
+        super::builder::gen_ai_cache_service::GetCachedContent::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3033,8 +3020,8 @@ impl GenAiCacheService {
     pub fn update_cached_content(
         &self,
         cached_content: impl Into<crate::model::CachedContent>,
-    ) -> super::builders::gen_ai_cache_service::UpdateCachedContent {
-        super::builders::gen_ai_cache_service::UpdateCachedContent::new(self.inner.clone())
+    ) -> super::builder::gen_ai_cache_service::UpdateCachedContent {
+        super::builder::gen_ai_cache_service::UpdateCachedContent::new(self.inner.clone())
             .set_cached_content(cached_content.into())
     }
 
@@ -3042,8 +3029,8 @@ impl GenAiCacheService {
     pub fn delete_cached_content(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_cache_service::DeleteCachedContent {
-        super::builders::gen_ai_cache_service::DeleteCachedContent::new(self.inner.clone())
+    ) -> super::builder::gen_ai_cache_service::DeleteCachedContent {
+        super::builder::gen_ai_cache_service::DeleteCachedContent::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3051,8 +3038,8 @@ impl GenAiCacheService {
     pub fn list_cached_contents(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_cache_service::ListCachedContents {
-        super::builders::gen_ai_cache_service::ListCachedContents::new(self.inner.clone())
+    ) -> super::builder::gen_ai_cache_service::ListCachedContents {
+        super::builder::gen_ai_cache_service::ListCachedContents::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -3060,8 +3047,8 @@ impl GenAiCacheService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_cache_service::ListLocations {
-        super::builders::gen_ai_cache_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::gen_ai_cache_service::ListLocations {
+        super::builder::gen_ai_cache_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3069,8 +3056,8 @@ impl GenAiCacheService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_cache_service::GetLocation {
-        super::builders::gen_ai_cache_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::gen_ai_cache_service::GetLocation {
+        super::builder::gen_ai_cache_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3082,8 +3069,8 @@ impl GenAiCacheService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_cache_service::SetIamPolicy {
-        super::builders::gen_ai_cache_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::gen_ai_cache_service::SetIamPolicy {
+        super::builder::gen_ai_cache_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -3092,8 +3079,8 @@ impl GenAiCacheService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_cache_service::GetIamPolicy {
-        super::builders::gen_ai_cache_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::gen_ai_cache_service::GetIamPolicy {
+        super::builder::gen_ai_cache_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -3107,8 +3094,8 @@ impl GenAiCacheService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_cache_service::TestIamPermissions {
-        super::builders::gen_ai_cache_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::gen_ai_cache_service::TestIamPermissions {
+        super::builder::gen_ai_cache_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -3118,8 +3105,8 @@ impl GenAiCacheService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_cache_service::ListOperations {
-        super::builders::gen_ai_cache_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::gen_ai_cache_service::ListOperations {
+        super::builder::gen_ai_cache_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3129,8 +3116,8 @@ impl GenAiCacheService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_cache_service::GetOperation {
-        super::builders::gen_ai_cache_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::gen_ai_cache_service::GetOperation {
+        super::builder::gen_ai_cache_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3140,8 +3127,8 @@ impl GenAiCacheService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_cache_service::DeleteOperation {
-        super::builders::gen_ai_cache_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::gen_ai_cache_service::DeleteOperation {
+        super::builder::gen_ai_cache_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3151,8 +3138,8 @@ impl GenAiCacheService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_cache_service::CancelOperation {
-        super::builders::gen_ai_cache_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::gen_ai_cache_service::CancelOperation {
+        super::builder::gen_ai_cache_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3162,8 +3149,8 @@ impl GenAiCacheService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_cache_service::WaitOperation {
-        super::builders::gen_ai_cache_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::gen_ai_cache_service::WaitOperation {
+        super::builder::gen_ai_cache_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -3187,7 +3174,7 @@ impl GenAiCacheService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct GenAiTuningService {
-    inner: Arc<dyn super::stubs::dynamic::GenAiTuningService>,
+    inner: Arc<dyn super::stub::dynamic::GenAiTuningService>,
 }
 
 impl GenAiTuningService {
@@ -3208,7 +3195,7 @@ impl GenAiTuningService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::GenAiTuningService + 'static,
+        T: super::stub::GenAiTuningService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -3217,7 +3204,7 @@ impl GenAiTuningService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::GenAiTuningService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::GenAiTuningService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -3226,13 +3213,13 @@ impl GenAiTuningService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::GenAiTuningService> {
+    ) -> Result<impl super::stub::GenAiTuningService> {
         super::transport::GenAiTuningService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::GenAiTuningService> {
+    ) -> Result<impl super::stub::GenAiTuningService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::GenAiTuningService::new)
@@ -3243,8 +3230,8 @@ impl GenAiTuningService {
     pub fn create_tuning_job(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_tuning_service::CreateTuningJob {
-        super::builders::gen_ai_tuning_service::CreateTuningJob::new(self.inner.clone())
+    ) -> super::builder::gen_ai_tuning_service::CreateTuningJob {
+        super::builder::gen_ai_tuning_service::CreateTuningJob::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -3252,8 +3239,8 @@ impl GenAiTuningService {
     pub fn get_tuning_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_tuning_service::GetTuningJob {
-        super::builders::gen_ai_tuning_service::GetTuningJob::new(self.inner.clone())
+    ) -> super::builder::gen_ai_tuning_service::GetTuningJob {
+        super::builder::gen_ai_tuning_service::GetTuningJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3261,8 +3248,8 @@ impl GenAiTuningService {
     pub fn list_tuning_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_tuning_service::ListTuningJobs {
-        super::builders::gen_ai_tuning_service::ListTuningJobs::new(self.inner.clone())
+    ) -> super::builder::gen_ai_tuning_service::ListTuningJobs {
+        super::builder::gen_ai_tuning_service::ListTuningJobs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -3286,8 +3273,8 @@ impl GenAiTuningService {
     pub fn cancel_tuning_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_tuning_service::CancelTuningJob {
-        super::builders::gen_ai_tuning_service::CancelTuningJob::new(self.inner.clone())
+    ) -> super::builder::gen_ai_tuning_service::CancelTuningJob {
+        super::builder::gen_ai_tuning_service::CancelTuningJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3305,8 +3292,8 @@ impl GenAiTuningService {
     pub fn rebase_tuned_model(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_tuning_service::RebaseTunedModel {
-        super::builders::gen_ai_tuning_service::RebaseTunedModel::new(self.inner.clone())
+    ) -> super::builder::gen_ai_tuning_service::RebaseTunedModel {
+        super::builder::gen_ai_tuning_service::RebaseTunedModel::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -3314,8 +3301,8 @@ impl GenAiTuningService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_tuning_service::ListLocations {
-        super::builders::gen_ai_tuning_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::gen_ai_tuning_service::ListLocations {
+        super::builder::gen_ai_tuning_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3323,8 +3310,8 @@ impl GenAiTuningService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_tuning_service::GetLocation {
-        super::builders::gen_ai_tuning_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::gen_ai_tuning_service::GetLocation {
+        super::builder::gen_ai_tuning_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3336,8 +3323,8 @@ impl GenAiTuningService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_tuning_service::SetIamPolicy {
-        super::builders::gen_ai_tuning_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::gen_ai_tuning_service::SetIamPolicy {
+        super::builder::gen_ai_tuning_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -3346,8 +3333,8 @@ impl GenAiTuningService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_tuning_service::GetIamPolicy {
-        super::builders::gen_ai_tuning_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::gen_ai_tuning_service::GetIamPolicy {
+        super::builder::gen_ai_tuning_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -3361,8 +3348,8 @@ impl GenAiTuningService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_tuning_service::TestIamPermissions {
-        super::builders::gen_ai_tuning_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::gen_ai_tuning_service::TestIamPermissions {
+        super::builder::gen_ai_tuning_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -3372,8 +3359,8 @@ impl GenAiTuningService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_tuning_service::ListOperations {
-        super::builders::gen_ai_tuning_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::gen_ai_tuning_service::ListOperations {
+        super::builder::gen_ai_tuning_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3383,8 +3370,8 @@ impl GenAiTuningService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_tuning_service::GetOperation {
-        super::builders::gen_ai_tuning_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::gen_ai_tuning_service::GetOperation {
+        super::builder::gen_ai_tuning_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3394,8 +3381,8 @@ impl GenAiTuningService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_tuning_service::DeleteOperation {
-        super::builders::gen_ai_tuning_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::gen_ai_tuning_service::DeleteOperation {
+        super::builder::gen_ai_tuning_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3405,8 +3392,8 @@ impl GenAiTuningService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_tuning_service::CancelOperation {
-        super::builders::gen_ai_tuning_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::gen_ai_tuning_service::CancelOperation {
+        super::builder::gen_ai_tuning_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3416,8 +3403,8 @@ impl GenAiTuningService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gen_ai_tuning_service::WaitOperation {
-        super::builders::gen_ai_tuning_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::gen_ai_tuning_service::WaitOperation {
+        super::builder::gen_ai_tuning_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -3441,7 +3428,7 @@ impl GenAiTuningService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct IndexEndpointService {
-    inner: Arc<dyn super::stubs::dynamic::IndexEndpointService>,
+    inner: Arc<dyn super::stub::dynamic::IndexEndpointService>,
 }
 
 impl IndexEndpointService {
@@ -3462,7 +3449,7 @@ impl IndexEndpointService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::IndexEndpointService + 'static,
+        T: super::stub::IndexEndpointService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -3471,7 +3458,7 @@ impl IndexEndpointService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::IndexEndpointService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::IndexEndpointService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -3480,13 +3467,13 @@ impl IndexEndpointService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::IndexEndpointService> {
+    ) -> Result<impl super::stub::IndexEndpointService> {
         super::transport::IndexEndpointService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::IndexEndpointService> {
+    ) -> Result<impl super::stub::IndexEndpointService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::IndexEndpointService::new)
@@ -3506,8 +3493,8 @@ impl IndexEndpointService {
     pub fn create_index_endpoint(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::index_endpoint_service::CreateIndexEndpoint {
-        super::builders::index_endpoint_service::CreateIndexEndpoint::new(self.inner.clone())
+    ) -> super::builder::index_endpoint_service::CreateIndexEndpoint {
+        super::builder::index_endpoint_service::CreateIndexEndpoint::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -3515,8 +3502,8 @@ impl IndexEndpointService {
     pub fn get_index_endpoint(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::index_endpoint_service::GetIndexEndpoint {
-        super::builders::index_endpoint_service::GetIndexEndpoint::new(self.inner.clone())
+    ) -> super::builder::index_endpoint_service::GetIndexEndpoint {
+        super::builder::index_endpoint_service::GetIndexEndpoint::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3524,8 +3511,8 @@ impl IndexEndpointService {
     pub fn list_index_endpoints(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::index_endpoint_service::ListIndexEndpoints {
-        super::builders::index_endpoint_service::ListIndexEndpoints::new(self.inner.clone())
+    ) -> super::builder::index_endpoint_service::ListIndexEndpoints {
+        super::builder::index_endpoint_service::ListIndexEndpoints::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -3533,8 +3520,8 @@ impl IndexEndpointService {
     pub fn update_index_endpoint(
         &self,
         index_endpoint: impl Into<crate::model::IndexEndpoint>,
-    ) -> super::builders::index_endpoint_service::UpdateIndexEndpoint {
-        super::builders::index_endpoint_service::UpdateIndexEndpoint::new(self.inner.clone())
+    ) -> super::builder::index_endpoint_service::UpdateIndexEndpoint {
+        super::builder::index_endpoint_service::UpdateIndexEndpoint::new(self.inner.clone())
             .set_index_endpoint(index_endpoint.into())
     }
 
@@ -3552,8 +3539,8 @@ impl IndexEndpointService {
     pub fn delete_index_endpoint(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::index_endpoint_service::DeleteIndexEndpoint {
-        super::builders::index_endpoint_service::DeleteIndexEndpoint::new(self.inner.clone())
+    ) -> super::builder::index_endpoint_service::DeleteIndexEndpoint {
+        super::builder::index_endpoint_service::DeleteIndexEndpoint::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3573,8 +3560,8 @@ impl IndexEndpointService {
     pub fn deploy_index(
         &self,
         index_endpoint: impl Into<std::string::String>,
-    ) -> super::builders::index_endpoint_service::DeployIndex {
-        super::builders::index_endpoint_service::DeployIndex::new(self.inner.clone())
+    ) -> super::builder::index_endpoint_service::DeployIndex {
+        super::builder::index_endpoint_service::DeployIndex::new(self.inner.clone())
             .set_index_endpoint(index_endpoint.into())
     }
 
@@ -3593,8 +3580,8 @@ impl IndexEndpointService {
     pub fn undeploy_index(
         &self,
         index_endpoint: impl Into<std::string::String>,
-    ) -> super::builders::index_endpoint_service::UndeployIndex {
-        super::builders::index_endpoint_service::UndeployIndex::new(self.inner.clone())
+    ) -> super::builder::index_endpoint_service::UndeployIndex {
+        super::builder::index_endpoint_service::UndeployIndex::new(self.inner.clone())
             .set_index_endpoint(index_endpoint.into())
     }
 
@@ -3612,8 +3599,8 @@ impl IndexEndpointService {
     pub fn mutate_deployed_index(
         &self,
         index_endpoint: impl Into<std::string::String>,
-    ) -> super::builders::index_endpoint_service::MutateDeployedIndex {
-        super::builders::index_endpoint_service::MutateDeployedIndex::new(self.inner.clone())
+    ) -> super::builder::index_endpoint_service::MutateDeployedIndex {
+        super::builder::index_endpoint_service::MutateDeployedIndex::new(self.inner.clone())
             .set_index_endpoint(index_endpoint.into())
     }
 
@@ -3621,8 +3608,8 @@ impl IndexEndpointService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::index_endpoint_service::ListLocations {
-        super::builders::index_endpoint_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::index_endpoint_service::ListLocations {
+        super::builder::index_endpoint_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3630,8 +3617,8 @@ impl IndexEndpointService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::index_endpoint_service::GetLocation {
-        super::builders::index_endpoint_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::index_endpoint_service::GetLocation {
+        super::builder::index_endpoint_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3643,8 +3630,8 @@ impl IndexEndpointService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::index_endpoint_service::SetIamPolicy {
-        super::builders::index_endpoint_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::index_endpoint_service::SetIamPolicy {
+        super::builder::index_endpoint_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -3653,8 +3640,8 @@ impl IndexEndpointService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::index_endpoint_service::GetIamPolicy {
-        super::builders::index_endpoint_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::index_endpoint_service::GetIamPolicy {
+        super::builder::index_endpoint_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -3668,8 +3655,8 @@ impl IndexEndpointService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::index_endpoint_service::TestIamPermissions {
-        super::builders::index_endpoint_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::index_endpoint_service::TestIamPermissions {
+        super::builder::index_endpoint_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -3679,8 +3666,8 @@ impl IndexEndpointService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::index_endpoint_service::ListOperations {
-        super::builders::index_endpoint_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::index_endpoint_service::ListOperations {
+        super::builder::index_endpoint_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3690,8 +3677,8 @@ impl IndexEndpointService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::index_endpoint_service::GetOperation {
-        super::builders::index_endpoint_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::index_endpoint_service::GetOperation {
+        super::builder::index_endpoint_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3701,8 +3688,8 @@ impl IndexEndpointService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::index_endpoint_service::DeleteOperation {
-        super::builders::index_endpoint_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::index_endpoint_service::DeleteOperation {
+        super::builder::index_endpoint_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3712,8 +3699,8 @@ impl IndexEndpointService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::index_endpoint_service::CancelOperation {
-        super::builders::index_endpoint_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::index_endpoint_service::CancelOperation {
+        super::builder::index_endpoint_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3723,8 +3710,8 @@ impl IndexEndpointService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::index_endpoint_service::WaitOperation {
-        super::builders::index_endpoint_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::index_endpoint_service::WaitOperation {
+        super::builder::index_endpoint_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -3748,7 +3735,7 @@ impl IndexEndpointService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct IndexService {
-    inner: Arc<dyn super::stubs::dynamic::IndexService>,
+    inner: Arc<dyn super::stub::dynamic::IndexService>,
 }
 
 impl IndexService {
@@ -3769,7 +3756,7 @@ impl IndexService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::IndexService + 'static,
+        T: super::stub::IndexService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -3778,7 +3765,7 @@ impl IndexService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::IndexService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::IndexService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -3787,13 +3774,13 @@ impl IndexService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::IndexService> {
+    ) -> Result<impl super::stub::IndexService> {
         super::transport::IndexService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::IndexService> {
+    ) -> Result<impl super::stub::IndexService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::IndexService::new)
@@ -3813,8 +3800,8 @@ impl IndexService {
     pub fn create_index(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::index_service::CreateIndex {
-        super::builders::index_service::CreateIndex::new(self.inner.clone())
+    ) -> super::builder::index_service::CreateIndex {
+        super::builder::index_service::CreateIndex::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -3822,16 +3809,16 @@ impl IndexService {
     pub fn get_index(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::index_service::GetIndex {
-        super::builders::index_service::GetIndex::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::index_service::GetIndex {
+        super::builder::index_service::GetIndex::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists Indexes in a Location.
     pub fn list_indexes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::index_service::ListIndexes {
-        super::builders::index_service::ListIndexes::new(self.inner.clone())
+    ) -> super::builder::index_service::ListIndexes {
+        super::builder::index_service::ListIndexes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -3849,8 +3836,8 @@ impl IndexService {
     pub fn update_index(
         &self,
         index: impl Into<crate::model::Index>,
-    ) -> super::builders::index_service::UpdateIndex {
-        super::builders::index_service::UpdateIndex::new(self.inner.clone()).set_index(index.into())
+    ) -> super::builder::index_service::UpdateIndex {
+        super::builder::index_service::UpdateIndex::new(self.inner.clone()).set_index(index.into())
     }
 
     /// Deletes an Index.
@@ -3872,16 +3859,16 @@ impl IndexService {
     pub fn delete_index(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::index_service::DeleteIndex {
-        super::builders::index_service::DeleteIndex::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::index_service::DeleteIndex {
+        super::builder::index_service::DeleteIndex::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Add/update Datapoints into an Index.
     pub fn upsert_datapoints(
         &self,
         index: impl Into<std::string::String>,
-    ) -> super::builders::index_service::UpsertDatapoints {
-        super::builders::index_service::UpsertDatapoints::new(self.inner.clone())
+    ) -> super::builder::index_service::UpsertDatapoints {
+        super::builder::index_service::UpsertDatapoints::new(self.inner.clone())
             .set_index(index.into())
     }
 
@@ -3889,8 +3876,8 @@ impl IndexService {
     pub fn remove_datapoints(
         &self,
         index: impl Into<std::string::String>,
-    ) -> super::builders::index_service::RemoveDatapoints {
-        super::builders::index_service::RemoveDatapoints::new(self.inner.clone())
+    ) -> super::builder::index_service::RemoveDatapoints {
+        super::builder::index_service::RemoveDatapoints::new(self.inner.clone())
             .set_index(index.into())
     }
 
@@ -3898,16 +3885,16 @@ impl IndexService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::index_service::ListLocations {
-        super::builders::index_service::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::index_service::ListLocations {
+        super::builder::index_service::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::index_service::GetLocation {
-        super::builders::index_service::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::index_service::GetLocation {
+        super::builder::index_service::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -3918,8 +3905,8 @@ impl IndexService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::index_service::SetIamPolicy {
-        super::builders::index_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::index_service::SetIamPolicy {
+        super::builder::index_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -3928,8 +3915,8 @@ impl IndexService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::index_service::GetIamPolicy {
-        super::builders::index_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::index_service::GetIamPolicy {
+        super::builder::index_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -3943,8 +3930,8 @@ impl IndexService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::index_service::TestIamPermissions {
-        super::builders::index_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::index_service::TestIamPermissions {
+        super::builder::index_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -3954,9 +3941,8 @@ impl IndexService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::index_service::ListOperations {
-        super::builders::index_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::index_service::ListOperations {
+        super::builder::index_service::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3965,8 +3951,8 @@ impl IndexService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::index_service::GetOperation {
-        super::builders::index_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::index_service::GetOperation {
+        super::builder::index_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3975,8 +3961,8 @@ impl IndexService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::index_service::DeleteOperation {
-        super::builders::index_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::index_service::DeleteOperation {
+        super::builder::index_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3986,8 +3972,8 @@ impl IndexService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::index_service::CancelOperation {
-        super::builders::index_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::index_service::CancelOperation {
+        super::builder::index_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3997,8 +3983,8 @@ impl IndexService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::index_service::WaitOperation {
-        super::builders::index_service::WaitOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::index_service::WaitOperation {
+        super::builder::index_service::WaitOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -4021,7 +4007,7 @@ impl IndexService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct JobService {
-    inner: Arc<dyn super::stubs::dynamic::JobService>,
+    inner: Arc<dyn super::stub::dynamic::JobService>,
 }
 
 impl JobService {
@@ -4042,7 +4028,7 @@ impl JobService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::JobService + 'static,
+        T: super::stub::JobService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -4051,7 +4037,7 @@ impl JobService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::JobService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::JobService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -4060,13 +4046,13 @@ impl JobService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::JobService> {
+    ) -> Result<impl super::stub::JobService> {
         super::transport::JobService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::JobService> {
+    ) -> Result<impl super::stub::JobService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::JobService::new)
@@ -4077,8 +4063,8 @@ impl JobService {
     pub fn create_custom_job(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::job_service::CreateCustomJob {
-        super::builders::job_service::CreateCustomJob::new(self.inner.clone())
+    ) -> super::builder::job_service::CreateCustomJob {
+        super::builder::job_service::CreateCustomJob::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -4086,16 +4072,16 @@ impl JobService {
     pub fn get_custom_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::GetCustomJob {
-        super::builders::job_service::GetCustomJob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::job_service::GetCustomJob {
+        super::builder::job_service::GetCustomJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists CustomJobs in a Location.
     pub fn list_custom_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::job_service::ListCustomJobs {
-        super::builders::job_service::ListCustomJobs::new(self.inner.clone())
+    ) -> super::builder::job_service::ListCustomJobs {
+        super::builder::job_service::ListCustomJobs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -4113,8 +4099,8 @@ impl JobService {
     pub fn delete_custom_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::DeleteCustomJob {
-        super::builders::job_service::DeleteCustomJob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::job_service::DeleteCustomJob {
+        super::builder::job_service::DeleteCustomJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Cancels a CustomJob.
@@ -4138,16 +4124,16 @@ impl JobService {
     pub fn cancel_custom_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::CancelCustomJob {
-        super::builders::job_service::CancelCustomJob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::job_service::CancelCustomJob {
+        super::builder::job_service::CancelCustomJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a DataLabelingJob.
     pub fn create_data_labeling_job(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::job_service::CreateDataLabelingJob {
-        super::builders::job_service::CreateDataLabelingJob::new(self.inner.clone())
+    ) -> super::builder::job_service::CreateDataLabelingJob {
+        super::builder::job_service::CreateDataLabelingJob::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -4155,8 +4141,8 @@ impl JobService {
     pub fn get_data_labeling_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::GetDataLabelingJob {
-        super::builders::job_service::GetDataLabelingJob::new(self.inner.clone())
+    ) -> super::builder::job_service::GetDataLabelingJob {
+        super::builder::job_service::GetDataLabelingJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -4164,8 +4150,8 @@ impl JobService {
     pub fn list_data_labeling_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::job_service::ListDataLabelingJobs {
-        super::builders::job_service::ListDataLabelingJobs::new(self.inner.clone())
+    ) -> super::builder::job_service::ListDataLabelingJobs {
+        super::builder::job_service::ListDataLabelingJobs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -4183,8 +4169,8 @@ impl JobService {
     pub fn delete_data_labeling_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::DeleteDataLabelingJob {
-        super::builders::job_service::DeleteDataLabelingJob::new(self.inner.clone())
+    ) -> super::builder::job_service::DeleteDataLabelingJob {
+        super::builder::job_service::DeleteDataLabelingJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -4192,8 +4178,8 @@ impl JobService {
     pub fn cancel_data_labeling_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::CancelDataLabelingJob {
-        super::builders::job_service::CancelDataLabelingJob::new(self.inner.clone())
+    ) -> super::builder::job_service::CancelDataLabelingJob {
+        super::builder::job_service::CancelDataLabelingJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -4201,8 +4187,8 @@ impl JobService {
     pub fn create_hyperparameter_tuning_job(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::job_service::CreateHyperparameterTuningJob {
-        super::builders::job_service::CreateHyperparameterTuningJob::new(self.inner.clone())
+    ) -> super::builder::job_service::CreateHyperparameterTuningJob {
+        super::builder::job_service::CreateHyperparameterTuningJob::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -4210,8 +4196,8 @@ impl JobService {
     pub fn get_hyperparameter_tuning_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::GetHyperparameterTuningJob {
-        super::builders::job_service::GetHyperparameterTuningJob::new(self.inner.clone())
+    ) -> super::builder::job_service::GetHyperparameterTuningJob {
+        super::builder::job_service::GetHyperparameterTuningJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -4219,8 +4205,8 @@ impl JobService {
     pub fn list_hyperparameter_tuning_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::job_service::ListHyperparameterTuningJobs {
-        super::builders::job_service::ListHyperparameterTuningJobs::new(self.inner.clone())
+    ) -> super::builder::job_service::ListHyperparameterTuningJobs {
+        super::builder::job_service::ListHyperparameterTuningJobs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -4238,8 +4224,8 @@ impl JobService {
     pub fn delete_hyperparameter_tuning_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::DeleteHyperparameterTuningJob {
-        super::builders::job_service::DeleteHyperparameterTuningJob::new(self.inner.clone())
+    ) -> super::builder::job_service::DeleteHyperparameterTuningJob {
+        super::builder::job_service::DeleteHyperparameterTuningJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -4265,8 +4251,8 @@ impl JobService {
     pub fn cancel_hyperparameter_tuning_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::CancelHyperparameterTuningJob {
-        super::builders::job_service::CancelHyperparameterTuningJob::new(self.inner.clone())
+    ) -> super::builder::job_service::CancelHyperparameterTuningJob {
+        super::builder::job_service::CancelHyperparameterTuningJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -4274,25 +4260,24 @@ impl JobService {
     pub fn create_nas_job(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::job_service::CreateNasJob {
-        super::builders::job_service::CreateNasJob::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::job_service::CreateNasJob {
+        super::builder::job_service::CreateNasJob::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets a NasJob
     pub fn get_nas_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::GetNasJob {
-        super::builders::job_service::GetNasJob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::job_service::GetNasJob {
+        super::builder::job_service::GetNasJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists NasJobs in a Location.
     pub fn list_nas_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::job_service::ListNasJobs {
-        super::builders::job_service::ListNasJobs::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::job_service::ListNasJobs {
+        super::builder::job_service::ListNasJobs::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Deletes a NasJob.
@@ -4309,8 +4294,8 @@ impl JobService {
     pub fn delete_nas_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::DeleteNasJob {
-        super::builders::job_service::DeleteNasJob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::job_service::DeleteNasJob {
+        super::builder::job_service::DeleteNasJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Cancels a NasJob.
@@ -4334,16 +4319,16 @@ impl JobService {
     pub fn cancel_nas_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::CancelNasJob {
-        super::builders::job_service::CancelNasJob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::job_service::CancelNasJob {
+        super::builder::job_service::CancelNasJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets a NasTrialDetail.
     pub fn get_nas_trial_detail(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::GetNasTrialDetail {
-        super::builders::job_service::GetNasTrialDetail::new(self.inner.clone())
+    ) -> super::builder::job_service::GetNasTrialDetail {
+        super::builder::job_service::GetNasTrialDetail::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -4351,8 +4336,8 @@ impl JobService {
     pub fn list_nas_trial_details(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::job_service::ListNasTrialDetails {
-        super::builders::job_service::ListNasTrialDetails::new(self.inner.clone())
+    ) -> super::builder::job_service::ListNasTrialDetails {
+        super::builder::job_service::ListNasTrialDetails::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -4361,8 +4346,8 @@ impl JobService {
     pub fn create_batch_prediction_job(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::job_service::CreateBatchPredictionJob {
-        super::builders::job_service::CreateBatchPredictionJob::new(self.inner.clone())
+    ) -> super::builder::job_service::CreateBatchPredictionJob {
+        super::builder::job_service::CreateBatchPredictionJob::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -4370,8 +4355,8 @@ impl JobService {
     pub fn get_batch_prediction_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::GetBatchPredictionJob {
-        super::builders::job_service::GetBatchPredictionJob::new(self.inner.clone())
+    ) -> super::builder::job_service::GetBatchPredictionJob {
+        super::builder::job_service::GetBatchPredictionJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -4379,8 +4364,8 @@ impl JobService {
     pub fn list_batch_prediction_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::job_service::ListBatchPredictionJobs {
-        super::builders::job_service::ListBatchPredictionJobs::new(self.inner.clone())
+    ) -> super::builder::job_service::ListBatchPredictionJobs {
+        super::builder::job_service::ListBatchPredictionJobs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -4399,8 +4384,8 @@ impl JobService {
     pub fn delete_batch_prediction_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::DeleteBatchPredictionJob {
-        super::builders::job_service::DeleteBatchPredictionJob::new(self.inner.clone())
+    ) -> super::builder::job_service::DeleteBatchPredictionJob {
+        super::builder::job_service::DeleteBatchPredictionJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -4422,8 +4407,8 @@ impl JobService {
     pub fn cancel_batch_prediction_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::CancelBatchPredictionJob {
-        super::builders::job_service::CancelBatchPredictionJob::new(self.inner.clone())
+    ) -> super::builder::job_service::CancelBatchPredictionJob {
+        super::builder::job_service::CancelBatchPredictionJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -4432,8 +4417,8 @@ impl JobService {
     pub fn create_model_deployment_monitoring_job(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::job_service::CreateModelDeploymentMonitoringJob {
-        super::builders::job_service::CreateModelDeploymentMonitoringJob::new(self.inner.clone())
+    ) -> super::builder::job_service::CreateModelDeploymentMonitoringJob {
+        super::builder::job_service::CreateModelDeploymentMonitoringJob::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -4441,8 +4426,8 @@ impl JobService {
     pub fn search_model_deployment_monitoring_stats_anomalies(
         &self,
         model_deployment_monitoring_job: impl Into<std::string::String>,
-    ) -> super::builders::job_service::SearchModelDeploymentMonitoringStatsAnomalies {
-        super::builders::job_service::SearchModelDeploymentMonitoringStatsAnomalies::new(
+    ) -> super::builder::job_service::SearchModelDeploymentMonitoringStatsAnomalies {
+        super::builder::job_service::SearchModelDeploymentMonitoringStatsAnomalies::new(
             self.inner.clone(),
         )
         .set_model_deployment_monitoring_job(model_deployment_monitoring_job.into())
@@ -4452,8 +4437,8 @@ impl JobService {
     pub fn get_model_deployment_monitoring_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::GetModelDeploymentMonitoringJob {
-        super::builders::job_service::GetModelDeploymentMonitoringJob::new(self.inner.clone())
+    ) -> super::builder::job_service::GetModelDeploymentMonitoringJob {
+        super::builder::job_service::GetModelDeploymentMonitoringJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -4461,8 +4446,8 @@ impl JobService {
     pub fn list_model_deployment_monitoring_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::job_service::ListModelDeploymentMonitoringJobs {
-        super::builders::job_service::ListModelDeploymentMonitoringJobs::new(self.inner.clone())
+    ) -> super::builder::job_service::ListModelDeploymentMonitoringJobs {
+        super::builder::job_service::ListModelDeploymentMonitoringJobs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -4480,8 +4465,8 @@ impl JobService {
     pub fn update_model_deployment_monitoring_job(
         &self,
         model_deployment_monitoring_job: impl Into<crate::model::ModelDeploymentMonitoringJob>,
-    ) -> super::builders::job_service::UpdateModelDeploymentMonitoringJob {
-        super::builders::job_service::UpdateModelDeploymentMonitoringJob::new(self.inner.clone())
+    ) -> super::builder::job_service::UpdateModelDeploymentMonitoringJob {
+        super::builder::job_service::UpdateModelDeploymentMonitoringJob::new(self.inner.clone())
             .set_model_deployment_monitoring_job(model_deployment_monitoring_job.into())
     }
 
@@ -4499,8 +4484,8 @@ impl JobService {
     pub fn delete_model_deployment_monitoring_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::DeleteModelDeploymentMonitoringJob {
-        super::builders::job_service::DeleteModelDeploymentMonitoringJob::new(self.inner.clone())
+    ) -> super::builder::job_service::DeleteModelDeploymentMonitoringJob {
+        super::builder::job_service::DeleteModelDeploymentMonitoringJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -4513,8 +4498,8 @@ impl JobService {
     pub fn pause_model_deployment_monitoring_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::PauseModelDeploymentMonitoringJob {
-        super::builders::job_service::PauseModelDeploymentMonitoringJob::new(self.inner.clone())
+    ) -> super::builder::job_service::PauseModelDeploymentMonitoringJob {
+        super::builder::job_service::PauseModelDeploymentMonitoringJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -4524,8 +4509,8 @@ impl JobService {
     pub fn resume_model_deployment_monitoring_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::ResumeModelDeploymentMonitoringJob {
-        super::builders::job_service::ResumeModelDeploymentMonitoringJob::new(self.inner.clone())
+    ) -> super::builder::job_service::ResumeModelDeploymentMonitoringJob {
+        super::builder::job_service::ResumeModelDeploymentMonitoringJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -4533,16 +4518,16 @@ impl JobService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::ListLocations {
-        super::builders::job_service::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::job_service::ListLocations {
+        super::builder::job_service::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::GetLocation {
-        super::builders::job_service::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::job_service::GetLocation {
+        super::builder::job_service::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -4553,8 +4538,8 @@ impl JobService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::job_service::SetIamPolicy {
-        super::builders::job_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::job_service::SetIamPolicy {
+        super::builder::job_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -4563,8 +4548,8 @@ impl JobService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::job_service::GetIamPolicy {
-        super::builders::job_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::job_service::GetIamPolicy {
+        super::builder::job_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -4578,8 +4563,8 @@ impl JobService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::job_service::TestIamPermissions {
-        super::builders::job_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::job_service::TestIamPermissions {
+        super::builder::job_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -4589,8 +4574,8 @@ impl JobService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::ListOperations {
-        super::builders::job_service::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::job_service::ListOperations {
+        super::builder::job_service::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -4599,8 +4584,8 @@ impl JobService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::GetOperation {
-        super::builders::job_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::job_service::GetOperation {
+        super::builder::job_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -4609,8 +4594,8 @@ impl JobService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::DeleteOperation {
-        super::builders::job_service::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::job_service::DeleteOperation {
+        super::builder::job_service::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -4619,8 +4604,8 @@ impl JobService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::CancelOperation {
-        super::builders::job_service::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::job_service::CancelOperation {
+        super::builder::job_service::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -4629,8 +4614,8 @@ impl JobService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_service::WaitOperation {
-        super::builders::job_service::WaitOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::job_service::WaitOperation {
+        super::builder::job_service::WaitOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -4653,7 +4638,7 @@ impl JobService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct LlmUtilityService {
-    inner: Arc<dyn super::stubs::dynamic::LlmUtilityService>,
+    inner: Arc<dyn super::stub::dynamic::LlmUtilityService>,
 }
 
 impl LlmUtilityService {
@@ -4674,7 +4659,7 @@ impl LlmUtilityService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::LlmUtilityService + 'static,
+        T: super::stub::LlmUtilityService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -4683,7 +4668,7 @@ impl LlmUtilityService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::LlmUtilityService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::LlmUtilityService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -4692,13 +4677,13 @@ impl LlmUtilityService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::LlmUtilityService> {
+    ) -> Result<impl super::stub::LlmUtilityService> {
         super::transport::LlmUtilityService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::LlmUtilityService> {
+    ) -> Result<impl super::stub::LlmUtilityService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::LlmUtilityService::new)
@@ -4708,8 +4693,8 @@ impl LlmUtilityService {
     pub fn count_tokens(
         &self,
         endpoint: impl Into<std::string::String>,
-    ) -> super::builders::llm_utility_service::CountTokens {
-        super::builders::llm_utility_service::CountTokens::new(self.inner.clone())
+    ) -> super::builder::llm_utility_service::CountTokens {
+        super::builder::llm_utility_service::CountTokens::new(self.inner.clone())
             .set_endpoint(endpoint.into())
     }
 
@@ -4717,8 +4702,8 @@ impl LlmUtilityService {
     pub fn compute_tokens(
         &self,
         endpoint: impl Into<std::string::String>,
-    ) -> super::builders::llm_utility_service::ComputeTokens {
-        super::builders::llm_utility_service::ComputeTokens::new(self.inner.clone())
+    ) -> super::builder::llm_utility_service::ComputeTokens {
+        super::builder::llm_utility_service::ComputeTokens::new(self.inner.clone())
             .set_endpoint(endpoint.into())
     }
 
@@ -4726,8 +4711,8 @@ impl LlmUtilityService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::llm_utility_service::ListLocations {
-        super::builders::llm_utility_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::llm_utility_service::ListLocations {
+        super::builder::llm_utility_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -4735,8 +4720,8 @@ impl LlmUtilityService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::llm_utility_service::GetLocation {
-        super::builders::llm_utility_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::llm_utility_service::GetLocation {
+        super::builder::llm_utility_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -4748,8 +4733,8 @@ impl LlmUtilityService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::llm_utility_service::SetIamPolicy {
-        super::builders::llm_utility_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::llm_utility_service::SetIamPolicy {
+        super::builder::llm_utility_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -4758,8 +4743,8 @@ impl LlmUtilityService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::llm_utility_service::GetIamPolicy {
-        super::builders::llm_utility_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::llm_utility_service::GetIamPolicy {
+        super::builder::llm_utility_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -4773,8 +4758,8 @@ impl LlmUtilityService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::llm_utility_service::TestIamPermissions {
-        super::builders::llm_utility_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::llm_utility_service::TestIamPermissions {
+        super::builder::llm_utility_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -4784,8 +4769,8 @@ impl LlmUtilityService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::llm_utility_service::ListOperations {
-        super::builders::llm_utility_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::llm_utility_service::ListOperations {
+        super::builder::llm_utility_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -4795,8 +4780,8 @@ impl LlmUtilityService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::llm_utility_service::GetOperation {
-        super::builders::llm_utility_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::llm_utility_service::GetOperation {
+        super::builder::llm_utility_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -4806,8 +4791,8 @@ impl LlmUtilityService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::llm_utility_service::DeleteOperation {
-        super::builders::llm_utility_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::llm_utility_service::DeleteOperation {
+        super::builder::llm_utility_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -4817,8 +4802,8 @@ impl LlmUtilityService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::llm_utility_service::CancelOperation {
-        super::builders::llm_utility_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::llm_utility_service::CancelOperation {
+        super::builder::llm_utility_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -4828,8 +4813,8 @@ impl LlmUtilityService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::llm_utility_service::WaitOperation {
-        super::builders::llm_utility_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::llm_utility_service::WaitOperation {
+        super::builder::llm_utility_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -4854,7 +4839,7 @@ impl LlmUtilityService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct MatchService {
-    inner: Arc<dyn super::stubs::dynamic::MatchService>,
+    inner: Arc<dyn super::stub::dynamic::MatchService>,
 }
 
 impl MatchService {
@@ -4875,7 +4860,7 @@ impl MatchService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::MatchService + 'static,
+        T: super::stub::MatchService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -4884,7 +4869,7 @@ impl MatchService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::MatchService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::MatchService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -4893,13 +4878,13 @@ impl MatchService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::MatchService> {
+    ) -> Result<impl super::stub::MatchService> {
         super::transport::MatchService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::MatchService> {
+    ) -> Result<impl super::stub::MatchService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::MatchService::new)
@@ -4909,8 +4894,8 @@ impl MatchService {
     pub fn find_neighbors(
         &self,
         index_endpoint: impl Into<std::string::String>,
-    ) -> super::builders::match_service::FindNeighbors {
-        super::builders::match_service::FindNeighbors::new(self.inner.clone())
+    ) -> super::builder::match_service::FindNeighbors {
+        super::builder::match_service::FindNeighbors::new(self.inner.clone())
             .set_index_endpoint(index_endpoint.into())
     }
 
@@ -4919,8 +4904,8 @@ impl MatchService {
     pub fn read_index_datapoints(
         &self,
         index_endpoint: impl Into<std::string::String>,
-    ) -> super::builders::match_service::ReadIndexDatapoints {
-        super::builders::match_service::ReadIndexDatapoints::new(self.inner.clone())
+    ) -> super::builder::match_service::ReadIndexDatapoints {
+        super::builder::match_service::ReadIndexDatapoints::new(self.inner.clone())
             .set_index_endpoint(index_endpoint.into())
     }
 
@@ -4928,16 +4913,16 @@ impl MatchService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::match_service::ListLocations {
-        super::builders::match_service::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::match_service::ListLocations {
+        super::builder::match_service::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::match_service::GetLocation {
-        super::builders::match_service::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::match_service::GetLocation {
+        super::builder::match_service::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -4948,8 +4933,8 @@ impl MatchService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::match_service::SetIamPolicy {
-        super::builders::match_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::match_service::SetIamPolicy {
+        super::builder::match_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -4958,8 +4943,8 @@ impl MatchService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::match_service::GetIamPolicy {
-        super::builders::match_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::match_service::GetIamPolicy {
+        super::builder::match_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -4973,8 +4958,8 @@ impl MatchService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::match_service::TestIamPermissions {
-        super::builders::match_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::match_service::TestIamPermissions {
+        super::builder::match_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -4984,9 +4969,8 @@ impl MatchService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::match_service::ListOperations {
-        super::builders::match_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::match_service::ListOperations {
+        super::builder::match_service::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -4995,8 +4979,8 @@ impl MatchService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::match_service::GetOperation {
-        super::builders::match_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::match_service::GetOperation {
+        super::builder::match_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -5005,8 +4989,8 @@ impl MatchService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::match_service::DeleteOperation {
-        super::builders::match_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::match_service::DeleteOperation {
+        super::builder::match_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5016,8 +5000,8 @@ impl MatchService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::match_service::CancelOperation {
-        super::builders::match_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::match_service::CancelOperation {
+        super::builder::match_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5027,8 +5011,8 @@ impl MatchService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::match_service::WaitOperation {
-        super::builders::match_service::WaitOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::match_service::WaitOperation {
+        super::builder::match_service::WaitOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -5051,7 +5035,7 @@ impl MatchService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct MetadataService {
-    inner: Arc<dyn super::stubs::dynamic::MetadataService>,
+    inner: Arc<dyn super::stub::dynamic::MetadataService>,
 }
 
 impl MetadataService {
@@ -5072,7 +5056,7 @@ impl MetadataService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::MetadataService + 'static,
+        T: super::stub::MetadataService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -5081,7 +5065,7 @@ impl MetadataService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::MetadataService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::MetadataService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -5090,13 +5074,13 @@ impl MetadataService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::MetadataService> {
+    ) -> Result<impl super::stub::MetadataService> {
         super::transport::MetadataService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::MetadataService> {
+    ) -> Result<impl super::stub::MetadataService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::MetadataService::new)
@@ -5116,8 +5100,8 @@ impl MetadataService {
     pub fn create_metadata_store(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::CreateMetadataStore {
-        super::builders::metadata_service::CreateMetadataStore::new(self.inner.clone())
+    ) -> super::builder::metadata_service::CreateMetadataStore {
+        super::builder::metadata_service::CreateMetadataStore::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -5125,8 +5109,8 @@ impl MetadataService {
     pub fn get_metadata_store(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::GetMetadataStore {
-        super::builders::metadata_service::GetMetadataStore::new(self.inner.clone())
+    ) -> super::builder::metadata_service::GetMetadataStore {
+        super::builder::metadata_service::GetMetadataStore::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5134,8 +5118,8 @@ impl MetadataService {
     pub fn list_metadata_stores(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::ListMetadataStores {
-        super::builders::metadata_service::ListMetadataStores::new(self.inner.clone())
+    ) -> super::builder::metadata_service::ListMetadataStores {
+        super::builder::metadata_service::ListMetadataStores::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -5154,8 +5138,8 @@ impl MetadataService {
     pub fn delete_metadata_store(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::DeleteMetadataStore {
-        super::builders::metadata_service::DeleteMetadataStore::new(self.inner.clone())
+    ) -> super::builder::metadata_service::DeleteMetadataStore {
+        super::builder::metadata_service::DeleteMetadataStore::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5163,8 +5147,8 @@ impl MetadataService {
     pub fn create_artifact(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::CreateArtifact {
-        super::builders::metadata_service::CreateArtifact::new(self.inner.clone())
+    ) -> super::builder::metadata_service::CreateArtifact {
+        super::builder::metadata_service::CreateArtifact::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -5172,17 +5156,16 @@ impl MetadataService {
     pub fn get_artifact(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::GetArtifact {
-        super::builders::metadata_service::GetArtifact::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::metadata_service::GetArtifact {
+        super::builder::metadata_service::GetArtifact::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists Artifacts in the MetadataStore.
     pub fn list_artifacts(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::ListArtifacts {
-        super::builders::metadata_service::ListArtifacts::new(self.inner.clone())
+    ) -> super::builder::metadata_service::ListArtifacts {
+        super::builder::metadata_service::ListArtifacts::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -5190,8 +5173,8 @@ impl MetadataService {
     pub fn update_artifact(
         &self,
         artifact: impl Into<crate::model::Artifact>,
-    ) -> super::builders::metadata_service::UpdateArtifact {
-        super::builders::metadata_service::UpdateArtifact::new(self.inner.clone())
+    ) -> super::builder::metadata_service::UpdateArtifact {
+        super::builder::metadata_service::UpdateArtifact::new(self.inner.clone())
             .set_artifact(artifact.into())
     }
 
@@ -5209,8 +5192,8 @@ impl MetadataService {
     pub fn delete_artifact(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::DeleteArtifact {
-        super::builders::metadata_service::DeleteArtifact::new(self.inner.clone())
+    ) -> super::builder::metadata_service::DeleteArtifact {
+        super::builder::metadata_service::DeleteArtifact::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5228,8 +5211,8 @@ impl MetadataService {
     pub fn purge_artifacts(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::PurgeArtifacts {
-        super::builders::metadata_service::PurgeArtifacts::new(self.inner.clone())
+    ) -> super::builder::metadata_service::PurgeArtifacts {
+        super::builder::metadata_service::PurgeArtifacts::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -5237,8 +5220,8 @@ impl MetadataService {
     pub fn create_context(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::CreateContext {
-        super::builders::metadata_service::CreateContext::new(self.inner.clone())
+    ) -> super::builder::metadata_service::CreateContext {
+        super::builder::metadata_service::CreateContext::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -5246,16 +5229,16 @@ impl MetadataService {
     pub fn get_context(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::GetContext {
-        super::builders::metadata_service::GetContext::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::metadata_service::GetContext {
+        super::builder::metadata_service::GetContext::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists Contexts on the MetadataStore.
     pub fn list_contexts(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::ListContexts {
-        super::builders::metadata_service::ListContexts::new(self.inner.clone())
+    ) -> super::builder::metadata_service::ListContexts {
+        super::builder::metadata_service::ListContexts::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -5263,8 +5246,8 @@ impl MetadataService {
     pub fn update_context(
         &self,
         context: impl Into<crate::model::Context>,
-    ) -> super::builders::metadata_service::UpdateContext {
-        super::builders::metadata_service::UpdateContext::new(self.inner.clone())
+    ) -> super::builder::metadata_service::UpdateContext {
+        super::builder::metadata_service::UpdateContext::new(self.inner.clone())
             .set_context(context.into())
     }
 
@@ -5282,8 +5265,8 @@ impl MetadataService {
     pub fn delete_context(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::DeleteContext {
-        super::builders::metadata_service::DeleteContext::new(self.inner.clone())
+    ) -> super::builder::metadata_service::DeleteContext {
+        super::builder::metadata_service::DeleteContext::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5301,8 +5284,8 @@ impl MetadataService {
     pub fn purge_contexts(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::PurgeContexts {
-        super::builders::metadata_service::PurgeContexts::new(self.inner.clone())
+    ) -> super::builder::metadata_service::PurgeContexts {
+        super::builder::metadata_service::PurgeContexts::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -5312,8 +5295,8 @@ impl MetadataService {
     pub fn add_context_artifacts_and_executions(
         &self,
         context: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::AddContextArtifactsAndExecutions {
-        super::builders::metadata_service::AddContextArtifactsAndExecutions::new(self.inner.clone())
+    ) -> super::builder::metadata_service::AddContextArtifactsAndExecutions {
+        super::builder::metadata_service::AddContextArtifactsAndExecutions::new(self.inner.clone())
             .set_context(context.into())
     }
 
@@ -5325,8 +5308,8 @@ impl MetadataService {
     pub fn add_context_children(
         &self,
         context: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::AddContextChildren {
-        super::builders::metadata_service::AddContextChildren::new(self.inner.clone())
+    ) -> super::builder::metadata_service::AddContextChildren {
+        super::builder::metadata_service::AddContextChildren::new(self.inner.clone())
             .set_context(context.into())
     }
 
@@ -5336,8 +5319,8 @@ impl MetadataService {
     pub fn remove_context_children(
         &self,
         context: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::RemoveContextChildren {
-        super::builders::metadata_service::RemoveContextChildren::new(self.inner.clone())
+    ) -> super::builder::metadata_service::RemoveContextChildren {
+        super::builder::metadata_service::RemoveContextChildren::new(self.inner.clone())
             .set_context(context.into())
     }
 
@@ -5346,8 +5329,8 @@ impl MetadataService {
     pub fn query_context_lineage_subgraph(
         &self,
         context: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::QueryContextLineageSubgraph {
-        super::builders::metadata_service::QueryContextLineageSubgraph::new(self.inner.clone())
+    ) -> super::builder::metadata_service::QueryContextLineageSubgraph {
+        super::builder::metadata_service::QueryContextLineageSubgraph::new(self.inner.clone())
             .set_context(context.into())
     }
 
@@ -5355,8 +5338,8 @@ impl MetadataService {
     pub fn create_execution(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::CreateExecution {
-        super::builders::metadata_service::CreateExecution::new(self.inner.clone())
+    ) -> super::builder::metadata_service::CreateExecution {
+        super::builder::metadata_service::CreateExecution::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -5364,8 +5347,8 @@ impl MetadataService {
     pub fn get_execution(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::GetExecution {
-        super::builders::metadata_service::GetExecution::new(self.inner.clone())
+    ) -> super::builder::metadata_service::GetExecution {
+        super::builder::metadata_service::GetExecution::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5373,8 +5356,8 @@ impl MetadataService {
     pub fn list_executions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::ListExecutions {
-        super::builders::metadata_service::ListExecutions::new(self.inner.clone())
+    ) -> super::builder::metadata_service::ListExecutions {
+        super::builder::metadata_service::ListExecutions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -5382,8 +5365,8 @@ impl MetadataService {
     pub fn update_execution(
         &self,
         execution: impl Into<crate::model::Execution>,
-    ) -> super::builders::metadata_service::UpdateExecution {
-        super::builders::metadata_service::UpdateExecution::new(self.inner.clone())
+    ) -> super::builder::metadata_service::UpdateExecution {
+        super::builder::metadata_service::UpdateExecution::new(self.inner.clone())
             .set_execution(execution.into())
     }
 
@@ -5401,8 +5384,8 @@ impl MetadataService {
     pub fn delete_execution(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::DeleteExecution {
-        super::builders::metadata_service::DeleteExecution::new(self.inner.clone())
+    ) -> super::builder::metadata_service::DeleteExecution {
+        super::builder::metadata_service::DeleteExecution::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5420,8 +5403,8 @@ impl MetadataService {
     pub fn purge_executions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::PurgeExecutions {
-        super::builders::metadata_service::PurgeExecutions::new(self.inner.clone())
+    ) -> super::builder::metadata_service::PurgeExecutions {
+        super::builder::metadata_service::PurgeExecutions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -5432,8 +5415,8 @@ impl MetadataService {
     pub fn add_execution_events(
         &self,
         execution: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::AddExecutionEvents {
-        super::builders::metadata_service::AddExecutionEvents::new(self.inner.clone())
+    ) -> super::builder::metadata_service::AddExecutionEvents {
+        super::builder::metadata_service::AddExecutionEvents::new(self.inner.clone())
             .set_execution(execution.into())
     }
 
@@ -5443,8 +5426,8 @@ impl MetadataService {
     pub fn query_execution_inputs_and_outputs(
         &self,
         execution: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::QueryExecutionInputsAndOutputs {
-        super::builders::metadata_service::QueryExecutionInputsAndOutputs::new(self.inner.clone())
+    ) -> super::builder::metadata_service::QueryExecutionInputsAndOutputs {
+        super::builder::metadata_service::QueryExecutionInputsAndOutputs::new(self.inner.clone())
             .set_execution(execution.into())
     }
 
@@ -5452,8 +5435,8 @@ impl MetadataService {
     pub fn create_metadata_schema(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::CreateMetadataSchema {
-        super::builders::metadata_service::CreateMetadataSchema::new(self.inner.clone())
+    ) -> super::builder::metadata_service::CreateMetadataSchema {
+        super::builder::metadata_service::CreateMetadataSchema::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -5461,8 +5444,8 @@ impl MetadataService {
     pub fn get_metadata_schema(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::GetMetadataSchema {
-        super::builders::metadata_service::GetMetadataSchema::new(self.inner.clone())
+    ) -> super::builder::metadata_service::GetMetadataSchema {
+        super::builder::metadata_service::GetMetadataSchema::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5470,8 +5453,8 @@ impl MetadataService {
     pub fn list_metadata_schemas(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::ListMetadataSchemas {
-        super::builders::metadata_service::ListMetadataSchemas::new(self.inner.clone())
+    ) -> super::builder::metadata_service::ListMetadataSchemas {
+        super::builder::metadata_service::ListMetadataSchemas::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -5480,8 +5463,8 @@ impl MetadataService {
     pub fn query_artifact_lineage_subgraph(
         &self,
         artifact: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::QueryArtifactLineageSubgraph {
-        super::builders::metadata_service::QueryArtifactLineageSubgraph::new(self.inner.clone())
+    ) -> super::builder::metadata_service::QueryArtifactLineageSubgraph {
+        super::builder::metadata_service::QueryArtifactLineageSubgraph::new(self.inner.clone())
             .set_artifact(artifact.into())
     }
 
@@ -5489,8 +5472,8 @@ impl MetadataService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::ListLocations {
-        super::builders::metadata_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::metadata_service::ListLocations {
+        super::builder::metadata_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5498,9 +5481,8 @@ impl MetadataService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::GetLocation {
-        super::builders::metadata_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::metadata_service::GetLocation {
+        super::builder::metadata_service::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -5511,8 +5493,8 @@ impl MetadataService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::SetIamPolicy {
-        super::builders::metadata_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::metadata_service::SetIamPolicy {
+        super::builder::metadata_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -5521,8 +5503,8 @@ impl MetadataService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::GetIamPolicy {
-        super::builders::metadata_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::metadata_service::GetIamPolicy {
+        super::builder::metadata_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -5536,8 +5518,8 @@ impl MetadataService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::TestIamPermissions {
-        super::builders::metadata_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::metadata_service::TestIamPermissions {
+        super::builder::metadata_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -5547,8 +5529,8 @@ impl MetadataService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::ListOperations {
-        super::builders::metadata_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::metadata_service::ListOperations {
+        super::builder::metadata_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5558,8 +5540,8 @@ impl MetadataService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::GetOperation {
-        super::builders::metadata_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::metadata_service::GetOperation {
+        super::builder::metadata_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5569,8 +5551,8 @@ impl MetadataService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::DeleteOperation {
-        super::builders::metadata_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::metadata_service::DeleteOperation {
+        super::builder::metadata_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5580,8 +5562,8 @@ impl MetadataService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::CancelOperation {
-        super::builders::metadata_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::metadata_service::CancelOperation {
+        super::builder::metadata_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5591,8 +5573,8 @@ impl MetadataService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metadata_service::WaitOperation {
-        super::builders::metadata_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::metadata_service::WaitOperation {
+        super::builder::metadata_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -5617,7 +5599,7 @@ impl MetadataService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct MigrationService {
-    inner: Arc<dyn super::stubs::dynamic::MigrationService>,
+    inner: Arc<dyn super::stub::dynamic::MigrationService>,
 }
 
 impl MigrationService {
@@ -5638,7 +5620,7 @@ impl MigrationService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::MigrationService + 'static,
+        T: super::stub::MigrationService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -5647,7 +5629,7 @@ impl MigrationService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::MigrationService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::MigrationService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -5656,13 +5638,13 @@ impl MigrationService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::MigrationService> {
+    ) -> Result<impl super::stub::MigrationService> {
         super::transport::MigrationService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::MigrationService> {
+    ) -> Result<impl super::stub::MigrationService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::MigrationService::new)
@@ -5674,8 +5656,8 @@ impl MigrationService {
     pub fn search_migratable_resources(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::SearchMigratableResources {
-        super::builders::migration_service::SearchMigratableResources::new(self.inner.clone())
+    ) -> super::builder::migration_service::SearchMigratableResources {
+        super::builder::migration_service::SearchMigratableResources::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -5694,8 +5676,8 @@ impl MigrationService {
     pub fn batch_migrate_resources(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::BatchMigrateResources {
-        super::builders::migration_service::BatchMigrateResources::new(self.inner.clone())
+    ) -> super::builder::migration_service::BatchMigrateResources {
+        super::builder::migration_service::BatchMigrateResources::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -5703,8 +5685,8 @@ impl MigrationService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::ListLocations {
-        super::builders::migration_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::migration_service::ListLocations {
+        super::builder::migration_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5712,8 +5694,8 @@ impl MigrationService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::GetLocation {
-        super::builders::migration_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::migration_service::GetLocation {
+        super::builder::migration_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5725,8 +5707,8 @@ impl MigrationService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::SetIamPolicy {
-        super::builders::migration_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::migration_service::SetIamPolicy {
+        super::builder::migration_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -5735,8 +5717,8 @@ impl MigrationService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::GetIamPolicy {
-        super::builders::migration_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::migration_service::GetIamPolicy {
+        super::builder::migration_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -5750,8 +5732,8 @@ impl MigrationService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::TestIamPermissions {
-        super::builders::migration_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::migration_service::TestIamPermissions {
+        super::builder::migration_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -5761,8 +5743,8 @@ impl MigrationService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::ListOperations {
-        super::builders::migration_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::migration_service::ListOperations {
+        super::builder::migration_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5772,8 +5754,8 @@ impl MigrationService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::GetOperation {
-        super::builders::migration_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::migration_service::GetOperation {
+        super::builder::migration_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5783,8 +5765,8 @@ impl MigrationService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::DeleteOperation {
-        super::builders::migration_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::migration_service::DeleteOperation {
+        super::builder::migration_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5794,8 +5776,8 @@ impl MigrationService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::CancelOperation {
-        super::builders::migration_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::migration_service::CancelOperation {
+        super::builder::migration_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5805,8 +5787,8 @@ impl MigrationService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::WaitOperation {
-        super::builders::migration_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::migration_service::WaitOperation {
+        super::builder::migration_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -5830,7 +5812,7 @@ impl MigrationService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ModelGardenService {
-    inner: Arc<dyn super::stubs::dynamic::ModelGardenService>,
+    inner: Arc<dyn super::stub::dynamic::ModelGardenService>,
 }
 
 impl ModelGardenService {
@@ -5851,7 +5833,7 @@ impl ModelGardenService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ModelGardenService + 'static,
+        T: super::stub::ModelGardenService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -5860,7 +5842,7 @@ impl ModelGardenService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ModelGardenService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ModelGardenService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -5869,13 +5851,13 @@ impl ModelGardenService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ModelGardenService> {
+    ) -> Result<impl super::stub::ModelGardenService> {
         super::transport::ModelGardenService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ModelGardenService> {
+    ) -> Result<impl super::stub::ModelGardenService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ModelGardenService::new)
@@ -5885,8 +5867,8 @@ impl ModelGardenService {
     pub fn get_publisher_model(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_garden_service::GetPublisherModel {
-        super::builders::model_garden_service::GetPublisherModel::new(self.inner.clone())
+    ) -> super::builder::model_garden_service::GetPublisherModel {
+        super::builder::model_garden_service::GetPublisherModel::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5894,8 +5876,8 @@ impl ModelGardenService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_garden_service::ListLocations {
-        super::builders::model_garden_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::model_garden_service::ListLocations {
+        super::builder::model_garden_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5903,8 +5885,8 @@ impl ModelGardenService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_garden_service::GetLocation {
-        super::builders::model_garden_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::model_garden_service::GetLocation {
+        super::builder::model_garden_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5916,8 +5898,8 @@ impl ModelGardenService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::model_garden_service::SetIamPolicy {
-        super::builders::model_garden_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::model_garden_service::SetIamPolicy {
+        super::builder::model_garden_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -5926,8 +5908,8 @@ impl ModelGardenService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::model_garden_service::GetIamPolicy {
-        super::builders::model_garden_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::model_garden_service::GetIamPolicy {
+        super::builder::model_garden_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -5941,8 +5923,8 @@ impl ModelGardenService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::model_garden_service::TestIamPermissions {
-        super::builders::model_garden_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::model_garden_service::TestIamPermissions {
+        super::builder::model_garden_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -5952,8 +5934,8 @@ impl ModelGardenService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_garden_service::ListOperations {
-        super::builders::model_garden_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::model_garden_service::ListOperations {
+        super::builder::model_garden_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5963,8 +5945,8 @@ impl ModelGardenService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_garden_service::GetOperation {
-        super::builders::model_garden_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::model_garden_service::GetOperation {
+        super::builder::model_garden_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5974,8 +5956,8 @@ impl ModelGardenService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_garden_service::DeleteOperation {
-        super::builders::model_garden_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::model_garden_service::DeleteOperation {
+        super::builder::model_garden_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5985,8 +5967,8 @@ impl ModelGardenService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_garden_service::CancelOperation {
-        super::builders::model_garden_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::model_garden_service::CancelOperation {
+        super::builder::model_garden_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -5996,8 +5978,8 @@ impl ModelGardenService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_garden_service::WaitOperation {
-        super::builders::model_garden_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::model_garden_service::WaitOperation {
+        super::builder::model_garden_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -6021,7 +6003,7 @@ impl ModelGardenService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ModelService {
-    inner: Arc<dyn super::stubs::dynamic::ModelService>,
+    inner: Arc<dyn super::stub::dynamic::ModelService>,
 }
 
 impl ModelService {
@@ -6042,7 +6024,7 @@ impl ModelService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ModelService + 'static,
+        T: super::stub::ModelService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -6051,7 +6033,7 @@ impl ModelService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ModelService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ModelService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -6060,13 +6042,13 @@ impl ModelService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ModelService> {
+    ) -> Result<impl super::stub::ModelService> {
         super::transport::ModelService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ModelService> {
+    ) -> Result<impl super::stub::ModelService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ModelService::new)
@@ -6086,8 +6068,8 @@ impl ModelService {
     pub fn upload_model(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::model_service::UploadModel {
-        super::builders::model_service::UploadModel::new(self.inner.clone())
+    ) -> super::builder::model_service::UploadModel {
+        super::builder::model_service::UploadModel::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -6095,25 +6077,24 @@ impl ModelService {
     pub fn get_model(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::GetModel {
-        super::builders::model_service::GetModel::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::model_service::GetModel {
+        super::builder::model_service::GetModel::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists Models in a Location.
     pub fn list_models(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::model_service::ListModels {
-        super::builders::model_service::ListModels::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::model_service::ListModels {
+        super::builder::model_service::ListModels::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Lists versions of the specified model.
     pub fn list_model_versions(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::ListModelVersions {
-        super::builders::model_service::ListModelVersions::new(self.inner.clone())
+    ) -> super::builder::model_service::ListModelVersions {
+        super::builder::model_service::ListModelVersions::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6121,8 +6102,8 @@ impl ModelService {
     pub fn list_model_version_checkpoints(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::ListModelVersionCheckpoints {
-        super::builders::model_service::ListModelVersionCheckpoints::new(self.inner.clone())
+    ) -> super::builder::model_service::ListModelVersionCheckpoints {
+        super::builder::model_service::ListModelVersionCheckpoints::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6130,8 +6111,8 @@ impl ModelService {
     pub fn update_model(
         &self,
         model: impl Into<crate::model::Model>,
-    ) -> super::builders::model_service::UpdateModel {
-        super::builders::model_service::UpdateModel::new(self.inner.clone()).set_model(model.into())
+    ) -> super::builder::model_service::UpdateModel {
+        super::builder::model_service::UpdateModel::new(self.inner.clone()).set_model(model.into())
     }
 
     /// Incrementally update the dataset used for an examples model.
@@ -6148,8 +6129,8 @@ impl ModelService {
     pub fn update_explanation_dataset(
         &self,
         model: impl Into<std::string::String>,
-    ) -> super::builders::model_service::UpdateExplanationDataset {
-        super::builders::model_service::UpdateExplanationDataset::new(self.inner.clone())
+    ) -> super::builder::model_service::UpdateExplanationDataset {
+        super::builder::model_service::UpdateExplanationDataset::new(self.inner.clone())
             .set_model(model.into())
     }
 
@@ -6178,8 +6159,8 @@ impl ModelService {
     pub fn delete_model(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::DeleteModel {
-        super::builders::model_service::DeleteModel::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::model_service::DeleteModel {
+        super::builder::model_service::DeleteModel::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes a Model version.
@@ -6205,8 +6186,8 @@ impl ModelService {
     pub fn delete_model_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::DeleteModelVersion {
-        super::builders::model_service::DeleteModelVersion::new(self.inner.clone())
+    ) -> super::builder::model_service::DeleteModelVersion {
+        super::builder::model_service::DeleteModelVersion::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6214,8 +6195,8 @@ impl ModelService {
     pub fn merge_version_aliases(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::MergeVersionAliases {
-        super::builders::model_service::MergeVersionAliases::new(self.inner.clone())
+    ) -> super::builder::model_service::MergeVersionAliases {
+        super::builder::model_service::MergeVersionAliases::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6238,8 +6219,8 @@ impl ModelService {
     pub fn export_model(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::ExportModel {
-        super::builders::model_service::ExportModel::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::model_service::ExportModel {
+        super::builder::model_service::ExportModel::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Copies an already existing Vertex AI Model into the specified Location.
@@ -6263,16 +6244,16 @@ impl ModelService {
     pub fn copy_model(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::model_service::CopyModel {
-        super::builders::model_service::CopyModel::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::model_service::CopyModel {
+        super::builder::model_service::CopyModel::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Imports an externally generated ModelEvaluation.
     pub fn import_model_evaluation(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::model_service::ImportModelEvaluation {
-        super::builders::model_service::ImportModelEvaluation::new(self.inner.clone())
+    ) -> super::builder::model_service::ImportModelEvaluation {
+        super::builder::model_service::ImportModelEvaluation::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -6280,8 +6261,8 @@ impl ModelService {
     pub fn batch_import_model_evaluation_slices(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::model_service::BatchImportModelEvaluationSlices {
-        super::builders::model_service::BatchImportModelEvaluationSlices::new(self.inner.clone())
+    ) -> super::builder::model_service::BatchImportModelEvaluationSlices {
+        super::builder::model_service::BatchImportModelEvaluationSlices::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -6289,8 +6270,8 @@ impl ModelService {
     pub fn batch_import_evaluated_annotations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::model_service::BatchImportEvaluatedAnnotations {
-        super::builders::model_service::BatchImportEvaluatedAnnotations::new(self.inner.clone())
+    ) -> super::builder::model_service::BatchImportEvaluatedAnnotations {
+        super::builder::model_service::BatchImportEvaluatedAnnotations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -6298,8 +6279,8 @@ impl ModelService {
     pub fn get_model_evaluation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::GetModelEvaluation {
-        super::builders::model_service::GetModelEvaluation::new(self.inner.clone())
+    ) -> super::builder::model_service::GetModelEvaluation {
+        super::builder::model_service::GetModelEvaluation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6307,8 +6288,8 @@ impl ModelService {
     pub fn list_model_evaluations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::model_service::ListModelEvaluations {
-        super::builders::model_service::ListModelEvaluations::new(self.inner.clone())
+    ) -> super::builder::model_service::ListModelEvaluations {
+        super::builder::model_service::ListModelEvaluations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -6316,8 +6297,8 @@ impl ModelService {
     pub fn get_model_evaluation_slice(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::GetModelEvaluationSlice {
-        super::builders::model_service::GetModelEvaluationSlice::new(self.inner.clone())
+    ) -> super::builder::model_service::GetModelEvaluationSlice {
+        super::builder::model_service::GetModelEvaluationSlice::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6325,8 +6306,8 @@ impl ModelService {
     pub fn list_model_evaluation_slices(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::model_service::ListModelEvaluationSlices {
-        super::builders::model_service::ListModelEvaluationSlices::new(self.inner.clone())
+    ) -> super::builder::model_service::ListModelEvaluationSlices {
+        super::builder::model_service::ListModelEvaluationSlices::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -6334,16 +6315,16 @@ impl ModelService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::ListLocations {
-        super::builders::model_service::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::model_service::ListLocations {
+        super::builder::model_service::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::GetLocation {
-        super::builders::model_service::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::model_service::GetLocation {
+        super::builder::model_service::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -6354,8 +6335,8 @@ impl ModelService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::model_service::SetIamPolicy {
-        super::builders::model_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::model_service::SetIamPolicy {
+        super::builder::model_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -6364,8 +6345,8 @@ impl ModelService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::model_service::GetIamPolicy {
-        super::builders::model_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::model_service::GetIamPolicy {
+        super::builder::model_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -6379,8 +6360,8 @@ impl ModelService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::model_service::TestIamPermissions {
-        super::builders::model_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::model_service::TestIamPermissions {
+        super::builder::model_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -6390,9 +6371,8 @@ impl ModelService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::ListOperations {
-        super::builders::model_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::model_service::ListOperations {
+        super::builder::model_service::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -6401,8 +6381,8 @@ impl ModelService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::GetOperation {
-        super::builders::model_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::model_service::GetOperation {
+        super::builder::model_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -6411,8 +6391,8 @@ impl ModelService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::DeleteOperation {
-        super::builders::model_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::model_service::DeleteOperation {
+        super::builder::model_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6422,8 +6402,8 @@ impl ModelService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::CancelOperation {
-        super::builders::model_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::model_service::CancelOperation {
+        super::builder::model_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6433,8 +6413,8 @@ impl ModelService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::WaitOperation {
-        super::builders::model_service::WaitOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::model_service::WaitOperation {
+        super::builder::model_service::WaitOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -6457,7 +6437,7 @@ impl ModelService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct NotebookService {
-    inner: Arc<dyn super::stubs::dynamic::NotebookService>,
+    inner: Arc<dyn super::stub::dynamic::NotebookService>,
 }
 
 impl NotebookService {
@@ -6478,7 +6458,7 @@ impl NotebookService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::NotebookService + 'static,
+        T: super::stub::NotebookService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -6487,7 +6467,7 @@ impl NotebookService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::NotebookService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::NotebookService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -6496,13 +6476,13 @@ impl NotebookService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::NotebookService> {
+    ) -> Result<impl super::stub::NotebookService> {
         super::transport::NotebookService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::NotebookService> {
+    ) -> Result<impl super::stub::NotebookService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::NotebookService::new)
@@ -6522,8 +6502,8 @@ impl NotebookService {
     pub fn create_notebook_runtime_template(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::CreateNotebookRuntimeTemplate {
-        super::builders::notebook_service::CreateNotebookRuntimeTemplate::new(self.inner.clone())
+    ) -> super::builder::notebook_service::CreateNotebookRuntimeTemplate {
+        super::builder::notebook_service::CreateNotebookRuntimeTemplate::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -6531,8 +6511,8 @@ impl NotebookService {
     pub fn get_notebook_runtime_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::GetNotebookRuntimeTemplate {
-        super::builders::notebook_service::GetNotebookRuntimeTemplate::new(self.inner.clone())
+    ) -> super::builder::notebook_service::GetNotebookRuntimeTemplate {
+        super::builder::notebook_service::GetNotebookRuntimeTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6540,8 +6520,8 @@ impl NotebookService {
     pub fn list_notebook_runtime_templates(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::ListNotebookRuntimeTemplates {
-        super::builders::notebook_service::ListNotebookRuntimeTemplates::new(self.inner.clone())
+    ) -> super::builder::notebook_service::ListNotebookRuntimeTemplates {
+        super::builder::notebook_service::ListNotebookRuntimeTemplates::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -6559,8 +6539,8 @@ impl NotebookService {
     pub fn delete_notebook_runtime_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::DeleteNotebookRuntimeTemplate {
-        super::builders::notebook_service::DeleteNotebookRuntimeTemplate::new(self.inner.clone())
+    ) -> super::builder::notebook_service::DeleteNotebookRuntimeTemplate {
+        super::builder::notebook_service::DeleteNotebookRuntimeTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6568,8 +6548,8 @@ impl NotebookService {
     pub fn update_notebook_runtime_template(
         &self,
         notebook_runtime_template: impl Into<crate::model::NotebookRuntimeTemplate>,
-    ) -> super::builders::notebook_service::UpdateNotebookRuntimeTemplate {
-        super::builders::notebook_service::UpdateNotebookRuntimeTemplate::new(self.inner.clone())
+    ) -> super::builder::notebook_service::UpdateNotebookRuntimeTemplate {
+        super::builder::notebook_service::UpdateNotebookRuntimeTemplate::new(self.inner.clone())
             .set_notebook_runtime_template(notebook_runtime_template.into())
     }
 
@@ -6588,8 +6568,8 @@ impl NotebookService {
     pub fn assign_notebook_runtime(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::AssignNotebookRuntime {
-        super::builders::notebook_service::AssignNotebookRuntime::new(self.inner.clone())
+    ) -> super::builder::notebook_service::AssignNotebookRuntime {
+        super::builder::notebook_service::AssignNotebookRuntime::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -6597,8 +6577,8 @@ impl NotebookService {
     pub fn get_notebook_runtime(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::GetNotebookRuntime {
-        super::builders::notebook_service::GetNotebookRuntime::new(self.inner.clone())
+    ) -> super::builder::notebook_service::GetNotebookRuntime {
+        super::builder::notebook_service::GetNotebookRuntime::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6606,8 +6586,8 @@ impl NotebookService {
     pub fn list_notebook_runtimes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::ListNotebookRuntimes {
-        super::builders::notebook_service::ListNotebookRuntimes::new(self.inner.clone())
+    ) -> super::builder::notebook_service::ListNotebookRuntimes {
+        super::builder::notebook_service::ListNotebookRuntimes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -6625,8 +6605,8 @@ impl NotebookService {
     pub fn delete_notebook_runtime(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::DeleteNotebookRuntime {
-        super::builders::notebook_service::DeleteNotebookRuntime::new(self.inner.clone())
+    ) -> super::builder::notebook_service::DeleteNotebookRuntime {
+        super::builder::notebook_service::DeleteNotebookRuntime::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6644,8 +6624,8 @@ impl NotebookService {
     pub fn upgrade_notebook_runtime(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::UpgradeNotebookRuntime {
-        super::builders::notebook_service::UpgradeNotebookRuntime::new(self.inner.clone())
+    ) -> super::builder::notebook_service::UpgradeNotebookRuntime {
+        super::builder::notebook_service::UpgradeNotebookRuntime::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6663,8 +6643,8 @@ impl NotebookService {
     pub fn start_notebook_runtime(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::StartNotebookRuntime {
-        super::builders::notebook_service::StartNotebookRuntime::new(self.inner.clone())
+    ) -> super::builder::notebook_service::StartNotebookRuntime {
+        super::builder::notebook_service::StartNotebookRuntime::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6682,8 +6662,8 @@ impl NotebookService {
     pub fn stop_notebook_runtime(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::StopNotebookRuntime {
-        super::builders::notebook_service::StopNotebookRuntime::new(self.inner.clone())
+    ) -> super::builder::notebook_service::StopNotebookRuntime {
+        super::builder::notebook_service::StopNotebookRuntime::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6701,8 +6681,8 @@ impl NotebookService {
     pub fn create_notebook_execution_job(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::CreateNotebookExecutionJob {
-        super::builders::notebook_service::CreateNotebookExecutionJob::new(self.inner.clone())
+    ) -> super::builder::notebook_service::CreateNotebookExecutionJob {
+        super::builder::notebook_service::CreateNotebookExecutionJob::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -6710,8 +6690,8 @@ impl NotebookService {
     pub fn get_notebook_execution_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::GetNotebookExecutionJob {
-        super::builders::notebook_service::GetNotebookExecutionJob::new(self.inner.clone())
+    ) -> super::builder::notebook_service::GetNotebookExecutionJob {
+        super::builder::notebook_service::GetNotebookExecutionJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6719,8 +6699,8 @@ impl NotebookService {
     pub fn list_notebook_execution_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::ListNotebookExecutionJobs {
-        super::builders::notebook_service::ListNotebookExecutionJobs::new(self.inner.clone())
+    ) -> super::builder::notebook_service::ListNotebookExecutionJobs {
+        super::builder::notebook_service::ListNotebookExecutionJobs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -6738,8 +6718,8 @@ impl NotebookService {
     pub fn delete_notebook_execution_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::DeleteNotebookExecutionJob {
-        super::builders::notebook_service::DeleteNotebookExecutionJob::new(self.inner.clone())
+    ) -> super::builder::notebook_service::DeleteNotebookExecutionJob {
+        super::builder::notebook_service::DeleteNotebookExecutionJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6747,8 +6727,8 @@ impl NotebookService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::ListLocations {
-        super::builders::notebook_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::notebook_service::ListLocations {
+        super::builder::notebook_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6756,9 +6736,8 @@ impl NotebookService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::GetLocation {
-        super::builders::notebook_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::notebook_service::GetLocation {
+        super::builder::notebook_service::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -6769,8 +6748,8 @@ impl NotebookService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::SetIamPolicy {
-        super::builders::notebook_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::notebook_service::SetIamPolicy {
+        super::builder::notebook_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -6779,8 +6758,8 @@ impl NotebookService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::GetIamPolicy {
-        super::builders::notebook_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::notebook_service::GetIamPolicy {
+        super::builder::notebook_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -6794,8 +6773,8 @@ impl NotebookService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::TestIamPermissions {
-        super::builders::notebook_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::notebook_service::TestIamPermissions {
+        super::builder::notebook_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -6805,8 +6784,8 @@ impl NotebookService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::ListOperations {
-        super::builders::notebook_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::notebook_service::ListOperations {
+        super::builder::notebook_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6816,8 +6795,8 @@ impl NotebookService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::GetOperation {
-        super::builders::notebook_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::notebook_service::GetOperation {
+        super::builder::notebook_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6827,8 +6806,8 @@ impl NotebookService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::DeleteOperation {
-        super::builders::notebook_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::notebook_service::DeleteOperation {
+        super::builder::notebook_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6838,8 +6817,8 @@ impl NotebookService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::CancelOperation {
-        super::builders::notebook_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::notebook_service::CancelOperation {
+        super::builder::notebook_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6849,8 +6828,8 @@ impl NotebookService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::WaitOperation {
-        super::builders::notebook_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::notebook_service::WaitOperation {
+        super::builder::notebook_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -6874,7 +6853,7 @@ impl NotebookService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct PersistentResourceService {
-    inner: Arc<dyn super::stubs::dynamic::PersistentResourceService>,
+    inner: Arc<dyn super::stub::dynamic::PersistentResourceService>,
 }
 
 impl PersistentResourceService {
@@ -6895,7 +6874,7 @@ impl PersistentResourceService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::PersistentResourceService + 'static,
+        T: super::stub::PersistentResourceService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -6904,7 +6883,7 @@ impl PersistentResourceService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::PersistentResourceService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::PersistentResourceService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -6913,13 +6892,13 @@ impl PersistentResourceService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PersistentResourceService> {
+    ) -> Result<impl super::stub::PersistentResourceService> {
         super::transport::PersistentResourceService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PersistentResourceService> {
+    ) -> Result<impl super::stub::PersistentResourceService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PersistentResourceService::new)
@@ -6939,8 +6918,8 @@ impl PersistentResourceService {
     pub fn create_persistent_resource(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::persistent_resource_service::CreatePersistentResource {
-        super::builders::persistent_resource_service::CreatePersistentResource::new(
+    ) -> super::builder::persistent_resource_service::CreatePersistentResource {
+        super::builder::persistent_resource_service::CreatePersistentResource::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -6950,8 +6929,8 @@ impl PersistentResourceService {
     pub fn get_persistent_resource(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::persistent_resource_service::GetPersistentResource {
-        super::builders::persistent_resource_service::GetPersistentResource::new(self.inner.clone())
+    ) -> super::builder::persistent_resource_service::GetPersistentResource {
+        super::builder::persistent_resource_service::GetPersistentResource::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -6959,8 +6938,8 @@ impl PersistentResourceService {
     pub fn list_persistent_resources(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::persistent_resource_service::ListPersistentResources {
-        super::builders::persistent_resource_service::ListPersistentResources::new(
+    ) -> super::builder::persistent_resource_service::ListPersistentResources {
+        super::builder::persistent_resource_service::ListPersistentResources::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -6980,8 +6959,8 @@ impl PersistentResourceService {
     pub fn delete_persistent_resource(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::persistent_resource_service::DeletePersistentResource {
-        super::builders::persistent_resource_service::DeletePersistentResource::new(
+    ) -> super::builder::persistent_resource_service::DeletePersistentResource {
+        super::builder::persistent_resource_service::DeletePersistentResource::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -7001,8 +6980,8 @@ impl PersistentResourceService {
     pub fn update_persistent_resource(
         &self,
         persistent_resource: impl Into<crate::model::PersistentResource>,
-    ) -> super::builders::persistent_resource_service::UpdatePersistentResource {
-        super::builders::persistent_resource_service::UpdatePersistentResource::new(
+    ) -> super::builder::persistent_resource_service::UpdatePersistentResource {
+        super::builder::persistent_resource_service::UpdatePersistentResource::new(
             self.inner.clone(),
         )
         .set_persistent_resource(persistent_resource.into())
@@ -7022,8 +7001,8 @@ impl PersistentResourceService {
     pub fn reboot_persistent_resource(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::persistent_resource_service::RebootPersistentResource {
-        super::builders::persistent_resource_service::RebootPersistentResource::new(
+    ) -> super::builder::persistent_resource_service::RebootPersistentResource {
+        super::builder::persistent_resource_service::RebootPersistentResource::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -7033,8 +7012,8 @@ impl PersistentResourceService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::persistent_resource_service::ListLocations {
-        super::builders::persistent_resource_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::persistent_resource_service::ListLocations {
+        super::builder::persistent_resource_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7042,8 +7021,8 @@ impl PersistentResourceService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::persistent_resource_service::GetLocation {
-        super::builders::persistent_resource_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::persistent_resource_service::GetLocation {
+        super::builder::persistent_resource_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7055,8 +7034,8 @@ impl PersistentResourceService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::persistent_resource_service::SetIamPolicy {
-        super::builders::persistent_resource_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::persistent_resource_service::SetIamPolicy {
+        super::builder::persistent_resource_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -7065,8 +7044,8 @@ impl PersistentResourceService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::persistent_resource_service::GetIamPolicy {
-        super::builders::persistent_resource_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::persistent_resource_service::GetIamPolicy {
+        super::builder::persistent_resource_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -7080,8 +7059,8 @@ impl PersistentResourceService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::persistent_resource_service::TestIamPermissions {
-        super::builders::persistent_resource_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::persistent_resource_service::TestIamPermissions {
+        super::builder::persistent_resource_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -7091,8 +7070,8 @@ impl PersistentResourceService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::persistent_resource_service::ListOperations {
-        super::builders::persistent_resource_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::persistent_resource_service::ListOperations {
+        super::builder::persistent_resource_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7102,8 +7081,8 @@ impl PersistentResourceService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::persistent_resource_service::GetOperation {
-        super::builders::persistent_resource_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::persistent_resource_service::GetOperation {
+        super::builder::persistent_resource_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7113,8 +7092,8 @@ impl PersistentResourceService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::persistent_resource_service::DeleteOperation {
-        super::builders::persistent_resource_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::persistent_resource_service::DeleteOperation {
+        super::builder::persistent_resource_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7124,8 +7103,8 @@ impl PersistentResourceService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::persistent_resource_service::CancelOperation {
-        super::builders::persistent_resource_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::persistent_resource_service::CancelOperation {
+        super::builder::persistent_resource_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7135,8 +7114,8 @@ impl PersistentResourceService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::persistent_resource_service::WaitOperation {
-        super::builders::persistent_resource_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::persistent_resource_service::WaitOperation {
+        super::builder::persistent_resource_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -7162,7 +7141,7 @@ impl PersistentResourceService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct PipelineService {
-    inner: Arc<dyn super::stubs::dynamic::PipelineService>,
+    inner: Arc<dyn super::stub::dynamic::PipelineService>,
 }
 
 impl PipelineService {
@@ -7183,7 +7162,7 @@ impl PipelineService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::PipelineService + 'static,
+        T: super::stub::PipelineService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -7192,7 +7171,7 @@ impl PipelineService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::PipelineService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::PipelineService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -7201,13 +7180,13 @@ impl PipelineService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PipelineService> {
+    ) -> Result<impl super::stub::PipelineService> {
         super::transport::PipelineService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PipelineService> {
+    ) -> Result<impl super::stub::PipelineService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PipelineService::new)
@@ -7218,8 +7197,8 @@ impl PipelineService {
     pub fn create_training_pipeline(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::pipeline_service::CreateTrainingPipeline {
-        super::builders::pipeline_service::CreateTrainingPipeline::new(self.inner.clone())
+    ) -> super::builder::pipeline_service::CreateTrainingPipeline {
+        super::builder::pipeline_service::CreateTrainingPipeline::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -7227,8 +7206,8 @@ impl PipelineService {
     pub fn get_training_pipeline(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::pipeline_service::GetTrainingPipeline {
-        super::builders::pipeline_service::GetTrainingPipeline::new(self.inner.clone())
+    ) -> super::builder::pipeline_service::GetTrainingPipeline {
+        super::builder::pipeline_service::GetTrainingPipeline::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7236,8 +7215,8 @@ impl PipelineService {
     pub fn list_training_pipelines(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::pipeline_service::ListTrainingPipelines {
-        super::builders::pipeline_service::ListTrainingPipelines::new(self.inner.clone())
+    ) -> super::builder::pipeline_service::ListTrainingPipelines {
+        super::builder::pipeline_service::ListTrainingPipelines::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -7255,8 +7234,8 @@ impl PipelineService {
     pub fn delete_training_pipeline(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::pipeline_service::DeleteTrainingPipeline {
-        super::builders::pipeline_service::DeleteTrainingPipeline::new(self.inner.clone())
+    ) -> super::builder::pipeline_service::DeleteTrainingPipeline {
+        super::builder::pipeline_service::DeleteTrainingPipeline::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7282,8 +7261,8 @@ impl PipelineService {
     pub fn cancel_training_pipeline(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::pipeline_service::CancelTrainingPipeline {
-        super::builders::pipeline_service::CancelTrainingPipeline::new(self.inner.clone())
+    ) -> super::builder::pipeline_service::CancelTrainingPipeline {
+        super::builder::pipeline_service::CancelTrainingPipeline::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7291,8 +7270,8 @@ impl PipelineService {
     pub fn create_pipeline_job(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::pipeline_service::CreatePipelineJob {
-        super::builders::pipeline_service::CreatePipelineJob::new(self.inner.clone())
+    ) -> super::builder::pipeline_service::CreatePipelineJob {
+        super::builder::pipeline_service::CreatePipelineJob::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -7300,8 +7279,8 @@ impl PipelineService {
     pub fn get_pipeline_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::pipeline_service::GetPipelineJob {
-        super::builders::pipeline_service::GetPipelineJob::new(self.inner.clone())
+    ) -> super::builder::pipeline_service::GetPipelineJob {
+        super::builder::pipeline_service::GetPipelineJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7309,8 +7288,8 @@ impl PipelineService {
     pub fn list_pipeline_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::pipeline_service::ListPipelineJobs {
-        super::builders::pipeline_service::ListPipelineJobs::new(self.inner.clone())
+    ) -> super::builder::pipeline_service::ListPipelineJobs {
+        super::builder::pipeline_service::ListPipelineJobs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -7328,8 +7307,8 @@ impl PipelineService {
     pub fn delete_pipeline_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::pipeline_service::DeletePipelineJob {
-        super::builders::pipeline_service::DeletePipelineJob::new(self.inner.clone())
+    ) -> super::builder::pipeline_service::DeletePipelineJob {
+        super::builder::pipeline_service::DeletePipelineJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7349,8 +7328,8 @@ impl PipelineService {
     pub fn batch_delete_pipeline_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::pipeline_service::BatchDeletePipelineJobs {
-        super::builders::pipeline_service::BatchDeletePipelineJobs::new(self.inner.clone())
+    ) -> super::builder::pipeline_service::BatchDeletePipelineJobs {
+        super::builder::pipeline_service::BatchDeletePipelineJobs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -7375,8 +7354,8 @@ impl PipelineService {
     pub fn cancel_pipeline_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::pipeline_service::CancelPipelineJob {
-        super::builders::pipeline_service::CancelPipelineJob::new(self.inner.clone())
+    ) -> super::builder::pipeline_service::CancelPipelineJob {
+        super::builder::pipeline_service::CancelPipelineJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7400,8 +7379,8 @@ impl PipelineService {
     pub fn batch_cancel_pipeline_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::pipeline_service::BatchCancelPipelineJobs {
-        super::builders::pipeline_service::BatchCancelPipelineJobs::new(self.inner.clone())
+    ) -> super::builder::pipeline_service::BatchCancelPipelineJobs {
+        super::builder::pipeline_service::BatchCancelPipelineJobs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -7409,8 +7388,8 @@ impl PipelineService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::pipeline_service::ListLocations {
-        super::builders::pipeline_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::pipeline_service::ListLocations {
+        super::builder::pipeline_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7418,9 +7397,8 @@ impl PipelineService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::pipeline_service::GetLocation {
-        super::builders::pipeline_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::pipeline_service::GetLocation {
+        super::builder::pipeline_service::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -7431,8 +7409,8 @@ impl PipelineService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::pipeline_service::SetIamPolicy {
-        super::builders::pipeline_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::pipeline_service::SetIamPolicy {
+        super::builder::pipeline_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -7441,8 +7419,8 @@ impl PipelineService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::pipeline_service::GetIamPolicy {
-        super::builders::pipeline_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::pipeline_service::GetIamPolicy {
+        super::builder::pipeline_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -7456,8 +7434,8 @@ impl PipelineService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::pipeline_service::TestIamPermissions {
-        super::builders::pipeline_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::pipeline_service::TestIamPermissions {
+        super::builder::pipeline_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -7467,8 +7445,8 @@ impl PipelineService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::pipeline_service::ListOperations {
-        super::builders::pipeline_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::pipeline_service::ListOperations {
+        super::builder::pipeline_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7478,8 +7456,8 @@ impl PipelineService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::pipeline_service::GetOperation {
-        super::builders::pipeline_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::pipeline_service::GetOperation {
+        super::builder::pipeline_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7489,8 +7467,8 @@ impl PipelineService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::pipeline_service::DeleteOperation {
-        super::builders::pipeline_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::pipeline_service::DeleteOperation {
+        super::builder::pipeline_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7500,8 +7478,8 @@ impl PipelineService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::pipeline_service::CancelOperation {
-        super::builders::pipeline_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::pipeline_service::CancelOperation {
+        super::builder::pipeline_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7511,8 +7489,8 @@ impl PipelineService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::pipeline_service::WaitOperation {
-        super::builders::pipeline_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::pipeline_service::WaitOperation {
+        super::builder::pipeline_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -7536,7 +7514,7 @@ impl PipelineService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct PredictionService {
-    inner: Arc<dyn super::stubs::dynamic::PredictionService>,
+    inner: Arc<dyn super::stub::dynamic::PredictionService>,
 }
 
 impl PredictionService {
@@ -7557,7 +7535,7 @@ impl PredictionService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::PredictionService + 'static,
+        T: super::stub::PredictionService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -7566,7 +7544,7 @@ impl PredictionService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::PredictionService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::PredictionService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -7575,13 +7553,13 @@ impl PredictionService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PredictionService> {
+    ) -> Result<impl super::stub::PredictionService> {
         super::transport::PredictionService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PredictionService> {
+    ) -> Result<impl super::stub::PredictionService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PredictionService::new)
@@ -7591,8 +7569,8 @@ impl PredictionService {
     pub fn predict(
         &self,
         endpoint: impl Into<std::string::String>,
-    ) -> super::builders::prediction_service::Predict {
-        super::builders::prediction_service::Predict::new(self.inner.clone())
+    ) -> super::builder::prediction_service::Predict {
+        super::builder::prediction_service::Predict::new(self.inner.clone())
             .set_endpoint(endpoint.into())
     }
 
@@ -7614,8 +7592,8 @@ impl PredictionService {
     pub fn raw_predict(
         &self,
         endpoint: impl Into<std::string::String>,
-    ) -> super::builders::prediction_service::RawPredict {
-        super::builders::prediction_service::RawPredict::new(self.inner.clone())
+    ) -> super::builder::prediction_service::RawPredict {
+        super::builder::prediction_service::RawPredict::new(self.inner.clone())
             .set_endpoint(endpoint.into())
     }
 
@@ -7624,8 +7602,8 @@ impl PredictionService {
     pub fn direct_predict(
         &self,
         endpoint: impl Into<std::string::String>,
-    ) -> super::builders::prediction_service::DirectPredict {
-        super::builders::prediction_service::DirectPredict::new(self.inner.clone())
+    ) -> super::builder::prediction_service::DirectPredict {
+        super::builder::prediction_service::DirectPredict::new(self.inner.clone())
             .set_endpoint(endpoint.into())
     }
 
@@ -7634,8 +7612,8 @@ impl PredictionService {
     pub fn direct_raw_predict(
         &self,
         endpoint: impl Into<std::string::String>,
-    ) -> super::builders::prediction_service::DirectRawPredict {
-        super::builders::prediction_service::DirectRawPredict::new(self.inner.clone())
+    ) -> super::builder::prediction_service::DirectRawPredict {
+        super::builder::prediction_service::DirectRawPredict::new(self.inner.clone())
             .set_endpoint(endpoint.into())
     }
 
@@ -7656,8 +7634,8 @@ impl PredictionService {
     pub fn explain(
         &self,
         endpoint: impl Into<std::string::String>,
-    ) -> super::builders::prediction_service::Explain {
-        super::builders::prediction_service::Explain::new(self.inner.clone())
+    ) -> super::builder::prediction_service::Explain {
+        super::builder::prediction_service::Explain::new(self.inner.clone())
             .set_endpoint(endpoint.into())
     }
 
@@ -7665,8 +7643,8 @@ impl PredictionService {
     pub fn generate_content(
         &self,
         model: impl Into<std::string::String>,
-    ) -> super::builders::prediction_service::GenerateContent {
-        super::builders::prediction_service::GenerateContent::new(self.inner.clone())
+    ) -> super::builder::prediction_service::GenerateContent {
+        super::builder::prediction_service::GenerateContent::new(self.inner.clone())
             .set_model(model.into())
     }
 
@@ -7674,8 +7652,8 @@ impl PredictionService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::prediction_service::ListLocations {
-        super::builders::prediction_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::prediction_service::ListLocations {
+        super::builder::prediction_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7683,8 +7661,8 @@ impl PredictionService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::prediction_service::GetLocation {
-        super::builders::prediction_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::prediction_service::GetLocation {
+        super::builder::prediction_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7696,8 +7674,8 @@ impl PredictionService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::prediction_service::SetIamPolicy {
-        super::builders::prediction_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::prediction_service::SetIamPolicy {
+        super::builder::prediction_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -7706,8 +7684,8 @@ impl PredictionService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::prediction_service::GetIamPolicy {
-        super::builders::prediction_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::prediction_service::GetIamPolicy {
+        super::builder::prediction_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -7721,8 +7699,8 @@ impl PredictionService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::prediction_service::TestIamPermissions {
-        super::builders::prediction_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::prediction_service::TestIamPermissions {
+        super::builder::prediction_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -7732,8 +7710,8 @@ impl PredictionService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::prediction_service::ListOperations {
-        super::builders::prediction_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::prediction_service::ListOperations {
+        super::builder::prediction_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7743,8 +7721,8 @@ impl PredictionService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::prediction_service::GetOperation {
-        super::builders::prediction_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::prediction_service::GetOperation {
+        super::builder::prediction_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7754,8 +7732,8 @@ impl PredictionService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::prediction_service::DeleteOperation {
-        super::builders::prediction_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::prediction_service::DeleteOperation {
+        super::builder::prediction_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7765,8 +7743,8 @@ impl PredictionService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::prediction_service::CancelOperation {
-        super::builders::prediction_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::prediction_service::CancelOperation {
+        super::builder::prediction_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7776,8 +7754,8 @@ impl PredictionService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::prediction_service::WaitOperation {
-        super::builders::prediction_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::prediction_service::WaitOperation {
+        super::builder::prediction_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -7801,7 +7779,7 @@ impl PredictionService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ReasoningEngineExecutionService {
-    inner: Arc<dyn super::stubs::dynamic::ReasoningEngineExecutionService>,
+    inner: Arc<dyn super::stub::dynamic::ReasoningEngineExecutionService>,
 }
 
 impl ReasoningEngineExecutionService {
@@ -7822,7 +7800,7 @@ impl ReasoningEngineExecutionService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ReasoningEngineExecutionService + 'static,
+        T: super::stub::ReasoningEngineExecutionService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -7831,7 +7809,7 @@ impl ReasoningEngineExecutionService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ReasoningEngineExecutionService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ReasoningEngineExecutionService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -7840,13 +7818,13 @@ impl ReasoningEngineExecutionService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ReasoningEngineExecutionService> {
+    ) -> Result<impl super::stub::ReasoningEngineExecutionService> {
         super::transport::ReasoningEngineExecutionService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ReasoningEngineExecutionService> {
+    ) -> Result<impl super::stub::ReasoningEngineExecutionService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ReasoningEngineExecutionService::new)
@@ -7856,8 +7834,8 @@ impl ReasoningEngineExecutionService {
     pub fn query_reasoning_engine(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_execution_service::QueryReasoningEngine {
-        super::builders::reasoning_engine_execution_service::QueryReasoningEngine::new(
+    ) -> super::builder::reasoning_engine_execution_service::QueryReasoningEngine {
+        super::builder::reasoning_engine_execution_service::QueryReasoningEngine::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -7867,8 +7845,8 @@ impl ReasoningEngineExecutionService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_execution_service::ListLocations {
-        super::builders::reasoning_engine_execution_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::reasoning_engine_execution_service::ListLocations {
+        super::builder::reasoning_engine_execution_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7876,8 +7854,8 @@ impl ReasoningEngineExecutionService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_execution_service::GetLocation {
-        super::builders::reasoning_engine_execution_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::reasoning_engine_execution_service::GetLocation {
+        super::builder::reasoning_engine_execution_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7889,8 +7867,8 @@ impl ReasoningEngineExecutionService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_execution_service::SetIamPolicy {
-        super::builders::reasoning_engine_execution_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::reasoning_engine_execution_service::SetIamPolicy {
+        super::builder::reasoning_engine_execution_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -7899,8 +7877,8 @@ impl ReasoningEngineExecutionService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_execution_service::GetIamPolicy {
-        super::builders::reasoning_engine_execution_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::reasoning_engine_execution_service::GetIamPolicy {
+        super::builder::reasoning_engine_execution_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -7914,8 +7892,8 @@ impl ReasoningEngineExecutionService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_execution_service::TestIamPermissions {
-        super::builders::reasoning_engine_execution_service::TestIamPermissions::new(
+    ) -> super::builder::reasoning_engine_execution_service::TestIamPermissions {
+        super::builder::reasoning_engine_execution_service::TestIamPermissions::new(
             self.inner.clone(),
         )
         .set_resource(resource.into())
@@ -7927,8 +7905,8 @@ impl ReasoningEngineExecutionService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_execution_service::ListOperations {
-        super::builders::reasoning_engine_execution_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::reasoning_engine_execution_service::ListOperations {
+        super::builder::reasoning_engine_execution_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7938,8 +7916,8 @@ impl ReasoningEngineExecutionService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_execution_service::GetOperation {
-        super::builders::reasoning_engine_execution_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::reasoning_engine_execution_service::GetOperation {
+        super::builder::reasoning_engine_execution_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -7949,11 +7927,9 @@ impl ReasoningEngineExecutionService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_execution_service::DeleteOperation {
-        super::builders::reasoning_engine_execution_service::DeleteOperation::new(
-            self.inner.clone(),
-        )
-        .set_name(name.into())
+    ) -> super::builder::reasoning_engine_execution_service::DeleteOperation {
+        super::builder::reasoning_engine_execution_service::DeleteOperation::new(self.inner.clone())
+            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -7962,11 +7938,9 @@ impl ReasoningEngineExecutionService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_execution_service::CancelOperation {
-        super::builders::reasoning_engine_execution_service::CancelOperation::new(
-            self.inner.clone(),
-        )
-        .set_name(name.into())
+    ) -> super::builder::reasoning_engine_execution_service::CancelOperation {
+        super::builder::reasoning_engine_execution_service::CancelOperation::new(self.inner.clone())
+            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -7975,8 +7949,8 @@ impl ReasoningEngineExecutionService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_execution_service::WaitOperation {
-        super::builders::reasoning_engine_execution_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::reasoning_engine_execution_service::WaitOperation {
+        super::builder::reasoning_engine_execution_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -8000,7 +7974,7 @@ impl ReasoningEngineExecutionService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ReasoningEngineService {
-    inner: Arc<dyn super::stubs::dynamic::ReasoningEngineService>,
+    inner: Arc<dyn super::stub::dynamic::ReasoningEngineService>,
 }
 
 impl ReasoningEngineService {
@@ -8021,7 +7995,7 @@ impl ReasoningEngineService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ReasoningEngineService + 'static,
+        T: super::stub::ReasoningEngineService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -8030,7 +8004,7 @@ impl ReasoningEngineService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ReasoningEngineService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ReasoningEngineService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -8039,13 +8013,13 @@ impl ReasoningEngineService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ReasoningEngineService> {
+    ) -> Result<impl super::stub::ReasoningEngineService> {
         super::transport::ReasoningEngineService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ReasoningEngineService> {
+    ) -> Result<impl super::stub::ReasoningEngineService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ReasoningEngineService::new)
@@ -8065,8 +8039,8 @@ impl ReasoningEngineService {
     pub fn create_reasoning_engine(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_service::CreateReasoningEngine {
-        super::builders::reasoning_engine_service::CreateReasoningEngine::new(self.inner.clone())
+    ) -> super::builder::reasoning_engine_service::CreateReasoningEngine {
+        super::builder::reasoning_engine_service::CreateReasoningEngine::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -8074,8 +8048,8 @@ impl ReasoningEngineService {
     pub fn get_reasoning_engine(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_service::GetReasoningEngine {
-        super::builders::reasoning_engine_service::GetReasoningEngine::new(self.inner.clone())
+    ) -> super::builder::reasoning_engine_service::GetReasoningEngine {
+        super::builder::reasoning_engine_service::GetReasoningEngine::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8083,8 +8057,8 @@ impl ReasoningEngineService {
     pub fn list_reasoning_engines(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_service::ListReasoningEngines {
-        super::builders::reasoning_engine_service::ListReasoningEngines::new(self.inner.clone())
+    ) -> super::builder::reasoning_engine_service::ListReasoningEngines {
+        super::builder::reasoning_engine_service::ListReasoningEngines::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -8102,8 +8076,8 @@ impl ReasoningEngineService {
     pub fn update_reasoning_engine(
         &self,
         reasoning_engine: impl Into<crate::model::ReasoningEngine>,
-    ) -> super::builders::reasoning_engine_service::UpdateReasoningEngine {
-        super::builders::reasoning_engine_service::UpdateReasoningEngine::new(self.inner.clone())
+    ) -> super::builder::reasoning_engine_service::UpdateReasoningEngine {
+        super::builder::reasoning_engine_service::UpdateReasoningEngine::new(self.inner.clone())
             .set_reasoning_engine(reasoning_engine.into())
     }
 
@@ -8121,8 +8095,8 @@ impl ReasoningEngineService {
     pub fn delete_reasoning_engine(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_service::DeleteReasoningEngine {
-        super::builders::reasoning_engine_service::DeleteReasoningEngine::new(self.inner.clone())
+    ) -> super::builder::reasoning_engine_service::DeleteReasoningEngine {
+        super::builder::reasoning_engine_service::DeleteReasoningEngine::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8130,8 +8104,8 @@ impl ReasoningEngineService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_service::ListLocations {
-        super::builders::reasoning_engine_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::reasoning_engine_service::ListLocations {
+        super::builder::reasoning_engine_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8139,8 +8113,8 @@ impl ReasoningEngineService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_service::GetLocation {
-        super::builders::reasoning_engine_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::reasoning_engine_service::GetLocation {
+        super::builder::reasoning_engine_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8152,8 +8126,8 @@ impl ReasoningEngineService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_service::SetIamPolicy {
-        super::builders::reasoning_engine_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::reasoning_engine_service::SetIamPolicy {
+        super::builder::reasoning_engine_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -8162,8 +8136,8 @@ impl ReasoningEngineService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_service::GetIamPolicy {
-        super::builders::reasoning_engine_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::reasoning_engine_service::GetIamPolicy {
+        super::builder::reasoning_engine_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -8177,8 +8151,8 @@ impl ReasoningEngineService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_service::TestIamPermissions {
-        super::builders::reasoning_engine_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::reasoning_engine_service::TestIamPermissions {
+        super::builder::reasoning_engine_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -8188,8 +8162,8 @@ impl ReasoningEngineService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_service::ListOperations {
-        super::builders::reasoning_engine_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::reasoning_engine_service::ListOperations {
+        super::builder::reasoning_engine_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8199,8 +8173,8 @@ impl ReasoningEngineService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_service::GetOperation {
-        super::builders::reasoning_engine_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::reasoning_engine_service::GetOperation {
+        super::builder::reasoning_engine_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8210,8 +8184,8 @@ impl ReasoningEngineService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_service::DeleteOperation {
-        super::builders::reasoning_engine_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::reasoning_engine_service::DeleteOperation {
+        super::builder::reasoning_engine_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8221,8 +8195,8 @@ impl ReasoningEngineService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_service::CancelOperation {
-        super::builders::reasoning_engine_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::reasoning_engine_service::CancelOperation {
+        super::builder::reasoning_engine_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8232,8 +8206,8 @@ impl ReasoningEngineService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reasoning_engine_service::WaitOperation {
-        super::builders::reasoning_engine_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::reasoning_engine_service::WaitOperation {
+        super::builder::reasoning_engine_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -8258,7 +8232,7 @@ impl ReasoningEngineService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ScheduleService {
-    inner: Arc<dyn super::stubs::dynamic::ScheduleService>,
+    inner: Arc<dyn super::stub::dynamic::ScheduleService>,
 }
 
 impl ScheduleService {
@@ -8279,7 +8253,7 @@ impl ScheduleService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ScheduleService + 'static,
+        T: super::stub::ScheduleService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -8288,7 +8262,7 @@ impl ScheduleService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ScheduleService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ScheduleService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -8297,13 +8271,13 @@ impl ScheduleService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ScheduleService> {
+    ) -> Result<impl super::stub::ScheduleService> {
         super::transport::ScheduleService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ScheduleService> {
+    ) -> Result<impl super::stub::ScheduleService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ScheduleService::new)
@@ -8313,8 +8287,8 @@ impl ScheduleService {
     pub fn create_schedule(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::schedule_service::CreateSchedule {
-        super::builders::schedule_service::CreateSchedule::new(self.inner.clone())
+    ) -> super::builder::schedule_service::CreateSchedule {
+        super::builder::schedule_service::CreateSchedule::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -8332,8 +8306,8 @@ impl ScheduleService {
     pub fn delete_schedule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::schedule_service::DeleteSchedule {
-        super::builders::schedule_service::DeleteSchedule::new(self.inner.clone())
+    ) -> super::builder::schedule_service::DeleteSchedule {
+        super::builder::schedule_service::DeleteSchedule::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8341,17 +8315,16 @@ impl ScheduleService {
     pub fn get_schedule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::schedule_service::GetSchedule {
-        super::builders::schedule_service::GetSchedule::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::schedule_service::GetSchedule {
+        super::builder::schedule_service::GetSchedule::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists Schedules in a Location.
     pub fn list_schedules(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::schedule_service::ListSchedules {
-        super::builders::schedule_service::ListSchedules::new(self.inner.clone())
+    ) -> super::builder::schedule_service::ListSchedules {
+        super::builder::schedule_service::ListSchedules::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -8364,8 +8337,8 @@ impl ScheduleService {
     pub fn pause_schedule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::schedule_service::PauseSchedule {
-        super::builders::schedule_service::PauseSchedule::new(self.inner.clone())
+    ) -> super::builder::schedule_service::PauseSchedule {
+        super::builder::schedule_service::PauseSchedule::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8384,8 +8357,8 @@ impl ScheduleService {
     pub fn resume_schedule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::schedule_service::ResumeSchedule {
-        super::builders::schedule_service::ResumeSchedule::new(self.inner.clone())
+    ) -> super::builder::schedule_service::ResumeSchedule {
+        super::builder::schedule_service::ResumeSchedule::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8399,8 +8372,8 @@ impl ScheduleService {
     pub fn update_schedule(
         &self,
         schedule: impl Into<crate::model::Schedule>,
-    ) -> super::builders::schedule_service::UpdateSchedule {
-        super::builders::schedule_service::UpdateSchedule::new(self.inner.clone())
+    ) -> super::builder::schedule_service::UpdateSchedule {
+        super::builder::schedule_service::UpdateSchedule::new(self.inner.clone())
             .set_schedule(schedule.into())
     }
 
@@ -8408,8 +8381,8 @@ impl ScheduleService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::schedule_service::ListLocations {
-        super::builders::schedule_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::schedule_service::ListLocations {
+        super::builder::schedule_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8417,9 +8390,8 @@ impl ScheduleService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::schedule_service::GetLocation {
-        super::builders::schedule_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::schedule_service::GetLocation {
+        super::builder::schedule_service::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -8430,8 +8402,8 @@ impl ScheduleService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::schedule_service::SetIamPolicy {
-        super::builders::schedule_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::schedule_service::SetIamPolicy {
+        super::builder::schedule_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -8440,8 +8412,8 @@ impl ScheduleService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::schedule_service::GetIamPolicy {
-        super::builders::schedule_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::schedule_service::GetIamPolicy {
+        super::builder::schedule_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -8455,8 +8427,8 @@ impl ScheduleService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::schedule_service::TestIamPermissions {
-        super::builders::schedule_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::schedule_service::TestIamPermissions {
+        super::builder::schedule_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -8466,8 +8438,8 @@ impl ScheduleService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::schedule_service::ListOperations {
-        super::builders::schedule_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::schedule_service::ListOperations {
+        super::builder::schedule_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8477,8 +8449,8 @@ impl ScheduleService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::schedule_service::GetOperation {
-        super::builders::schedule_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::schedule_service::GetOperation {
+        super::builder::schedule_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8488,8 +8460,8 @@ impl ScheduleService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::schedule_service::DeleteOperation {
-        super::builders::schedule_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::schedule_service::DeleteOperation {
+        super::builder::schedule_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8499,8 +8471,8 @@ impl ScheduleService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::schedule_service::CancelOperation {
-        super::builders::schedule_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::schedule_service::CancelOperation {
+        super::builder::schedule_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8510,8 +8482,8 @@ impl ScheduleService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::schedule_service::WaitOperation {
-        super::builders::schedule_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::schedule_service::WaitOperation {
+        super::builder::schedule_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -8540,7 +8512,7 @@ impl ScheduleService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SpecialistPoolService {
-    inner: Arc<dyn super::stubs::dynamic::SpecialistPoolService>,
+    inner: Arc<dyn super::stub::dynamic::SpecialistPoolService>,
 }
 
 impl SpecialistPoolService {
@@ -8561,7 +8533,7 @@ impl SpecialistPoolService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::SpecialistPoolService + 'static,
+        T: super::stub::SpecialistPoolService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -8570,7 +8542,7 @@ impl SpecialistPoolService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::SpecialistPoolService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::SpecialistPoolService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -8579,13 +8551,13 @@ impl SpecialistPoolService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SpecialistPoolService> {
+    ) -> Result<impl super::stub::SpecialistPoolService> {
         super::transport::SpecialistPoolService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SpecialistPoolService> {
+    ) -> Result<impl super::stub::SpecialistPoolService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SpecialistPoolService::new)
@@ -8605,8 +8577,8 @@ impl SpecialistPoolService {
     pub fn create_specialist_pool(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::specialist_pool_service::CreateSpecialistPool {
-        super::builders::specialist_pool_service::CreateSpecialistPool::new(self.inner.clone())
+    ) -> super::builder::specialist_pool_service::CreateSpecialistPool {
+        super::builder::specialist_pool_service::CreateSpecialistPool::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -8614,8 +8586,8 @@ impl SpecialistPoolService {
     pub fn get_specialist_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::specialist_pool_service::GetSpecialistPool {
-        super::builders::specialist_pool_service::GetSpecialistPool::new(self.inner.clone())
+    ) -> super::builder::specialist_pool_service::GetSpecialistPool {
+        super::builder::specialist_pool_service::GetSpecialistPool::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8623,8 +8595,8 @@ impl SpecialistPoolService {
     pub fn list_specialist_pools(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::specialist_pool_service::ListSpecialistPools {
-        super::builders::specialist_pool_service::ListSpecialistPools::new(self.inner.clone())
+    ) -> super::builder::specialist_pool_service::ListSpecialistPools {
+        super::builder::specialist_pool_service::ListSpecialistPools::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -8642,8 +8614,8 @@ impl SpecialistPoolService {
     pub fn delete_specialist_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::specialist_pool_service::DeleteSpecialistPool {
-        super::builders::specialist_pool_service::DeleteSpecialistPool::new(self.inner.clone())
+    ) -> super::builder::specialist_pool_service::DeleteSpecialistPool {
+        super::builder::specialist_pool_service::DeleteSpecialistPool::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8661,8 +8633,8 @@ impl SpecialistPoolService {
     pub fn update_specialist_pool(
         &self,
         specialist_pool: impl Into<crate::model::SpecialistPool>,
-    ) -> super::builders::specialist_pool_service::UpdateSpecialistPool {
-        super::builders::specialist_pool_service::UpdateSpecialistPool::new(self.inner.clone())
+    ) -> super::builder::specialist_pool_service::UpdateSpecialistPool {
+        super::builder::specialist_pool_service::UpdateSpecialistPool::new(self.inner.clone())
             .set_specialist_pool(specialist_pool.into())
     }
 
@@ -8670,8 +8642,8 @@ impl SpecialistPoolService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::specialist_pool_service::ListLocations {
-        super::builders::specialist_pool_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::specialist_pool_service::ListLocations {
+        super::builder::specialist_pool_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8679,8 +8651,8 @@ impl SpecialistPoolService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::specialist_pool_service::GetLocation {
-        super::builders::specialist_pool_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::specialist_pool_service::GetLocation {
+        super::builder::specialist_pool_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8692,8 +8664,8 @@ impl SpecialistPoolService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::specialist_pool_service::SetIamPolicy {
-        super::builders::specialist_pool_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::specialist_pool_service::SetIamPolicy {
+        super::builder::specialist_pool_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -8702,8 +8674,8 @@ impl SpecialistPoolService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::specialist_pool_service::GetIamPolicy {
-        super::builders::specialist_pool_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::specialist_pool_service::GetIamPolicy {
+        super::builder::specialist_pool_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -8717,8 +8689,8 @@ impl SpecialistPoolService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::specialist_pool_service::TestIamPermissions {
-        super::builders::specialist_pool_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::specialist_pool_service::TestIamPermissions {
+        super::builder::specialist_pool_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -8728,8 +8700,8 @@ impl SpecialistPoolService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::specialist_pool_service::ListOperations {
-        super::builders::specialist_pool_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::specialist_pool_service::ListOperations {
+        super::builder::specialist_pool_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8739,8 +8711,8 @@ impl SpecialistPoolService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::specialist_pool_service::GetOperation {
-        super::builders::specialist_pool_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::specialist_pool_service::GetOperation {
+        super::builder::specialist_pool_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8750,8 +8722,8 @@ impl SpecialistPoolService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::specialist_pool_service::DeleteOperation {
-        super::builders::specialist_pool_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::specialist_pool_service::DeleteOperation {
+        super::builder::specialist_pool_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8761,8 +8733,8 @@ impl SpecialistPoolService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::specialist_pool_service::CancelOperation {
-        super::builders::specialist_pool_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::specialist_pool_service::CancelOperation {
+        super::builder::specialist_pool_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8772,8 +8744,8 @@ impl SpecialistPoolService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::specialist_pool_service::WaitOperation {
-        super::builders::specialist_pool_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::specialist_pool_service::WaitOperation {
+        super::builder::specialist_pool_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -8797,7 +8769,7 @@ impl SpecialistPoolService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct TensorboardService {
-    inner: Arc<dyn super::stubs::dynamic::TensorboardService>,
+    inner: Arc<dyn super::stub::dynamic::TensorboardService>,
 }
 
 impl TensorboardService {
@@ -8818,7 +8790,7 @@ impl TensorboardService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::TensorboardService + 'static,
+        T: super::stub::TensorboardService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -8827,7 +8799,7 @@ impl TensorboardService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::TensorboardService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::TensorboardService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -8836,13 +8808,13 @@ impl TensorboardService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::TensorboardService> {
+    ) -> Result<impl super::stub::TensorboardService> {
         super::transport::TensorboardService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::TensorboardService> {
+    ) -> Result<impl super::stub::TensorboardService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TensorboardService::new)
@@ -8862,8 +8834,8 @@ impl TensorboardService {
     pub fn create_tensorboard(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::CreateTensorboard {
-        super::builders::tensorboard_service::CreateTensorboard::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::CreateTensorboard {
+        super::builder::tensorboard_service::CreateTensorboard::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -8871,8 +8843,8 @@ impl TensorboardService {
     pub fn get_tensorboard(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::GetTensorboard {
-        super::builders::tensorboard_service::GetTensorboard::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::GetTensorboard {
+        super::builder::tensorboard_service::GetTensorboard::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8890,8 +8862,8 @@ impl TensorboardService {
     pub fn update_tensorboard(
         &self,
         tensorboard: impl Into<crate::model::Tensorboard>,
-    ) -> super::builders::tensorboard_service::UpdateTensorboard {
-        super::builders::tensorboard_service::UpdateTensorboard::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::UpdateTensorboard {
+        super::builder::tensorboard_service::UpdateTensorboard::new(self.inner.clone())
             .set_tensorboard(tensorboard.into())
     }
 
@@ -8899,8 +8871,8 @@ impl TensorboardService {
     pub fn list_tensorboards(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::ListTensorboards {
-        super::builders::tensorboard_service::ListTensorboards::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::ListTensorboards {
+        super::builder::tensorboard_service::ListTensorboards::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -8918,8 +8890,8 @@ impl TensorboardService {
     pub fn delete_tensorboard(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::DeleteTensorboard {
-        super::builders::tensorboard_service::DeleteTensorboard::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::DeleteTensorboard {
+        super::builder::tensorboard_service::DeleteTensorboard::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8927,8 +8899,8 @@ impl TensorboardService {
     pub fn read_tensorboard_usage(
         &self,
         tensorboard: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::ReadTensorboardUsage {
-        super::builders::tensorboard_service::ReadTensorboardUsage::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::ReadTensorboardUsage {
+        super::builder::tensorboard_service::ReadTensorboardUsage::new(self.inner.clone())
             .set_tensorboard(tensorboard.into())
     }
 
@@ -8936,8 +8908,8 @@ impl TensorboardService {
     pub fn read_tensorboard_size(
         &self,
         tensorboard: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::ReadTensorboardSize {
-        super::builders::tensorboard_service::ReadTensorboardSize::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::ReadTensorboardSize {
+        super::builder::tensorboard_service::ReadTensorboardSize::new(self.inner.clone())
             .set_tensorboard(tensorboard.into())
     }
 
@@ -8945,8 +8917,8 @@ impl TensorboardService {
     pub fn create_tensorboard_experiment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::CreateTensorboardExperiment {
-        super::builders::tensorboard_service::CreateTensorboardExperiment::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::CreateTensorboardExperiment {
+        super::builder::tensorboard_service::CreateTensorboardExperiment::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -8954,8 +8926,8 @@ impl TensorboardService {
     pub fn get_tensorboard_experiment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::GetTensorboardExperiment {
-        super::builders::tensorboard_service::GetTensorboardExperiment::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::GetTensorboardExperiment {
+        super::builder::tensorboard_service::GetTensorboardExperiment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -8963,8 +8935,8 @@ impl TensorboardService {
     pub fn update_tensorboard_experiment(
         &self,
         tensorboard_experiment: impl Into<crate::model::TensorboardExperiment>,
-    ) -> super::builders::tensorboard_service::UpdateTensorboardExperiment {
-        super::builders::tensorboard_service::UpdateTensorboardExperiment::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::UpdateTensorboardExperiment {
+        super::builder::tensorboard_service::UpdateTensorboardExperiment::new(self.inner.clone())
             .set_tensorboard_experiment(tensorboard_experiment.into())
     }
 
@@ -8972,8 +8944,8 @@ impl TensorboardService {
     pub fn list_tensorboard_experiments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::ListTensorboardExperiments {
-        super::builders::tensorboard_service::ListTensorboardExperiments::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::ListTensorboardExperiments {
+        super::builder::tensorboard_service::ListTensorboardExperiments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -8991,8 +8963,8 @@ impl TensorboardService {
     pub fn delete_tensorboard_experiment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::DeleteTensorboardExperiment {
-        super::builders::tensorboard_service::DeleteTensorboardExperiment::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::DeleteTensorboardExperiment {
+        super::builder::tensorboard_service::DeleteTensorboardExperiment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9000,8 +8972,8 @@ impl TensorboardService {
     pub fn create_tensorboard_run(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::CreateTensorboardRun {
-        super::builders::tensorboard_service::CreateTensorboardRun::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::CreateTensorboardRun {
+        super::builder::tensorboard_service::CreateTensorboardRun::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -9009,8 +8981,8 @@ impl TensorboardService {
     pub fn batch_create_tensorboard_runs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::BatchCreateTensorboardRuns {
-        super::builders::tensorboard_service::BatchCreateTensorboardRuns::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::BatchCreateTensorboardRuns {
+        super::builder::tensorboard_service::BatchCreateTensorboardRuns::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -9018,8 +8990,8 @@ impl TensorboardService {
     pub fn get_tensorboard_run(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::GetTensorboardRun {
-        super::builders::tensorboard_service::GetTensorboardRun::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::GetTensorboardRun {
+        super::builder::tensorboard_service::GetTensorboardRun::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9027,8 +8999,8 @@ impl TensorboardService {
     pub fn update_tensorboard_run(
         &self,
         tensorboard_run: impl Into<crate::model::TensorboardRun>,
-    ) -> super::builders::tensorboard_service::UpdateTensorboardRun {
-        super::builders::tensorboard_service::UpdateTensorboardRun::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::UpdateTensorboardRun {
+        super::builder::tensorboard_service::UpdateTensorboardRun::new(self.inner.clone())
             .set_tensorboard_run(tensorboard_run.into())
     }
 
@@ -9036,8 +9008,8 @@ impl TensorboardService {
     pub fn list_tensorboard_runs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::ListTensorboardRuns {
-        super::builders::tensorboard_service::ListTensorboardRuns::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::ListTensorboardRuns {
+        super::builder::tensorboard_service::ListTensorboardRuns::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -9055,8 +9027,8 @@ impl TensorboardService {
     pub fn delete_tensorboard_run(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::DeleteTensorboardRun {
-        super::builders::tensorboard_service::DeleteTensorboardRun::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::DeleteTensorboardRun {
+        super::builder::tensorboard_service::DeleteTensorboardRun::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9064,8 +9036,8 @@ impl TensorboardService {
     pub fn batch_create_tensorboard_time_series(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::BatchCreateTensorboardTimeSeries {
-        super::builders::tensorboard_service::BatchCreateTensorboardTimeSeries::new(
+    ) -> super::builder::tensorboard_service::BatchCreateTensorboardTimeSeries {
+        super::builder::tensorboard_service::BatchCreateTensorboardTimeSeries::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -9075,8 +9047,8 @@ impl TensorboardService {
     pub fn create_tensorboard_time_series(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::CreateTensorboardTimeSeries {
-        super::builders::tensorboard_service::CreateTensorboardTimeSeries::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::CreateTensorboardTimeSeries {
+        super::builder::tensorboard_service::CreateTensorboardTimeSeries::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -9084,8 +9056,8 @@ impl TensorboardService {
     pub fn get_tensorboard_time_series(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::GetTensorboardTimeSeries {
-        super::builders::tensorboard_service::GetTensorboardTimeSeries::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::GetTensorboardTimeSeries {
+        super::builder::tensorboard_service::GetTensorboardTimeSeries::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9093,8 +9065,8 @@ impl TensorboardService {
     pub fn update_tensorboard_time_series(
         &self,
         tensorboard_time_series: impl Into<crate::model::TensorboardTimeSeries>,
-    ) -> super::builders::tensorboard_service::UpdateTensorboardTimeSeries {
-        super::builders::tensorboard_service::UpdateTensorboardTimeSeries::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::UpdateTensorboardTimeSeries {
+        super::builder::tensorboard_service::UpdateTensorboardTimeSeries::new(self.inner.clone())
             .set_tensorboard_time_series(tensorboard_time_series.into())
     }
 
@@ -9102,8 +9074,8 @@ impl TensorboardService {
     pub fn list_tensorboard_time_series(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::ListTensorboardTimeSeries {
-        super::builders::tensorboard_service::ListTensorboardTimeSeries::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::ListTensorboardTimeSeries {
+        super::builder::tensorboard_service::ListTensorboardTimeSeries::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -9121,8 +9093,8 @@ impl TensorboardService {
     pub fn delete_tensorboard_time_series(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::DeleteTensorboardTimeSeries {
-        super::builders::tensorboard_service::DeleteTensorboardTimeSeries::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::DeleteTensorboardTimeSeries {
+        super::builder::tensorboard_service::DeleteTensorboardTimeSeries::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9134,8 +9106,8 @@ impl TensorboardService {
     pub fn batch_read_tensorboard_time_series_data(
         &self,
         tensorboard: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::BatchReadTensorboardTimeSeriesData {
-        super::builders::tensorboard_service::BatchReadTensorboardTimeSeriesData::new(
+    ) -> super::builder::tensorboard_service::BatchReadTensorboardTimeSeriesData {
+        super::builder::tensorboard_service::BatchReadTensorboardTimeSeriesData::new(
             self.inner.clone(),
         )
         .set_tensorboard(tensorboard.into())
@@ -9149,8 +9121,8 @@ impl TensorboardService {
     pub fn read_tensorboard_time_series_data(
         &self,
         tensorboard_time_series: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::ReadTensorboardTimeSeriesData {
-        super::builders::tensorboard_service::ReadTensorboardTimeSeriesData::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::ReadTensorboardTimeSeriesData {
+        super::builder::tensorboard_service::ReadTensorboardTimeSeriesData::new(self.inner.clone())
             .set_tensorboard_time_series(tensorboard_time_series.into())
     }
 
@@ -9159,11 +9131,9 @@ impl TensorboardService {
     pub fn write_tensorboard_experiment_data(
         &self,
         tensorboard_experiment: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::WriteTensorboardExperimentData {
-        super::builders::tensorboard_service::WriteTensorboardExperimentData::new(
-            self.inner.clone(),
-        )
-        .set_tensorboard_experiment(tensorboard_experiment.into())
+    ) -> super::builder::tensorboard_service::WriteTensorboardExperimentData {
+        super::builder::tensorboard_service::WriteTensorboardExperimentData::new(self.inner.clone())
+            .set_tensorboard_experiment(tensorboard_experiment.into())
     }
 
     /// Write time series data points into multiple TensorboardTimeSeries under
@@ -9171,8 +9141,8 @@ impl TensorboardService {
     pub fn write_tensorboard_run_data(
         &self,
         tensorboard_run: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::WriteTensorboardRunData {
-        super::builders::tensorboard_service::WriteTensorboardRunData::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::WriteTensorboardRunData {
+        super::builder::tensorboard_service::WriteTensorboardRunData::new(self.inner.clone())
             .set_tensorboard_run(tensorboard_run.into())
     }
 
@@ -9181,8 +9151,8 @@ impl TensorboardService {
     pub fn export_tensorboard_time_series_data(
         &self,
         tensorboard_time_series: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::ExportTensorboardTimeSeriesData {
-        super::builders::tensorboard_service::ExportTensorboardTimeSeriesData::new(
+    ) -> super::builder::tensorboard_service::ExportTensorboardTimeSeriesData {
+        super::builder::tensorboard_service::ExportTensorboardTimeSeriesData::new(
             self.inner.clone(),
         )
         .set_tensorboard_time_series(tensorboard_time_series.into())
@@ -9192,8 +9162,8 @@ impl TensorboardService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::ListLocations {
-        super::builders::tensorboard_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::ListLocations {
+        super::builder::tensorboard_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9201,8 +9171,8 @@ impl TensorboardService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::GetLocation {
-        super::builders::tensorboard_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::GetLocation {
+        super::builder::tensorboard_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9214,8 +9184,8 @@ impl TensorboardService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::SetIamPolicy {
-        super::builders::tensorboard_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::SetIamPolicy {
+        super::builder::tensorboard_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -9224,8 +9194,8 @@ impl TensorboardService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::GetIamPolicy {
-        super::builders::tensorboard_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::GetIamPolicy {
+        super::builder::tensorboard_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -9239,8 +9209,8 @@ impl TensorboardService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::TestIamPermissions {
-        super::builders::tensorboard_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::TestIamPermissions {
+        super::builder::tensorboard_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -9250,8 +9220,8 @@ impl TensorboardService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::ListOperations {
-        super::builders::tensorboard_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::ListOperations {
+        super::builder::tensorboard_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9261,8 +9231,8 @@ impl TensorboardService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::GetOperation {
-        super::builders::tensorboard_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::GetOperation {
+        super::builder::tensorboard_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9272,8 +9242,8 @@ impl TensorboardService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::DeleteOperation {
-        super::builders::tensorboard_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::DeleteOperation {
+        super::builder::tensorboard_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9283,8 +9253,8 @@ impl TensorboardService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::CancelOperation {
-        super::builders::tensorboard_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::CancelOperation {
+        super::builder::tensorboard_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9294,8 +9264,8 @@ impl TensorboardService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tensorboard_service::WaitOperation {
-        super::builders::tensorboard_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::tensorboard_service::WaitOperation {
+        super::builder::tensorboard_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -9319,7 +9289,7 @@ impl TensorboardService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct VertexRagDataService {
-    inner: Arc<dyn super::stubs::dynamic::VertexRagDataService>,
+    inner: Arc<dyn super::stub::dynamic::VertexRagDataService>,
 }
 
 impl VertexRagDataService {
@@ -9340,7 +9310,7 @@ impl VertexRagDataService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::VertexRagDataService + 'static,
+        T: super::stub::VertexRagDataService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -9349,7 +9319,7 @@ impl VertexRagDataService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::VertexRagDataService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::VertexRagDataService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -9358,13 +9328,13 @@ impl VertexRagDataService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::VertexRagDataService> {
+    ) -> Result<impl super::stub::VertexRagDataService> {
         super::transport::VertexRagDataService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::VertexRagDataService> {
+    ) -> Result<impl super::stub::VertexRagDataService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::VertexRagDataService::new)
@@ -9384,8 +9354,8 @@ impl VertexRagDataService {
     pub fn create_rag_corpus(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_data_service::CreateRagCorpus {
-        super::builders::vertex_rag_data_service::CreateRagCorpus::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_data_service::CreateRagCorpus {
+        super::builder::vertex_rag_data_service::CreateRagCorpus::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -9403,8 +9373,8 @@ impl VertexRagDataService {
     pub fn update_rag_corpus(
         &self,
         rag_corpus: impl Into<crate::model::RagCorpus>,
-    ) -> super::builders::vertex_rag_data_service::UpdateRagCorpus {
-        super::builders::vertex_rag_data_service::UpdateRagCorpus::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_data_service::UpdateRagCorpus {
+        super::builder::vertex_rag_data_service::UpdateRagCorpus::new(self.inner.clone())
             .set_rag_corpus(rag_corpus.into())
     }
 
@@ -9412,8 +9382,8 @@ impl VertexRagDataService {
     pub fn get_rag_corpus(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_data_service::GetRagCorpus {
-        super::builders::vertex_rag_data_service::GetRagCorpus::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_data_service::GetRagCorpus {
+        super::builder::vertex_rag_data_service::GetRagCorpus::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9421,8 +9391,8 @@ impl VertexRagDataService {
     pub fn list_rag_corpora(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_data_service::ListRagCorpora {
-        super::builders::vertex_rag_data_service::ListRagCorpora::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_data_service::ListRagCorpora {
+        super::builder::vertex_rag_data_service::ListRagCorpora::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -9440,8 +9410,8 @@ impl VertexRagDataService {
     pub fn delete_rag_corpus(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_data_service::DeleteRagCorpus {
-        super::builders::vertex_rag_data_service::DeleteRagCorpus::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_data_service::DeleteRagCorpus {
+        super::builder::vertex_rag_data_service::DeleteRagCorpus::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9449,8 +9419,8 @@ impl VertexRagDataService {
     pub fn upload_rag_file(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_data_service::UploadRagFile {
-        super::builders::vertex_rag_data_service::UploadRagFile::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_data_service::UploadRagFile {
+        super::builder::vertex_rag_data_service::UploadRagFile::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -9468,8 +9438,8 @@ impl VertexRagDataService {
     pub fn import_rag_files(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_data_service::ImportRagFiles {
-        super::builders::vertex_rag_data_service::ImportRagFiles::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_data_service::ImportRagFiles {
+        super::builder::vertex_rag_data_service::ImportRagFiles::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -9477,8 +9447,8 @@ impl VertexRagDataService {
     pub fn get_rag_file(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_data_service::GetRagFile {
-        super::builders::vertex_rag_data_service::GetRagFile::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_data_service::GetRagFile {
+        super::builder::vertex_rag_data_service::GetRagFile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9486,8 +9456,8 @@ impl VertexRagDataService {
     pub fn list_rag_files(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_data_service::ListRagFiles {
-        super::builders::vertex_rag_data_service::ListRagFiles::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_data_service::ListRagFiles {
+        super::builder::vertex_rag_data_service::ListRagFiles::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -9505,8 +9475,8 @@ impl VertexRagDataService {
     pub fn delete_rag_file(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_data_service::DeleteRagFile {
-        super::builders::vertex_rag_data_service::DeleteRagFile::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_data_service::DeleteRagFile {
+        super::builder::vertex_rag_data_service::DeleteRagFile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9514,8 +9484,8 @@ impl VertexRagDataService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_data_service::ListLocations {
-        super::builders::vertex_rag_data_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_data_service::ListLocations {
+        super::builder::vertex_rag_data_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9523,8 +9493,8 @@ impl VertexRagDataService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_data_service::GetLocation {
-        super::builders::vertex_rag_data_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_data_service::GetLocation {
+        super::builder::vertex_rag_data_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9536,8 +9506,8 @@ impl VertexRagDataService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_data_service::SetIamPolicy {
-        super::builders::vertex_rag_data_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_data_service::SetIamPolicy {
+        super::builder::vertex_rag_data_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -9546,8 +9516,8 @@ impl VertexRagDataService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_data_service::GetIamPolicy {
-        super::builders::vertex_rag_data_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_data_service::GetIamPolicy {
+        super::builder::vertex_rag_data_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -9561,8 +9531,8 @@ impl VertexRagDataService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_data_service::TestIamPermissions {
-        super::builders::vertex_rag_data_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_data_service::TestIamPermissions {
+        super::builder::vertex_rag_data_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -9572,8 +9542,8 @@ impl VertexRagDataService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_data_service::ListOperations {
-        super::builders::vertex_rag_data_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_data_service::ListOperations {
+        super::builder::vertex_rag_data_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9583,8 +9553,8 @@ impl VertexRagDataService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_data_service::GetOperation {
-        super::builders::vertex_rag_data_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_data_service::GetOperation {
+        super::builder::vertex_rag_data_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9594,8 +9564,8 @@ impl VertexRagDataService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_data_service::DeleteOperation {
-        super::builders::vertex_rag_data_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_data_service::DeleteOperation {
+        super::builder::vertex_rag_data_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9605,8 +9575,8 @@ impl VertexRagDataService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_data_service::CancelOperation {
-        super::builders::vertex_rag_data_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_data_service::CancelOperation {
+        super::builder::vertex_rag_data_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9616,8 +9586,8 @@ impl VertexRagDataService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_data_service::WaitOperation {
-        super::builders::vertex_rag_data_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_data_service::WaitOperation {
+        super::builder::vertex_rag_data_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -9641,7 +9611,7 @@ impl VertexRagDataService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct VertexRagService {
-    inner: Arc<dyn super::stubs::dynamic::VertexRagService>,
+    inner: Arc<dyn super::stub::dynamic::VertexRagService>,
 }
 
 impl VertexRagService {
@@ -9662,7 +9632,7 @@ impl VertexRagService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::VertexRagService + 'static,
+        T: super::stub::VertexRagService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -9671,7 +9641,7 @@ impl VertexRagService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::VertexRagService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::VertexRagService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -9680,13 +9650,13 @@ impl VertexRagService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::VertexRagService> {
+    ) -> Result<impl super::stub::VertexRagService> {
         super::transport::VertexRagService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::VertexRagService> {
+    ) -> Result<impl super::stub::VertexRagService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::VertexRagService::new)
@@ -9696,8 +9666,8 @@ impl VertexRagService {
     pub fn retrieve_contexts(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_service::RetrieveContexts {
-        super::builders::vertex_rag_service::RetrieveContexts::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_service::RetrieveContexts {
+        super::builder::vertex_rag_service::RetrieveContexts::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -9706,8 +9676,8 @@ impl VertexRagService {
     pub fn augment_prompt(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_service::AugmentPrompt {
-        super::builders::vertex_rag_service::AugmentPrompt::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_service::AugmentPrompt {
+        super::builder::vertex_rag_service::AugmentPrompt::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -9717,8 +9687,8 @@ impl VertexRagService {
     pub fn corroborate_content(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_service::CorroborateContent {
-        super::builders::vertex_rag_service::CorroborateContent::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_service::CorroborateContent {
+        super::builder::vertex_rag_service::CorroborateContent::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -9726,8 +9696,8 @@ impl VertexRagService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_service::ListLocations {
-        super::builders::vertex_rag_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_service::ListLocations {
+        super::builder::vertex_rag_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9735,8 +9705,8 @@ impl VertexRagService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_service::GetLocation {
-        super::builders::vertex_rag_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_service::GetLocation {
+        super::builder::vertex_rag_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9748,8 +9718,8 @@ impl VertexRagService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_service::SetIamPolicy {
-        super::builders::vertex_rag_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_service::SetIamPolicy {
+        super::builder::vertex_rag_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -9758,8 +9728,8 @@ impl VertexRagService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_service::GetIamPolicy {
-        super::builders::vertex_rag_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_service::GetIamPolicy {
+        super::builder::vertex_rag_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -9773,8 +9743,8 @@ impl VertexRagService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_service::TestIamPermissions {
-        super::builders::vertex_rag_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_service::TestIamPermissions {
+        super::builder::vertex_rag_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -9784,8 +9754,8 @@ impl VertexRagService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_service::ListOperations {
-        super::builders::vertex_rag_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_service::ListOperations {
+        super::builder::vertex_rag_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9795,8 +9765,8 @@ impl VertexRagService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_service::GetOperation {
-        super::builders::vertex_rag_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_service::GetOperation {
+        super::builder::vertex_rag_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9806,8 +9776,8 @@ impl VertexRagService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_service::DeleteOperation {
-        super::builders::vertex_rag_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_service::DeleteOperation {
+        super::builder::vertex_rag_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9817,8 +9787,8 @@ impl VertexRagService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_service::CancelOperation {
-        super::builders::vertex_rag_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_service::CancelOperation {
+        super::builder::vertex_rag_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -9828,8 +9798,8 @@ impl VertexRagService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vertex_rag_service::WaitOperation {
-        super::builders::vertex_rag_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builder::vertex_rag_service::WaitOperation {
+        super::builder::vertex_rag_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -9857,7 +9827,7 @@ impl VertexRagService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct VizierService {
-    inner: Arc<dyn super::stubs::dynamic::VizierService>,
+    inner: Arc<dyn super::stub::dynamic::VizierService>,
 }
 
 impl VizierService {
@@ -9878,7 +9848,7 @@ impl VizierService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::VizierService + 'static,
+        T: super::stub::VizierService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -9887,7 +9857,7 @@ impl VizierService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::VizierService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::VizierService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -9896,13 +9866,13 @@ impl VizierService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::VizierService> {
+    ) -> Result<impl super::stub::VizierService> {
         super::transport::VizierService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::VizierService> {
+    ) -> Result<impl super::stub::VizierService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::VizierService::new)
@@ -9913,8 +9883,8 @@ impl VizierService {
     pub fn create_study(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::CreateStudy {
-        super::builders::vizier_service::CreateStudy::new(self.inner.clone())
+    ) -> super::builder::vizier_service::CreateStudy {
+        super::builder::vizier_service::CreateStudy::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -9922,16 +9892,16 @@ impl VizierService {
     pub fn get_study(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::GetStudy {
-        super::builders::vizier_service::GetStudy::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::vizier_service::GetStudy {
+        super::builder::vizier_service::GetStudy::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists all the studies in a region for an associated project.
     pub fn list_studies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::ListStudies {
-        super::builders::vizier_service::ListStudies::new(self.inner.clone())
+    ) -> super::builder::vizier_service::ListStudies {
+        super::builder::vizier_service::ListStudies::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -9939,8 +9909,8 @@ impl VizierService {
     pub fn delete_study(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::DeleteStudy {
-        super::builders::vizier_service::DeleteStudy::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::vizier_service::DeleteStudy {
+        super::builder::vizier_service::DeleteStudy::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Looks a study up using the user-defined display_name field instead of the
@@ -9948,8 +9918,8 @@ impl VizierService {
     pub fn lookup_study(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::LookupStudy {
-        super::builders::vizier_service::LookupStudy::new(self.inner.clone())
+    ) -> super::builder::vizier_service::LookupStudy {
+        super::builder::vizier_service::LookupStudy::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -9974,8 +9944,8 @@ impl VizierService {
     pub fn suggest_trials(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::SuggestTrials {
-        super::builders::vizier_service::SuggestTrials::new(self.inner.clone())
+    ) -> super::builder::vizier_service::SuggestTrials {
+        super::builder::vizier_service::SuggestTrials::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -9983,8 +9953,8 @@ impl VizierService {
     pub fn create_trial(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::CreateTrial {
-        super::builders::vizier_service::CreateTrial::new(self.inner.clone())
+    ) -> super::builder::vizier_service::CreateTrial {
+        super::builder::vizier_service::CreateTrial::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -9992,16 +9962,16 @@ impl VizierService {
     pub fn get_trial(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::GetTrial {
-        super::builders::vizier_service::GetTrial::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::vizier_service::GetTrial {
+        super::builder::vizier_service::GetTrial::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists the Trials associated with a Study.
     pub fn list_trials(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::ListTrials {
-        super::builders::vizier_service::ListTrials::new(self.inner.clone())
+    ) -> super::builder::vizier_service::ListTrials {
+        super::builder::vizier_service::ListTrials::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -10010,8 +9980,8 @@ impl VizierService {
     pub fn add_trial_measurement(
         &self,
         trial_name: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::AddTrialMeasurement {
-        super::builders::vizier_service::AddTrialMeasurement::new(self.inner.clone())
+    ) -> super::builder::vizier_service::AddTrialMeasurement {
+        super::builder::vizier_service::AddTrialMeasurement::new(self.inner.clone())
             .set_trial_name(trial_name.into())
     }
 
@@ -10019,17 +9989,16 @@ impl VizierService {
     pub fn complete_trial(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::CompleteTrial {
-        super::builders::vizier_service::CompleteTrial::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::vizier_service::CompleteTrial {
+        super::builder::vizier_service::CompleteTrial::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes a Trial.
     pub fn delete_trial(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::DeleteTrial {
-        super::builders::vizier_service::DeleteTrial::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::vizier_service::DeleteTrial {
+        super::builder::vizier_service::DeleteTrial::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Checks  whether a Trial should stop or not. Returns a
@@ -10051,8 +10020,8 @@ impl VizierService {
     pub fn check_trial_early_stopping_state(
         &self,
         trial_name: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::CheckTrialEarlyStoppingState {
-        super::builders::vizier_service::CheckTrialEarlyStoppingState::new(self.inner.clone())
+    ) -> super::builder::vizier_service::CheckTrialEarlyStoppingState {
+        super::builder::vizier_service::CheckTrialEarlyStoppingState::new(self.inner.clone())
             .set_trial_name(trial_name.into())
     }
 
@@ -10060,8 +10029,8 @@ impl VizierService {
     pub fn stop_trial(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::StopTrial {
-        super::builders::vizier_service::StopTrial::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::vizier_service::StopTrial {
+        super::builder::vizier_service::StopTrial::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists the pareto-optimal Trials for multi-objective Study or the
@@ -10071,8 +10040,8 @@ impl VizierService {
     pub fn list_optimal_trials(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::ListOptimalTrials {
-        super::builders::vizier_service::ListOptimalTrials::new(self.inner.clone())
+    ) -> super::builder::vizier_service::ListOptimalTrials {
+        super::builder::vizier_service::ListOptimalTrials::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -10080,17 +10049,16 @@ impl VizierService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::ListLocations {
-        super::builders::vizier_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::vizier_service::ListLocations {
+        super::builder::vizier_service::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::GetLocation {
-        super::builders::vizier_service::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::vizier_service::GetLocation {
+        super::builder::vizier_service::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -10101,8 +10069,8 @@ impl VizierService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::SetIamPolicy {
-        super::builders::vizier_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::vizier_service::SetIamPolicy {
+        super::builder::vizier_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -10111,8 +10079,8 @@ impl VizierService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::GetIamPolicy {
-        super::builders::vizier_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::vizier_service::GetIamPolicy {
+        super::builder::vizier_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -10126,8 +10094,8 @@ impl VizierService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::TestIamPermissions {
-        super::builders::vizier_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::vizier_service::TestIamPermissions {
+        super::builder::vizier_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -10137,8 +10105,8 @@ impl VizierService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::ListOperations {
-        super::builders::vizier_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::vizier_service::ListOperations {
+        super::builder::vizier_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -10148,8 +10116,8 @@ impl VizierService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::GetOperation {
-        super::builders::vizier_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::vizier_service::GetOperation {
+        super::builder::vizier_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -10158,8 +10126,8 @@ impl VizierService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::DeleteOperation {
-        super::builders::vizier_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::vizier_service::DeleteOperation {
+        super::builder::vizier_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -10169,8 +10137,8 @@ impl VizierService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::CancelOperation {
-        super::builders::vizier_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::vizier_service::CancelOperation {
+        super::builder::vizier_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -10180,8 +10148,7 @@ impl VizierService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vizier_service::WaitOperation {
-        super::builders::vizier_service::WaitOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::vizier_service::WaitOperation {
+        super::builder::vizier_service::WaitOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

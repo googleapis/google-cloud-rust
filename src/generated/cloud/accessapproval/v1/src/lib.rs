@@ -36,13 +36,13 @@ pub use gax::error::Error;
 
 #[allow(rustdoc::invalid_html_tags)]
 #[allow(rustdoc::redundant_explicit_links)]
-pub mod stubs;
+pub mod stub;
 
 /// Concrete implementations of this client library traits.
 pub mod client;
 
 /// Request builders.
-pub mod builders;
+pub mod builder;
 
 #[doc(hidden)]
 pub(crate) mod tracing;

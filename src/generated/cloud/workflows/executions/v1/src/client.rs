@@ -39,7 +39,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Executions {
-    inner: Arc<dyn super::stubs::dynamic::Executions>,
+    inner: Arc<dyn super::stub::dynamic::Executions>,
 }
 
 impl Executions {
@@ -60,7 +60,7 @@ impl Executions {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Executions + 'static,
+        T: super::stub::Executions + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -69,7 +69,7 @@ impl Executions {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Executions>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Executions>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,13 +78,13 @@ impl Executions {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Executions> {
+    ) -> Result<impl super::stub::Executions> {
         super::transport::Executions::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Executions> {
+    ) -> Result<impl super::stub::Executions> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Executions::new)
@@ -97,8 +97,8 @@ impl Executions {
     pub fn list_executions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::executions::ListExecutions {
-        super::builders::executions::ListExecutions::new(self.inner.clone())
+    ) -> super::builder::executions::ListExecutions {
+        super::builder::executions::ListExecutions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -106,8 +106,8 @@ impl Executions {
     pub fn create_execution(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::executions::CreateExecution {
-        super::builders::executions::CreateExecution::new(self.inner.clone())
+    ) -> super::builder::executions::CreateExecution {
+        super::builder::executions::CreateExecution::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -115,15 +115,15 @@ impl Executions {
     pub fn get_execution(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::executions::GetExecution {
-        super::builders::executions::GetExecution::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::executions::GetExecution {
+        super::builder::executions::GetExecution::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Cancels an execution of the given name.
     pub fn cancel_execution(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::executions::CancelExecution {
-        super::builders::executions::CancelExecution::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::executions::CancelExecution {
+        super::builder::executions::CancelExecution::new(self.inner.clone()).set_name(name.into())
     }
 }

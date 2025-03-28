@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct RecaptchaEnterpriseService {
-    inner: Arc<dyn super::stubs::dynamic::RecaptchaEnterpriseService>,
+    inner: Arc<dyn super::stub::dynamic::RecaptchaEnterpriseService>,
 }
 
 impl RecaptchaEnterpriseService {
@@ -59,7 +59,7 @@ impl RecaptchaEnterpriseService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::RecaptchaEnterpriseService + 'static,
+        T: super::stub::RecaptchaEnterpriseService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl RecaptchaEnterpriseService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::RecaptchaEnterpriseService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::RecaptchaEnterpriseService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +77,13 @@ impl RecaptchaEnterpriseService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::RecaptchaEnterpriseService> {
+    ) -> Result<impl super::stub::RecaptchaEnterpriseService> {
         super::transport::RecaptchaEnterpriseService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::RecaptchaEnterpriseService> {
+    ) -> Result<impl super::stub::RecaptchaEnterpriseService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::RecaptchaEnterpriseService::new)
@@ -93,8 +93,8 @@ impl RecaptchaEnterpriseService {
     pub fn create_assessment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::recaptcha_enterprise_service::CreateAssessment {
-        super::builders::recaptcha_enterprise_service::CreateAssessment::new(self.inner.clone())
+    ) -> super::builder::recaptcha_enterprise_service::CreateAssessment {
+        super::builder::recaptcha_enterprise_service::CreateAssessment::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -103,8 +103,8 @@ impl RecaptchaEnterpriseService {
     pub fn annotate_assessment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::recaptcha_enterprise_service::AnnotateAssessment {
-        super::builders::recaptcha_enterprise_service::AnnotateAssessment::new(self.inner.clone())
+    ) -> super::builder::recaptcha_enterprise_service::AnnotateAssessment {
+        super::builder::recaptcha_enterprise_service::AnnotateAssessment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -112,8 +112,8 @@ impl RecaptchaEnterpriseService {
     pub fn create_key(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::recaptcha_enterprise_service::CreateKey {
-        super::builders::recaptcha_enterprise_service::CreateKey::new(self.inner.clone())
+    ) -> super::builder::recaptcha_enterprise_service::CreateKey {
+        super::builder::recaptcha_enterprise_service::CreateKey::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -121,8 +121,8 @@ impl RecaptchaEnterpriseService {
     pub fn list_keys(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::recaptcha_enterprise_service::ListKeys {
-        super::builders::recaptcha_enterprise_service::ListKeys::new(self.inner.clone())
+    ) -> super::builder::recaptcha_enterprise_service::ListKeys {
+        super::builder::recaptcha_enterprise_service::ListKeys::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -132,8 +132,8 @@ impl RecaptchaEnterpriseService {
     pub fn retrieve_legacy_secret_key(
         &self,
         key: impl Into<std::string::String>,
-    ) -> super::builders::recaptcha_enterprise_service::RetrieveLegacySecretKey {
-        super::builders::recaptcha_enterprise_service::RetrieveLegacySecretKey::new(
+    ) -> super::builder::recaptcha_enterprise_service::RetrieveLegacySecretKey {
+        super::builder::recaptcha_enterprise_service::RetrieveLegacySecretKey::new(
             self.inner.clone(),
         )
         .set_key(key.into())
@@ -143,8 +143,8 @@ impl RecaptchaEnterpriseService {
     pub fn get_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::recaptcha_enterprise_service::GetKey {
-        super::builders::recaptcha_enterprise_service::GetKey::new(self.inner.clone())
+    ) -> super::builder::recaptcha_enterprise_service::GetKey {
+        super::builder::recaptcha_enterprise_service::GetKey::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -152,8 +152,8 @@ impl RecaptchaEnterpriseService {
     pub fn update_key(
         &self,
         key: impl Into<crate::model::Key>,
-    ) -> super::builders::recaptcha_enterprise_service::UpdateKey {
-        super::builders::recaptcha_enterprise_service::UpdateKey::new(self.inner.clone())
+    ) -> super::builder::recaptcha_enterprise_service::UpdateKey {
+        super::builder::recaptcha_enterprise_service::UpdateKey::new(self.inner.clone())
             .set_key(key.into())
     }
 
@@ -161,8 +161,8 @@ impl RecaptchaEnterpriseService {
     pub fn delete_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::recaptcha_enterprise_service::DeleteKey {
-        super::builders::recaptcha_enterprise_service::DeleteKey::new(self.inner.clone())
+    ) -> super::builder::recaptcha_enterprise_service::DeleteKey {
+        super::builder::recaptcha_enterprise_service::DeleteKey::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -175,8 +175,8 @@ impl RecaptchaEnterpriseService {
     pub fn migrate_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::recaptcha_enterprise_service::MigrateKey {
-        super::builders::recaptcha_enterprise_service::MigrateKey::new(self.inner.clone())
+    ) -> super::builder::recaptcha_enterprise_service::MigrateKey {
+        super::builder::recaptcha_enterprise_service::MigrateKey::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -188,8 +188,8 @@ impl RecaptchaEnterpriseService {
     pub fn add_ip_override(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::recaptcha_enterprise_service::AddIpOverride {
-        super::builders::recaptcha_enterprise_service::AddIpOverride::new(self.inner.clone())
+    ) -> super::builder::recaptcha_enterprise_service::AddIpOverride {
+        super::builder::recaptcha_enterprise_service::AddIpOverride::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -202,8 +202,8 @@ impl RecaptchaEnterpriseService {
     pub fn remove_ip_override(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::recaptcha_enterprise_service::RemoveIpOverride {
-        super::builders::recaptcha_enterprise_service::RemoveIpOverride::new(self.inner.clone())
+    ) -> super::builder::recaptcha_enterprise_service::RemoveIpOverride {
+        super::builder::recaptcha_enterprise_service::RemoveIpOverride::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -211,8 +211,8 @@ impl RecaptchaEnterpriseService {
     pub fn list_ip_overrides(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::recaptcha_enterprise_service::ListIpOverrides {
-        super::builders::recaptcha_enterprise_service::ListIpOverrides::new(self.inner.clone())
+    ) -> super::builder::recaptcha_enterprise_service::ListIpOverrides {
+        super::builder::recaptcha_enterprise_service::ListIpOverrides::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -221,8 +221,8 @@ impl RecaptchaEnterpriseService {
     pub fn get_metrics(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::recaptcha_enterprise_service::GetMetrics {
-        super::builders::recaptcha_enterprise_service::GetMetrics::new(self.inner.clone())
+    ) -> super::builder::recaptcha_enterprise_service::GetMetrics {
+        super::builder::recaptcha_enterprise_service::GetMetrics::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -232,8 +232,8 @@ impl RecaptchaEnterpriseService {
     pub fn create_firewall_policy(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::recaptcha_enterprise_service::CreateFirewallPolicy {
-        super::builders::recaptcha_enterprise_service::CreateFirewallPolicy::new(self.inner.clone())
+    ) -> super::builder::recaptcha_enterprise_service::CreateFirewallPolicy {
+        super::builder::recaptcha_enterprise_service::CreateFirewallPolicy::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -241,8 +241,8 @@ impl RecaptchaEnterpriseService {
     pub fn list_firewall_policies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::recaptcha_enterprise_service::ListFirewallPolicies {
-        super::builders::recaptcha_enterprise_service::ListFirewallPolicies::new(self.inner.clone())
+    ) -> super::builder::recaptcha_enterprise_service::ListFirewallPolicies {
+        super::builder::recaptcha_enterprise_service::ListFirewallPolicies::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -250,8 +250,8 @@ impl RecaptchaEnterpriseService {
     pub fn get_firewall_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::recaptcha_enterprise_service::GetFirewallPolicy {
-        super::builders::recaptcha_enterprise_service::GetFirewallPolicy::new(self.inner.clone())
+    ) -> super::builder::recaptcha_enterprise_service::GetFirewallPolicy {
+        super::builder::recaptcha_enterprise_service::GetFirewallPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -259,8 +259,8 @@ impl RecaptchaEnterpriseService {
     pub fn update_firewall_policy(
         &self,
         firewall_policy: impl Into<crate::model::FirewallPolicy>,
-    ) -> super::builders::recaptcha_enterprise_service::UpdateFirewallPolicy {
-        super::builders::recaptcha_enterprise_service::UpdateFirewallPolicy::new(self.inner.clone())
+    ) -> super::builder::recaptcha_enterprise_service::UpdateFirewallPolicy {
+        super::builder::recaptcha_enterprise_service::UpdateFirewallPolicy::new(self.inner.clone())
             .set_firewall_policy(firewall_policy.into())
     }
 
@@ -268,8 +268,8 @@ impl RecaptchaEnterpriseService {
     pub fn delete_firewall_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::recaptcha_enterprise_service::DeleteFirewallPolicy {
-        super::builders::recaptcha_enterprise_service::DeleteFirewallPolicy::new(self.inner.clone())
+    ) -> super::builder::recaptcha_enterprise_service::DeleteFirewallPolicy {
+        super::builder::recaptcha_enterprise_service::DeleteFirewallPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -277,8 +277,8 @@ impl RecaptchaEnterpriseService {
     pub fn reorder_firewall_policies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::recaptcha_enterprise_service::ReorderFirewallPolicies {
-        super::builders::recaptcha_enterprise_service::ReorderFirewallPolicies::new(
+    ) -> super::builder::recaptcha_enterprise_service::ReorderFirewallPolicies {
+        super::builder::recaptcha_enterprise_service::ReorderFirewallPolicies::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -288,8 +288,8 @@ impl RecaptchaEnterpriseService {
     pub fn list_related_account_groups(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::recaptcha_enterprise_service::ListRelatedAccountGroups {
-        super::builders::recaptcha_enterprise_service::ListRelatedAccountGroups::new(
+    ) -> super::builder::recaptcha_enterprise_service::ListRelatedAccountGroups {
+        super::builder::recaptcha_enterprise_service::ListRelatedAccountGroups::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -299,8 +299,8 @@ impl RecaptchaEnterpriseService {
     pub fn list_related_account_group_memberships(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::recaptcha_enterprise_service::ListRelatedAccountGroupMemberships {
-        super::builders::recaptcha_enterprise_service::ListRelatedAccountGroupMemberships::new(
+    ) -> super::builder::recaptcha_enterprise_service::ListRelatedAccountGroupMemberships {
+        super::builder::recaptcha_enterprise_service::ListRelatedAccountGroupMemberships::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -310,8 +310,8 @@ impl RecaptchaEnterpriseService {
     pub fn search_related_account_group_memberships(
         &self,
         project: impl Into<std::string::String>,
-    ) -> super::builders::recaptcha_enterprise_service::SearchRelatedAccountGroupMemberships {
-        super::builders::recaptcha_enterprise_service::SearchRelatedAccountGroupMemberships::new(
+    ) -> super::builder::recaptcha_enterprise_service::SearchRelatedAccountGroupMemberships {
+        super::builder::recaptcha_enterprise_service::SearchRelatedAccountGroupMemberships::new(
             self.inner.clone(),
         )
         .set_project(project.into())

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DatasetService](super::stubs::DatasetService) using a [gaxi::http::ReqwestClient].
+/// Implements [DatasetService](super::stub::DatasetService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DatasetService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl DatasetService {
     }
 }
 
-impl super::stubs::DatasetService for DatasetService {
+impl super::stub::DatasetService for DatasetService {
     async fn get_dataset(
         &self,
         req: crate::model::GetDatasetRequest,
@@ -228,7 +228,7 @@ impl super::stubs::DatasetService for DatasetService {
     }
 }
 
-/// Implements [ModelService](super::stubs::ModelService) using a [gaxi::http::ReqwestClient].
+/// Implements [ModelService](super::stub::ModelService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ModelService {
     inner: gaxi::http::ReqwestClient,
@@ -249,7 +249,7 @@ impl ModelService {
     }
 }
 
-impl super::stubs::ModelService for ModelService {
+impl super::stub::ModelService for ModelService {
     async fn get_model(
         &self,
         req: crate::model::GetModelRequest,
@@ -361,7 +361,7 @@ impl super::stubs::ModelService for ModelService {
     }
 }
 
-/// Implements [ProjectService](super::stubs::ProjectService) using a [gaxi::http::ReqwestClient].
+/// Implements [ProjectService](super::stub::ProjectService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ProjectService {
     inner: gaxi::http::ReqwestClient,
@@ -382,7 +382,7 @@ impl ProjectService {
     }
 }
 
-impl super::stubs::ProjectService for ProjectService {
+impl super::stub::ProjectService for ProjectService {
     async fn get_service_account(
         &self,
         req: crate::model::GetServiceAccountRequest,
@@ -406,7 +406,7 @@ impl super::stubs::ProjectService for ProjectService {
     }
 }
 
-/// Implements [RoutineService](super::stubs::RoutineService) using a [gaxi::http::ReqwestClient].
+/// Implements [RoutineService](super::stub::RoutineService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct RoutineService {
     inner: gaxi::http::ReqwestClient,
@@ -427,7 +427,7 @@ impl RoutineService {
     }
 }
 
-impl super::stubs::RoutineService for RoutineService {
+impl super::stub::RoutineService for RoutineService {
     async fn get_routine(
         &self,
         req: crate::model::GetRoutineRequest,
@@ -567,7 +567,7 @@ impl super::stubs::RoutineService for RoutineService {
     }
 }
 
-/// Implements [RowAccessPolicyService](super::stubs::RowAccessPolicyService) using a [gaxi::http::ReqwestClient].
+/// Implements [RowAccessPolicyService](super::stub::RowAccessPolicyService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct RowAccessPolicyService {
     inner: gaxi::http::ReqwestClient,
@@ -588,7 +588,7 @@ impl RowAccessPolicyService {
     }
 }
 
-impl super::stubs::RowAccessPolicyService for RowAccessPolicyService {
+impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
     async fn list_row_access_policies(
         &self,
         req: crate::model::ListRowAccessPoliciesRequest,
@@ -748,7 +748,7 @@ impl super::stubs::RowAccessPolicyService for RowAccessPolicyService {
     }
 }
 
-/// Implements [TableService](super::stubs::TableService) using a [gaxi::http::ReqwestClient].
+/// Implements [TableService](super::stub::TableService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct TableService {
     inner: gaxi::http::ReqwestClient,
@@ -769,7 +769,7 @@ impl TableService {
     }
 }
 
-impl super::stubs::TableService for TableService {
+impl super::stub::TableService for TableService {
     async fn get_table(
         &self,
         req: crate::model::GetTableRequest,

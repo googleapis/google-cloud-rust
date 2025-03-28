@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [OrgPolicy](super::stubs::OrgPolicy) using a [gaxi::http::ReqwestClient].
+/// Implements [OrgPolicy](super::stub::OrgPolicy) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct OrgPolicy {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl OrgPolicy {
     }
 }
 
-impl super::stubs::OrgPolicy for OrgPolicy {
+impl super::stub::OrgPolicy for OrgPolicy {
     async fn list_constraints(
         &self,
         req: crate::model::ListConstraintsRequest,

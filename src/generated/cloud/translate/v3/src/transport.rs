@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [TranslationService](super::stubs::TranslationService) using a [gaxi::http::ReqwestClient].
+/// Implements [TranslationService](super::stub::TranslationService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct TranslationService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl TranslationService {
     }
 }
 
-impl super::stubs::TranslationService for TranslationService {
+impl super::stub::TranslationService for TranslationService {
     async fn translate_text(
         &self,
         req: crate::model::TranslateTextRequest,

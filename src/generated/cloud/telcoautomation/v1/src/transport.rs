@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [TelcoAutomation](super::stubs::TelcoAutomation) using a [gaxi::http::ReqwestClient].
+/// Implements [TelcoAutomation](super::stub::TelcoAutomation) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct TelcoAutomation {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl TelcoAutomation {
     }
 }
 
-impl super::stubs::TelcoAutomation for TelcoAutomation {
+impl super::stub::TelcoAutomation for TelcoAutomation {
     async fn list_orchestration_clusters(
         &self,
         req: crate::model::ListOrchestrationClustersRequest,

@@ -26,7 +26,7 @@ use gax::error::Error;
 
 {{/Codec.HasServices}}
 {{#Codec.Services}}
-/// Implements [{{Codec.Name}}](super::stubs::{{Codec.Name}}) using a [gaxi::http::ReqwestClient].
+/// Implements [{{Codec.Name}}](super::stub::{{Codec.Name}}) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct {{Codec.Name}} {
     inner: gaxi::http::ReqwestClient,
@@ -47,7 +47,7 @@ impl {{Codec.Name}} {
     }
 }
 
-impl super::stubs::{{Codec.Name}} for {{Codec.Name}} {
+impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
     {{#Codec.Methods}}
     async fn {{Codec.Name}}(
         &self,

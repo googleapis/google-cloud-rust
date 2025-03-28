@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct VmwareEngine {
-    inner: Arc<dyn super::stubs::dynamic::VmwareEngine>,
+    inner: Arc<dyn super::stub::dynamic::VmwareEngine>,
 }
 
 impl VmwareEngine {
@@ -59,7 +59,7 @@ impl VmwareEngine {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::VmwareEngine + 'static,
+        T: super::stub::VmwareEngine + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl VmwareEngine {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::VmwareEngine>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::VmwareEngine>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +77,13 @@ impl VmwareEngine {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::VmwareEngine> {
+    ) -> Result<impl super::stub::VmwareEngine> {
         super::transport::VmwareEngine::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::VmwareEngine> {
+    ) -> Result<impl super::stub::VmwareEngine> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::VmwareEngine::new)
@@ -93,8 +93,8 @@ impl VmwareEngine {
     pub fn list_private_clouds(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::ListPrivateClouds {
-        super::builders::vmware_engine::ListPrivateClouds::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::ListPrivateClouds {
+        super::builder::vmware_engine::ListPrivateClouds::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,8 +102,8 @@ impl VmwareEngine {
     pub fn get_private_cloud(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::GetPrivateCloud {
-        super::builders::vmware_engine::GetPrivateCloud::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::GetPrivateCloud {
+        super::builder::vmware_engine::GetPrivateCloud::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -127,8 +127,8 @@ impl VmwareEngine {
     pub fn create_private_cloud(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::CreatePrivateCloud {
-        super::builders::vmware_engine::CreatePrivateCloud::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::CreatePrivateCloud {
+        super::builder::vmware_engine::CreatePrivateCloud::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -153,8 +153,8 @@ impl VmwareEngine {
     pub fn update_private_cloud(
         &self,
         private_cloud: impl Into<crate::model::PrivateCloud>,
-    ) -> super::builders::vmware_engine::UpdatePrivateCloud {
-        super::builders::vmware_engine::UpdatePrivateCloud::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::UpdatePrivateCloud {
+        super::builder::vmware_engine::UpdatePrivateCloud::new(self.inner.clone())
             .set_private_cloud(private_cloud.into())
     }
 
@@ -186,8 +186,8 @@ impl VmwareEngine {
     pub fn delete_private_cloud(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::DeletePrivateCloud {
-        super::builders::vmware_engine::DeletePrivateCloud::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::DeletePrivateCloud {
+        super::builder::vmware_engine::DeletePrivateCloud::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -208,8 +208,8 @@ impl VmwareEngine {
     pub fn undelete_private_cloud(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::UndeletePrivateCloud {
-        super::builders::vmware_engine::UndeletePrivateCloud::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::UndeletePrivateCloud {
+        super::builder::vmware_engine::UndeletePrivateCloud::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -217,8 +217,8 @@ impl VmwareEngine {
     pub fn list_clusters(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::ListClusters {
-        super::builders::vmware_engine::ListClusters::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::ListClusters {
+        super::builder::vmware_engine::ListClusters::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -226,8 +226,8 @@ impl VmwareEngine {
     pub fn get_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::GetCluster {
-        super::builders::vmware_engine::GetCluster::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::vmware_engine::GetCluster {
+        super::builder::vmware_engine::GetCluster::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new cluster in a given private cloud.
@@ -247,8 +247,8 @@ impl VmwareEngine {
     pub fn create_cluster(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::CreateCluster {
-        super::builders::vmware_engine::CreateCluster::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::CreateCluster {
+        super::builder::vmware_engine::CreateCluster::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -272,8 +272,8 @@ impl VmwareEngine {
     pub fn update_cluster(
         &self,
         cluster: impl Into<crate::model::Cluster>,
-    ) -> super::builders::vmware_engine::UpdateCluster {
-        super::builders::vmware_engine::UpdateCluster::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::UpdateCluster {
+        super::builder::vmware_engine::UpdateCluster::new(self.inner.clone())
             .set_cluster(cluster.into())
     }
 
@@ -294,24 +294,24 @@ impl VmwareEngine {
     pub fn delete_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::DeleteCluster {
-        super::builders::vmware_engine::DeleteCluster::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::vmware_engine::DeleteCluster {
+        super::builder::vmware_engine::DeleteCluster::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists nodes in a given cluster.
     pub fn list_nodes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::ListNodes {
-        super::builders::vmware_engine::ListNodes::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::vmware_engine::ListNodes {
+        super::builder::vmware_engine::ListNodes::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets details of a single node.
     pub fn get_node(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::GetNode {
-        super::builders::vmware_engine::GetNode::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::vmware_engine::GetNode {
+        super::builder::vmware_engine::GetNode::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists external IP addresses assigned to VMware workload VMs in a given
@@ -319,8 +319,8 @@ impl VmwareEngine {
     pub fn list_external_addresses(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::ListExternalAddresses {
-        super::builders::vmware_engine::ListExternalAddresses::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::ListExternalAddresses {
+        super::builder::vmware_engine::ListExternalAddresses::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -329,8 +329,8 @@ impl VmwareEngine {
     pub fn fetch_network_policy_external_addresses(
         &self,
         network_policy: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::FetchNetworkPolicyExternalAddresses {
-        super::builders::vmware_engine::FetchNetworkPolicyExternalAddresses::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::FetchNetworkPolicyExternalAddresses {
+        super::builder::vmware_engine::FetchNetworkPolicyExternalAddresses::new(self.inner.clone())
             .set_network_policy(network_policy.into())
     }
 
@@ -338,8 +338,8 @@ impl VmwareEngine {
     pub fn get_external_address(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::GetExternalAddress {
-        super::builders::vmware_engine::GetExternalAddress::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::GetExternalAddress {
+        super::builder::vmware_engine::GetExternalAddress::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -359,8 +359,8 @@ impl VmwareEngine {
     pub fn create_external_address(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::CreateExternalAddress {
-        super::builders::vmware_engine::CreateExternalAddress::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::CreateExternalAddress {
+        super::builder::vmware_engine::CreateExternalAddress::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -384,8 +384,8 @@ impl VmwareEngine {
     pub fn update_external_address(
         &self,
         external_address: impl Into<crate::model::ExternalAddress>,
-    ) -> super::builders::vmware_engine::UpdateExternalAddress {
-        super::builders::vmware_engine::UpdateExternalAddress::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::UpdateExternalAddress {
+        super::builder::vmware_engine::UpdateExternalAddress::new(self.inner.clone())
             .set_external_address(external_address.into())
     }
 
@@ -405,8 +405,8 @@ impl VmwareEngine {
     pub fn delete_external_address(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::DeleteExternalAddress {
-        super::builders::vmware_engine::DeleteExternalAddress::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::DeleteExternalAddress {
+        super::builder::vmware_engine::DeleteExternalAddress::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -414,8 +414,8 @@ impl VmwareEngine {
     pub fn list_subnets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::ListSubnets {
-        super::builders::vmware_engine::ListSubnets::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::ListSubnets {
+        super::builder::vmware_engine::ListSubnets::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -423,8 +423,8 @@ impl VmwareEngine {
     pub fn get_subnet(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::GetSubnet {
-        super::builders::vmware_engine::GetSubnet::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::vmware_engine::GetSubnet {
+        super::builder::vmware_engine::GetSubnet::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the parameters of a single subnet. Only fields specified in
@@ -446,8 +446,8 @@ impl VmwareEngine {
     pub fn update_subnet(
         &self,
         subnet: impl Into<crate::model::Subnet>,
-    ) -> super::builders::vmware_engine::UpdateSubnet {
-        super::builders::vmware_engine::UpdateSubnet::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::UpdateSubnet {
+        super::builder::vmware_engine::UpdateSubnet::new(self.inner.clone())
             .set_subnet(subnet.into())
     }
 
@@ -455,8 +455,8 @@ impl VmwareEngine {
     pub fn list_external_access_rules(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::ListExternalAccessRules {
-        super::builders::vmware_engine::ListExternalAccessRules::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::ListExternalAccessRules {
+        super::builder::vmware_engine::ListExternalAccessRules::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -464,8 +464,8 @@ impl VmwareEngine {
     pub fn get_external_access_rule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::GetExternalAccessRule {
-        super::builders::vmware_engine::GetExternalAccessRule::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::GetExternalAccessRule {
+        super::builder::vmware_engine::GetExternalAccessRule::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -483,8 +483,8 @@ impl VmwareEngine {
     pub fn create_external_access_rule(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::CreateExternalAccessRule {
-        super::builders::vmware_engine::CreateExternalAccessRule::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::CreateExternalAccessRule {
+        super::builder::vmware_engine::CreateExternalAccessRule::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -503,8 +503,8 @@ impl VmwareEngine {
     pub fn update_external_access_rule(
         &self,
         external_access_rule: impl Into<crate::model::ExternalAccessRule>,
-    ) -> super::builders::vmware_engine::UpdateExternalAccessRule {
-        super::builders::vmware_engine::UpdateExternalAccessRule::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::UpdateExternalAccessRule {
+        super::builder::vmware_engine::UpdateExternalAccessRule::new(self.inner.clone())
             .set_external_access_rule(external_access_rule.into())
     }
 
@@ -522,8 +522,8 @@ impl VmwareEngine {
     pub fn delete_external_access_rule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::DeleteExternalAccessRule {
-        super::builders::vmware_engine::DeleteExternalAccessRule::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::DeleteExternalAccessRule {
+        super::builder::vmware_engine::DeleteExternalAccessRule::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -532,8 +532,8 @@ impl VmwareEngine {
     pub fn list_logging_servers(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::ListLoggingServers {
-        super::builders::vmware_engine::ListLoggingServers::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::ListLoggingServers {
+        super::builder::vmware_engine::ListLoggingServers::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -541,8 +541,8 @@ impl VmwareEngine {
     pub fn get_logging_server(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::GetLoggingServer {
-        super::builders::vmware_engine::GetLoggingServer::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::GetLoggingServer {
+        super::builder::vmware_engine::GetLoggingServer::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -560,8 +560,8 @@ impl VmwareEngine {
     pub fn create_logging_server(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::CreateLoggingServer {
-        super::builders::vmware_engine::CreateLoggingServer::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::CreateLoggingServer {
+        super::builder::vmware_engine::CreateLoggingServer::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -580,8 +580,8 @@ impl VmwareEngine {
     pub fn update_logging_server(
         &self,
         logging_server: impl Into<crate::model::LoggingServer>,
-    ) -> super::builders::vmware_engine::UpdateLoggingServer {
-        super::builders::vmware_engine::UpdateLoggingServer::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::UpdateLoggingServer {
+        super::builder::vmware_engine::UpdateLoggingServer::new(self.inner.clone())
             .set_logging_server(logging_server.into())
     }
 
@@ -599,8 +599,8 @@ impl VmwareEngine {
     pub fn delete_logging_server(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::DeleteLoggingServer {
-        super::builders::vmware_engine::DeleteLoggingServer::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::DeleteLoggingServer {
+        super::builder::vmware_engine::DeleteLoggingServer::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -608,8 +608,8 @@ impl VmwareEngine {
     pub fn list_node_types(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::ListNodeTypes {
-        super::builders::vmware_engine::ListNodeTypes::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::ListNodeTypes {
+        super::builder::vmware_engine::ListNodeTypes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -617,16 +617,16 @@ impl VmwareEngine {
     pub fn get_node_type(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::GetNodeType {
-        super::builders::vmware_engine::GetNodeType::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::vmware_engine::GetNodeType {
+        super::builder::vmware_engine::GetNodeType::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets details of credentials for NSX appliance.
     pub fn show_nsx_credentials(
         &self,
         private_cloud: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::ShowNsxCredentials {
-        super::builders::vmware_engine::ShowNsxCredentials::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::ShowNsxCredentials {
+        super::builder::vmware_engine::ShowNsxCredentials::new(self.inner.clone())
             .set_private_cloud(private_cloud.into())
     }
 
@@ -634,8 +634,8 @@ impl VmwareEngine {
     pub fn show_vcenter_credentials(
         &self,
         private_cloud: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::ShowVcenterCredentials {
-        super::builders::vmware_engine::ShowVcenterCredentials::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::ShowVcenterCredentials {
+        super::builder::vmware_engine::ShowVcenterCredentials::new(self.inner.clone())
             .set_private_cloud(private_cloud.into())
     }
 
@@ -653,8 +653,8 @@ impl VmwareEngine {
     pub fn reset_nsx_credentials(
         &self,
         private_cloud: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::ResetNsxCredentials {
-        super::builders::vmware_engine::ResetNsxCredentials::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::ResetNsxCredentials {
+        super::builder::vmware_engine::ResetNsxCredentials::new(self.inner.clone())
             .set_private_cloud(private_cloud.into())
     }
 
@@ -672,8 +672,8 @@ impl VmwareEngine {
     pub fn reset_vcenter_credentials(
         &self,
         private_cloud: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::ResetVcenterCredentials {
-        super::builders::vmware_engine::ResetVcenterCredentials::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::ResetVcenterCredentials {
+        super::builder::vmware_engine::ResetVcenterCredentials::new(self.inner.clone())
             .set_private_cloud(private_cloud.into())
     }
 
@@ -681,8 +681,8 @@ impl VmwareEngine {
     pub fn get_dns_forwarding(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::GetDnsForwarding {
-        super::builders::vmware_engine::GetDnsForwarding::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::GetDnsForwarding {
+        super::builder::vmware_engine::GetDnsForwarding::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -701,8 +701,8 @@ impl VmwareEngine {
     pub fn update_dns_forwarding(
         &self,
         dns_forwarding: impl Into<crate::model::DnsForwarding>,
-    ) -> super::builders::vmware_engine::UpdateDnsForwarding {
-        super::builders::vmware_engine::UpdateDnsForwarding::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::UpdateDnsForwarding {
+        super::builder::vmware_engine::UpdateDnsForwarding::new(self.inner.clone())
             .set_dns_forwarding(dns_forwarding.into())
     }
 
@@ -713,8 +713,8 @@ impl VmwareEngine {
     pub fn get_network_peering(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::GetNetworkPeering {
-        super::builders::vmware_engine::GetNetworkPeering::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::GetNetworkPeering {
+        super::builder::vmware_engine::GetNetworkPeering::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -723,8 +723,8 @@ impl VmwareEngine {
     pub fn list_network_peerings(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::ListNetworkPeerings {
-        super::builders::vmware_engine::ListNetworkPeerings::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::ListNetworkPeerings {
+        super::builder::vmware_engine::ListNetworkPeerings::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -744,8 +744,8 @@ impl VmwareEngine {
     pub fn create_network_peering(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::CreateNetworkPeering {
-        super::builders::vmware_engine::CreateNetworkPeering::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::CreateNetworkPeering {
+        super::builder::vmware_engine::CreateNetworkPeering::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -766,8 +766,8 @@ impl VmwareEngine {
     pub fn delete_network_peering(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::DeleteNetworkPeering {
-        super::builders::vmware_engine::DeleteNetworkPeering::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::DeleteNetworkPeering {
+        super::builder::vmware_engine::DeleteNetworkPeering::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -787,8 +787,8 @@ impl VmwareEngine {
     pub fn update_network_peering(
         &self,
         network_peering: impl Into<crate::model::NetworkPeering>,
-    ) -> super::builders::vmware_engine::UpdateNetworkPeering {
-        super::builders::vmware_engine::UpdateNetworkPeering::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::UpdateNetworkPeering {
+        super::builder::vmware_engine::UpdateNetworkPeering::new(self.inner.clone())
             .set_network_peering(network_peering.into())
     }
 
@@ -797,8 +797,8 @@ impl VmwareEngine {
     pub fn list_peering_routes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::ListPeeringRoutes {
-        super::builders::vmware_engine::ListPeeringRoutes::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::ListPeeringRoutes {
+        super::builder::vmware_engine::ListPeeringRoutes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -816,8 +816,8 @@ impl VmwareEngine {
     pub fn create_hcx_activation_key(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::CreateHcxActivationKey {
-        super::builders::vmware_engine::CreateHcxActivationKey::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::CreateHcxActivationKey {
+        super::builder::vmware_engine::CreateHcxActivationKey::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -825,8 +825,8 @@ impl VmwareEngine {
     pub fn list_hcx_activation_keys(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::ListHcxActivationKeys {
-        super::builders::vmware_engine::ListHcxActivationKeys::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::ListHcxActivationKeys {
+        super::builder::vmware_engine::ListHcxActivationKeys::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -834,8 +834,8 @@ impl VmwareEngine {
     pub fn get_hcx_activation_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::GetHcxActivationKey {
-        super::builders::vmware_engine::GetHcxActivationKey::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::GetHcxActivationKey {
+        super::builder::vmware_engine::GetHcxActivationKey::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -843,8 +843,8 @@ impl VmwareEngine {
     pub fn get_network_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::GetNetworkPolicy {
-        super::builders::vmware_engine::GetNetworkPolicy::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::GetNetworkPolicy {
+        super::builder::vmware_engine::GetNetworkPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -852,8 +852,8 @@ impl VmwareEngine {
     pub fn list_network_policies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::ListNetworkPolicies {
-        super::builders::vmware_engine::ListNetworkPolicies::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::ListNetworkPolicies {
+        super::builder::vmware_engine::ListNetworkPolicies::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -873,8 +873,8 @@ impl VmwareEngine {
     pub fn create_network_policy(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::CreateNetworkPolicy {
-        super::builders::vmware_engine::CreateNetworkPolicy::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::CreateNetworkPolicy {
+        super::builder::vmware_engine::CreateNetworkPolicy::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -903,8 +903,8 @@ impl VmwareEngine {
     pub fn update_network_policy(
         &self,
         network_policy: impl Into<crate::model::NetworkPolicy>,
-    ) -> super::builders::vmware_engine::UpdateNetworkPolicy {
-        super::builders::vmware_engine::UpdateNetworkPolicy::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::UpdateNetworkPolicy {
+        super::builder::vmware_engine::UpdateNetworkPolicy::new(self.inner.clone())
             .set_network_policy(network_policy.into())
     }
 
@@ -924,8 +924,8 @@ impl VmwareEngine {
     pub fn delete_network_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::DeleteNetworkPolicy {
-        super::builders::vmware_engine::DeleteNetworkPolicy::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::DeleteNetworkPolicy {
+        super::builder::vmware_engine::DeleteNetworkPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -933,8 +933,8 @@ impl VmwareEngine {
     pub fn list_management_dns_zone_bindings(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::ListManagementDnsZoneBindings {
-        super::builders::vmware_engine::ListManagementDnsZoneBindings::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::ListManagementDnsZoneBindings {
+        super::builder::vmware_engine::ListManagementDnsZoneBindings::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -942,8 +942,8 @@ impl VmwareEngine {
     pub fn get_management_dns_zone_binding(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::GetManagementDnsZoneBinding {
-        super::builders::vmware_engine::GetManagementDnsZoneBinding::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::GetManagementDnsZoneBinding {
+        super::builder::vmware_engine::GetManagementDnsZoneBinding::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -967,8 +967,8 @@ impl VmwareEngine {
     pub fn create_management_dns_zone_binding(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::CreateManagementDnsZoneBinding {
-        super::builders::vmware_engine::CreateManagementDnsZoneBinding::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::CreateManagementDnsZoneBinding {
+        super::builder::vmware_engine::CreateManagementDnsZoneBinding::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -987,8 +987,8 @@ impl VmwareEngine {
     pub fn update_management_dns_zone_binding(
         &self,
         management_dns_zone_binding: impl Into<crate::model::ManagementDnsZoneBinding>,
-    ) -> super::builders::vmware_engine::UpdateManagementDnsZoneBinding {
-        super::builders::vmware_engine::UpdateManagementDnsZoneBinding::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::UpdateManagementDnsZoneBinding {
+        super::builder::vmware_engine::UpdateManagementDnsZoneBinding::new(self.inner.clone())
             .set_management_dns_zone_binding(management_dns_zone_binding.into())
     }
 
@@ -1008,8 +1008,8 @@ impl VmwareEngine {
     pub fn delete_management_dns_zone_binding(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::DeleteManagementDnsZoneBinding {
-        super::builders::vmware_engine::DeleteManagementDnsZoneBinding::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::DeleteManagementDnsZoneBinding {
+        super::builder::vmware_engine::DeleteManagementDnsZoneBinding::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1028,8 +1028,8 @@ impl VmwareEngine {
     pub fn repair_management_dns_zone_binding(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::RepairManagementDnsZoneBinding {
-        super::builders::vmware_engine::RepairManagementDnsZoneBinding::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::RepairManagementDnsZoneBinding {
+        super::builder::vmware_engine::RepairManagementDnsZoneBinding::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1047,8 +1047,8 @@ impl VmwareEngine {
     pub fn create_vmware_engine_network(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::CreateVmwareEngineNetwork {
-        super::builders::vmware_engine::CreateVmwareEngineNetwork::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::CreateVmwareEngineNetwork {
+        super::builder::vmware_engine::CreateVmwareEngineNetwork::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1068,8 +1068,8 @@ impl VmwareEngine {
     pub fn update_vmware_engine_network(
         &self,
         vmware_engine_network: impl Into<crate::model::VmwareEngineNetwork>,
-    ) -> super::builders::vmware_engine::UpdateVmwareEngineNetwork {
-        super::builders::vmware_engine::UpdateVmwareEngineNetwork::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::UpdateVmwareEngineNetwork {
+        super::builder::vmware_engine::UpdateVmwareEngineNetwork::new(self.inner.clone())
             .set_vmware_engine_network(vmware_engine_network.into())
     }
 
@@ -1090,8 +1090,8 @@ impl VmwareEngine {
     pub fn delete_vmware_engine_network(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::DeleteVmwareEngineNetwork {
-        super::builders::vmware_engine::DeleteVmwareEngineNetwork::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::DeleteVmwareEngineNetwork {
+        super::builder::vmware_engine::DeleteVmwareEngineNetwork::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1102,8 +1102,8 @@ impl VmwareEngine {
     pub fn get_vmware_engine_network(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::GetVmwareEngineNetwork {
-        super::builders::vmware_engine::GetVmwareEngineNetwork::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::GetVmwareEngineNetwork {
+        super::builder::vmware_engine::GetVmwareEngineNetwork::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1111,8 +1111,8 @@ impl VmwareEngine {
     pub fn list_vmware_engine_networks(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::ListVmwareEngineNetworks {
-        super::builders::vmware_engine::ListVmwareEngineNetworks::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::ListVmwareEngineNetworks {
+        super::builder::vmware_engine::ListVmwareEngineNetworks::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1131,8 +1131,8 @@ impl VmwareEngine {
     pub fn create_private_connection(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::CreatePrivateConnection {
-        super::builders::vmware_engine::CreatePrivateConnection::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::CreatePrivateConnection {
+        super::builder::vmware_engine::CreatePrivateConnection::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1142,8 +1142,8 @@ impl VmwareEngine {
     pub fn get_private_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::GetPrivateConnection {
-        super::builders::vmware_engine::GetPrivateConnection::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::GetPrivateConnection {
+        super::builder::vmware_engine::GetPrivateConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1151,8 +1151,8 @@ impl VmwareEngine {
     pub fn list_private_connections(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::ListPrivateConnections {
-        super::builders::vmware_engine::ListPrivateConnections::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::ListPrivateConnections {
+        super::builder::vmware_engine::ListPrivateConnections::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1172,8 +1172,8 @@ impl VmwareEngine {
     pub fn update_private_connection(
         &self,
         private_connection: impl Into<crate::model::PrivateConnection>,
-    ) -> super::builders::vmware_engine::UpdatePrivateConnection {
-        super::builders::vmware_engine::UpdatePrivateConnection::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::UpdatePrivateConnection {
+        super::builder::vmware_engine::UpdatePrivateConnection::new(self.inner.clone())
             .set_private_connection(private_connection.into())
     }
 
@@ -1193,8 +1193,8 @@ impl VmwareEngine {
     pub fn delete_private_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::DeletePrivateConnection {
-        super::builders::vmware_engine::DeletePrivateConnection::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::DeletePrivateConnection {
+        super::builder::vmware_engine::DeletePrivateConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1202,8 +1202,8 @@ impl VmwareEngine {
     pub fn list_private_connection_peering_routes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::ListPrivateConnectionPeeringRoutes {
-        super::builders::vmware_engine::ListPrivateConnectionPeeringRoutes::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::ListPrivateConnectionPeeringRoutes {
+        super::builder::vmware_engine::ListPrivateConnectionPeeringRoutes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1224,8 +1224,8 @@ impl VmwareEngine {
     pub fn grant_dns_bind_permission(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::GrantDnsBindPermission {
-        super::builders::vmware_engine::GrantDnsBindPermission::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::GrantDnsBindPermission {
+        super::builder::vmware_engine::GrantDnsBindPermission::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1235,8 +1235,8 @@ impl VmwareEngine {
     pub fn get_dns_bind_permission(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::GetDnsBindPermission {
-        super::builders::vmware_engine::GetDnsBindPermission::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::GetDnsBindPermission {
+        super::builder::vmware_engine::GetDnsBindPermission::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1256,8 +1256,8 @@ impl VmwareEngine {
     pub fn revoke_dns_bind_permission(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::RevokeDnsBindPermission {
-        super::builders::vmware_engine::RevokeDnsBindPermission::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::RevokeDnsBindPermission {
+        super::builder::vmware_engine::RevokeDnsBindPermission::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1265,16 +1265,16 @@ impl VmwareEngine {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::ListLocations {
-        super::builders::vmware_engine::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::vmware_engine::ListLocations {
+        super::builder::vmware_engine::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::GetLocation {
-        super::builders::vmware_engine::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::vmware_engine::GetLocation {
+        super::builder::vmware_engine::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -1285,8 +1285,8 @@ impl VmwareEngine {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::SetIamPolicy {
-        super::builders::vmware_engine::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::SetIamPolicy {
+        super::builder::vmware_engine::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1295,8 +1295,8 @@ impl VmwareEngine {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::GetIamPolicy {
-        super::builders::vmware_engine::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::GetIamPolicy {
+        super::builder::vmware_engine::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1310,8 +1310,8 @@ impl VmwareEngine {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::TestIamPermissions {
-        super::builders::vmware_engine::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::TestIamPermissions {
+        super::builder::vmware_engine::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1321,9 +1321,8 @@ impl VmwareEngine {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::ListOperations {
-        super::builders::vmware_engine::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::vmware_engine::ListOperations {
+        super::builder::vmware_engine::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1332,8 +1331,8 @@ impl VmwareEngine {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::GetOperation {
-        super::builders::vmware_engine::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::vmware_engine::GetOperation {
+        super::builder::vmware_engine::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1342,8 +1341,8 @@ impl VmwareEngine {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vmware_engine::DeleteOperation {
-        super::builders::vmware_engine::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::vmware_engine::DeleteOperation {
+        super::builder::vmware_engine::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

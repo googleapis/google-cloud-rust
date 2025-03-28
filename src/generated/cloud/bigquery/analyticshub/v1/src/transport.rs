@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AnalyticsHubService](super::stubs::AnalyticsHubService) using a [gaxi::http::ReqwestClient].
+/// Implements [AnalyticsHubService](super::stub::AnalyticsHubService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct AnalyticsHubService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl AnalyticsHubService {
     }
 }
 
-impl super::stubs::AnalyticsHubService for AnalyticsHubService {
+impl super::stub::AnalyticsHubService for AnalyticsHubService {
     async fn list_data_exchanges(
         &self,
         req: crate::model::ListDataExchangesRequest,

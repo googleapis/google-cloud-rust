@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [LicenseManagementService](super::stubs::LicenseManagementService) using a [gaxi::http::ReqwestClient].
+/// Implements [LicenseManagementService](super::stub::LicenseManagementService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct LicenseManagementService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl LicenseManagementService {
     }
 }
 
-impl super::stubs::LicenseManagementService for LicenseManagementService {
+impl super::stub::LicenseManagementService for LicenseManagementService {
     async fn get_license_pool(
         &self,
         req: crate::model::GetLicensePoolRequest,
@@ -178,7 +178,7 @@ impl super::stubs::LicenseManagementService for LicenseManagementService {
     }
 }
 
-/// Implements [ConsumerProcurementService](super::stubs::ConsumerProcurementService) using a [gaxi::http::ReqwestClient].
+/// Implements [ConsumerProcurementService](super::stub::ConsumerProcurementService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ConsumerProcurementService {
     inner: gaxi::http::ReqwestClient,
@@ -199,7 +199,7 @@ impl ConsumerProcurementService {
     }
 }
 
-impl super::stubs::ConsumerProcurementService for ConsumerProcurementService {
+impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
     async fn place_order(
         &self,
         req: crate::model::PlaceOrderRequest,

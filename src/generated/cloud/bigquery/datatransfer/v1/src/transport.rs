@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DataTransferService](super::stubs::DataTransferService) using a [gaxi::http::ReqwestClient].
+/// Implements [DataTransferService](super::stub::DataTransferService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DataTransferService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl DataTransferService {
     }
 }
 
-impl super::stubs::DataTransferService for DataTransferService {
+impl super::stub::DataTransferService for DataTransferService {
     async fn get_data_source(
         &self,
         req: crate::model::GetDataSourceRequest,

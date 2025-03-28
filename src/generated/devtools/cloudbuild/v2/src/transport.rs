@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [RepositoryManager](super::stubs::RepositoryManager) using a [gaxi::http::ReqwestClient].
+/// Implements [RepositoryManager](super::stub::RepositoryManager) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct RepositoryManager {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl RepositoryManager {
     }
 }
 
-impl super::stubs::RepositoryManager for RepositoryManager {
+impl super::stub::RepositoryManager for RepositoryManager {
     async fn create_connection(
         &self,
         req: crate::model::CreateConnectionRequest,

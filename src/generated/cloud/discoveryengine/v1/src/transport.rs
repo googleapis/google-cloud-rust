@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CompletionService](super::stubs::CompletionService) using a [gaxi::http::ReqwestClient].
+/// Implements [CompletionService](super::stub::CompletionService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CompletionService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl CompletionService {
     }
 }
 
-impl super::stubs::CompletionService for CompletionService {
+impl super::stub::CompletionService for CompletionService {
     async fn complete_query(
         &self,
         req: crate::model::CompleteQueryRequest,
@@ -222,7 +222,7 @@ impl super::stubs::CompletionService for CompletionService {
     }
 }
 
-/// Implements [ControlService](super::stubs::ControlService) using a [gaxi::http::ReqwestClient].
+/// Implements [ControlService](super::stub::ControlService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ControlService {
     inner: gaxi::http::ReqwestClient,
@@ -243,7 +243,7 @@ impl ControlService {
     }
 }
 
-impl super::stubs::ControlService for ControlService {
+impl super::stub::ControlService for ControlService {
     async fn create_control(
         &self,
         req: crate::model::CreateControlRequest,
@@ -428,7 +428,7 @@ impl super::stubs::ControlService for ControlService {
     }
 }
 
-/// Implements [ConversationalSearchService](super::stubs::ConversationalSearchService) using a [gaxi::http::ReqwestClient].
+/// Implements [ConversationalSearchService](super::stub::ConversationalSearchService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ConversationalSearchService {
     inner: gaxi::http::ReqwestClient,
@@ -449,7 +449,7 @@ impl ConversationalSearchService {
     }
 }
 
-impl super::stubs::ConversationalSearchService for ConversationalSearchService {
+impl super::stub::ConversationalSearchService for ConversationalSearchService {
     async fn converse_conversation(
         &self,
         req: crate::model::ConverseConversationRequest,
@@ -815,7 +815,7 @@ impl super::stubs::ConversationalSearchService for ConversationalSearchService {
     }
 }
 
-/// Implements [DataStoreService](super::stubs::DataStoreService) using a [gaxi::http::ReqwestClient].
+/// Implements [DataStoreService](super::stub::DataStoreService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DataStoreService {
     inner: gaxi::http::ReqwestClient,
@@ -836,7 +836,7 @@ impl DataStoreService {
     }
 }
 
-impl super::stubs::DataStoreService for DataStoreService {
+impl super::stub::DataStoreService for DataStoreService {
     async fn create_data_store(
         &self,
         req: crate::model::CreateDataStoreRequest,
@@ -1043,7 +1043,7 @@ impl super::stubs::DataStoreService for DataStoreService {
     }
 }
 
-/// Implements [DocumentService](super::stubs::DocumentService) using a [gaxi::http::ReqwestClient].
+/// Implements [DocumentService](super::stub::DocumentService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DocumentService {
     inner: gaxi::http::ReqwestClient,
@@ -1064,7 +1064,7 @@ impl DocumentService {
     }
 }
 
-impl super::stubs::DocumentService for DocumentService {
+impl super::stub::DocumentService for DocumentService {
     async fn get_document(
         &self,
         req: crate::model::GetDocumentRequest,
@@ -1338,7 +1338,7 @@ impl super::stubs::DocumentService for DocumentService {
     }
 }
 
-/// Implements [EngineService](super::stubs::EngineService) using a [gaxi::http::ReqwestClient].
+/// Implements [EngineService](super::stub::EngineService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct EngineService {
     inner: gaxi::http::ReqwestClient,
@@ -1359,7 +1359,7 @@ impl EngineService {
     }
 }
 
-impl super::stubs::EngineService for EngineService {
+impl super::stub::EngineService for EngineService {
     async fn create_engine(
         &self,
         req: crate::model::CreateEngineRequest,
@@ -1550,7 +1550,7 @@ impl super::stubs::EngineService for EngineService {
     }
 }
 
-/// Implements [GroundedGenerationService](super::stubs::GroundedGenerationService) using a [gaxi::http::ReqwestClient].
+/// Implements [GroundedGenerationService](super::stub::GroundedGenerationService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct GroundedGenerationService {
     inner: gaxi::http::ReqwestClient,
@@ -1571,7 +1571,7 @@ impl GroundedGenerationService {
     }
 }
 
-impl super::stubs::GroundedGenerationService for GroundedGenerationService {
+impl super::stub::GroundedGenerationService for GroundedGenerationService {
     async fn generate_grounded_content(
         &self,
         req: crate::model::GenerateGroundedContentRequest,
@@ -1674,7 +1674,7 @@ impl super::stubs::GroundedGenerationService for GroundedGenerationService {
     }
 }
 
-/// Implements [ProjectService](super::stubs::ProjectService) using a [gaxi::http::ReqwestClient].
+/// Implements [ProjectService](super::stub::ProjectService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ProjectService {
     inner: gaxi::http::ReqwestClient,
@@ -1695,7 +1695,7 @@ impl ProjectService {
     }
 }
 
-impl super::stubs::ProjectService for ProjectService {
+impl super::stub::ProjectService for ProjectService {
     async fn provision_project(
         &self,
         req: crate::model::ProvisionProjectRequest,
@@ -1789,7 +1789,7 @@ impl super::stubs::ProjectService for ProjectService {
     }
 }
 
-/// Implements [RankService](super::stubs::RankService) using a [gaxi::http::ReqwestClient].
+/// Implements [RankService](super::stub::RankService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct RankService {
     inner: gaxi::http::ReqwestClient,
@@ -1810,7 +1810,7 @@ impl RankService {
     }
 }
 
-impl super::stubs::RankService for RankService {
+impl super::stub::RankService for RankService {
     async fn rank(
         &self,
         req: crate::model::RankRequest,
@@ -1893,7 +1893,7 @@ impl super::stubs::RankService for RankService {
     }
 }
 
-/// Implements [RecommendationService](super::stubs::RecommendationService) using a [gaxi::http::ReqwestClient].
+/// Implements [RecommendationService](super::stub::RecommendationService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct RecommendationService {
     inner: gaxi::http::ReqwestClient,
@@ -1914,7 +1914,7 @@ impl RecommendationService {
     }
 }
 
-impl super::stubs::RecommendationService for RecommendationService {
+impl super::stub::RecommendationService for RecommendationService {
     async fn recommend(
         &self,
         req: crate::model::RecommendRequest,
@@ -1997,7 +1997,7 @@ impl super::stubs::RecommendationService for RecommendationService {
     }
 }
 
-/// Implements [SchemaService](super::stubs::SchemaService) using a [gaxi::http::ReqwestClient].
+/// Implements [SchemaService](super::stub::SchemaService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct SchemaService {
     inner: gaxi::http::ReqwestClient,
@@ -2018,7 +2018,7 @@ impl SchemaService {
     }
 }
 
-impl super::stubs::SchemaService for SchemaService {
+impl super::stub::SchemaService for SchemaService {
     async fn get_schema(
         &self,
         req: crate::model::GetSchemaRequest,
@@ -2199,7 +2199,7 @@ impl super::stubs::SchemaService for SchemaService {
     }
 }
 
-/// Implements [SearchService](super::stubs::SearchService) using a [gaxi::http::ReqwestClient].
+/// Implements [SearchService](super::stub::SearchService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct SearchService {
     inner: gaxi::http::ReqwestClient,
@@ -2220,7 +2220,7 @@ impl SearchService {
     }
 }
 
-impl super::stubs::SearchService for SearchService {
+impl super::stub::SearchService for SearchService {
     async fn search(
         &self,
         req: crate::model::SearchRequest,
@@ -2323,7 +2323,7 @@ impl super::stubs::SearchService for SearchService {
     }
 }
 
-/// Implements [SearchTuningService](super::stubs::SearchTuningService) using a [gaxi::http::ReqwestClient].
+/// Implements [SearchTuningService](super::stub::SearchTuningService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct SearchTuningService {
     inner: gaxi::http::ReqwestClient,
@@ -2344,7 +2344,7 @@ impl SearchTuningService {
     }
 }
 
-impl super::stubs::SearchTuningService for SearchTuningService {
+impl super::stub::SearchTuningService for SearchTuningService {
     async fn train_custom_model(
         &self,
         req: crate::model::TrainCustomModelRequest,
@@ -2463,7 +2463,7 @@ impl super::stubs::SearchTuningService for SearchTuningService {
     }
 }
 
-/// Implements [SiteSearchEngineService](super::stubs::SiteSearchEngineService) using a [gaxi::http::ReqwestClient].
+/// Implements [SiteSearchEngineService](super::stub::SiteSearchEngineService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct SiteSearchEngineService {
     inner: gaxi::http::ReqwestClient,
@@ -2484,7 +2484,7 @@ impl SiteSearchEngineService {
     }
 }
 
-impl super::stubs::SiteSearchEngineService for SiteSearchEngineService {
+impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
     async fn get_site_search_engine(
         &self,
         req: crate::model::GetSiteSearchEngineRequest,
@@ -2819,7 +2819,7 @@ impl super::stubs::SiteSearchEngineService for SiteSearchEngineService {
     }
 }
 
-/// Implements [UserEventService](super::stubs::UserEventService) using a [gaxi::http::ReqwestClient].
+/// Implements [UserEventService](super::stub::UserEventService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct UserEventService {
     inner: gaxi::http::ReqwestClient,
@@ -2840,7 +2840,7 @@ impl UserEventService {
     }
 }
 
-impl super::stubs::UserEventService for UserEventService {
+impl super::stub::UserEventService for UserEventService {
     async fn write_user_event(
         &self,
         req: crate::model::WriteUserEventRequest,

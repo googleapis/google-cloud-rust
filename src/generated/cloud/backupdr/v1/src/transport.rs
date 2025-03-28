@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [BackupDR](super::stubs::BackupDR) using a [gaxi::http::ReqwestClient].
+/// Implements [BackupDR](super::stub::BackupDR) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct BackupDR {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl BackupDR {
     }
 }
 
-impl super::stubs::BackupDR for BackupDR {
+impl super::stub::BackupDR for BackupDR {
     async fn list_management_servers(
         &self,
         req: crate::model::ListManagementServersRequest,

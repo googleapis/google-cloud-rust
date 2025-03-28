@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Parallelstore](super::stubs::Parallelstore) using a [gaxi::http::ReqwestClient].
+/// Implements [Parallelstore](super::stub::Parallelstore) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Parallelstore {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl Parallelstore {
     }
 }
 
-impl super::stubs::Parallelstore for Parallelstore {
+impl super::stub::Parallelstore for Parallelstore {
     async fn list_instances(
         &self,
         req: crate::model::ListInstancesRequest,

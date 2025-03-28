@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CloudShellService](super::stubs::CloudShellService) using a [gaxi::http::ReqwestClient].
+/// Implements [CloudShellService](super::stub::CloudShellService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudShellService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl CloudShellService {
     }
 }
 
-impl super::stubs::CloudShellService for CloudShellService {
+impl super::stub::CloudShellService for CloudShellService {
     async fn get_environment(
         &self,
         req: crate::model::GetEnvironmentRequest,

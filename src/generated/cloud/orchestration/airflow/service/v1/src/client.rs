@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Environments {
-    inner: Arc<dyn super::stubs::dynamic::Environments>,
+    inner: Arc<dyn super::stub::dynamic::Environments>,
 }
 
 impl Environments {
@@ -59,7 +59,7 @@ impl Environments {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Environments + 'static,
+        T: super::stub::Environments + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl Environments {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Environments>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Environments>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +77,13 @@ impl Environments {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Environments> {
+    ) -> Result<impl super::stub::Environments> {
         super::transport::Environments::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Environments> {
+    ) -> Result<impl super::stub::Environments> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Environments::new)
@@ -103,8 +103,8 @@ impl Environments {
     pub fn create_environment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::environments::CreateEnvironment {
-        super::builders::environments::CreateEnvironment::new(self.inner.clone())
+    ) -> super::builder::environments::CreateEnvironment {
+        super::builder::environments::CreateEnvironment::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -112,16 +112,16 @@ impl Environments {
     pub fn get_environment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::environments::GetEnvironment {
-        super::builders::environments::GetEnvironment::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::environments::GetEnvironment {
+        super::builder::environments::GetEnvironment::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List environments.
     pub fn list_environments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::environments::ListEnvironments {
-        super::builders::environments::ListEnvironments::new(self.inner.clone())
+    ) -> super::builder::environments::ListEnvironments {
+        super::builder::environments::ListEnvironments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -139,8 +139,8 @@ impl Environments {
     pub fn update_environment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::environments::UpdateEnvironment {
-        super::builders::environments::UpdateEnvironment::new(self.inner.clone())
+    ) -> super::builder::environments::UpdateEnvironment {
+        super::builder::environments::UpdateEnvironment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -158,8 +158,8 @@ impl Environments {
     pub fn delete_environment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::environments::DeleteEnvironment {
-        super::builders::environments::DeleteEnvironment::new(self.inner.clone())
+    ) -> super::builder::environments::DeleteEnvironment {
+        super::builder::environments::DeleteEnvironment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -167,8 +167,8 @@ impl Environments {
     pub fn execute_airflow_command(
         &self,
         environment: impl Into<std::string::String>,
-    ) -> super::builders::environments::ExecuteAirflowCommand {
-        super::builders::environments::ExecuteAirflowCommand::new(self.inner.clone())
+    ) -> super::builder::environments::ExecuteAirflowCommand {
+        super::builder::environments::ExecuteAirflowCommand::new(self.inner.clone())
             .set_environment(environment.into())
     }
 
@@ -176,8 +176,8 @@ impl Environments {
     pub fn stop_airflow_command(
         &self,
         environment: impl Into<std::string::String>,
-    ) -> super::builders::environments::StopAirflowCommand {
-        super::builders::environments::StopAirflowCommand::new(self.inner.clone())
+    ) -> super::builder::environments::StopAirflowCommand {
+        super::builder::environments::StopAirflowCommand::new(self.inner.clone())
             .set_environment(environment.into())
     }
 
@@ -185,8 +185,8 @@ impl Environments {
     pub fn poll_airflow_command(
         &self,
         environment: impl Into<std::string::String>,
-    ) -> super::builders::environments::PollAirflowCommand {
-        super::builders::environments::PollAirflowCommand::new(self.inner.clone())
+    ) -> super::builder::environments::PollAirflowCommand {
+        super::builder::environments::PollAirflowCommand::new(self.inner.clone())
             .set_environment(environment.into())
     }
 
@@ -198,8 +198,8 @@ impl Environments {
     pub fn list_workloads(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::environments::ListWorkloads {
-        super::builders::environments::ListWorkloads::new(self.inner.clone())
+    ) -> super::builder::environments::ListWorkloads {
+        super::builder::environments::ListWorkloads::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -219,8 +219,8 @@ impl Environments {
     pub fn check_upgrade(
         &self,
         environment: impl Into<std::string::String>,
-    ) -> super::builders::environments::CheckUpgrade {
-        super::builders::environments::CheckUpgrade::new(self.inner.clone())
+    ) -> super::builder::environments::CheckUpgrade {
+        super::builder::environments::CheckUpgrade::new(self.inner.clone())
             .set_environment(environment.into())
     }
 
@@ -231,8 +231,8 @@ impl Environments {
     pub fn create_user_workloads_secret(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::environments::CreateUserWorkloadsSecret {
-        super::builders::environments::CreateUserWorkloadsSecret::new(self.inner.clone())
+    ) -> super::builder::environments::CreateUserWorkloadsSecret {
+        super::builder::environments::CreateUserWorkloadsSecret::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -244,8 +244,8 @@ impl Environments {
     pub fn get_user_workloads_secret(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::environments::GetUserWorkloadsSecret {
-        super::builders::environments::GetUserWorkloadsSecret::new(self.inner.clone())
+    ) -> super::builder::environments::GetUserWorkloadsSecret {
+        super::builder::environments::GetUserWorkloadsSecret::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -256,8 +256,8 @@ impl Environments {
     pub fn list_user_workloads_secrets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::environments::ListUserWorkloadsSecrets {
-        super::builders::environments::ListUserWorkloadsSecrets::new(self.inner.clone())
+    ) -> super::builder::environments::ListUserWorkloadsSecrets {
+        super::builder::environments::ListUserWorkloadsSecrets::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -268,8 +268,8 @@ impl Environments {
     pub fn update_user_workloads_secret(
         &self,
         user_workloads_secret: impl Into<crate::model::UserWorkloadsSecret>,
-    ) -> super::builders::environments::UpdateUserWorkloadsSecret {
-        super::builders::environments::UpdateUserWorkloadsSecret::new(self.inner.clone())
+    ) -> super::builder::environments::UpdateUserWorkloadsSecret {
+        super::builder::environments::UpdateUserWorkloadsSecret::new(self.inner.clone())
             .set_user_workloads_secret(user_workloads_secret.into())
     }
 
@@ -280,8 +280,8 @@ impl Environments {
     pub fn delete_user_workloads_secret(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::environments::DeleteUserWorkloadsSecret {
-        super::builders::environments::DeleteUserWorkloadsSecret::new(self.inner.clone())
+    ) -> super::builder::environments::DeleteUserWorkloadsSecret {
+        super::builder::environments::DeleteUserWorkloadsSecret::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -292,8 +292,8 @@ impl Environments {
     pub fn create_user_workloads_config_map(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::environments::CreateUserWorkloadsConfigMap {
-        super::builders::environments::CreateUserWorkloadsConfigMap::new(self.inner.clone())
+    ) -> super::builder::environments::CreateUserWorkloadsConfigMap {
+        super::builder::environments::CreateUserWorkloadsConfigMap::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -304,8 +304,8 @@ impl Environments {
     pub fn get_user_workloads_config_map(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::environments::GetUserWorkloadsConfigMap {
-        super::builders::environments::GetUserWorkloadsConfigMap::new(self.inner.clone())
+    ) -> super::builder::environments::GetUserWorkloadsConfigMap {
+        super::builder::environments::GetUserWorkloadsConfigMap::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -316,8 +316,8 @@ impl Environments {
     pub fn list_user_workloads_config_maps(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::environments::ListUserWorkloadsConfigMaps {
-        super::builders::environments::ListUserWorkloadsConfigMaps::new(self.inner.clone())
+    ) -> super::builder::environments::ListUserWorkloadsConfigMaps {
+        super::builder::environments::ListUserWorkloadsConfigMaps::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -328,8 +328,8 @@ impl Environments {
     pub fn update_user_workloads_config_map(
         &self,
         user_workloads_config_map: impl Into<crate::model::UserWorkloadsConfigMap>,
-    ) -> super::builders::environments::UpdateUserWorkloadsConfigMap {
-        super::builders::environments::UpdateUserWorkloadsConfigMap::new(self.inner.clone())
+    ) -> super::builder::environments::UpdateUserWorkloadsConfigMap {
+        super::builder::environments::UpdateUserWorkloadsConfigMap::new(self.inner.clone())
             .set_user_workloads_config_map(user_workloads_config_map.into())
     }
 
@@ -340,8 +340,8 @@ impl Environments {
     pub fn delete_user_workloads_config_map(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::environments::DeleteUserWorkloadsConfigMap {
-        super::builders::environments::DeleteUserWorkloadsConfigMap::new(self.inner.clone())
+    ) -> super::builder::environments::DeleteUserWorkloadsConfigMap {
+        super::builder::environments::DeleteUserWorkloadsConfigMap::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -362,8 +362,8 @@ impl Environments {
     pub fn save_snapshot(
         &self,
         environment: impl Into<std::string::String>,
-    ) -> super::builders::environments::SaveSnapshot {
-        super::builders::environments::SaveSnapshot::new(self.inner.clone())
+    ) -> super::builder::environments::SaveSnapshot {
+        super::builder::environments::SaveSnapshot::new(self.inner.clone())
             .set_environment(environment.into())
     }
 
@@ -384,8 +384,8 @@ impl Environments {
     pub fn load_snapshot(
         &self,
         environment: impl Into<std::string::String>,
-    ) -> super::builders::environments::LoadSnapshot {
-        super::builders::environments::LoadSnapshot::new(self.inner.clone())
+    ) -> super::builder::environments::LoadSnapshot {
+        super::builder::environments::LoadSnapshot::new(self.inner.clone())
             .set_environment(environment.into())
     }
 
@@ -403,8 +403,8 @@ impl Environments {
     pub fn database_failover(
         &self,
         environment: impl Into<std::string::String>,
-    ) -> super::builders::environments::DatabaseFailover {
-        super::builders::environments::DatabaseFailover::new(self.inner.clone())
+    ) -> super::builder::environments::DatabaseFailover {
+        super::builder::environments::DatabaseFailover::new(self.inner.clone())
             .set_environment(environment.into())
     }
 
@@ -412,8 +412,8 @@ impl Environments {
     pub fn fetch_database_properties(
         &self,
         environment: impl Into<std::string::String>,
-    ) -> super::builders::environments::FetchDatabaseProperties {
-        super::builders::environments::FetchDatabaseProperties::new(self.inner.clone())
+    ) -> super::builder::environments::FetchDatabaseProperties {
+        super::builder::environments::FetchDatabaseProperties::new(self.inner.clone())
             .set_environment(environment.into())
     }
 
@@ -423,8 +423,8 @@ impl Environments {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::environments::ListOperations {
-        super::builders::environments::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::environments::ListOperations {
+        super::builder::environments::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -433,8 +433,8 @@ impl Environments {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::environments::GetOperation {
-        super::builders::environments::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::environments::GetOperation {
+        super::builder::environments::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -443,9 +443,8 @@ impl Environments {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::environments::DeleteOperation {
-        super::builders::environments::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::environments::DeleteOperation {
+        super::builder::environments::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -468,7 +467,7 @@ impl Environments {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ImageVersions {
-    inner: Arc<dyn super::stubs::dynamic::ImageVersions>,
+    inner: Arc<dyn super::stub::dynamic::ImageVersions>,
 }
 
 impl ImageVersions {
@@ -489,7 +488,7 @@ impl ImageVersions {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ImageVersions + 'static,
+        T: super::stub::ImageVersions + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -498,7 +497,7 @@ impl ImageVersions {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ImageVersions>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ImageVersions>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -507,13 +506,13 @@ impl ImageVersions {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ImageVersions> {
+    ) -> Result<impl super::stub::ImageVersions> {
         super::transport::ImageVersions::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ImageVersions> {
+    ) -> Result<impl super::stub::ImageVersions> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ImageVersions::new)
@@ -523,8 +522,8 @@ impl ImageVersions {
     pub fn list_image_versions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::image_versions::ListImageVersions {
-        super::builders::image_versions::ListImageVersions::new(self.inner.clone())
+    ) -> super::builder::image_versions::ListImageVersions {
+        super::builder::image_versions::ListImageVersions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -534,8 +533,8 @@ impl ImageVersions {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::image_versions::ListOperations {
-        super::builders::image_versions::ListOperations::new(self.inner.clone())
+    ) -> super::builder::image_versions::ListOperations {
+        super::builder::image_versions::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -545,8 +544,8 @@ impl ImageVersions {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::image_versions::GetOperation {
-        super::builders::image_versions::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::image_versions::GetOperation {
+        super::builder::image_versions::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -555,8 +554,8 @@ impl ImageVersions {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::image_versions::DeleteOperation {
-        super::builders::image_versions::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::image_versions::DeleteOperation {
+        super::builder::image_versions::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

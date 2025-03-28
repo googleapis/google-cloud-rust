@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ServiceUsage](super::stubs::ServiceUsage) using a [gaxi::http::ReqwestClient].
+/// Implements [ServiceUsage](super::stub::ServiceUsage) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ServiceUsage {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl ServiceUsage {
     }
 }
 
-impl super::stubs::ServiceUsage for ServiceUsage {
+impl super::stub::ServiceUsage for ServiceUsage {
     async fn enable_service(
         &self,
         req: crate::model::EnableServiceRequest,

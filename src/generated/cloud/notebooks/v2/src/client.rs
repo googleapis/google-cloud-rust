@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct NotebookService {
-    inner: Arc<dyn super::stubs::dynamic::NotebookService>,
+    inner: Arc<dyn super::stub::dynamic::NotebookService>,
 }
 
 impl NotebookService {
@@ -59,7 +59,7 @@ impl NotebookService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::NotebookService + 'static,
+        T: super::stub::NotebookService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl NotebookService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::NotebookService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::NotebookService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +77,13 @@ impl NotebookService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::NotebookService> {
+    ) -> Result<impl super::stub::NotebookService> {
         super::transport::NotebookService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::NotebookService> {
+    ) -> Result<impl super::stub::NotebookService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::NotebookService::new)
@@ -93,8 +93,8 @@ impl NotebookService {
     pub fn list_instances(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::ListInstances {
-        super::builders::notebook_service::ListInstances::new(self.inner.clone())
+    ) -> super::builder::notebook_service::ListInstances {
+        super::builder::notebook_service::ListInstances::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,9 +102,8 @@ impl NotebookService {
     pub fn get_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::GetInstance {
-        super::builders::notebook_service::GetInstance::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::notebook_service::GetInstance {
+        super::builder::notebook_service::GetInstance::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Instance in a given project and location.
@@ -121,8 +120,8 @@ impl NotebookService {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::CreateInstance {
-        super::builders::notebook_service::CreateInstance::new(self.inner.clone())
+    ) -> super::builder::notebook_service::CreateInstance {
+        super::builder::notebook_service::CreateInstance::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -140,8 +139,8 @@ impl NotebookService {
     pub fn update_instance(
         &self,
         instance: impl Into<crate::model::Instance>,
-    ) -> super::builders::notebook_service::UpdateInstance {
-        super::builders::notebook_service::UpdateInstance::new(self.inner.clone())
+    ) -> super::builder::notebook_service::UpdateInstance {
+        super::builder::notebook_service::UpdateInstance::new(self.inner.clone())
             .set_instance(instance.into())
     }
 
@@ -159,8 +158,8 @@ impl NotebookService {
     pub fn delete_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::DeleteInstance {
-        super::builders::notebook_service::DeleteInstance::new(self.inner.clone())
+    ) -> super::builder::notebook_service::DeleteInstance {
+        super::builder::notebook_service::DeleteInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -178,8 +177,8 @@ impl NotebookService {
     pub fn start_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::StartInstance {
-        super::builders::notebook_service::StartInstance::new(self.inner.clone())
+    ) -> super::builder::notebook_service::StartInstance {
+        super::builder::notebook_service::StartInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -197,8 +196,8 @@ impl NotebookService {
     pub fn stop_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::StopInstance {
-        super::builders::notebook_service::StopInstance::new(self.inner.clone())
+    ) -> super::builder::notebook_service::StopInstance {
+        super::builder::notebook_service::StopInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -216,8 +215,8 @@ impl NotebookService {
     pub fn reset_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::ResetInstance {
-        super::builders::notebook_service::ResetInstance::new(self.inner.clone())
+    ) -> super::builder::notebook_service::ResetInstance {
+        super::builder::notebook_service::ResetInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -225,8 +224,8 @@ impl NotebookService {
     pub fn check_instance_upgradability(
         &self,
         notebook_instance: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::CheckInstanceUpgradability {
-        super::builders::notebook_service::CheckInstanceUpgradability::new(self.inner.clone())
+    ) -> super::builder::notebook_service::CheckInstanceUpgradability {
+        super::builder::notebook_service::CheckInstanceUpgradability::new(self.inner.clone())
             .set_notebook_instance(notebook_instance.into())
     }
 
@@ -244,8 +243,8 @@ impl NotebookService {
     pub fn upgrade_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::UpgradeInstance {
-        super::builders::notebook_service::UpgradeInstance::new(self.inner.clone())
+    ) -> super::builder::notebook_service::UpgradeInstance {
+        super::builder::notebook_service::UpgradeInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -263,8 +262,8 @@ impl NotebookService {
     pub fn rollback_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::RollbackInstance {
-        super::builders::notebook_service::RollbackInstance::new(self.inner.clone())
+    ) -> super::builder::notebook_service::RollbackInstance {
+        super::builder::notebook_service::RollbackInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -282,8 +281,8 @@ impl NotebookService {
     pub fn diagnose_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::DiagnoseInstance {
-        super::builders::notebook_service::DiagnoseInstance::new(self.inner.clone())
+    ) -> super::builder::notebook_service::DiagnoseInstance {
+        super::builder::notebook_service::DiagnoseInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -291,8 +290,8 @@ impl NotebookService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::ListLocations {
-        super::builders::notebook_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::notebook_service::ListLocations {
+        super::builder::notebook_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -300,9 +299,8 @@ impl NotebookService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::GetLocation {
-        super::builders::notebook_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::notebook_service::GetLocation {
+        super::builder::notebook_service::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -313,8 +311,8 @@ impl NotebookService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::SetIamPolicy {
-        super::builders::notebook_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::notebook_service::SetIamPolicy {
+        super::builder::notebook_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -323,8 +321,8 @@ impl NotebookService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::GetIamPolicy {
-        super::builders::notebook_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::notebook_service::GetIamPolicy {
+        super::builder::notebook_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -338,8 +336,8 @@ impl NotebookService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::TestIamPermissions {
-        super::builders::notebook_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::notebook_service::TestIamPermissions {
+        super::builder::notebook_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -349,8 +347,8 @@ impl NotebookService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::ListOperations {
-        super::builders::notebook_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::notebook_service::ListOperations {
+        super::builder::notebook_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -360,8 +358,8 @@ impl NotebookService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::GetOperation {
-        super::builders::notebook_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::notebook_service::GetOperation {
+        super::builder::notebook_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -371,8 +369,8 @@ impl NotebookService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::DeleteOperation {
-        super::builders::notebook_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::notebook_service::DeleteOperation {
+        super::builder::notebook_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -382,8 +380,8 @@ impl NotebookService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notebook_service::CancelOperation {
-        super::builders::notebook_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::notebook_service::CancelOperation {
+        super::builder::notebook_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

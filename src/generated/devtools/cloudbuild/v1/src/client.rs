@@ -45,7 +45,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CloudBuild {
-    inner: Arc<dyn super::stubs::dynamic::CloudBuild>,
+    inner: Arc<dyn super::stub::dynamic::CloudBuild>,
 }
 
 impl CloudBuild {
@@ -66,7 +66,7 @@ impl CloudBuild {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::CloudBuild + 'static,
+        T: super::stub::CloudBuild + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -75,7 +75,7 @@ impl CloudBuild {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::CloudBuild>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::CloudBuild>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -84,13 +84,13 @@ impl CloudBuild {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CloudBuild> {
+    ) -> Result<impl super::stub::CloudBuild> {
         super::transport::CloudBuild::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CloudBuild> {
+    ) -> Result<impl super::stub::CloudBuild> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CloudBuild::new)
@@ -114,8 +114,8 @@ impl CloudBuild {
     pub fn create_build(
         &self,
         project_id: impl Into<std::string::String>,
-    ) -> super::builders::cloud_build::CreateBuild {
-        super::builders::cloud_build::CreateBuild::new(self.inner.clone())
+    ) -> super::builder::cloud_build::CreateBuild {
+        super::builder::cloud_build::CreateBuild::new(self.inner.clone())
             .set_project_id(project_id.into())
     }
 
@@ -127,8 +127,8 @@ impl CloudBuild {
         &self,
         project_id: impl Into<std::string::String>,
         id: impl Into<std::string::String>,
-    ) -> super::builders::cloud_build::GetBuild {
-        super::builders::cloud_build::GetBuild::new(self.inner.clone())
+    ) -> super::builder::cloud_build::GetBuild {
+        super::builder::cloud_build::GetBuild::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_id(id.into())
     }
@@ -140,8 +140,8 @@ impl CloudBuild {
     pub fn list_builds(
         &self,
         project_id: impl Into<std::string::String>,
-    ) -> super::builders::cloud_build::ListBuilds {
-        super::builders::cloud_build::ListBuilds::new(self.inner.clone())
+    ) -> super::builder::cloud_build::ListBuilds {
+        super::builder::cloud_build::ListBuilds::new(self.inner.clone())
             .set_project_id(project_id.into())
     }
 
@@ -150,8 +150,8 @@ impl CloudBuild {
         &self,
         project_id: impl Into<std::string::String>,
         id: impl Into<std::string::String>,
-    ) -> super::builders::cloud_build::CancelBuild {
-        super::builders::cloud_build::CancelBuild::new(self.inner.clone())
+    ) -> super::builder::cloud_build::CancelBuild {
+        super::builder::cloud_build::CancelBuild::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_id(id.into())
     }
@@ -197,8 +197,8 @@ impl CloudBuild {
         &self,
         project_id: impl Into<std::string::String>,
         id: impl Into<std::string::String>,
-    ) -> super::builders::cloud_build::RetryBuild {
-        super::builders::cloud_build::RetryBuild::new(self.inner.clone())
+    ) -> super::builder::cloud_build::RetryBuild {
+        super::builder::cloud_build::RetryBuild::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_id(id.into())
     }
@@ -222,8 +222,8 @@ impl CloudBuild {
     pub fn approve_build(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_build::ApproveBuild {
-        super::builders::cloud_build::ApproveBuild::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::cloud_build::ApproveBuild {
+        super::builder::cloud_build::ApproveBuild::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new `BuildTrigger`.
@@ -232,8 +232,8 @@ impl CloudBuild {
     pub fn create_build_trigger(
         &self,
         project_id: impl Into<std::string::String>,
-    ) -> super::builders::cloud_build::CreateBuildTrigger {
-        super::builders::cloud_build::CreateBuildTrigger::new(self.inner.clone())
+    ) -> super::builder::cloud_build::CreateBuildTrigger {
+        super::builder::cloud_build::CreateBuildTrigger::new(self.inner.clone())
             .set_project_id(project_id.into())
     }
 
@@ -244,8 +244,8 @@ impl CloudBuild {
         &self,
         project_id: impl Into<std::string::String>,
         trigger_id: impl Into<std::string::String>,
-    ) -> super::builders::cloud_build::GetBuildTrigger {
-        super::builders::cloud_build::GetBuildTrigger::new(self.inner.clone())
+    ) -> super::builder::cloud_build::GetBuildTrigger {
+        super::builder::cloud_build::GetBuildTrigger::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_trigger_id(trigger_id.into())
     }
@@ -256,8 +256,8 @@ impl CloudBuild {
     pub fn list_build_triggers(
         &self,
         project_id: impl Into<std::string::String>,
-    ) -> super::builders::cloud_build::ListBuildTriggers {
-        super::builders::cloud_build::ListBuildTriggers::new(self.inner.clone())
+    ) -> super::builder::cloud_build::ListBuildTriggers {
+        super::builder::cloud_build::ListBuildTriggers::new(self.inner.clone())
             .set_project_id(project_id.into())
     }
 
@@ -268,8 +268,8 @@ impl CloudBuild {
         &self,
         project_id: impl Into<std::string::String>,
         trigger_id: impl Into<std::string::String>,
-    ) -> super::builders::cloud_build::DeleteBuildTrigger {
-        super::builders::cloud_build::DeleteBuildTrigger::new(self.inner.clone())
+    ) -> super::builder::cloud_build::DeleteBuildTrigger {
+        super::builder::cloud_build::DeleteBuildTrigger::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_trigger_id(trigger_id.into())
     }
@@ -281,8 +281,8 @@ impl CloudBuild {
         &self,
         project_id: impl Into<std::string::String>,
         trigger_id: impl Into<std::string::String>,
-    ) -> super::builders::cloud_build::UpdateBuildTrigger {
-        super::builders::cloud_build::UpdateBuildTrigger::new(self.inner.clone())
+    ) -> super::builder::cloud_build::UpdateBuildTrigger {
+        super::builder::cloud_build::UpdateBuildTrigger::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_trigger_id(trigger_id.into())
     }
@@ -308,8 +308,8 @@ impl CloudBuild {
         &self,
         project_id: impl Into<std::string::String>,
         trigger_id: impl Into<std::string::String>,
-    ) -> super::builders::cloud_build::RunBuildTrigger {
-        super::builders::cloud_build::RunBuildTrigger::new(self.inner.clone())
+    ) -> super::builder::cloud_build::RunBuildTrigger {
+        super::builder::cloud_build::RunBuildTrigger::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_trigger_id(trigger_id.into())
     }
@@ -320,8 +320,8 @@ impl CloudBuild {
         &self,
         project_id: impl Into<std::string::String>,
         trigger: impl Into<std::string::String>,
-    ) -> super::builders::cloud_build::ReceiveTriggerWebhook {
-        super::builders::cloud_build::ReceiveTriggerWebhook::new(self.inner.clone())
+    ) -> super::builder::cloud_build::ReceiveTriggerWebhook {
+        super::builder::cloud_build::ReceiveTriggerWebhook::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_trigger(trigger.into())
     }
@@ -340,8 +340,8 @@ impl CloudBuild {
     pub fn create_worker_pool(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_build::CreateWorkerPool {
-        super::builders::cloud_build::CreateWorkerPool::new(self.inner.clone())
+    ) -> super::builder::cloud_build::CreateWorkerPool {
+        super::builder::cloud_build::CreateWorkerPool::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -349,8 +349,8 @@ impl CloudBuild {
     pub fn get_worker_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_build::GetWorkerPool {
-        super::builders::cloud_build::GetWorkerPool::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::cloud_build::GetWorkerPool {
+        super::builder::cloud_build::GetWorkerPool::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes a `WorkerPool`.
@@ -367,9 +367,8 @@ impl CloudBuild {
     pub fn delete_worker_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_build::DeleteWorkerPool {
-        super::builders::cloud_build::DeleteWorkerPool::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::cloud_build::DeleteWorkerPool {
+        super::builder::cloud_build::DeleteWorkerPool::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates a `WorkerPool`.
@@ -386,8 +385,8 @@ impl CloudBuild {
     pub fn update_worker_pool(
         &self,
         worker_pool: impl Into<crate::model::WorkerPool>,
-    ) -> super::builders::cloud_build::UpdateWorkerPool {
-        super::builders::cloud_build::UpdateWorkerPool::new(self.inner.clone())
+    ) -> super::builder::cloud_build::UpdateWorkerPool {
+        super::builder::cloud_build::UpdateWorkerPool::new(self.inner.clone())
             .set_worker_pool(worker_pool.into())
     }
 
@@ -395,8 +394,8 @@ impl CloudBuild {
     pub fn list_worker_pools(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_build::ListWorkerPools {
-        super::builders::cloud_build::ListWorkerPools::new(self.inner.clone())
+    ) -> super::builder::cloud_build::ListWorkerPools {
+        super::builder::cloud_build::ListWorkerPools::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -406,8 +405,8 @@ impl CloudBuild {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_build::GetOperation {
-        super::builders::cloud_build::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::cloud_build::GetOperation {
+        super::builder::cloud_build::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -416,7 +415,7 @@ impl CloudBuild {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_build::CancelOperation {
-        super::builders::cloud_build::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::cloud_build::CancelOperation {
+        super::builder::cloud_build::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

@@ -36,7 +36,7 @@ mod info {
     }
 }
 
-/// Implements [Firestore](super::stubs::Firestore) using a Tonic-generated client.
+/// Implements [Firestore](super::stub::Firestore) using a Tonic-generated client.
 #[derive(Clone)]
 pub struct Firestore {
     inner: tonic::client::Grpc<tonic::transport::Channel>,
@@ -276,7 +276,7 @@ impl Firestore {
     }
 }
 
-impl super::stubs::Firestore for Firestore {
+impl super::stub::Firestore for Firestore {
     async fn get_document(
         &self,
         req: crate::model::GetDocumentRequest,

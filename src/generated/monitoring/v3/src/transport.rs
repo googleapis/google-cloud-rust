@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AlertPolicyService](super::stubs::AlertPolicyService) using a [gaxi::http::ReqwestClient].
+/// Implements [AlertPolicyService](super::stub::AlertPolicyService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct AlertPolicyService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl AlertPolicyService {
     }
 }
 
-impl super::stubs::AlertPolicyService for AlertPolicyService {
+impl super::stub::AlertPolicyService for AlertPolicyService {
     async fn list_alert_policies(
         &self,
         req: crate::model::ListAlertPoliciesRequest,
@@ -166,7 +166,7 @@ impl super::stubs::AlertPolicyService for AlertPolicyService {
     }
 }
 
-/// Implements [GroupService](super::stubs::GroupService) using a [gaxi::http::ReqwestClient].
+/// Implements [GroupService](super::stub::GroupService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct GroupService {
     inner: gaxi::http::ReqwestClient,
@@ -187,7 +187,7 @@ impl GroupService {
     }
 }
 
-impl super::stubs::GroupService for GroupService {
+impl super::stub::GroupService for GroupService {
     async fn list_groups(
         &self,
         req: crate::model::ListGroupsRequest,
@@ -345,7 +345,7 @@ impl super::stubs::GroupService for GroupService {
     }
 }
 
-/// Implements [MetricService](super::stubs::MetricService) using a [gaxi::http::ReqwestClient].
+/// Implements [MetricService](super::stub::MetricService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct MetricService {
     inner: gaxi::http::ReqwestClient,
@@ -366,7 +366,7 @@ impl MetricService {
     }
 }
 
-impl super::stubs::MetricService for MetricService {
+impl super::stub::MetricService for MetricService {
     async fn list_monitored_resource_descriptors(
         &self,
         req: crate::model::ListMonitoredResourceDescriptorsRequest,
@@ -599,7 +599,7 @@ impl super::stubs::MetricService for MetricService {
     }
 }
 
-/// Implements [NotificationChannelService](super::stubs::NotificationChannelService) using a [gaxi::http::ReqwestClient].
+/// Implements [NotificationChannelService](super::stub::NotificationChannelService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct NotificationChannelService {
     inner: gaxi::http::ReqwestClient,
@@ -620,7 +620,7 @@ impl NotificationChannelService {
     }
 }
 
-impl super::stubs::NotificationChannelService for NotificationChannelService {
+impl super::stub::NotificationChannelService for NotificationChannelService {
     async fn list_notification_channel_descriptors(
         &self,
         req: crate::model::ListNotificationChannelDescriptorsRequest,
@@ -851,7 +851,7 @@ impl super::stubs::NotificationChannelService for NotificationChannelService {
     }
 }
 
-/// Implements [QueryService](super::stubs::QueryService) using a [gaxi::http::ReqwestClient].
+/// Implements [QueryService](super::stub::QueryService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct QueryService {
     inner: gaxi::http::ReqwestClient,
@@ -872,7 +872,7 @@ impl QueryService {
     }
 }
 
-impl super::stubs::QueryService for QueryService {
+impl super::stub::QueryService for QueryService {
     async fn query_time_series(
         &self,
         req: crate::model::QueryTimeSeriesRequest,
@@ -894,7 +894,7 @@ impl super::stubs::QueryService for QueryService {
     }
 }
 
-/// Implements [ServiceMonitoringService](super::stubs::ServiceMonitoringService) using a [gaxi::http::ReqwestClient].
+/// Implements [ServiceMonitoringService](super::stub::ServiceMonitoringService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ServiceMonitoringService {
     inner: gaxi::http::ReqwestClient,
@@ -915,7 +915,7 @@ impl ServiceMonitoringService {
     }
 }
 
-impl super::stubs::ServiceMonitoringService for ServiceMonitoringService {
+impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
     async fn create_service(
         &self,
         req: crate::model::CreateServiceRequest,
@@ -1167,7 +1167,7 @@ impl super::stubs::ServiceMonitoringService for ServiceMonitoringService {
     }
 }
 
-/// Implements [SnoozeService](super::stubs::SnoozeService) using a [gaxi::http::ReqwestClient].
+/// Implements [SnoozeService](super::stub::SnoozeService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct SnoozeService {
     inner: gaxi::http::ReqwestClient,
@@ -1188,7 +1188,7 @@ impl SnoozeService {
     }
 }
 
-impl super::stubs::SnoozeService for SnoozeService {
+impl super::stub::SnoozeService for SnoozeService {
     async fn create_snooze(
         &self,
         req: crate::model::CreateSnoozeRequest,
@@ -1284,7 +1284,7 @@ impl super::stubs::SnoozeService for SnoozeService {
     }
 }
 
-/// Implements [UptimeCheckService](super::stubs::UptimeCheckService) using a [gaxi::http::ReqwestClient].
+/// Implements [UptimeCheckService](super::stub::UptimeCheckService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct UptimeCheckService {
     inner: gaxi::http::ReqwestClient,
@@ -1305,7 +1305,7 @@ impl UptimeCheckService {
     }
 }
 
-impl super::stubs::UptimeCheckService for UptimeCheckService {
+impl super::stub::UptimeCheckService for UptimeCheckService {
     async fn list_uptime_check_configs(
         &self,
         req: crate::model::ListUptimeCheckConfigsRequest,

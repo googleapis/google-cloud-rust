@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Iam](super::stubs::Iam) using a [gaxi::http::ReqwestClient].
+/// Implements [Iam](super::stub::Iam) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Iam {
     inner: gaxi::http::ReqwestClient,
@@ -37,7 +37,7 @@ impl Iam {
     }
 }
 
-impl super::stubs::Iam for Iam {
+impl super::stub::Iam for Iam {
     async fn list_service_accounts(
         &self,
         req: crate::model::ListServiceAccountsRequest,

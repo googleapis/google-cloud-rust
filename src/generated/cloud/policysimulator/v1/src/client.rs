@@ -51,7 +51,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Simulator {
-    inner: Arc<dyn super::stubs::dynamic::Simulator>,
+    inner: Arc<dyn super::stub::dynamic::Simulator>,
 }
 
 impl Simulator {
@@ -72,7 +72,7 @@ impl Simulator {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Simulator + 'static,
+        T: super::stub::Simulator + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -81,7 +81,7 @@ impl Simulator {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Simulator>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Simulator>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -90,13 +90,13 @@ impl Simulator {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Simulator> {
+    ) -> Result<impl super::stub::Simulator> {
         super::transport::Simulator::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Simulator> {
+    ) -> Result<impl super::stub::Simulator> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Simulator::new)
@@ -109,8 +109,8 @@ impl Simulator {
     pub fn get_replay(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::simulator::GetReplay {
-        super::builders::simulator::GetReplay::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::simulator::GetReplay {
+        super::builder::simulator::GetReplay::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates and starts a [Replay][google.cloud.policysimulator.v1.Replay] using
@@ -131,8 +131,8 @@ impl Simulator {
     pub fn create_replay(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::simulator::CreateReplay {
-        super::builders::simulator::CreateReplay::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::simulator::CreateReplay {
+        super::builder::simulator::CreateReplay::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Lists the results of running a
@@ -142,8 +142,8 @@ impl Simulator {
     pub fn list_replay_results(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::simulator::ListReplayResults {
-        super::builders::simulator::ListReplayResults::new(self.inner.clone())
+    ) -> super::builder::simulator::ListReplayResults {
+        super::builder::simulator::ListReplayResults::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -153,8 +153,8 @@ impl Simulator {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::simulator::ListOperations {
-        super::builders::simulator::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::simulator::ListOperations {
+        super::builder::simulator::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -163,7 +163,7 @@ impl Simulator {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::simulator::GetOperation {
-        super::builders::simulator::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::simulator::GetOperation {
+        super::builder::simulator::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DepService](super::stubs::DepService) using a [gaxi::http::ReqwestClient].
+/// Implements [DepService](super::stub::DepService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DepService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl DepService {
     }
 }
 
-impl super::stubs::DepService for DepService {
+impl super::stub::DepService for DepService {
     async fn list_lb_traffic_extensions(
         &self,
         req: crate::model::ListLbTrafficExtensionsRequest,
@@ -505,7 +505,7 @@ impl super::stubs::DepService for DepService {
     }
 }
 
-/// Implements [NetworkServices](super::stubs::NetworkServices) using a [gaxi::http::ReqwestClient].
+/// Implements [NetworkServices](super::stub::NetworkServices) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct NetworkServices {
     inner: gaxi::http::ReqwestClient,
@@ -526,7 +526,7 @@ impl NetworkServices {
     }
 }
 
-impl super::stubs::NetworkServices for NetworkServices {
+impl super::stub::NetworkServices for NetworkServices {
     async fn list_endpoint_policies(
         &self,
         req: crate::model::ListEndpointPoliciesRequest,

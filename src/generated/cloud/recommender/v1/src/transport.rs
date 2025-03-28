@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Recommender](super::stubs::Recommender) using a [gaxi::http::ReqwestClient].
+/// Implements [Recommender](super::stub::Recommender) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Recommender {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl Recommender {
     }
 }
 
-impl super::stubs::Recommender for Recommender {
+impl super::stub::Recommender for Recommender {
     async fn list_insights(
         &self,
         req: crate::model::ListInsightsRequest,

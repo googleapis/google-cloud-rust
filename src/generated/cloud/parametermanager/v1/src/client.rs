@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ParameterManager {
-    inner: Arc<dyn super::stubs::dynamic::ParameterManager>,
+    inner: Arc<dyn super::stub::dynamic::ParameterManager>,
 }
 
 impl ParameterManager {
@@ -59,7 +59,7 @@ impl ParameterManager {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ParameterManager + 'static,
+        T: super::stub::ParameterManager + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl ParameterManager {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ParameterManager>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ParameterManager>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +77,13 @@ impl ParameterManager {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ParameterManager> {
+    ) -> Result<impl super::stub::ParameterManager> {
         super::transport::ParameterManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ParameterManager> {
+    ) -> Result<impl super::stub::ParameterManager> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ParameterManager::new)
@@ -93,8 +93,8 @@ impl ParameterManager {
     pub fn list_parameters(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::parameter_manager::ListParameters {
-        super::builders::parameter_manager::ListParameters::new(self.inner.clone())
+    ) -> super::builder::parameter_manager::ListParameters {
+        super::builder::parameter_manager::ListParameters::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,8 +102,8 @@ impl ParameterManager {
     pub fn get_parameter(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::parameter_manager::GetParameter {
-        super::builders::parameter_manager::GetParameter::new(self.inner.clone())
+    ) -> super::builder::parameter_manager::GetParameter {
+        super::builder::parameter_manager::GetParameter::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -111,8 +111,8 @@ impl ParameterManager {
     pub fn create_parameter(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::parameter_manager::CreateParameter {
-        super::builders::parameter_manager::CreateParameter::new(self.inner.clone())
+    ) -> super::builder::parameter_manager::CreateParameter {
+        super::builder::parameter_manager::CreateParameter::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -120,8 +120,8 @@ impl ParameterManager {
     pub fn update_parameter(
         &self,
         parameter: impl Into<crate::model::Parameter>,
-    ) -> super::builders::parameter_manager::UpdateParameter {
-        super::builders::parameter_manager::UpdateParameter::new(self.inner.clone())
+    ) -> super::builder::parameter_manager::UpdateParameter {
+        super::builder::parameter_manager::UpdateParameter::new(self.inner.clone())
             .set_parameter(parameter.into())
     }
 
@@ -129,8 +129,8 @@ impl ParameterManager {
     pub fn delete_parameter(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::parameter_manager::DeleteParameter {
-        super::builders::parameter_manager::DeleteParameter::new(self.inner.clone())
+    ) -> super::builder::parameter_manager::DeleteParameter {
+        super::builder::parameter_manager::DeleteParameter::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -138,8 +138,8 @@ impl ParameterManager {
     pub fn list_parameter_versions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::parameter_manager::ListParameterVersions {
-        super::builders::parameter_manager::ListParameterVersions::new(self.inner.clone())
+    ) -> super::builder::parameter_manager::ListParameterVersions {
+        super::builder::parameter_manager::ListParameterVersions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -147,8 +147,8 @@ impl ParameterManager {
     pub fn get_parameter_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::parameter_manager::GetParameterVersion {
-        super::builders::parameter_manager::GetParameterVersion::new(self.inner.clone())
+    ) -> super::builder::parameter_manager::GetParameterVersion {
+        super::builder::parameter_manager::GetParameterVersion::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -156,8 +156,8 @@ impl ParameterManager {
     pub fn render_parameter_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::parameter_manager::RenderParameterVersion {
-        super::builders::parameter_manager::RenderParameterVersion::new(self.inner.clone())
+    ) -> super::builder::parameter_manager::RenderParameterVersion {
+        super::builder::parameter_manager::RenderParameterVersion::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -165,8 +165,8 @@ impl ParameterManager {
     pub fn create_parameter_version(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::parameter_manager::CreateParameterVersion {
-        super::builders::parameter_manager::CreateParameterVersion::new(self.inner.clone())
+    ) -> super::builder::parameter_manager::CreateParameterVersion {
+        super::builder::parameter_manager::CreateParameterVersion::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -174,8 +174,8 @@ impl ParameterManager {
     pub fn update_parameter_version(
         &self,
         parameter_version: impl Into<crate::model::ParameterVersion>,
-    ) -> super::builders::parameter_manager::UpdateParameterVersion {
-        super::builders::parameter_manager::UpdateParameterVersion::new(self.inner.clone())
+    ) -> super::builder::parameter_manager::UpdateParameterVersion {
+        super::builder::parameter_manager::UpdateParameterVersion::new(self.inner.clone())
             .set_parameter_version(parameter_version.into())
     }
 
@@ -183,8 +183,8 @@ impl ParameterManager {
     pub fn delete_parameter_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::parameter_manager::DeleteParameterVersion {
-        super::builders::parameter_manager::DeleteParameterVersion::new(self.inner.clone())
+    ) -> super::builder::parameter_manager::DeleteParameterVersion {
+        super::builder::parameter_manager::DeleteParameterVersion::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -192,8 +192,8 @@ impl ParameterManager {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::parameter_manager::ListLocations {
-        super::builders::parameter_manager::ListLocations::new(self.inner.clone())
+    ) -> super::builder::parameter_manager::ListLocations {
+        super::builder::parameter_manager::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -201,8 +201,8 @@ impl ParameterManager {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::parameter_manager::GetLocation {
-        super::builders::parameter_manager::GetLocation::new(self.inner.clone())
+    ) -> super::builder::parameter_manager::GetLocation {
+        super::builder::parameter_manager::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

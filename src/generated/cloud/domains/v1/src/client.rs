@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Domains {
-    inner: Arc<dyn super::stubs::dynamic::Domains>,
+    inner: Arc<dyn super::stub::dynamic::Domains>,
 }
 
 impl Domains {
@@ -59,7 +59,7 @@ impl Domains {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Domains + 'static,
+        T: super::stub::Domains + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl Domains {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Domains>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Domains>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +77,13 @@ impl Domains {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Domains> {
+    ) -> Result<impl super::stub::Domains> {
         super::transport::Domains::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Domains> {
+    ) -> Result<impl super::stub::Domains> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Domains::new)
@@ -97,8 +97,8 @@ impl Domains {
     pub fn search_domains(
         &self,
         location: impl Into<std::string::String>,
-    ) -> super::builders::domains::SearchDomains {
-        super::builders::domains::SearchDomains::new(self.inner.clone())
+    ) -> super::builder::domains::SearchDomains {
+        super::builder::domains::SearchDomains::new(self.inner.clone())
             .set_location(location.into())
     }
 
@@ -107,8 +107,8 @@ impl Domains {
     pub fn retrieve_register_parameters(
         &self,
         location: impl Into<std::string::String>,
-    ) -> super::builders::domains::RetrieveRegisterParameters {
-        super::builders::domains::RetrieveRegisterParameters::new(self.inner.clone())
+    ) -> super::builder::domains::RetrieveRegisterParameters {
+        super::builder::domains::RetrieveRegisterParameters::new(self.inner.clone())
             .set_location(location.into())
     }
 
@@ -138,8 +138,8 @@ impl Domains {
     pub fn register_domain(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::domains::RegisterDomain {
-        super::builders::domains::RegisterDomain::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::domains::RegisterDomain {
+        super::builder::domains::RegisterDomain::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets parameters needed to transfer a domain name from another registrar to
@@ -150,8 +150,8 @@ impl Domains {
     pub fn retrieve_transfer_parameters(
         &self,
         location: impl Into<std::string::String>,
-    ) -> super::builders::domains::RetrieveTransferParameters {
-        super::builders::domains::RetrieveTransferParameters::new(self.inner.clone())
+    ) -> super::builder::domains::RetrieveTransferParameters {
+        super::builder::domains::RetrieveTransferParameters::new(self.inner.clone())
             .set_location(location.into())
     }
 
@@ -188,16 +188,16 @@ impl Domains {
     pub fn transfer_domain(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::domains::TransferDomain {
-        super::builders::domains::TransferDomain::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::domains::TransferDomain {
+        super::builder::domains::TransferDomain::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Lists the `Registration` resources in a project.
     pub fn list_registrations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::domains::ListRegistrations {
-        super::builders::domains::ListRegistrations::new(self.inner.clone())
+    ) -> super::builder::domains::ListRegistrations {
+        super::builder::domains::ListRegistrations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -205,8 +205,8 @@ impl Domains {
     pub fn get_registration(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::domains::GetRegistration {
-        super::builders::domains::GetRegistration::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::domains::GetRegistration {
+        super::builder::domains::GetRegistration::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates select fields of a `Registration` resource, notably `labels`. To
@@ -228,8 +228,8 @@ impl Domains {
     pub fn update_registration(
         &self,
         registration: impl Into<crate::model::Registration>,
-    ) -> super::builders::domains::UpdateRegistration {
-        super::builders::domains::UpdateRegistration::new(self.inner.clone())
+    ) -> super::builder::domains::UpdateRegistration {
+        super::builder::domains::UpdateRegistration::new(self.inner.clone())
             .set_registration(registration.into())
     }
 
@@ -247,8 +247,8 @@ impl Domains {
     pub fn configure_management_settings(
         &self,
         registration: impl Into<std::string::String>,
-    ) -> super::builders::domains::ConfigureManagementSettings {
-        super::builders::domains::ConfigureManagementSettings::new(self.inner.clone())
+    ) -> super::builder::domains::ConfigureManagementSettings {
+        super::builder::domains::ConfigureManagementSettings::new(self.inner.clone())
             .set_registration(registration.into())
     }
 
@@ -266,8 +266,8 @@ impl Domains {
     pub fn configure_dns_settings(
         &self,
         registration: impl Into<std::string::String>,
-    ) -> super::builders::domains::ConfigureDnsSettings {
-        super::builders::domains::ConfigureDnsSettings::new(self.inner.clone())
+    ) -> super::builder::domains::ConfigureDnsSettings {
+        super::builder::domains::ConfigureDnsSettings::new(self.inner.clone())
             .set_registration(registration.into())
     }
 
@@ -286,8 +286,8 @@ impl Domains {
     pub fn configure_contact_settings(
         &self,
         registration: impl Into<std::string::String>,
-    ) -> super::builders::domains::ConfigureContactSettings {
-        super::builders::domains::ConfigureContactSettings::new(self.inner.clone())
+    ) -> super::builder::domains::ConfigureContactSettings {
+        super::builder::domains::ConfigureContactSettings::new(self.inner.clone())
             .set_registration(registration.into())
     }
 
@@ -313,8 +313,8 @@ impl Domains {
     pub fn export_registration(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::domains::ExportRegistration {
-        super::builders::domains::ExportRegistration::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::domains::ExportRegistration {
+        super::builder::domains::ExportRegistration::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes a `Registration` resource.
@@ -349,8 +349,8 @@ impl Domains {
     pub fn delete_registration(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::domains::DeleteRegistration {
-        super::builders::domains::DeleteRegistration::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::domains::DeleteRegistration {
+        super::builder::domains::DeleteRegistration::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets the authorization code of the `Registration` for the purpose of
@@ -361,8 +361,8 @@ impl Domains {
     pub fn retrieve_authorization_code(
         &self,
         registration: impl Into<std::string::String>,
-    ) -> super::builders::domains::RetrieveAuthorizationCode {
-        super::builders::domains::RetrieveAuthorizationCode::new(self.inner.clone())
+    ) -> super::builder::domains::RetrieveAuthorizationCode {
+        super::builder::domains::RetrieveAuthorizationCode::new(self.inner.clone())
             .set_registration(registration.into())
     }
 
@@ -373,8 +373,8 @@ impl Domains {
     pub fn reset_authorization_code(
         &self,
         registration: impl Into<std::string::String>,
-    ) -> super::builders::domains::ResetAuthorizationCode {
-        super::builders::domains::ResetAuthorizationCode::new(self.inner.clone())
+    ) -> super::builder::domains::ResetAuthorizationCode {
+        super::builder::domains::ResetAuthorizationCode::new(self.inner.clone())
             .set_registration(registration.into())
     }
 
@@ -384,8 +384,8 @@ impl Domains {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::domains::ListOperations {
-        super::builders::domains::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::domains::ListOperations {
+        super::builder::domains::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -394,7 +394,7 @@ impl Domains {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::domains::GetOperation {
-        super::builders::domains::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::domains::GetOperation {
+        super::builder::domains::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

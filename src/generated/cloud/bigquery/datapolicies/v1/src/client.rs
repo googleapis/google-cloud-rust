@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct DataPolicyService {
-    inner: Arc<dyn super::stubs::dynamic::DataPolicyService>,
+    inner: Arc<dyn super::stub::dynamic::DataPolicyService>,
 }
 
 impl DataPolicyService {
@@ -59,7 +59,7 @@ impl DataPolicyService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::DataPolicyService + 'static,
+        T: super::stub::DataPolicyService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl DataPolicyService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::DataPolicyService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::DataPolicyService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +77,13 @@ impl DataPolicyService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DataPolicyService> {
+    ) -> Result<impl super::stub::DataPolicyService> {
         super::transport::DataPolicyService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DataPolicyService> {
+    ) -> Result<impl super::stub::DataPolicyService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DataPolicyService::new)
@@ -94,8 +94,8 @@ impl DataPolicyService {
     pub fn create_data_policy(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_policy_service::CreateDataPolicy {
-        super::builders::data_policy_service::CreateDataPolicy::new(self.inner.clone())
+    ) -> super::builder::data_policy_service::CreateDataPolicy {
+        super::builder::data_policy_service::CreateDataPolicy::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -104,8 +104,8 @@ impl DataPolicyService {
     pub fn update_data_policy(
         &self,
         data_policy: impl Into<crate::model::DataPolicy>,
-    ) -> super::builders::data_policy_service::UpdateDataPolicy {
-        super::builders::data_policy_service::UpdateDataPolicy::new(self.inner.clone())
+    ) -> super::builder::data_policy_service::UpdateDataPolicy {
+        super::builder::data_policy_service::UpdateDataPolicy::new(self.inner.clone())
             .set_data_policy(data_policy.into())
     }
 
@@ -113,8 +113,8 @@ impl DataPolicyService {
     pub fn rename_data_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_policy_service::RenameDataPolicy {
-        super::builders::data_policy_service::RenameDataPolicy::new(self.inner.clone())
+    ) -> super::builder::data_policy_service::RenameDataPolicy {
+        super::builder::data_policy_service::RenameDataPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -122,8 +122,8 @@ impl DataPolicyService {
     pub fn delete_data_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_policy_service::DeleteDataPolicy {
-        super::builders::data_policy_service::DeleteDataPolicy::new(self.inner.clone())
+    ) -> super::builder::data_policy_service::DeleteDataPolicy {
+        super::builder::data_policy_service::DeleteDataPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -131,8 +131,8 @@ impl DataPolicyService {
     pub fn get_data_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_policy_service::GetDataPolicy {
-        super::builders::data_policy_service::GetDataPolicy::new(self.inner.clone())
+    ) -> super::builder::data_policy_service::GetDataPolicy {
+        super::builder::data_policy_service::GetDataPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -140,8 +140,8 @@ impl DataPolicyService {
     pub fn list_data_policies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_policy_service::ListDataPolicies {
-        super::builders::data_policy_service::ListDataPolicies::new(self.inner.clone())
+    ) -> super::builder::data_policy_service::ListDataPolicies {
+        super::builder::data_policy_service::ListDataPolicies::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -149,8 +149,8 @@ impl DataPolicyService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::data_policy_service::GetIamPolicy {
-        super::builders::data_policy_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::data_policy_service::GetIamPolicy {
+        super::builder::data_policy_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -158,8 +158,8 @@ impl DataPolicyService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::data_policy_service::SetIamPolicy {
-        super::builders::data_policy_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::data_policy_service::SetIamPolicy {
+        super::builder::data_policy_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -167,8 +167,8 @@ impl DataPolicyService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::data_policy_service::TestIamPermissions {
-        super::builders::data_policy_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::data_policy_service::TestIamPermissions {
+        super::builder::data_policy_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 }

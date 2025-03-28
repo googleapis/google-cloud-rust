@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Builds](super::stubs::Builds) using a [gaxi::http::ReqwestClient].
+/// Implements [Builds](super::stub::Builds) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Builds {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl Builds {
     }
 }
 
-impl super::stubs::Builds for Builds {
+impl super::stub::Builds for Builds {
     async fn submit_build(
         &self,
         req: crate::model::SubmitBuildRequest,
@@ -139,7 +139,7 @@ impl super::stubs::Builds for Builds {
     }
 }
 
-/// Implements [Executions](super::stubs::Executions) using a [gaxi::http::ReqwestClient].
+/// Implements [Executions](super::stub::Executions) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Executions {
     inner: gaxi::http::ReqwestClient,
@@ -160,7 +160,7 @@ impl Executions {
     }
 }
 
-impl super::stubs::Executions for Executions {
+impl super::stub::Executions for Executions {
     async fn get_execution(
         &self,
         req: crate::model::GetExecutionRequest,
@@ -336,7 +336,7 @@ impl super::stubs::Executions for Executions {
     }
 }
 
-/// Implements [Jobs](super::stubs::Jobs) using a [gaxi::http::ReqwestClient].
+/// Implements [Jobs](super::stub::Jobs) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Jobs {
     inner: gaxi::http::ReqwestClient,
@@ -355,7 +355,7 @@ impl Jobs {
     }
 }
 
-impl super::stubs::Jobs for Jobs {
+impl super::stub::Jobs for Jobs {
     async fn create_job(
         &self,
         req: crate::model::CreateJobRequest,
@@ -647,7 +647,7 @@ impl super::stubs::Jobs for Jobs {
     }
 }
 
-/// Implements [Revisions](super::stubs::Revisions) using a [gaxi::http::ReqwestClient].
+/// Implements [Revisions](super::stub::Revisions) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Revisions {
     inner: gaxi::http::ReqwestClient,
@@ -668,7 +668,7 @@ impl Revisions {
     }
 }
 
-impl super::stubs::Revisions for Revisions {
+impl super::stub::Revisions for Revisions {
     async fn get_revision(
         &self,
         req: crate::model::GetRevisionRequest,
@@ -827,7 +827,7 @@ impl super::stubs::Revisions for Revisions {
     }
 }
 
-/// Implements [Services](super::stubs::Services) using a [gaxi::http::ReqwestClient].
+/// Implements [Services](super::stub::Services) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Services {
     inner: gaxi::http::ReqwestClient,
@@ -848,7 +848,7 @@ impl Services {
     }
 }
 
-impl super::stubs::Services for Services {
+impl super::stub::Services for Services {
     async fn create_service(
         &self,
         req: crate::model::CreateServiceRequest,
@@ -1140,7 +1140,7 @@ impl super::stubs::Services for Services {
     }
 }
 
-/// Implements [Tasks](super::stubs::Tasks) using a [gaxi::http::ReqwestClient].
+/// Implements [Tasks](super::stub::Tasks) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Tasks {
     inner: gaxi::http::ReqwestClient,
@@ -1159,7 +1159,7 @@ impl Tasks {
     }
 }
 
-impl super::stubs::Tasks for Tasks {
+impl super::stub::Tasks for Tasks {
     async fn get_task(
         &self,
         req: crate::model::GetTaskRequest,

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Datastream](super::stubs::Datastream) using a [gaxi::http::ReqwestClient].
+/// Implements [Datastream](super::stub::Datastream) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Datastream {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl Datastream {
     }
 }
 
-impl super::stubs::Datastream for Datastream {
+impl super::stub::Datastream for Datastream {
     async fn list_connection_profiles(
         &self,
         req: crate::model::ListConnectionProfilesRequest,

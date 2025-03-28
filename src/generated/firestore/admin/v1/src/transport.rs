@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [FirestoreAdmin](super::stubs::FirestoreAdmin) using a [gaxi::http::ReqwestClient].
+/// Implements [FirestoreAdmin](super::stub::FirestoreAdmin) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct FirestoreAdmin {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl FirestoreAdmin {
     }
 }
 
-impl super::stubs::FirestoreAdmin for FirestoreAdmin {
+impl super::stub::FirestoreAdmin for FirestoreAdmin {
     async fn create_index(
         &self,
         req: crate::model::CreateIndexRequest,

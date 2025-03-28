@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [PolicyBindings](super::stubs::PolicyBindings) using a [gaxi::http::ReqwestClient].
+/// Implements [PolicyBindings](super::stub::PolicyBindings) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct PolicyBindings {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl PolicyBindings {
     }
 }
 
-impl super::stubs::PolicyBindings for PolicyBindings {
+impl super::stub::PolicyBindings for PolicyBindings {
     async fn create_policy_binding(
         &self,
         req: crate::model::CreatePolicyBindingRequest,
@@ -230,7 +230,7 @@ impl super::stubs::PolicyBindings for PolicyBindings {
     }
 }
 
-/// Implements [PrincipalAccessBoundaryPolicies](super::stubs::PrincipalAccessBoundaryPolicies) using a [gaxi::http::ReqwestClient].
+/// Implements [PrincipalAccessBoundaryPolicies](super::stub::PrincipalAccessBoundaryPolicies) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct PrincipalAccessBoundaryPolicies {
     inner: gaxi::http::ReqwestClient,
@@ -251,7 +251,7 @@ impl PrincipalAccessBoundaryPolicies {
     }
 }
 
-impl super::stubs::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPolicies {
+impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPolicies {
     async fn create_principal_access_boundary_policy(
         &self,
         req: crate::model::CreatePrincipalAccessBoundaryPolicyRequest,

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [VmMigration](super::stubs::VmMigration) using a [gaxi::http::ReqwestClient].
+/// Implements [VmMigration](super::stub::VmMigration) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct VmMigration {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl VmMigration {
     }
 }
 
-impl super::stubs::VmMigration for VmMigration {
+impl super::stub::VmMigration for VmMigration {
     async fn list_sources(
         &self,
         req: crate::model::ListSourcesRequest,

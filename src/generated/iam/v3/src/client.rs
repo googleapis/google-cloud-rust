@@ -39,7 +39,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct PolicyBindings {
-    inner: Arc<dyn super::stubs::dynamic::PolicyBindings>,
+    inner: Arc<dyn super::stub::dynamic::PolicyBindings>,
 }
 
 impl PolicyBindings {
@@ -60,7 +60,7 @@ impl PolicyBindings {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::PolicyBindings + 'static,
+        T: super::stub::PolicyBindings + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -69,7 +69,7 @@ impl PolicyBindings {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::PolicyBindings>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::PolicyBindings>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,13 +78,13 @@ impl PolicyBindings {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PolicyBindings> {
+    ) -> Result<impl super::stub::PolicyBindings> {
         super::transport::PolicyBindings::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PolicyBindings> {
+    ) -> Result<impl super::stub::PolicyBindings> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PolicyBindings::new)
@@ -106,8 +106,8 @@ impl PolicyBindings {
     pub fn create_policy_binding(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::policy_bindings::CreatePolicyBinding {
-        super::builders::policy_bindings::CreatePolicyBinding::new(self.inner.clone())
+    ) -> super::builder::policy_bindings::CreatePolicyBinding {
+        super::builder::policy_bindings::CreatePolicyBinding::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -115,8 +115,8 @@ impl PolicyBindings {
     pub fn get_policy_binding(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::policy_bindings::GetPolicyBinding {
-        super::builders::policy_bindings::GetPolicyBinding::new(self.inner.clone())
+    ) -> super::builder::policy_bindings::GetPolicyBinding {
+        super::builder::policy_bindings::GetPolicyBinding::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -138,8 +138,8 @@ impl PolicyBindings {
     pub fn update_policy_binding(
         &self,
         policy_binding: impl Into<crate::model::PolicyBinding>,
-    ) -> super::builders::policy_bindings::UpdatePolicyBinding {
-        super::builders::policy_bindings::UpdatePolicyBinding::new(self.inner.clone())
+    ) -> super::builder::policy_bindings::UpdatePolicyBinding {
+        super::builder::policy_bindings::UpdatePolicyBinding::new(self.inner.clone())
             .set_policy_binding(policy_binding.into())
     }
 
@@ -159,8 +159,8 @@ impl PolicyBindings {
     pub fn delete_policy_binding(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::policy_bindings::DeletePolicyBinding {
-        super::builders::policy_bindings::DeletePolicyBinding::new(self.inner.clone())
+    ) -> super::builder::policy_bindings::DeletePolicyBinding {
+        super::builder::policy_bindings::DeletePolicyBinding::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -168,8 +168,8 @@ impl PolicyBindings {
     pub fn list_policy_bindings(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::policy_bindings::ListPolicyBindings {
-        super::builders::policy_bindings::ListPolicyBindings::new(self.inner.clone())
+    ) -> super::builder::policy_bindings::ListPolicyBindings {
+        super::builder::policy_bindings::ListPolicyBindings::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -178,8 +178,8 @@ impl PolicyBindings {
     pub fn search_target_policy_bindings(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::policy_bindings::SearchTargetPolicyBindings {
-        super::builders::policy_bindings::SearchTargetPolicyBindings::new(self.inner.clone())
+    ) -> super::builder::policy_bindings::SearchTargetPolicyBindings {
+        super::builder::policy_bindings::SearchTargetPolicyBindings::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -189,9 +189,8 @@ impl PolicyBindings {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::policy_bindings::GetOperation {
-        super::builders::policy_bindings::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::policy_bindings::GetOperation {
+        super::builder::policy_bindings::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -215,7 +214,7 @@ impl PolicyBindings {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct PrincipalAccessBoundaryPolicies {
-    inner: Arc<dyn super::stubs::dynamic::PrincipalAccessBoundaryPolicies>,
+    inner: Arc<dyn super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
 }
 
 impl PrincipalAccessBoundaryPolicies {
@@ -236,7 +235,7 @@ impl PrincipalAccessBoundaryPolicies {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::PrincipalAccessBoundaryPolicies + 'static,
+        T: super::stub::PrincipalAccessBoundaryPolicies + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -245,7 +244,7 @@ impl PrincipalAccessBoundaryPolicies {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::PrincipalAccessBoundaryPolicies>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::PrincipalAccessBoundaryPolicies>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -254,13 +253,13 @@ impl PrincipalAccessBoundaryPolicies {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PrincipalAccessBoundaryPolicies> {
+    ) -> Result<impl super::stub::PrincipalAccessBoundaryPolicies> {
         super::transport::PrincipalAccessBoundaryPolicies::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PrincipalAccessBoundaryPolicies> {
+    ) -> Result<impl super::stub::PrincipalAccessBoundaryPolicies> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PrincipalAccessBoundaryPolicies::new)
@@ -281,9 +280,9 @@ impl PrincipalAccessBoundaryPolicies {
     pub fn create_principal_access_boundary_policy(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy
+    ) -> super::builder::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy
     {
-        super::builders::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy::new(self.inner.clone())
+        super::builder::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy::new(self.inner.clone())
             .set_parent ( parent.into() )
     }
 
@@ -291,8 +290,8 @@ impl PrincipalAccessBoundaryPolicies {
     pub fn get_principal_access_boundary_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::principal_access_boundary_policies::GetPrincipalAccessBoundaryPolicy {
-        super::builders::principal_access_boundary_policies::GetPrincipalAccessBoundaryPolicy::new(
+    ) -> super::builder::principal_access_boundary_policies::GetPrincipalAccessBoundaryPolicy {
+        super::builder::principal_access_boundary_policies::GetPrincipalAccessBoundaryPolicy::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -312,9 +311,9 @@ impl PrincipalAccessBoundaryPolicies {
     pub fn update_principal_access_boundary_policy(
         &self,
         principal_access_boundary_policy: impl Into<crate::model::PrincipalAccessBoundaryPolicy>,
-    ) -> super::builders::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy
+    ) -> super::builder::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy
     {
-        super::builders::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy::new(self.inner.clone())
+        super::builder::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy::new(self.inner.clone())
             .set_principal_access_boundary_policy ( principal_access_boundary_policy.into() )
     }
 
@@ -332,9 +331,9 @@ impl PrincipalAccessBoundaryPolicies {
     pub fn delete_principal_access_boundary_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy
+    ) -> super::builder::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy
     {
-        super::builders::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy::new(self.inner.clone())
+        super::builder::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy::new(self.inner.clone())
             .set_name ( name.into() )
     }
 
@@ -342,9 +341,9 @@ impl PrincipalAccessBoundaryPolicies {
     pub fn list_principal_access_boundary_policies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::principal_access_boundary_policies::ListPrincipalAccessBoundaryPolicies
+    ) -> super::builder::principal_access_boundary_policies::ListPrincipalAccessBoundaryPolicies
     {
-        super::builders::principal_access_boundary_policies::ListPrincipalAccessBoundaryPolicies::new(self.inner.clone())
+        super::builder::principal_access_boundary_policies::ListPrincipalAccessBoundaryPolicies::new(self.inner.clone())
             .set_parent ( parent.into() )
     }
 
@@ -353,9 +352,9 @@ impl PrincipalAccessBoundaryPolicies {
     pub fn search_principal_access_boundary_policy_bindings(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::principal_access_boundary_policies::SearchPrincipalAccessBoundaryPolicyBindings
+    ) -> super::builder::principal_access_boundary_policies::SearchPrincipalAccessBoundaryPolicyBindings
     {
-        super::builders::principal_access_boundary_policies::SearchPrincipalAccessBoundaryPolicyBindings::new(self.inner.clone())
+        super::builder::principal_access_boundary_policies::SearchPrincipalAccessBoundaryPolicyBindings::new(self.inner.clone())
             .set_name ( name.into() )
     }
 
@@ -365,8 +364,8 @@ impl PrincipalAccessBoundaryPolicies {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::principal_access_boundary_policies::GetOperation {
-        super::builders::principal_access_boundary_policies::GetOperation::new(self.inner.clone())
+    ) -> super::builder::principal_access_boundary_policies::GetOperation {
+        super::builder::principal_access_boundary_policies::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

@@ -44,7 +44,7 @@ mod info {
 
 {{/Codec.HasServices}}
 {{#Codec.Services}}
-/// Implements [{{Codec.Name}}](super::stubs::{{Codec.Name}}) using a Tonic-generated client.
+/// Implements [{{Codec.Name}}](super::stub::{{Codec.Name}}) using a Tonic-generated client.
 #[derive(Clone)]
 pub struct {{Codec.Name}} {
     inner: tonic::client::Grpc<tonic::transport::Channel>,
@@ -274,7 +274,7 @@ impl {{Codec.Name}} {
     }
 }
 
-impl super::stubs::{{Codec.Name}} for {{Codec.Name}} {
+impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
     {{#Codec.Methods}}
     async fn {{Codec.Name}}(
         &self,
