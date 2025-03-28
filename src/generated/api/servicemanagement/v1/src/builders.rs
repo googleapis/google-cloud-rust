@@ -107,7 +107,8 @@ pub mod service_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListServices {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListServices {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -148,7 +149,8 @@ pub mod service_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetService {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetService {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -231,7 +233,8 @@ pub mod service_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateService {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateService {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -307,7 +310,8 @@ pub mod service_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteService {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteService {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -389,7 +393,8 @@ pub mod service_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for UndeleteService {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UndeleteService {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -460,7 +465,8 @@ pub mod service_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListServiceConfigs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListServiceConfigs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -519,7 +525,8 @@ pub mod service_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetServiceConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetServiceConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -572,7 +579,8 @@ pub mod service_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateServiceConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateServiceConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -672,7 +680,8 @@ pub mod service_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for SubmitConfigSource {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SubmitConfigSource {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -749,7 +758,8 @@ pub mod service_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListServiceRollouts {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListServiceRollouts {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -799,7 +809,8 @@ pub mod service_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetServiceRollout {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetServiceRollout {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -889,7 +900,8 @@ pub mod service_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateServiceRollout {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateServiceRollout {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -939,7 +951,8 @@ pub mod service_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GenerateConfigReport {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GenerateConfigReport {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -998,7 +1011,8 @@ pub mod service_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1048,7 +1062,8 @@ pub mod service_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1103,7 +1118,8 @@ pub mod service_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1180,7 +1196,8 @@ pub mod service_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1224,7 +1241,8 @@ pub mod service_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

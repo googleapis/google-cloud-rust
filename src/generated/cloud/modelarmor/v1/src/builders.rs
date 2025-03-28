@@ -113,7 +113,8 @@ pub mod model_armor {
         }
     }
 
-    impl gax::options::RequestBuilder for ListTemplates {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListTemplates {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -154,7 +155,8 @@ pub mod model_armor {
         }
     }
 
-    impl gax::options::RequestBuilder for GetTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -216,7 +218,8 @@ pub mod model_armor {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -275,7 +278,8 @@ pub mod model_armor {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -303,7 +307,7 @@ pub mod model_armor {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_template(self.0.request, self.0.options)
                 .await
@@ -322,7 +326,8 @@ pub mod model_armor {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -363,7 +368,8 @@ pub mod model_armor {
         }
     }
 
-    impl gax::options::RequestBuilder for GetFloorSetting {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetFloorSetting {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -419,7 +425,8 @@ pub mod model_armor {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateFloorSetting {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateFloorSetting {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -472,7 +479,8 @@ pub mod model_armor {
         }
     }
 
-    impl gax::options::RequestBuilder for SanitizeUserPrompt {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SanitizeUserPrompt {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -531,7 +539,8 @@ pub mod model_armor {
         }
     }
 
-    impl gax::options::RequestBuilder for SanitizeModelResponse {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SanitizeModelResponse {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -608,7 +617,8 @@ pub mod model_armor {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -649,7 +659,8 @@ pub mod model_armor {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

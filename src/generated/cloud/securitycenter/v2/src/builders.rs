@@ -90,7 +90,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for BatchCreateResourceValueConfigs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BatchCreateResourceValueConfigs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -186,7 +187,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for BulkMuteFindings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BulkMuteFindings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -245,7 +247,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateBigQueryExport {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateBigQueryExport {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -301,7 +304,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateFinding {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateFinding {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -360,7 +364,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateMuteConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateMuteConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -423,7 +428,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateNotificationConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateNotificationConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -473,7 +479,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateSource {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateSource {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -504,7 +511,7 @@ pub mod security_center {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_big_query_export(self.0.request, self.0.options)
                 .await
@@ -517,7 +524,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteBigQueryExport {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteBigQueryExport {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -548,7 +556,7 @@ pub mod security_center {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_mute_config(self.0.request, self.0.options)
                 .await
@@ -561,7 +569,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteMuteConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteMuteConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -594,7 +603,7 @@ pub mod security_center {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_notification_config(self.0.request, self.0.options)
                 .await
@@ -607,7 +616,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteNotificationConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteNotificationConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -640,7 +650,7 @@ pub mod security_center {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_resource_value_config(self.0.request, self.0.options)
                 .await
@@ -653,7 +663,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteResourceValueConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteResourceValueConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -697,7 +708,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for GetBigQueryExport {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBigQueryExport {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -738,7 +750,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for GetSimulation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetSimulation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -782,7 +795,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for GetValuedResource {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetValuedResource {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -832,7 +846,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -873,7 +888,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for GetMuteConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetMuteConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -917,7 +933,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for GetNotificationConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetNotificationConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -961,7 +978,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for GetResourceValueConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetResourceValueConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1002,7 +1020,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for GetSource {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetSource {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1082,7 +1101,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for GroupFindings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GroupFindings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1156,7 +1176,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAttackPaths {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAttackPaths {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1227,7 +1248,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for ListBigQueryExports {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBigQueryExports {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1316,7 +1338,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for ListFindings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListFindings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1384,7 +1407,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for ListMuteConfigs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListMuteConfigs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1459,7 +1483,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for ListNotificationConfigs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListNotificationConfigs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1534,7 +1559,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for ListResourceValueConfigs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListResourceValueConfigs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1602,7 +1628,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for ListSources {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListSources {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1685,7 +1712,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for ListValuedResources {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListValuedResources {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1732,7 +1760,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for SetFindingState {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetFindingState {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1791,7 +1820,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1838,7 +1868,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for SetMute {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetMute {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1893,7 +1924,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1949,7 +1981,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateBigQueryExport {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateBigQueryExport {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2005,7 +2038,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateExternalSystem {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateExternalSystem {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2058,7 +2092,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateFinding {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateFinding {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2114,7 +2149,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateMuteConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateMuteConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2174,7 +2210,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateNotificationConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateNotificationConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2234,7 +2271,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateResourceValueConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateResourceValueConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2290,7 +2328,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateSecurityMarks {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateSecurityMarks {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2343,7 +2382,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateSource {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateSource {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2420,7 +2460,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2464,7 +2505,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2495,7 +2537,7 @@ pub mod security_center {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -2508,7 +2550,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2539,7 +2582,7 @@ pub mod security_center {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -2552,7 +2595,8 @@ pub mod security_center {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

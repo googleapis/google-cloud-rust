@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::DeleteAttestorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_attestor(req, options).await
     }
 }

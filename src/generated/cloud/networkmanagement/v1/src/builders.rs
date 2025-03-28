@@ -120,7 +120,8 @@ pub mod reachability_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListConnectivityTests {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListConnectivityTests {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -166,7 +167,8 @@ pub mod reachability_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetConnectivityTest {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetConnectivityTest {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -266,7 +268,8 @@ pub mod reachability_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateConnectivityTest {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateConnectivityTest {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -363,7 +366,8 @@ pub mod reachability_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateConnectivityTest {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateConnectivityTest {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -448,7 +452,8 @@ pub mod reachability_service {
         }
     }
 
-    impl gax::options::RequestBuilder for RerunConnectivityTest {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RerunConnectivityTest {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -529,7 +534,8 @@ pub mod reachability_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteConnectivityTest {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteConnectivityTest {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -608,7 +614,8 @@ pub mod reachability_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -651,7 +658,8 @@ pub mod reachability_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -712,7 +720,8 @@ pub mod reachability_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -764,7 +773,8 @@ pub mod reachability_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -821,7 +831,8 @@ pub mod reachability_service {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -900,7 +911,8 @@ pub mod reachability_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -946,7 +958,8 @@ pub mod reachability_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -979,7 +992,7 @@ pub mod reachability_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -992,7 +1005,8 @@ pub mod reachability_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1025,7 +1039,7 @@ pub mod reachability_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -1038,7 +1052,8 @@ pub mod reachability_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1149,7 +1164,8 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListVpcFlowLogsConfigs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListVpcFlowLogsConfigs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1193,7 +1209,8 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetVpcFlowLogsConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetVpcFlowLogsConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1295,7 +1312,8 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateVpcFlowLogsConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateVpcFlowLogsConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1394,7 +1412,8 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateVpcFlowLogsConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateVpcFlowLogsConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1475,7 +1494,8 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteVpcFlowLogsConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteVpcFlowLogsConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1552,7 +1572,8 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1593,7 +1614,8 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1652,7 +1674,8 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1702,7 +1725,8 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1757,7 +1781,8 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1834,7 +1859,8 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1878,7 +1904,8 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1909,7 +1936,7 @@ pub mod vpc_flow_logs_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -1922,7 +1949,8 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1953,7 +1981,7 @@ pub mod vpc_flow_logs_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -1966,7 +1994,8 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

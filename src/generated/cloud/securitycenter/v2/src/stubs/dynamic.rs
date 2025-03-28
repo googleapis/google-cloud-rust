@@ -65,25 +65,25 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteBigQueryExportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn delete_mute_config(
         &self,
         req: crate::model::DeleteMuteConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn delete_notification_config(
         &self,
         req: crate::model::DeleteNotificationConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn delete_resource_value_config(
         &self,
         req: crate::model::DeleteResourceValueConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_big_query_export(
         &self,
@@ -275,13 +275,13 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -365,7 +365,7 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
         &self,
         req: crate::model::DeleteBigQueryExportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_big_query_export(self, req, options).await
     }
 
@@ -374,7 +374,7 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
         &self,
         req: crate::model::DeleteMuteConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_mute_config(self, req, options).await
     }
 
@@ -383,7 +383,7 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
         &self,
         req: crate::model::DeleteNotificationConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_notification_config(self, req, options).await
     }
 
@@ -392,7 +392,7 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
         &self,
         req: crate::model::DeleteResourceValueConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_resource_value_config(self, req, options).await
     }
 
@@ -680,7 +680,7 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -689,7 +689,7 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 

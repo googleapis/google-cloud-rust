@@ -119,7 +119,8 @@ pub mod executions {
         }
     }
 
-    impl gax::options::RequestBuilder for ListExecutions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListExecutions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -169,7 +170,8 @@ pub mod executions {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateExecution {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateExecution {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -216,7 +218,8 @@ pub mod executions {
         }
     }
 
-    impl gax::options::RequestBuilder for GetExecution {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetExecution {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -257,7 +260,8 @@ pub mod executions {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelExecution {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelExecution {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

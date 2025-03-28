@@ -39,7 +39,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn update_reservation(
         &self,
@@ -75,7 +75,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn update_capacity_commitment(
         &self,
@@ -111,7 +111,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn search_assignments(
         &self,
@@ -185,7 +185,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::DeleteReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_reservation(self, req, options).await
     }
 
@@ -239,7 +239,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::DeleteCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_capacity_commitment(self, req, options).await
     }
 
@@ -293,7 +293,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::DeleteAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_assignment(self, req, options).await
     }
 

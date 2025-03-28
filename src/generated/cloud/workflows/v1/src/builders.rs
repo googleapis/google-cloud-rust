@@ -113,7 +113,8 @@ pub mod workflows {
         }
     }
 
-    impl gax::options::RequestBuilder for ListWorkflows {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListWorkflows {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -160,7 +161,8 @@ pub mod workflows {
         }
     }
 
-    impl gax::options::RequestBuilder for GetWorkflow {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetWorkflow {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -254,7 +256,8 @@ pub mod workflows {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateWorkflow {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateWorkflow {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -330,7 +333,8 @@ pub mod workflows {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteWorkflow {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteWorkflow {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -421,7 +425,8 @@ pub mod workflows {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateWorkflow {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateWorkflow {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -492,7 +497,8 @@ pub mod workflows {
         }
     }
 
-    impl gax::options::RequestBuilder for ListWorkflowRevisions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListWorkflowRevisions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -569,7 +575,8 @@ pub mod workflows {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -610,7 +617,8 @@ pub mod workflows {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -687,7 +695,8 @@ pub mod workflows {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -731,7 +740,8 @@ pub mod workflows {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -762,7 +772,7 @@ pub mod workflows {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -775,7 +785,8 @@ pub mod workflows {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

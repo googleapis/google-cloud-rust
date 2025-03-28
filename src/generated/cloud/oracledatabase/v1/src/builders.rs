@@ -108,7 +108,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for ListCloudExadataInfrastructures {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListCloudExadataInfrastructures {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -154,7 +155,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCloudExadataInfrastructure {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCloudExadataInfrastructure {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -267,7 +269,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateCloudExadataInfrastructure {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCloudExadataInfrastructure {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -360,7 +363,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteCloudExadataInfrastructure {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteCloudExadataInfrastructure {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -437,7 +441,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for ListCloudVmClusters {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListCloudVmClusters {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -481,7 +486,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCloudVmCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCloudVmCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -585,7 +591,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateCloudVmCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCloudVmCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -676,7 +683,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteCloudVmCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteCloudVmCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -747,7 +755,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for ListEntitlements {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListEntitlements {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -815,7 +824,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDbServers {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDbServers {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -883,7 +893,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDbNodes {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDbNodes {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -951,7 +962,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for ListGiVersions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListGiVersions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1022,7 +1034,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDbSystemShapes {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDbSystemShapes {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1109,7 +1122,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAutonomousDatabases {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAutonomousDatabases {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1153,7 +1167,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAutonomousDatabase {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAutonomousDatabase {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1261,7 +1276,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateAutonomousDatabase {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAutonomousDatabase {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1348,7 +1364,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteAutonomousDatabase {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteAutonomousDatabase {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1442,7 +1459,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for RestoreAutonomousDatabase {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RestoreAutonomousDatabase {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1506,7 +1524,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for GenerateAutonomousDatabaseWallet {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GenerateAutonomousDatabaseWallet {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1581,7 +1600,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAutonomousDbVersions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAutonomousDbVersions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1664,7 +1684,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAutonomousDatabaseCharacterSets {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAutonomousDatabaseCharacterSets {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1745,7 +1766,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAutonomousDatabaseBackups {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAutonomousDatabaseBackups {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1822,7 +1844,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1863,7 +1886,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1940,7 +1964,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1984,7 +2009,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2015,7 +2041,7 @@ pub mod oracle_database {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -2028,7 +2054,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2059,7 +2086,7 @@ pub mod oracle_database {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -2072,7 +2099,8 @@ pub mod oracle_database {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

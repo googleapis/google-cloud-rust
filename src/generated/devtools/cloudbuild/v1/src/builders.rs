@@ -127,7 +127,8 @@ pub mod cloud_build {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateBuild {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateBuild {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -180,7 +181,8 @@ pub mod cloud_build {
         }
     }
 
-    impl gax::options::RequestBuilder for GetBuild {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBuild {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -260,7 +262,8 @@ pub mod cloud_build {
         }
     }
 
-    impl gax::options::RequestBuilder for ListBuilds {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBuilds {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -313,7 +316,8 @@ pub mod cloud_build {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelBuild {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelBuild {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -404,7 +408,8 @@ pub mod cloud_build {
         }
     }
 
-    impl gax::options::RequestBuilder for RetryBuild {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RetryBuild {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -492,7 +497,8 @@ pub mod cloud_build {
         }
     }
 
-    impl gax::options::RequestBuilder for ApproveBuild {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ApproveBuild {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -551,7 +557,8 @@ pub mod cloud_build {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateBuildTrigger {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateBuildTrigger {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -604,7 +611,8 @@ pub mod cloud_build {
         }
     }
 
-    impl gax::options::RequestBuilder for GetBuildTrigger {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBuildTrigger {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -681,7 +689,8 @@ pub mod cloud_build {
         }
     }
 
-    impl gax::options::RequestBuilder for ListBuildTriggers {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBuildTriggers {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -712,7 +721,7 @@ pub mod cloud_build {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_build_trigger(self.0.request, self.0.options)
                 .await
@@ -737,7 +746,8 @@ pub mod cloud_build {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteBuildTrigger {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteBuildTrigger {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -805,7 +815,8 @@ pub mod cloud_build {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateBuildTrigger {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateBuildTrigger {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -905,7 +916,8 @@ pub mod cloud_build {
         }
     }
 
-    impl gax::options::RequestBuilder for RunBuildTrigger {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RunBuildTrigger {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -976,7 +988,8 @@ pub mod cloud_build {
         }
     }
 
-    impl gax::options::RequestBuilder for ReceiveTriggerWebhook {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ReceiveTriggerWebhook {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1082,7 +1095,8 @@ pub mod cloud_build {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateWorkerPool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateWorkerPool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1123,7 +1137,8 @@ pub mod cloud_build {
         }
     }
 
-    impl gax::options::RequestBuilder for GetWorkerPool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetWorkerPool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1223,7 +1238,8 @@ pub mod cloud_build {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteWorkerPool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteWorkerPool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1326,7 +1342,8 @@ pub mod cloud_build {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateWorkerPool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateWorkerPool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1394,7 +1411,8 @@ pub mod cloud_build {
         }
     }
 
-    impl gax::options::RequestBuilder for ListWorkerPools {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListWorkerPools {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1438,7 +1456,8 @@ pub mod cloud_build {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1469,7 +1488,7 @@ pub mod cloud_build {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -1482,7 +1501,8 @@ pub mod cloud_build {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

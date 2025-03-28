@@ -141,7 +141,8 @@ pub mod datastore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ExportEntities {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ExportEntities {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -243,7 +244,8 @@ pub mod datastore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ImportEntities {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ImportEntities {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -331,7 +333,8 @@ pub mod datastore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateIndex {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateIndex {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -416,7 +419,8 @@ pub mod datastore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteIndex {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteIndex {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -463,7 +467,8 @@ pub mod datastore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIndex {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIndex {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -537,7 +542,8 @@ pub mod datastore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListIndexes {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListIndexes {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -614,7 +620,8 @@ pub mod datastore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -658,7 +665,8 @@ pub mod datastore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -689,7 +697,7 @@ pub mod datastore_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -702,7 +710,8 @@ pub mod datastore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -733,7 +742,7 @@ pub mod datastore_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -746,7 +755,8 @@ pub mod datastore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

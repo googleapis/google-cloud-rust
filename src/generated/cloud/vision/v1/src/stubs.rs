@@ -186,8 +186,8 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteProductSetRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ProductSearch::create_product].
@@ -240,8 +240,8 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteProductRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ProductSearch::create_reference_image].
@@ -260,8 +260,8 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteReferenceImageRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ProductSearch::list_reference_images].
@@ -292,8 +292,8 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::AddProductToProductSetRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ProductSearch::remove_product_from_product_set].
@@ -301,8 +301,8 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RemoveProductFromProductSetRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ProductSearch::list_products_in_product_set].

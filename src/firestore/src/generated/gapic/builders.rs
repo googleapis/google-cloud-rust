@@ -94,7 +94,8 @@ pub mod firestore {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDocument {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDocument {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -200,7 +201,8 @@ pub mod firestore {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDocuments {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDocuments {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -271,7 +273,8 @@ pub mod firestore {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateDocument {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateDocument {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -299,7 +302,7 @@ pub mod firestore {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_document(self.0.request, self.0.options)
                 .await
@@ -321,7 +324,8 @@ pub mod firestore {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteDocument {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteDocument {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -374,7 +378,8 @@ pub mod firestore {
         }
     }
 
-    impl gax::options::RequestBuilder for BeginTransaction {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BeginTransaction {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -430,7 +435,8 @@ pub mod firestore {
         }
     }
 
-    impl gax::options::RequestBuilder for Commit {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Commit {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -458,7 +464,7 @@ pub mod firestore {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .rollback(self.0.request, self.0.options)
                 .await
@@ -477,7 +483,8 @@ pub mod firestore {
         }
     }
 
-    impl gax::options::RequestBuilder for Rollback {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Rollback {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -571,7 +578,8 @@ pub mod firestore {
         }
     }
 
-    impl gax::options::RequestBuilder for PartitionQuery {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PartitionQuery {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -638,7 +646,8 @@ pub mod firestore {
         }
     }
 
-    impl gax::options::RequestBuilder for ListCollectionIds {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListCollectionIds {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -701,7 +710,8 @@ pub mod firestore {
         }
     }
 
-    impl gax::options::RequestBuilder for BatchWrite {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BatchWrite {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -772,7 +782,8 @@ pub mod firestore {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateDocument {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateDocument {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

@@ -39,7 +39,7 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_data_policy(
         &self,
@@ -107,7 +107,7 @@ impl<T: super::DataPolicyService> DataPolicyService for T {
         &self,
         req: crate::model::DeleteDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_data_policy(self, req, options).await
     }
 

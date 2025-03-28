@@ -77,7 +77,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for GetWorkstationCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetWorkstationCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -152,7 +153,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for ListWorkstationClusters {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListWorkstationClusters {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -260,7 +262,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateWorkstationCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateWorkstationCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -371,7 +374,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateWorkstationCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateWorkstationCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -474,7 +478,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteWorkstationCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteWorkstationCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -518,7 +523,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for GetWorkstationConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetWorkstationConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -591,7 +597,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for ListWorkstationConfigs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListWorkstationConfigs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -666,7 +673,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for ListUsableWorkstationConfigs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListUsableWorkstationConfigs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -774,7 +782,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateWorkstationConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateWorkstationConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -885,7 +894,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateWorkstationConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateWorkstationConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -988,7 +998,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteWorkstationConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteWorkstationConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1029,7 +1040,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for GetWorkstation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetWorkstation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1100,7 +1112,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for ListWorkstations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListWorkstations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1173,7 +1186,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for ListUsableWorkstations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListUsableWorkstations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1276,7 +1290,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateWorkstation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateWorkstation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1382,7 +1397,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateWorkstation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateWorkstation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1476,7 +1492,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteWorkstation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteWorkstation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1570,7 +1587,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for StartWorkstation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StartWorkstation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1661,7 +1679,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for StopWorkstation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StopWorkstation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1716,7 +1735,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for GenerateAccessToken {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GenerateAccessToken {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1775,7 +1795,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1825,7 +1846,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1880,7 +1902,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1957,7 +1980,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2001,7 +2025,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2032,7 +2057,7 @@ pub mod workstations {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -2045,7 +2070,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2076,7 +2102,7 @@ pub mod workstations {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -2089,7 +2115,8 @@ pub mod workstations {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

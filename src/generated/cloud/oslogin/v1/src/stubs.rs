@@ -57,8 +57,8 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeletePosixAccountRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::OsLoginService::delete_ssh_public_key].
@@ -66,8 +66,8 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteSshPublicKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::OsLoginService::get_login_profile].

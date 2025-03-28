@@ -105,7 +105,8 @@ pub mod iam_credentials {
         }
     }
 
-    impl gax::options::RequestBuilder for GenerateAccessToken {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GenerateAccessToken {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -169,7 +170,8 @@ pub mod iam_credentials {
         }
     }
 
-    impl gax::options::RequestBuilder for GenerateIdToken {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GenerateIdToken {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -227,7 +229,8 @@ pub mod iam_credentials {
         }
     }
 
-    impl gax::options::RequestBuilder for SignBlob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SignBlob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -285,7 +288,8 @@ pub mod iam_credentials {
         }
     }
 
-    impl gax::options::RequestBuilder for SignJwt {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SignJwt {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

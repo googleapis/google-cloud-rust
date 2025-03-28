@@ -124,7 +124,7 @@ where
         &self,
         req: crate::model::SetDefaultBranchRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.set_default_branch(req, options).await
     }
 
@@ -328,7 +328,7 @@ where
         &self,
         req: crate::model::DeleteControlRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_control(req, options).await
     }
 
@@ -537,7 +537,7 @@ where
         &self,
         req: crate::model::DeleteModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_model(req, options).await
     }
 
@@ -714,7 +714,7 @@ where
         &self,
         req: crate::model::DeleteProductRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_product(req, options).await
     }
 
@@ -900,7 +900,7 @@ where
         &self,
         req: crate::model::DeleteServingConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_serving_config(req, options).await
     }
 

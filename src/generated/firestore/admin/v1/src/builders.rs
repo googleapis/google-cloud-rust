@@ -121,7 +121,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateIndex {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateIndex {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -195,7 +196,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListIndexes {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListIndexes {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -236,7 +238,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIndex {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIndex {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -264,7 +267,7 @@ pub mod firestore_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_index(self.0.request, self.0.options)
                 .await
@@ -277,7 +280,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteIndex {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteIndex {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -318,7 +322,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetField {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetField {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -409,7 +414,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateField {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateField {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -483,7 +489,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListFields {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListFields {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -602,7 +609,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ExportDocuments {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ExportDocuments {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -706,7 +714,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ImportDocuments {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ImportDocuments {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -815,7 +824,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for BulkDeleteDocuments {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BulkDeleteDocuments {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -910,7 +920,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateDatabase {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateDatabase {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -951,7 +962,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDatabase {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDatabase {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -998,7 +1010,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDatabases {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDatabases {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1090,7 +1103,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateDatabase {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateDatabase {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1176,7 +1190,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteDatabase {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteDatabase {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1217,7 +1232,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1264,7 +1280,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListBackups {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBackups {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1292,7 +1309,7 @@ pub mod firestore_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
                 .await
@@ -1305,7 +1322,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1408,7 +1426,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for RestoreDatabase {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RestoreDatabase {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1461,7 +1480,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateBackupSchedule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateBackupSchedule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1505,7 +1525,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetBackupSchedule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBackupSchedule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1549,7 +1570,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListBackupSchedules {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBackupSchedules {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1605,7 +1627,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateBackupSchedule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateBackupSchedule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1636,7 +1659,7 @@ pub mod firestore_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_backup_schedule(self.0.request, self.0.options)
                 .await
@@ -1649,7 +1672,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteBackupSchedule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteBackupSchedule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1726,7 +1750,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1770,7 +1795,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1801,7 +1827,7 @@ pub mod firestore_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -1814,7 +1840,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1845,7 +1872,7 @@ pub mod firestore_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -1858,7 +1885,8 @@ pub mod firestore_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

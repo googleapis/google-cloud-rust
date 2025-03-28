@@ -27,13 +27,13 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeletePosixAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn delete_ssh_public_key(
         &self,
         req: crate::model::DeleteSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_login_profile(
         &self,
@@ -77,7 +77,7 @@ impl<T: super::OsLoginService> OsLoginService for T {
         &self,
         req: crate::model::DeletePosixAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_posix_account(self, req, options).await
     }
 
@@ -86,7 +86,7 @@ impl<T: super::OsLoginService> OsLoginService for T {
         &self,
         req: crate::model::DeleteSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_ssh_public_key(self, req, options).await
     }
 

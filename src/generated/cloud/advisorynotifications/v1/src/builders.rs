@@ -120,7 +120,8 @@ pub mod advisory_notifications_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListNotifications {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListNotifications {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -169,7 +170,8 @@ pub mod advisory_notifications_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetNotification {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetNotification {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -212,7 +214,8 @@ pub mod advisory_notifications_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetSettings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetSettings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -258,7 +261,8 @@ pub mod advisory_notifications_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateSettings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateSettings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

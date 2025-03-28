@@ -47,13 +47,13 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteAssetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn batch_delete_assets(
         &self,
         req: crate::model::BatchDeleteAssetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn report_asset_frames(
         &self,
@@ -335,13 +335,13 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -398,7 +398,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::DeleteAssetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_asset(self, req, options).await
     }
 
@@ -407,7 +407,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::BatchDeleteAssetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::batch_delete_assets(self, req, options).await
     }
 
@@ -830,7 +830,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -839,7 +839,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 

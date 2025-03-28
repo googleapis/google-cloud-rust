@@ -215,7 +215,8 @@ pub mod fleet_routing {
         }
     }
 
-    impl gax::options::RequestBuilder for OptimizeTours {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for OptimizeTours {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -311,7 +312,8 @@ pub mod fleet_routing {
         }
     }
 
-    impl gax::options::RequestBuilder for BatchOptimizeTours {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BatchOptimizeTours {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -355,7 +357,8 @@ pub mod fleet_routing {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

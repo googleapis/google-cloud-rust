@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::PauseTransferOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.pause_transfer_operation(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::ResumeTransferOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.resume_transfer_operation(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::DeleteTransferJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_transfer_job(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::DeleteAgentPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_agent_pool(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 

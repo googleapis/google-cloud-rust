@@ -21,7 +21,7 @@ pub trait TraceService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::BatchWriteSpansRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_span(
         &self,
@@ -38,7 +38,7 @@ impl<T: super::TraceService> TraceService for T {
         &self,
         req: crate::model::BatchWriteSpansRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::batch_write_spans(self, req, options).await
     }
 

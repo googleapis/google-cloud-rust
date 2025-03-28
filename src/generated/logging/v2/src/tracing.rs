@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::DeleteLogRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_log(req, options).await
     }
 
@@ -107,7 +107,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 }
@@ -193,7 +193,7 @@ where
         &self,
         req: crate::model::DeleteBucketRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_bucket(req, options).await
     }
 
@@ -202,7 +202,7 @@ where
         &self,
         req: crate::model::UndeleteBucketRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.undelete_bucket(req, options).await
     }
 
@@ -247,7 +247,7 @@ where
         &self,
         req: crate::model::DeleteViewRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_view(req, options).await
     }
 
@@ -292,7 +292,7 @@ where
         &self,
         req: crate::model::DeleteSinkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_sink(req, options).await
     }
 
@@ -373,7 +373,7 @@ where
         &self,
         req: crate::model::DeleteExclusionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_exclusion(req, options).await
     }
 
@@ -445,7 +445,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 
@@ -527,7 +527,7 @@ where
         &self,
         req: crate::model::DeleteLogMetricRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_log_metric(req, options).await
     }
 
@@ -554,7 +554,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.cancel_operation(req, options).await
     }
 }

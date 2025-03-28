@@ -120,7 +120,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListMigrationJobs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListMigrationJobs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -163,7 +164,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetMigrationJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetMigrationJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -268,7 +270,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateMigrationJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateMigrationJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -370,7 +373,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateMigrationJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateMigrationJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -463,7 +467,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteMigrationJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteMigrationJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -553,7 +558,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for StartMigrationJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StartMigrationJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -637,7 +643,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for StopMigrationJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StopMigrationJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -721,7 +728,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ResumeMigrationJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResumeMigrationJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -805,7 +813,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for PromoteMigrationJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PromoteMigrationJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -907,7 +916,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for VerifyMigrationJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for VerifyMigrationJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -997,7 +1007,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for RestartMigrationJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RestartMigrationJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1066,7 +1077,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GenerateSshScript {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GenerateSshScript {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1136,7 +1148,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GenerateTcpProxyScript {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GenerateTcpProxyScript {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1223,7 +1236,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListConnectionProfiles {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListConnectionProfiles {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1269,7 +1283,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetConnectionProfile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetConnectionProfile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1391,7 +1406,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateConnectionProfile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateConnectionProfile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1510,7 +1526,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateConnectionProfile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateConnectionProfile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1605,7 +1622,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteConnectionProfile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteConnectionProfile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1721,7 +1739,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreatePrivateConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreatePrivateConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1767,7 +1786,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetPrivateConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetPrivateConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1854,7 +1874,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListPrivateConnections {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListPrivateConnections {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1943,7 +1964,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeletePrivateConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeletePrivateConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1989,7 +2011,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetConversionWorkspace {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetConversionWorkspace {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2072,7 +2095,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListConversionWorkspaces {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListConversionWorkspaces {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2182,7 +2206,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateConversionWorkspace {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateConversionWorkspace {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2289,7 +2314,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateConversionWorkspace {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateConversionWorkspace {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2384,7 +2410,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteConversionWorkspace {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteConversionWorkspace {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2451,7 +2478,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateMappingRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateMappingRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2484,7 +2512,7 @@ pub mod data_migration_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_mapping_rule(self.0.request, self.0.options)
                 .await
@@ -2503,7 +2531,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteMappingRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteMappingRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2576,7 +2605,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListMappingRules {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListMappingRules {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2619,7 +2649,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetMappingRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetMappingRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2723,7 +2754,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SeedConversionWorkspace {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SeedConversionWorkspace {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2834,7 +2866,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ImportMappingRules {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ImportMappingRules {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2939,7 +2972,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ConvertConversionWorkspace {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ConvertConversionWorkspace {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3032,7 +3066,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CommitConversionWorkspace {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CommitConversionWorkspace {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3119,7 +3154,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for RollbackConversionWorkspace {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RollbackConversionWorkspace {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3235,7 +3271,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ApplyConversionWorkspace {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ApplyConversionWorkspace {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3345,7 +3382,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DescribeDatabaseEntities {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DescribeDatabaseEntities {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3412,7 +3450,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SearchBackgroundJobs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SearchBackgroundJobs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3468,7 +3507,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DescribeConversionWorkspaceRevisions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DescribeConversionWorkspaceRevisions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3523,7 +3563,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for FetchStaticIps {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FetchStaticIps {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3602,7 +3643,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3645,7 +3687,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3706,7 +3749,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3758,7 +3802,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3815,7 +3860,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3894,7 +3940,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3940,7 +3987,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3973,7 +4021,7 @@ pub mod data_migration_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -3986,7 +4034,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4019,7 +4068,7 @@ pub mod data_migration_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -4032,7 +4081,8 @@ pub mod data_migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

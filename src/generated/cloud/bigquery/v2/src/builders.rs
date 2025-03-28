@@ -95,7 +95,8 @@ pub mod dataset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDataset {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDataset {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -151,7 +152,8 @@ pub mod dataset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for InsertDataset {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for InsertDataset {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -216,7 +218,8 @@ pub mod dataset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for PatchDataset {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PatchDataset {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -281,7 +284,8 @@ pub mod dataset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateDataset {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateDataset {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -309,7 +313,7 @@ pub mod dataset_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_dataset(self.0.request, self.0.options)
                 .await
@@ -334,7 +338,8 @@ pub mod dataset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteDataset {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteDataset {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -402,7 +407,8 @@ pub mod dataset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDatasets {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDatasets {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -458,7 +464,8 @@ pub mod dataset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UndeleteDataset {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UndeleteDataset {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -537,7 +544,8 @@ pub mod model_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetModel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetModel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -599,7 +607,8 @@ pub mod model_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListModels {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListModels {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -661,7 +670,8 @@ pub mod model_service {
         }
     }
 
-    impl gax::options::RequestBuilder for PatchModel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PatchModel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -689,7 +699,7 @@ pub mod model_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_model(self.0.request, self.0.options)
                 .await
@@ -714,7 +724,8 @@ pub mod model_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteModel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteModel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -784,7 +795,8 @@ pub mod project_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetServiceAccount {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetServiceAccount {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -863,7 +875,8 @@ pub mod routine_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetRoutine {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetRoutine {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -919,7 +932,8 @@ pub mod routine_service {
         }
     }
 
-    impl gax::options::RequestBuilder for InsertRoutine {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for InsertRoutine {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -981,7 +995,8 @@ pub mod routine_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateRoutine {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateRoutine {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1009,7 +1024,7 @@ pub mod routine_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_routine(self.0.request, self.0.options)
                 .await
@@ -1034,7 +1049,8 @@ pub mod routine_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteRoutine {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteRoutine {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1102,7 +1118,8 @@ pub mod routine_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListRoutines {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListRoutines {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1215,7 +1232,8 @@ pub mod row_access_policy_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListRowAccessPolicies {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListRowAccessPolicies {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1279,7 +1297,8 @@ pub mod row_access_policy_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetRowAccessPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetRowAccessPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1348,7 +1367,8 @@ pub mod row_access_policy_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateRowAccessPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateRowAccessPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1423,7 +1443,8 @@ pub mod row_access_policy_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateRowAccessPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateRowAccessPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1456,7 +1477,7 @@ pub mod row_access_policy_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_row_access_policy(self.0.request, self.0.options)
                 .await
@@ -1493,7 +1514,8 @@ pub mod row_access_policy_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteRowAccessPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteRowAccessPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1528,7 +1550,7 @@ pub mod row_access_policy_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .batch_delete_row_access_policies(self.0.request, self.0.options)
                 .await
@@ -1570,7 +1592,8 @@ pub mod row_access_policy_service {
         }
     }
 
-    impl gax::options::RequestBuilder for BatchDeleteRowAccessPolicies {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BatchDeleteRowAccessPolicies {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1664,7 +1687,8 @@ pub mod table_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetTable {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetTable {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1720,7 +1744,8 @@ pub mod table_service {
         }
     }
 
-    impl gax::options::RequestBuilder for InsertTable {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for InsertTable {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1791,7 +1816,8 @@ pub mod table_service {
         }
     }
 
-    impl gax::options::RequestBuilder for PatchTable {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PatchTable {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1862,7 +1888,8 @@ pub mod table_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateTable {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateTable {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1890,7 +1917,7 @@ pub mod table_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_table(self.0.request, self.0.options)
                 .await
@@ -1915,7 +1942,8 @@ pub mod table_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteTable {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteTable {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1977,7 +2005,8 @@ pub mod table_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListTables {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListTables {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

@@ -96,7 +96,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateConversation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateConversation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -216,7 +217,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for UploadConversation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UploadConversation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -274,7 +276,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateConversation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateConversation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -323,7 +326,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for GetConversation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetConversation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -414,7 +418,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for ListConversations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListConversations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -447,7 +452,7 @@ pub mod contact_center_insights {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_conversation(self.0.request, self.0.options)
                 .await
@@ -466,7 +471,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteConversation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteConversation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -559,7 +565,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateAnalysis {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAnalysis {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -602,7 +609,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAnalysis {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAnalysis {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -678,7 +686,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAnalyses {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAnalyses {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -708,7 +717,7 @@ pub mod contact_center_insights {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_analysis(self.0.request, self.0.options)
                 .await
@@ -721,7 +730,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteAnalysis {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteAnalysis {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -835,7 +845,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for BulkAnalyzeConversations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BulkAnalyzeConversations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -944,7 +955,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for BulkDeleteConversations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BulkDeleteConversations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1090,7 +1102,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for IngestConversations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for IngestConversations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1213,7 +1226,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for ExportInsightsData {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ExportInsightsData {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1307,7 +1321,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateIssueModel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateIssueModel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1365,7 +1380,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateIssueModel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateIssueModel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1408,7 +1424,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIssueModel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIssueModel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1451,7 +1468,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for ListIssueModels {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListIssueModels {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1534,7 +1552,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteIssueModel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteIssueModel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1623,7 +1642,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for DeployIssueModel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeployIssueModel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1712,7 +1732,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for UndeployIssueModel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UndeployIssueModel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1812,7 +1833,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for ExportIssueModel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ExportIssueModel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1916,7 +1938,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for ImportIssueModel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ImportIssueModel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1959,7 +1982,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIssue {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIssue {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2002,7 +2026,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for ListIssues {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListIssues {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2057,7 +2082,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateIssue {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateIssue {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2087,7 +2113,7 @@ pub mod contact_center_insights {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_issue(self.0.request, self.0.options)
                 .await
@@ -2100,7 +2126,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteIssue {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteIssue {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2148,7 +2175,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for CalculateIssueModelStats {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CalculateIssueModelStats {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2203,7 +2231,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for CreatePhraseMatcher {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreatePhraseMatcher {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2249,7 +2278,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for GetPhraseMatcher {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetPhraseMatcher {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2328,7 +2358,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for ListPhraseMatchers {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListPhraseMatchers {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2361,7 +2392,7 @@ pub mod contact_center_insights {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_phrase_matcher(self.0.request, self.0.options)
                 .await
@@ -2374,7 +2405,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for DeletePhraseMatcher {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeletePhraseMatcher {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2432,7 +2464,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdatePhraseMatcher {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdatePhraseMatcher {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2481,7 +2514,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for CalculateStats {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CalculateStats {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2524,7 +2558,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for GetSettings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetSettings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2579,7 +2614,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateSettings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateSettings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2634,7 +2670,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateAnalysisRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAnalysisRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2677,7 +2714,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAnalysisRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAnalysisRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2750,7 +2788,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAnalysisRules {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAnalysisRules {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2808,7 +2847,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateAnalysisRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateAnalysisRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2841,7 +2881,7 @@ pub mod contact_center_insights {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_analysis_rule(self.0.request, self.0.options)
                 .await
@@ -2854,7 +2894,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteAnalysisRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteAnalysisRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2900,7 +2941,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for GetEncryptionSpec {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetEncryptionSpec {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2994,7 +3036,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for InitializeEncryptionSpec {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for InitializeEncryptionSpec {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3043,7 +3086,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateView {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateView {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3086,7 +3130,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for GetView {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetView {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3155,7 +3200,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for ListViews {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListViews {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3207,7 +3253,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateView {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateView {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3237,7 +3284,7 @@ pub mod contact_center_insights {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_view(self.0.request, self.0.options)
                 .await
@@ -3250,7 +3297,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteView {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteView {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3371,7 +3419,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for QueryMetrics {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for QueryMetrics {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3432,7 +3481,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateQaQuestion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateQaQuestion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3475,7 +3525,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for GetQaQuestion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetQaQuestion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3533,7 +3584,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateQaQuestion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateQaQuestion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3566,7 +3618,7 @@ pub mod contact_center_insights {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_qa_question(self.0.request, self.0.options)
                 .await
@@ -3579,7 +3631,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteQaQuestion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteQaQuestion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3649,7 +3702,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for ListQaQuestions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListQaQuestions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3710,7 +3764,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateQaScorecard {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateQaScorecard {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3753,7 +3808,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for GetQaScorecard {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetQaScorecard {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3811,7 +3867,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateQaScorecard {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateQaScorecard {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3844,7 +3901,7 @@ pub mod contact_center_insights {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_qa_scorecard(self.0.request, self.0.options)
                 .await
@@ -3863,7 +3920,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteQaScorecard {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteQaScorecard {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3936,7 +3994,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for ListQaScorecards {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListQaScorecards {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4001,7 +4060,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateQaScorecardRevision {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateQaScorecardRevision {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4047,7 +4107,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for GetQaScorecardRevision {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetQaScorecardRevision {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4150,7 +4211,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for TuneQaScorecardRevision {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TuneQaScorecardRevision {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4198,7 +4260,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for DeployQaScorecardRevision {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeployQaScorecardRevision {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4246,7 +4309,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for UndeployQaScorecardRevision {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UndeployQaScorecardRevision {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4281,7 +4345,7 @@ pub mod contact_center_insights {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_qa_scorecard_revision(self.0.request, self.0.options)
                 .await
@@ -4300,7 +4364,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteQaScorecardRevision {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteQaScorecardRevision {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4383,7 +4448,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for ListQaScorecardRevisions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListQaScorecardRevisions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4444,7 +4510,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateFeedbackLabel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateFeedbackLabel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4523,7 +4590,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for ListFeedbackLabels {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListFeedbackLabels {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4569,7 +4637,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for GetFeedbackLabel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetFeedbackLabel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4627,7 +4696,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateFeedbackLabel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateFeedbackLabel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4660,7 +4730,7 @@ pub mod contact_center_insights {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_feedback_label(self.0.request, self.0.options)
                 .await
@@ -4673,7 +4743,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteFeedbackLabel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteFeedbackLabel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4752,7 +4823,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAllFeedbackLabels {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAllFeedbackLabels {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4860,7 +4932,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for BulkUploadFeedbackLabels {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BulkUploadFeedbackLabels {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -5002,7 +5075,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for BulkDownloadFeedbackLabels {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BulkDownloadFeedbackLabels {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -5081,7 +5155,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -5127,7 +5202,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -5160,7 +5236,7 @@ pub mod contact_center_insights {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -5173,7 +5249,8 @@ pub mod contact_center_insights {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

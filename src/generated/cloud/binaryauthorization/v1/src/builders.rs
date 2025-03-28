@@ -78,7 +78,8 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    impl gax::options::RequestBuilder for GetPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -124,7 +125,8 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdatePolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdatePolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -182,7 +184,8 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateAttestor {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAttestor {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -225,7 +228,8 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAttestor {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAttestor {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -271,7 +275,8 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateAttestor {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateAttestor {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -341,7 +346,8 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAttestors {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAttestors {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -371,7 +377,7 @@ pub mod binauthz_management_service_v_1 {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_attestor(self.0.request, self.0.options)
                 .await
@@ -384,7 +390,8 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteAttestor {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteAttestor {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -451,7 +458,8 @@ pub mod system_policy_v_1 {
         }
     }
 
-    impl gax::options::RequestBuilder for GetSystemPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetSystemPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -546,7 +554,8 @@ pub mod validation_helper_v_1 {
         }
     }
 
-    impl gax::options::RequestBuilder for ValidateAttestationOccurrence {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ValidateAttestationOccurrence {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

@@ -94,7 +94,8 @@ pub mod web_risk_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ComputeThreatListDiff {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ComputeThreatListDiff {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -146,7 +147,8 @@ pub mod web_risk_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SearchUris {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SearchUris {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -198,7 +200,8 @@ pub mod web_risk_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SearchHashes {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SearchHashes {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -251,7 +254,8 @@ pub mod web_risk_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateSubmission {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateSubmission {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -357,7 +361,8 @@ pub mod web_risk_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SubmitUri {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SubmitUri {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -434,7 +439,8 @@ pub mod web_risk_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -478,7 +484,8 @@ pub mod web_risk_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -509,7 +516,7 @@ pub mod web_risk_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -522,7 +529,8 @@ pub mod web_risk_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -553,7 +561,7 @@ pub mod web_risk_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -566,7 +574,8 @@ pub mod web_risk_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

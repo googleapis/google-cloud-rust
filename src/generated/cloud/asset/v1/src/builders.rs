@@ -158,7 +158,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ExportAssets {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ExportAssets {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -260,7 +261,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAssets {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAssets {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -341,7 +343,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for BatchGetAssetsHistory {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BatchGetAssetsHistory {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -394,7 +397,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateFeed {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateFeed {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -435,7 +439,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetFeed {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetFeed {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -476,7 +481,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListFeeds {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListFeeds {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -526,7 +532,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateFeed {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateFeed {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -554,7 +561,7 @@ pub mod asset_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_feed(self.0.request, self.0.options)
                 .await
@@ -567,7 +574,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteFeed {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteFeed {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -667,7 +675,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SearchAllResources {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SearchAllResources {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -761,7 +770,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SearchAllIamPolicies {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SearchAllIamPolicies {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -825,7 +835,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for AnalyzeIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AnalyzeIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -936,7 +947,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for AnalyzeIamPolicyLongrunning {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AnalyzeIamPolicyLongrunning {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -992,7 +1004,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for AnalyzeMove {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AnalyzeMove {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1080,7 +1093,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for QueryAssets {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for QueryAssets {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1139,7 +1153,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateSavedQuery {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateSavedQuery {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1180,7 +1195,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetSavedQuery {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetSavedQuery {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1257,7 +1273,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListSavedQueries {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListSavedQueries {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1313,7 +1330,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateSavedQuery {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateSavedQuery {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1344,7 +1362,7 @@ pub mod asset_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_saved_query(self.0.request, self.0.options)
                 .await
@@ -1357,7 +1375,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteSavedQuery {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteSavedQuery {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1414,7 +1433,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for BatchGetEffectiveIamPolicies {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BatchGetEffectiveIamPolicies {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1497,7 +1517,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for AnalyzeOrgPolicies {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AnalyzeOrgPolicies {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1586,7 +1607,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for AnalyzeOrgPolicyGovernedContainers {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AnalyzeOrgPolicyGovernedContainers {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1673,7 +1695,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for AnalyzeOrgPolicyGovernedAssets {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AnalyzeOrgPolicyGovernedAssets {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1717,7 +1740,8 @@ pub mod asset_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

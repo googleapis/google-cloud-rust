@@ -23,7 +23,7 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteLogRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn write_log_entries(
         &self,
@@ -65,7 +65,7 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::LoggingServiceV2] also implement [LoggingServiceV2].
@@ -76,7 +76,7 @@ impl<T: super::LoggingServiceV2> LoggingServiceV2 for T {
         &self,
         req: crate::model::DeleteLogRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_log(self, req, options).await
     }
 
@@ -139,7 +139,7 @@ impl<T: super::LoggingServiceV2> LoggingServiceV2 for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -187,13 +187,13 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteBucketRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn undelete_bucket(
         &self,
         req: crate::model::UndeleteBucketRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_views(
         &self,
@@ -223,7 +223,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteViewRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_sinks(
         &self,
@@ -253,7 +253,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteSinkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_link(
         &self,
@@ -307,7 +307,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteExclusionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_cmek_settings(
         &self,
@@ -355,7 +355,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -430,7 +430,7 @@ impl<T: super::ConfigServiceV2> ConfigServiceV2 for T {
         &self,
         req: crate::model::DeleteBucketRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_bucket(self, req, options).await
     }
 
@@ -439,7 +439,7 @@ impl<T: super::ConfigServiceV2> ConfigServiceV2 for T {
         &self,
         req: crate::model::UndeleteBucketRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::undelete_bucket(self, req, options).await
     }
 
@@ -484,7 +484,7 @@ impl<T: super::ConfigServiceV2> ConfigServiceV2 for T {
         &self,
         req: crate::model::DeleteViewRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_view(self, req, options).await
     }
 
@@ -529,7 +529,7 @@ impl<T: super::ConfigServiceV2> ConfigServiceV2 for T {
         &self,
         req: crate::model::DeleteSinkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_sink(self, req, options).await
     }
 
@@ -610,7 +610,7 @@ impl<T: super::ConfigServiceV2> ConfigServiceV2 for T {
         &self,
         req: crate::model::DeleteExclusionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_exclusion(self, req, options).await
     }
 
@@ -682,7 +682,7 @@ impl<T: super::ConfigServiceV2> ConfigServiceV2 for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -732,7 +732,7 @@ pub trait MetricsServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteLogMetricRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_operations(
         &self,
@@ -750,7 +750,7 @@ pub trait MetricsServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::MetricsServiceV2] also implement [MetricsServiceV2].
@@ -797,7 +797,7 @@ impl<T: super::MetricsServiceV2> MetricsServiceV2 for T {
         &self,
         req: crate::model::DeleteLogMetricRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_log_metric(self, req, options).await
     }
 
@@ -824,7 +824,7 @@ impl<T: super::MetricsServiceV2> MetricsServiceV2 for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::cancel_operation(self, req, options).await
     }
 }

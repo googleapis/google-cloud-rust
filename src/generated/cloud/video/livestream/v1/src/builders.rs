@@ -132,7 +132,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateChannel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateChannel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -212,7 +213,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListChannels {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListChannels {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -253,7 +255,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetChannel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetChannel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -341,7 +344,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteChannel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteChannel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -437,7 +441,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateChannel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateChannel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -525,7 +530,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for StartChannel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StartChannel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -613,7 +619,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for StopChannel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StopChannel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -712,7 +719,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateInput {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateInput {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -792,7 +800,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListInputs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListInputs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -833,7 +842,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetInput {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetInput {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -915,7 +925,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteInput {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteInput {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1011,7 +1022,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateInput {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateInput {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1073,7 +1085,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateEvent {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateEvent {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1153,7 +1166,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListEvents {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListEvents {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1194,7 +1208,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetEvent {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetEvent {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1222,7 +1237,7 @@ pub mod livestream_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_event(self.0.request, self.0.options)
                 .await
@@ -1241,7 +1256,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteEvent {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteEvent {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1320,7 +1336,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListClips {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListClips {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1361,7 +1378,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetClip {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetClip {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1457,7 +1475,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateClip {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateClip {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1539,7 +1558,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteClip {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteClip {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1638,7 +1658,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateAsset {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAsset {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1720,7 +1741,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteAsset {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteAsset {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1761,7 +1783,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAsset {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAsset {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1841,7 +1864,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAssets {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAssets {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1882,7 +1906,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetPool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetPool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1975,7 +2000,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdatePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdatePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2052,7 +2078,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2093,7 +2120,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2170,7 +2198,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2214,7 +2243,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2245,7 +2275,7 @@ pub mod livestream_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -2258,7 +2288,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2289,7 +2320,7 @@ pub mod livestream_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -2302,7 +2333,8 @@ pub mod livestream_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

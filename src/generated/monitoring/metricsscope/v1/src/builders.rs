@@ -74,7 +74,8 @@ pub mod metrics_scopes {
         }
     }
 
-    impl gax::options::RequestBuilder for GetMetricsScope {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetMetricsScope {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -125,7 +126,8 @@ pub mod metrics_scopes {
         }
     }
 
-    impl gax::options::RequestBuilder for ListMetricsScopesByMonitoredProject {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListMetricsScopesByMonitoredProject {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -219,7 +221,8 @@ pub mod metrics_scopes {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateMonitoredProject {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateMonitoredProject {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -298,7 +301,8 @@ pub mod metrics_scopes {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteMonitoredProject {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteMonitoredProject {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -342,7 +346,8 @@ pub mod metrics_scopes {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

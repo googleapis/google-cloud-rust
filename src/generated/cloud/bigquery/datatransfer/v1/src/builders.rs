@@ -78,7 +78,8 @@ pub mod data_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDataSource {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDataSource {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -148,7 +149,8 @@ pub mod data_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDataSources {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDataSources {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -221,7 +223,8 @@ pub mod data_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateTransferConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateTransferConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -297,7 +300,8 @@ pub mod data_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateTransferConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateTransferConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -330,7 +334,7 @@ pub mod data_transfer_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_transfer_config(self.0.request, self.0.options)
                 .await
@@ -343,7 +347,8 @@ pub mod data_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteTransferConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteTransferConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -389,7 +394,8 @@ pub mod data_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetTransferConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetTransferConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -473,7 +479,8 @@ pub mod data_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListTransferConfigs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListTransferConfigs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -534,7 +541,8 @@ pub mod data_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ScheduleTransferRuns {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ScheduleTransferRuns {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -591,7 +599,8 @@ pub mod data_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for StartManualTransferRuns {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StartManualTransferRuns {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -634,7 +643,8 @@ pub mod data_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetTransferRun {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetTransferRun {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -667,7 +677,7 @@ pub mod data_transfer_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_transfer_run(self.0.request, self.0.options)
                 .await
@@ -680,7 +690,8 @@ pub mod data_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteTransferRun {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteTransferRun {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -773,7 +784,8 @@ pub mod data_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListTransferRuns {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListTransferRuns {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -857,7 +869,8 @@ pub mod data_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListTransferLogs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListTransferLogs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -900,7 +913,8 @@ pub mod data_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CheckValidCreds {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CheckValidCreds {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -933,7 +947,7 @@ pub mod data_transfer_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .enroll_data_sources(self.0.request, self.0.options)
                 .await
@@ -957,7 +971,8 @@ pub mod data_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for EnrollDataSources {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for EnrollDataSources {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -990,7 +1005,7 @@ pub mod data_transfer_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .unenroll_data_sources(self.0.request, self.0.options)
                 .await
@@ -1014,7 +1029,8 @@ pub mod data_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UnenrollDataSources {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UnenrollDataSources {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1093,7 +1109,8 @@ pub mod data_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1136,7 +1153,8 @@ pub mod data_transfer_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

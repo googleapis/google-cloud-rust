@@ -74,7 +74,8 @@ pub mod text_to_speech {
         }
     }
 
-    impl gax::options::RequestBuilder for ListVoices {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListVoices {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -150,7 +151,8 @@ pub mod text_to_speech {
         }
     }
 
-    impl gax::options::RequestBuilder for SynthesizeSpeech {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SynthesizeSpeech {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -227,7 +229,8 @@ pub mod text_to_speech {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -271,7 +274,8 @@ pub mod text_to_speech {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -421,7 +425,8 @@ pub mod text_to_speech_long_audio_synthesize {
         }
     }
 
-    impl gax::options::RequestBuilder for SynthesizeLongAudio {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SynthesizeLongAudio {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -500,7 +505,8 @@ pub mod text_to_speech_long_audio_synthesize {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -546,7 +552,8 @@ pub mod text_to_speech_long_audio_synthesize {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

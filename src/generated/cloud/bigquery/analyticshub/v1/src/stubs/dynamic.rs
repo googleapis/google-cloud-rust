@@ -53,7 +53,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteDataExchangeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_listings(
         &self,
@@ -83,7 +83,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteListingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn subscribe_listing(
         &self,
@@ -221,7 +221,7 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
         &self,
         req: crate::model::DeleteDataExchangeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_data_exchange(self, req, options).await
     }
 
@@ -266,7 +266,7 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
         &self,
         req: crate::model::DeleteListingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_listing(self, req, options).await
     }
 

@@ -101,7 +101,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDatabases {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDatabases {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -224,7 +225,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateDatabase {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateDatabase {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -265,7 +267,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDatabase {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDatabase {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -357,7 +360,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateDatabase {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateDatabase {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -461,7 +465,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateDatabaseDdl {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateDatabaseDdl {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -489,7 +494,7 @@ pub mod database_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .drop_database(self.0.request, self.0.options)
                 .await
@@ -502,7 +507,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DropDatabase {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DropDatabase {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -543,7 +549,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDatabaseDdl {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDatabaseDdl {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -602,7 +609,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -652,7 +660,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -707,7 +716,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -812,7 +822,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -922,7 +933,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CopyBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CopyBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -963,7 +975,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1016,7 +1029,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1044,7 +1058,7 @@ pub mod database_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
                 .await
@@ -1057,7 +1071,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1131,7 +1146,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListBackups {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBackups {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1237,7 +1253,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for RestoreDatabase {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RestoreDatabase {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1316,7 +1333,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDatabaseOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDatabaseOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1393,7 +1411,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListBackupOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBackupOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1464,7 +1483,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDatabaseRoles {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDatabaseRoles {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1522,7 +1542,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for AddSplitPoints {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AddSplitPoints {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1581,7 +1602,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateBackupSchedule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateBackupSchedule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1625,7 +1647,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetBackupSchedule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBackupSchedule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1681,7 +1704,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateBackupSchedule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateBackupSchedule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1712,7 +1736,7 @@ pub mod database_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_backup_schedule(self.0.request, self.0.options)
                 .await
@@ -1725,7 +1749,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteBackupSchedule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteBackupSchedule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1796,7 +1821,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListBackupSchedules {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBackupSchedules {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1873,7 +1899,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1917,7 +1944,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1948,7 +1976,7 @@ pub mod database_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -1961,7 +1989,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1992,7 +2021,7 @@ pub mod database_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -2005,7 +2034,8 @@ pub mod database_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

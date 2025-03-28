@@ -96,7 +96,8 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -148,7 +149,8 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -205,7 +207,8 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -248,7 +251,8 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIapSettings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIapSettings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -306,7 +310,8 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateIapSettings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateIapSettings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -379,7 +384,8 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListTunnelDestGroups {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListTunnelDestGroups {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -442,7 +448,8 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateTunnelDestGroup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateTunnelDestGroup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -488,7 +495,8 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetTunnelDestGroup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetTunnelDestGroup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -521,7 +529,7 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_tunnel_dest_group(self.0.request, self.0.options)
                 .await
@@ -534,7 +542,8 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteTunnelDestGroup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteTunnelDestGroup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -594,7 +603,8 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateTunnelDestGroup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateTunnelDestGroup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -665,7 +675,8 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListBrands {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBrands {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -717,7 +728,8 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateBrand {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateBrand {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -760,7 +772,8 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetBrand {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBrand {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -819,7 +832,8 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateIdentityAwareProxyClient {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateIdentityAwareProxyClient {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -896,7 +910,8 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListIdentityAwareProxyClients {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListIdentityAwareProxyClients {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -944,7 +959,8 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIdentityAwareProxyClient {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIdentityAwareProxyClient {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -992,7 +1008,8 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ResetIdentityAwareProxyClientSecret {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResetIdentityAwareProxyClientSecret {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1027,7 +1044,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_identity_aware_proxy_client(self.0.request, self.0.options)
                 .await
@@ -1040,7 +1057,8 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteIdentityAwareProxyClient {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteIdentityAwareProxyClient {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

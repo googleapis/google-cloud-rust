@@ -116,7 +116,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for ListPrivateClouds {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListPrivateClouds {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -157,7 +158,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for GetPrivateCloud {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetPrivateCloud {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -266,7 +268,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for CreatePrivateCloud {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreatePrivateCloud {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -366,7 +369,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdatePrivateCloud {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdatePrivateCloud {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -466,7 +470,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for DeletePrivateCloud {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeletePrivateCloud {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -554,7 +559,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for UndeletePrivateCloud {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UndeletePrivateCloud {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -634,7 +640,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for ListClusters {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListClusters {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -675,7 +682,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -780,7 +788,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -882,7 +891,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -964,7 +974,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1031,7 +1042,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for ListNodes {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListNodes {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1072,7 +1084,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for GetNode {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetNode {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1155,7 +1168,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for ListExternalAddresses {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListExternalAddresses {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1232,7 +1246,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for FetchNetworkPolicyExternalAddresses {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FetchNetworkPolicyExternalAddresses {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1276,7 +1291,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for GetExternalAddress {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetExternalAddress {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1380,7 +1396,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateExternalAddress {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateExternalAddress {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1481,7 +1498,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateExternalAddress {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateExternalAddress {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1566,7 +1584,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteExternalAddress {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteExternalAddress {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1634,7 +1653,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for ListSubnets {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListSubnets {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1675,7 +1695,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for GetSubnet {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetSubnet {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1765,7 +1786,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateSubnet {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateSubnet {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1852,7 +1874,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for ListExternalAccessRules {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListExternalAccessRules {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1896,7 +1919,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for GetExternalAccessRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetExternalAccessRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2004,7 +2028,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateExternalAccessRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateExternalAccessRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2109,7 +2134,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateExternalAccessRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateExternalAccessRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2196,7 +2222,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteExternalAccessRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteExternalAccessRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2279,7 +2306,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLoggingServers {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLoggingServers {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2323,7 +2351,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLoggingServer {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLoggingServer {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2427,7 +2456,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateLoggingServer {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateLoggingServer {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2528,7 +2558,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateLoggingServer {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateLoggingServer {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2613,7 +2644,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteLoggingServer {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteLoggingServer {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2687,7 +2719,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for ListNodeTypes {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListNodeTypes {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2728,7 +2761,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for GetNodeType {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetNodeType {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2772,7 +2806,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for ShowNsxCredentials {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ShowNsxCredentials {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2822,7 +2857,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for ShowVcenterCredentials {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ShowVcenterCredentials {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2910,7 +2946,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for ResetNsxCredentials {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResetNsxCredentials {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3006,7 +3043,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for ResetVcenterCredentials {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResetVcenterCredentials {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3050,7 +3088,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDnsForwarding {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDnsForwarding {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3151,7 +3190,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateDnsForwarding {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateDnsForwarding {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3195,7 +3235,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for GetNetworkPeering {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetNetworkPeering {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3278,7 +3319,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for ListNetworkPeerings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListNetworkPeerings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3382,7 +3424,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateNetworkPeering {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateNetworkPeering {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3467,7 +3510,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteNetworkPeering {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteNetworkPeering {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3568,7 +3612,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateNetworkPeering {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateNetworkPeering {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3645,7 +3690,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for ListPeeringRoutes {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListPeeringRoutes {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3751,7 +3797,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateHcxActivationKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateHcxActivationKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3822,7 +3869,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for ListHcxActivationKeys {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListHcxActivationKeys {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3866,7 +3914,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for GetHcxActivationKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetHcxActivationKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3910,7 +3959,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for GetNetworkPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetNetworkPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3993,7 +4043,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for ListNetworkPolicies {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListNetworkPolicies {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4097,7 +4148,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateNetworkPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateNetworkPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4198,7 +4250,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateNetworkPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateNetworkPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4283,7 +4336,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteNetworkPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteNetworkPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4370,7 +4424,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for ListManagementDnsZoneBindings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListManagementDnsZoneBindings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4416,7 +4471,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for GetManagementDnsZoneBinding {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetManagementDnsZoneBinding {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4529,7 +4585,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateManagementDnsZoneBinding {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateManagementDnsZoneBinding {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4636,7 +4693,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateManagementDnsZoneBinding {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateManagementDnsZoneBinding {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4723,7 +4781,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteManagementDnsZoneBinding {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteManagementDnsZoneBinding {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4816,7 +4875,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for RepairManagementDnsZoneBinding {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RepairManagementDnsZoneBinding {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4924,7 +4984,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateVmwareEngineNetwork {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateVmwareEngineNetwork {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -5029,7 +5090,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateVmwareEngineNetwork {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateVmwareEngineNetwork {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -5122,7 +5184,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteVmwareEngineNetwork {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteVmwareEngineNetwork {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -5166,7 +5229,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for GetVmwareEngineNetwork {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetVmwareEngineNetwork {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -5253,7 +5317,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for ListVmwareEngineNetworks {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListVmwareEngineNetworks {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -5361,7 +5426,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for CreatePrivateConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreatePrivateConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -5405,7 +5471,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for GetPrivateConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetPrivateConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -5490,7 +5557,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for ListPrivateConnections {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListPrivateConnections {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -5595,7 +5663,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdatePrivateConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdatePrivateConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -5682,7 +5751,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for DeletePrivateConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeletePrivateConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -5759,7 +5829,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for ListPrivateConnectionPeeringRoutes {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListPrivateConnectionPeeringRoutes {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -5857,7 +5928,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for GrantDnsBindPermission {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GrantDnsBindPermission {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -5901,7 +5973,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDnsBindPermission {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDnsBindPermission {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -6001,7 +6074,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for RevokeDnsBindPermission {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RevokeDnsBindPermission {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -6078,7 +6152,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -6119,7 +6194,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -6178,7 +6254,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -6228,7 +6305,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -6283,7 +6361,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -6360,7 +6439,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -6404,7 +6484,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -6435,7 +6516,7 @@ pub mod vmware_engine {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -6448,7 +6529,8 @@ pub mod vmware_engine {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

@@ -104,7 +104,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for ListServiceAccounts {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListServiceAccounts {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -148,7 +149,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for GetServiceAccount {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetServiceAccount {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -207,7 +209,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateServiceAccount {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateServiceAccount {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -296,7 +299,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateServiceAccount {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateServiceAccount {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -352,7 +356,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for PatchServiceAccount {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PatchServiceAccount {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -383,7 +388,7 @@ pub mod iam {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_service_account(self.0.request, self.0.options)
                 .await
@@ -396,7 +401,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteServiceAccount {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteServiceAccount {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -440,7 +446,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for UndeleteServiceAccount {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UndeleteServiceAccount {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -471,7 +478,7 @@ pub mod iam {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .enable_service_account(self.0.request, self.0.options)
                 .await
@@ -484,7 +491,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for EnableServiceAccount {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for EnableServiceAccount {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -515,7 +523,7 @@ pub mod iam {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .disable_service_account(self.0.request, self.0.options)
                 .await
@@ -528,7 +536,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for DisableServiceAccount {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DisableServiceAccount {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -583,7 +592,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for ListServiceAccountKeys {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListServiceAccountKeys {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -636,7 +646,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for GetServiceAccountKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetServiceAccountKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -700,7 +711,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateServiceAccountKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateServiceAccountKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -752,7 +764,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for UploadServiceAccountKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UploadServiceAccountKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -785,7 +798,7 @@ pub mod iam {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_service_account_key(self.0.request, self.0.options)
                 .await
@@ -798,7 +811,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteServiceAccountKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteServiceAccountKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -831,7 +845,7 @@ pub mod iam {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .disable_service_account_key(self.0.request, self.0.options)
                 .await
@@ -844,7 +858,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for DisableServiceAccountKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DisableServiceAccountKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -877,7 +892,7 @@ pub mod iam {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .enable_service_account_key(self.0.request, self.0.options)
                 .await
@@ -890,7 +905,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for EnableServiceAccountKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for EnableServiceAccountKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -937,7 +953,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for SignBlob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SignBlob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -984,7 +1001,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for SignJwt {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SignJwt {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1034,7 +1052,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1093,7 +1112,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1148,7 +1168,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1225,7 +1246,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for QueryGrantableRoles {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for QueryGrantableRoles {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1304,7 +1326,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for ListRoles {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListRoles {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1345,7 +1368,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for GetRole {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetRole {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1398,7 +1422,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateRole {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateRole {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1454,7 +1479,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateRole {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateRole {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1501,7 +1527,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteRole {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteRole {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1548,7 +1575,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for UndeleteRole {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UndeleteRole {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1623,7 +1651,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for QueryTestablePermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for QueryTestablePermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1667,7 +1696,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for QueryAuditableServices {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for QueryAuditableServices {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1717,7 +1747,8 @@ pub mod iam {
         }
     }
 
-    impl gax::options::RequestBuilder for LintPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for LintPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

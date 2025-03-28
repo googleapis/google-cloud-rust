@@ -39,7 +39,7 @@ pub trait AlertPolicyService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteAlertPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn update_alert_policy(
         &self,
@@ -83,7 +83,7 @@ impl<T: super::AlertPolicyService> AlertPolicyService for T {
         &self,
         req: crate::model::DeleteAlertPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_alert_policy(self, req, options).await
     }
 
@@ -128,7 +128,7 @@ pub trait GroupService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_group_members(
         &self,
@@ -181,7 +181,7 @@ impl<T: super::GroupService> GroupService for T {
         &self,
         req: crate::model::DeleteGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_group(self, req, options).await
     }
 
@@ -232,7 +232,7 @@ pub trait MetricService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteMetricDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_time_series(
         &self,
@@ -244,13 +244,13 @@ pub trait MetricService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateTimeSeriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_service_time_series(
         &self,
         req: crate::model::CreateTimeSeriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::MetricService] also implement [MetricService].
@@ -306,7 +306,7 @@ impl<T: super::MetricService> MetricService for T {
         &self,
         req: crate::model::DeleteMetricDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_metric_descriptor(self, req, options).await
     }
 
@@ -324,7 +324,7 @@ impl<T: super::MetricService> MetricService for T {
         &self,
         req: crate::model::CreateTimeSeriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::create_time_series(self, req, options).await
     }
 
@@ -333,7 +333,7 @@ impl<T: super::MetricService> MetricService for T {
         &self,
         req: crate::model::CreateTimeSeriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::create_service_time_series(self, req, options).await
     }
 }
@@ -381,13 +381,13 @@ pub trait NotificationChannelService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteNotificationChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn send_notification_channel_verification_code(
         &self,
         req: crate::model::SendNotificationChannelVerificationCodeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_notification_channel_verification_code(
         &self,
@@ -464,7 +464,7 @@ impl<T: super::NotificationChannelService> NotificationChannelService for T {
         &self,
         req: crate::model::DeleteNotificationChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_notification_channel(self, req, options).await
     }
 
@@ -473,7 +473,7 @@ impl<T: super::NotificationChannelService> NotificationChannelService for T {
         &self,
         req: crate::model::SendNotificationChannelVerificationCodeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::send_notification_channel_verification_code(self, req, options).await
     }
 
@@ -550,7 +550,7 @@ pub trait ServiceMonitoringService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_service_level_objective(
         &self,
@@ -580,7 +580,7 @@ pub trait ServiceMonitoringService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::ServiceMonitoringService] also implement [ServiceMonitoringService].
@@ -627,7 +627,7 @@ impl<T: super::ServiceMonitoringService> ServiceMonitoringService for T {
         &self,
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_service(self, req, options).await
     }
 
@@ -672,7 +672,7 @@ impl<T: super::ServiceMonitoringService> ServiceMonitoringService for T {
         &self,
         req: crate::model::DeleteServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_service_level_objective(self, req, options).await
     }
 }
@@ -776,7 +776,7 @@ pub trait UptimeCheckService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteUptimeCheckConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn list_uptime_check_ips(
         &self,
@@ -829,7 +829,7 @@ impl<T: super::UptimeCheckService> UptimeCheckService for T {
         &self,
         req: crate::model::DeleteUptimeCheckConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_uptime_check_config(self, req, options).await
     }
 

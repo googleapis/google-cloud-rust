@@ -831,7 +831,7 @@ impl super::stubs::Firewall for Firewall {
         &self,
         req: crate::model::DeleteIngressRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -844,6 +844,7 @@ impl super::stubs::Firewall for Firewall {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_operations(
@@ -1098,7 +1099,7 @@ impl super::stubs::AuthorizedCertificates for AuthorizedCertificates {
         &self,
         req: crate::model::DeleteAuthorizedCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1111,6 +1112,7 @@ impl super::stubs::AuthorizedCertificates for AuthorizedCertificates {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_operations(

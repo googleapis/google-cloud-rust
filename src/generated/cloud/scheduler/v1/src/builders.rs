@@ -100,7 +100,8 @@ pub mod cloud_scheduler {
         }
     }
 
-    impl gax::options::RequestBuilder for ListJobs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListJobs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -139,7 +140,8 @@ pub mod cloud_scheduler {
         }
     }
 
-    impl gax::options::RequestBuilder for GetJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -186,7 +188,8 @@ pub mod cloud_scheduler {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -236,7 +239,8 @@ pub mod cloud_scheduler {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -264,7 +268,7 @@ pub mod cloud_scheduler {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_job(self.0.request, self.0.options)
                 .await
@@ -277,7 +281,8 @@ pub mod cloud_scheduler {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -318,7 +323,8 @@ pub mod cloud_scheduler {
         }
     }
 
-    impl gax::options::RequestBuilder for PauseJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PauseJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -359,7 +365,8 @@ pub mod cloud_scheduler {
         }
     }
 
-    impl gax::options::RequestBuilder for ResumeJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResumeJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -398,7 +405,8 @@ pub mod cloud_scheduler {
         }
     }
 
-    impl gax::options::RequestBuilder for RunJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RunJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -475,7 +483,8 @@ pub mod cloud_scheduler {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -516,7 +525,8 @@ pub mod cloud_scheduler {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

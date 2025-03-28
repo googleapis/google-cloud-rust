@@ -137,7 +137,8 @@ pub mod attached_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateAttachedCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAttachedCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -238,7 +239,8 @@ pub mod attached_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateAttachedCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateAttachedCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -354,7 +356,8 @@ pub mod attached_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for ImportAttachedCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ImportAttachedCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -398,7 +401,8 @@ pub mod attached_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAttachedCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAttachedCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -469,7 +473,8 @@ pub mod attached_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAttachedClusters {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAttachedClusters {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -572,7 +577,8 @@ pub mod attached_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteAttachedCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteAttachedCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -618,7 +624,8 @@ pub mod attached_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAttachedServerConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAttachedServerConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -689,7 +696,8 @@ pub mod attached_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for GenerateAttachedClusterInstallManifest {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GenerateAttachedClusterInstallManifest {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -783,7 +791,8 @@ pub mod attached_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for GenerateAttachedClusterAgentToken {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GenerateAttachedClusterAgentToken {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -860,7 +869,8 @@ pub mod attached_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -904,7 +914,8 @@ pub mod attached_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -935,7 +946,7 @@ pub mod attached_clusters {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -948,7 +959,8 @@ pub mod attached_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -979,7 +991,7 @@ pub mod attached_clusters {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -992,7 +1004,8 @@ pub mod attached_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1121,7 +1134,8 @@ pub mod aws_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateAwsCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAwsCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1221,7 +1235,8 @@ pub mod aws_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateAwsCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateAwsCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1262,7 +1277,8 @@ pub mod aws_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAwsCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAwsCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1330,7 +1346,8 @@ pub mod aws_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAwsClusters {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAwsClusters {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1433,7 +1450,8 @@ pub mod aws_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteAwsCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteAwsCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1533,7 +1551,8 @@ pub mod aws_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for GenerateAwsClusterAgentToken {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GenerateAwsClusterAgentToken {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1577,7 +1596,8 @@ pub mod aws_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for GenerateAwsAccessToken {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GenerateAwsAccessToken {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1680,7 +1700,8 @@ pub mod aws_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateAwsNodePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAwsNodePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1780,7 +1801,8 @@ pub mod aws_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateAwsNodePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateAwsNodePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1870,7 +1892,8 @@ pub mod aws_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for RollbackAwsNodePoolUpdate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RollbackAwsNodePoolUpdate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1911,7 +1934,8 @@ pub mod aws_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAwsNodePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAwsNodePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1982,7 +2006,8 @@ pub mod aws_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAwsNodePools {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAwsNodePools {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2085,7 +2110,8 @@ pub mod aws_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteAwsNodePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteAwsNodePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2129,7 +2155,8 @@ pub mod aws_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAwsOpenIdConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAwsOpenIdConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2173,7 +2200,8 @@ pub mod aws_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAwsJsonWebKeys {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAwsJsonWebKeys {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2217,7 +2245,8 @@ pub mod aws_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAwsServerConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAwsServerConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2294,7 +2323,8 @@ pub mod aws_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2338,7 +2368,8 @@ pub mod aws_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2369,7 +2400,7 @@ pub mod aws_clusters {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -2382,7 +2413,8 @@ pub mod aws_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2413,7 +2445,7 @@ pub mod aws_clusters {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -2426,7 +2458,8 @@ pub mod aws_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2555,7 +2588,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateAzureClient {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAzureClient {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2596,7 +2630,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAzureClient {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAzureClient {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2667,7 +2702,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAzureClients {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAzureClients {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2758,7 +2794,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteAzureClient {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteAzureClient {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2861,7 +2898,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateAzureCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAzureCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2961,7 +2999,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateAzureCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateAzureCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3002,7 +3041,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAzureCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAzureCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3073,7 +3113,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAzureClusters {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAzureClusters {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3176,7 +3217,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteAzureCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteAzureCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3276,7 +3318,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for GenerateAzureClusterAgentToken {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GenerateAzureClusterAgentToken {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3322,7 +3365,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for GenerateAzureAccessToken {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GenerateAzureAccessToken {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3426,7 +3470,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateAzureNodePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAzureNodePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3527,7 +3572,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateAzureNodePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateAzureNodePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3571,7 +3617,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAzureNodePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAzureNodePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3642,7 +3689,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAzureNodePools {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAzureNodePools {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3745,7 +3793,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteAzureNodePool {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteAzureNodePool {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3789,7 +3838,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAzureOpenIdConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAzureOpenIdConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3833,7 +3883,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAzureJsonWebKeys {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAzureJsonWebKeys {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3877,7 +3928,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAzureServerConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAzureServerConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3954,7 +4006,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3998,7 +4051,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4029,7 +4083,7 @@ pub mod azure_clusters {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -4042,7 +4096,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4073,7 +4128,7 @@ pub mod azure_clusters {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -4086,7 +4141,8 @@ pub mod azure_clusters {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

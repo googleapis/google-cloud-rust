@@ -119,7 +119,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for ListConnections {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListConnections {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -166,7 +167,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for GetConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -263,7 +265,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -357,7 +360,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -436,7 +440,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -504,7 +509,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for ListProviders {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListProviders {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -545,7 +551,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for GetProvider {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetProvider {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -613,7 +620,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for ListConnectors {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListConnectors {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -654,7 +662,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for GetConnector {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetConnector {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -731,7 +740,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for ListConnectorVersions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListConnectorVersions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -781,7 +791,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for GetConnectorVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetConnectorVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -827,7 +838,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for GetConnectionSchemaMetadata {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetConnectionSchemaMetadata {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -914,7 +926,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for RefreshConnectionSchemaMetadata {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RefreshConnectionSchemaMetadata {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -995,7 +1008,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for ListRuntimeEntitySchemas {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListRuntimeEntitySchemas {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1076,7 +1090,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for ListRuntimeActionSchemas {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListRuntimeActionSchemas {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1120,7 +1135,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for GetRuntimeConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetRuntimeConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1164,7 +1180,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for GetGlobalSettings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetGlobalSettings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1241,7 +1258,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1282,7 +1300,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1341,7 +1360,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1391,7 +1411,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1446,7 +1467,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1523,7 +1545,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1567,7 +1590,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1598,7 +1622,7 @@ pub mod connectors {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -1611,7 +1635,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1642,7 +1667,7 @@ pub mod connectors {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -1655,7 +1680,8 @@ pub mod connectors {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

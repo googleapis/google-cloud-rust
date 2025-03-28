@@ -90,7 +90,8 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateAssessment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAssessment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -179,7 +180,8 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    impl gax::options::RequestBuilder for AnnotateAssessment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AnnotateAssessment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -228,7 +230,8 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -297,7 +300,8 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListKeys {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListKeys {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -345,7 +349,8 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    impl gax::options::RequestBuilder for RetrieveLegacySecretKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RetrieveLegacySecretKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -386,7 +391,8 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -438,7 +444,8 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -468,7 +475,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_key(self.0.request, self.0.options)
                 .await
@@ -481,7 +488,8 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -530,7 +538,8 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    impl gax::options::RequestBuilder for MigrateKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for MigrateKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -582,7 +591,8 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    impl gax::options::RequestBuilder for AddIpOverride {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AddIpOverride {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -637,7 +647,8 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    impl gax::options::RequestBuilder for RemoveIpOverride {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RemoveIpOverride {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -707,7 +718,8 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListIpOverrides {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListIpOverrides {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -750,7 +762,8 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetMetrics {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetMetrics {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -805,7 +818,8 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateFirewallPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateFirewallPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -878,7 +892,8 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListFirewallPolicies {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListFirewallPolicies {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -924,7 +939,8 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetFirewallPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetFirewallPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -982,7 +998,8 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateFirewallPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateFirewallPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1015,7 +1032,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_firewall_policy(self.0.request, self.0.options)
                 .await
@@ -1028,7 +1045,8 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteFirewallPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteFirewallPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1087,7 +1105,8 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ReorderFirewallPolicies {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ReorderFirewallPolicies {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1164,7 +1183,8 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListRelatedAccountGroups {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListRelatedAccountGroups {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1243,7 +1263,8 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListRelatedAccountGroupMemberships {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListRelatedAccountGroupMemberships {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1334,7 +1355,8 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SearchRelatedAccountGroupMemberships {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SearchRelatedAccountGroupMemberships {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

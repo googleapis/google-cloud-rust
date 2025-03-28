@@ -91,7 +91,8 @@ pub mod lineage {
         }
     }
 
-    impl gax::options::RequestBuilder for ProcessOpenLineageRunEvent {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ProcessOpenLineageRunEvent {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -147,7 +148,8 @@ pub mod lineage {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateProcess {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateProcess {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -206,7 +208,8 @@ pub mod lineage {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateProcess {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateProcess {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -247,7 +250,8 @@ pub mod lineage {
         }
     }
 
-    impl gax::options::RequestBuilder for GetProcess {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetProcess {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -315,7 +319,8 @@ pub mod lineage {
         }
     }
 
-    impl gax::options::RequestBuilder for ListProcesses {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListProcesses {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -397,7 +402,8 @@ pub mod lineage {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteProcess {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteProcess {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -450,7 +456,8 @@ pub mod lineage {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateRun {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateRun {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -506,7 +513,8 @@ pub mod lineage {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateRun {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateRun {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -545,7 +553,8 @@ pub mod lineage {
         }
     }
 
-    impl gax::options::RequestBuilder for GetRun {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetRun {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -612,7 +621,8 @@ pub mod lineage {
         }
     }
 
-    impl gax::options::RequestBuilder for ListRuns {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListRuns {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -694,7 +704,8 @@ pub mod lineage {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteRun {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteRun {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -753,7 +764,8 @@ pub mod lineage {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateLineageEvent {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateLineageEvent {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -794,7 +806,8 @@ pub mod lineage {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLineageEvent {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLineageEvent {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -865,7 +878,8 @@ pub mod lineage {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLineageEvents {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLineageEvents {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -896,7 +910,7 @@ pub mod lineage {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_lineage_event(self.0.request, self.0.options)
                 .await
@@ -915,7 +929,8 @@ pub mod lineage {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteLineageEvent {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteLineageEvent {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -992,7 +1007,8 @@ pub mod lineage {
         }
     }
 
-    impl gax::options::RequestBuilder for SearchLinks {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SearchLinks {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1078,7 +1094,8 @@ pub mod lineage {
         }
     }
 
-    impl gax::options::RequestBuilder for BatchSearchLinkProcesses {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BatchSearchLinkProcesses {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1155,7 +1172,8 @@ pub mod lineage {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1199,7 +1217,8 @@ pub mod lineage {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1230,7 +1249,7 @@ pub mod lineage {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -1243,7 +1262,8 @@ pub mod lineage {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1274,7 +1294,7 @@ pub mod lineage {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -1287,7 +1307,8 @@ pub mod lineage {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

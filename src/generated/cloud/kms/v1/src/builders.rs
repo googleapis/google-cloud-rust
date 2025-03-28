@@ -128,7 +128,8 @@ pub mod autokey {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateKeyHandle {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateKeyHandle {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -169,7 +170,8 @@ pub mod autokey {
         }
     }
 
-    impl gax::options::RequestBuilder for GetKeyHandle {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetKeyHandle {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -243,7 +245,8 @@ pub mod autokey {
         }
     }
 
-    impl gax::options::RequestBuilder for ListKeyHandles {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListKeyHandles {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -320,7 +323,8 @@ pub mod autokey {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -361,7 +365,8 @@ pub mod autokey {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -420,7 +425,8 @@ pub mod autokey {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -470,7 +476,8 @@ pub mod autokey {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -525,7 +532,8 @@ pub mod autokey {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -569,7 +577,8 @@ pub mod autokey {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -651,7 +660,8 @@ pub mod autokey_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateAutokeyConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateAutokeyConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -695,7 +705,8 @@ pub mod autokey_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAutokeyConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAutokeyConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -741,7 +752,8 @@ pub mod autokey_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ShowEffectiveAutokeyConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ShowEffectiveAutokeyConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -818,7 +830,8 @@ pub mod autokey_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -859,7 +872,8 @@ pub mod autokey_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -918,7 +932,8 @@ pub mod autokey_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -968,7 +983,8 @@ pub mod autokey_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1023,7 +1039,8 @@ pub mod autokey_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1067,7 +1084,8 @@ pub mod autokey_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1176,7 +1194,8 @@ pub mod ekm_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListEkmConnections {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListEkmConnections {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1220,7 +1239,8 @@ pub mod ekm_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetEkmConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetEkmConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1279,7 +1299,8 @@ pub mod ekm_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateEkmConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateEkmConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1335,7 +1356,8 @@ pub mod ekm_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateEkmConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateEkmConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1376,7 +1398,8 @@ pub mod ekm_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetEkmConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetEkmConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1429,7 +1452,8 @@ pub mod ekm_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateEkmConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateEkmConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1473,7 +1497,8 @@ pub mod ekm_service {
         }
     }
 
-    impl gax::options::RequestBuilder for VerifyConnectivity {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for VerifyConnectivity {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1550,7 +1575,8 @@ pub mod ekm_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1591,7 +1617,8 @@ pub mod ekm_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1650,7 +1677,8 @@ pub mod ekm_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1700,7 +1728,8 @@ pub mod ekm_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1755,7 +1784,8 @@ pub mod ekm_service {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1799,7 +1829,8 @@ pub mod ekm_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1909,7 +1940,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListKeyRings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListKeyRings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2000,7 +2032,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListCryptoKeys {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListCryptoKeys {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2094,7 +2127,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListCryptoKeyVersions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListCryptoKeyVersions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2176,7 +2210,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListImportJobs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListImportJobs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2219,7 +2254,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetKeyRing {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetKeyRing {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2262,7 +2298,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCryptoKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCryptoKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2308,7 +2345,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCryptoKeyVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCryptoKeyVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2360,7 +2398,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetPublicKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetPublicKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2403,7 +2442,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetImportJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetImportJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2461,7 +2501,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateKeyRing {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateKeyRing {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2525,7 +2566,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateCryptoKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCryptoKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2582,7 +2624,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateCryptoKeyVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCryptoKeyVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2668,7 +2711,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ImportCryptoKeyVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ImportCryptoKeyVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2726,7 +2770,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateImportJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateImportJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2781,7 +2826,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateCryptoKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateCryptoKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2841,7 +2887,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateCryptoKeyVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateCryptoKeyVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2895,7 +2942,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateCryptoKeyPrimaryVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateCryptoKeyPrimaryVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2943,7 +2991,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DestroyCryptoKeyVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DestroyCryptoKeyVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2991,7 +3040,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for RestoreCryptoKeyVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RestoreCryptoKeyVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3064,7 +3114,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Encrypt {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Encrypt {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3137,7 +3188,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Decrypt {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Decrypt {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3227,7 +3279,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for RawEncrypt {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RawEncrypt {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3323,7 +3376,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for RawDecrypt {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RawDecrypt {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3399,7 +3453,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for AsymmetricSign {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AsymmetricSign {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3460,7 +3515,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for AsymmetricDecrypt {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AsymmetricDecrypt {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3518,7 +3574,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for MacSign {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for MacSign {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3591,7 +3648,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for MacVerify {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for MacVerify {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3652,7 +3710,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GenerateRandomBytes {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GenerateRandomBytes {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3731,7 +3790,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3774,7 +3834,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3835,7 +3896,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3887,7 +3949,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3944,7 +4007,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3990,7 +4054,8 @@ pub mod key_management_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

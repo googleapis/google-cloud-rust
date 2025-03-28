@@ -104,7 +104,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListInstanceConfigs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListInstanceConfigs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -148,7 +149,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetInstanceConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetInstanceConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -254,7 +256,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateInstanceConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateInstanceConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -357,7 +360,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateInstanceConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateInstanceConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -388,7 +392,7 @@ pub mod instance_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_instance_config(self.0.request, self.0.options)
                 .await
@@ -413,7 +417,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteInstanceConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteInstanceConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -494,7 +499,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListInstanceConfigOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListInstanceConfigOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -577,7 +583,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListInstances {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListInstances {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -659,7 +666,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListInstancePartitions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListInstancePartitions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -709,7 +717,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -804,7 +813,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -896,7 +906,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -924,7 +935,7 @@ pub mod instance_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
                 .await
@@ -937,7 +948,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -996,7 +1008,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1046,7 +1059,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1101,7 +1115,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1145,7 +1160,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetInstancePartition {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetInstancePartition {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1251,7 +1267,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateInstancePartition {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateInstancePartition {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1284,7 +1301,7 @@ pub mod instance_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_instance_partition(self.0.request, self.0.options)
                 .await
@@ -1303,7 +1320,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteInstancePartition {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteInstancePartition {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1406,7 +1424,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateInstancePartition {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateInstancePartition {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1496,7 +1515,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListInstancePartitionOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListInstancePartitionOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1584,7 +1604,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for MoveInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for MoveInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1661,7 +1682,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1705,7 +1727,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1736,7 +1759,7 @@ pub mod instance_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -1749,7 +1772,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1780,7 +1804,7 @@ pub mod instance_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -1793,7 +1817,8 @@ pub mod instance_admin {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

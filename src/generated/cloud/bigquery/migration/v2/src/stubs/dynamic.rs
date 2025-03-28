@@ -39,13 +39,13 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteMigrationWorkflowRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn start_migration_workflow(
         &self,
         req: crate::model::StartMigrationWorkflowRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn get_migration_subtask(
         &self,
@@ -95,7 +95,7 @@ impl<T: super::MigrationService> MigrationService for T {
         &self,
         req: crate::model::DeleteMigrationWorkflowRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_migration_workflow(self, req, options).await
     }
 
@@ -104,7 +104,7 @@ impl<T: super::MigrationService> MigrationService for T {
         &self,
         req: crate::model::StartMigrationWorkflowRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::start_migration_workflow(self, req, options).await
     }
 

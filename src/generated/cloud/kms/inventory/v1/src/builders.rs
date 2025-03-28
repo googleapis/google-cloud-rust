@@ -105,7 +105,8 @@ pub mod key_dashboard_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListCryptoKeys {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListCryptoKeys {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -177,7 +178,8 @@ pub mod key_tracking_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetProtectedResourcesSummary {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetProtectedResourcesSummary {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -269,7 +271,8 @@ pub mod key_tracking_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SearchProtectedResources {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SearchProtectedResources {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

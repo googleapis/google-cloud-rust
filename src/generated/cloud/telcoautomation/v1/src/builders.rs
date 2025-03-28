@@ -120,7 +120,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOrchestrationClusters {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOrchestrationClusters {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -166,7 +167,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOrchestrationCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOrchestrationCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -274,7 +276,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateOrchestrationCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateOrchestrationCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -361,7 +364,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOrchestrationCluster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOrchestrationCluster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -441,7 +445,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for ListEdgeSlms {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListEdgeSlms {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -482,7 +487,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for GetEdgeSlm {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetEdgeSlm {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -581,7 +587,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateEdgeSlm {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateEdgeSlm {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -663,7 +670,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteEdgeSlm {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteEdgeSlm {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -719,7 +727,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateBlueprint {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateBlueprint {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -772,7 +781,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateBlueprint {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateBlueprint {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -819,7 +829,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for GetBlueprint {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBlueprint {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -847,7 +858,7 @@ pub mod telco_automation {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_blueprint(self.0.request, self.0.options)
                 .await
@@ -860,7 +871,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteBlueprint {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteBlueprint {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -934,7 +946,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for ListBlueprints {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBlueprints {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -978,7 +991,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for ApproveBlueprint {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ApproveBlueprint {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1022,7 +1036,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for ProposeBlueprint {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ProposeBlueprint {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1063,7 +1078,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for RejectBlueprint {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RejectBlueprint {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1136,7 +1152,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for ListBlueprintRevisions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBlueprintRevisions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1217,7 +1234,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for SearchBlueprintRevisions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SearchBlueprintRevisions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1298,7 +1316,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for SearchDeploymentRevisions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SearchDeploymentRevisions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1344,7 +1363,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for DiscardBlueprintChanges {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DiscardBlueprintChanges {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1415,7 +1435,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for ListPublicBlueprints {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListPublicBlueprints {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1459,7 +1480,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for GetPublicBlueprint {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetPublicBlueprint {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1518,7 +1540,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateDeployment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateDeployment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1574,7 +1597,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateDeployment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateDeployment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1621,7 +1645,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDeployment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDeployment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1652,7 +1677,7 @@ pub mod telco_automation {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .remove_deployment(self.0.request, self.0.options)
                 .await
@@ -1665,7 +1690,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for RemoveDeployment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RemoveDeployment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1739,7 +1765,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDeployments {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDeployments {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1814,7 +1841,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDeploymentRevisions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDeploymentRevisions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1860,7 +1888,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for DiscardDeploymentChanges {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DiscardDeploymentChanges {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1901,7 +1930,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for ApplyDeployment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ApplyDeployment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1947,7 +1977,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for ComputeDeploymentStatus {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ComputeDeploymentStatus {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1997,7 +2028,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for RollbackDeployment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RollbackDeployment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2041,7 +2073,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for GetHydratedDeployment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetHydratedDeployment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2116,7 +2149,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for ListHydratedDeployments {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListHydratedDeployments {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2176,7 +2210,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateHydratedDeployment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateHydratedDeployment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2222,7 +2257,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for ApplyHydratedDeployment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ApplyHydratedDeployment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2299,7 +2335,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2340,7 +2377,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2417,7 +2455,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2461,7 +2500,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2492,7 +2532,7 @@ pub mod telco_automation {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -2505,7 +2545,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2536,7 +2577,7 @@ pub mod telco_automation {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -2549,7 +2590,8 @@ pub mod telco_automation {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

@@ -1401,7 +1401,7 @@ impl super::stubs::SqlOperationsService for SqlOperationsService {
         &self,
         req: crate::model::SqlOperationsCancelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1420,6 +1420,7 @@ impl super::stubs::SqlOperationsService for SqlOperationsService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|_: wkt::Empty| ())
     }
 
 }

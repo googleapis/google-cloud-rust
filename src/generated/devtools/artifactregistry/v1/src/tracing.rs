@@ -321,7 +321,7 @@ where
         &self,
         req: crate::model::DeleteTagRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_tag(req, options).await
     }
 
@@ -366,7 +366,7 @@ where
         &self,
         req: crate::model::DeleteRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_rule(req, options).await
     }
 

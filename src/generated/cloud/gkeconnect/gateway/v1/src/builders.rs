@@ -106,7 +106,8 @@ pub mod gateway_control {
         }
     }
 
-    impl gax::options::RequestBuilder for GenerateCredentials {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GenerateCredentials {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

@@ -90,7 +90,8 @@ pub mod migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateMigrationWorkflow {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateMigrationWorkflow {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -140,7 +141,8 @@ pub mod migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetMigrationWorkflow {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetMigrationWorkflow {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -219,7 +221,8 @@ pub mod migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListMigrationWorkflows {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListMigrationWorkflows {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -252,7 +255,7 @@ pub mod migration_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_migration_workflow(self.0.request, self.0.options)
                 .await
@@ -265,7 +268,8 @@ pub mod migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteMigrationWorkflow {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteMigrationWorkflow {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -296,7 +300,7 @@ pub mod migration_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .start_migration_workflow(self.0.request, self.0.options)
                 .await
@@ -309,7 +313,8 @@ pub mod migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for StartMigrationWorkflow {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StartMigrationWorkflow {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -359,7 +364,8 @@ pub mod migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetMigrationSubtask {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetMigrationSubtask {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -442,7 +448,8 @@ pub mod migration_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListMigrationSubtasks {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListMigrationSubtasks {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

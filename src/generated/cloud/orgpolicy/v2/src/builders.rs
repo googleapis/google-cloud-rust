@@ -101,7 +101,8 @@ pub mod org_policy {
         }
     }
 
-    impl gax::options::RequestBuilder for ListConstraints {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListConstraints {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -169,7 +170,8 @@ pub mod org_policy {
         }
     }
 
-    impl gax::options::RequestBuilder for ListPolicies {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListPolicies {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -210,7 +212,8 @@ pub mod org_policy {
         }
     }
 
-    impl gax::options::RequestBuilder for GetPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -254,7 +257,8 @@ pub mod org_policy {
         }
     }
 
-    impl gax::options::RequestBuilder for GetEffectivePolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetEffectivePolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -304,7 +308,8 @@ pub mod org_policy {
         }
     }
 
-    impl gax::options::RequestBuilder for CreatePolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreatePolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -357,7 +362,8 @@ pub mod org_policy {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdatePolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdatePolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -385,7 +391,7 @@ pub mod org_policy {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_policy(self.0.request, self.0.options)
                 .await
@@ -404,7 +410,8 @@ pub mod org_policy {
         }
     }
 
-    impl gax::options::RequestBuilder for DeletePolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeletePolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -459,7 +466,8 @@ pub mod org_policy {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateCustomConstraint {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCustomConstraint {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -508,7 +516,8 @@ pub mod org_policy {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateCustomConstraint {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateCustomConstraint {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -552,7 +561,8 @@ pub mod org_policy {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCustomConstraint {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCustomConstraint {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -623,7 +633,8 @@ pub mod org_policy {
         }
     }
 
-    impl gax::options::RequestBuilder for ListCustomConstraints {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListCustomConstraints {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -654,7 +665,7 @@ pub mod org_policy {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_custom_constraint(self.0.request, self.0.options)
                 .await
@@ -667,7 +678,8 @@ pub mod org_policy {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteCustomConstraint {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteCustomConstraint {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

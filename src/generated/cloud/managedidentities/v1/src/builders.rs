@@ -133,7 +133,8 @@ pub mod managed_identities_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateMicrosoftAdDomain {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateMicrosoftAdDomain {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -179,7 +180,8 @@ pub mod managed_identities_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ResetAdminPassword {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResetAdminPassword {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -261,7 +263,8 @@ pub mod managed_identities_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDomains {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDomains {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -304,7 +307,8 @@ pub mod managed_identities_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDomain {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDomain {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -394,7 +398,8 @@ pub mod managed_identities_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateDomain {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateDomain {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -472,7 +477,8 @@ pub mod managed_identities_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteDomain {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteDomain {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -559,7 +565,8 @@ pub mod managed_identities_service {
         }
     }
 
-    impl gax::options::RequestBuilder for AttachTrust {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AttachTrust {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -657,7 +664,8 @@ pub mod managed_identities_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ReconfigureTrust {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ReconfigureTrust {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -744,7 +752,8 @@ pub mod managed_identities_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DetachTrust {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DetachTrust {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -831,7 +840,8 @@ pub mod managed_identities_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ValidateTrust {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ValidateTrust {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -910,7 +920,8 @@ pub mod managed_identities_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -956,7 +967,8 @@ pub mod managed_identities_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -989,7 +1001,7 @@ pub mod managed_identities_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -1002,7 +1014,8 @@ pub mod managed_identities_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1035,7 +1048,7 @@ pub mod managed_identities_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -1048,7 +1061,8 @@ pub mod managed_identities_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

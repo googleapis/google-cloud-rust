@@ -110,7 +110,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDockerImages {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDockerImages {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -151,7 +152,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDockerImage {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDockerImage {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -222,7 +224,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for ListMavenArtifacts {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListMavenArtifacts {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -266,7 +269,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for GetMavenArtifact {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetMavenArtifact {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -334,7 +338,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for ListNpmPackages {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListNpmPackages {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -375,7 +380,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for GetNpmPackage {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetNpmPackage {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -446,7 +452,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for ListPythonPackages {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListPythonPackages {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -490,7 +497,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for GetPythonPackage {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetPythonPackage {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -586,7 +594,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for ImportAptArtifacts {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ImportAptArtifacts {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -682,7 +691,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for ImportYumArtifacts {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ImportYumArtifacts {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -765,7 +775,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for ListRepositories {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListRepositories {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -806,7 +817,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for GetRepository {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetRepository {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -903,7 +915,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateRepository {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateRepository {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -959,7 +972,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateRepository {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateRepository {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1038,7 +1052,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteRepository {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteRepository {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1118,7 +1133,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for ListPackages {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListPackages {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1159,7 +1175,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for GetPackage {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetPackage {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1235,7 +1252,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for DeletePackage {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeletePackage {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1321,7 +1339,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for ListVersions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListVersions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1368,7 +1387,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for GetVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1450,7 +1470,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1548,7 +1569,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for BatchDeleteVersions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BatchDeleteVersions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1601,7 +1623,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1680,7 +1703,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for ListFiles {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListFiles {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1721,7 +1745,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for GetFile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetFile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1797,7 +1822,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteFile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteFile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1847,7 +1873,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateFile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateFile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1920,7 +1947,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for ListTags {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListTags {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1959,7 +1987,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for GetTag {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetTag {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2012,7 +2041,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateTag {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateTag {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2062,7 +2092,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateTag {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateTag {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2090,7 +2121,7 @@ pub mod artifact_registry {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_tag(self.0.request, self.0.options)
                 .await
@@ -2103,7 +2134,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteTag {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteTag {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2156,7 +2188,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2223,7 +2256,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for ListRules {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListRules {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2264,7 +2298,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for GetRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2314,7 +2349,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2342,7 +2378,7 @@ pub mod artifact_registry {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_rule(self.0.request, self.0.options)
                 .await
@@ -2355,7 +2391,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteRule {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteRule {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2414,7 +2451,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2464,7 +2502,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2519,7 +2558,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2563,7 +2603,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for GetProjectSettings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetProjectSettings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2619,7 +2660,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateProjectSettings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateProjectSettings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2660,7 +2702,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for GetVPCSCConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetVPCSCConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2716,7 +2759,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateVPCSCConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateVPCSCConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2769,7 +2813,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdatePackage {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdatePackage {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2843,7 +2888,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAttachments {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAttachments {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2884,7 +2930,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAttachment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAttachment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2981,7 +3028,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateAttachment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAttachment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3060,7 +3108,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteAttachment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteAttachment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3137,7 +3186,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3178,7 +3228,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3222,7 +3273,8 @@ pub mod artifact_registry {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

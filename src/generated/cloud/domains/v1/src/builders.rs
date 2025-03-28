@@ -80,7 +80,8 @@ pub mod domains {
         }
     }
 
-    impl gax::options::RequestBuilder for SearchDomains {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SearchDomains {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -132,7 +133,8 @@ pub mod domains {
         }
     }
 
-    impl gax::options::RequestBuilder for RetrieveRegisterParameters {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RetrieveRegisterParameters {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -257,7 +259,8 @@ pub mod domains {
         }
     }
 
-    impl gax::options::RequestBuilder for RegisterDomain {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RegisterDomain {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -309,7 +312,8 @@ pub mod domains {
         }
     }
 
-    impl gax::options::RequestBuilder for RetrieveTransferParameters {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RetrieveTransferParameters {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -434,7 +438,8 @@ pub mod domains {
         }
     }
 
-    impl gax::options::RequestBuilder for TransferDomain {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TransferDomain {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -511,7 +516,8 @@ pub mod domains {
         }
     }
 
-    impl gax::options::RequestBuilder for ListRegistrations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListRegistrations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -552,7 +558,8 @@ pub mod domains {
         }
     }
 
-    impl gax::options::RequestBuilder for GetRegistration {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetRegistration {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -646,7 +653,8 @@ pub mod domains {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateRegistration {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateRegistration {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -750,7 +758,8 @@ pub mod domains {
         }
     }
 
-    impl gax::options::RequestBuilder for ConfigureManagementSettings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ConfigureManagementSettings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -856,7 +865,8 @@ pub mod domains {
         }
     }
 
-    impl gax::options::RequestBuilder for ConfigureDnsSettings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ConfigureDnsSettings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -975,7 +985,8 @@ pub mod domains {
         }
     }
 
-    impl gax::options::RequestBuilder for ConfigureContactSettings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ConfigureContactSettings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1057,7 +1068,8 @@ pub mod domains {
         }
     }
 
-    impl gax::options::RequestBuilder for ExportRegistration {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ExportRegistration {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1136,7 +1148,8 @@ pub mod domains {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteRegistration {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteRegistration {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1182,7 +1195,8 @@ pub mod domains {
         }
     }
 
-    impl gax::options::RequestBuilder for RetrieveAuthorizationCode {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RetrieveAuthorizationCode {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1226,7 +1240,8 @@ pub mod domains {
         }
     }
 
-    impl gax::options::RequestBuilder for ResetAuthorizationCode {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResetAuthorizationCode {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1303,7 +1318,8 @@ pub mod domains {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1347,7 +1363,8 @@ pub mod domains {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

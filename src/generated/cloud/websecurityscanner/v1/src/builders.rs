@@ -86,7 +86,8 @@ pub mod web_security_scanner {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateScanConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateScanConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -117,7 +118,7 @@ pub mod web_security_scanner {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_scan_config(self.0.request, self.0.options)
                 .await
@@ -130,7 +131,8 @@ pub mod web_security_scanner {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteScanConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteScanConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -171,7 +173,8 @@ pub mod web_security_scanner {
         }
     }
 
-    impl gax::options::RequestBuilder for GetScanConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetScanConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -239,7 +242,8 @@ pub mod web_security_scanner {
         }
     }
 
-    impl gax::options::RequestBuilder for ListScanConfigs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListScanConfigs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -295,7 +299,8 @@ pub mod web_security_scanner {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateScanConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateScanConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -336,7 +341,8 @@ pub mod web_security_scanner {
         }
     }
 
-    impl gax::options::RequestBuilder for StartScanRun {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StartScanRun {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -377,7 +383,8 @@ pub mod web_security_scanner {
         }
     }
 
-    impl gax::options::RequestBuilder for GetScanRun {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetScanRun {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -445,7 +452,8 @@ pub mod web_security_scanner {
         }
     }
 
-    impl gax::options::RequestBuilder for ListScanRuns {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListScanRuns {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -486,7 +494,8 @@ pub mod web_security_scanner {
         }
     }
 
-    impl gax::options::RequestBuilder for StopScanRun {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StopScanRun {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -554,7 +563,8 @@ pub mod web_security_scanner {
         }
     }
 
-    impl gax::options::RequestBuilder for ListCrawledUrls {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListCrawledUrls {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -595,7 +605,8 @@ pub mod web_security_scanner {
         }
     }
 
-    impl gax::options::RequestBuilder for GetFinding {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetFinding {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -669,7 +680,8 @@ pub mod web_security_scanner {
         }
     }
 
-    impl gax::options::RequestBuilder for ListFindings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListFindings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -713,7 +725,8 @@ pub mod web_security_scanner {
         }
     }
 
-    impl gax::options::RequestBuilder for ListFindingTypeStats {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListFindingTypeStats {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

@@ -142,7 +142,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for TranslateText {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TranslateText {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -200,7 +201,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for RomanizeText {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RomanizeText {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -273,7 +275,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DetectLanguage {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DetectLanguage {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -329,7 +332,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetSupportedLanguages {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetSupportedLanguages {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -459,7 +463,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for TranslateDocument {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TranslateDocument {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -614,7 +619,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for BatchTranslateText {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BatchTranslateText {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -792,7 +798,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for BatchTranslateDocument {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BatchTranslateDocument {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -881,7 +888,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateGlossary {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateGlossary {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -973,7 +981,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateGlossary {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateGlossary {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1047,7 +1056,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListGlossaries {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListGlossaries {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1088,7 +1098,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetGlossary {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetGlossary {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1170,7 +1181,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteGlossary {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteGlossary {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1214,7 +1226,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetGlossaryEntry {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetGlossaryEntry {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1285,7 +1298,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListGlossaryEntries {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListGlossaryEntries {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1338,7 +1352,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateGlossaryEntry {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateGlossaryEntry {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1385,7 +1400,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateGlossaryEntry {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateGlossaryEntry {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1416,7 +1432,7 @@ pub mod translation_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_glossary_entry(self.0.request, self.0.options)
                 .await
@@ -1429,7 +1445,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteGlossaryEntry {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteGlossaryEntry {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1517,7 +1534,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateDataset {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateDataset {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1558,7 +1576,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDataset {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDataset {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1626,7 +1645,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDatasets {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDatasets {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1702,7 +1722,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteDataset {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteDataset {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1759,7 +1780,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateAdaptiveMtDataset {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAdaptiveMtDataset {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1792,7 +1814,7 @@ pub mod translation_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_adaptive_mt_dataset(self.0.request, self.0.options)
                 .await
@@ -1805,7 +1827,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteAdaptiveMtDataset {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteAdaptiveMtDataset {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1849,7 +1872,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAdaptiveMtDataset {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAdaptiveMtDataset {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1928,7 +1952,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAdaptiveMtDatasets {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAdaptiveMtDatasets {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2015,7 +2040,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for AdaptiveMtTranslate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AdaptiveMtTranslate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2059,7 +2085,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAdaptiveMtFile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAdaptiveMtFile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2090,7 +2117,7 @@ pub mod translation_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_adaptive_mt_file(self.0.request, self.0.options)
                 .await
@@ -2103,7 +2130,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteAdaptiveMtFile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteAdaptiveMtFile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2158,7 +2186,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ImportAdaptiveMtFile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ImportAdaptiveMtFile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2229,7 +2258,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAdaptiveMtFiles {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAdaptiveMtFiles {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2304,7 +2334,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAdaptiveMtSentences {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAdaptiveMtSentences {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2389,7 +2420,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ImportData {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ImportData {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2476,7 +2508,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ExportData {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ExportData {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2550,7 +2583,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListExamples {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListExamples {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2637,7 +2671,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateModel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateModel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2711,7 +2746,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListModels {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListModels {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2752,7 +2788,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetModel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetModel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2828,7 +2865,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteModel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteModel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2905,7 +2943,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2946,7 +2985,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3023,7 +3063,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3067,7 +3108,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3098,7 +3140,7 @@ pub mod translation_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -3111,7 +3153,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3142,7 +3185,7 @@ pub mod translation_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -3155,7 +3198,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3205,7 +3249,8 @@ pub mod translation_service {
         }
     }
 
-    impl gax::options::RequestBuilder for WaitOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for WaitOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

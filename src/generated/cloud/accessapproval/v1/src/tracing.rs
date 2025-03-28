@@ -107,7 +107,7 @@ where
         &self,
         req: crate::model::DeleteAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner
             .delete_access_approval_settings(req, options)
             .await

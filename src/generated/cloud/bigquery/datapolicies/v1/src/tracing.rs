@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::DeleteDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_data_policy(req, options).await
     }
 

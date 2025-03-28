@@ -108,7 +108,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDataExchanges {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDataExchanges {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -181,7 +182,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOrgDataExchanges {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOrgDataExchanges {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -224,7 +226,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDataExchange {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDataExchange {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -285,7 +288,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateDataExchange {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateDataExchange {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -343,7 +347,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateDataExchange {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateDataExchange {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -376,7 +381,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_data_exchange(self.0.request, self.0.options)
                 .await
@@ -389,7 +394,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteDataExchange {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteDataExchange {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -459,7 +465,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListListings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListListings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -502,7 +509,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetListing {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetListing {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -560,7 +568,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateListing {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateListing {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -615,7 +624,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateListing {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateListing {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -645,7 +655,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_listing(self.0.request, self.0.options)
                 .await
@@ -658,7 +668,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteListing {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteListing {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -715,7 +726,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SubscribeListing {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SubscribeListing {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -820,7 +832,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SubscribeDataExchange {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SubscribeDataExchange {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -907,7 +920,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for RefreshSubscription {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RefreshSubscription {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -950,7 +964,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetSubscription {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetSubscription {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1029,7 +1044,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListSubscriptions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListSubscriptions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1112,7 +1128,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListSharedResourceSubscriptions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListSharedResourceSubscriptions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1158,7 +1175,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for RevokeSubscription {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RevokeSubscription {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1239,7 +1257,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteSubscription {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteSubscription {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1291,7 +1310,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1352,7 +1372,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1409,7 +1430,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1455,7 +1477,8 @@ pub mod analytics_hub_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

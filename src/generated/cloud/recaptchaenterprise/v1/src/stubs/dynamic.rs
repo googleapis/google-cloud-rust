@@ -63,7 +63,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn migrate_key(
         &self,
@@ -123,7 +123,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteFirewallPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn reorder_firewall_policies(
         &self,
@@ -221,7 +221,7 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
         &self,
         req: crate::model::DeleteKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_key(self, req, options).await
     }
 
@@ -311,7 +311,7 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
         &self,
         req: crate::model::DeleteFirewallPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_firewall_policy(self, req, options).await
     }
 

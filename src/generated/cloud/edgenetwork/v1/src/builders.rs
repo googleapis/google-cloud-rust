@@ -74,7 +74,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for InitializeZone {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for InitializeZone {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -153,7 +154,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for ListZones {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListZones {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -194,7 +196,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for GetZone {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetZone {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -274,7 +277,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for ListNetworks {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListNetworks {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -315,7 +319,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for GetNetwork {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetNetwork {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -356,7 +361,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for DiagnoseNetwork {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DiagnoseNetwork {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -455,7 +461,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateNetwork {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateNetwork {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -537,7 +544,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteNetwork {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteNetwork {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -617,7 +625,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for ListSubnets {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListSubnets {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -658,7 +667,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for GetSubnet {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetSubnet {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -757,7 +767,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateSubnet {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateSubnet {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -853,7 +864,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateSubnet {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateSubnet {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -935,7 +947,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteSubnet {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteSubnet {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1018,7 +1031,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for ListInterconnects {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListInterconnects {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1059,7 +1073,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for GetInterconnect {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetInterconnect {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1103,7 +1118,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for DiagnoseInterconnect {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DiagnoseInterconnect {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1190,7 +1206,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for ListInterconnectAttachments {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListInterconnectAttachments {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1236,7 +1253,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for GetInterconnectAttachment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetInterconnectAttachment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1349,7 +1367,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateInterconnectAttachment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateInterconnectAttachment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1436,7 +1455,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteInterconnectAttachment {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteInterconnectAttachment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1516,7 +1536,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for ListRouters {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListRouters {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1557,7 +1578,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for GetRouter {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetRouter {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1598,7 +1620,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for DiagnoseRouter {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DiagnoseRouter {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1697,7 +1720,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateRouter {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateRouter {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1793,7 +1817,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateRouter {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateRouter {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1875,7 +1900,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteRouter {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteRouter {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1952,7 +1978,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1993,7 +2020,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2070,7 +2098,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2114,7 +2143,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2145,7 +2175,7 @@ pub mod edge_network {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -2158,7 +2188,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2189,7 +2220,7 @@ pub mod edge_network {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -2202,7 +2233,8 @@ pub mod edge_network {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

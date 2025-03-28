@@ -106,7 +106,8 @@ pub mod service_controller {
         }
     }
 
-    impl gax::options::RequestBuilder for Check {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Check {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -162,7 +163,8 @@ pub mod service_controller {
         }
     }
 
-    impl gax::options::RequestBuilder for Report {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Report {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

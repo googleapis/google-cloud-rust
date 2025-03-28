@@ -130,7 +130,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateCdnKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCdnKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -212,7 +213,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListCdnKeys {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListCdnKeys {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -255,7 +257,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCdnKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCdnKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -333,7 +336,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteCdnKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteCdnKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -425,7 +429,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateCdnKey {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateCdnKey {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -480,7 +485,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateVodSession {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateVodSession {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -523,7 +529,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetVodSession {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetVodSession {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -596,7 +603,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListVodStitchDetails {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListVodStitchDetails {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -642,7 +650,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetVodStitchDetail {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetVodStitchDetail {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -715,7 +724,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListVodAdTagDetails {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListVodAdTagDetails {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -761,7 +771,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetVodAdTagDetail {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetVodAdTagDetail {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -834,7 +845,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLiveAdTagDetails {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLiveAdTagDetails {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -880,7 +892,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLiveAdTagDetail {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLiveAdTagDetail {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -981,7 +994,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateSlate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateSlate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1063,7 +1077,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListSlates {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListSlates {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1106,7 +1121,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetSlate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetSlate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1198,7 +1214,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateSlate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateSlate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1276,7 +1293,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteSlate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteSlate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1331,7 +1349,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateLiveSession {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateLiveSession {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1374,7 +1393,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLiveSession {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLiveSession {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1479,7 +1499,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateLiveConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateLiveConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1561,7 +1582,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLiveConfigs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLiveConfigs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1604,7 +1626,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLiveConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLiveConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1685,7 +1708,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteLiveConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteLiveConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1781,7 +1805,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateLiveConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateLiveConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1883,7 +1908,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateVodConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateVodConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1965,7 +1991,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListVodConfigs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListVodConfigs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2008,7 +2035,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetVodConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetVodConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2086,7 +2114,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteVodConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteVodConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2179,7 +2208,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateVodConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateVodConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2258,7 +2288,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2304,7 +2335,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2337,7 +2369,7 @@ pub mod video_stitcher_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -2350,7 +2382,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2383,7 +2416,7 @@ pub mod video_stitcher_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -2396,7 +2429,8 @@ pub mod video_stitcher_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

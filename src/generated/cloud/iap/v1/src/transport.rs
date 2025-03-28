@@ -230,7 +230,7 @@ impl super::stubs::IdentityAwareProxyAdminService for IdentityAwareProxyAdminSer
         &self,
         req: crate::model::DeleteTunnelDestGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -243,6 +243,7 @@ impl super::stubs::IdentityAwareProxyAdminService for IdentityAwareProxyAdminSer
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn update_tunnel_dest_group(
@@ -450,7 +451,7 @@ impl super::stubs::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthSer
         &self,
         req: crate::model::DeleteIdentityAwareProxyClientRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -463,5 +464,6 @@ impl super::stubs::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthSer
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 }

@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::DeleteDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_document(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::RollbackRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.rollback(req, options).await
     }
 

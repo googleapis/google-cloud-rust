@@ -115,7 +115,8 @@ pub mod service_usage {
         }
     }
 
-    impl gax::options::RequestBuilder for EnableService {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for EnableService {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -214,7 +215,8 @@ pub mod service_usage {
         }
     }
 
-    impl gax::options::RequestBuilder for DisableService {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DisableService {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -255,7 +257,8 @@ pub mod service_usage {
         }
     }
 
-    impl gax::options::RequestBuilder for GetService {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetService {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -329,7 +332,8 @@ pub mod service_usage {
         }
     }
 
-    impl gax::options::RequestBuilder for ListServices {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListServices {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -425,7 +429,8 @@ pub mod service_usage {
         }
     }
 
-    impl gax::options::RequestBuilder for BatchEnableServices {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BatchEnableServices {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -480,7 +485,8 @@ pub mod service_usage {
         }
     }
 
-    impl gax::options::RequestBuilder for BatchGetServices {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BatchGetServices {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -557,7 +563,8 @@ pub mod service_usage {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -601,7 +608,8 @@ pub mod service_usage {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

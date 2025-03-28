@@ -107,7 +107,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteUserWorkloadsSecretRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn create_user_workloads_config_map(
         &self,
@@ -137,7 +137,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteUserWorkloadsConfigMapRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     async fn save_snapshot(
         &self,
@@ -179,7 +179,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 
     fn get_polling_error_policy(
         &self,
@@ -326,7 +326,7 @@ impl<T: super::Environments> Environments for T {
         &self,
         req: crate::model::DeleteUserWorkloadsSecretRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_user_workloads_secret(self, req, options).await
     }
 
@@ -371,7 +371,7 @@ impl<T: super::Environments> Environments for T {
         &self,
         req: crate::model::DeleteUserWorkloadsConfigMapRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_user_workloads_config_map(self, req, options).await
     }
 
@@ -434,7 +434,7 @@ impl<T: super::Environments> Environments for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 
@@ -478,7 +478,7 @@ pub trait ImageVersions: std::fmt::Debug + Send + Sync {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
+    ) -> crate::Result<()>;
 }
 
 /// All implementations of [super::ImageVersions] also implement [ImageVersions].
@@ -516,7 +516,7 @@ impl<T: super::ImageVersions> ImageVersions for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty> {
+    ) -> crate::Result<()> {
         T::delete_operation(self, req, options).await
     }
 }

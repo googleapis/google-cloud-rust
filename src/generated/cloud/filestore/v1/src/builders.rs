@@ -117,7 +117,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListInstances {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListInstances {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -160,7 +161,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -257,7 +259,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -351,7 +354,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -448,7 +452,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for RestoreInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RestoreInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -536,7 +541,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for RevertInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RevertInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -622,7 +628,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteInstance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteInstance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -710,7 +717,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListSnapshots {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListSnapshots {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -753,7 +761,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetSnapshot {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetSnapshot {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -850,7 +859,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateSnapshot {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateSnapshot {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -930,7 +940,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteSnapshot {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteSnapshot {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1024,7 +1035,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateSnapshot {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateSnapshot {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1106,7 +1118,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListBackups {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBackups {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1149,7 +1162,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1246,7 +1260,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1326,7 +1341,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1420,7 +1436,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1508,7 +1525,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for PromoteReplica {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PromoteReplica {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1587,7 +1605,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1630,7 +1649,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1709,7 +1729,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1755,7 +1776,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1788,7 +1810,7 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -1801,7 +1823,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1834,7 +1857,7 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -1847,7 +1870,8 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

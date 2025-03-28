@@ -108,7 +108,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for ListAuthorizationPolicies {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAuthorizationPolicies {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -152,7 +153,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAuthorizationPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAuthorizationPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -254,7 +256,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateAuthorizationPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAuthorizationPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -353,7 +356,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateAuthorizationPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateAuthorizationPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -434,7 +438,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteAuthorizationPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteAuthorizationPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -505,7 +510,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for ListServerTlsPolicies {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListServerTlsPolicies {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -549,7 +555,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for GetServerTlsPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetServerTlsPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -649,7 +656,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateServerTlsPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateServerTlsPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -746,7 +754,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateServerTlsPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateServerTlsPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -825,7 +834,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteServerTlsPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteServerTlsPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -896,7 +906,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for ListClientTlsPolicies {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListClientTlsPolicies {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -940,7 +951,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for GetClientTlsPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetClientTlsPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1040,7 +1052,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateClientTlsPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateClientTlsPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1137,7 +1150,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateClientTlsPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateClientTlsPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1216,7 +1230,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteClientTlsPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteClientTlsPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1293,7 +1308,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1334,7 +1350,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1393,7 +1410,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for SetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1443,7 +1461,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for GetIamPolicy {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIamPolicy {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1498,7 +1517,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for TestIamPermissions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1575,7 +1595,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1619,7 +1640,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1650,7 +1672,7 @@ pub mod network_security {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -1663,7 +1685,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1694,7 +1717,7 @@ pub mod network_security {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -1707,7 +1730,8 @@ pub mod network_security {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

@@ -134,7 +134,8 @@ pub mod assured_workloads_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateWorkload {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateWorkload {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -189,7 +190,8 @@ pub mod assured_workloads_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateWorkload {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateWorkload {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -248,7 +250,8 @@ pub mod assured_workloads_service {
         }
     }
 
-    impl gax::options::RequestBuilder for RestrictAllowedResources {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RestrictAllowedResources {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -278,7 +281,7 @@ pub mod assured_workloads_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_workload(self.0.request, self.0.options)
                 .await
@@ -297,7 +300,8 @@ pub mod assured_workloads_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteWorkload {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteWorkload {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -340,7 +344,8 @@ pub mod assured_workloads_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetWorkload {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetWorkload {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -416,7 +421,8 @@ pub mod assured_workloads_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListWorkloads {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListWorkloads {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -495,7 +501,8 @@ pub mod assured_workloads_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -541,7 +548,8 @@ pub mod assured_workloads_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

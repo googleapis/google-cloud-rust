@@ -113,7 +113,8 @@ pub mod parameter_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListParameters {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListParameters {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -154,7 +155,8 @@ pub mod parameter_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetParameter {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetParameter {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -216,7 +218,8 @@ pub mod parameter_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateParameter {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateParameter {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -275,7 +278,8 @@ pub mod parameter_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateParameter {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateParameter {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -303,7 +307,7 @@ pub mod parameter_manager {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_parameter(self.0.request, self.0.options)
                 .await
@@ -322,7 +326,8 @@ pub mod parameter_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteParameter {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteParameter {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -405,7 +410,8 @@ pub mod parameter_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListParameterVersions {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListParameterVersions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -455,7 +461,8 @@ pub mod parameter_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetParameterVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetParameterVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -499,7 +506,8 @@ pub mod parameter_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for RenderParameterVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RenderParameterVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -566,7 +574,8 @@ pub mod parameter_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateParameterVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateParameterVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -630,7 +639,8 @@ pub mod parameter_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateParameterVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateParameterVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -661,7 +671,7 @@ pub mod parameter_manager {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_parameter_version(self.0.request, self.0.options)
                 .await
@@ -680,7 +690,8 @@ pub mod parameter_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteParameterVersion {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteParameterVersion {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -757,7 +768,8 @@ pub mod parameter_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -798,7 +810,8 @@ pub mod parameter_manager {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

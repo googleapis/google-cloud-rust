@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::DeleteParameterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_parameter(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::DeleteParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         self.inner.delete_parameter_version(req, options).await
     }
 

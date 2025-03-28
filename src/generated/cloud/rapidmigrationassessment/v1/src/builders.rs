@@ -137,7 +137,8 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateCollector {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCollector {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -236,7 +237,8 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateAnnotation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAnnotation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -279,7 +281,8 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    impl gax::options::RequestBuilder for GetAnnotation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAnnotation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -361,7 +364,8 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    impl gax::options::RequestBuilder for ListCollectors {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListCollectors {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -404,7 +408,8 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    impl gax::options::RequestBuilder for GetCollector {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetCollector {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -503,7 +508,8 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateCollector {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateCollector {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -590,7 +596,8 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteCollector {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteCollector {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -677,7 +684,8 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    impl gax::options::RequestBuilder for ResumeCollector {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResumeCollector {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -767,7 +775,8 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    impl gax::options::RequestBuilder for RegisterCollector {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RegisterCollector {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -854,7 +863,8 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    impl gax::options::RequestBuilder for PauseCollector {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PauseCollector {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -933,7 +943,8 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -976,7 +987,8 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLocation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLocation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1055,7 +1067,8 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1101,7 +1114,8 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1134,7 +1148,7 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
@@ -1147,7 +1161,8 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1180,7 +1195,7 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
@@ -1193,7 +1208,8 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

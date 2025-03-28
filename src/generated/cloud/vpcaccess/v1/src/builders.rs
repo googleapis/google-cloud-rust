@@ -127,7 +127,8 @@ pub mod vpc_access_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateConnector {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateConnector {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -168,7 +169,8 @@ pub mod vpc_access_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetConnector {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetConnector {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -236,7 +238,8 @@ pub mod vpc_access_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListConnectors {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListConnectors {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -312,7 +315,8 @@ pub mod vpc_access_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteConnector {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteConnector {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -389,7 +393,8 @@ pub mod vpc_access_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListLocations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListLocations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -466,7 +471,8 @@ pub mod vpc_access_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListOperations {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -510,7 +516,8 @@ pub mod vpc_access_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetOperation {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

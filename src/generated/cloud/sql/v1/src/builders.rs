@@ -84,7 +84,8 @@ pub mod sql_backup_runs_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Delete {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Delete {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -137,7 +138,8 @@ pub mod sql_backup_runs_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Get {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Get {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -190,7 +192,8 @@ pub mod sql_backup_runs_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Insert {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Insert {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -249,7 +252,8 @@ pub mod sql_backup_runs_service {
         }
     }
 
-    impl gax::options::RequestBuilder for List {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for List {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -327,7 +331,8 @@ pub mod sql_connect_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetConnectSettings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetConnectSettings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -398,7 +403,8 @@ pub mod sql_connect_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GenerateEphemeralCert {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GenerateEphemeralCert {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -476,7 +482,8 @@ pub mod sql_databases_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Delete {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Delete {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -529,7 +536,8 @@ pub mod sql_databases_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Get {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Get {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -582,7 +590,8 @@ pub mod sql_databases_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Insert {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Insert {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -629,7 +638,8 @@ pub mod sql_databases_service {
         }
     }
 
-    impl gax::options::RequestBuilder for List {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for List {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -688,7 +698,8 @@ pub mod sql_databases_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Patch {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Patch {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -747,7 +758,8 @@ pub mod sql_databases_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Update {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Update {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -813,7 +825,8 @@ pub mod sql_flags_service {
         }
     }
 
-    impl gax::options::RequestBuilder for List {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for List {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -885,7 +898,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for AddServerCa {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AddServerCa {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -938,7 +952,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Clone {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Clone {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -985,7 +1000,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Delete {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Delete {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1038,7 +1054,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DemoteMaster {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DemoteMaster {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1091,7 +1108,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Demote {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Demote {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1144,7 +1162,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Export {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Export {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1197,7 +1216,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Failover {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Failover {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1250,7 +1270,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Reencrypt {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Reencrypt {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1297,7 +1318,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Get {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Get {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1350,7 +1372,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Import {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Import {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1397,7 +1420,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Insert {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Insert {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1456,7 +1480,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for List {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for List {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1503,7 +1528,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListServerCas {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListServerCas {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1556,7 +1582,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Patch {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Patch {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1609,7 +1636,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for PromoteReplica {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PromoteReplica {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1662,7 +1690,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Switchover {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Switchover {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1709,7 +1738,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ResetSslConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResetSslConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1756,7 +1786,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Restart {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Restart {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1809,7 +1840,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for RestoreBackup {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RestoreBackup {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1862,7 +1894,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for RotateServerCa {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RotateServerCa {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1909,7 +1942,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for StartReplica {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StartReplica {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1956,7 +1990,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for StopReplica {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StopReplica {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2009,7 +2044,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for TruncateLog {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TruncateLog {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2062,7 +2098,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Update {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Update {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2115,7 +2152,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateEphemeral {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateEphemeral {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2168,7 +2206,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for RescheduleMaintenance {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RescheduleMaintenance {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2251,7 +2290,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for VerifyExternalSyncSettings {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for VerifyExternalSyncSettings {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2328,7 +2368,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for StartExternalSync {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StartExternalSync {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2381,7 +2422,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for PerformDiskShrink {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PerformDiskShrink {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2428,7 +2470,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDiskShrinkConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDiskShrinkConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2475,7 +2518,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ResetReplicaSize {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResetReplicaSize {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2522,7 +2566,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetLatestRecoveryTime {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetLatestRecoveryTime {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2575,7 +2620,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for AcquireSsrsLease {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AcquireSsrsLease {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2622,7 +2668,8 @@ pub mod sql_instances_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ReleaseSsrsLease {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ReleaseSsrsLease {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2694,7 +2741,8 @@ pub mod sql_operations_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Get {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Get {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2753,7 +2801,8 @@ pub mod sql_operations_service {
         }
     }
 
-    impl gax::options::RequestBuilder for List {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for List {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2783,7 +2832,7 @@ pub mod sql_operations_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub).cancel(self.0.request, self.0.options).await
         }
 
@@ -2800,7 +2849,8 @@ pub mod sql_operations_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Cancel {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Cancel {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2878,7 +2928,8 @@ pub mod sql_ssl_certs_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Delete {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Delete {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2931,7 +2982,8 @@ pub mod sql_ssl_certs_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Get {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Get {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2984,7 +3036,8 @@ pub mod sql_ssl_certs_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Insert {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Insert {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3031,7 +3084,8 @@ pub mod sql_ssl_certs_service {
         }
     }
 
-    impl gax::options::RequestBuilder for List {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for List {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3097,7 +3151,8 @@ pub mod sql_tiers_service {
         }
     }
 
-    impl gax::options::RequestBuilder for List {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for List {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3181,7 +3236,8 @@ pub mod sql_users_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Delete {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Delete {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3240,7 +3296,8 @@ pub mod sql_users_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Get {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Get {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3293,7 +3350,8 @@ pub mod sql_users_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Insert {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Insert {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3340,7 +3398,8 @@ pub mod sql_users_service {
         }
     }
 
-    impl gax::options::RequestBuilder for List {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for List {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3405,7 +3464,8 @@ pub mod sql_users_service {
         }
     }
 
-    impl gax::options::RequestBuilder for Update {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Update {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

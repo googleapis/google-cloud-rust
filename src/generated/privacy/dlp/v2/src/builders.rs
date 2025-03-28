@@ -104,7 +104,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for InspectContent {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for InspectContent {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -186,7 +187,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for RedactImage {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RedactImage {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -277,7 +279,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeidentifyContent {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeidentifyContent {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -368,7 +371,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ReidentifyContent {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ReidentifyContent {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -427,7 +431,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListInfoTypes {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListInfoTypes {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -492,7 +497,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateInspectTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateInspectTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -554,7 +560,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateInspectTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateInspectTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -598,7 +605,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetInspectTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetInspectTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -681,7 +689,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListInspectTemplates {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListInspectTemplates {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -712,7 +721,7 @@ pub mod dlp_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_inspect_template(self.0.request, self.0.options)
                 .await
@@ -725,7 +734,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteInspectTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteInspectTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -794,7 +804,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateDeidentifyTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateDeidentifyTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -860,7 +871,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateDeidentifyTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateDeidentifyTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -904,7 +916,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDeidentifyTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDeidentifyTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -991,7 +1004,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDeidentifyTemplates {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDeidentifyTemplates {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1024,7 +1038,7 @@ pub mod dlp_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_deidentify_template(self.0.request, self.0.options)
                 .await
@@ -1037,7 +1051,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteDeidentifyTemplate {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteDeidentifyTemplate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1102,7 +1117,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateJobTrigger {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateJobTrigger {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1164,7 +1180,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateJobTrigger {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateJobTrigger {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1219,7 +1236,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for HybridInspectJobTrigger {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for HybridInspectJobTrigger {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1260,7 +1278,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetJobTrigger {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetJobTrigger {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1352,7 +1371,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListJobTriggers {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListJobTriggers {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1383,7 +1403,7 @@ pub mod dlp_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_job_trigger(self.0.request, self.0.options)
                 .await
@@ -1396,7 +1416,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteJobTrigger {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteJobTrigger {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1440,7 +1461,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ActivateJobTrigger {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ActivateJobTrigger {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1499,7 +1521,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateDiscoveryConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateDiscoveryConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1561,7 +1584,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateDiscoveryConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateDiscoveryConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1605,7 +1629,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDiscoveryConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDiscoveryConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1682,7 +1707,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDiscoveryConfigs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDiscoveryConfigs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1713,7 +1739,7 @@ pub mod dlp_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_discovery_config(self.0.request, self.0.options)
                 .await
@@ -1726,7 +1752,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteDiscoveryConfig {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteDiscoveryConfig {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1788,7 +1815,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateDlpJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateDlpJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1880,7 +1908,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListDlpJobs {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDlpJobs {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1921,7 +1950,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetDlpJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDlpJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1949,7 +1979,7 @@ pub mod dlp_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_dlp_job(self.0.request, self.0.options)
                 .await
@@ -1962,7 +1992,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteDlpJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteDlpJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1990,7 +2021,7 @@ pub mod dlp_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .cancel_dlp_job(self.0.request, self.0.options)
                 .await
@@ -2003,7 +2034,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CancelDlpJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelDlpJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2068,7 +2100,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateStoredInfoType {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateStoredInfoType {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2130,7 +2163,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateStoredInfoType {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateStoredInfoType {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2174,7 +2208,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetStoredInfoType {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetStoredInfoType {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2257,7 +2292,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListStoredInfoTypes {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListStoredInfoTypes {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2288,7 +2324,7 @@ pub mod dlp_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_stored_info_type(self.0.request, self.0.options)
                 .await
@@ -2301,7 +2337,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteStoredInfoType {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteStoredInfoType {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2388,7 +2425,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListProjectDataProfiles {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListProjectDataProfiles {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2471,7 +2509,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListTableDataProfiles {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListTableDataProfiles {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2556,7 +2595,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListColumnDataProfiles {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListColumnDataProfiles {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2600,7 +2640,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetProjectDataProfile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetProjectDataProfile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2687,7 +2728,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListFileStoreDataProfiles {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListFileStoreDataProfiles {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2733,7 +2775,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetFileStoreDataProfile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetFileStoreDataProfile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2766,7 +2809,7 @@ pub mod dlp_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_file_store_data_profile(self.0.request, self.0.options)
                 .await
@@ -2779,7 +2822,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteFileStoreDataProfile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteFileStoreDataProfile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2823,7 +2867,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetTableDataProfile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetTableDataProfile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2867,7 +2912,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetColumnDataProfile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetColumnDataProfile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2898,7 +2944,7 @@ pub mod dlp_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_table_data_profile(self.0.request, self.0.options)
                 .await
@@ -2911,7 +2957,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteTableDataProfile {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteTableDataProfile {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2964,7 +3011,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for HybridInspectDlpJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for HybridInspectDlpJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2992,7 +3040,7 @@ pub mod dlp_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .finish_dlp_job(self.0.request, self.0.options)
                 .await
@@ -3005,7 +3053,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for FinishDlpJob {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FinishDlpJob {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3058,7 +3107,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for CreateConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3099,7 +3149,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for GetConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3173,7 +3224,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for ListConnections {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListConnections {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3250,7 +3302,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for SearchConnections {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SearchConnections {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3281,7 +3334,7 @@ pub mod dlp_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<wkt::Empty> {
+        pub async fn send(self) -> Result<()> {
             (*self.0.stub)
                 .delete_connection(self.0.request, self.0.options)
                 .await
@@ -3294,7 +3347,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for DeleteConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3356,7 +3410,8 @@ pub mod dlp_service {
         }
     }
 
-    impl gax::options::RequestBuilder for UpdateConnection {
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateConnection {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
