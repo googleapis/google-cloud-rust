@@ -30,7 +30,6 @@ use crate::polling_backoff_policy::{PollingBackoffPolicy, PollingBackoffPolicyAr
 use crate::polling_error_policy::{PollingErrorPolicy, PollingErrorPolicyArg};
 use crate::retry_policy::{RetryPolicy, RetryPolicyArg};
 use crate::retry_throttler::{RetryThrottlerArg, SharedRetryThrottler};
-use auth::credentials::Credential;
 use std::sync::Arc;
 
 /// A set of options configuring a single request.
@@ -252,15 +251,6 @@ where
         self
     }
 }
-
-/// Configure a client.
-///
-/// A client represents a connection to a Google Cloud Service. Each service
-/// has one or more client types. The default configuration for each client
-/// should work for most applications. But some applications may need to
-/// override the default endpoint, the default authentication credentials,
-/// the retry policies, and/or other behaviors of the client.
-pub type ClientConfig = crate::client_builder::internal::ClientConfig<Credential>;
 
 #[cfg(test)]
 mod test {

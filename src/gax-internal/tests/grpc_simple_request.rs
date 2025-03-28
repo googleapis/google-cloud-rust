@@ -17,14 +17,16 @@ mod test {
     use auth::credentials::testing::test_credentials;
     use gax::options::*;
     use google_cloud_gax_internal::grpc;
-    use grpc_server::{google, start_echo_server};
+    use grpc_server::{builder, google, start_echo_server};
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn default_endpoint() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
 
-        let config = ClientConfig::default().set_credential(test_credentials());
-        let client = grpc::Client::new(config, &endpoint).await?;
+        let client = builder(endpoint)
+            .with_credentials(test_credentials())
+            .build()
+            .await?;
         check_simple_request(client).await
     }
 
@@ -32,10 +34,11 @@ mod test {
     async fn override_endpoint() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
 
-        let config = ClientConfig::default()
-            .set_endpoint(&endpoint)
-            .set_credential(test_credentials());
-        let client = grpc::Client::new(config, "unused").await?;
+        let client = builder("unused")
+            .with_endpoint(endpoint)
+            .with_credentials(test_credentials())
+            .build()
+            .await?;
 
         check_simple_request(client).await
     }
@@ -44,11 +47,10 @@ mod test {
     async fn credentials_error() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
 
-        let config = ClientConfig::default()
-            .set_endpoint(&endpoint)
-            .set_credential(auth::credentials::testing::error_credentials(true));
-        let client = grpc::Client::new(config, "unused").await?;
-
+        let client = builder(endpoint)
+            .with_credentials(auth::credentials::testing::error_credentials(true))
+            .build()
+            .await?;
         let response = send_request(client, "credentials error").await;
         let err = response.err().unwrap();
         assert_eq!(err.kind(), gax::error::ErrorKind::Authentication, "{err:?}");
@@ -57,10 +59,10 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn connection_error() -> anyhow::Result<()> {
-        let config = ClientConfig::default()
-            .set_endpoint("http://127.0.0.1:1")
-            .set_credential(test_credentials());
-        let client = grpc::Client::new(config, "unused").await;
+        let client = builder("http://127.0.0.1:1")
+            .with_credentials(test_credentials())
+            .build()
+            .await;
         let err = client.err().unwrap();
         assert_eq!(err.kind(), gax::error::ErrorKind::Io, "{err:?}");
         Ok(())
@@ -68,10 +70,10 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn endpoint_error() -> anyhow::Result<()> {
-        let config = ClientConfig::default()
-            .set_endpoint("http:/invalid-invalid")
-            .set_credential(test_credentials());
-        let client = grpc::Client::new(config, "unused").await;
+        let client = builder("http:/invalid-invalid")
+            .with_credentials(test_credentials())
+            .build()
+            .await;
         let err = client.err().unwrap();
         assert_eq!(err.kind(), gax::error::ErrorKind::Other, "{err:?}");
         Ok(())
@@ -81,10 +83,10 @@ mod test {
     async fn request_error() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
 
-        let config = ClientConfig::default()
-            .set_endpoint(&endpoint)
-            .set_credential(test_credentials());
-        let client = grpc::Client::new(config, "unused").await?;
+        let client = builder(endpoint)
+            .with_credentials(test_credentials())
+            .build()
+            .await?;
 
         let response = send_request(client, "").await;
         let err = response.err().unwrap();

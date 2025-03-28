@@ -458,7 +458,9 @@ name = "echo-server"
 version = "0.0.0"
 dependencies = [
  "axum",
+ "google-cloud-auth",
  "google-cloud-gax",
+ "google-cloud-gax-internal",
  "google-cloud-rpc",
  "serde_json",
  "tokio",
@@ -2286,7 +2288,6 @@ dependencies = [
  "mockall",
  "pin-project",
  "rand 0.9.0",
- "scoped-env",
  "serde",
  "serde_json",
  "serial_test",
@@ -4434,6 +4435,9 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "axum",
+ "google-cloud-auth",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
  "http",
  "prost",
  "serde_json",

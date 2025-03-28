@@ -17,7 +17,8 @@ mod test {
     use axum::extract::Query;
     use axum::http::StatusCode;
     use gax::paginator::{ItemPaginator, Paginator, internal::PageableResponse};
-    use google_cloud_gax_internal::http::{NoBody, ReqwestClient};
+    use gaxi::http::{NoBody, ReqwestClient};
+    use google_cloud_gax_internal as gaxi;
     use std::collections::HashMap;
 
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
@@ -97,9 +98,10 @@ mod test {
 
     impl Client {
         pub async fn new(default_endpoint: &str) -> Result<Self> {
-            let config = gax::options::ClientConfig::default()
-                .set_credential(auth::credentials::testing::test_credentials());
-            let inner = ReqwestClient::new(config, default_endpoint).await?;
+            let inner = echo_server::builder(default_endpoint.to_string())
+                .with_credentials(auth::credentials::testing::test_credentials())
+                .build()
+                .await?;
             Ok(Self { inner })
         }
 

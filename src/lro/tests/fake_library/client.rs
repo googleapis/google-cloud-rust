@@ -21,10 +21,12 @@ pub struct Client {
 }
 
 impl Client {
-    pub async fn new(endpoint: String) -> Result<Self> {
-        let config = gax::options::ClientConfig::default()
-            .set_credential(auth::credentials::testing::test_credentials());
-        let inner = ReqwestClient::new(config, &endpoint).await?;
+    pub fn builder() -> ClientBuilder {
+        gax::client_builder::internal::new_builder(Factory)
+    }
+
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = ReqwestClient::new(config, "http://127.0.0.1:1").await?;
         Ok(Self { inner })
     }
 
@@ -40,5 +42,15 @@ impl Client {
 
     pub fn get_operation(&self, name: impl Into<String>) -> builders::GetOperation {
         builders::GetOperation::new(self.inner.clone()).set_name(name)
+    }
+}
+
+pub type ClientBuilder = gax::client_builder::ClientBuilder<Factory, auth::credentials::Credential>;
+pub struct Factory;
+impl gax::client_builder::internal::ClientFactory for Factory {
+    type Client = Client;
+    type Credentials = auth::credentials::Credential;
+    async fn build(self, config: gaxi::options::ClientConfig) -> Result<Self::Client> {
+        Self::Client::new(config).await
     }
 }

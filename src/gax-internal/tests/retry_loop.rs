@@ -33,6 +33,7 @@ mod test {
     use gax::retry_policy::{LimitedAttemptCount, RetryPolicy};
     use gax::retry_throttler::{CircuitBreaker, RetryThrottler};
     use google_cloud_gax_internal::http::ReqwestClient;
+    use google_cloud_gax_internal::options::ClientConfig;
     use serde_json::json;
     use std::sync::{Arc, Mutex};
     use std::time::{Duration, Instant};
@@ -897,7 +898,9 @@ mod test {
     }
 
     fn test_config() -> ClientConfig {
-        ClientConfig::default().set_credential(auth::credentials::testing::test_credentials())
+        let mut config = ClientConfig::default();
+        config.cred = auth::credentials::testing::test_credentials().into();
+        config
     }
 
     fn test_backoff() -> impl BackoffPolicy {
