@@ -70,7 +70,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ManagedIdentitiesService {
-    inner: Arc<dyn super::stubs::dynamic::ManagedIdentitiesService>,
+    inner: Arc<dyn super::stub::dynamic::ManagedIdentitiesService>,
 }
 
 impl ManagedIdentitiesService {
@@ -91,7 +91,7 @@ impl ManagedIdentitiesService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ManagedIdentitiesService + 'static,
+        T: super::stub::ManagedIdentitiesService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -100,7 +100,7 @@ impl ManagedIdentitiesService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ManagedIdentitiesService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ManagedIdentitiesService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -109,13 +109,13 @@ impl ManagedIdentitiesService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ManagedIdentitiesService> {
+    ) -> Result<impl super::stub::ManagedIdentitiesService> {
         super::transport::ManagedIdentitiesService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ManagedIdentitiesService> {
+    ) -> Result<impl super::stub::ManagedIdentitiesService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ManagedIdentitiesService::new)
@@ -135,19 +135,17 @@ impl ManagedIdentitiesService {
     pub fn create_microsoft_ad_domain(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::managed_identities_service::CreateMicrosoftAdDomain {
-        super::builders::managed_identities_service::CreateMicrosoftAdDomain::new(
-            self.inner.clone(),
-        )
-        .set_parent(parent.into())
+    ) -> super::builder::managed_identities_service::CreateMicrosoftAdDomain {
+        super::builder::managed_identities_service::CreateMicrosoftAdDomain::new(self.inner.clone())
+            .set_parent(parent.into())
     }
 
     /// Resets a domain's administrator password.
     pub fn reset_admin_password(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::managed_identities_service::ResetAdminPassword {
-        super::builders::managed_identities_service::ResetAdminPassword::new(self.inner.clone())
+    ) -> super::builder::managed_identities_service::ResetAdminPassword {
+        super::builder::managed_identities_service::ResetAdminPassword::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -155,8 +153,8 @@ impl ManagedIdentitiesService {
     pub fn list_domains(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::managed_identities_service::ListDomains {
-        super::builders::managed_identities_service::ListDomains::new(self.inner.clone())
+    ) -> super::builder::managed_identities_service::ListDomains {
+        super::builder::managed_identities_service::ListDomains::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -164,8 +162,8 @@ impl ManagedIdentitiesService {
     pub fn get_domain(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::managed_identities_service::GetDomain {
-        super::builders::managed_identities_service::GetDomain::new(self.inner.clone())
+    ) -> super::builder::managed_identities_service::GetDomain {
+        super::builder::managed_identities_service::GetDomain::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -183,8 +181,8 @@ impl ManagedIdentitiesService {
     pub fn update_domain(
         &self,
         domain: impl Into<crate::model::Domain>,
-    ) -> super::builders::managed_identities_service::UpdateDomain {
-        super::builders::managed_identities_service::UpdateDomain::new(self.inner.clone())
+    ) -> super::builder::managed_identities_service::UpdateDomain {
+        super::builder::managed_identities_service::UpdateDomain::new(self.inner.clone())
             .set_domain(domain.into())
     }
 
@@ -202,8 +200,8 @@ impl ManagedIdentitiesService {
     pub fn delete_domain(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::managed_identities_service::DeleteDomain {
-        super::builders::managed_identities_service::DeleteDomain::new(self.inner.clone())
+    ) -> super::builder::managed_identities_service::DeleteDomain {
+        super::builder::managed_identities_service::DeleteDomain::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -221,8 +219,8 @@ impl ManagedIdentitiesService {
     pub fn attach_trust(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::managed_identities_service::AttachTrust {
-        super::builders::managed_identities_service::AttachTrust::new(self.inner.clone())
+    ) -> super::builder::managed_identities_service::AttachTrust {
+        super::builder::managed_identities_service::AttachTrust::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -240,8 +238,8 @@ impl ManagedIdentitiesService {
     pub fn reconfigure_trust(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::managed_identities_service::ReconfigureTrust {
-        super::builders::managed_identities_service::ReconfigureTrust::new(self.inner.clone())
+    ) -> super::builder::managed_identities_service::ReconfigureTrust {
+        super::builder::managed_identities_service::ReconfigureTrust::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -259,8 +257,8 @@ impl ManagedIdentitiesService {
     pub fn detach_trust(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::managed_identities_service::DetachTrust {
-        super::builders::managed_identities_service::DetachTrust::new(self.inner.clone())
+    ) -> super::builder::managed_identities_service::DetachTrust {
+        super::builder::managed_identities_service::DetachTrust::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -279,8 +277,8 @@ impl ManagedIdentitiesService {
     pub fn validate_trust(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::managed_identities_service::ValidateTrust {
-        super::builders::managed_identities_service::ValidateTrust::new(self.inner.clone())
+    ) -> super::builder::managed_identities_service::ValidateTrust {
+        super::builder::managed_identities_service::ValidateTrust::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -290,8 +288,8 @@ impl ManagedIdentitiesService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::managed_identities_service::ListOperations {
-        super::builders::managed_identities_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::managed_identities_service::ListOperations {
+        super::builder::managed_identities_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -301,8 +299,8 @@ impl ManagedIdentitiesService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::managed_identities_service::GetOperation {
-        super::builders::managed_identities_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::managed_identities_service::GetOperation {
+        super::builder::managed_identities_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -312,8 +310,8 @@ impl ManagedIdentitiesService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::managed_identities_service::DeleteOperation {
-        super::builders::managed_identities_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::managed_identities_service::DeleteOperation {
+        super::builder::managed_identities_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -323,8 +321,8 @@ impl ManagedIdentitiesService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::managed_identities_service::CancelOperation {
-        super::builders::managed_identities_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::managed_identities_service::CancelOperation {
+        super::builder::managed_identities_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

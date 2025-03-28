@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DlpService](super::stubs::DlpService) using a [gaxi::http::ReqwestClient].
+/// Implements [DlpService](super::stub::DlpService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DlpService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl DlpService {
     }
 }
 
-impl super::stubs::DlpService for DlpService {
+impl super::stub::DlpService for DlpService {
     async fn inspect_content(
         &self,
         req: crate::model::InspectContentRequest,
@@ -229,7 +229,7 @@ impl super::stubs::DlpService for DlpService {
         &self,
         req: crate::model::DeleteInspectTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -242,6 +242,7 @@ impl super::stubs::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_deidentify_template(
@@ -330,7 +331,7 @@ impl super::stubs::DlpService for DlpService {
         &self,
         req: crate::model::DeleteDeidentifyTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -343,6 +344,7 @@ impl super::stubs::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_job_trigger(
@@ -453,7 +455,7 @@ impl super::stubs::DlpService for DlpService {
         &self,
         req: crate::model::DeleteJobTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -466,6 +468,7 @@ impl super::stubs::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn activate_job_trigger(
@@ -570,7 +573,7 @@ impl super::stubs::DlpService for DlpService {
         &self,
         req: crate::model::DeleteDiscoveryConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -583,6 +586,7 @@ impl super::stubs::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_dlp_job(
@@ -650,7 +654,7 @@ impl super::stubs::DlpService for DlpService {
         &self,
         req: crate::model::DeleteDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -663,13 +667,14 @@ impl super::stubs::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_dlp_job(
         &self,
         req: crate::model::CancelDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -679,7 +684,10 @@ impl super::stubs::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_stored_info_type(
@@ -768,7 +776,7 @@ impl super::stubs::DlpService for DlpService {
         &self,
         req: crate::model::DeleteStoredInfoTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -781,6 +789,7 @@ impl super::stubs::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_project_data_profiles(
@@ -929,7 +938,7 @@ impl super::stubs::DlpService for DlpService {
         &self,
         req: crate::model::DeleteFileStoreDataProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -942,6 +951,7 @@ impl super::stubs::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn get_table_data_profile(
@@ -986,7 +996,7 @@ impl super::stubs::DlpService for DlpService {
         &self,
         req: crate::model::DeleteTableDataProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -999,6 +1009,7 @@ impl super::stubs::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn hybrid_inspect_dlp_job(
@@ -1025,7 +1036,7 @@ impl super::stubs::DlpService for DlpService {
         &self,
         req: crate::model::FinishDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1035,7 +1046,10 @@ impl super::stubs::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_connection(
@@ -1131,7 +1145,7 @@ impl super::stubs::DlpService for DlpService {
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1144,6 +1158,7 @@ impl super::stubs::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn update_connection(

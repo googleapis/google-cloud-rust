@@ -157,10 +157,11 @@ impl Builder {
             .endpoint(endpoint)
             .maybe_scopes(self.scopes)
             .build();
+        let cached_token_provider = crate::token_cache::TokenCache::new(token_provider);
 
         let mdsc = MDSCredential {
             quota_project_id: self.quota_project_id,
-            token_provider,
+            token_provider: cached_token_provider,
             universe_domain: self.universe_domain,
         };
         Credential {
@@ -312,6 +313,7 @@ mod test {
     use serde_json::Value;
     use std::collections::HashMap;
     use std::error::Error;
+    use std::sync::Mutex;
     use tokio::task::JoinHandle;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
@@ -418,11 +420,11 @@ mod test {
     // Starts a server running locally that responds on multiple paths.
     // Returns an (endpoint, server) pair.
     async fn start(
-        path_handlers: HashMap<String, (StatusCode, Value, TokenQueryParams)>,
+        path_handlers: HashMap<String, (StatusCode, Value, TokenQueryParams, Arc<Mutex<i32>>)>,
     ) -> (String, JoinHandle<()>) {
         let mut app = axum::Router::new();
 
-        for (path, (code, body, expected_query)) in path_handlers {
+        for (path, (code, body, expected_query, call_count)) in path_handlers {
             let header_map = HeaderMap::new();
             let handler = move |Query(query): Query<TokenQueryParams>| {
                 let code = code.clone();
@@ -430,6 +432,8 @@ mod test {
                 let header_map = header_map.clone();
                 async move {
                     assert_eq!(expected_query, query);
+                    let mut count = call_count.lock().unwrap();
+                    *count += 1;
                     handle_token_factory(code, header_map, body)
                 }
             };
@@ -466,6 +470,7 @@ mod test {
                     scopes: None,
                     recursive: Some("true".to_string()),
                 },
+                Arc::new(Mutex::new(0)),
             ),
         )]))
         .await;
@@ -491,6 +496,7 @@ mod test {
                     scopes: None,
                     recursive: Some("true".to_string()),
                 },
+                Arc::new(Mutex::new(0)),
             ),
         )]))
         .await;
@@ -521,6 +527,7 @@ mod test {
                     scopes: Some(scopes.join(",")),
                     recursive: None,
                 },
+                Arc::new(Mutex::new(0)),
             ),
         )]))
         .await;
@@ -550,6 +557,43 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn token_caching() -> TestResult {
+        let scopes = vec!["scope1".to_string()];
+        let response = MDSTokenResponse {
+            access_token: "test-access-token".to_string(),
+            expires_in: Some(3600),
+            token_type: "test-token-type".to_string(),
+        };
+        let response_body = serde_json::to_value(&response).unwrap();
+
+        let call_count = Arc::new(Mutex::new(0));
+        let (endpoint, _server) = start(HashMap::from([(
+            MDS_TOKEN_URI.to_string(),
+            (
+                StatusCode::OK,
+                response_body,
+                TokenQueryParams {
+                    scopes: Some(scopes.join(",")),
+                    recursive: None,
+                },
+                call_count.clone(),
+            ),
+        )]))
+        .await;
+
+        let mdsc = Builder::default().scopes(scopes).endpoint(endpoint).build();
+        let token = mdsc.get_token().await?;
+        assert_eq!(token.token, "test-access-token");
+        let token = mdsc.get_token().await?;
+        assert_eq!(token.token, "test-access-token");
+
+        // validate that the inner token provider is called only once
+        assert_eq!(*call_count.lock().unwrap(), 1);
+
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_full() -> TestResult {
         let scopes = vec!["scope1".to_string()];
         let response = MDSTokenResponse {
@@ -568,6 +612,7 @@ mod test {
                     scopes: Some(scopes.join(",")),
                     recursive: None,
                 },
+                Arc::new(Mutex::new(0)),
             ),
         )]))
         .await;
@@ -616,6 +661,7 @@ mod test {
                         scopes: None,
                         recursive: Some("true".to_string()),
                     },
+                    Arc::new(Mutex::new(0)),
                 ),
             ),
             (
@@ -627,6 +673,7 @@ mod test {
                         scopes: Some(scopes.join(",")),
                         recursive: None,
                     },
+                    Arc::new(Mutex::new(0)),
                 ),
             ),
         ]))
@@ -665,6 +712,7 @@ mod test {
                     scopes: Some(scopes.join(",")),
                     recursive: None,
                 },
+                Arc::new(Mutex::new(0)),
             ),
         )]))
         .await;
@@ -691,6 +739,7 @@ mod test {
                     scopes: Some(scopes.join(",")),
                     recursive: None,
                 },
+                Arc::new(Mutex::new(0)),
             ),
         )]))
         .await;
@@ -715,6 +764,7 @@ mod test {
                     scopes: Some(scopes.join(",")),
                     recursive: None,
                 },
+                Arc::new(Mutex::new(0)),
             ),
         )]))
         .await;
@@ -740,6 +790,7 @@ mod test {
                     scopes: Some(scopes.join(",")),
                     recursive: None,
                 },
+                Arc::new(Mutex::new(0)),
             ),
         )]))
         .await;

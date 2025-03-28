@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AssuredWorkloadsService](super::stubs::AssuredWorkloadsService) using a [gaxi::http::ReqwestClient].
+/// Implements [AssuredWorkloadsService](super::stub::AssuredWorkloadsService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct AssuredWorkloadsService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl AssuredWorkloadsService {
     }
 }
 
-impl super::stubs::AssuredWorkloadsService for AssuredWorkloadsService {
+impl super::stub::AssuredWorkloadsService for AssuredWorkloadsService {
     async fn create_workload(
         &self,
         req: crate::model::CreateWorkloadRequest,
@@ -125,7 +125,7 @@ impl super::stubs::AssuredWorkloadsService for AssuredWorkloadsService {
         &self,
         req: crate::model::DeleteWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -139,6 +139,7 @@ impl super::stubs::AssuredWorkloadsService for AssuredWorkloadsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn get_workload(

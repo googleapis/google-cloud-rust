@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [BinauthzManagementServiceV1](super::stubs::BinauthzManagementServiceV1) using a [gaxi::http::ReqwestClient].
+/// Implements [BinauthzManagementServiceV1](super::stub::BinauthzManagementServiceV1) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct BinauthzManagementServiceV1 {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl BinauthzManagementServiceV1 {
     }
 }
 
-impl super::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
+impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
     async fn get_policy(
         &self,
         req: crate::model::GetPolicyRequest,
@@ -183,7 +183,7 @@ impl super::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         &self,
         req: crate::model::DeleteAttestorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -196,10 +196,11 @@ impl super::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
-/// Implements [SystemPolicyV1](super::stubs::SystemPolicyV1) using a [gaxi::http::ReqwestClient].
+/// Implements [SystemPolicyV1](super::stub::SystemPolicyV1) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct SystemPolicyV1 {
     inner: gaxi::http::ReqwestClient,
@@ -220,7 +221,7 @@ impl SystemPolicyV1 {
     }
 }
 
-impl super::stubs::SystemPolicyV1 for SystemPolicyV1 {
+impl super::stub::SystemPolicyV1 for SystemPolicyV1 {
     async fn get_system_policy(
         &self,
         req: crate::model::GetSystemPolicyRequest,
@@ -241,7 +242,7 @@ impl super::stubs::SystemPolicyV1 for SystemPolicyV1 {
     }
 }
 
-/// Implements [ValidationHelperV1](super::stubs::ValidationHelperV1) using a [gaxi::http::ReqwestClient].
+/// Implements [ValidationHelperV1](super::stub::ValidationHelperV1) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ValidationHelperV1 {
     inner: gaxi::http::ReqwestClient,
@@ -262,7 +263,7 @@ impl ValidationHelperV1 {
     }
 }
 
-impl super::stubs::ValidationHelperV1 for ValidationHelperV1 {
+impl super::stub::ValidationHelperV1 for ValidationHelperV1 {
     async fn validate_attestation_occurrence(
         &self,
         req: crate::model::ValidateAttestationOccurrenceRequest,

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ApiGatewayService](super::stubs::ApiGatewayService) using a [gaxi::http::ReqwestClient].
+/// Implements [ApiGatewayService](super::stub::ApiGatewayService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ApiGatewayService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl ApiGatewayService {
     }
 }
 
-impl super::stubs::ApiGatewayService for ApiGatewayService {
+impl super::stub::ApiGatewayService for ApiGatewayService {
     async fn list_gateways(
         &self,
         req: crate::model::ListGatewaysRequest,
@@ -442,7 +442,7 @@ impl super::stubs::ApiGatewayService for ApiGatewayService {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -455,13 +455,14 @@ impl super::stubs::ApiGatewayService for ApiGatewayService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -471,7 +472,10 @@ impl super::stubs::ApiGatewayService for ApiGatewayService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(

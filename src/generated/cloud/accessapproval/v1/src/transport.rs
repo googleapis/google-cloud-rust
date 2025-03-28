@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AccessApproval](super::stubs::AccessApproval) using a [gaxi::http::ReqwestClient].
+/// Implements [AccessApproval](super::stub::AccessApproval) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct AccessApproval {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl AccessApproval {
     }
 }
 
-impl super::stubs::AccessApproval for AccessApproval {
+impl super::stub::AccessApproval for AccessApproval {
     async fn list_approval_requests(
         &self,
         req: crate::model::ListApprovalRequestsMessage,
@@ -199,7 +199,7 @@ impl super::stubs::AccessApproval for AccessApproval {
         &self,
         req: crate::model::DeleteAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -212,6 +212,7 @@ impl super::stubs::AccessApproval for AccessApproval {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn get_access_approval_service_account(

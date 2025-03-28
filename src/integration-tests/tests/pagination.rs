@@ -19,7 +19,7 @@ mod mocking {
     mockall::mock! {
         #[derive(Debug)]
         SecretManagerService {}
-        impl sm::stubs::SecretManagerService for SecretManagerService {
+        impl sm::stub::SecretManagerService for SecretManagerService {
             async fn list_secrets(&self, req: sm::model::ListSecretsRequest, _options: gax::options::RequestOptions) -> gax::Result<sm::model::ListSecretsResponse>;
         }
     }
@@ -114,7 +114,7 @@ mod mocking {
             .paginator()
             .await
             .items()
-            .to_stream();
+            .into_stream();
         let mut names = Vec::new();
         while let Some(response) = stream.next().await {
             names.push(response?.name);

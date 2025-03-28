@@ -84,7 +84,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct DatastoreAdmin {
-    inner: Arc<dyn super::stubs::dynamic::DatastoreAdmin>,
+    inner: Arc<dyn super::stub::dynamic::DatastoreAdmin>,
 }
 
 impl DatastoreAdmin {
@@ -105,7 +105,7 @@ impl DatastoreAdmin {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::DatastoreAdmin + 'static,
+        T: super::stub::DatastoreAdmin + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -114,7 +114,7 @@ impl DatastoreAdmin {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::DatastoreAdmin>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::DatastoreAdmin>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -123,13 +123,13 @@ impl DatastoreAdmin {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DatastoreAdmin> {
+    ) -> Result<impl super::stub::DatastoreAdmin> {
         super::transport::DatastoreAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DatastoreAdmin> {
+    ) -> Result<impl super::stub::DatastoreAdmin> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DatastoreAdmin::new)
@@ -156,8 +156,8 @@ impl DatastoreAdmin {
     pub fn export_entities(
         &self,
         project_id: impl Into<std::string::String>,
-    ) -> super::builders::datastore_admin::ExportEntities {
-        super::builders::datastore_admin::ExportEntities::new(self.inner.clone())
+    ) -> super::builder::datastore_admin::ExportEntities {
+        super::builder::datastore_admin::ExportEntities::new(self.inner.clone())
             .set_project_id(project_id.into())
     }
 
@@ -179,8 +179,8 @@ impl DatastoreAdmin {
     pub fn import_entities(
         &self,
         project_id: impl Into<std::string::String>,
-    ) -> super::builders::datastore_admin::ImportEntities {
-        super::builders::datastore_admin::ImportEntities::new(self.inner.clone())
+    ) -> super::builder::datastore_admin::ImportEntities {
+        super::builder::datastore_admin::ImportEntities::new(self.inner.clone())
             .set_project_id(project_id.into())
     }
 
@@ -214,8 +214,8 @@ impl DatastoreAdmin {
     pub fn create_index(
         &self,
         project_id: impl Into<std::string::String>,
-    ) -> super::builders::datastore_admin::CreateIndex {
-        super::builders::datastore_admin::CreateIndex::new(self.inner.clone())
+    ) -> super::builder::datastore_admin::CreateIndex {
+        super::builder::datastore_admin::CreateIndex::new(self.inner.clone())
             .set_project_id(project_id.into())
     }
 
@@ -248,8 +248,8 @@ impl DatastoreAdmin {
         &self,
         project_id: impl Into<std::string::String>,
         index_id: impl Into<std::string::String>,
-    ) -> super::builders::datastore_admin::DeleteIndex {
-        super::builders::datastore_admin::DeleteIndex::new(self.inner.clone())
+    ) -> super::builder::datastore_admin::DeleteIndex {
+        super::builder::datastore_admin::DeleteIndex::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_index_id(index_id.into())
     }
@@ -259,8 +259,8 @@ impl DatastoreAdmin {
         &self,
         project_id: impl Into<std::string::String>,
         index_id: impl Into<std::string::String>,
-    ) -> super::builders::datastore_admin::GetIndex {
-        super::builders::datastore_admin::GetIndex::new(self.inner.clone())
+    ) -> super::builder::datastore_admin::GetIndex {
+        super::builder::datastore_admin::GetIndex::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_index_id(index_id.into())
     }
@@ -271,8 +271,8 @@ impl DatastoreAdmin {
     pub fn list_indexes(
         &self,
         project_id: impl Into<std::string::String>,
-    ) -> super::builders::datastore_admin::ListIndexes {
-        super::builders::datastore_admin::ListIndexes::new(self.inner.clone())
+    ) -> super::builder::datastore_admin::ListIndexes {
+        super::builder::datastore_admin::ListIndexes::new(self.inner.clone())
             .set_project_id(project_id.into())
     }
 
@@ -282,8 +282,8 @@ impl DatastoreAdmin {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::datastore_admin::ListOperations {
-        super::builders::datastore_admin::ListOperations::new(self.inner.clone())
+    ) -> super::builder::datastore_admin::ListOperations {
+        super::builder::datastore_admin::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -293,9 +293,8 @@ impl DatastoreAdmin {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::datastore_admin::GetOperation {
-        super::builders::datastore_admin::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::datastore_admin::GetOperation {
+        super::builder::datastore_admin::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -304,8 +303,8 @@ impl DatastoreAdmin {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::datastore_admin::DeleteOperation {
-        super::builders::datastore_admin::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::datastore_admin::DeleteOperation {
+        super::builder::datastore_admin::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -315,8 +314,8 @@ impl DatastoreAdmin {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::datastore_admin::CancelOperation {
-        super::builders::datastore_admin::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::datastore_admin::CancelOperation {
+        super::builder::datastore_admin::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

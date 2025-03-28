@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Locations](super::stubs::Locations) using a [gaxi::http::ReqwestClient].
+/// Implements [Locations](super::stub::Locations) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Locations {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl Locations {
     }
 }
 
-impl super::stubs::Locations for Locations {
+impl super::stub::Locations for Locations {
     async fn list_locations(
         &self,
         req: crate::model::ListLocationsRequest,

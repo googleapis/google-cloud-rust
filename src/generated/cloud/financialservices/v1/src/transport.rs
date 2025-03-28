@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Aml](super::stubs::Aml) using a [gaxi::http::ReqwestClient].
+/// Implements [Aml](super::stub::Aml) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Aml {
     inner: gaxi::http::ReqwestClient,
@@ -37,7 +37,7 @@ impl Aml {
     }
 }
 
-impl super::stubs::Aml for Aml {
+impl super::stub::Aml for Aml {
     async fn list_instances(
         &self,
         req: crate::model::ListInstancesRequest,
@@ -1044,7 +1044,7 @@ impl super::stubs::Aml for Aml {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1057,13 +1057,14 @@ impl super::stubs::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1073,7 +1074,10 @@ impl super::stubs::Aml for Aml {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(

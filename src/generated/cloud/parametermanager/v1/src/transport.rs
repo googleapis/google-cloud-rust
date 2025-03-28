@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ParameterManager](super::stubs::ParameterManager) using a [gaxi::http::ReqwestClient].
+/// Implements [ParameterManager](super::stub::ParameterManager) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ParameterManager {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl ParameterManager {
     }
 }
 
-impl super::stubs::ParameterManager for ParameterManager {
+impl super::stub::ParameterManager for ParameterManager {
     async fn list_parameters(
         &self,
         req: crate::model::ListParametersRequest,
@@ -152,7 +152,7 @@ impl super::stubs::ParameterManager for ParameterManager {
         &self,
         req: crate::model::DeleteParameterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -166,6 +166,7 @@ impl super::stubs::ParameterManager for ParameterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_parameter_versions(
@@ -297,7 +298,7 @@ impl super::stubs::ParameterManager for ParameterManager {
         &self,
         req: crate::model::DeleteParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -311,6 +312,7 @@ impl super::stubs::ParameterManager for ParameterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_locations(

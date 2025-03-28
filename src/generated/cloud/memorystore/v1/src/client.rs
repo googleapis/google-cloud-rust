@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Memorystore {
-    inner: Arc<dyn super::stubs::dynamic::Memorystore>,
+    inner: Arc<dyn super::stub::dynamic::Memorystore>,
 }
 
 impl Memorystore {
@@ -59,7 +59,7 @@ impl Memorystore {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Memorystore + 'static,
+        T: super::stub::Memorystore + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl Memorystore {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Memorystore>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Memorystore>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +77,13 @@ impl Memorystore {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Memorystore> {
+    ) -> Result<impl super::stub::Memorystore> {
         super::transport::Memorystore::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Memorystore> {
+    ) -> Result<impl super::stub::Memorystore> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Memorystore::new)
@@ -93,8 +93,8 @@ impl Memorystore {
     pub fn list_instances(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::memorystore::ListInstances {
-        super::builders::memorystore::ListInstances::new(self.inner.clone())
+    ) -> super::builder::memorystore::ListInstances {
+        super::builder::memorystore::ListInstances::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,8 +102,8 @@ impl Memorystore {
     pub fn get_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::memorystore::GetInstance {
-        super::builders::memorystore::GetInstance::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::memorystore::GetInstance {
+        super::builder::memorystore::GetInstance::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Instance in a given project and location.
@@ -120,8 +120,8 @@ impl Memorystore {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::memorystore::CreateInstance {
-        super::builders::memorystore::CreateInstance::new(self.inner.clone())
+    ) -> super::builder::memorystore::CreateInstance {
+        super::builder::memorystore::CreateInstance::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -139,8 +139,8 @@ impl Memorystore {
     pub fn update_instance(
         &self,
         instance: impl Into<crate::model::Instance>,
-    ) -> super::builders::memorystore::UpdateInstance {
-        super::builders::memorystore::UpdateInstance::new(self.inner.clone())
+    ) -> super::builder::memorystore::UpdateInstance {
+        super::builder::memorystore::UpdateInstance::new(self.inner.clone())
             .set_instance(instance.into())
     }
 
@@ -158,16 +158,16 @@ impl Memorystore {
     pub fn delete_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::memorystore::DeleteInstance {
-        super::builders::memorystore::DeleteInstance::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::memorystore::DeleteInstance {
+        super::builder::memorystore::DeleteInstance::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets details about the certificate authority for an Instance.
     pub fn get_certificate_authority(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::memorystore::GetCertificateAuthority {
-        super::builders::memorystore::GetCertificateAuthority::new(self.inner.clone())
+    ) -> super::builder::memorystore::GetCertificateAuthority {
+        super::builder::memorystore::GetCertificateAuthority::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -175,16 +175,16 @@ impl Memorystore {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::memorystore::ListLocations {
-        super::builders::memorystore::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::memorystore::ListLocations {
+        super::builder::memorystore::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::memorystore::GetLocation {
-        super::builders::memorystore::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::memorystore::GetLocation {
+        super::builder::memorystore::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -193,8 +193,8 @@ impl Memorystore {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::memorystore::ListOperations {
-        super::builders::memorystore::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::memorystore::ListOperations {
+        super::builder::memorystore::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -203,8 +203,8 @@ impl Memorystore {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::memorystore::GetOperation {
-        super::builders::memorystore::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::memorystore::GetOperation {
+        super::builder::memorystore::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -213,8 +213,8 @@ impl Memorystore {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::memorystore::DeleteOperation {
-        super::builders::memorystore::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::memorystore::DeleteOperation {
+        super::builder::memorystore::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -223,7 +223,7 @@ impl Memorystore {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::memorystore::CancelOperation {
-        super::builders::memorystore::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::memorystore::CancelOperation {
+        super::builder::memorystore::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

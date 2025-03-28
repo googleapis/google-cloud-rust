@@ -36,7 +36,7 @@ mod info {
     }
 }
 
-/// Implements [Firestore](super::stubs::Firestore) using a Tonic-generated client.
+/// Implements [Firestore](super::stub::Firestore) using a Tonic-generated client.
 #[derive(Clone)]
 pub struct Firestore {
     inner: tonic::client::Grpc<tonic::transport::Channel>,
@@ -276,7 +276,7 @@ impl Firestore {
     }
 }
 
-impl super::stubs::Firestore for Firestore {
+impl super::stub::Firestore for Firestore {
     async fn get_document(
         &self,
         req: crate::model::GetDocumentRequest,
@@ -407,7 +407,7 @@ impl super::stubs::Firestore for Firestore {
         &self,
         req: crate::model::DeleteDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         use wkt::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::DeleteDocumentRequest, h: http::header::HeaderMap| async {
@@ -431,7 +431,7 @@ impl super::stubs::Firestore for Firestore {
                 .unary(request, path, codec)
                 .await
                 .map_err(Error::rpc)?;
-            Ok(wkt::Empty::default())
+            Ok(())
         };
         let x_goog_request_params = [format!("name={}", req.name)]
             .into_iter()
@@ -523,7 +523,7 @@ impl super::stubs::Firestore for Firestore {
         &self,
         req: crate::model::RollbackRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         use wkt::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::RollbackRequest, h: http::header::HeaderMap| async {
@@ -546,7 +546,7 @@ impl super::stubs::Firestore for Firestore {
                 .unary(request, path, codec)
                 .await
                 .map_err(Error::rpc)?;
-            Ok(wkt::Empty::default())
+            Ok(())
         };
         let x_goog_request_params = [format!("database={}", req.database)]
             .into_iter()

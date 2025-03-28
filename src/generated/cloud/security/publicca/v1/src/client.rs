@@ -40,7 +40,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct PublicCertificateAuthorityService {
-    inner: Arc<dyn super::stubs::dynamic::PublicCertificateAuthorityService>,
+    inner: Arc<dyn super::stub::dynamic::PublicCertificateAuthorityService>,
 }
 
 impl PublicCertificateAuthorityService {
@@ -61,7 +61,7 @@ impl PublicCertificateAuthorityService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::PublicCertificateAuthorityService + 'static,
+        T: super::stub::PublicCertificateAuthorityService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -70,7 +70,7 @@ impl PublicCertificateAuthorityService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::PublicCertificateAuthorityService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::PublicCertificateAuthorityService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -79,13 +79,13 @@ impl PublicCertificateAuthorityService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PublicCertificateAuthorityService> {
+    ) -> Result<impl super::stub::PublicCertificateAuthorityService> {
         super::transport::PublicCertificateAuthorityService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PublicCertificateAuthorityService> {
+    ) -> Result<impl super::stub::PublicCertificateAuthorityService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PublicCertificateAuthorityService::new)
@@ -99,8 +99,8 @@ impl PublicCertificateAuthorityService {
     pub fn create_external_account_key(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::public_certificate_authority_service::CreateExternalAccountKey {
-        super::builders::public_certificate_authority_service::CreateExternalAccountKey::new(
+    ) -> super::builder::public_certificate_authority_service::CreateExternalAccountKey {
+        super::builder::public_certificate_authority_service::CreateExternalAccountKey::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())

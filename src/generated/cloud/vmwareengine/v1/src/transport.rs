@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [VmwareEngine](super::stubs::VmwareEngine) using a [gaxi::http::ReqwestClient].
+/// Implements [VmwareEngine](super::stub::VmwareEngine) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct VmwareEngine {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl VmwareEngine {
     }
 }
 
-impl super::stubs::VmwareEngine for VmwareEngine {
+impl super::stub::VmwareEngine for VmwareEngine {
     async fn list_private_clouds(
         &self,
         req: crate::model::ListPrivateCloudsRequest,
@@ -2019,7 +2019,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -2032,6 +2032,7 @@ impl super::stubs::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(

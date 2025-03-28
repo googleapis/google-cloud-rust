@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [OrgPolicy](super::stubs::OrgPolicy) using a [gaxi::http::ReqwestClient].
+/// Implements [OrgPolicy](super::stub::OrgPolicy) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct OrgPolicy {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl OrgPolicy {
     }
 }
 
-impl super::stubs::OrgPolicy for OrgPolicy {
+impl super::stub::OrgPolicy for OrgPolicy {
     async fn list_constraints(
         &self,
         req: crate::model::ListConstraintsRequest,
@@ -186,7 +186,7 @@ impl super::stubs::OrgPolicy for OrgPolicy {
         &self,
         req: crate::model::DeletePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -200,6 +200,7 @@ impl super::stubs::OrgPolicy for OrgPolicy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_custom_constraint(
@@ -299,7 +300,7 @@ impl super::stubs::OrgPolicy for OrgPolicy {
         &self,
         req: crate::model::DeleteCustomConstraintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -312,5 +313,6 @@ impl super::stubs::OrgPolicy for OrgPolicy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 }

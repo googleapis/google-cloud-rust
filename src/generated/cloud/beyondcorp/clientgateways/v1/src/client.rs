@@ -48,7 +48,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ClientGatewaysService {
-    inner: Arc<dyn super::stubs::dynamic::ClientGatewaysService>,
+    inner: Arc<dyn super::stub::dynamic::ClientGatewaysService>,
 }
 
 impl ClientGatewaysService {
@@ -69,7 +69,7 @@ impl ClientGatewaysService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ClientGatewaysService + 'static,
+        T: super::stub::ClientGatewaysService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -78,7 +78,7 @@ impl ClientGatewaysService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ClientGatewaysService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ClientGatewaysService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -87,13 +87,13 @@ impl ClientGatewaysService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ClientGatewaysService> {
+    ) -> Result<impl super::stub::ClientGatewaysService> {
         super::transport::ClientGatewaysService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ClientGatewaysService> {
+    ) -> Result<impl super::stub::ClientGatewaysService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ClientGatewaysService::new)
@@ -103,8 +103,8 @@ impl ClientGatewaysService {
     pub fn list_client_gateways(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::client_gateways_service::ListClientGateways {
-        super::builders::client_gateways_service::ListClientGateways::new(self.inner.clone())
+    ) -> super::builder::client_gateways_service::ListClientGateways {
+        super::builder::client_gateways_service::ListClientGateways::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -112,8 +112,8 @@ impl ClientGatewaysService {
     pub fn get_client_gateway(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::client_gateways_service::GetClientGateway {
-        super::builders::client_gateways_service::GetClientGateway::new(self.inner.clone())
+    ) -> super::builder::client_gateways_service::GetClientGateway {
+        super::builder::client_gateways_service::GetClientGateway::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -131,8 +131,8 @@ impl ClientGatewaysService {
     pub fn create_client_gateway(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::client_gateways_service::CreateClientGateway {
-        super::builders::client_gateways_service::CreateClientGateway::new(self.inner.clone())
+    ) -> super::builder::client_gateways_service::CreateClientGateway {
+        super::builder::client_gateways_service::CreateClientGateway::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -150,8 +150,8 @@ impl ClientGatewaysService {
     pub fn delete_client_gateway(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::client_gateways_service::DeleteClientGateway {
-        super::builders::client_gateways_service::DeleteClientGateway::new(self.inner.clone())
+    ) -> super::builder::client_gateways_service::DeleteClientGateway {
+        super::builder::client_gateways_service::DeleteClientGateway::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -159,8 +159,8 @@ impl ClientGatewaysService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::client_gateways_service::ListLocations {
-        super::builders::client_gateways_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::client_gateways_service::ListLocations {
+        super::builder::client_gateways_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -168,8 +168,8 @@ impl ClientGatewaysService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::client_gateways_service::GetLocation {
-        super::builders::client_gateways_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::client_gateways_service::GetLocation {
+        super::builder::client_gateways_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -181,8 +181,8 @@ impl ClientGatewaysService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::client_gateways_service::SetIamPolicy {
-        super::builders::client_gateways_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::client_gateways_service::SetIamPolicy {
+        super::builder::client_gateways_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -191,8 +191,8 @@ impl ClientGatewaysService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::client_gateways_service::GetIamPolicy {
-        super::builders::client_gateways_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::client_gateways_service::GetIamPolicy {
+        super::builder::client_gateways_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -206,8 +206,8 @@ impl ClientGatewaysService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::client_gateways_service::TestIamPermissions {
-        super::builders::client_gateways_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::client_gateways_service::TestIamPermissions {
+        super::builder::client_gateways_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -217,8 +217,8 @@ impl ClientGatewaysService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::client_gateways_service::ListOperations {
-        super::builders::client_gateways_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::client_gateways_service::ListOperations {
+        super::builder::client_gateways_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -228,8 +228,8 @@ impl ClientGatewaysService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::client_gateways_service::GetOperation {
-        super::builders::client_gateways_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::client_gateways_service::GetOperation {
+        super::builder::client_gateways_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -239,8 +239,8 @@ impl ClientGatewaysService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::client_gateways_service::DeleteOperation {
-        super::builders::client_gateways_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::client_gateways_service::DeleteOperation {
+        super::builder::client_gateways_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -250,8 +250,8 @@ impl ClientGatewaysService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::client_gateways_service::CancelOperation {
-        super::builders::client_gateways_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::client_gateways_service::CancelOperation {
+        super::builder::client_gateways_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

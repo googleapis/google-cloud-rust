@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AssetService](super::stubs::AssetService) using a [gaxi::http::ReqwestClient].
+/// Implements [AssetService](super::stub::AssetService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct AssetService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl AssetService {
     }
 }
 
-impl super::stubs::AssetService for AssetService {
+impl super::stub::AssetService for AssetService {
     async fn export_assets(
         &self,
         req: crate::model::ExportAssetsRequest,
@@ -224,7 +224,7 @@ impl super::stubs::AssetService for AssetService {
         &self,
         req: crate::model::DeleteFeedRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -237,6 +237,7 @@ impl super::stubs::AssetService for AssetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn search_all_resources(
@@ -537,7 +538,7 @@ impl super::stubs::AssetService for AssetService {
         &self,
         req: crate::model::DeleteSavedQueryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -550,6 +551,7 @@ impl super::stubs::AssetService for AssetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn batch_get_effective_iam_policies(

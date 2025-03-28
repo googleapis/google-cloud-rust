@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ClusterManager](super::stubs::ClusterManager) using a [gaxi::http::ReqwestClient].
+/// Implements [ClusterManager](super::stub::ClusterManager) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ClusterManager {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl ClusterManager {
     }
 }
 
-impl super::stubs::ClusterManager for ClusterManager {
+impl super::stub::ClusterManager for ClusterManager {
     async fn list_clusters(
         &self,
         req: crate::model::ListClustersRequest,
@@ -346,7 +346,7 @@ impl super::stubs::ClusterManager for ClusterManager {
         &self,
         req: crate::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -356,7 +356,10 @@ impl super::stubs::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn get_server_config(
@@ -497,7 +500,7 @@ impl super::stubs::ClusterManager for ClusterManager {
         &self,
         req: crate::model::CompleteNodePoolUpgradeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -510,7 +513,10 @@ impl super::stubs::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn rollback_node_pool_upgrade(

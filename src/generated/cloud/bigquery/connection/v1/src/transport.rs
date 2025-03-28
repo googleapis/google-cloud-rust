@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ConnectionService](super::stubs::ConnectionService) using a [gaxi::http::ReqwestClient].
+/// Implements [ConnectionService](super::stub::ConnectionService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ConnectionService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl ConnectionService {
     }
 }
 
-impl super::stubs::ConnectionService for ConnectionService {
+impl super::stub::ConnectionService for ConnectionService {
     async fn create_connection(
         &self,
         req: crate::model::CreateConnectionRequest,
@@ -139,7 +139,7 @@ impl super::stubs::ConnectionService for ConnectionService {
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -152,6 +152,7 @@ impl super::stubs::ConnectionService for ConnectionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn get_iam_policy(

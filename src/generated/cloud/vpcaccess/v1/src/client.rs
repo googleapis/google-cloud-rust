@@ -40,7 +40,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct VpcAccessService {
-    inner: Arc<dyn super::stubs::dynamic::VpcAccessService>,
+    inner: Arc<dyn super::stub::dynamic::VpcAccessService>,
 }
 
 impl VpcAccessService {
@@ -61,7 +61,7 @@ impl VpcAccessService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::VpcAccessService + 'static,
+        T: super::stub::VpcAccessService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -70,7 +70,7 @@ impl VpcAccessService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::VpcAccessService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::VpcAccessService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -79,13 +79,13 @@ impl VpcAccessService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::VpcAccessService> {
+    ) -> Result<impl super::stub::VpcAccessService> {
         super::transport::VpcAccessService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::VpcAccessService> {
+    ) -> Result<impl super::stub::VpcAccessService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::VpcAccessService::new)
@@ -105,8 +105,8 @@ impl VpcAccessService {
     pub fn create_connector(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vpc_access_service::CreateConnector {
-        super::builders::vpc_access_service::CreateConnector::new(self.inner.clone())
+    ) -> super::builder::vpc_access_service::CreateConnector {
+        super::builder::vpc_access_service::CreateConnector::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -115,8 +115,8 @@ impl VpcAccessService {
     pub fn get_connector(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vpc_access_service::GetConnector {
-        super::builders::vpc_access_service::GetConnector::new(self.inner.clone())
+    ) -> super::builder::vpc_access_service::GetConnector {
+        super::builder::vpc_access_service::GetConnector::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -124,8 +124,8 @@ impl VpcAccessService {
     pub fn list_connectors(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vpc_access_service::ListConnectors {
-        super::builders::vpc_access_service::ListConnectors::new(self.inner.clone())
+    ) -> super::builder::vpc_access_service::ListConnectors {
+        super::builder::vpc_access_service::ListConnectors::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -144,8 +144,8 @@ impl VpcAccessService {
     pub fn delete_connector(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vpc_access_service::DeleteConnector {
-        super::builders::vpc_access_service::DeleteConnector::new(self.inner.clone())
+    ) -> super::builder::vpc_access_service::DeleteConnector {
+        super::builder::vpc_access_service::DeleteConnector::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -153,8 +153,8 @@ impl VpcAccessService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vpc_access_service::ListLocations {
-        super::builders::vpc_access_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::vpc_access_service::ListLocations {
+        super::builder::vpc_access_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -164,8 +164,8 @@ impl VpcAccessService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vpc_access_service::ListOperations {
-        super::builders::vpc_access_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::vpc_access_service::ListOperations {
+        super::builder::vpc_access_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -175,8 +175,8 @@ impl VpcAccessService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vpc_access_service::GetOperation {
-        super::builders::vpc_access_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::vpc_access_service::GetOperation {
+        super::builder::vpc_access_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

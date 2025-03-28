@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Speech](super::stubs::Speech) using a [gaxi::http::ReqwestClient].
+/// Implements [Speech](super::stub::Speech) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Speech {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl Speech {
     }
 }
 
-impl super::stubs::Speech for Speech {
+impl super::stub::Speech for Speech {
     async fn create_recognizer(
         &self,
         req: crate::model::CreateRecognizerRequest,
@@ -659,7 +659,7 @@ impl super::stubs::Speech for Speech {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -672,13 +672,14 @@ impl super::stubs::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -688,7 +689,10 @@ impl super::stubs::Speech for Speech {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(

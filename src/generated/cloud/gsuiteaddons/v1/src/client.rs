@@ -65,7 +65,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct GSuiteAddOns {
-    inner: Arc<dyn super::stubs::dynamic::GSuiteAddOns>,
+    inner: Arc<dyn super::stub::dynamic::GSuiteAddOns>,
 }
 
 impl GSuiteAddOns {
@@ -86,7 +86,7 @@ impl GSuiteAddOns {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::GSuiteAddOns + 'static,
+        T: super::stub::GSuiteAddOns + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -95,7 +95,7 @@ impl GSuiteAddOns {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::GSuiteAddOns>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::GSuiteAddOns>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -104,13 +104,13 @@ impl GSuiteAddOns {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::GSuiteAddOns> {
+    ) -> Result<impl super::stub::GSuiteAddOns> {
         super::transport::GSuiteAddOns::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::GSuiteAddOns> {
+    ) -> Result<impl super::stub::GSuiteAddOns> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::GSuiteAddOns::new)
@@ -120,8 +120,8 @@ impl GSuiteAddOns {
     pub fn get_authorization(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::g_suite_add_ons::GetAuthorization {
-        super::builders::g_suite_add_ons::GetAuthorization::new(self.inner.clone())
+    ) -> super::builder::g_suite_add_ons::GetAuthorization {
+        super::builder::g_suite_add_ons::GetAuthorization::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -129,8 +129,8 @@ impl GSuiteAddOns {
     pub fn create_deployment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::g_suite_add_ons::CreateDeployment {
-        super::builders::g_suite_add_ons::CreateDeployment::new(self.inner.clone())
+    ) -> super::builder::g_suite_add_ons::CreateDeployment {
+        super::builder::g_suite_add_ons::CreateDeployment::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -138,8 +138,8 @@ impl GSuiteAddOns {
     pub fn replace_deployment(
         &self,
         deployment: impl Into<crate::model::Deployment>,
-    ) -> super::builders::g_suite_add_ons::ReplaceDeployment {
-        super::builders::g_suite_add_ons::ReplaceDeployment::new(self.inner.clone())
+    ) -> super::builder::g_suite_add_ons::ReplaceDeployment {
+        super::builder::g_suite_add_ons::ReplaceDeployment::new(self.inner.clone())
             .set_deployment(deployment.into())
     }
 
@@ -147,8 +147,8 @@ impl GSuiteAddOns {
     pub fn get_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::g_suite_add_ons::GetDeployment {
-        super::builders::g_suite_add_ons::GetDeployment::new(self.inner.clone())
+    ) -> super::builder::g_suite_add_ons::GetDeployment {
+        super::builder::g_suite_add_ons::GetDeployment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -156,8 +156,8 @@ impl GSuiteAddOns {
     pub fn list_deployments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::g_suite_add_ons::ListDeployments {
-        super::builders::g_suite_add_ons::ListDeployments::new(self.inner.clone())
+    ) -> super::builder::g_suite_add_ons::ListDeployments {
+        super::builder::g_suite_add_ons::ListDeployments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -165,8 +165,8 @@ impl GSuiteAddOns {
     pub fn delete_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::g_suite_add_ons::DeleteDeployment {
-        super::builders::g_suite_add_ons::DeleteDeployment::new(self.inner.clone())
+    ) -> super::builder::g_suite_add_ons::DeleteDeployment {
+        super::builder::g_suite_add_ons::DeleteDeployment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -176,8 +176,8 @@ impl GSuiteAddOns {
     pub fn install_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::g_suite_add_ons::InstallDeployment {
-        super::builders::g_suite_add_ons::InstallDeployment::new(self.inner.clone())
+    ) -> super::builder::g_suite_add_ons::InstallDeployment {
+        super::builder::g_suite_add_ons::InstallDeployment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -187,8 +187,8 @@ impl GSuiteAddOns {
     pub fn uninstall_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::g_suite_add_ons::UninstallDeployment {
-        super::builders::g_suite_add_ons::UninstallDeployment::new(self.inner.clone())
+    ) -> super::builder::g_suite_add_ons::UninstallDeployment {
+        super::builder::g_suite_add_ons::UninstallDeployment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -196,8 +196,8 @@ impl GSuiteAddOns {
     pub fn get_install_status(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::g_suite_add_ons::GetInstallStatus {
-        super::builders::g_suite_add_ons::GetInstallStatus::new(self.inner.clone())
+    ) -> super::builder::g_suite_add_ons::GetInstallStatus {
+        super::builder::g_suite_add_ons::GetInstallStatus::new(self.inner.clone())
             .set_name(name.into())
     }
 }

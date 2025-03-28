@@ -386,6 +386,33 @@ pub mod testing {
             None
         }
     }
+
+    /// A simple credentials implementation to use in tests.
+    ///
+    /// Always return an error in `get_token()` and `get_headers()`.
+    pub fn error_credentials(retryable: bool) -> Credential {
+        Credential {
+            inner: Arc::from(ErrorCredentials(retryable)),
+        }
+    }
+
+    #[derive(Debug, Default)]
+    struct ErrorCredentials(bool);
+
+    #[async_trait::async_trait]
+    impl CredentialTrait for ErrorCredentials {
+        async fn get_token(&self) -> Result<Token> {
+            Err(super::CredentialError::from_str(self.0, "test-only"))
+        }
+
+        async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+            Err(super::CredentialError::from_str(self.0, "test-only"))
+        }
+
+        async fn get_universe_domain(&self) -> Option<String> {
+            None
+        }
+    }
 }
 
 #[cfg(test)]
@@ -393,6 +420,7 @@ mod test {
     use super::*;
     use scoped_env::ScopedEnv;
     use std::error::Error;
+    use test_case::test_case;
 
     // Convenience struct for verifying (HeaderName, HeaderValue) pairs.
     #[derive(Debug, Eq, Ord, PartialEq, PartialOrd)]
@@ -535,5 +563,20 @@ mod test {
             load_adc().unwrap(),
             AdcContents::Contents("contents".to_string())
         );
+    }
+
+    #[test_case(true; "retryable")]
+    #[test_case(false; "non-retryable")]
+    #[tokio::test]
+    async fn error_credentials(retryable: bool) {
+        let credentials = super::testing::error_credentials(retryable);
+        assert!(
+            credentials.get_universe_domain().await.is_none(),
+            "{credentials:?}"
+        );
+        let err = credentials.get_token().await.err().unwrap();
+        assert_eq!(err.is_retryable(), retryable, "{err:?}");
+        let err = credentials.get_headers().await.err().unwrap();
+        assert_eq!(err.is_retryable(), retryable, "{err:?}");
     }
 }

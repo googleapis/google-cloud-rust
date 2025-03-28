@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ProfilerService](super::stubs::ProfilerService) using a [gaxi::http::ReqwestClient].
+/// Implements [ProfilerService](super::stub::ProfilerService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ProfilerService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl ProfilerService {
     }
 }
 
-impl super::stubs::ProfilerService for ProfilerService {
+impl super::stub::ProfilerService for ProfilerService {
     async fn create_profile(
         &self,
         req: crate::model::CreateProfileRequest,
@@ -121,7 +121,7 @@ impl super::stubs::ProfilerService for ProfilerService {
     }
 }
 
-/// Implements [ExportService](super::stubs::ExportService) using a [gaxi::http::ReqwestClient].
+/// Implements [ExportService](super::stub::ExportService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ExportService {
     inner: gaxi::http::ReqwestClient,
@@ -142,7 +142,7 @@ impl ExportService {
     }
 }
 
-impl super::stubs::ExportService for ExportService {
+impl super::stub::ExportService for ExportService {
     async fn list_profiles(
         &self,
         req: crate::model::ListProfilesRequest,

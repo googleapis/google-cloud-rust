@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [NetworkSecurity](super::stubs::NetworkSecurity) using a [gaxi::http::ReqwestClient].
+/// Implements [NetworkSecurity](super::stub::NetworkSecurity) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct NetworkSecurity {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl NetworkSecurity {
     }
 }
 
-impl super::stubs::NetworkSecurity for NetworkSecurity {
+impl super::stub::NetworkSecurity for NetworkSecurity {
     async fn list_authorization_policies(
         &self,
         req: crate::model::ListAuthorizationPoliciesRequest,
@@ -567,7 +567,7 @@ impl super::stubs::NetworkSecurity for NetworkSecurity {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -580,13 +580,14 @@ impl super::stubs::NetworkSecurity for NetworkSecurity {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -596,7 +597,10 @@ impl super::stubs::NetworkSecurity for NetworkSecurity {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(

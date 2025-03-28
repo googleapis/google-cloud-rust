@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct GatewayControl {
-    inner: Arc<dyn super::stubs::dynamic::GatewayControl>,
+    inner: Arc<dyn super::stub::dynamic::GatewayControl>,
 }
 
 impl GatewayControl {
@@ -59,7 +59,7 @@ impl GatewayControl {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::GatewayControl + 'static,
+        T: super::stub::GatewayControl + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl GatewayControl {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::GatewayControl>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::GatewayControl>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +77,13 @@ impl GatewayControl {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::GatewayControl> {
+    ) -> Result<impl super::stub::GatewayControl> {
         super::transport::GatewayControl::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::GatewayControl> {
+    ) -> Result<impl super::stub::GatewayControl> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::GatewayControl::new)
@@ -94,8 +94,8 @@ impl GatewayControl {
     pub fn generate_credentials(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gateway_control::GenerateCredentials {
-        super::builders::gateway_control::GenerateCredentials::new(self.inner.clone())
+    ) -> super::builder::gateway_control::GenerateCredentials {
+        super::builder::gateway_control::GenerateCredentials::new(self.inner.clone())
             .set_name(name.into())
     }
 }

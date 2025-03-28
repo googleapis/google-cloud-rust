@@ -32,12 +32,14 @@ var commonImport = "package:google_cloud_gax/common.dart"
 var commonHelpersImport = "package:google_cloud_gax/src/json_helpers.dart"
 
 var needsCtorValidation = map[string]string{
-	".google.protobuf.Duration": ".google.protobuf.Duration",
+	".google.protobuf.Duration":  ".google.protobuf.Duration",
+	".google.protobuf.Timestamp": ".google.protobuf.Timestamp",
 }
 
 var usesCustomEncoding = map[string]string{
 	".google.protobuf.Duration":  ".google.protobuf.Duration",
 	".google.protobuf.FieldMask": ".google.protobuf.FieldMask",
+	".google.protobuf.Timestamp": ".google.protobuf.Timestamp",
 }
 
 var reservedNames = map[string]string{

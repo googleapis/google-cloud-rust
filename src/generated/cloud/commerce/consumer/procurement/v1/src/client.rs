@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct LicenseManagementService {
-    inner: Arc<dyn super::stubs::dynamic::LicenseManagementService>,
+    inner: Arc<dyn super::stub::dynamic::LicenseManagementService>,
 }
 
 impl LicenseManagementService {
@@ -59,7 +59,7 @@ impl LicenseManagementService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::LicenseManagementService + 'static,
+        T: super::stub::LicenseManagementService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl LicenseManagementService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::LicenseManagementService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::LicenseManagementService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +77,13 @@ impl LicenseManagementService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::LicenseManagementService> {
+    ) -> Result<impl super::stub::LicenseManagementService> {
         super::transport::LicenseManagementService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::LicenseManagementService> {
+    ) -> Result<impl super::stub::LicenseManagementService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::LicenseManagementService::new)
@@ -93,8 +93,8 @@ impl LicenseManagementService {
     pub fn get_license_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::license_management_service::GetLicensePool {
-        super::builders::license_management_service::GetLicensePool::new(self.inner.clone())
+    ) -> super::builder::license_management_service::GetLicensePool {
+        super::builder::license_management_service::GetLicensePool::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -102,8 +102,8 @@ impl LicenseManagementService {
     pub fn update_license_pool(
         &self,
         license_pool: impl Into<crate::model::LicensePool>,
-    ) -> super::builders::license_management_service::UpdateLicensePool {
-        super::builders::license_management_service::UpdateLicensePool::new(self.inner.clone())
+    ) -> super::builder::license_management_service::UpdateLicensePool {
+        super::builder::license_management_service::UpdateLicensePool::new(self.inner.clone())
             .set_license_pool(license_pool.into())
     }
 
@@ -111,8 +111,8 @@ impl LicenseManagementService {
     pub fn assign(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::license_management_service::Assign {
-        super::builders::license_management_service::Assign::new(self.inner.clone())
+    ) -> super::builder::license_management_service::Assign {
+        super::builder::license_management_service::Assign::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -120,8 +120,8 @@ impl LicenseManagementService {
     pub fn unassign(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::license_management_service::Unassign {
-        super::builders::license_management_service::Unassign::new(self.inner.clone())
+    ) -> super::builder::license_management_service::Unassign {
+        super::builder::license_management_service::Unassign::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -129,8 +129,8 @@ impl LicenseManagementService {
     pub fn enumerate_licensed_users(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::license_management_service::EnumerateLicensedUsers {
-        super::builders::license_management_service::EnumerateLicensedUsers::new(self.inner.clone())
+    ) -> super::builder::license_management_service::EnumerateLicensedUsers {
+        super::builder::license_management_service::EnumerateLicensedUsers::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -140,8 +140,8 @@ impl LicenseManagementService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::license_management_service::GetOperation {
-        super::builders::license_management_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::license_management_service::GetOperation {
+        super::builder::license_management_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -174,7 +174,7 @@ impl LicenseManagementService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ConsumerProcurementService {
-    inner: Arc<dyn super::stubs::dynamic::ConsumerProcurementService>,
+    inner: Arc<dyn super::stub::dynamic::ConsumerProcurementService>,
 }
 
 impl ConsumerProcurementService {
@@ -195,7 +195,7 @@ impl ConsumerProcurementService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ConsumerProcurementService + 'static,
+        T: super::stub::ConsumerProcurementService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -204,7 +204,7 @@ impl ConsumerProcurementService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ConsumerProcurementService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ConsumerProcurementService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -213,13 +213,13 @@ impl ConsumerProcurementService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ConsumerProcurementService> {
+    ) -> Result<impl super::stub::ConsumerProcurementService> {
         super::transport::ConsumerProcurementService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ConsumerProcurementService> {
+    ) -> Result<impl super::stub::ConsumerProcurementService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ConsumerProcurementService::new)
@@ -250,8 +250,8 @@ impl ConsumerProcurementService {
     pub fn place_order(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::consumer_procurement_service::PlaceOrder {
-        super::builders::consumer_procurement_service::PlaceOrder::new(self.inner.clone())
+    ) -> super::builder::consumer_procurement_service::PlaceOrder {
+        super::builder::consumer_procurement_service::PlaceOrder::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -262,8 +262,8 @@ impl ConsumerProcurementService {
     pub fn get_order(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::consumer_procurement_service::GetOrder {
-        super::builders::consumer_procurement_service::GetOrder::new(self.inner.clone())
+    ) -> super::builder::consumer_procurement_service::GetOrder {
+        super::builder::consumer_procurement_service::GetOrder::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -275,8 +275,8 @@ impl ConsumerProcurementService {
     pub fn list_orders(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::consumer_procurement_service::ListOrders {
-        super::builders::consumer_procurement_service::ListOrders::new(self.inner.clone())
+    ) -> super::builder::consumer_procurement_service::ListOrders {
+        super::builder::consumer_procurement_service::ListOrders::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -297,8 +297,8 @@ impl ConsumerProcurementService {
     pub fn modify_order(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::consumer_procurement_service::ModifyOrder {
-        super::builders::consumer_procurement_service::ModifyOrder::new(self.inner.clone())
+    ) -> super::builder::consumer_procurement_service::ModifyOrder {
+        super::builder::consumer_procurement_service::ModifyOrder::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -320,8 +320,8 @@ impl ConsumerProcurementService {
     pub fn cancel_order(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::consumer_procurement_service::CancelOrder {
-        super::builders::consumer_procurement_service::CancelOrder::new(self.inner.clone())
+    ) -> super::builder::consumer_procurement_service::CancelOrder {
+        super::builder::consumer_procurement_service::CancelOrder::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -331,8 +331,8 @@ impl ConsumerProcurementService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::consumer_procurement_service::GetOperation {
-        super::builders::consumer_procurement_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::consumer_procurement_service::GetOperation {
+        super::builder::consumer_procurement_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

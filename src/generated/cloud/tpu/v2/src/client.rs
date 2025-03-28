@@ -40,7 +40,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Tpu {
-    inner: Arc<dyn super::stubs::dynamic::Tpu>,
+    inner: Arc<dyn super::stub::dynamic::Tpu>,
 }
 
 impl Tpu {
@@ -61,7 +61,7 @@ impl Tpu {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Tpu + 'static,
+        T: super::stub::Tpu + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -70,20 +70,18 @@ impl Tpu {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Tpu>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Tpu>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stubs::Tpu> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stub::Tpu> {
         super::transport::Tpu::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Tpu> {
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stub::Tpu> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Tpu::new)
@@ -93,13 +91,13 @@ impl Tpu {
     pub fn list_nodes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::tpu::ListNodes {
-        super::builders::tpu::ListNodes::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::tpu::ListNodes {
+        super::builder::tpu::ListNodes::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets the details of a node.
-    pub fn get_node(&self, name: impl Into<std::string::String>) -> super::builders::tpu::GetNode {
-        super::builders::tpu::GetNode::new(self.inner.clone()).set_name(name.into())
+    pub fn get_node(&self, name: impl Into<std::string::String>) -> super::builder::tpu::GetNode {
+        super::builder::tpu::GetNode::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a node.
@@ -116,8 +114,8 @@ impl Tpu {
     pub fn create_node(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::tpu::CreateNode {
-        super::builders::tpu::CreateNode::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::tpu::CreateNode {
+        super::builder::tpu::CreateNode::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Deletes a node.
@@ -134,8 +132,8 @@ impl Tpu {
     pub fn delete_node(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tpu::DeleteNode {
-        super::builders::tpu::DeleteNode::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::tpu::DeleteNode {
+        super::builder::tpu::DeleteNode::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Stops a node. This operation is only available with single TPU nodes.
@@ -149,11 +147,8 @@ impl Tpu {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn stop_node(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builders::tpu::StopNode {
-        super::builders::tpu::StopNode::new(self.inner.clone()).set_name(name.into())
+    pub fn stop_node(&self, name: impl Into<std::string::String>) -> super::builder::tpu::StopNode {
+        super::builder::tpu::StopNode::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Starts a node.
@@ -170,8 +165,8 @@ impl Tpu {
     pub fn start_node(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tpu::StartNode {
-        super::builders::tpu::StartNode::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::tpu::StartNode {
+        super::builder::tpu::StartNode::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the configurations of a node.
@@ -188,24 +183,24 @@ impl Tpu {
     pub fn update_node(
         &self,
         node: impl Into<crate::model::Node>,
-    ) -> super::builders::tpu::UpdateNode {
-        super::builders::tpu::UpdateNode::new(self.inner.clone()).set_node(node.into())
+    ) -> super::builder::tpu::UpdateNode {
+        super::builder::tpu::UpdateNode::new(self.inner.clone()).set_node(node.into())
     }
 
     /// Lists queued resources.
     pub fn list_queued_resources(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::tpu::ListQueuedResources {
-        super::builders::tpu::ListQueuedResources::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::tpu::ListQueuedResources {
+        super::builder::tpu::ListQueuedResources::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets details of a queued resource.
     pub fn get_queued_resource(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tpu::GetQueuedResource {
-        super::builders::tpu::GetQueuedResource::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::tpu::GetQueuedResource {
+        super::builder::tpu::GetQueuedResource::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a QueuedResource TPU instance.
@@ -222,9 +217,8 @@ impl Tpu {
     pub fn create_queued_resource(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::tpu::CreateQueuedResource {
-        super::builders::tpu::CreateQueuedResource::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::tpu::CreateQueuedResource {
+        super::builder::tpu::CreateQueuedResource::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Deletes a QueuedResource TPU instance.
@@ -241,8 +235,8 @@ impl Tpu {
     pub fn delete_queued_resource(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tpu::DeleteQueuedResource {
-        super::builders::tpu::DeleteQueuedResource::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::tpu::DeleteQueuedResource {
+        super::builder::tpu::DeleteQueuedResource::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Resets a QueuedResource TPU instance
@@ -259,16 +253,16 @@ impl Tpu {
     pub fn reset_queued_resource(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tpu::ResetQueuedResource {
-        super::builders::tpu::ResetQueuedResource::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::tpu::ResetQueuedResource {
+        super::builder::tpu::ResetQueuedResource::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Generates the Cloud TPU service identity for the project.
     pub fn generate_service_identity(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::tpu::GenerateServiceIdentity {
-        super::builders::tpu::GenerateServiceIdentity::new(self.inner.clone())
+    ) -> super::builder::tpu::GenerateServiceIdentity {
+        super::builder::tpu::GenerateServiceIdentity::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -276,57 +270,56 @@ impl Tpu {
     pub fn list_accelerator_types(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::tpu::ListAcceleratorTypes {
-        super::builders::tpu::ListAcceleratorTypes::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::tpu::ListAcceleratorTypes {
+        super::builder::tpu::ListAcceleratorTypes::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets AcceleratorType.
     pub fn get_accelerator_type(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tpu::GetAcceleratorType {
-        super::builders::tpu::GetAcceleratorType::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::tpu::GetAcceleratorType {
+        super::builder::tpu::GetAcceleratorType::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists runtime versions supported by this API.
     pub fn list_runtime_versions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::tpu::ListRuntimeVersions {
-        super::builders::tpu::ListRuntimeVersions::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::tpu::ListRuntimeVersions {
+        super::builder::tpu::ListRuntimeVersions::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets a runtime version.
     pub fn get_runtime_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tpu::GetRuntimeVersion {
-        super::builders::tpu::GetRuntimeVersion::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::tpu::GetRuntimeVersion {
+        super::builder::tpu::GetRuntimeVersion::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Retrieves the guest attributes for the node.
     pub fn get_guest_attributes(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tpu::GetGuestAttributes {
-        super::builders::tpu::GetGuestAttributes::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::tpu::GetGuestAttributes {
+        super::builder::tpu::GetGuestAttributes::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tpu::ListLocations {
-        super::builders::tpu::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::tpu::ListLocations {
+        super::builder::tpu::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tpu::GetLocation {
-        super::builders::tpu::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::tpu::GetLocation {
+        super::builder::tpu::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -335,8 +328,8 @@ impl Tpu {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tpu::ListOperations {
-        super::builders::tpu::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::tpu::ListOperations {
+        super::builder::tpu::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -345,8 +338,8 @@ impl Tpu {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tpu::GetOperation {
-        super::builders::tpu::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::tpu::GetOperation {
+        super::builder::tpu::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -355,8 +348,8 @@ impl Tpu {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tpu::DeleteOperation {
-        super::builders::tpu::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::tpu::DeleteOperation {
+        super::builder::tpu::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -365,7 +358,7 @@ impl Tpu {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::tpu::CancelOperation {
-        super::builders::tpu::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::tpu::CancelOperation {
+        super::builder::tpu::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

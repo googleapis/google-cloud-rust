@@ -66,7 +66,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Iam {
-    inner: Arc<dyn super::stubs::dynamic::Iam>,
+    inner: Arc<dyn super::stub::dynamic::Iam>,
 }
 
 impl Iam {
@@ -87,7 +87,7 @@ impl Iam {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Iam + 'static,
+        T: super::stub::Iam + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -96,20 +96,18 @@ impl Iam {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Iam>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Iam>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stubs::Iam> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stub::Iam> {
         super::transport::Iam::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Iam> {
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stub::Iam> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Iam::new)
@@ -121,8 +119,8 @@ impl Iam {
     pub fn list_service_accounts(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::iam::ListServiceAccounts {
-        super::builders::iam::ListServiceAccounts::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::iam::ListServiceAccounts {
+        super::builder::iam::ListServiceAccounts::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets a [ServiceAccount][google.iam.admin.v1.ServiceAccount].
@@ -131,8 +129,8 @@ impl Iam {
     pub fn get_service_account(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::iam::GetServiceAccount {
-        super::builders::iam::GetServiceAccount::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::iam::GetServiceAccount {
+        super::builder::iam::GetServiceAccount::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a [ServiceAccount][google.iam.admin.v1.ServiceAccount].
@@ -141,8 +139,8 @@ impl Iam {
     pub fn create_service_account(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::iam::CreateServiceAccount {
-        super::builders::iam::CreateServiceAccount::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::iam::CreateServiceAccount {
+        super::builder::iam::CreateServiceAccount::new(self.inner.clone()).set_name(name.into())
     }
 
     /// **Note:** We are in the process of deprecating this method. Use
@@ -157,8 +155,8 @@ impl Iam {
     pub fn update_service_account(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::iam::UpdateServiceAccount {
-        super::builders::iam::UpdateServiceAccount::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::iam::UpdateServiceAccount {
+        super::builder::iam::UpdateServiceAccount::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Patches a [ServiceAccount][google.iam.admin.v1.ServiceAccount].
@@ -167,8 +165,8 @@ impl Iam {
     pub fn patch_service_account(
         &self,
         service_account: impl Into<crate::model::ServiceAccount>,
-    ) -> super::builders::iam::PatchServiceAccount {
-        super::builders::iam::PatchServiceAccount::new(self.inner.clone())
+    ) -> super::builder::iam::PatchServiceAccount {
+        super::builder::iam::PatchServiceAccount::new(self.inner.clone())
             .set_service_account(service_account.into())
     }
 
@@ -193,8 +191,8 @@ impl Iam {
     pub fn delete_service_account(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::iam::DeleteServiceAccount {
-        super::builders::iam::DeleteServiceAccount::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::iam::DeleteServiceAccount {
+        super::builder::iam::DeleteServiceAccount::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Restores a deleted [ServiceAccount][google.iam.admin.v1.ServiceAccount].
@@ -210,8 +208,8 @@ impl Iam {
     pub fn undelete_service_account(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::iam::UndeleteServiceAccount {
-        super::builders::iam::UndeleteServiceAccount::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::iam::UndeleteServiceAccount {
+        super::builder::iam::UndeleteServiceAccount::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Enables a [ServiceAccount][google.iam.admin.v1.ServiceAccount] that was disabled by
@@ -228,8 +226,8 @@ impl Iam {
     pub fn enable_service_account(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::iam::EnableServiceAccount {
-        super::builders::iam::EnableServiceAccount::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::iam::EnableServiceAccount {
+        super::builder::iam::EnableServiceAccount::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Disables a [ServiceAccount][google.iam.admin.v1.ServiceAccount] immediately.
@@ -255,8 +253,8 @@ impl Iam {
     pub fn disable_service_account(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::iam::DisableServiceAccount {
-        super::builders::iam::DisableServiceAccount::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::iam::DisableServiceAccount {
+        super::builder::iam::DisableServiceAccount::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists every [ServiceAccountKey][google.iam.admin.v1.ServiceAccountKey] for a service account.
@@ -265,8 +263,8 @@ impl Iam {
     pub fn list_service_account_keys(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::iam::ListServiceAccountKeys {
-        super::builders::iam::ListServiceAccountKeys::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::iam::ListServiceAccountKeys {
+        super::builder::iam::ListServiceAccountKeys::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets a [ServiceAccountKey][google.iam.admin.v1.ServiceAccountKey].
@@ -275,8 +273,8 @@ impl Iam {
     pub fn get_service_account_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::iam::GetServiceAccountKey {
-        super::builders::iam::GetServiceAccountKey::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::iam::GetServiceAccountKey {
+        super::builder::iam::GetServiceAccountKey::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a [ServiceAccountKey][google.iam.admin.v1.ServiceAccountKey].
@@ -285,8 +283,8 @@ impl Iam {
     pub fn create_service_account_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::iam::CreateServiceAccountKey {
-        super::builders::iam::CreateServiceAccountKey::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::iam::CreateServiceAccountKey {
+        super::builder::iam::CreateServiceAccountKey::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Uploads the public key portion of a key pair that you manage, and
@@ -299,8 +297,8 @@ impl Iam {
     pub fn upload_service_account_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::iam::UploadServiceAccountKey {
-        super::builders::iam::UploadServiceAccountKey::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::iam::UploadServiceAccountKey {
+        super::builder::iam::UploadServiceAccountKey::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes a [ServiceAccountKey][google.iam.admin.v1.ServiceAccountKey]. Deleting a service account key does not
@@ -311,8 +309,8 @@ impl Iam {
     pub fn delete_service_account_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::iam::DeleteServiceAccountKey {
-        super::builders::iam::DeleteServiceAccountKey::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::iam::DeleteServiceAccountKey {
+        super::builder::iam::DeleteServiceAccountKey::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Disable a [ServiceAccountKey][google.iam.admin.v1.ServiceAccountKey]. A disabled service account key can be
@@ -323,9 +321,8 @@ impl Iam {
     pub fn disable_service_account_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::iam::DisableServiceAccountKey {
-        super::builders::iam::DisableServiceAccountKey::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::iam::DisableServiceAccountKey {
+        super::builder::iam::DisableServiceAccountKey::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Enable a [ServiceAccountKey][google.iam.admin.v1.ServiceAccountKey].
@@ -334,8 +331,8 @@ impl Iam {
     pub fn enable_service_account_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::iam::EnableServiceAccountKey {
-        super::builders::iam::EnableServiceAccountKey::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::iam::EnableServiceAccountKey {
+        super::builder::iam::EnableServiceAccountKey::new(self.inner.clone()).set_name(name.into())
     }
 
     /// **Note:** This method is deprecated. Use the
@@ -348,11 +345,8 @@ impl Iam {
     /// Signs a blob using the system-managed private key for a [ServiceAccount][google.iam.admin.v1.ServiceAccount].
     ///
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
-    pub fn sign_blob(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builders::iam::SignBlob {
-        super::builders::iam::SignBlob::new(self.inner.clone()).set_name(name.into())
+    pub fn sign_blob(&self, name: impl Into<std::string::String>) -> super::builder::iam::SignBlob {
+        super::builder::iam::SignBlob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// **Note:** This method is deprecated. Use the
@@ -366,8 +360,8 @@ impl Iam {
     /// [ServiceAccount][google.iam.admin.v1.ServiceAccount].
     ///
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
-    pub fn sign_jwt(&self, name: impl Into<std::string::String>) -> super::builders::iam::SignJwt {
-        super::builders::iam::SignJwt::new(self.inner.clone()).set_name(name.into())
+    pub fn sign_jwt(&self, name: impl Into<std::string::String>) -> super::builder::iam::SignJwt {
+        super::builder::iam::SignJwt::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets the IAM policy that is attached to a [ServiceAccount][google.iam.admin.v1.ServiceAccount]. This IAM
@@ -385,8 +379,8 @@ impl Iam {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::iam::GetIamPolicy {
-        super::builders::iam::GetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+    ) -> super::builder::iam::GetIamPolicy {
+        super::builder::iam::GetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
     }
 
     /// Sets the IAM policy that is attached to a [ServiceAccount][google.iam.admin.v1.ServiceAccount].
@@ -413,8 +407,8 @@ impl Iam {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::iam::SetIamPolicy {
-        super::builders::iam::SetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+    ) -> super::builder::iam::SetIamPolicy {
+        super::builder::iam::SetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
     }
 
     /// Tests whether the caller has the specified permissions on a
@@ -424,31 +418,31 @@ impl Iam {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::iam::TestIamPermissions {
-        super::builders::iam::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::iam::TestIamPermissions {
+        super::builder::iam::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
     /// Lists roles that can be granted on a Google Cloud resource. A role is
     /// grantable if the IAM policy for the resource can contain bindings to the
     /// role.
-    pub fn query_grantable_roles(&self) -> super::builders::iam::QueryGrantableRoles {
-        super::builders::iam::QueryGrantableRoles::new(self.inner.clone())
+    pub fn query_grantable_roles(&self) -> super::builder::iam::QueryGrantableRoles {
+        super::builder::iam::QueryGrantableRoles::new(self.inner.clone())
     }
 
     /// Lists every predefined [Role][google.iam.admin.v1.Role] that IAM supports, or every custom role
     /// that is defined for an organization or project.
     ///
     /// [google.iam.admin.v1.Role]: crate::model::Role
-    pub fn list_roles(&self) -> super::builders::iam::ListRoles {
-        super::builders::iam::ListRoles::new(self.inner.clone())
+    pub fn list_roles(&self) -> super::builder::iam::ListRoles {
+        super::builder::iam::ListRoles::new(self.inner.clone())
     }
 
     /// Gets the definition of a [Role][google.iam.admin.v1.Role].
     ///
     /// [google.iam.admin.v1.Role]: crate::model::Role
-    pub fn get_role(&self, name: impl Into<std::string::String>) -> super::builders::iam::GetRole {
-        super::builders::iam::GetRole::new(self.inner.clone()).set_name(name.into())
+    pub fn get_role(&self, name: impl Into<std::string::String>) -> super::builder::iam::GetRole {
+        super::builder::iam::GetRole::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new custom [Role][google.iam.admin.v1.Role].
@@ -457,8 +451,8 @@ impl Iam {
     pub fn create_role(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::iam::CreateRole {
-        super::builders::iam::CreateRole::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::iam::CreateRole {
+        super::builder::iam::CreateRole::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates the definition of a custom [Role][google.iam.admin.v1.Role].
@@ -467,8 +461,8 @@ impl Iam {
     pub fn update_role(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::iam::UpdateRole {
-        super::builders::iam::UpdateRole::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::iam::UpdateRole {
+        super::builder::iam::UpdateRole::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes a custom [Role][google.iam.admin.v1.Role].
@@ -495,8 +489,8 @@ impl Iam {
     pub fn delete_role(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::iam::DeleteRole {
-        super::builders::iam::DeleteRole::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::iam::DeleteRole {
+        super::builder::iam::DeleteRole::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Undeletes a custom [Role][google.iam.admin.v1.Role].
@@ -505,15 +499,15 @@ impl Iam {
     pub fn undelete_role(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::iam::UndeleteRole {
-        super::builders::iam::UndeleteRole::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::iam::UndeleteRole {
+        super::builder::iam::UndeleteRole::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists every permission that you can test on a resource. A permission is
     /// testable if you can check whether a principal has that permission on the
     /// resource.
-    pub fn query_testable_permissions(&self) -> super::builders::iam::QueryTestablePermissions {
-        super::builders::iam::QueryTestablePermissions::new(self.inner.clone())
+    pub fn query_testable_permissions(&self) -> super::builder::iam::QueryTestablePermissions {
+        super::builder::iam::QueryTestablePermissions::new(self.inner.clone())
     }
 
     /// Returns a list of services that allow you to opt into audit logs that are
@@ -521,8 +515,8 @@ impl Iam {
     ///
     /// To learn more about audit logs, see the [Logging
     /// documentation](https://cloud.google.com/logging/docs/audit).
-    pub fn query_auditable_services(&self) -> super::builders::iam::QueryAuditableServices {
-        super::builders::iam::QueryAuditableServices::new(self.inner.clone())
+    pub fn query_auditable_services(&self) -> super::builder::iam::QueryAuditableServices {
+        super::builder::iam::QueryAuditableServices::new(self.inner.clone())
     }
 
     /// Lints, or validates, an IAM policy. Currently checks the
@@ -533,7 +527,7 @@ impl Iam {
     /// even if the linter detects an issue in the IAM policy.
     ///
     /// [google.iam.v1.Binding.condition]: iam_v1::model::Binding::condition
-    pub fn lint_policy(&self) -> super::builders::iam::LintPolicy {
-        super::builders::iam::LintPolicy::new(self.inner.clone())
+    pub fn lint_policy(&self) -> super::builder::iam::LintPolicy {
+        super::builder::iam::LintPolicy::new(self.inner.clone())
     }
 }

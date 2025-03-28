@@ -40,7 +40,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct NetworkSecurity {
-    inner: Arc<dyn super::stubs::dynamic::NetworkSecurity>,
+    inner: Arc<dyn super::stub::dynamic::NetworkSecurity>,
 }
 
 impl NetworkSecurity {
@@ -61,7 +61,7 @@ impl NetworkSecurity {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::NetworkSecurity + 'static,
+        T: super::stub::NetworkSecurity + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -70,7 +70,7 @@ impl NetworkSecurity {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::NetworkSecurity>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::NetworkSecurity>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -79,13 +79,13 @@ impl NetworkSecurity {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::NetworkSecurity> {
+    ) -> Result<impl super::stub::NetworkSecurity> {
         super::transport::NetworkSecurity::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::NetworkSecurity> {
+    ) -> Result<impl super::stub::NetworkSecurity> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::NetworkSecurity::new)
@@ -95,8 +95,8 @@ impl NetworkSecurity {
     pub fn list_authorization_policies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::network_security::ListAuthorizationPolicies {
-        super::builders::network_security::ListAuthorizationPolicies::new(self.inner.clone())
+    ) -> super::builder::network_security::ListAuthorizationPolicies {
+        super::builder::network_security::ListAuthorizationPolicies::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -104,8 +104,8 @@ impl NetworkSecurity {
     pub fn get_authorization_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::network_security::GetAuthorizationPolicy {
-        super::builders::network_security::GetAuthorizationPolicy::new(self.inner.clone())
+    ) -> super::builder::network_security::GetAuthorizationPolicy {
+        super::builder::network_security::GetAuthorizationPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -123,8 +123,8 @@ impl NetworkSecurity {
     pub fn create_authorization_policy(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::network_security::CreateAuthorizationPolicy {
-        super::builders::network_security::CreateAuthorizationPolicy::new(self.inner.clone())
+    ) -> super::builder::network_security::CreateAuthorizationPolicy {
+        super::builder::network_security::CreateAuthorizationPolicy::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -142,8 +142,8 @@ impl NetworkSecurity {
     pub fn update_authorization_policy(
         &self,
         authorization_policy: impl Into<crate::model::AuthorizationPolicy>,
-    ) -> super::builders::network_security::UpdateAuthorizationPolicy {
-        super::builders::network_security::UpdateAuthorizationPolicy::new(self.inner.clone())
+    ) -> super::builder::network_security::UpdateAuthorizationPolicy {
+        super::builder::network_security::UpdateAuthorizationPolicy::new(self.inner.clone())
             .set_authorization_policy(authorization_policy.into())
     }
 
@@ -161,8 +161,8 @@ impl NetworkSecurity {
     pub fn delete_authorization_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::network_security::DeleteAuthorizationPolicy {
-        super::builders::network_security::DeleteAuthorizationPolicy::new(self.inner.clone())
+    ) -> super::builder::network_security::DeleteAuthorizationPolicy {
+        super::builder::network_security::DeleteAuthorizationPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -170,8 +170,8 @@ impl NetworkSecurity {
     pub fn list_server_tls_policies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::network_security::ListServerTlsPolicies {
-        super::builders::network_security::ListServerTlsPolicies::new(self.inner.clone())
+    ) -> super::builder::network_security::ListServerTlsPolicies {
+        super::builder::network_security::ListServerTlsPolicies::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -179,8 +179,8 @@ impl NetworkSecurity {
     pub fn get_server_tls_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::network_security::GetServerTlsPolicy {
-        super::builders::network_security::GetServerTlsPolicy::new(self.inner.clone())
+    ) -> super::builder::network_security::GetServerTlsPolicy {
+        super::builder::network_security::GetServerTlsPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -198,8 +198,8 @@ impl NetworkSecurity {
     pub fn create_server_tls_policy(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::network_security::CreateServerTlsPolicy {
-        super::builders::network_security::CreateServerTlsPolicy::new(self.inner.clone())
+    ) -> super::builder::network_security::CreateServerTlsPolicy {
+        super::builder::network_security::CreateServerTlsPolicy::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -217,8 +217,8 @@ impl NetworkSecurity {
     pub fn update_server_tls_policy(
         &self,
         server_tls_policy: impl Into<crate::model::ServerTlsPolicy>,
-    ) -> super::builders::network_security::UpdateServerTlsPolicy {
-        super::builders::network_security::UpdateServerTlsPolicy::new(self.inner.clone())
+    ) -> super::builder::network_security::UpdateServerTlsPolicy {
+        super::builder::network_security::UpdateServerTlsPolicy::new(self.inner.clone())
             .set_server_tls_policy(server_tls_policy.into())
     }
 
@@ -236,8 +236,8 @@ impl NetworkSecurity {
     pub fn delete_server_tls_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::network_security::DeleteServerTlsPolicy {
-        super::builders::network_security::DeleteServerTlsPolicy::new(self.inner.clone())
+    ) -> super::builder::network_security::DeleteServerTlsPolicy {
+        super::builder::network_security::DeleteServerTlsPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -245,8 +245,8 @@ impl NetworkSecurity {
     pub fn list_client_tls_policies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::network_security::ListClientTlsPolicies {
-        super::builders::network_security::ListClientTlsPolicies::new(self.inner.clone())
+    ) -> super::builder::network_security::ListClientTlsPolicies {
+        super::builder::network_security::ListClientTlsPolicies::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -254,8 +254,8 @@ impl NetworkSecurity {
     pub fn get_client_tls_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::network_security::GetClientTlsPolicy {
-        super::builders::network_security::GetClientTlsPolicy::new(self.inner.clone())
+    ) -> super::builder::network_security::GetClientTlsPolicy {
+        super::builder::network_security::GetClientTlsPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -273,8 +273,8 @@ impl NetworkSecurity {
     pub fn create_client_tls_policy(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::network_security::CreateClientTlsPolicy {
-        super::builders::network_security::CreateClientTlsPolicy::new(self.inner.clone())
+    ) -> super::builder::network_security::CreateClientTlsPolicy {
+        super::builder::network_security::CreateClientTlsPolicy::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -292,8 +292,8 @@ impl NetworkSecurity {
     pub fn update_client_tls_policy(
         &self,
         client_tls_policy: impl Into<crate::model::ClientTlsPolicy>,
-    ) -> super::builders::network_security::UpdateClientTlsPolicy {
-        super::builders::network_security::UpdateClientTlsPolicy::new(self.inner.clone())
+    ) -> super::builder::network_security::UpdateClientTlsPolicy {
+        super::builder::network_security::UpdateClientTlsPolicy::new(self.inner.clone())
             .set_client_tls_policy(client_tls_policy.into())
     }
 
@@ -311,8 +311,8 @@ impl NetworkSecurity {
     pub fn delete_client_tls_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::network_security::DeleteClientTlsPolicy {
-        super::builders::network_security::DeleteClientTlsPolicy::new(self.inner.clone())
+    ) -> super::builder::network_security::DeleteClientTlsPolicy {
+        super::builder::network_security::DeleteClientTlsPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -320,8 +320,8 @@ impl NetworkSecurity {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::network_security::ListLocations {
-        super::builders::network_security::ListLocations::new(self.inner.clone())
+    ) -> super::builder::network_security::ListLocations {
+        super::builder::network_security::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -329,9 +329,8 @@ impl NetworkSecurity {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::network_security::GetLocation {
-        super::builders::network_security::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::network_security::GetLocation {
+        super::builder::network_security::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -342,8 +341,8 @@ impl NetworkSecurity {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::network_security::SetIamPolicy {
-        super::builders::network_security::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::network_security::SetIamPolicy {
+        super::builder::network_security::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -352,8 +351,8 @@ impl NetworkSecurity {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::network_security::GetIamPolicy {
-        super::builders::network_security::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::network_security::GetIamPolicy {
+        super::builder::network_security::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -367,8 +366,8 @@ impl NetworkSecurity {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::network_security::TestIamPermissions {
-        super::builders::network_security::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::network_security::TestIamPermissions {
+        super::builder::network_security::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -378,8 +377,8 @@ impl NetworkSecurity {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::network_security::ListOperations {
-        super::builders::network_security::ListOperations::new(self.inner.clone())
+    ) -> super::builder::network_security::ListOperations {
+        super::builder::network_security::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -389,8 +388,8 @@ impl NetworkSecurity {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::network_security::GetOperation {
-        super::builders::network_security::GetOperation::new(self.inner.clone())
+    ) -> super::builder::network_security::GetOperation {
+        super::builder::network_security::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -400,8 +399,8 @@ impl NetworkSecurity {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::network_security::DeleteOperation {
-        super::builders::network_security::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::network_security::DeleteOperation {
+        super::builder::network_security::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -411,8 +410,8 @@ impl NetworkSecurity {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::network_security::CancelOperation {
-        super::builders::network_security::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::network_security::CancelOperation {
+        super::builder::network_security::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DataPolicyService](super::stubs::DataPolicyService) using a [gaxi::http::ReqwestClient].
+/// Implements [DataPolicyService](super::stub::DataPolicyService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DataPolicyService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl DataPolicyService {
     }
 }
 
-impl super::stubs::DataPolicyService for DataPolicyService {
+impl super::stub::DataPolicyService for DataPolicyService {
     async fn create_data_policy(
         &self,
         req: crate::model::CreateDataPolicyRequest,
@@ -121,7 +121,7 @@ impl super::stubs::DataPolicyService for DataPolicyService {
         &self,
         req: crate::model::DeleteDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -134,6 +134,7 @@ impl super::stubs::DataPolicyService for DataPolicyService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn get_data_policy(

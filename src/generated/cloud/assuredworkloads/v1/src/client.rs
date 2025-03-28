@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AssuredWorkloadsService {
-    inner: Arc<dyn super::stubs::dynamic::AssuredWorkloadsService>,
+    inner: Arc<dyn super::stub::dynamic::AssuredWorkloadsService>,
 }
 
 impl AssuredWorkloadsService {
@@ -59,7 +59,7 @@ impl AssuredWorkloadsService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::AssuredWorkloadsService + 'static,
+        T: super::stub::AssuredWorkloadsService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl AssuredWorkloadsService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::AssuredWorkloadsService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::AssuredWorkloadsService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +77,13 @@ impl AssuredWorkloadsService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AssuredWorkloadsService> {
+    ) -> Result<impl super::stub::AssuredWorkloadsService> {
         super::transport::AssuredWorkloadsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AssuredWorkloadsService> {
+    ) -> Result<impl super::stub::AssuredWorkloadsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AssuredWorkloadsService::new)
@@ -103,8 +103,8 @@ impl AssuredWorkloadsService {
     pub fn create_workload(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::assured_workloads_service::CreateWorkload {
-        super::builders::assured_workloads_service::CreateWorkload::new(self.inner.clone())
+    ) -> super::builder::assured_workloads_service::CreateWorkload {
+        super::builder::assured_workloads_service::CreateWorkload::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -115,8 +115,8 @@ impl AssuredWorkloadsService {
     pub fn update_workload(
         &self,
         workload: impl Into<crate::model::Workload>,
-    ) -> super::builders::assured_workloads_service::UpdateWorkload {
-        super::builders::assured_workloads_service::UpdateWorkload::new(self.inner.clone())
+    ) -> super::builder::assured_workloads_service::UpdateWorkload {
+        super::builder::assured_workloads_service::UpdateWorkload::new(self.inner.clone())
             .set_workload(workload.into())
     }
 
@@ -129,11 +129,9 @@ impl AssuredWorkloadsService {
     pub fn restrict_allowed_resources(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::assured_workloads_service::RestrictAllowedResources {
-        super::builders::assured_workloads_service::RestrictAllowedResources::new(
-            self.inner.clone(),
-        )
-        .set_name(name.into())
+    ) -> super::builder::assured_workloads_service::RestrictAllowedResources {
+        super::builder::assured_workloads_service::RestrictAllowedResources::new(self.inner.clone())
+            .set_name(name.into())
     }
 
     /// Deletes the workload. Make sure that workload's direct children are already
@@ -142,8 +140,8 @@ impl AssuredWorkloadsService {
     pub fn delete_workload(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::assured_workloads_service::DeleteWorkload {
-        super::builders::assured_workloads_service::DeleteWorkload::new(self.inner.clone())
+    ) -> super::builder::assured_workloads_service::DeleteWorkload {
+        super::builder::assured_workloads_service::DeleteWorkload::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -151,8 +149,8 @@ impl AssuredWorkloadsService {
     pub fn get_workload(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::assured_workloads_service::GetWorkload {
-        super::builders::assured_workloads_service::GetWorkload::new(self.inner.clone())
+    ) -> super::builder::assured_workloads_service::GetWorkload {
+        super::builder::assured_workloads_service::GetWorkload::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -160,8 +158,8 @@ impl AssuredWorkloadsService {
     pub fn list_workloads(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::assured_workloads_service::ListWorkloads {
-        super::builders::assured_workloads_service::ListWorkloads::new(self.inner.clone())
+    ) -> super::builder::assured_workloads_service::ListWorkloads {
+        super::builder::assured_workloads_service::ListWorkloads::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -171,8 +169,8 @@ impl AssuredWorkloadsService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::assured_workloads_service::ListOperations {
-        super::builders::assured_workloads_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::assured_workloads_service::ListOperations {
+        super::builder::assured_workloads_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -182,8 +180,8 @@ impl AssuredWorkloadsService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::assured_workloads_service::GetOperation {
-        super::builders::assured_workloads_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::assured_workloads_service::GetOperation {
+        super::builder::assured_workloads_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

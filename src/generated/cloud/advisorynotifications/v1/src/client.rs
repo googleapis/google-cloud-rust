@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AdvisoryNotificationsService {
-    inner: Arc<dyn super::stubs::dynamic::AdvisoryNotificationsService>,
+    inner: Arc<dyn super::stub::dynamic::AdvisoryNotificationsService>,
 }
 
 impl AdvisoryNotificationsService {
@@ -59,7 +59,7 @@ impl AdvisoryNotificationsService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::AdvisoryNotificationsService + 'static,
+        T: super::stub::AdvisoryNotificationsService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl AdvisoryNotificationsService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::AdvisoryNotificationsService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::AdvisoryNotificationsService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +77,13 @@ impl AdvisoryNotificationsService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AdvisoryNotificationsService> {
+    ) -> Result<impl super::stub::AdvisoryNotificationsService> {
         super::transport::AdvisoryNotificationsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AdvisoryNotificationsService> {
+    ) -> Result<impl super::stub::AdvisoryNotificationsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AdvisoryNotificationsService::new)
@@ -93,8 +93,8 @@ impl AdvisoryNotificationsService {
     pub fn list_notifications(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::advisory_notifications_service::ListNotifications {
-        super::builders::advisory_notifications_service::ListNotifications::new(self.inner.clone())
+    ) -> super::builder::advisory_notifications_service::ListNotifications {
+        super::builder::advisory_notifications_service::ListNotifications::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,8 +102,8 @@ impl AdvisoryNotificationsService {
     pub fn get_notification(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::advisory_notifications_service::GetNotification {
-        super::builders::advisory_notifications_service::GetNotification::new(self.inner.clone())
+    ) -> super::builder::advisory_notifications_service::GetNotification {
+        super::builder::advisory_notifications_service::GetNotification::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -111,8 +111,8 @@ impl AdvisoryNotificationsService {
     pub fn get_settings(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::advisory_notifications_service::GetSettings {
-        super::builders::advisory_notifications_service::GetSettings::new(self.inner.clone())
+    ) -> super::builder::advisory_notifications_service::GetSettings {
+        super::builder::advisory_notifications_service::GetSettings::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -120,8 +120,8 @@ impl AdvisoryNotificationsService {
     pub fn update_settings(
         &self,
         settings: impl Into<crate::model::Settings>,
-    ) -> super::builders::advisory_notifications_service::UpdateSettings {
-        super::builders::advisory_notifications_service::UpdateSettings::new(self.inner.clone())
+    ) -> super::builder::advisory_notifications_service::UpdateSettings {
+        super::builder::advisory_notifications_service::UpdateSettings::new(self.inner.clone())
             .set_settings(settings.into())
     }
 }

@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct OracleDatabase {
-    inner: Arc<dyn super::stubs::dynamic::OracleDatabase>,
+    inner: Arc<dyn super::stub::dynamic::OracleDatabase>,
 }
 
 impl OracleDatabase {
@@ -59,7 +59,7 @@ impl OracleDatabase {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::OracleDatabase + 'static,
+        T: super::stub::OracleDatabase + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl OracleDatabase {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::OracleDatabase>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::OracleDatabase>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +77,13 @@ impl OracleDatabase {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::OracleDatabase> {
+    ) -> Result<impl super::stub::OracleDatabase> {
         super::transport::OracleDatabase::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::OracleDatabase> {
+    ) -> Result<impl super::stub::OracleDatabase> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::OracleDatabase::new)
@@ -93,8 +93,8 @@ impl OracleDatabase {
     pub fn list_cloud_exadata_infrastructures(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::ListCloudExadataInfrastructures {
-        super::builders::oracle_database::ListCloudExadataInfrastructures::new(self.inner.clone())
+    ) -> super::builder::oracle_database::ListCloudExadataInfrastructures {
+        super::builder::oracle_database::ListCloudExadataInfrastructures::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,8 +102,8 @@ impl OracleDatabase {
     pub fn get_cloud_exadata_infrastructure(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::GetCloudExadataInfrastructure {
-        super::builders::oracle_database::GetCloudExadataInfrastructure::new(self.inner.clone())
+    ) -> super::builder::oracle_database::GetCloudExadataInfrastructure {
+        super::builder::oracle_database::GetCloudExadataInfrastructure::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -121,8 +121,8 @@ impl OracleDatabase {
     pub fn create_cloud_exadata_infrastructure(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::CreateCloudExadataInfrastructure {
-        super::builders::oracle_database::CreateCloudExadataInfrastructure::new(self.inner.clone())
+    ) -> super::builder::oracle_database::CreateCloudExadataInfrastructure {
+        super::builder::oracle_database::CreateCloudExadataInfrastructure::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -140,8 +140,8 @@ impl OracleDatabase {
     pub fn delete_cloud_exadata_infrastructure(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::DeleteCloudExadataInfrastructure {
-        super::builders::oracle_database::DeleteCloudExadataInfrastructure::new(self.inner.clone())
+    ) -> super::builder::oracle_database::DeleteCloudExadataInfrastructure {
+        super::builder::oracle_database::DeleteCloudExadataInfrastructure::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -149,8 +149,8 @@ impl OracleDatabase {
     pub fn list_cloud_vm_clusters(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::ListCloudVmClusters {
-        super::builders::oracle_database::ListCloudVmClusters::new(self.inner.clone())
+    ) -> super::builder::oracle_database::ListCloudVmClusters {
+        super::builder::oracle_database::ListCloudVmClusters::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -158,8 +158,8 @@ impl OracleDatabase {
     pub fn get_cloud_vm_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::GetCloudVmCluster {
-        super::builders::oracle_database::GetCloudVmCluster::new(self.inner.clone())
+    ) -> super::builder::oracle_database::GetCloudVmCluster {
+        super::builder::oracle_database::GetCloudVmCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -177,8 +177,8 @@ impl OracleDatabase {
     pub fn create_cloud_vm_cluster(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::CreateCloudVmCluster {
-        super::builders::oracle_database::CreateCloudVmCluster::new(self.inner.clone())
+    ) -> super::builder::oracle_database::CreateCloudVmCluster {
+        super::builder::oracle_database::CreateCloudVmCluster::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -196,8 +196,8 @@ impl OracleDatabase {
     pub fn delete_cloud_vm_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::DeleteCloudVmCluster {
-        super::builders::oracle_database::DeleteCloudVmCluster::new(self.inner.clone())
+    ) -> super::builder::oracle_database::DeleteCloudVmCluster {
+        super::builder::oracle_database::DeleteCloudVmCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -205,8 +205,8 @@ impl OracleDatabase {
     pub fn list_entitlements(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::ListEntitlements {
-        super::builders::oracle_database::ListEntitlements::new(self.inner.clone())
+    ) -> super::builder::oracle_database::ListEntitlements {
+        super::builder::oracle_database::ListEntitlements::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -214,8 +214,8 @@ impl OracleDatabase {
     pub fn list_db_servers(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::ListDbServers {
-        super::builders::oracle_database::ListDbServers::new(self.inner.clone())
+    ) -> super::builder::oracle_database::ListDbServers {
+        super::builder::oracle_database::ListDbServers::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -223,8 +223,8 @@ impl OracleDatabase {
     pub fn list_db_nodes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::ListDbNodes {
-        super::builders::oracle_database::ListDbNodes::new(self.inner.clone())
+    ) -> super::builder::oracle_database::ListDbNodes {
+        super::builder::oracle_database::ListDbNodes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -233,8 +233,8 @@ impl OracleDatabase {
     pub fn list_gi_versions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::ListGiVersions {
-        super::builders::oracle_database::ListGiVersions::new(self.inner.clone())
+    ) -> super::builder::oracle_database::ListGiVersions {
+        super::builder::oracle_database::ListGiVersions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -242,8 +242,8 @@ impl OracleDatabase {
     pub fn list_db_system_shapes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::ListDbSystemShapes {
-        super::builders::oracle_database::ListDbSystemShapes::new(self.inner.clone())
+    ) -> super::builder::oracle_database::ListDbSystemShapes {
+        super::builder::oracle_database::ListDbSystemShapes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -251,8 +251,8 @@ impl OracleDatabase {
     pub fn list_autonomous_databases(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::ListAutonomousDatabases {
-        super::builders::oracle_database::ListAutonomousDatabases::new(self.inner.clone())
+    ) -> super::builder::oracle_database::ListAutonomousDatabases {
+        super::builder::oracle_database::ListAutonomousDatabases::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -260,8 +260,8 @@ impl OracleDatabase {
     pub fn get_autonomous_database(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::GetAutonomousDatabase {
-        super::builders::oracle_database::GetAutonomousDatabase::new(self.inner.clone())
+    ) -> super::builder::oracle_database::GetAutonomousDatabase {
+        super::builder::oracle_database::GetAutonomousDatabase::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -279,8 +279,8 @@ impl OracleDatabase {
     pub fn create_autonomous_database(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::CreateAutonomousDatabase {
-        super::builders::oracle_database::CreateAutonomousDatabase::new(self.inner.clone())
+    ) -> super::builder::oracle_database::CreateAutonomousDatabase {
+        super::builder::oracle_database::CreateAutonomousDatabase::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -298,8 +298,8 @@ impl OracleDatabase {
     pub fn delete_autonomous_database(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::DeleteAutonomousDatabase {
-        super::builders::oracle_database::DeleteAutonomousDatabase::new(self.inner.clone())
+    ) -> super::builder::oracle_database::DeleteAutonomousDatabase {
+        super::builder::oracle_database::DeleteAutonomousDatabase::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -317,8 +317,8 @@ impl OracleDatabase {
     pub fn restore_autonomous_database(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::RestoreAutonomousDatabase {
-        super::builders::oracle_database::RestoreAutonomousDatabase::new(self.inner.clone())
+    ) -> super::builder::oracle_database::RestoreAutonomousDatabase {
+        super::builder::oracle_database::RestoreAutonomousDatabase::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -326,8 +326,8 @@ impl OracleDatabase {
     pub fn generate_autonomous_database_wallet(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::GenerateAutonomousDatabaseWallet {
-        super::builders::oracle_database::GenerateAutonomousDatabaseWallet::new(self.inner.clone())
+    ) -> super::builder::oracle_database::GenerateAutonomousDatabaseWallet {
+        super::builder::oracle_database::GenerateAutonomousDatabaseWallet::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -336,8 +336,8 @@ impl OracleDatabase {
     pub fn list_autonomous_db_versions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::ListAutonomousDbVersions {
-        super::builders::oracle_database::ListAutonomousDbVersions::new(self.inner.clone())
+    ) -> super::builder::oracle_database::ListAutonomousDbVersions {
+        super::builder::oracle_database::ListAutonomousDbVersions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -345,8 +345,8 @@ impl OracleDatabase {
     pub fn list_autonomous_database_character_sets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::ListAutonomousDatabaseCharacterSets {
-        super::builders::oracle_database::ListAutonomousDatabaseCharacterSets::new(
+    ) -> super::builder::oracle_database::ListAutonomousDatabaseCharacterSets {
+        super::builder::oracle_database::ListAutonomousDatabaseCharacterSets::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -356,8 +356,8 @@ impl OracleDatabase {
     pub fn list_autonomous_database_backups(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::ListAutonomousDatabaseBackups {
-        super::builders::oracle_database::ListAutonomousDatabaseBackups::new(self.inner.clone())
+    ) -> super::builder::oracle_database::ListAutonomousDatabaseBackups {
+        super::builder::oracle_database::ListAutonomousDatabaseBackups::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -365,8 +365,8 @@ impl OracleDatabase {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::ListLocations {
-        super::builders::oracle_database::ListLocations::new(self.inner.clone())
+    ) -> super::builder::oracle_database::ListLocations {
+        super::builder::oracle_database::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -374,8 +374,8 @@ impl OracleDatabase {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::GetLocation {
-        super::builders::oracle_database::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::oracle_database::GetLocation {
+        super::builder::oracle_database::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -384,8 +384,8 @@ impl OracleDatabase {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::ListOperations {
-        super::builders::oracle_database::ListOperations::new(self.inner.clone())
+    ) -> super::builder::oracle_database::ListOperations {
+        super::builder::oracle_database::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -395,9 +395,8 @@ impl OracleDatabase {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::GetOperation {
-        super::builders::oracle_database::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::oracle_database::GetOperation {
+        super::builder::oracle_database::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -406,8 +405,8 @@ impl OracleDatabase {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::DeleteOperation {
-        super::builders::oracle_database::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::oracle_database::DeleteOperation {
+        super::builder::oracle_database::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -417,8 +416,8 @@ impl OracleDatabase {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::oracle_database::CancelOperation {
-        super::builders::oracle_database::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::oracle_database::CancelOperation {
+        super::builder::oracle_database::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

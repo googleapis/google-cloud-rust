@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [PrivilegedAccessManager](super::stubs::PrivilegedAccessManager) using a [gaxi::http::ReqwestClient].
+/// Implements [PrivilegedAccessManager](super::stub::PrivilegedAccessManager) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct PrivilegedAccessManager {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl PrivilegedAccessManager {
     }
 }
 
-impl super::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
+impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
     async fn check_onboarding_status(
         &self,
         req: crate::model::CheckOnboardingStatusRequest,
@@ -439,7 +439,7 @@ impl super::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -452,6 +452,7 @@ impl super::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(

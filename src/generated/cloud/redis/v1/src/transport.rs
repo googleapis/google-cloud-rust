@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CloudRedis](super::stubs::CloudRedis) using a [gaxi::http::ReqwestClient].
+/// Implements [CloudRedis](super::stub::CloudRedis) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudRedis {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl CloudRedis {
     }
 }
 
-impl super::stubs::CloudRedis for CloudRedis {
+impl super::stub::CloudRedis for CloudRedis {
     async fn list_instances(
         &self,
         req: crate::model::ListInstancesRequest,
@@ -356,7 +356,7 @@ impl super::stubs::CloudRedis for CloudRedis {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -369,13 +369,14 @@ impl super::stubs::CloudRedis for CloudRedis {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -388,6 +389,7 @@ impl super::stubs::CloudRedis for CloudRedis {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(

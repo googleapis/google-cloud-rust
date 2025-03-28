@@ -163,7 +163,7 @@ impl RequestOptions {
 /// These builders can be used to set the request parameters, e.g., the name of
 /// the resource targeted by the RPC, as well as any options affecting the
 /// request, such as additional headers or timeouts.
-pub trait RequestOptionsBuilder {
+pub trait RequestOptionsBuilder: internal::RequestBuilder {
     /// If `v` is `true`, treat the RPC underlying this method as idempotent.
     fn with_idempotency(self, v: bool) -> Self;
 
@@ -192,20 +192,25 @@ pub trait RequestOptionsBuilder {
     fn with_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(self, v: V) -> Self;
 }
 
-/// Simplify implementation of the [RequestOptionsBuilder] trait in generated
-/// code.
-///
-/// This is an implementation detail, most applications have little need to
-/// worry about or use this trait.
-pub trait RequestBuilder {
-    fn request_options(&mut self) -> &mut RequestOptions;
+/// This module contains implementation details. It is not part of the public
+/// API. Types inside may be changed or removed without warnings. Applications
+///  should not use any types contained within.
+#[doc(hidden)]
+pub mod internal {
+    /// Simplify implementation of the [super::RequestOptionsBuilder] trait in
+    /// generated code.
+    ///
+    /// This is an implementation detail, most applications have little need to
+    /// worry about or use this trait.
+    pub trait RequestBuilder {
+        fn request_options(&mut self) -> &mut super::RequestOptions;
+    }
 }
 
-/// Implements the [RequestOptionsBuilder] trait for any [RequestBuilder]
-/// implementation.
+/// Implements the sealed [RequestOptionsBuilder] trait.
 impl<T> RequestOptionsBuilder for T
 where
-    T: RequestBuilder,
+    T: internal::RequestBuilder,
 {
     fn with_idempotency(mut self, v: bool) -> Self {
         self.request_options().set_idempotency(v);
@@ -386,11 +391,13 @@ impl std::default::Default for ClientConfig {
 
 #[cfg(test)]
 mod test {
+    use super::internal::*;
     use super::*;
     use crate::exponential_backoff::ExponentialBackoffBuilder;
     use crate::polling_error_policy;
     use crate::retry_policy::LimitedAttemptCount;
     use crate::retry_throttler::AdaptiveThrottler;
+    use scoped_env::ScopedEnv;
     use std::time::Duration;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -511,28 +518,21 @@ mod test {
         Ok(())
     }
 
-    // This test must run serially because `std::env::remove_var` and
-    // `std::env::set_var` are unsafe otherwise.
+    // This test must run serially because it manipulates the environment.
     #[test]
     #[serial_test::serial]
     fn config_tracing() {
-        unsafe {
-            std::env::remove_var(LOGGING_VAR);
-        }
+        let _e = ScopedEnv::remove(LOGGING_VAR);
         let config = ClientConfig::new();
         assert!(!config.tracing_enabled(), "expected tracing to be disabled");
         let config = ClientConfig::new().enable_tracing();
         assert!(config.tracing_enabled(), "expected tracing to be enabled");
 
-        unsafe {
-            std::env::set_var(LOGGING_VAR, "true");
-        }
+        let _e = ScopedEnv::set(LOGGING_VAR, "true");
         let config = ClientConfig::new();
         assert!(config.tracing_enabled(), "expected tracing to be enabled");
 
-        unsafe {
-            std::env::set_var(LOGGING_VAR, "not-true");
-        }
+        let _e = ScopedEnv::set(LOGGING_VAR, "not-true");
         let config = ClientConfig::new();
         assert!(!config.tracing_enabled(), "expected tracing to be disabled");
     }

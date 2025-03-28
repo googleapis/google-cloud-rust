@@ -48,7 +48,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Operations {
-    inner: Arc<dyn super::stubs::dynamic::Operations>,
+    inner: Arc<dyn super::stub::dynamic::Operations>,
 }
 
 impl Operations {
@@ -69,7 +69,7 @@ impl Operations {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Operations + 'static,
+        T: super::stub::Operations + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -78,7 +78,7 @@ impl Operations {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Operations>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Operations>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -87,13 +87,13 @@ impl Operations {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Operations> {
+    ) -> Result<impl super::stub::Operations> {
         super::transport::Operations::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Operations> {
+    ) -> Result<impl super::stub::Operations> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Operations::new)
@@ -104,8 +104,8 @@ impl Operations {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::operations::ListOperations {
-        super::builders::operations::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::operations::ListOperations {
+        super::builder::operations::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets the latest state of a long-running operation.  Clients can use this
@@ -114,8 +114,8 @@ impl Operations {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::operations::GetOperation {
-        super::builders::operations::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::operations::GetOperation {
+        super::builder::operations::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes a long-running operation. This method indicates that the client is
@@ -125,8 +125,8 @@ impl Operations {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::operations::DeleteOperation {
-        super::builders::operations::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::operations::DeleteOperation {
+        super::builder::operations::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Starts asynchronous cancellation on a long-running operation.  The server
@@ -147,7 +147,7 @@ impl Operations {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::operations::CancelOperation {
-        super::builders::operations::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::operations::CancelOperation {
+        super::builder::operations::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

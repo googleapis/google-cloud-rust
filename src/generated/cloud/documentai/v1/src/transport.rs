@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DocumentProcessorService](super::stubs::DocumentProcessorService) using a [gaxi::http::ReqwestClient].
+/// Implements [DocumentProcessorService](super::stub::DocumentProcessorService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DocumentProcessorService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl DocumentProcessorService {
     }
 }
 
-impl super::stubs::DocumentProcessorService for DocumentProcessorService {
+impl super::stub::DocumentProcessorService for DocumentProcessorService {
     async fn process_document(
         &self,
         req: crate::model::ProcessRequest,
@@ -565,7 +565,7 @@ impl super::stubs::DocumentProcessorService for DocumentProcessorService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -578,6 +578,7 @@ impl super::stubs::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(

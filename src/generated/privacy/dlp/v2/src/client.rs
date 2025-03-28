@@ -42,7 +42,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct DlpService {
-    inner: Arc<dyn super::stubs::dynamic::DlpService>,
+    inner: Arc<dyn super::stub::dynamic::DlpService>,
 }
 
 impl DlpService {
@@ -63,7 +63,7 @@ impl DlpService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::DlpService + 'static,
+        T: super::stub::DlpService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -72,7 +72,7 @@ impl DlpService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::DlpService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::DlpService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -81,13 +81,13 @@ impl DlpService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DlpService> {
+    ) -> Result<impl super::stub::DlpService> {
         super::transport::DlpService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DlpService> {
+    ) -> Result<impl super::stub::DlpService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DlpService::new)
@@ -107,8 +107,8 @@ impl DlpService {
     pub fn inspect_content(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::InspectContent {
-        super::builders::dlp_service::InspectContent::new(self.inner.clone())
+    ) -> super::builder::dlp_service::InspectContent {
+        super::builder::dlp_service::InspectContent::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -124,8 +124,8 @@ impl DlpService {
     pub fn redact_image(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::RedactImage {
-        super::builders::dlp_service::RedactImage::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::dlp_service::RedactImage {
+        super::builder::dlp_service::RedactImage::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// De-identifies potentially sensitive info from a ContentItem.
@@ -140,8 +140,8 @@ impl DlpService {
     pub fn deidentify_content(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::DeidentifyContent {
-        super::builders::dlp_service::DeidentifyContent::new(self.inner.clone())
+    ) -> super::builder::dlp_service::DeidentifyContent {
+        super::builder::dlp_service::DeidentifyContent::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -152,8 +152,8 @@ impl DlpService {
     pub fn reidentify_content(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::ReidentifyContent {
-        super::builders::dlp_service::ReidentifyContent::new(self.inner.clone())
+    ) -> super::builder::dlp_service::ReidentifyContent {
+        super::builder::dlp_service::ReidentifyContent::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -161,8 +161,8 @@ impl DlpService {
     /// supports. See
     /// <https://cloud.google.com/sensitive-data-protection/docs/infotypes-reference>
     /// to learn more.
-    pub fn list_info_types(&self) -> super::builders::dlp_service::ListInfoTypes {
-        super::builders::dlp_service::ListInfoTypes::new(self.inner.clone())
+    pub fn list_info_types(&self) -> super::builder::dlp_service::ListInfoTypes {
+        super::builder::dlp_service::ListInfoTypes::new(self.inner.clone())
     }
 
     /// Creates an InspectTemplate for reusing frequently used configuration
@@ -173,8 +173,8 @@ impl DlpService {
     pub fn create_inspect_template(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::CreateInspectTemplate {
-        super::builders::dlp_service::CreateInspectTemplate::new(self.inner.clone())
+    ) -> super::builder::dlp_service::CreateInspectTemplate {
+        super::builder::dlp_service::CreateInspectTemplate::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -185,8 +185,8 @@ impl DlpService {
     pub fn update_inspect_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::UpdateInspectTemplate {
-        super::builders::dlp_service::UpdateInspectTemplate::new(self.inner.clone())
+    ) -> super::builder::dlp_service::UpdateInspectTemplate {
+        super::builder::dlp_service::UpdateInspectTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -197,8 +197,8 @@ impl DlpService {
     pub fn get_inspect_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::GetInspectTemplate {
-        super::builders::dlp_service::GetInspectTemplate::new(self.inner.clone())
+    ) -> super::builder::dlp_service::GetInspectTemplate {
+        super::builder::dlp_service::GetInspectTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -209,8 +209,8 @@ impl DlpService {
     pub fn list_inspect_templates(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::ListInspectTemplates {
-        super::builders::dlp_service::ListInspectTemplates::new(self.inner.clone())
+    ) -> super::builder::dlp_service::ListInspectTemplates {
+        super::builder::dlp_service::ListInspectTemplates::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -221,8 +221,8 @@ impl DlpService {
     pub fn delete_inspect_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::DeleteInspectTemplate {
-        super::builders::dlp_service::DeleteInspectTemplate::new(self.inner.clone())
+    ) -> super::builder::dlp_service::DeleteInspectTemplate {
+        super::builder::dlp_service::DeleteInspectTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -234,8 +234,8 @@ impl DlpService {
     pub fn create_deidentify_template(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::CreateDeidentifyTemplate {
-        super::builders::dlp_service::CreateDeidentifyTemplate::new(self.inner.clone())
+    ) -> super::builder::dlp_service::CreateDeidentifyTemplate {
+        super::builder::dlp_service::CreateDeidentifyTemplate::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -246,8 +246,8 @@ impl DlpService {
     pub fn update_deidentify_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::UpdateDeidentifyTemplate {
-        super::builders::dlp_service::UpdateDeidentifyTemplate::new(self.inner.clone())
+    ) -> super::builder::dlp_service::UpdateDeidentifyTemplate {
+        super::builder::dlp_service::UpdateDeidentifyTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -258,8 +258,8 @@ impl DlpService {
     pub fn get_deidentify_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::GetDeidentifyTemplate {
-        super::builders::dlp_service::GetDeidentifyTemplate::new(self.inner.clone())
+    ) -> super::builder::dlp_service::GetDeidentifyTemplate {
+        super::builder::dlp_service::GetDeidentifyTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -270,8 +270,8 @@ impl DlpService {
     pub fn list_deidentify_templates(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::ListDeidentifyTemplates {
-        super::builders::dlp_service::ListDeidentifyTemplates::new(self.inner.clone())
+    ) -> super::builder::dlp_service::ListDeidentifyTemplates {
+        super::builder::dlp_service::ListDeidentifyTemplates::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -282,8 +282,8 @@ impl DlpService {
     pub fn delete_deidentify_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::DeleteDeidentifyTemplate {
-        super::builders::dlp_service::DeleteDeidentifyTemplate::new(self.inner.clone())
+    ) -> super::builder::dlp_service::DeleteDeidentifyTemplate {
+        super::builder::dlp_service::DeleteDeidentifyTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -295,8 +295,8 @@ impl DlpService {
     pub fn create_job_trigger(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::CreateJobTrigger {
-        super::builders::dlp_service::CreateJobTrigger::new(self.inner.clone())
+    ) -> super::builder::dlp_service::CreateJobTrigger {
+        super::builder::dlp_service::CreateJobTrigger::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -307,9 +307,8 @@ impl DlpService {
     pub fn update_job_trigger(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::UpdateJobTrigger {
-        super::builders::dlp_service::UpdateJobTrigger::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::dlp_service::UpdateJobTrigger {
+        super::builder::dlp_service::UpdateJobTrigger::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Inspect hybrid content and store findings to a trigger. The inspection
@@ -318,8 +317,8 @@ impl DlpService {
     pub fn hybrid_inspect_job_trigger(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::HybridInspectJobTrigger {
-        super::builders::dlp_service::HybridInspectJobTrigger::new(self.inner.clone())
+    ) -> super::builder::dlp_service::HybridInspectJobTrigger {
+        super::builder::dlp_service::HybridInspectJobTrigger::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -330,8 +329,8 @@ impl DlpService {
     pub fn get_job_trigger(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::GetJobTrigger {
-        super::builders::dlp_service::GetJobTrigger::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::dlp_service::GetJobTrigger {
+        super::builder::dlp_service::GetJobTrigger::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists job triggers.
@@ -341,8 +340,8 @@ impl DlpService {
     pub fn list_job_triggers(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::ListJobTriggers {
-        super::builders::dlp_service::ListJobTriggers::new(self.inner.clone())
+    ) -> super::builder::dlp_service::ListJobTriggers {
+        super::builder::dlp_service::ListJobTriggers::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -353,9 +352,8 @@ impl DlpService {
     pub fn delete_job_trigger(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::DeleteJobTrigger {
-        super::builders::dlp_service::DeleteJobTrigger::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::dlp_service::DeleteJobTrigger {
+        super::builder::dlp_service::DeleteJobTrigger::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Activate a job trigger. Causes the immediate execute of a trigger
@@ -363,8 +361,8 @@ impl DlpService {
     pub fn activate_job_trigger(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::ActivateJobTrigger {
-        super::builders::dlp_service::ActivateJobTrigger::new(self.inner.clone())
+    ) -> super::builder::dlp_service::ActivateJobTrigger {
+        super::builder::dlp_service::ActivateJobTrigger::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -372,8 +370,8 @@ impl DlpService {
     pub fn create_discovery_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::CreateDiscoveryConfig {
-        super::builders::dlp_service::CreateDiscoveryConfig::new(self.inner.clone())
+    ) -> super::builder::dlp_service::CreateDiscoveryConfig {
+        super::builder::dlp_service::CreateDiscoveryConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -381,8 +379,8 @@ impl DlpService {
     pub fn update_discovery_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::UpdateDiscoveryConfig {
-        super::builders::dlp_service::UpdateDiscoveryConfig::new(self.inner.clone())
+    ) -> super::builder::dlp_service::UpdateDiscoveryConfig {
+        super::builder::dlp_service::UpdateDiscoveryConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -390,8 +388,8 @@ impl DlpService {
     pub fn get_discovery_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::GetDiscoveryConfig {
-        super::builders::dlp_service::GetDiscoveryConfig::new(self.inner.clone())
+    ) -> super::builder::dlp_service::GetDiscoveryConfig {
+        super::builder::dlp_service::GetDiscoveryConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -399,8 +397,8 @@ impl DlpService {
     pub fn list_discovery_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::ListDiscoveryConfigs {
-        super::builders::dlp_service::ListDiscoveryConfigs::new(self.inner.clone())
+    ) -> super::builder::dlp_service::ListDiscoveryConfigs {
+        super::builder::dlp_service::ListDiscoveryConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -408,8 +406,8 @@ impl DlpService {
     pub fn delete_discovery_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::DeleteDiscoveryConfig {
-        super::builders::dlp_service::DeleteDiscoveryConfig::new(self.inner.clone())
+    ) -> super::builder::dlp_service::DeleteDiscoveryConfig {
+        super::builder::dlp_service::DeleteDiscoveryConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -426,9 +424,8 @@ impl DlpService {
     pub fn create_dlp_job(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::CreateDlpJob {
-        super::builders::dlp_service::CreateDlpJob::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::dlp_service::CreateDlpJob {
+        super::builder::dlp_service::CreateDlpJob::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Lists DlpJobs that match the specified filter in the request.
@@ -440,8 +437,8 @@ impl DlpService {
     pub fn list_dlp_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::ListDlpJobs {
-        super::builders::dlp_service::ListDlpJobs::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::dlp_service::ListDlpJobs {
+        super::builder::dlp_service::ListDlpJobs::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets the latest state of a long-running DlpJob.
@@ -453,8 +450,8 @@ impl DlpService {
     pub fn get_dlp_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::GetDlpJob {
-        super::builders::dlp_service::GetDlpJob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::dlp_service::GetDlpJob {
+        super::builder::dlp_service::GetDlpJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes a long-running DlpJob. This method indicates that the client is
@@ -468,8 +465,8 @@ impl DlpService {
     pub fn delete_dlp_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::DeleteDlpJob {
-        super::builders::dlp_service::DeleteDlpJob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::dlp_service::DeleteDlpJob {
+        super::builder::dlp_service::DeleteDlpJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Starts asynchronous cancellation on a long-running DlpJob. The server
@@ -483,8 +480,8 @@ impl DlpService {
     pub fn cancel_dlp_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::CancelDlpJob {
-        super::builders::dlp_service::CancelDlpJob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::dlp_service::CancelDlpJob {
+        super::builder::dlp_service::CancelDlpJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a pre-built stored infoType to be used for inspection.
@@ -494,8 +491,8 @@ impl DlpService {
     pub fn create_stored_info_type(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::CreateStoredInfoType {
-        super::builders::dlp_service::CreateStoredInfoType::new(self.inner.clone())
+    ) -> super::builder::dlp_service::CreateStoredInfoType {
+        super::builder::dlp_service::CreateStoredInfoType::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -507,8 +504,8 @@ impl DlpService {
     pub fn update_stored_info_type(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::UpdateStoredInfoType {
-        super::builders::dlp_service::UpdateStoredInfoType::new(self.inner.clone())
+    ) -> super::builder::dlp_service::UpdateStoredInfoType {
+        super::builder::dlp_service::UpdateStoredInfoType::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -519,8 +516,8 @@ impl DlpService {
     pub fn get_stored_info_type(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::GetStoredInfoType {
-        super::builders::dlp_service::GetStoredInfoType::new(self.inner.clone())
+    ) -> super::builder::dlp_service::GetStoredInfoType {
+        super::builder::dlp_service::GetStoredInfoType::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -531,8 +528,8 @@ impl DlpService {
     pub fn list_stored_info_types(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::ListStoredInfoTypes {
-        super::builders::dlp_service::ListStoredInfoTypes::new(self.inner.clone())
+    ) -> super::builder::dlp_service::ListStoredInfoTypes {
+        super::builder::dlp_service::ListStoredInfoTypes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -543,8 +540,8 @@ impl DlpService {
     pub fn delete_stored_info_type(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::DeleteStoredInfoType {
-        super::builders::dlp_service::DeleteStoredInfoType::new(self.inner.clone())
+    ) -> super::builder::dlp_service::DeleteStoredInfoType {
+        super::builder::dlp_service::DeleteStoredInfoType::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -552,8 +549,8 @@ impl DlpService {
     pub fn list_project_data_profiles(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::ListProjectDataProfiles {
-        super::builders::dlp_service::ListProjectDataProfiles::new(self.inner.clone())
+    ) -> super::builder::dlp_service::ListProjectDataProfiles {
+        super::builder::dlp_service::ListProjectDataProfiles::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -561,8 +558,8 @@ impl DlpService {
     pub fn list_table_data_profiles(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::ListTableDataProfiles {
-        super::builders::dlp_service::ListTableDataProfiles::new(self.inner.clone())
+    ) -> super::builder::dlp_service::ListTableDataProfiles {
+        super::builder::dlp_service::ListTableDataProfiles::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -570,8 +567,8 @@ impl DlpService {
     pub fn list_column_data_profiles(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::ListColumnDataProfiles {
-        super::builders::dlp_service::ListColumnDataProfiles::new(self.inner.clone())
+    ) -> super::builder::dlp_service::ListColumnDataProfiles {
+        super::builder::dlp_service::ListColumnDataProfiles::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -579,8 +576,8 @@ impl DlpService {
     pub fn get_project_data_profile(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::GetProjectDataProfile {
-        super::builders::dlp_service::GetProjectDataProfile::new(self.inner.clone())
+    ) -> super::builder::dlp_service::GetProjectDataProfile {
+        super::builder::dlp_service::GetProjectDataProfile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -588,8 +585,8 @@ impl DlpService {
     pub fn list_file_store_data_profiles(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::ListFileStoreDataProfiles {
-        super::builders::dlp_service::ListFileStoreDataProfiles::new(self.inner.clone())
+    ) -> super::builder::dlp_service::ListFileStoreDataProfiles {
+        super::builder::dlp_service::ListFileStoreDataProfiles::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -597,8 +594,8 @@ impl DlpService {
     pub fn get_file_store_data_profile(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::GetFileStoreDataProfile {
-        super::builders::dlp_service::GetFileStoreDataProfile::new(self.inner.clone())
+    ) -> super::builder::dlp_service::GetFileStoreDataProfile {
+        super::builder::dlp_service::GetFileStoreDataProfile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -607,8 +604,8 @@ impl DlpService {
     pub fn delete_file_store_data_profile(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::DeleteFileStoreDataProfile {
-        super::builders::dlp_service::DeleteFileStoreDataProfile::new(self.inner.clone())
+    ) -> super::builder::dlp_service::DeleteFileStoreDataProfile {
+        super::builder::dlp_service::DeleteFileStoreDataProfile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -616,8 +613,8 @@ impl DlpService {
     pub fn get_table_data_profile(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::GetTableDataProfile {
-        super::builders::dlp_service::GetTableDataProfile::new(self.inner.clone())
+    ) -> super::builder::dlp_service::GetTableDataProfile {
+        super::builder::dlp_service::GetTableDataProfile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -625,8 +622,8 @@ impl DlpService {
     pub fn get_column_data_profile(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::GetColumnDataProfile {
-        super::builders::dlp_service::GetColumnDataProfile::new(self.inner.clone())
+    ) -> super::builder::dlp_service::GetColumnDataProfile {
+        super::builder::dlp_service::GetColumnDataProfile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -635,8 +632,8 @@ impl DlpService {
     pub fn delete_table_data_profile(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::DeleteTableDataProfile {
-        super::builders::dlp_service::DeleteTableDataProfile::new(self.inner.clone())
+    ) -> super::builder::dlp_service::DeleteTableDataProfile {
+        super::builder::dlp_service::DeleteTableDataProfile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -646,8 +643,8 @@ impl DlpService {
     pub fn hybrid_inspect_dlp_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::HybridInspectDlpJob {
-        super::builders::dlp_service::HybridInspectDlpJob::new(self.inner.clone())
+    ) -> super::builder::dlp_service::HybridInspectDlpJob {
+        super::builder::dlp_service::HybridInspectDlpJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -656,16 +653,16 @@ impl DlpService {
     pub fn finish_dlp_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::FinishDlpJob {
-        super::builders::dlp_service::FinishDlpJob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::dlp_service::FinishDlpJob {
+        super::builder::dlp_service::FinishDlpJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Create a Connection to an external data source.
     pub fn create_connection(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::CreateConnection {
-        super::builders::dlp_service::CreateConnection::new(self.inner.clone())
+    ) -> super::builder::dlp_service::CreateConnection {
+        super::builder::dlp_service::CreateConnection::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -673,8 +670,8 @@ impl DlpService {
     pub fn get_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::GetConnection {
-        super::builders::dlp_service::GetConnection::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::dlp_service::GetConnection {
+        super::builder::dlp_service::GetConnection::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists Connections in a parent. Use SearchConnections to see all connections
@@ -682,8 +679,8 @@ impl DlpService {
     pub fn list_connections(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::ListConnections {
-        super::builders::dlp_service::ListConnections::new(self.inner.clone())
+    ) -> super::builder::dlp_service::ListConnections {
+        super::builder::dlp_service::ListConnections::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -691,8 +688,8 @@ impl DlpService {
     pub fn search_connections(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::SearchConnections {
-        super::builders::dlp_service::SearchConnections::new(self.inner.clone())
+    ) -> super::builder::dlp_service::SearchConnections {
+        super::builder::dlp_service::SearchConnections::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -700,17 +697,15 @@ impl DlpService {
     pub fn delete_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::DeleteConnection {
-        super::builders::dlp_service::DeleteConnection::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::dlp_service::DeleteConnection {
+        super::builder::dlp_service::DeleteConnection::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Update a Connection.
     pub fn update_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::dlp_service::UpdateConnection {
-        super::builders::dlp_service::UpdateConnection::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::dlp_service::UpdateConnection {
+        super::builder::dlp_service::UpdateConnection::new(self.inner.clone()).set_name(name.into())
     }
 }

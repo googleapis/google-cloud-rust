@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [StorageInsights](super::stubs::StorageInsights) using a [gaxi::http::ReqwestClient].
+/// Implements [StorageInsights](super::stub::StorageInsights) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct StorageInsights {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl StorageInsights {
     }
 }
 
-impl super::stubs::StorageInsights for StorageInsights {
+impl super::stub::StorageInsights for StorageInsights {
     async fn list_report_configs(
         &self,
         req: crate::model::ListReportConfigsRequest,
@@ -151,7 +151,7 @@ impl super::stubs::StorageInsights for StorageInsights {
         &self,
         req: crate::model::DeleteReportConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -166,6 +166,7 @@ impl super::stubs::StorageInsights for StorageInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_report_details(
@@ -299,7 +300,7 @@ impl super::stubs::StorageInsights for StorageInsights {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -312,13 +313,14 @@ impl super::stubs::StorageInsights for StorageInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -328,6 +330,9 @@ impl super::stubs::StorageInsights for StorageInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 }

@@ -39,7 +39,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct BackupForGKE {
-    inner: Arc<dyn super::stubs::dynamic::BackupForGKE>,
+    inner: Arc<dyn super::stub::dynamic::BackupForGKE>,
 }
 
 impl BackupForGKE {
@@ -60,7 +60,7 @@ impl BackupForGKE {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::BackupForGKE + 'static,
+        T: super::stub::BackupForGKE + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -69,7 +69,7 @@ impl BackupForGKE {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::BackupForGKE>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::BackupForGKE>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,13 +78,13 @@ impl BackupForGKE {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::BackupForGKE> {
+    ) -> Result<impl super::stub::BackupForGKE> {
         super::transport::BackupForGKE::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::BackupForGKE> {
+    ) -> Result<impl super::stub::BackupForGKE> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::BackupForGKE::new)
@@ -104,8 +104,8 @@ impl BackupForGKE {
     pub fn create_backup_plan(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::CreateBackupPlan {
-        super::builders::backup_for_gke::CreateBackupPlan::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::CreateBackupPlan {
+        super::builder::backup_for_gke::CreateBackupPlan::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -113,8 +113,8 @@ impl BackupForGKE {
     pub fn list_backup_plans(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::ListBackupPlans {
-        super::builders::backup_for_gke::ListBackupPlans::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::ListBackupPlans {
+        super::builder::backup_for_gke::ListBackupPlans::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -122,9 +122,8 @@ impl BackupForGKE {
     pub fn get_backup_plan(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::GetBackupPlan {
-        super::builders::backup_for_gke::GetBackupPlan::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::backup_for_gke::GetBackupPlan {
+        super::builder::backup_for_gke::GetBackupPlan::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Update a BackupPlan.
@@ -141,8 +140,8 @@ impl BackupForGKE {
     pub fn update_backup_plan(
         &self,
         backup_plan: impl Into<crate::model::BackupPlan>,
-    ) -> super::builders::backup_for_gke::UpdateBackupPlan {
-        super::builders::backup_for_gke::UpdateBackupPlan::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::UpdateBackupPlan {
+        super::builder::backup_for_gke::UpdateBackupPlan::new(self.inner.clone())
             .set_backup_plan(backup_plan.into())
     }
 
@@ -160,8 +159,8 @@ impl BackupForGKE {
     pub fn delete_backup_plan(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::DeleteBackupPlan {
-        super::builders::backup_for_gke::DeleteBackupPlan::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::DeleteBackupPlan {
+        super::builder::backup_for_gke::DeleteBackupPlan::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -179,8 +178,8 @@ impl BackupForGKE {
     pub fn create_backup(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::CreateBackup {
-        super::builders::backup_for_gke::CreateBackup::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::CreateBackup {
+        super::builder::backup_for_gke::CreateBackup::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -188,8 +187,8 @@ impl BackupForGKE {
     pub fn list_backups(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::ListBackups {
-        super::builders::backup_for_gke::ListBackups::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::ListBackups {
+        super::builder::backup_for_gke::ListBackups::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -197,8 +196,8 @@ impl BackupForGKE {
     pub fn get_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::GetBackup {
-        super::builders::backup_for_gke::GetBackup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::backup_for_gke::GetBackup {
+        super::builder::backup_for_gke::GetBackup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Update a Backup.
@@ -215,8 +214,8 @@ impl BackupForGKE {
     pub fn update_backup(
         &self,
         backup: impl Into<crate::model::Backup>,
-    ) -> super::builders::backup_for_gke::UpdateBackup {
-        super::builders::backup_for_gke::UpdateBackup::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::UpdateBackup {
+        super::builder::backup_for_gke::UpdateBackup::new(self.inner.clone())
             .set_backup(backup.into())
     }
 
@@ -234,16 +233,16 @@ impl BackupForGKE {
     pub fn delete_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::DeleteBackup {
-        super::builders::backup_for_gke::DeleteBackup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::backup_for_gke::DeleteBackup {
+        super::builder::backup_for_gke::DeleteBackup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists the VolumeBackups for a given Backup.
     pub fn list_volume_backups(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::ListVolumeBackups {
-        super::builders::backup_for_gke::ListVolumeBackups::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::ListVolumeBackups {
+        super::builder::backup_for_gke::ListVolumeBackups::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -251,8 +250,8 @@ impl BackupForGKE {
     pub fn get_volume_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::GetVolumeBackup {
-        super::builders::backup_for_gke::GetVolumeBackup::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::GetVolumeBackup {
+        super::builder::backup_for_gke::GetVolumeBackup::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -270,8 +269,8 @@ impl BackupForGKE {
     pub fn create_restore_plan(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::CreateRestorePlan {
-        super::builders::backup_for_gke::CreateRestorePlan::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::CreateRestorePlan {
+        super::builder::backup_for_gke::CreateRestorePlan::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -279,8 +278,8 @@ impl BackupForGKE {
     pub fn list_restore_plans(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::ListRestorePlans {
-        super::builders::backup_for_gke::ListRestorePlans::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::ListRestorePlans {
+        super::builder::backup_for_gke::ListRestorePlans::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -288,8 +287,8 @@ impl BackupForGKE {
     pub fn get_restore_plan(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::GetRestorePlan {
-        super::builders::backup_for_gke::GetRestorePlan::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::GetRestorePlan {
+        super::builder::backup_for_gke::GetRestorePlan::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -307,8 +306,8 @@ impl BackupForGKE {
     pub fn update_restore_plan(
         &self,
         restore_plan: impl Into<crate::model::RestorePlan>,
-    ) -> super::builders::backup_for_gke::UpdateRestorePlan {
-        super::builders::backup_for_gke::UpdateRestorePlan::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::UpdateRestorePlan {
+        super::builder::backup_for_gke::UpdateRestorePlan::new(self.inner.clone())
             .set_restore_plan(restore_plan.into())
     }
 
@@ -326,8 +325,8 @@ impl BackupForGKE {
     pub fn delete_restore_plan(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::DeleteRestorePlan {
-        super::builders::backup_for_gke::DeleteRestorePlan::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::DeleteRestorePlan {
+        super::builder::backup_for_gke::DeleteRestorePlan::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -345,8 +344,8 @@ impl BackupForGKE {
     pub fn create_restore(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::CreateRestore {
-        super::builders::backup_for_gke::CreateRestore::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::CreateRestore {
+        super::builder::backup_for_gke::CreateRestore::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -354,8 +353,8 @@ impl BackupForGKE {
     pub fn list_restores(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::ListRestores {
-        super::builders::backup_for_gke::ListRestores::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::ListRestores {
+        super::builder::backup_for_gke::ListRestores::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -363,8 +362,8 @@ impl BackupForGKE {
     pub fn get_restore(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::GetRestore {
-        super::builders::backup_for_gke::GetRestore::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::backup_for_gke::GetRestore {
+        super::builder::backup_for_gke::GetRestore::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Update a Restore.
@@ -381,8 +380,8 @@ impl BackupForGKE {
     pub fn update_restore(
         &self,
         restore: impl Into<crate::model::Restore>,
-    ) -> super::builders::backup_for_gke::UpdateRestore {
-        super::builders::backup_for_gke::UpdateRestore::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::UpdateRestore {
+        super::builder::backup_for_gke::UpdateRestore::new(self.inner.clone())
             .set_restore(restore.into())
     }
 
@@ -400,17 +399,16 @@ impl BackupForGKE {
     pub fn delete_restore(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::DeleteRestore {
-        super::builders::backup_for_gke::DeleteRestore::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::backup_for_gke::DeleteRestore {
+        super::builder::backup_for_gke::DeleteRestore::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists the VolumeRestores for a given Restore.
     pub fn list_volume_restores(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::ListVolumeRestores {
-        super::builders::backup_for_gke::ListVolumeRestores::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::ListVolumeRestores {
+        super::builder::backup_for_gke::ListVolumeRestores::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -418,8 +416,8 @@ impl BackupForGKE {
     pub fn get_volume_restore(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::GetVolumeRestore {
-        super::builders::backup_for_gke::GetVolumeRestore::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::GetVolumeRestore {
+        super::builder::backup_for_gke::GetVolumeRestore::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -427,8 +425,8 @@ impl BackupForGKE {
     pub fn get_backup_index_download_url(
         &self,
         backup: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::GetBackupIndexDownloadUrl {
-        super::builders::backup_for_gke::GetBackupIndexDownloadUrl::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::GetBackupIndexDownloadUrl {
+        super::builder::backup_for_gke::GetBackupIndexDownloadUrl::new(self.inner.clone())
             .set_backup(backup.into())
     }
 
@@ -436,17 +434,16 @@ impl BackupForGKE {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::ListLocations {
-        super::builders::backup_for_gke::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::backup_for_gke::ListLocations {
+        super::builder::backup_for_gke::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::GetLocation {
-        super::builders::backup_for_gke::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::backup_for_gke::GetLocation {
+        super::builder::backup_for_gke::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -457,8 +454,8 @@ impl BackupForGKE {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::SetIamPolicy {
-        super::builders::backup_for_gke::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::SetIamPolicy {
+        super::builder::backup_for_gke::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -467,8 +464,8 @@ impl BackupForGKE {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::GetIamPolicy {
-        super::builders::backup_for_gke::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::GetIamPolicy {
+        super::builder::backup_for_gke::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -482,8 +479,8 @@ impl BackupForGKE {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::TestIamPermissions {
-        super::builders::backup_for_gke::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::TestIamPermissions {
+        super::builder::backup_for_gke::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -493,8 +490,8 @@ impl BackupForGKE {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::ListOperations {
-        super::builders::backup_for_gke::ListOperations::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::ListOperations {
+        super::builder::backup_for_gke::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -504,8 +501,8 @@ impl BackupForGKE {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::GetOperation {
-        super::builders::backup_for_gke::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::backup_for_gke::GetOperation {
+        super::builder::backup_for_gke::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -514,8 +511,8 @@ impl BackupForGKE {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::DeleteOperation {
-        super::builders::backup_for_gke::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::DeleteOperation {
+        super::builder::backup_for_gke::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -525,8 +522,8 @@ impl BackupForGKE {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_for_gke::CancelOperation {
-        super::builders::backup_for_gke::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::backup_for_gke::CancelOperation {
+        super::builder::backup_for_gke::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

@@ -19,7 +19,7 @@ mod mocking {
     mockall::mock! {
         #[derive(Debug)]
         SecretManagerService {}
-        impl sm::stubs::SecretManagerService for SecretManagerService {
+        impl sm::stub::SecretManagerService for SecretManagerService {
             async fn create_secret(&self, req: sm::model::CreateSecretRequest, _options: gax::options::RequestOptions) -> gax::Result<sm::model::Secret>;
         }
     }

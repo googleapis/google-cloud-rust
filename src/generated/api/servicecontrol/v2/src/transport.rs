@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ServiceController](super::stubs::ServiceController) using a [gaxi::http::ReqwestClient].
+/// Implements [ServiceController](super::stub::ServiceController) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ServiceController {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl ServiceController {
     }
 }
 
-impl super::stubs::ServiceController for ServiceController {
+impl super::stub::ServiceController for ServiceController {
     async fn check(
         &self,
         req: crate::model::CheckRequest,

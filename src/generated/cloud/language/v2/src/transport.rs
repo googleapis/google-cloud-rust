@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [LanguageService](super::stubs::LanguageService) using a [gaxi::http::ReqwestClient].
+/// Implements [LanguageService](super::stub::LanguageService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct LanguageService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl LanguageService {
     }
 }
 
-impl super::stubs::LanguageService for LanguageService {
+impl super::stub::LanguageService for LanguageService {
     async fn analyze_sentiment(
         &self,
         req: crate::model::AnalyzeSentimentRequest,
