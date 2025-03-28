@@ -20,7 +20,7 @@ use google_cloud_speech_v2 as speech;
 // ANCHOR: start
 pub async fn start(project_id: &str) -> crate::Result<()> {
     // ANCHOR: client
-    let client = speech::client::Speech::new().await?;
+    let client = speech::client::Speech::builder().build().await?;
     // ANCHOR_END: client
 
     // ANCHOR: request-builder
@@ -71,7 +71,7 @@ pub async fn automatic(project_id: &str) -> crate::Result<()> {
     use speech::Poller;
     // ANCHOR_END: automatic-use
     // ANCHOR: automatic-prepare
-    let client = speech::client::Speech::new().await?;
+    let client = speech::client::Speech::builder().build().await?;
 
     let response = client
         .batch_recognize(format!(
@@ -113,7 +113,7 @@ pub async fn polling(project_id: &str) -> crate::Result<()> {
     use speech::Poller;
     // ANCHOR_END: polling-use
     // ANCHOR: polling-prepare
-    let client = speech::client::Speech::new().await?;
+    let client = speech::client::Speech::builder().build().await?;
 
     let mut poller = client
         .batch_recognize(format!(

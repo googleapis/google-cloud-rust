@@ -14,7 +14,6 @@
 
 use auth::credentials::{ApiKeyOptions, create_access_token_credential, create_api_key_credential};
 use gax::error::Error;
-use gax::options::ClientConfig as Config;
 use language::client::LanguageService;
 use language::model::Document;
 use scoped_env::ScopedEnv;
@@ -27,7 +26,7 @@ pub async fn service_account() -> Result<()> {
 
     // Create a SecretManager client. When running on GCB, this loads MDS
     // credentials for our `integration-test-runner` service account.
-    let client = SecretManagerService::new().await?;
+    let client = SecretManagerService::builder().build().await?;
 
     // Load the ADC json for the principal under test, in this case, a
     // service account.
@@ -55,8 +54,10 @@ pub async fn service_account() -> Result<()> {
         .map_err(Error::authentication)?;
 
     // Construct a new SecretManager client using the credentials.
-    let config = Config::new().set_credential(creds);
-    let client = SecretManagerService::new_with_config(config).await?;
+    let client = SecretManagerService::builder()
+        .with_credentials(creds)
+        .build()
+        .await?;
 
     // Access a secret, which only this principal has permissions to do.
     let response = client
@@ -80,7 +81,7 @@ pub async fn api_key() -> Result<()> {
 
     // Create a SecretManager client. When running on GCB, this loads MDS
     // credentials for our `integration-test-runner` service account.
-    let client = SecretManagerService::new().await?;
+    let client = SecretManagerService::builder().build().await?;
 
     // Load the API key under test.
     let response = client
@@ -102,8 +103,10 @@ pub async fn api_key() -> Result<()> {
         .map_err(Error::authentication)?;
 
     // Construct a Natural Language client using the credentials.
-    let config = Config::new().set_credential(creds);
-    let client = LanguageService::new_with_config(config).await?;
+    let client = LanguageService::builder()
+        .with_credentials(creds)
+        .build()
+        .await?;
 
     // Make a request using the API key.
     let d = Document::new()

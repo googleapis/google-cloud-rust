@@ -52,3 +52,4 @@ wkt = { version = "0.3", path = "../wkt", package = "google-cloud-wkt", features
 
 [dev-dependencies]
 tokio = { version = "1", features = ["full", "macros"] }
+tokio-test.workspace = true

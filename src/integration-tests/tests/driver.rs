@@ -31,74 +31,86 @@ mod driver {
             .with_attempt_limit(5)
     }
 
-    #[test_case(None; "default")]
-    #[test_case(Some(Config::new().enable_tracing()); "with tracing enabled")]
-    #[test_case(Some(Config::new().set_retry_policy(retry_policy())); "with retry enabled")]
+    #[test_case(firestore::client::Firestore::builder(); "default")]
+    #[test_case(firestore::client::Firestore::builder().enable_tracing(); "with tracing enabled")]
+    #[test_case(firestore::client::Firestore::builder().set_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_firestore(config: Option<Config>) -> integration_tests::Result<()> {
-        integration_tests::firestore::basic(config)
+    async fn run_firestore(
+        builder: firestore::builder::firestore::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::firestore::basic(builder)
             .await
             .map_err(report)
     }
 
-    #[test_case(None; "default")]
-    #[test_case(Some(Config::new().enable_tracing()); "with tracing enabled")]
-    #[test_case(Some(Config::new().set_retry_policy(retry_policy())); "with retry enabled")]
+    #[test_case(sm::client::SecretManagerService::builder(); "default")]
+    #[test_case(sm::client::SecretManagerService::builder().enable_tracing(); "with tracing enabled")]
+    #[test_case(sm::client::SecretManagerService::builder().set_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_secretmanager_protobuf(config: Option<Config>) -> integration_tests::Result<()> {
-        integration_tests::secret_manager::protobuf::run(config)
+    async fn run_secretmanager_protobuf(
+        builder: sm::builder::secret_manager_service::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::secret_manager::protobuf::run(builder)
             .await
             .map_err(report)
     }
 
-    #[test_case(None; "default")]
-    #[test_case(Some(Config::new().enable_tracing()); "with tracing enabled")]
-    #[test_case(Some(Config::new().set_retry_policy(retry_policy())); "with retry enabled")]
+    #[test_case(smo::client::SecretManagerService::builder(); "default")]
+    #[test_case(smo::client::SecretManagerService::builder()Config::new().enable_tracing(); "with tracing enabled")]
+    #[test_case(smo::client::SecretManagerService::builder()Config::new().set_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_secretmanager_openapi(config: Option<Config>) -> integration_tests::Result<()> {
-        integration_tests::secret_manager::openapi::run(config)
+    async fn run_secretmanager_openapi(
+        builder: smo::builder::secret_manager_service::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::secret_manager::openapi::run(builder)
             .await
             .map_err(report)
     }
 
-    #[test_case(None; "default")]
-    #[test_case(Some(Config::new().enable_tracing()); "with tracing enabled")]
-    #[test_case(Some(Config::new().set_retry_policy(retry_policy())); "with retry enabled")]
+    #[test_case(smo::client::SecretManagerService::builder(); "default")]
+    #[test_case(smo::client::SecretManagerService::builder().enable_tracing(); "with tracing enabled")]
+    #[test_case(smo::client::SecretManagerService::builder().set_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_secretmanager_openapi_locational(
-        config: Option<Config>,
+        builder: smo::builder::secret_manager_service::ClientBuilder,
     ) -> integration_tests::Result<()> {
-        integration_tests::secret_manager::openapi_locational::run(config)
+        integration_tests::secret_manager::openapi_locational::run(builder)
             .await
             .map_err(report)
     }
 
-    #[test_case(None; "default")]
-    #[test_case(Some(Config::new().enable_tracing()); "with tracing enabled")]
-    #[test_case(Some(Config::new().set_retry_policy(retry_policy())); "with retry enabled")]
+    #[test_case(wf::client::Workflows::builder(); "default")]
+    #[test_case(wf::client::Workflows::builder().enable_tracing(); "with tracing enabled")]
+    #[test_case(wf::client::Workflows::builder().set_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn workflows_until_done(config: Option<Config>) -> integration_tests::Result<()> {
-        integration_tests::workflows::until_done(config)
+    async fn workflows_until_done(
+        builder: wf::builder::workflows::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::workflows::until_done(builder)
             .await
             .map_err(report)
     }
 
-    #[test_case(None; "default")]
-    #[test_case(Some(Config::new().enable_tracing()); "with tracing enabled")]
-    #[test_case(Some(Config::new().set_retry_policy(retry_policy())); "with retry enabled")]
+    #[test_case(wf::client::Workflows::builder(); "default")]
+    #[test_case(wf::client::Workflows::builder().enable_tracing(); "with tracing enabled")]
+    #[test_case(wf::client::Workflows::builder().set_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn workflows_explicit(config: Option<Config>) -> integration_tests::Result<()> {
-        integration_tests::workflows::explicit_loop(config)
+    async fn workflows_explicit(
+        builder: wf::builder::workflows::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::workflows::explicit_loop(builder)
             .await
             .map_err(report)
     }
 
-    #[test_case(None; "default")]
-    #[test_case(Some(Config::new().enable_tracing()); "with tracing enabled")]
-    #[test_case(Some(Config::new().set_retry_policy(retry_policy())); "with retry enabled")]
+    #[test_case(wf::client::Workflows::builder(); "default")]
+    #[test_case(wf::client::Workflows::builder().enable_tracing(); "with tracing enabled")]
+    #[test_case(wf::client::Workflows::builder().set_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn workflows_manual(config: Option<Config>) -> integration_tests::Result<()> {
-        integration_tests::workflows::until_done(config)
+    async fn workflows_manual(
+        builder: wf::builder::workflows::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::workflows::until_done(builder)
             .await
             .map_err(report)
     }

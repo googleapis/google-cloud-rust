@@ -20,5 +20,6 @@ specification-source = 'google/firestore/v1'
 title-override = 'Cloud Firestore API'
 
 [codec]
-copyright-year    = '2025'
-template-override = 'templates/grpc-client'
+copyright-year        = '2025'
+template-override     = 'templates/grpc-client'
+package-name-override = 'google-cloud-firestore'

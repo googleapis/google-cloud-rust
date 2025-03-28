@@ -22,21 +22,20 @@ use google_cloud_speech_v2 as speech;
 pub async fn client_backoff(project_id: &str) -> crate::Result<()> {
     // ANCHOR: client-backoff-use
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
-    use google_cloud_gax::options::ClientConfig;
     // ANCHOR_END: client-backoff-use
     use speech::Poller;
     use std::time::Duration;
 
     // ANCHOR: client-backoff-client
-    let client = speech::client::Speech::new_with_config(
-        ClientConfig::default().set_polling_backoff_policy(
+    let client = speech::client::Speech::builder()
+        .with_polling_backoff_policy(
             ExponentialBackoffBuilder::new()
                 .with_initial_delay(Duration::from_millis(250))
                 .with_maximum_delay(Duration::from_secs(10))
                 .build()?,
-        ),
-    )
-    .await?;
+        )
+        .build()
+        .await?;
     // ANCHOR_END: client-backoff-client
 
     // ANCHOR: client-backoff-builder
@@ -86,7 +85,7 @@ pub async fn rpc_backoff(project_id: &str) -> crate::Result<()> {
     use speech::Poller;
 
     // ANCHOR: rpc-backoff-client
-    let client = speech::client::Speech::new().await?;
+    let client = speech::client::Speech::builder().build().await?;
     // ANCHOR_END: rpc-backoff-client
 
     // ANCHOR: rpc-backoff-builder
@@ -135,7 +134,6 @@ pub async fn rpc_backoff(project_id: &str) -> crate::Result<()> {
 // ANCHOR: client-errors
 pub async fn client_errors(project_id: &str) -> crate::Result<()> {
     // ANCHOR: client-errors-use
-    use google_cloud_gax::options::ClientConfig;
     use google_cloud_gax::polling_error_policy::Aip194Strict;
     use google_cloud_gax::polling_error_policy::PollingErrorPolicyExt;
     use std::time::Duration;
@@ -143,14 +141,14 @@ pub async fn client_errors(project_id: &str) -> crate::Result<()> {
     use speech::Poller;
 
     // ANCHOR: client-errors-client
-    let client = speech::client::Speech::new_with_config(
-        ClientConfig::default().set_polling_error_policy(
+    let client = speech::client::Speech::builder()
+        .with_polling_error_policy(
             Aip194Strict
                 .with_attempt_limit(100)
                 .with_time_limit(Duration::from_secs(300)),
-        ),
-    )
-    .await?;
+        )
+        .build()
+        .await?;
     // ANCHOR_END: client-errors-client
 
     // ANCHOR: client-errors-builder
@@ -201,7 +199,7 @@ pub async fn rpc_errors(project_id: &str) -> crate::Result<()> {
     use speech::Poller;
 
     // ANCHOR: rpc-errors-client
-    let client = speech::client::Speech::new().await?;
+    let client = speech::client::Speech::builder().build().await?;
     // ANCHOR_END: rpc-errors-client
 
     // ANCHOR: rpc-errors-builder

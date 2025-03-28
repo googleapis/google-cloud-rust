@@ -16,19 +16,7 @@ use crate::Result;
 use gax::error::Error;
 use rand::{Rng, distr::Alphanumeric};
 
-async fn new_client(
-    config: Option<gax::options::ClientConfig>,
-) -> Result<sm::client::SecretManagerService> {
-    // We could simplify the code, but we want to test both ::new_with_config()
-    // and ::new().
-    if let Some(config) = config {
-        sm::client::SecretManagerService::new_with_config(config).await
-    } else {
-        sm::client::SecretManagerService::new().await
-    }
-}
-
-pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
+pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
     #[cfg(feature = "log-integration-tests")]
@@ -50,7 +38,7 @@ pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
         .map(char::from)
         .collect();
 
-    let client = new_client(config).await?;
+    let client = builder.build().await?;
     cleanup_stale_secrets(&client, &project_id, &secret_id).await?;
 
     println!("\nTesting create_secret()");

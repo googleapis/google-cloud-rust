@@ -21,7 +21,7 @@ use wf::Poller;
 
 pub const WORKFLOW_ID_LENGTH: usize = 64;
 
-pub async fn until_done(config: Option<gax::options::ClientConfig>) -> Result<()> {
+pub async fn until_done(builder: wf::builder::workflows::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
     #[cfg(feature = "log-integration-tests")]
@@ -42,11 +42,7 @@ pub async fn until_done(config: Option<gax::options::ClientConfig>) -> Result<()
 
     // We could simplify the code, but we want to test both ::new_with_config()
     // and ::new().
-    let client = if let Some(config) = config {
-        wf::client::Workflows::new_with_config(config).await?
-    } else {
-        wf::client::Workflows::new().await?
-    };
+    let client = builder.build().await?;
     cleanup_stale_workflows(&client, &project_id, &location_id).await?;
 
     let source_contents = r###"# Test only workflow
@@ -95,7 +91,7 @@ main:
     Ok(())
 }
 
-pub async fn explicit_loop(config: Option<gax::options::ClientConfig>) -> Result<()> {
+pub async fn explicit_loop(builder: wf::builder::workflows::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
     #[cfg(feature = "log-integration-tests")]
@@ -116,11 +112,7 @@ pub async fn explicit_loop(config: Option<gax::options::ClientConfig>) -> Result
 
     // We could simplify the code, but we want to test both ::new_with_config()
     // and ::new().
-    let client = if let Some(config) = config {
-        wf::client::Workflows::new_with_config(config).await?
-    } else {
-        wf::client::Workflows::new().await?
-    };
+    let client = builder.build().await?;
     cleanup_stale_workflows(&client, &project_id, &location_id).await?;
 
     let source_contents = r###"# Test only workflow
@@ -254,7 +246,7 @@ pub async fn manual(
     workflow_id: String,
     workflow: wf::model::Workflow,
 ) -> Result<()> {
-    let client = wf::client::Workflows::new().await?;
+    let client = wf::client::Workflows::builder().build().await?;
 
     println!("\n\nStart create_workflow() LRO and poll it to completion");
     let create = client
