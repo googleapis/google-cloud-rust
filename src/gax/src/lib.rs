@@ -57,4 +57,4 @@ pub mod retry_throttler;
 
 #[cfg(feature = "unstable-sdk-client")]
 #[doc(hidden)]
-pub mod retry_loop;
+pub mod retry_loop_internal;
