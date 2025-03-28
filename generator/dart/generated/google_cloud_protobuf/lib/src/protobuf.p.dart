@@ -21,7 +21,8 @@ class Any extends Message {
 
   static const Set<String> _customEncodedTypes = {
     'google.protobuf.Duration',
-    'google.protobuf.FieldMask'
+    'google.protobuf.FieldMask',
+    'google.protobuf.Timestamp',
   };
 
   /// The raw JSON encoding of the underlying value.
@@ -194,5 +195,88 @@ class FieldMaskHelper {
   /// Decode the field mask from a single comma-separated string.
   static FieldMask decode(String format) {
     return FieldMask(paths: format.split(','));
+  }
+}
+
+/// Called from the Timestamp constructor to validate construction parameters.
+extension TimestampExtension on Timestamp {
+  /// The minimum value for [seconds]; corresponds to `'0001-01-01T00:00:00Z'`.
+  static const int minSeconds = -62135596800;
+
+  /// The maximum value for [seconds]; corresponds to `'9999-12-31T23:59:59Z'`.
+  static const int maxSeconds = 253402300799;
+
+  void _validate() {
+    if (seconds! < minSeconds || seconds! > maxSeconds) {
+      throw ArgumentError('seconds out of range');
+    }
+    if (nanos! < 0 || nanos! >= 1_000_000_000) {
+      throw ArgumentError('nanos out of range');
+    }
+  }
+}
+
+class TimestampHelper {
+  static final RegExp _rfc3339 = RegExp(//
+      r'^(\d{4})-' // year
+      r'(\d{2})-' // month
+      r'(\d{2})T' // day
+      r'(\d{2}):' // hour
+      r'(\d{2}):' // minute
+      r'(\d{2})' // second
+      r'(\.\d+)?' // fractional seconds
+      r'Z?' // timezone
+      );
+
+  /// Encode the timestamp in RFC3339/UTC format.
+  static String encode(Timestamp timestamp) {
+    final nanos = timestamp.nanos!;
+
+    // 0:0 is 1970-01-01T00:00:00Z.
+    final dateTime = DateTime.utc(1970, 1, 1, 0, 0, timestamp.seconds!, 0, 0);
+
+    String two(int value) => value.toString().padLeft(2, '0');
+
+    final year = dateTime.year.toString().padLeft(4, '0');
+    final month = two(dateTime.month);
+    final day = two(dateTime.day);
+    final hour = two(dateTime.hour);
+    final minute = two(dateTime.minute);
+    final second = two(dateTime.second);
+
+    String nanosStr;
+    if (nanos == 0) {
+      nanosStr = '';
+    } else {
+      nanosStr = '.${nanos.toString().padLeft(9, '0')}';
+
+      while (nanosStr.endsWith('000')) {
+        nanosStr = nanosStr.substring(0, nanosStr.length - 3);
+      }
+    }
+
+    // construct "2017-01-15T01:30:15.01Z"
+    return '${year}-${month}-${day}T${hour}:${minute}:${second}${nanosStr}Z';
+  }
+
+  /// Decode the timestamp from a RFC3339/UTC format string.
+  static Timestamp decode(String value) {
+    // DateTime will throw a FormatException on parse issues.
+    final dateTime = DateTime.parse(value);
+    final seconds = dateTime.millisecondsSinceEpoch ~/ 1_000;
+
+    // Parse nanos separately as DateTime only has microseconds resolution.
+    var nanos = 0;
+    final match = _rfc3339.firstMatch(value)!;
+    final fractionalSeconds = match.group(7);
+    if (fractionalSeconds != null) {
+      nanos = int.parse(fractionalSeconds.substring(1).padRight(9, '0'));
+    }
+
+    // If seconds is negative adjust for a positive nanos value.
+    return Timestamp(
+      seconds: seconds < 0 && nanos > 0 ? seconds - 1 : seconds,
+      nanos: nanos,
+    );
   }
 }
