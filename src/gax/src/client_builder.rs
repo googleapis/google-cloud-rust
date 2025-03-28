@@ -91,12 +91,12 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// # use google_cloud_gax::client_builder::examples;
     /// use examples::Client; // Placeholder for examples
     /// let client = Client::builder()
-    ///     .enable_tracing()
+    ///     .with_tracing()
     ///     .build();
     /// ```
     ///
     /// [tracing]: https://docs.rs/tracing/latest/tracing/
-    pub fn enable_tracing(mut self) -> Self {
+    pub fn with_tracing(mut self) -> Self {
         self.config.tracing = true;
         self
     }
@@ -114,7 +114,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// // Placeholder, normally use google_cloud_auth::credentials
     /// use examples::credentials;
     /// let client = Client::builder()
-    ///     .set_credentials(
+    ///     .with_credentials(
     ///         credentials::mds::Builder::new()
     ///             .scopes(["https://www.googleapis.com/auth/cloud-platform.read-only"])
     ///             .build())
@@ -122,7 +122,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// ```
     ///
     /// [google-cloud-auth]: https://docs.rs/google-cloud-auth
-    pub fn set_credentials<T: Into<Cr>>(mut self, v: T) -> Self {
+    pub fn with_credentials<T: Into<Cr>>(mut self, v: T) -> Self {
         self.config.cred = Some(v.into());
         self
     }
@@ -140,10 +140,10 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// use gax::retry_policy;
     /// use gax::retry_policy::RetryPolicyExt;
     /// let client = Client::builder()
-    ///     .set_retry_policy(retry_policy::AlwaysRetry.with_attempt_limit(3))
+    ///     .with_retry_policy(retry_policy::AlwaysRetry.with_attempt_limit(3))
     ///     .build();
     /// ```
-    pub fn set_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
+    pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
         self.config.retry_policy = Some(v.into().0);
         self
     }
@@ -166,12 +166,12 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///     .with_scaling(4.0)
     ///     .build()?;
     /// let client = Client::builder()
-    ///     .set_backoff_policy(policy)
+    ///     .with_backoff_policy(policy)
     ///     .build();
     /// # Ok(())
     /// # }
     /// ```
-    pub fn set_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
+    pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
         self.config.backoff_policy = Some(v.into().0);
         self
     }
@@ -194,12 +194,12 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// use examples::Client; // Placeholder for examples
     /// use gax::retry_throttler::AdaptiveThrottler;
     /// let client = Client::builder()
-    ///     .set_retry_throttler(AdaptiveThrottler::new(2.0)?)
+    ///     .with_retry_throttler(AdaptiveThrottler::new(2.0)?)
     ///     .build();
     /// # Ok(())
     /// # }
     /// ```
-    pub fn set_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
+    pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
         self.config.retry_throttler = v.into().0;
         self
     }
@@ -221,12 +221,12 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// use gax::polling_error_policy::PollingErrorPolicyExt;
     /// use std::time::Duration;
     /// let client = Client::builder()
-    ///     .set_polling_error_policy(Aip194Strict
+    ///     .with_polling_error_policy(Aip194Strict
     ///         .with_time_limit(Duration::from_secs(15 * 60))
     ///         .with_attempt_limit(50))
     ///     .build();
     /// ```
-    pub fn set_polling_error_policy<V: Into<PollingErrorPolicyArg>>(mut self, v: V) -> Self {
+    pub fn with_polling_error_policy<V: Into<PollingErrorPolicyArg>>(mut self, v: V) -> Self {
         self.config.polling_error_policy = Some(v.into().0);
         self
     }
@@ -251,12 +251,12 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///     .with_scaling(4.0)
     ///     .build()?;
     /// let client = Client::builder()
-    ///     .set_polling_backoff_policy(policy)
+    ///     .with_polling_backoff_policy(policy)
     ///     .build();
     /// # Ok(())
     /// # }
     /// ```
-    pub fn set_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(mut self, v: V) -> Self {
+    pub fn with_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(mut self, v: V) -> Self {
         self.config.polling_backoff_policy = Some(v.into().0);
         self
     }
@@ -515,19 +515,22 @@ pub mod internal {
 
 #[doc(hidden)]
 pub mod examples {
+    type Config = super::internal::ClientConfig<Credentials>;
+
     /// A client type for use in examples.
     ///
     /// This type is used in examples as a placeholder for a real client. It
     /// does not work, but illustrates how to use `ClientBuilder`.
-    pub struct Client;
+    #[allow(dead_code)]
+    pub struct Client(Config);
     impl Client {
         /// Create a builder to initialize new instances of this client.
         pub fn builder() -> client::Builder {
             super::internal::new_builder(Self::new)
         }
 
-        fn new(_config: super::internal::ClientConfig<Credentials>) -> Self {
-            Self
+        fn new(config: super::internal::ClientConfig<Credentials>) -> Self {
+            Self(config)
         }
     }
     pub mod client {
@@ -537,27 +540,126 @@ pub mod examples {
         >;
     }
 
-    pub struct Credentials;
+    #[derive(Clone, Debug, Default, PartialEq)]
+    pub struct Credentials {
+        pub scopes: Vec<String>,
+    }
 
     pub mod credentials {
         pub mod mds {
             #[derive(Clone, Default)]
-            pub struct Builder;
+            pub struct Builder(super::super::Credentials);
             impl Builder {
                 pub fn new() -> Self {
-                    Self
+                    Self(super::super::Credentials::default())
                 }
                 pub fn build(self) -> super::super::Credentials {
-                    super::super::Credentials
+                    self.0
                 }
-                pub fn scopes<I, V>(self, _iter: I) -> Self
+                pub fn scopes<I, V>(mut self, iter: I) -> Self
                 where
                     I: IntoIterator<Item = V>,
                     V: Into<String>,
                 {
+                    self.0.scopes = iter.into_iter().map(|v| v.into()).collect();
                     self
                 }
             }
+        }
+    }
+
+    // We use the examples as scaffolding for the tests.
+    #[cfg(test)]
+    mod test {
+        use super::*;
+
+        #[test]
+        fn build_default() {
+            let client = Client::builder().build();
+            let config = client.0;
+            assert_eq!(config.endpoint, None);
+            assert_eq!(config.cred, None);
+            assert_eq!(config.tracing, false);
+            assert!(
+                format!("{:?}", &config).contains("AdaptiveThrottler"),
+                "{config:?}"
+            );
+            assert!(config.retry_policy.is_none(), "{config:?}");
+            assert!(config.backoff_policy.is_none(), "{config:?}");
+            assert!(config.polling_error_policy.is_none(), "{config:?}");
+            assert!(config.polling_backoff_policy.is_none(), "{config:?}");
+        }
+
+        #[test]
+        fn endpoint() {
+            let client = Client::builder()
+                .with_endpoint("http://example.com")
+                .build();
+            let config = client.0;
+            assert_eq!(config.endpoint.as_deref(), Some("http://example.com"));
+        }
+
+        #[test]
+        fn tracing() {
+            let client = Client::builder().with_tracing().build();
+            let config = client.0;
+            assert_eq!(config.tracing, true);
+        }
+
+        #[test]
+        fn credentials() {
+            let client = Client::builder()
+                .with_credentials(
+                    credentials::mds::Builder::new()
+                        .scopes(["test-scope"])
+                        .build(),
+                )
+                .build();
+            let config = client.0;
+            let cred = config.cred.unwrap();
+            assert_eq!(cred.scopes, vec!["test-scope".to_string()]);
+        }
+
+        #[test]
+        fn retry_policy() {
+            use crate::retry_policy::RetryPolicyExt;
+            let client = Client::builder()
+                .with_retry_policy(crate::retry_policy::AlwaysRetry.with_attempt_limit(3))
+                .build();
+            let config = client.0;
+            assert!(config.retry_policy.is_some(), "{config:?}");
+        }
+
+        #[test]
+        fn backoff_policy() {
+            let client = Client::builder()
+                .with_backoff_policy(crate::exponential_backoff::ExponentialBackoff::default())
+                .build();
+            let config = client.0;
+            assert!(config.backoff_policy.is_some(), "{config:?}");
+        }
+
+        #[test]
+        fn polling_error_policy() {
+            use crate::polling_error_policy::PollingErrorPolicyExt;
+            let client = Client::builder()
+                .with_polling_error_policy(
+                    crate::polling_error_policy::AlwaysContinue.with_attempt_limit(3),
+                )
+                .build();
+            let config = client.0;
+            assert!(config.polling_error_policy.is_some(), "{config:?}");
+        }
+
+        #[test]
+        fn polling_backoff_policy() {
+            let client = Client::builder()
+                .with_polling_backoff_policy(
+                    crate::exponential_backoff::ExponentialBackoff::default(),
+                )
+                .build();
+            let config = client.0;
+            assert!(config.polling_backoff_policy.is_some(), "{config:?}");
         }
     }
 }
