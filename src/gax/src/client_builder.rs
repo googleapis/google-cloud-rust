@@ -103,7 +103,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
 
     /// Configure the authentication credentials.
     ///
-    /// Most Google cloud services require authentication, though some services
+    /// Most Google Cloud services require authentication, though some services
     /// allow for anonymous access, and some services provide emulators where
     /// no authentication is required. More information about valid credential
     /// types can be found in the [google-cloud-auth] crate documentation.
@@ -204,7 +204,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
         self
     }
 
-    /// Configure the polling backoff policy.
+    /// Configure the polling error policy.
     ///
     /// Some clients support long-running operations, the client libraries can
     /// automatically poll these operations until they complete. Polling may
@@ -235,7 +235,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///
     /// Some clients support long-running operations, the client libraries can
     /// automatically poll these operations until they complete. The polling
-    /// backoff policy controls for how long the client waits between polling
+    /// backoff policy controls how long the client waits between polling
     /// attempts.
     ///
     /// ```
