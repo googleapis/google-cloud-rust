@@ -47,8 +47,7 @@ mod test {
             }
         }
         pub(self) mod fake_client {
-            pub type Builder =
-                gax::client_builder::ClientBuilder<Factory, super::Credential>;
+            pub type Builder = gax::client_builder::ClientBuilder<Factory, super::Credential>;
             pub struct Factory;
             impl gax::client_builder::internal::ClientFactory for Factory {
                 type Client = super::FakeClient;
@@ -93,8 +92,7 @@ mod test {
             }
         }
         pub(self) mod fake_client {
-            pub type Builder =
-                gax::client_builder::ClientBuilder<Factory, super::Credential>;
+            pub type Builder = gax::client_builder::ClientBuilder<Factory, super::Credential>;
             pub struct Factory;
             impl gax::client_builder::internal::ClientFactory for Factory {
                 type Client = super::FakeClient;
