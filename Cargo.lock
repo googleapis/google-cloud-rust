@@ -2263,6 +2263,7 @@ dependencies = [
  "serial_test",
  "test-case",
  "tokio",
+ "tokio-test",
 ]
 
 [[package]]

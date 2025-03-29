@@ -25,20 +25,27 @@
 //!
 //! ```
 //! # use google_cloud_gax::client_builder::examples;
+//! # use google_cloud_gax::Result;
+//! # tokio_test::block_on(async {
 //! pub use examples::Client; // Placeholder for examples
-//! let client = Client::builder().build();
+//! let client = Client::builder().build().await?;
+//! # Result::<()>::Ok(()) });
 //! ```
 //!
 //! ## Example: create a client with a different endpoint
 //!
 //! ```
 //! # use google_cloud_gax::client_builder::examples;
+//! # use google_cloud_gax::Result;
+//! # tokio_test::block_on(async {
 //! pub use examples::Client; // Placeholder for examples
 //! let client = Client::builder()
 //!     .with_endpoint("https://private.googleapis.com")
-//!     .build();
+//!     .build().await?;
+//! # Result::<()>::Ok(()) });
 //! ```
 
+use crate::Result;
 use crate::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
 use crate::polling_backoff_policy::{PollingBackoffPolicy, PollingBackoffPolicyArg};
 use crate::polling_error_policy::{PollingErrorPolicy, PollingErrorPolicyArg};
@@ -57,25 +64,31 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
+    /// # use google_cloud_gax::Result;
+    /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// let client = Client::builder()
-    ///     .build();
+    ///     .build().await?;
+    /// # Result::<()>::Ok(()) });
     /// ```
-    pub fn build<C>(self) -> C
+    pub async fn build<C>(self) -> Result<C>
     where
-        F: Fn(internal::ClientConfig<Cr>) -> C,
+        F: internal::ClientFactory<Client = C, Credentials = Cr>,
     {
-        (self.factory)(self.config)
+        self.factory.build(self.config).await
     }
 
     /// Sets the endpoint.
     ///
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
+    /// # use google_cloud_gax::Result;
+    /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// let client = Client::builder()
     ///     .with_endpoint("http://private.googleapis.com")
-    ///     .build();
+    ///     .build().await?;
+    /// # Result::<()>::Ok(()) });
     /// ```
     pub fn with_endpoint<V: Into<String>>(mut self, v: V) -> Self {
         self.config.endpoint = Some(v.into());
@@ -89,10 +102,13 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
+    /// # use google_cloud_gax::Result;
+    /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// let client = Client::builder()
     ///     .with_tracing()
-    ///     .build();
+    ///     .build().await?;
+    /// # Result::<()>::Ok(()) });
     /// ```
     ///
     /// [tracing]: https://docs.rs/tracing/latest/tracing/
@@ -110,6 +126,8 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
+    /// # use google_cloud_gax::Result;
+    /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// // Placeholder, normally use google_cloud_auth::credentials
     /// use examples::credentials;
@@ -118,7 +136,8 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///         credentials::mds::Builder::new()
     ///             .scopes(["https://www.googleapis.com/auth/cloud-platform.read-only"])
     ///             .build())
-    ///     .build();
+    ///     .build().await?;
+    /// # Result::<()>::Ok(()) });
     /// ```
     ///
     /// [google-cloud-auth]: https://docs.rs/google-cloud-auth
@@ -136,12 +155,15 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax as gax;
+    /// # use google_cloud_gax::Result;
+    /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// use gax::retry_policy;
     /// use gax::retry_policy::RetryPolicyExt;
     /// let client = Client::builder()
     ///     .with_retry_policy(retry_policy::AlwaysRetry.with_attempt_limit(3))
-    ///     .build();
+    ///     .build().await?;
+    /// # Result::<()>::Ok(()) });
     /// ```
     pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
         self.config.retry_policy = Some(v.into().0);
@@ -156,7 +178,8 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax as gax;
-    /// # fn main() -> gax::Result<()> {
+    /// # use google_cloud_gax::Result;
+    /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// use gax::exponential_backoff::ExponentialBackoffBuilder;
     /// use std::time::Duration;
@@ -167,9 +190,8 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///     .build()?;
     /// let client = Client::builder()
     ///     .with_backoff_policy(policy)
-    ///     .build();
-    /// # Ok(())
-    /// # }
+    ///     .build().await?;
+    /// # Result::<()>::Ok(()) });
     /// ```
     pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
         self.config.backoff_policy = Some(v.into().0);
@@ -190,14 +212,14 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax as gax;
-    /// # fn main() -> gax::Result<()> {
+    /// # use google_cloud_gax::Result;
+    /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// use gax::retry_throttler::AdaptiveThrottler;
     /// let client = Client::builder()
     ///     .with_retry_throttler(AdaptiveThrottler::new(2.0)?)
-    ///     .build();
-    /// # Ok(())
-    /// # }
+    ///     .build().await?;
+    /// # Result::<()>::Ok(()) });
     /// ```
     pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
         self.config.retry_throttler = v.into().0;
@@ -216,6 +238,8 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax as gax;
+    /// # use google_cloud_gax::Result;
+    /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// use gax::polling_error_policy::Aip194Strict;
     /// use gax::polling_error_policy::PollingErrorPolicyExt;
@@ -224,7 +248,8 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///     .with_polling_error_policy(Aip194Strict
     ///         .with_time_limit(Duration::from_secs(15 * 60))
     ///         .with_attempt_limit(50))
-    ///     .build();
+    ///     .build().await?;
+    /// # Result::<()>::Ok(()) });
     /// ```
     pub fn with_polling_error_policy<V: Into<PollingErrorPolicyArg>>(mut self, v: V) -> Self {
         self.config.polling_error_policy = Some(v.into().0);
@@ -241,7 +266,8 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax as gax;
-    /// # fn main() -> gax::Result<()> {
+    /// # use google_cloud_gax::Result;
+    /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// use gax::exponential_backoff::ExponentialBackoffBuilder;
     /// use std::time::Duration;
@@ -252,9 +278,8 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///     .build()?;
     /// let client = Client::builder()
     ///     .with_polling_backoff_policy(policy)
-    ///     .build();
-    /// # Ok(())
-    /// # }
+    ///     .build().await?;
+    /// # Result::<()>::Ok(()) });
     /// ```
     pub fn with_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(mut self, v: V) -> Self {
         self.config.polling_backoff_policy = Some(v.into().0);
@@ -265,9 +290,19 @@ impl<F, Cr> ClientBuilder<F, Cr> {
 #[doc(hidden)]
 pub mod internal {
     use super::*;
+
+    pub trait ClientFactory {
+        type Client;
+        type Credentials;
+        fn build(
+            self,
+            config: internal::ClientConfig<Self::Credentials>,
+        ) -> impl Future<Output = Result<Self::Client>>;
+    }
+
     pub fn new_builder<F, Cr, C>(factory: F) -> super::ClientBuilder<F, Cr>
     where
-        F: Fn(ClientConfig<Cr>) -> C,
+        F: ClientFactory<Client = C, Credentials = Cr>,
     {
         super::ClientBuilder {
             factory,
@@ -516,6 +551,7 @@ pub mod internal {
 #[doc(hidden)]
 pub mod examples {
     type Config = super::internal::ClientConfig<Credentials>;
+    use super::Result;
 
     /// A client type for use in examples.
     ///
@@ -526,18 +562,26 @@ pub mod examples {
     impl Client {
         /// Create a builder to initialize new instances of this client.
         pub fn builder() -> client::Builder {
-            super::internal::new_builder(Self::new)
+            super::internal::new_builder(client::Factory)
         }
 
-        fn new(config: super::internal::ClientConfig<Credentials>) -> Self {
-            Self(config)
+        async fn new(config: super::internal::ClientConfig<Credentials>) -> Result<Self> {
+            Ok(Self(config))
         }
     }
-    pub mod client {
-        pub type Builder = super::super::ClientBuilder<
-            fn(super::super::internal::ClientConfig<super::Credentials>) -> super::Client,
-            super::Credentials,
-        >;
+    mod client {
+        pub type Builder = super::super::ClientBuilder<Factory, super::Credentials>;
+        pub struct Factory;
+        impl super::super::internal::ClientFactory for Factory {
+            type Credentials = super::Credentials;
+            type Client = super::Client;
+            async fn build(
+                self,
+                config: crate::client_builder::internal::ClientConfig<Self::Credentials>,
+            ) -> crate::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
     }
 
     #[derive(Clone, Debug, Default, PartialEq)]
@@ -573,9 +617,9 @@ pub mod examples {
     mod test {
         use super::*;
 
-        #[test]
-        fn build_default() {
-            let client = Client::builder().build();
+        #[tokio::test]
+        async fn build_default() {
+            let client = Client::builder().build().await.unwrap();
             let config = client.0;
             assert_eq!(config.endpoint, None);
             assert_eq!(config.cred, None);
@@ -590,61 +634,71 @@ pub mod examples {
             assert!(config.polling_backoff_policy.is_none(), "{config:?}");
         }
 
-        #[test]
-        fn endpoint() {
+        #[tokio::test]
+        async fn endpoint() {
             let client = Client::builder()
                 .with_endpoint("http://example.com")
-                .build();
+                .build()
+                .await
+                .unwrap();
             let config = client.0;
             assert_eq!(config.endpoint.as_deref(), Some("http://example.com"));
         }
 
-        #[test]
-        fn tracing() {
-            let client = Client::builder().with_tracing().build();
+        #[tokio::test]
+        async fn tracing() {
+            let client = Client::builder().with_tracing().build().await.unwrap();
             let config = client.0;
             assert_eq!(config.tracing, true);
         }
 
-        #[test]
-        fn credentials() {
+        #[tokio::test]
+        async fn credentials() {
             let client = Client::builder()
                 .with_credentials(
                     credentials::mds::Builder::new()
                         .scopes(["test-scope"])
                         .build(),
                 )
-                .build();
+                .build()
+                .await
+                .unwrap();
             let config = client.0;
             let cred = config.cred.unwrap();
             assert_eq!(cred.scopes, vec!["test-scope".to_string()]);
         }
 
-        #[test]
-        fn retry_policy() {
+        #[tokio::test]
+        async fn retry_policy() {
             use crate::retry_policy::RetryPolicyExt;
             let client = Client::builder()
                 .with_retry_policy(crate::retry_policy::AlwaysRetry.with_attempt_limit(3))
-                .build();
+                .build()
+                .await
+                .unwrap();
             let config = client.0;
             assert!(config.retry_policy.is_some(), "{config:?}");
         }
 
-        #[test]
-        fn backoff_policy() {
+        #[tokio::test]
+        async fn backoff_policy() {
             let client = Client::builder()
                 .with_backoff_policy(crate::exponential_backoff::ExponentialBackoff::default())
-                .build();
+                .build()
+                .await
+                .unwrap();
             let config = client.0;
             assert!(config.backoff_policy.is_some(), "{config:?}");
         }
 
-        #[test]
-        fn retry_throttler() {
+        #[tokio::test]
+        async fn retry_throttler() {
             use crate::retry_throttler::CircuitBreaker;
             let client = Client::builder()
                 .with_retry_throttler(CircuitBreaker::default())
-                .build();
+                .build()
+                .await
+                .unwrap();
             let config = client.0;
             assert!(
                 format!("{:?}", &config).contains("CircuitBreaker"),
@@ -652,25 +706,29 @@ pub mod examples {
             );
         }
 
-        #[test]
-        fn polling_error_policy() {
+        #[tokio::test]
+        async fn polling_error_policy() {
             use crate::polling_error_policy::PollingErrorPolicyExt;
             let client = Client::builder()
                 .with_polling_error_policy(
                     crate::polling_error_policy::AlwaysContinue.with_attempt_limit(3),
                 )
-                .build();
+                .build()
+                .await
+                .unwrap();
             let config = client.0;
             assert!(config.polling_error_policy.is_some(), "{config:?}");
         }
 
-        #[test]
-        fn polling_backoff_policy() {
+        #[tokio::test]
+        async fn polling_backoff_policy() {
             let client = Client::builder()
                 .with_polling_backoff_policy(
                     crate::exponential_backoff::ExponentialBackoff::default(),
                 )
-                .build();
+                .build()
+                .await
+                .unwrap();
             let config = client.0;
             assert!(config.polling_backoff_policy.is_some(), "{config:?}");
         }

@@ -13,45 +13,53 @@
 // limitations under the License.
 
 // Verify `ClientBuilder` can be used outside the crate.
-#[cfg(all(test, feature = "unstable-sdk-client"))]
+#[cfg(test)]
 mod test {
     use gax::client_builder::internal::ClientConfig;
     use google_cloud_gax as gax;
 
-    #[test]
-    fn test_default() {
-        let client = MyClient::builder().build();
+    #[tokio::test]
+    async fn test_default() -> anyhow::Result<()> {
+        let client = MyClient::builder().build().await?;
         assert_eq!(client.endpoint, None);
+        Ok(())
     }
 
-    #[test]
-    fn test_with_endpoint() {
-        let client = MyClient::builder().with_endpoint("abc123").build();
+    #[tokio::test]
+    async fn test_with_endpoint() -> anyhow::Result<()> {
+        let client = MyClient::builder().with_endpoint("abc123").build().await?;
         assert_eq!(client.endpoint.as_deref(), Some("abc123"));
+        Ok(())
     }
 
-    struct Credential;
+    pub struct Credential;
 
-    struct MyClient {
+    pub struct MyClient {
         endpoint: Option<String>,
     }
     impl MyClient {
         pub fn builder() -> my_client::Builder {
-            gax::client_builder::internal::new_builder(Self::new)
+            gax::client_builder::internal::new_builder(my_client::Factory)
         }
 
-        fn new(config: ClientConfig<Credential>) -> Self {
-            Self {
-                endpoint: config.endpoint,
-            }
+        async fn new(config: ClientConfig<Credential>) -> gax::Result<Self> {
+            let endpoint = config.endpoint;
+            Ok(Self { endpoint })
         }
     }
-    pub mod my_client {
-        use super::Credential;
+    mod my_client {
         use super::gax;
-        pub(super) type Builder = gax::client_builder::ClientBuilder<
-            fn(super::ClientConfig<Credential>) -> super::MyClient,
-            Credential,
-        >;
+        pub type Builder = gax::client_builder::ClientBuilder<Factory, super::Credential>;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = super::MyClient;
+            type Credentials = super::Credential;
+            async fn build(
+                self,
+                config: gax::client_builder::internal::ClientConfig<Self::Credentials>,
+            ) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
     }
 }
