@@ -37,7 +37,7 @@ mod test {
             inner: gaxi::grpc::Client,
         }
         impl FakeClient {
-            pub fn builder() -> fake_client::Builder {
+            pub fn builder() -> ClientBuilder {
                 gax::client_builder::internal::new_builder(fake_client::Factory)
             }
 
@@ -47,8 +47,8 @@ mod test {
             }
         }
         /// Make this visible for documentation purposes.
-        pub type Builder =
-            gax::client_builder::ClientBuilder<fake_client::Factory, super::Credential>;
+        pub type ClientBuilder =
+            gax::client_builder::ClientBuilder<fake_client::Factory, Credential>;
         // Note the pub(self), the types in this module are not accessible to
         // application developers.
         pub(self) mod fake_client {
@@ -86,7 +86,7 @@ mod test {
             inner: gaxi::http::ReqwestClient,
         }
         impl FakeClient {
-            pub fn builder() -> fake_client::Builder {
+            pub fn builder() -> ClientBuilder {
                 gax::client_builder::internal::new_builder(fake_client::Factory)
             }
 
@@ -96,8 +96,8 @@ mod test {
             }
         }
         /// Make this visible for documentation purposes.
-        pub type Builder =
-            gax::client_builder::ClientBuilder<fake_client::Factory, super::Credential>;
+        pub type ClientBuilder =
+            gax::client_builder::ClientBuilder<fake_client::Factory, Credential>;
         // Note the pub(self), the types in this module are not accessible to
         // application developers.
         pub(self) mod fake_client {
