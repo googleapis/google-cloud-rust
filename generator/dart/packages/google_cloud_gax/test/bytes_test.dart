@@ -14,36 +14,36 @@
 
 import 'dart:typed_data';
 
-import 'package:google_cloud_protobuf/protobuf.dart';
+import 'package:google_cloud_gax/src/json_helpers.dart';
 import 'package:test/test.dart';
 
 void main() {
   test('encode empty', () {
-    final bytes = Bytes(data: Uint8List.fromList([]));
-    expect(bytes.toJson(), '');
+    final bytes = Uint8List.fromList([]);
+    expect(encodeBytes(bytes), '');
   });
 
   test('encode simple', () {
-    final bytes = Bytes(data: Uint8List.fromList([1, 2, 3]));
-    expect(bytes.toJson(), 'AQID');
+    final bytes = Uint8List.fromList([1, 2, 3]);
+    expect(encodeBytes(bytes), 'AQID');
   });
 
   test('decode empty', () {
-    final bytes = Bytes.fromJson('AQID');
-    final actual = bytes.data.map((item) => '$item').join(',');
+    final bytes = decodeBytes('AQID')!;
+    final actual = bytes.map((item) => '$item').join(',');
     expect(actual, '1,2,3');
   });
 
   test('decode simple', () {
-    final bytes = Bytes.fromJson('bG9yZW0gaXBzdW0=');
-    final actual = bytes.data.map((item) => '$item').join(',');
+    final bytes = decodeBytes('bG9yZW0gaXBzdW0=')!;
+    final actual = bytes.map((item) => '$item').join(',');
     // "lorem ipsum"
     expect(actual, '108,111,114,101,109,32,105,112,115,117,109');
   });
 
   test('decode simple', () {
-    final bytes = Bytes.fromJson('YWJjMTIzIT8kKiYoKSctPUB+');
-    final actual = bytes.data.map((item) => '$item').join(',');
+    final bytes = decodeBytes('YWJjMTIzIT8kKiYoKSctPUB+')!;
+    final actual = bytes.map((item) => '$item').join(',');
     expect(actual, '97,98,99,49,50,51,33,63,36,42,38,40,41,39,45,61,64,126');
   });
 }

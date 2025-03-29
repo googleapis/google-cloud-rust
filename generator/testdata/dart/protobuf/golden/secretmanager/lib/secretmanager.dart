@@ -22,6 +22,8 @@
 /// Provides convenience while improving security.
 library;
 
+import 'dart:typed_data';
+
 import 'package:google_cloud_gax/common.dart';
 import 'package:google_cloud_gax/src/json_helpers.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
@@ -1016,7 +1018,7 @@ class SecretPayload extends Message {
   static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.SecretPayload';
 
   /// The secret data. Must be no larger than 64KiB.
-  final Bytes? data;
+  final Uint8List? data;
 
   /// Optional. If specified,
   /// `SecretManagerService`
@@ -1043,7 +1045,7 @@ class SecretPayload extends Message {
 
   factory SecretPayload.fromJson(Map<String, dynamic> json) {
     return SecretPayload(
-      data: decode(json['data'], Bytes.fromJson),
+      data: decodeBytes(json['data']),
       dataCrc32C: json['dataCrc32C'],
     );
   }
@@ -1051,7 +1053,7 @@ class SecretPayload extends Message {
   @override
   Object toJson() {
     return {
-      if (data != null) 'data': data!.toJson(),
+      if (data != null) 'data': encodeBytes(data!),
       if (dataCrc32C != null) 'dataCrc32C': dataCrc32C,
     };
   }

@@ -228,7 +228,7 @@ func TestFieldType(t *testing.T) {
 		{api.FLOAT_TYPE, "double"},
 		{api.DOUBLE_TYPE, "double"},
 		{api.STRING_TYPE, "String"},
-		{api.BYTES_TYPE, "Bytes"},
+		{api.BYTES_TYPE, "Uint8List"},
 	} {
 		field := &api.Field{
 			Name:     "parent",
@@ -330,8 +330,6 @@ func TestFieldType_Maps(t *testing.T) {
 }
 
 func TestFieldType_Bytes(t *testing.T) {
-	sampleDartImport := "package:sample/sample.dart"
-
 	field := &api.Field{
 		Name:     "test",
 		JSONName: "test",
@@ -347,23 +345,23 @@ func TestFieldType_Bytes(t *testing.T) {
 	annotate := newAnnotateModel(model)
 	annotate.annotateModel(map[string]string{})
 	annotate.imports = map[string]string{}
-	annotate.packageMapping["google.protobuf"] = sampleDartImport
+	annotate.packageMapping[typedDataImport] = typedDataImport
 
 	{
 		got := annotate.fieldType(field)
-		want := "Bytes"
+		want := "Uint8List"
 		if got != want {
 			t.Errorf("unexpected type name, got: %s want: %s", got, want)
 		}
 	}
 
-	// verify the google.protobuf import
+	// verify the  dart:typed_data import
 	if !(len(annotate.imports) > 0) {
-		t.Errorf("unexpected: no google.protobuf import added")
+		t.Errorf("unexpected: no  dart:typed_data import added")
 	}
 
 	for _, got := range annotate.imports {
-		want := sampleDartImport
+		want := typedDataImport
 		if got != want {
 			t.Errorf("unexpected import, got: %s want: %s", got, want)
 		}

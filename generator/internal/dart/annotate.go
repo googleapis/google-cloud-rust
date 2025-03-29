@@ -503,8 +503,6 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 	} else if isEnum {
 		enum := state.EnumByID[field.TypezID]
 		typeName = enumName(enum)
-	} else if isBytes {
-		typeName = "Bytes"
 	}
 
 	data := "json['" + name + "']"
@@ -532,7 +530,7 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 			// primitive lists: (json['name'] as List?)?.cast(),
 			return "(" + data + " as List" + opt + ")" + opt + ".cast()"
 		}
-	} else if isMessage || isEnum || isBytes {
+	} else if isMessage || isEnum {
 		// enum or message
 		if required {
 			// FieldMask.fromJson(json['name']),
@@ -541,6 +539,8 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 			// decode(json['name'], FieldMask.fromJson),
 			return "decode(" + data + ", " + fn + ")"
 		}
+	} else if isBytes {
+		return "decodeBytes(" + data + ")" + bang
 	} else {
 		// json['name']
 		return data
@@ -571,9 +571,11 @@ func createToJsonLine(field *api.Field, state *api.APIState, required bool) stri
 	} else if isMap {
 		// primitive maps
 		return name
-	} else if isMessage || isEnum || isBytes {
+	} else if isMessage || isEnum {
 		// message, enum, and custom: name!.toJson()
 		return name + bang + ".toJson()"
+	} else if isBytes {
+		return "encodeBytes(" + name + bang + ")"
 	} else {
 		// primitive, primitive lists
 		return name
@@ -618,8 +620,8 @@ func (annotate *annotateModel) fieldType(f *api.Field) string {
 	case api.STRING_TYPE:
 		out = "String"
 	case api.BYTES_TYPE:
-		annotate.imports["google.protobuf"] = annotate.packageMapping["google.protobuf"]
-		out = "Bytes"
+		annotate.imports[typedDataImport] = typedDataImport
+		out = "Uint8List"
 	case api.MESSAGE_TYPE:
 		message, ok := annotate.state.MessageByID[f.TypezID]
 		if !ok {
