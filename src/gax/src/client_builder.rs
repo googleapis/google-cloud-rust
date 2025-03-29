@@ -86,7 +86,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// let client = Client::builder()
-    ///     .with_endpoint("http://private.googleapis.com")
+    ///     .with_endpoint("https://private.googleapis.com")
     ///     .build().await?;
     /// # Result::<()>::Ok(()) });
     /// ```
