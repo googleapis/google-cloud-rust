@@ -46,8 +46,12 @@ mod test {
                 Ok(Self { inner })
             }
         }
+        /// Make this visible for documentation purposes.
+        pub type Builder =
+            gax::client_builder::ClientBuilder<fake_client::Factory, super::Credential>;
+        // Note the pub(self), the types in this module are not accessible to
+        // application developers.
         pub(self) mod fake_client {
-            pub type Builder = gax::client_builder::ClientBuilder<Factory, super::Credential>;
             pub struct Factory;
             impl gax::client_builder::internal::ClientFactory for Factory {
                 type Client = super::FakeClient;
@@ -91,8 +95,12 @@ mod test {
                 Ok(Self { inner })
             }
         }
+        /// Make this visible for documentation purposes.
+        pub type Builder =
+            gax::client_builder::ClientBuilder<fake_client::Factory, super::Credential>;
+        // Note the pub(self), the types in this module are not accessible to
+        // application developers.
         pub(self) mod fake_client {
-            pub type Builder = gax::client_builder::ClientBuilder<Factory, super::Credential>;
             pub struct Factory;
             impl gax::client_builder::internal::ClientFactory for Factory {
                 type Client = super::FakeClient;
