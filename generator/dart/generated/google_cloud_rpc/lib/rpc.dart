@@ -747,7 +747,7 @@ class HttpRequest extends Message {
       method: json['method'],
       uri: json['uri'],
       headers: decodeList(json['headers'], HttpHeader.fromJson),
-      body: json['body'],
+      body: decodeBytes(json['body']),
     );
   }
 
@@ -757,7 +757,7 @@ class HttpRequest extends Message {
       if (method != null) 'method': method,
       if (uri != null) 'uri': uri,
       if (headers != null) 'headers': encodeList(headers),
-      if (body != null) 'body': body,
+      if (body != null) 'body': encodeBytes(body!),
     };
   }
 
@@ -801,7 +801,7 @@ class HttpResponse extends Message {
       status: json['status'],
       reason: json['reason'],
       headers: decodeList(json['headers'], HttpHeader.fromJson),
-      body: json['body'],
+      body: decodeBytes(json['body']),
     );
   }
 
@@ -811,7 +811,7 @@ class HttpResponse extends Message {
       if (status != null) 'status': status,
       if (reason != null) 'reason': reason,
       if (headers != null) 'headers': encodeList(headers),
-      if (body != null) 'body': body,
+      if (body != null) 'body': encodeBytes(body!),
     };
   }
 

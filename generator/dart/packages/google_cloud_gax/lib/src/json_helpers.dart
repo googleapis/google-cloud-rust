@@ -16,6 +16,9 @@
 /// objects.
 library;
 
+import 'dart:convert';
+import 'dart:typed_data';
+
 import '../common.dart';
 
 T? decode<T, S>(dynamic json, T Function(S) decoder) {
@@ -40,3 +43,10 @@ List? encodeList(List<JsonEncodable>? items) {
 Map? encodeMap(Map<String, JsonEncodable>? items) {
   return items?.map((key, value) => MapEntry(key, value.toJson()));
 }
+
+/// Decode a base64 encoded bytes value into a [Uint8List].
+Uint8List? decodeBytes(String? value) =>
+    value == null ? null : base64Decode(value);
+
+/// Encode a [Uint8List] into a base64 encoded bytes representation.
+String encodeBytes(Uint8List data) => base64Encode(data);

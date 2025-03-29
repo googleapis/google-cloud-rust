@@ -188,6 +188,11 @@ func (annotate *annotateModel) annotateModel(options map[string]string) (*modelA
 			}
 			protoPackage := keys[1]
 			annotate.packageMapping[protoPackage] = definition
+		case key == "extra-imports":
+			extraImports := strings.Split(definition, ",")
+			for _, item := range extraImports {
+				annotate.imports[item] = item
+			}
 		}
 	}
 
@@ -489,6 +494,7 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 	isList := field.Repeated
 	isMessage := field.Typez == api.MESSAGE_TYPE
 	isEnum := field.Typez == api.ENUM_TYPE
+	isBytes := field.Typez == api.BYTES_TYPE
 	isMap := message != nil && message.IsMap
 	isMessageMap := isMap && message.Fields[1].Typez == api.MESSAGE_TYPE
 
@@ -533,6 +539,8 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 			// decode(json['name'], FieldMask.fromJson),
 			return "decode(" + data + ", " + fn + ")"
 		}
+	} else if isBytes {
+		return "decodeBytes(" + data + ")" + bang
 	} else {
 		// json['name']
 		return data
@@ -546,6 +554,7 @@ func createToJsonLine(field *api.Field, state *api.APIState, required bool) stri
 	isList := field.Repeated
 	isMessage := field.Typez == api.MESSAGE_TYPE
 	isEnum := field.Typez == api.ENUM_TYPE
+	isBytes := field.Typez == api.BYTES_TYPE
 	isMap := message != nil && message.IsMap
 	isMessageMap := isMap && message.Fields[1].Typez == api.MESSAGE_TYPE
 	bang := "!"
@@ -565,6 +574,8 @@ func createToJsonLine(field *api.Field, state *api.APIState, required bool) stri
 	} else if isMessage || isEnum {
 		// message, enum, and custom: name!.toJson()
 		return name + bang + ".toJson()"
+	} else if isBytes {
+		return "encodeBytes(" + name + bang + ")"
 	} else {
 		// primitive, primitive lists
 		return name
@@ -609,9 +620,7 @@ func (annotate *annotateModel) fieldType(f *api.Field) string {
 	case api.STRING_TYPE:
 		out = "String"
 	case api.BYTES_TYPE:
-		// TODO(#1563): We should instead reference a custom type (ProtoBuffer or
-		// similar), encode/decode to it, and add Uint8List related utility methods.
-		annotate.imports["typed_data"] = typedDataImport
+		annotate.imports[typedDataImport] = typedDataImport
 		out = "Uint8List"
 	case api.MESSAGE_TYPE:
 		message, ok := annotate.state.MessageByID[f.TypezID]
