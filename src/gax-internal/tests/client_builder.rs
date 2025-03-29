@@ -14,44 +14,49 @@
 
 #[cfg(test)]
 mod test {
+    #[cfg(any(feature = "_internal_grpc_client", feature = "_internal_http_client"))]
+    const DEFAULT_ENDPOINT: &str = "https://kms.googleapis.com";
+
     #[cfg(feature = "_internal_grpc_client")]
     mod grpc {
         use auth::credentials::Credential;
-        use gax::Result;
         use google_cloud_gax_internal as gaxi;
 
         #[tokio::test]
-        async fn test_build_default() -> Result<()> {
+        async fn test_build_default() -> anyhow::Result<()> {
             let (endpoint, _server) = grpc_server::start_echo_server().await?;
-            let client = FakeClient::builder().with_endpoint(endpont).build().await?;
+            let _client = FakeClient::builder()
+                .with_endpoint(endpoint)
+                .build()
+                .await?;
             Ok(())
         }
 
-        struct FakeClient {
+        #[allow(dead_code)]
+        pub struct FakeClient {
             inner: gaxi::grpc::Client,
         }
         impl FakeClient {
             pub fn builder() -> fake_client::Builder {
-                gax::client_builder::internal::new_builder(Self::new)
+                gax::client_builder::internal::new_builder(fake_client::Factory)
             }
 
-            async fn new(config: ClientConfig<Credential>) -> Result<Self> {
-                let inner =
-                    gaxi::http::ReqwestClient::new(config, "https://secretmanager.googleapis.com")
-                        .await?;
-                Self { inner }
+            async fn new(config: gax::options::ClientConfig) -> gax::Result<Self> {
+                let inner = gaxi::grpc::Client::new(config, super::DEFAULT_ENDPOINT).await?;
+                Ok(Self { inner })
             }
         }
-        mod fake_client {
-            use super::gax;
-            struct Factory;
+        pub(self) mod fake_client {
+            pub type Builder =
+                gax::client_builder::ClientBuilder<Factory, super::Credential>;
+            pub struct Factory;
             impl gax::client_builder::internal::ClientFactory for Factory {
                 type Client = super::FakeClient;
                 type Credentials = super::Credential;
                 async fn build(
                     self,
-                    config: gax::client_builder::internal::ClientConfig<Self::Credential>,
-                ) -> Result<Self::Client> {
+                    config: gax::options::ClientConfig,
+                ) -> gax::Result<Self::Client> {
                     Self::Client::new(config).await
                 }
             }
@@ -61,42 +66,43 @@ mod test {
     #[cfg(feature = "_internal_http_client")]
     mod http {
         use auth::credentials::Credential;
-        use gax::Result;
         use google_cloud_gax_internal as gaxi;
 
         #[tokio::test]
-        async fn test_build_default() -> Result<()> {
+        async fn test_build_default() -> Result<(), Box<dyn std::error::Error>> {
             let (endpoint, _server) = echo_server::start().await?;
-            let client = FakeClient::builder().with_endpoint(endpont).build().await?;
+            let _client = FakeClient::builder()
+                .with_endpoint(endpoint)
+                .build()
+                .await?;
             Ok(())
         }
 
+        #[allow(dead_code)]
         pub struct FakeClient {
             inner: gaxi::http::ReqwestClient,
         }
         impl FakeClient {
             pub fn builder() -> fake_client::Builder {
-                gax::client_builder::internal::new_builder(Self::new)
+                gax::client_builder::internal::new_builder(fake_client::Factory)
             }
 
-            async fn new(config: ClientConfig<Credential>) -> Result<Self> {
-                let inner =
-                    gaxi::http::ReqwestClient::new(config, "https://secretmanager.googleapis.com")
-                        .await?;
-                Self { inner }
+            async fn new(config: gax::options::ClientConfig) -> gax::Result<Self> {
+                let inner = gaxi::http::ReqwestClient::new(config, super::DEFAULT_ENDPOINT).await?;
+                Ok(Self { inner })
             }
         }
-        pub mod fake_client {
-            use super::gax;
-            pub type Builder = gax::client_builder::ClientBuilder<Factory, super::Credential>;
-            struct Factory;
+        pub(self) mod fake_client {
+            pub type Builder =
+                gax::client_builder::ClientBuilder<Factory, super::Credential>;
+            pub struct Factory;
             impl gax::client_builder::internal::ClientFactory for Factory {
                 type Client = super::FakeClient;
                 type Credentials = super::Credential;
                 async fn build(
                     self,
-                    config: gax::client_builder::internal::ClientConfig<Self::Credential>,
-                ) -> Result<Self::Client> {
+                    config: gax::options::ClientConfig,
+                ) -> gax::Result<Self::Client> {
                     Self::Client::new(config).await
                 }
             }
