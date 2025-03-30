@@ -37,7 +37,7 @@ _internal_http_client = [
   "gax/unstable-sdk-client",
 ]
 _internal_grpc_client = ["_internal_common", "dep:auth", "dep:gax", "dep:rpc", "dep:tokio", "dep:tonic"]
-_internal_common = ["dep:gax", "dep:thiserror"]
+_internal_common = ["dep:auth", "dep:gax", "dep:thiserror"]
 
 [dependencies]
 http = "1"
