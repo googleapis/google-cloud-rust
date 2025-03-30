@@ -18,6 +18,34 @@ pub mod key_dashboard_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [KeyDashboardService][super::super::client::KeyDashboardService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_kms_inventory_v1::*;
+    /// # use builder::key_dashboard_service::ClientBuilder;
+    /// # use client::KeyDashboardService;
+    /// let builder : ClientBuilder = KeyDashboardService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://kmsinventory.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::KeyDashboardService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = KeyDashboardService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::KeyDashboardService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -112,6 +140,34 @@ pub mod key_dashboard_service {
 pub mod key_tracking_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [KeyTrackingService][super::super::client::KeyTrackingService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_kms_inventory_v1::*;
+    /// # use builder::key_tracking_service::ClientBuilder;
+    /// # use client::KeyTrackingService;
+    /// let builder : ClientBuilder = KeyTrackingService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://kmsinventory.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::KeyTrackingService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = KeyTrackingService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::KeyTrackingService] request builders.
     #[derive(Clone, Debug)]

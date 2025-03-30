@@ -18,6 +18,34 @@ pub mod gke_hub {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [GkeHub][super::super::client::GkeHub].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_gkehub_v1::*;
+    /// # use builder::gke_hub::ClientBuilder;
+    /// # use client::GkeHub;
+    /// let builder : ClientBuilder = GkeHub::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://gkehub.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::GkeHub;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = GkeHub;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::GkeHub] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

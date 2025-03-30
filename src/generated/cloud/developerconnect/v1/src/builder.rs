@@ -18,6 +18,34 @@ pub mod developer_connect {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [DeveloperConnect][super::super::client::DeveloperConnect].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_developerconnect_v1::*;
+    /// # use builder::developer_connect::ClientBuilder;
+    /// # use client::DeveloperConnect;
+    /// let builder : ClientBuilder = DeveloperConnect::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://developerconnect.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::DeveloperConnect;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = DeveloperConnect;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::DeveloperConnect] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

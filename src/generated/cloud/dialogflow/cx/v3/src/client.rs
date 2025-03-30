@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Dialogflow API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Agents;
+/// let client = Agents::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for managing [Agents][google.cloud.dialogflow.cx.v3.Agent].
@@ -29,8 +38,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `Agents` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Agents` use the `with_*` methods in the type returned
+/// by [builder()][Agents::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::agents::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::agents::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -44,21 +68,22 @@ pub struct Agents {
 }
 
 impl Agents {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Agents].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Agents;
+    /// let client = Agents::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::agents::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::agents::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::Agents + 'static,
@@ -66,6 +91,11 @@ impl Agents {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -286,6 +316,15 @@ impl Agents {
 
 /// Implements a client for the Dialogflow API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Changelogs;
+/// let client = Changelogs::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for managing [Changelogs][google.cloud.dialogflow.cx.v3.Changelog].
@@ -294,8 +333,23 @@ impl Agents {
 ///
 /// # Configuration
 ///
-/// `Changelogs` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Changelogs` use the `with_*` methods in the type returned
+/// by [builder()][Changelogs::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::changelogs::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::changelogs::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -309,21 +363,22 @@ pub struct Changelogs {
 }
 
 impl Changelogs {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Changelogs].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Changelogs;
+    /// let client = Changelogs::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::changelogs::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::changelogs::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::Changelogs + 'static,
@@ -331,6 +386,11 @@ impl Changelogs {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -422,6 +482,15 @@ impl Changelogs {
 
 /// Implements a client for the Dialogflow API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Deployments;
+/// let client = Deployments::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for managing [Deployments][google.cloud.dialogflow.cx.v3.Deployment].
@@ -430,8 +499,23 @@ impl Changelogs {
 ///
 /// # Configuration
 ///
-/// `Deployments` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Deployments` use the `with_*` methods in the type returned
+/// by [builder()][Deployments::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::deployments::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::deployments::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -445,21 +529,22 @@ pub struct Deployments {
 }
 
 impl Deployments {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Deployments].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Deployments;
+    /// let client = Deployments::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::deployments::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::deployments::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::Deployments + 'static,
@@ -467,6 +552,11 @@ impl Deployments {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -564,6 +654,15 @@ impl Deployments {
 
 /// Implements a client for the Dialogflow API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::EntityTypes;
+/// let client = EntityTypes::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for managing [EntityTypes][google.cloud.dialogflow.cx.v3.EntityType].
@@ -572,8 +671,23 @@ impl Deployments {
 ///
 /// # Configuration
 ///
-/// `EntityTypes` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `EntityTypes` use the `with_*` methods in the type returned
+/// by [builder()][EntityTypes::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::entity_types::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::entity_types::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -587,21 +701,22 @@ pub struct EntityTypes {
 }
 
 impl EntityTypes {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [EntityTypes].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::EntityTypes;
+    /// let client = EntityTypes::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::entity_types::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::entity_types::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::EntityTypes + 'static,
@@ -609,6 +724,11 @@ impl EntityTypes {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -777,6 +897,15 @@ impl EntityTypes {
 
 /// Implements a client for the Dialogflow API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Environments;
+/// let client = Environments::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for managing
@@ -786,8 +915,23 @@ impl EntityTypes {
 ///
 /// # Configuration
 ///
-/// `Environments` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Environments` use the `with_*` methods in the type returned
+/// by [builder()][Environments::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::environments::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::environments::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -801,21 +945,22 @@ pub struct Environments {
 }
 
 impl Environments {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Environments].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Environments;
+    /// let client = Environments::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::environments::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::environments::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::Environments + 'static,
@@ -823,6 +968,11 @@ impl Environments {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -1080,6 +1230,15 @@ impl Environments {
 
 /// Implements a client for the Dialogflow API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Experiments;
+/// let client = Experiments::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for managing [Experiments][google.cloud.dialogflow.cx.v3.Experiment].
@@ -1088,8 +1247,23 @@ impl Environments {
 ///
 /// # Configuration
 ///
-/// `Experiments` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Experiments` use the `with_*` methods in the type returned
+/// by [builder()][Experiments::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::experiments::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::experiments::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1103,21 +1277,22 @@ pub struct Experiments {
 }
 
 impl Experiments {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Experiments].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Experiments;
+    /// let client = Experiments::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::experiments::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::experiments::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::Experiments + 'static,
@@ -1125,6 +1300,11 @@ impl Experiments {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -1281,6 +1461,15 @@ impl Experiments {
 
 /// Implements a client for the Dialogflow API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Flows;
+/// let client = Flows::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for managing [Flows][google.cloud.dialogflow.cx.v3.Flow].
@@ -1289,8 +1478,23 @@ impl Experiments {
 ///
 /// # Configuration
 ///
-/// `Flows` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Flows` use the `with_*` methods in the type returned
+/// by [builder()][Flows::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::flows::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::flows::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1304,21 +1508,22 @@ pub struct Flows {
 }
 
 impl Flows {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Flows].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Flows;
+    /// let client = Flows::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::flows::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::flows::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::Flows + 'static,
@@ -1326,6 +1531,11 @@ impl Flows {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -1560,6 +1770,15 @@ impl Flows {
 
 /// Implements a client for the Dialogflow API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Generators;
+/// let client = Generators::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for managing [Generators][google.cloud.dialogflow.cx.v3.Generator]
@@ -1568,8 +1787,23 @@ impl Flows {
 ///
 /// # Configuration
 ///
-/// `Generators` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Generators` use the `with_*` methods in the type returned
+/// by [builder()][Generators::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::generators::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::generators::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1583,21 +1817,22 @@ pub struct Generators {
 }
 
 impl Generators {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Generators].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Generators;
+    /// let client = Generators::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::generators::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::generators::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::Generators + 'static,
@@ -1605,6 +1840,11 @@ impl Generators {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -1722,6 +1962,15 @@ impl Generators {
 
 /// Implements a client for the Dialogflow API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Intents;
+/// let client = Intents::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for managing [Intents][google.cloud.dialogflow.cx.v3.Intent].
@@ -1730,8 +1979,23 @@ impl Generators {
 ///
 /// # Configuration
 ///
-/// `Intents` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Intents` use the `with_*` methods in the type returned
+/// by [builder()][Intents::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::intents::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::intents::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1745,21 +2009,22 @@ pub struct Intents {
 }
 
 impl Intents {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Intents].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Intents;
+    /// let client = Intents::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::intents::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::intents::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::Intents + 'static,
@@ -1767,6 +2032,11 @@ impl Intents {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -1953,6 +2223,15 @@ impl Intents {
 
 /// Implements a client for the Dialogflow API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Pages;
+/// let client = Pages::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for managing [Pages][google.cloud.dialogflow.cx.v3.Page].
@@ -1961,8 +2240,23 @@ impl Intents {
 ///
 /// # Configuration
 ///
-/// `Pages` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Pages` use the `with_*` methods in the type returned
+/// by [builder()][Pages::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::pages::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::pages::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1976,21 +2270,22 @@ pub struct Pages {
 }
 
 impl Pages {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Pages].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Pages;
+    /// let client = Pages::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::pages::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::pages::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::Pages + 'static,
@@ -1998,6 +2293,11 @@ impl Pages {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -2119,14 +2419,38 @@ impl Pages {
 
 /// Implements a client for the Dialogflow API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::SecuritySettingsService;
+/// let client = SecuritySettingsService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for managing security settings for Dialogflow.
 ///
 /// # Configuration
 ///
-/// `SecuritySettingsService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SecuritySettingsService` use the `with_*` methods in the type returned
+/// by [builder()][SecuritySettingsService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::security_settings_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::security_settings_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -2140,21 +2464,24 @@ pub struct SecuritySettingsService {
 }
 
 impl SecuritySettingsService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [SecuritySettingsService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::SecuritySettingsService;
+    /// let client = SecuritySettingsService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::security_settings_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::security_settings_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::SecuritySettingsService + 'static,
@@ -2162,6 +2489,11 @@ impl SecuritySettingsService {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -2296,6 +2628,15 @@ impl SecuritySettingsService {
 
 /// Implements a client for the Dialogflow API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Sessions;
+/// let client = Sessions::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// A session represents an interaction with a user. You retrieve user input
@@ -2307,8 +2648,23 @@ impl SecuritySettingsService {
 ///
 /// # Configuration
 ///
-/// `Sessions` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Sessions` use the `with_*` methods in the type returned
+/// by [builder()][Sessions::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::sessions::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::sessions::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -2322,21 +2678,22 @@ pub struct Sessions {
 }
 
 impl Sessions {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Sessions].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Sessions;
+    /// let client = Sessions::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::sessions::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::sessions::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::Sessions + 'static,
@@ -2344,6 +2701,11 @@ impl Sessions {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -2470,6 +2832,15 @@ impl Sessions {
 
 /// Implements a client for the Dialogflow API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::SessionEntityTypes;
+/// let client = SessionEntityTypes::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for managing
@@ -2479,8 +2850,23 @@ impl Sessions {
 ///
 /// # Configuration
 ///
-/// `SessionEntityTypes` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SessionEntityTypes` use the `with_*` methods in the type returned
+/// by [builder()][SessionEntityTypes::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::session_entity_types::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::session_entity_types::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -2494,21 +2880,24 @@ pub struct SessionEntityTypes {
 }
 
 impl SessionEntityTypes {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [SessionEntityTypes].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::SessionEntityTypes;
+    /// let client = SessionEntityTypes::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::session_entity_types::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::session_entity_types::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::SessionEntityTypes + 'static,
@@ -2516,6 +2905,11 @@ impl SessionEntityTypes {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -2640,6 +3034,15 @@ impl SessionEntityTypes {
 
 /// Implements a client for the Dialogflow API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::TestCases;
+/// let client = TestCases::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for managing [Test Cases][google.cloud.dialogflow.cx.v3.TestCase] and
@@ -2650,8 +3053,23 @@ impl SessionEntityTypes {
 ///
 /// # Configuration
 ///
-/// `TestCases` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `TestCases` use the `with_*` methods in the type returned
+/// by [builder()][TestCases::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::test_cases::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::test_cases::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -2665,21 +3083,22 @@ pub struct TestCases {
 }
 
 impl TestCases {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [TestCases].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::TestCases;
+    /// let client = TestCases::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::test_cases::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::test_cases::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::TestCases + 'static,
@@ -2687,6 +3106,11 @@ impl TestCases {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -2957,6 +3381,15 @@ impl TestCases {
 
 /// Implements a client for the Dialogflow API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::TransitionRouteGroups;
+/// let client = TransitionRouteGroups::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for managing
@@ -2966,8 +3399,23 @@ impl TestCases {
 ///
 /// # Configuration
 ///
-/// `TransitionRouteGroups` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `TransitionRouteGroups` use the `with_*` methods in the type returned
+/// by [builder()][TransitionRouteGroups::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::transition_route_groups::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::transition_route_groups::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -2981,21 +3429,24 @@ pub struct TransitionRouteGroups {
 }
 
 impl TransitionRouteGroups {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [TransitionRouteGroups].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::TransitionRouteGroups;
+    /// let client = TransitionRouteGroups::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::transition_route_groups::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::transition_route_groups::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::TransitionRouteGroups + 'static,
@@ -3003,6 +3454,11 @@ impl TransitionRouteGroups {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -3152,6 +3608,15 @@ impl TransitionRouteGroups {
 
 /// Implements a client for the Dialogflow API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Versions;
+/// let client = Versions::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for managing [Versions][google.cloud.dialogflow.cx.v3.Version].
@@ -3160,8 +3625,23 @@ impl TransitionRouteGroups {
 ///
 /// # Configuration
 ///
-/// `Versions` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Versions` use the `with_*` methods in the type returned
+/// by [builder()][Versions::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::versions::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::versions::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -3175,21 +3655,22 @@ pub struct Versions {
 }
 
 impl Versions {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Versions].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Versions;
+    /// let client = Versions::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::versions::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::versions::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::Versions + 'static,
@@ -3197,6 +3678,11 @@ impl Versions {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -3379,6 +3865,15 @@ impl Versions {
 
 /// Implements a client for the Dialogflow API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Webhooks;
+/// let client = Webhooks::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for managing [Webhooks][google.cloud.dialogflow.cx.v3.Webhook].
@@ -3387,8 +3882,23 @@ impl Versions {
 ///
 /// # Configuration
 ///
-/// `Webhooks` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Webhooks` use the `with_*` methods in the type returned
+/// by [builder()][Webhooks::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::webhooks::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::webhooks::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -3402,21 +3912,22 @@ pub struct Webhooks {
 }
 
 impl Webhooks {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Webhooks].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Webhooks;
+    /// let client = Webhooks::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::webhooks::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::webhooks::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::Webhooks + 'static,
@@ -3424,6 +3935,11 @@ impl Webhooks {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(

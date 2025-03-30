@@ -18,6 +18,34 @@ pub mod translation_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [TranslationService][super::super::client::TranslationService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_translation_v3::*;
+    /// # use builder::translation_service::ClientBuilder;
+    /// # use client::TranslationService;
+    /// let builder : ClientBuilder = TranslationService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://translate.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::TranslationService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = TranslationService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::TranslationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

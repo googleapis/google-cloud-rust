@@ -27,3 +27,6 @@ categories.workspace   = true
 rust-version.workspace = true
 
 [dependencies]
+
+[dev-dependencies]
+tokio-test.workspace = true

@@ -18,6 +18,34 @@ pub mod asset_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [AssetService][super::super::client::AssetService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_asset_v1::*;
+    /// # use builder::asset_service::ClientBuilder;
+    /// # use client::AssetService;
+    /// let builder : ClientBuilder = AssetService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudasset.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::AssetService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = AssetService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::AssetService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

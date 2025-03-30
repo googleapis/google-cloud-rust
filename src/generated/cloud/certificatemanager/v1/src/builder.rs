@@ -18,6 +18,34 @@ pub mod certificate_manager {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [CertificateManager][super::super::client::CertificateManager].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_certificatemanager_v1::*;
+    /// # use builder::certificate_manager::ClientBuilder;
+    /// # use client::CertificateManager;
+    /// let builder : ClientBuilder = CertificateManager::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://certificatemanager.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::CertificateManager;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = CertificateManager;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::CertificateManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

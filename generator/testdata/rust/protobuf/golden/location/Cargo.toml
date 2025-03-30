@@ -29,3 +29,6 @@ publish                = false
 
 [dependencies]
 wkt        = { path = "../../../../../../src/wkt", package = "google-cloud-wkt" }
+
+[dev-dependencies]
+tokio-test.workspace = true

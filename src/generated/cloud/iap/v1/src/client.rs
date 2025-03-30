@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Identity-Aware Proxy API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
+/// let client = IdentityAwareProxyAdminService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// APIs for Identity-Aware Proxy Admin configurations.
 ///
 /// # Configuration
 ///
-/// `IdentityAwareProxyAdminService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `IdentityAwareProxyAdminService` use the `with_*` methods in the type returned
+/// by [builder()][IdentityAwareProxyAdminService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://iap.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::identity_aware_proxy_admin_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::identity_aware_proxy_admin_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -42,21 +66,24 @@ pub struct IdentityAwareProxyAdminService {
 }
 
 impl IdentityAwareProxyAdminService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [IdentityAwareProxyAdminService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
+    /// let client = IdentityAwareProxyAdminService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::identity_aware_proxy_admin_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::identity_aware_proxy_admin_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::IdentityAwareProxyAdminService + 'static,
@@ -64,6 +91,11 @@ impl IdentityAwareProxyAdminService {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -208,6 +240,15 @@ impl IdentityAwareProxyAdminService {
 
 /// Implements a client for the Cloud Identity-Aware Proxy API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_iap_v1::client::IdentityAwareProxyOAuthService;
+/// let client = IdentityAwareProxyOAuthService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// API to programmatically create, list and retrieve Identity Aware Proxy (IAP)
@@ -216,8 +257,23 @@ impl IdentityAwareProxyAdminService {
 ///
 /// # Configuration
 ///
-/// `IdentityAwareProxyOAuthService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `IdentityAwareProxyOAuthService` use the `with_*` methods in the type returned
+/// by [builder()][IdentityAwareProxyOAuthService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://iap.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::identity_aware_proxy_o_auth_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::identity_aware_proxy_o_auth_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -231,21 +287,24 @@ pub struct IdentityAwareProxyOAuthService {
 }
 
 impl IdentityAwareProxyOAuthService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [IdentityAwareProxyOAuthService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyOAuthService;
+    /// let client = IdentityAwareProxyOAuthService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::identity_aware_proxy_o_auth_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::identity_aware_proxy_o_auth_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::IdentityAwareProxyOAuthService + 'static,
@@ -253,6 +312,11 @@ impl IdentityAwareProxyOAuthService {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(

@@ -18,6 +18,34 @@ pub mod vm_migration {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [VmMigration][super::super::client::VmMigration].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_vmmigration_v1::*;
+    /// # use builder::vm_migration::ClientBuilder;
+    /// # use client::VmMigration;
+    /// let builder : ClientBuilder = VmMigration::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://vmmigration.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::VmMigration;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = VmMigration;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::VmMigration] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

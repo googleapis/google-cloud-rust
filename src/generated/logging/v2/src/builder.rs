@@ -18,6 +18,34 @@ pub mod logging_service_v_2 {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [LoggingServiceV2][super::super::client::LoggingServiceV2].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_logging_v2::*;
+    /// # use builder::logging_service_v_2::ClientBuilder;
+    /// # use client::LoggingServiceV2;
+    /// let builder : ClientBuilder = LoggingServiceV2::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://logging.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::LoggingServiceV2;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = LoggingServiceV2;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::LoggingServiceV2] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -559,6 +587,34 @@ pub mod logging_service_v_2 {
 pub mod config_service_v_2 {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [ConfigServiceV2][super::super::client::ConfigServiceV2].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_logging_v2::*;
+    /// # use builder::config_service_v_2::ClientBuilder;
+    /// # use client::ConfigServiceV2;
+    /// let builder : ClientBuilder = ConfigServiceV2::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://logging.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ConfigServiceV2;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ConfigServiceV2;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::ConfigServiceV2] request builders.
     #[derive(Clone, Debug)]
@@ -2642,6 +2698,34 @@ pub mod config_service_v_2 {
 pub mod metrics_service_v_2 {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [MetricsServiceV2][super::super::client::MetricsServiceV2].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_logging_v2::*;
+    /// # use builder::metrics_service_v_2::ClientBuilder;
+    /// # use client::MetricsServiceV2;
+    /// let builder : ClientBuilder = MetricsServiceV2::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://logging.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::MetricsServiceV2;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = MetricsServiceV2;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::MetricsServiceV2] request builders.
     #[derive(Clone, Debug)]

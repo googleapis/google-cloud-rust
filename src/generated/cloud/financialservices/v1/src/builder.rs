@@ -18,6 +18,34 @@ pub mod aml {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [Aml][super::super::client::Aml].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_financialservices_v1::*;
+    /// # use builder::aml::ClientBuilder;
+    /// # use client::Aml;
+    /// let builder : ClientBuilder = Aml::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://financialservices.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Aml;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Aml;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::Aml] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

@@ -18,6 +18,34 @@ pub mod recaptcha_enterprise_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [RecaptchaEnterpriseService][super::super::client::RecaptchaEnterpriseService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_recaptchaenterprise_v1::*;
+    /// # use builder::recaptcha_enterprise_service::ClientBuilder;
+    /// # use client::RecaptchaEnterpriseService;
+    /// let builder : ClientBuilder = RecaptchaEnterpriseService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://recaptchaenterprise.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::RecaptchaEnterpriseService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = RecaptchaEnterpriseService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::RecaptchaEnterpriseService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

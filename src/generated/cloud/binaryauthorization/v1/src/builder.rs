@@ -18,6 +18,34 @@ pub mod binauthz_management_service_v_1 {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [BinauthzManagementServiceV1][super::super::client::BinauthzManagementServiceV1].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_binaryauthorization_v1::*;
+    /// # use builder::binauthz_management_service_v_1::ClientBuilder;
+    /// # use client::BinauthzManagementServiceV1;
+    /// let builder : ClientBuilder = BinauthzManagementServiceV1::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://binaryauthorization.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::BinauthzManagementServiceV1;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = BinauthzManagementServiceV1;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::BinauthzManagementServiceV1] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -402,6 +430,34 @@ pub mod system_policy_v_1 {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [SystemPolicyV1][super::super::client::SystemPolicyV1].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_binaryauthorization_v1::*;
+    /// # use builder::system_policy_v_1::ClientBuilder;
+    /// # use client::SystemPolicyV1;
+    /// let builder : ClientBuilder = SystemPolicyV1::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://binaryauthorization.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SystemPolicyV1;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SystemPolicyV1;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::SystemPolicyV1] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -469,6 +525,34 @@ pub mod system_policy_v_1 {
 pub mod validation_helper_v_1 {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [ValidationHelperV1][super::super::client::ValidationHelperV1].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_binaryauthorization_v1::*;
+    /// # use builder::validation_helper_v_1::ClientBuilder;
+    /// # use client::ValidationHelperV1;
+    /// let builder : ClientBuilder = ValidationHelperV1::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://binaryauthorization.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ValidationHelperV1;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ValidationHelperV1;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::ValidationHelperV1] request builders.
     #[derive(Clone, Debug)]

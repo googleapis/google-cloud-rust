@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Run Admin API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_run_v2::client::Builds;
+/// let client = Builds::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Cloud Run Build Control Plane API
 ///
 /// # Configuration
 ///
-/// `Builds` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Builds` use the `with_*` methods in the type returned
+/// by [builder()][Builds::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://run.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::builds::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::builds::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -42,21 +66,22 @@ pub struct Builds {
 }
 
 impl Builds {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Builds].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_run_v2::client::Builds;
+    /// let client = Builds::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::builds::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::builds::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::Builds + 'static,
@@ -64,6 +89,11 @@ impl Builds {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -138,14 +168,38 @@ impl Builds {
 
 /// Implements a client for the Cloud Run Admin API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_run_v2::client::Executions;
+/// let client = Executions::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Cloud Run Execution Control Plane API.
 ///
 /// # Configuration
 ///
-/// `Executions` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Executions` use the `with_*` methods in the type returned
+/// by [builder()][Executions::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://run.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::executions::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::executions::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -159,21 +213,22 @@ pub struct Executions {
 }
 
 impl Executions {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Executions].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_run_v2::client::Executions;
+    /// let client = Executions::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::executions::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::executions::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::Executions + 'static,
@@ -181,6 +236,11 @@ impl Executions {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -303,14 +363,38 @@ impl Executions {
 
 /// Implements a client for the Cloud Run Admin API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_run_v2::client::Jobs;
+/// let client = Jobs::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Cloud Run Job Control Plane API.
 ///
 /// # Configuration
 ///
-/// `Jobs` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Jobs` use the `with_*` methods in the type returned
+/// by [builder()][Jobs::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://run.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::jobs::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::jobs::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -324,21 +408,22 @@ pub struct Jobs {
 }
 
 impl Jobs {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Jobs].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_run_v2::client::Jobs;
+    /// let client = Jobs::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::jobs::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::jobs::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::Jobs + 'static,
@@ -346,6 +431,11 @@ impl Jobs {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -520,14 +610,38 @@ impl Jobs {
 
 /// Implements a client for the Cloud Run Admin API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_run_v2::client::Revisions;
+/// let client = Revisions::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Cloud Run Revision Control Plane API.
 ///
 /// # Configuration
 ///
-/// `Revisions` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Revisions` use the `with_*` methods in the type returned
+/// by [builder()][Revisions::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://run.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::revisions::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::revisions::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -541,21 +655,22 @@ pub struct Revisions {
 }
 
 impl Revisions {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Revisions].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_run_v2::client::Revisions;
+    /// let client = Revisions::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::revisions::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::revisions::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::Revisions + 'static,
@@ -563,6 +678,11 @@ impl Revisions {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -666,14 +786,38 @@ impl Revisions {
 
 /// Implements a client for the Cloud Run Admin API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_run_v2::client::Services;
+/// let client = Services::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Cloud Run Service Control Plane API
 ///
 /// # Configuration
 ///
-/// `Services` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Services` use the `with_*` methods in the type returned
+/// by [builder()][Services::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://run.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::services::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::services::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -687,21 +831,22 @@ pub struct Services {
 }
 
 impl Services {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Services].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_run_v2::client::Services;
+    /// let client = Services::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::services::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::services::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::Services + 'static,
@@ -709,6 +854,11 @@ impl Services {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -880,14 +1030,38 @@ impl Services {
 
 /// Implements a client for the Cloud Run Admin API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_run_v2::client::Tasks;
+/// let client = Tasks::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Cloud Run Task Control Plane API.
 ///
 /// # Configuration
 ///
-/// `Tasks` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Tasks` use the `with_*` methods in the type returned
+/// by [builder()][Tasks::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://run.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::tasks::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::tasks::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -901,21 +1075,22 @@ pub struct Tasks {
 }
 
 impl Tasks {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Tasks].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_run_v2::client::Tasks;
+    /// let client = Tasks::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::tasks::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::tasks::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::Tasks + 'static,
@@ -923,6 +1098,11 @@ impl Tasks {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(

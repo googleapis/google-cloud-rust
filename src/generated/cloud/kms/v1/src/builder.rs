@@ -18,6 +18,34 @@ pub mod autokey {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [Autokey][super::super::client::Autokey].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_kms_v1::*;
+    /// # use builder::autokey::ClientBuilder;
+    /// # use client::Autokey;
+    /// let builder : ClientBuilder = Autokey::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudkms.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Autokey;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Autokey;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::Autokey] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -589,6 +617,34 @@ pub mod autokey_admin {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [AutokeyAdmin][super::super::client::AutokeyAdmin].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_kms_v1::*;
+    /// # use builder::autokey_admin::ClientBuilder;
+    /// # use client::AutokeyAdmin;
+    /// let builder : ClientBuilder = AutokeyAdmin::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudkms.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::AutokeyAdmin;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = AutokeyAdmin;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::AutokeyAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -1095,6 +1151,34 @@ pub mod autokey_admin {
 pub mod ekm_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [EkmService][super::super::client::EkmService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_kms_v1::*;
+    /// # use builder::ekm_service::ClientBuilder;
+    /// # use client::EkmService;
+    /// let builder : ClientBuilder = EkmService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudkms.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::EkmService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = EkmService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::EkmService] request builders.
     #[derive(Clone, Debug)]
@@ -1840,6 +1924,34 @@ pub mod ekm_service {
 pub mod key_management_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [KeyManagementService][super::super::client::KeyManagementService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_kms_v1::*;
+    /// # use builder::key_management_service::ClientBuilder;
+    /// # use client::KeyManagementService;
+    /// let builder : ClientBuilder = KeyManagementService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudkms.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::KeyManagementService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = KeyManagementService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::KeyManagementService] request builders.
     #[derive(Clone, Debug)]

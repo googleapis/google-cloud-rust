@@ -18,6 +18,34 @@ pub mod connectors {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [Connectors][super::super::client::Connectors].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_connectors_v1::*;
+    /// # use builder::connectors::ClientBuilder;
+    /// # use client::Connectors;
+    /// let builder : ClientBuilder = Connectors::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://connectors.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Connectors;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Connectors;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::Connectors] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

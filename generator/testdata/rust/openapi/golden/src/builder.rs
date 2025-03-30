@@ -18,6 +18,34 @@ pub mod secret_manager_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [SecretManagerService][super::super::client::SecretManagerService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use secretmanager_golden_openapi::*;
+    /// # use builder::secret_manager_service::ClientBuilder;
+    /// # use client::SecretManagerService;
+    /// let builder : ClientBuilder = SecretManagerService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://secretmanager.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SecretManagerService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SecretManagerService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::SecretManagerService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

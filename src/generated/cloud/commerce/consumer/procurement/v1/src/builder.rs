@@ -18,6 +18,34 @@ pub mod license_management_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [LicenseManagementService][super::super::client::LicenseManagementService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_commerce_consumer_procurement_v1::*;
+    /// # use builder::license_management_service::ClientBuilder;
+    /// # use client::LicenseManagementService;
+    /// let builder : ClientBuilder = LicenseManagementService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudcommerceconsumerprocurement.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::LicenseManagementService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = LicenseManagementService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::LicenseManagementService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -379,6 +407,34 @@ pub mod license_management_service {
 pub mod consumer_procurement_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [ConsumerProcurementService][super::super::client::ConsumerProcurementService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_commerce_consumer_procurement_v1::*;
+    /// # use builder::consumer_procurement_service::ClientBuilder;
+    /// # use client::ConsumerProcurementService;
+    /// let builder : ClientBuilder = ConsumerProcurementService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudcommerceconsumerprocurement.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ConsumerProcurementService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ConsumerProcurementService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::ConsumerProcurementService] request builders.
     #[derive(Clone, Debug)]

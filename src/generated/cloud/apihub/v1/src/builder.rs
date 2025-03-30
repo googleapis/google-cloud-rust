@@ -18,6 +18,34 @@ pub mod api_hub {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [ApiHub][super::super::client::ApiHub].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_apihub_v1::*;
+    /// # use builder::api_hub::ClientBuilder;
+    /// # use client::ApiHub;
+    /// let builder : ClientBuilder = ApiHub::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://apihub.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ApiHub;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ApiHub;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::ApiHub] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -2293,6 +2321,34 @@ pub mod api_hub_dependencies {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [ApiHubDependencies][super::super::client::ApiHubDependencies].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_apihub_v1::*;
+    /// # use builder::api_hub_dependencies::ClientBuilder;
+    /// # use client::ApiHubDependencies;
+    /// let builder : ClientBuilder = ApiHubDependencies::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://apihub.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ApiHubDependencies;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ApiHubDependencies;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::ApiHubDependencies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -2934,6 +2990,34 @@ pub mod host_project_registration_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [HostProjectRegistrationService][super::super::client::HostProjectRegistrationService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_apihub_v1::*;
+    /// # use builder::host_project_registration_service::ClientBuilder;
+    /// # use client::HostProjectRegistrationService;
+    /// let builder : ClientBuilder = HostProjectRegistrationService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://apihub.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::HostProjectRegistrationService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = HostProjectRegistrationService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::HostProjectRegistrationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -3515,6 +3599,34 @@ pub mod linting_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [LintingService][super::super::client::LintingService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_apihub_v1::*;
+    /// # use builder::linting_service::ClientBuilder;
+    /// # use client::LintingService;
+    /// let builder : ClientBuilder = LintingService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://apihub.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::LintingService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = LintingService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::LintingService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -4060,6 +4172,34 @@ pub mod api_hub_plugin {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [ApiHubPlugin][super::super::client::ApiHubPlugin].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_apihub_v1::*;
+    /// # use builder::api_hub_plugin::ClientBuilder;
+    /// # use client::ApiHubPlugin;
+    /// let builder : ClientBuilder = ApiHubPlugin::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://apihub.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ApiHubPlugin;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ApiHubPlugin;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::ApiHubPlugin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -4544,6 +4684,34 @@ pub mod api_hub_plugin {
 pub mod provisioning {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [Provisioning][super::super::client::Provisioning].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_apihub_v1::*;
+    /// # use builder::provisioning::ClientBuilder;
+    /// # use client::Provisioning;
+    /// let builder : ClientBuilder = Provisioning::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://apihub.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Provisioning;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Provisioning;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::Provisioning] request builders.
     #[derive(Clone, Debug)]
@@ -5092,6 +5260,34 @@ pub mod provisioning {
 pub mod runtime_project_attachment_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [RuntimeProjectAttachmentService][super::super::client::RuntimeProjectAttachmentService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_apihub_v1::*;
+    /// # use builder::runtime_project_attachment_service::ClientBuilder;
+    /// # use client::RuntimeProjectAttachmentService;
+    /// let builder : ClientBuilder = RuntimeProjectAttachmentService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://apihub.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::RuntimeProjectAttachmentService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = RuntimeProjectAttachmentService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::RuntimeProjectAttachmentService] request builders.
     #[derive(Clone, Debug)]

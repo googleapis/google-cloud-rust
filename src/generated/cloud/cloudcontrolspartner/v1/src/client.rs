@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Controls Partner API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
+/// let client = CloudControlsPartnerCore::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service describing handlers for resources
 ///
 /// # Configuration
 ///
-/// `CloudControlsPartnerCore` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `CloudControlsPartnerCore` use the `with_*` methods in the type returned
+/// by [builder()][CloudControlsPartnerCore::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://cloudcontrolspartner.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::cloud_controls_partner_core::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::cloud_controls_partner_core::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -42,21 +66,24 @@ pub struct CloudControlsPartnerCore {
 }
 
 impl CloudControlsPartnerCore {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [CloudControlsPartnerCore].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
+    /// let client = CloudControlsPartnerCore::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::cloud_controls_partner_core::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::cloud_controls_partner_core::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::CloudControlsPartnerCore + 'static,
@@ -64,6 +91,11 @@ impl CloudControlsPartnerCore {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -167,14 +199,38 @@ impl CloudControlsPartnerCore {
 
 /// Implements a client for the Cloud Controls Partner API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerMonitoring;
+/// let client = CloudControlsPartnerMonitoring::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service describing handlers for resources
 ///
 /// # Configuration
 ///
-/// `CloudControlsPartnerMonitoring` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `CloudControlsPartnerMonitoring` use the `with_*` methods in the type returned
+/// by [builder()][CloudControlsPartnerMonitoring::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://cloudcontrolspartner.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::cloud_controls_partner_monitoring::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::cloud_controls_partner_monitoring::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -188,21 +244,24 @@ pub struct CloudControlsPartnerMonitoring {
 }
 
 impl CloudControlsPartnerMonitoring {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [CloudControlsPartnerMonitoring].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerMonitoring;
+    /// let client = CloudControlsPartnerMonitoring::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::cloud_controls_partner_monitoring::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::cloud_controls_partner_monitoring::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::CloudControlsPartnerMonitoring + 'static,
@@ -210,6 +269,11 @@ impl CloudControlsPartnerMonitoring {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(

@@ -18,6 +18,34 @@ pub mod attached_clusters {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [AttachedClusters][super::super::client::AttachedClusters].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_gkemulticloud_v1::*;
+    /// # use builder::attached_clusters::ClientBuilder;
+    /// # use client::AttachedClusters;
+    /// let builder : ClientBuilder = AttachedClusters::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://gkemulticloud.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::AttachedClusters;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = AttachedClusters;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::AttachedClusters] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -1015,6 +1043,34 @@ pub mod attached_clusters {
 pub mod aws_clusters {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [AwsClusters][super::super::client::AwsClusters].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_gkemulticloud_v1::*;
+    /// # use builder::aws_clusters::ClientBuilder;
+    /// # use client::AwsClusters;
+    /// let builder : ClientBuilder = AwsClusters::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://gkemulticloud.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::AwsClusters;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = AwsClusters;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::AwsClusters] request builders.
     #[derive(Clone, Debug)]
@@ -2469,6 +2525,34 @@ pub mod aws_clusters {
 pub mod azure_clusters {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [AzureClusters][super::super::client::AzureClusters].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_gkemulticloud_v1::*;
+    /// # use builder::azure_clusters::ClientBuilder;
+    /// # use client::AzureClusters;
+    /// let builder : ClientBuilder = AzureClusters::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://gkemulticloud.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::AzureClusters;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = AzureClusters;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::AzureClusters] request builders.
     #[derive(Clone, Debug)]

@@ -18,6 +18,34 @@ pub mod web_risk_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [WebRiskService][super::super::client::WebRiskService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_webrisk_v1::*;
+    /// # use builder::web_risk_service::ClientBuilder;
+    /// # use client::WebRiskService;
+    /// let builder : ClientBuilder = WebRiskService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://webrisk.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::WebRiskService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = WebRiskService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::WebRiskService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

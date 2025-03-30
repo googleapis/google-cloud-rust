@@ -18,6 +18,34 @@ pub mod ids {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [Ids][super::super::client::Ids].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_ids_v1::*;
+    /// # use builder::ids::ClientBuilder;
+    /// # use client::Ids;
+    /// let builder : ClientBuilder = Ids::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://ids.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Ids;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Ids;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::Ids] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

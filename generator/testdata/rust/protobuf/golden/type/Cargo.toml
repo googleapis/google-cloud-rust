@@ -28,3 +28,6 @@ rust-version.workspace = true
 publish                = false
 
 [dependencies]
+
+[dev-dependencies]
+tokio-test.workspace = true

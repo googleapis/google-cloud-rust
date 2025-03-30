@@ -18,6 +18,34 @@ pub mod cloud_tasks {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [CloudTasks][super::super::client::CloudTasks].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_tasks_v2::*;
+    /// # use builder::cloud_tasks::ClientBuilder;
+    /// # use client::CloudTasks;
+    /// let builder : ClientBuilder = CloudTasks::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudtasks.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::CloudTasks;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = CloudTasks;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::CloudTasks] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

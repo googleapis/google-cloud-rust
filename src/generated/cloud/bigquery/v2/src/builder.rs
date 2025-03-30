@@ -18,6 +18,34 @@ pub mod dataset_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [DatasetService][super::super::client::DatasetService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigquery_v2::*;
+    /// # use builder::dataset_service::ClientBuilder;
+    /// # use client::DatasetService;
+    /// let builder : ClientBuilder = DatasetService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://bigquery.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::DatasetService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = DatasetService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::DatasetService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -476,6 +504,34 @@ pub mod model_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [ModelService][super::super::client::ModelService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigquery_v2::*;
+    /// # use builder::model_service::ClientBuilder;
+    /// # use client::ModelService;
+    /// let builder : ClientBuilder = ModelService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://bigquery.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ModelService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ModelService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::ModelService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -736,6 +792,34 @@ pub mod project_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [ProjectService][super::super::client::ProjectService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigquery_v2::*;
+    /// # use builder::project_service::ClientBuilder;
+    /// # use client::ProjectService;
+    /// let builder : ClientBuilder = ProjectService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://bigquery.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ProjectService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ProjectService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::ProjectService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -806,6 +890,34 @@ pub mod project_service {
 pub mod routine_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [RoutineService][super::super::client::RoutineService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigquery_v2::*;
+    /// # use builder::routine_service::ClientBuilder;
+    /// # use client::RoutineService;
+    /// let builder : ClientBuilder = RoutineService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://bigquery.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::RoutineService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = RoutineService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::RoutineService] request builders.
     #[derive(Clone, Debug)]
@@ -1129,6 +1241,34 @@ pub mod routine_service {
 pub mod row_access_policy_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [RowAccessPolicyService][super::super::client::RowAccessPolicyService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigquery_v2::*;
+    /// # use builder::row_access_policy_service::ClientBuilder;
+    /// # use client::RowAccessPolicyService;
+    /// let builder : ClientBuilder = RowAccessPolicyService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://bigquery.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::RowAccessPolicyService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = RowAccessPolicyService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::RowAccessPolicyService] request builders.
     #[derive(Clone, Debug)]
@@ -1603,6 +1743,34 @@ pub mod row_access_policy_service {
 pub mod table_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [TableService][super::super::client::TableService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigquery_v2::*;
+    /// # use builder::table_service::ClientBuilder;
+    /// # use client::TableService;
+    /// let builder : ClientBuilder = TableService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://bigquery.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::TableService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = TableService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::TableService] request builders.
     #[derive(Clone, Debug)]

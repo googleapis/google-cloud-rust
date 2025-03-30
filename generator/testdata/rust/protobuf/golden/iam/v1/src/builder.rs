@@ -18,6 +18,34 @@ pub mod iam_policy {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [IAMPolicy][super::super::client::IAMPolicy].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use iam_v1_golden_protobuf::*;
+    /// # use builder::iam_policy::ClientBuilder;
+    /// # use client::IAMPolicy;
+    /// let builder : ClientBuilder = IAMPolicy::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://iam-meta-api.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::IAMPolicy;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = IAMPolicy;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::IAMPolicy] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

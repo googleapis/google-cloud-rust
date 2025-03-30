@@ -18,6 +18,34 @@ pub mod domains {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [Domains][super::super::client::Domains].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_domains_v1::*;
+    /// # use builder::domains::ClientBuilder;
+    /// # use client::Domains;
+    /// let builder : ClientBuilder = Domains::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://domains.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Domains;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Domains;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::Domains] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

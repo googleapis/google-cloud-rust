@@ -18,6 +18,34 @@ pub mod app_connections_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [AppConnectionsService][super::super::client::AppConnectionsService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_beyondcorp_appconnections_v1::*;
+    /// # use builder::app_connections_service::ClientBuilder;
+    /// # use client::AppConnectionsService;
+    /// let builder : ClientBuilder = AppConnectionsService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://beyondcorp.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::AppConnectionsService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = AppConnectionsService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::AppConnectionsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

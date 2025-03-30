@@ -18,6 +18,34 @@ pub mod video_intelligence_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [VideoIntelligenceService][super::super::client::VideoIntelligenceService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_videointelligence_v1::*;
+    /// # use builder::video_intelligence_service::ClientBuilder;
+    /// # use client::VideoIntelligenceService;
+    /// let builder : ClientBuilder = VideoIntelligenceService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://videointelligence.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::VideoIntelligenceService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = VideoIntelligenceService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::VideoIntelligenceService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

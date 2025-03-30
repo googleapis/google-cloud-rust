@@ -18,6 +18,34 @@ pub mod executions {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [Executions][super::super::client::Executions].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_workflows_executions_v1::*;
+    /// # use builder::executions::ClientBuilder;
+    /// # use client::Executions;
+    /// let builder : ClientBuilder = Executions::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://workflowexecutions.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Executions;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Executions;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::Executions] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

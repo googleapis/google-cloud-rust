@@ -18,6 +18,34 @@ pub mod document_processor_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [DocumentProcessorService][super::super::client::DocumentProcessorService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_documentai_v1::*;
+    /// # use builder::document_processor_service::ClientBuilder;
+    /// # use client::DocumentProcessorService;
+    /// let builder : ClientBuilder = DocumentProcessorService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://documentai.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::DocumentProcessorService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = DocumentProcessorService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::DocumentProcessorService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

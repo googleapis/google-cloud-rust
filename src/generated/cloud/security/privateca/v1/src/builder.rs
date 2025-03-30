@@ -18,6 +18,34 @@ pub mod certificate_authority_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [CertificateAuthorityService][super::super::client::CertificateAuthorityService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_security_privateca_v1::*;
+    /// # use builder::certificate_authority_service::ClientBuilder;
+    /// # use client::CertificateAuthorityService;
+    /// let builder : ClientBuilder = CertificateAuthorityService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://privateca.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::CertificateAuthorityService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = CertificateAuthorityService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::CertificateAuthorityService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

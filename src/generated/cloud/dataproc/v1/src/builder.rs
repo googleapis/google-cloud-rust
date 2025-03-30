@@ -18,6 +18,34 @@ pub mod autoscaling_policy_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [AutoscalingPolicyService][super::super::client::AutoscalingPolicyService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dataproc_v1::*;
+    /// # use builder::autoscaling_policy_service::ClientBuilder;
+    /// # use client::AutoscalingPolicyService;
+    /// let builder : ClientBuilder = AutoscalingPolicyService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dataproc.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::AutoscalingPolicyService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = AutoscalingPolicyService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::AutoscalingPolicyService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -724,6 +752,34 @@ pub mod batch_controller {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [BatchController][super::super::client::BatchController].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dataproc_v1::*;
+    /// # use builder::batch_controller::ClientBuilder;
+    /// # use client::BatchController;
+    /// let builder : ClientBuilder = BatchController::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dataproc.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::BatchController;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = BatchController;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::BatchController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -1395,6 +1451,34 @@ pub mod batch_controller {
 pub mod cluster_controller {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [ClusterController][super::super::client::ClusterController].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dataproc_v1::*;
+    /// # use builder::cluster_controller::ClientBuilder;
+    /// # use client::ClusterController;
+    /// let builder : ClientBuilder = ClusterController::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dataproc.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ClusterController;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ClusterController;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::ClusterController] request builders.
     #[derive(Clone, Debug)]
@@ -2630,6 +2714,34 @@ pub mod job_controller {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [JobController][super::super::client::JobController].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dataproc_v1::*;
+    /// # use builder::job_controller::ClientBuilder;
+    /// # use client::JobController;
+    /// let builder : ClientBuilder = JobController::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dataproc.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::JobController;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = JobController;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::JobController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -3515,6 +3627,34 @@ pub mod node_group_controller {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [NodeGroupController][super::super::client::NodeGroupController].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dataproc_v1::*;
+    /// # use builder::node_group_controller::ClientBuilder;
+    /// # use client::NodeGroupController;
+    /// let builder : ClientBuilder = NodeGroupController::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dataproc.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::NodeGroupController;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = NodeGroupController;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::NodeGroupController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -4166,6 +4306,34 @@ pub mod node_group_controller {
 pub mod session_template_controller {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [SessionTemplateController][super::super::client::SessionTemplateController].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dataproc_v1::*;
+    /// # use builder::session_template_controller::ClientBuilder;
+    /// # use client::SessionTemplateController;
+    /// let builder : ClientBuilder = SessionTemplateController::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dataproc.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SessionTemplateController;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SessionTemplateController;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::SessionTemplateController] request builders.
     #[derive(Clone, Debug)]
@@ -4868,6 +5036,34 @@ pub mod session_template_controller {
 pub mod session_controller {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [SessionController][super::super::client::SessionController].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dataproc_v1::*;
+    /// # use builder::session_controller::ClientBuilder;
+    /// # use client::SessionController;
+    /// let builder : ClientBuilder = SessionController::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dataproc.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SessionController;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SessionController;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::SessionController] request builders.
     #[derive(Clone, Debug)]
@@ -5670,6 +5866,34 @@ pub mod session_controller {
 pub mod workflow_template_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [WorkflowTemplateService][super::super::client::WorkflowTemplateService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dataproc_v1::*;
+    /// # use builder::workflow_template_service::ClientBuilder;
+    /// # use client::WorkflowTemplateService;
+    /// let builder : ClientBuilder = WorkflowTemplateService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dataproc.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::WorkflowTemplateService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = WorkflowTemplateService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::WorkflowTemplateService] request builders.
     #[derive(Clone, Debug)]

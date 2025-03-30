@@ -18,6 +18,34 @@ pub mod environments {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [Environments][super::super::client::Environments].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_orchestration_airflow_service_v1::*;
+    /// # use builder::environments::ClientBuilder;
+    /// # use client::Environments;
+    /// let builder : ClientBuilder = Environments::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://composer.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Environments;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Environments;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::Environments] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -1855,6 +1883,34 @@ pub mod environments {
 pub mod image_versions {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [ImageVersions][super::super::client::ImageVersions].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_orchestration_airflow_service_v1::*;
+    /// # use builder::image_versions::ClientBuilder;
+    /// # use client::ImageVersions;
+    /// let builder : ClientBuilder = ImageVersions::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://composer.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ImageVersions;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ImageVersions;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::ImageVersions] request builders.
     #[derive(Clone, Debug)]

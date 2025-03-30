@@ -18,6 +18,34 @@ pub mod lookup_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [LookupService][super::super::client::LookupService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_servicedirectory_v1::*;
+    /// # use builder::lookup_service::ClientBuilder;
+    /// # use client::LookupService;
+    /// let builder : ClientBuilder = LookupService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://servicedirectory.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::LookupService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = LookupService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::LookupService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -217,6 +245,34 @@ pub mod lookup_service {
 pub mod registration_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [RegistrationService][super::super::client::RegistrationService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_servicedirectory_v1::*;
+    /// # use builder::registration_service::ClientBuilder;
+    /// # use client::RegistrationService;
+    /// let builder : ClientBuilder = RegistrationService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://servicedirectory.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::RegistrationService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = RegistrationService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::RegistrationService] request builders.
     #[derive(Clone, Debug)]

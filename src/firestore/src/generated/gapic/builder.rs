@@ -18,6 +18,34 @@ pub mod firestore {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [Firestore][super::super::client::Firestore].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_firestore::*;
+    /// # use builder::firestore::ClientBuilder;
+    /// # use client::Firestore;
+    /// let builder : ClientBuilder = Firestore::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://firestore.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Firestore;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Firestore;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::Firestore] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

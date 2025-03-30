@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Binary Authorization API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
+/// let client = BinauthzManagementServiceV1::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Google Cloud Management Service for Binary Authorization admission policies
@@ -36,8 +45,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `BinauthzManagementServiceV1` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `BinauthzManagementServiceV1` use the `with_*` methods in the type returned
+/// by [builder()][BinauthzManagementServiceV1::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://binaryauthorization.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::binauthz_management_service_v_1::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::binauthz_management_service_v_1::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -51,21 +75,24 @@ pub struct BinauthzManagementServiceV1 {
 }
 
 impl BinauthzManagementServiceV1 {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [BinauthzManagementServiceV1].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
+    /// let client = BinauthzManagementServiceV1::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::binauthz_management_service_v_1::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::binauthz_management_service_v_1::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::BinauthzManagementServiceV1 + 'static,
@@ -73,6 +100,11 @@ impl BinauthzManagementServiceV1 {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -196,14 +228,38 @@ impl BinauthzManagementServiceV1 {
 
 /// Implements a client for the Binary Authorization API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_binaryauthorization_v1::client::SystemPolicyV1;
+/// let client = SystemPolicyV1::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// API for working with the system policy.
 ///
 /// # Configuration
 ///
-/// `SystemPolicyV1` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SystemPolicyV1` use the `with_*` methods in the type returned
+/// by [builder()][SystemPolicyV1::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://binaryauthorization.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::system_policy_v_1::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::system_policy_v_1::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -217,21 +273,24 @@ pub struct SystemPolicyV1 {
 }
 
 impl SystemPolicyV1 {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [SystemPolicyV1].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_binaryauthorization_v1::client::SystemPolicyV1;
+    /// let client = SystemPolicyV1::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::system_policy_v_1::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::system_policy_v_1::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::SystemPolicyV1 + 'static,
@@ -239,6 +298,11 @@ impl SystemPolicyV1 {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -276,14 +340,38 @@ impl SystemPolicyV1 {
 
 /// Implements a client for the Binary Authorization API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_binaryauthorization_v1::client::ValidationHelperV1;
+/// let client = ValidationHelperV1::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// BinAuthz Attestor verification
 ///
 /// # Configuration
 ///
-/// `ValidationHelperV1` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ValidationHelperV1` use the `with_*` methods in the type returned
+/// by [builder()][ValidationHelperV1::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://binaryauthorization.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::validation_helper_v_1::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::validation_helper_v_1::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -297,21 +385,24 @@ pub struct ValidationHelperV1 {
 }
 
 impl ValidationHelperV1 {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ValidationHelperV1].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_binaryauthorization_v1::client::ValidationHelperV1;
+    /// let client = ValidationHelperV1::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::validation_helper_v_1::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::validation_helper_v_1::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::ValidationHelperV1 + 'static,
@@ -319,6 +410,11 @@ impl ValidationHelperV1 {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(

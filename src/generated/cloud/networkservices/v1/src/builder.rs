@@ -18,6 +18,34 @@ pub mod dep_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [DepService][super::super::client::DepService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_networkservices_v1::*;
+    /// # use builder::dep_service::ClientBuilder;
+    /// # use client::DepService;
+    /// let builder : ClientBuilder = DepService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://networkservices.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::DepService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = DepService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::DepService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -1405,6 +1433,34 @@ pub mod dep_service {
 pub mod network_services {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [NetworkServices][super::super::client::NetworkServices].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_networkservices_v1::*;
+    /// # use builder::network_services::ClientBuilder;
+    /// # use client::NetworkServices;
+    /// let builder : ClientBuilder = NetworkServices::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://networkservices.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::NetworkServices;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = NetworkServices;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::NetworkServices] request builders.
     #[derive(Clone, Debug)]

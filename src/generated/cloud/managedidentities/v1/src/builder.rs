@@ -18,6 +18,34 @@ pub mod managed_identities_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [ManagedIdentitiesService][super::super::client::ManagedIdentitiesService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_managedidentities_v1::*;
+    /// # use builder::managed_identities_service::ClientBuilder;
+    /// # use client::ManagedIdentitiesService;
+    /// let builder : ClientBuilder = ManagedIdentitiesService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://managedidentities.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ManagedIdentitiesService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ManagedIdentitiesService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::ManagedIdentitiesService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

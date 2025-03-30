@@ -18,6 +18,34 @@ pub mod web_security_scanner {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [WebSecurityScanner][super::super::client::WebSecurityScanner].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_websecurityscanner_v1::*;
+    /// # use builder::web_security_scanner::ClientBuilder;
+    /// # use client::WebSecurityScanner;
+    /// let builder : ClientBuilder = WebSecurityScanner::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://websecurityscanner.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::WebSecurityScanner;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = WebSecurityScanner;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::WebSecurityScanner] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

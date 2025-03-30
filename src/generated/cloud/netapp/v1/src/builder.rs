@@ -18,6 +18,34 @@ pub mod net_app {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [NetApp][super::super::client::NetApp].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_netapp_v1::*;
+    /// # use builder::net_app::ClientBuilder;
+    /// # use client::NetApp;
+    /// let builder : ClientBuilder = NetApp::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://netapp.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::NetApp;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = NetApp;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::NetApp] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

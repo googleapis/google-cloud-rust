@@ -18,6 +18,34 @@ pub mod container_analysis {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [ContainerAnalysis][super::super::client::ContainerAnalysis].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_containeranalysis_v1::*;
+    /// # use builder::container_analysis::ClientBuilder;
+    /// # use client::ContainerAnalysis;
+    /// let builder : ClientBuilder = ContainerAnalysis::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://containeranalysis.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ContainerAnalysis;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ContainerAnalysis;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::ContainerAnalysis] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

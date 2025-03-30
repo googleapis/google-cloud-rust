@@ -18,6 +18,34 @@ pub mod trace_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [TraceService][super::super::client::TraceService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_trace_v2::*;
+    /// # use builder::trace_service::ClientBuilder;
+    /// # use client::TraceService;
+    /// let builder : ClientBuilder = TraceService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudtrace.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::TraceService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = TraceService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::TraceService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

@@ -18,6 +18,34 @@ pub mod timeseries_insights_controller {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [TimeseriesInsightsController][super::super::client::TimeseriesInsightsController].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_timeseriesinsights_v1::*;
+    /// # use builder::timeseries_insights_controller::ClientBuilder;
+    /// # use client::TimeseriesInsightsController;
+    /// let builder : ClientBuilder = TimeseriesInsightsController::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://timeseriesinsights.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::TimeseriesInsightsController;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = TimeseriesInsightsController;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::TimeseriesInsightsController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

@@ -18,6 +18,34 @@ pub mod sql_backup_runs_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [SqlBackupRunsService][super::super::client::SqlBackupRunsService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_sql_v1::*;
+    /// # use builder::sql_backup_runs_service::ClientBuilder;
+    /// # use client::SqlBackupRunsService;
+    /// let builder : ClientBuilder = SqlBackupRunsService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://sqladmin.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SqlBackupRunsService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SqlBackupRunsService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::SqlBackupRunsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -265,6 +293,34 @@ pub mod sql_connect_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [SqlConnectService][super::super::client::SqlConnectService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_sql_v1::*;
+    /// # use builder::sql_connect_service::ClientBuilder;
+    /// # use client::SqlConnectService;
+    /// let builder : ClientBuilder = SqlConnectService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://sqladmin.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SqlConnectService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SqlConnectService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::SqlConnectService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -415,6 +471,34 @@ pub mod sql_connect_service {
 pub mod sql_databases_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [SqlDatabasesService][super::super::client::SqlDatabasesService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_sql_v1::*;
+    /// # use builder::sql_databases_service::ClientBuilder;
+    /// # use client::SqlDatabasesService;
+    /// let builder : ClientBuilder = SqlDatabasesService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://sqladmin.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SqlDatabasesService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SqlDatabasesService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::SqlDatabasesService] request builders.
     #[derive(Clone, Debug)]
@@ -771,6 +855,34 @@ pub mod sql_flags_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [SqlFlagsService][super::super::client::SqlFlagsService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_sql_v1::*;
+    /// # use builder::sql_flags_service::ClientBuilder;
+    /// # use client::SqlFlagsService;
+    /// let builder : ClientBuilder = SqlFlagsService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://sqladmin.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SqlFlagsService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SqlFlagsService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::SqlFlagsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -837,6 +949,34 @@ pub mod sql_flags_service {
 pub mod sql_instances_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [SqlInstancesService][super::super::client::SqlInstancesService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_sql_v1::*;
+    /// # use builder::sql_instances_service::ClientBuilder;
+    /// # use client::SqlInstancesService;
+    /// let builder : ClientBuilder = SqlInstancesService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://sqladmin.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SqlInstancesService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SqlInstancesService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::SqlInstancesService] request builders.
     #[derive(Clone, Debug)]
@@ -2681,6 +2821,34 @@ pub mod sql_operations_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [SqlOperationsService][super::super::client::SqlOperationsService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_sql_v1::*;
+    /// # use builder::sql_operations_service::ClientBuilder;
+    /// # use client::SqlOperationsService;
+    /// let builder : ClientBuilder = SqlOperationsService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://sqladmin.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SqlOperationsService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SqlOperationsService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::SqlOperationsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -2861,6 +3029,34 @@ pub mod sql_operations_service {
 pub mod sql_ssl_certs_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [SqlSslCertsService][super::super::client::SqlSslCertsService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_sql_v1::*;
+    /// # use builder::sql_ssl_certs_service::ClientBuilder;
+    /// # use client::SqlSslCertsService;
+    /// let builder : ClientBuilder = SqlSslCertsService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://sqladmin.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SqlSslCertsService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SqlSslCertsService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::SqlSslCertsService] request builders.
     #[derive(Clone, Debug)]
@@ -3097,6 +3293,34 @@ pub mod sql_tiers_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [SqlTiersService][super::super::client::SqlTiersService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_sql_v1::*;
+    /// # use builder::sql_tiers_service::ClientBuilder;
+    /// # use client::SqlTiersService;
+    /// let builder : ClientBuilder = SqlTiersService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://sqladmin.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SqlTiersService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SqlTiersService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::SqlTiersService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -3163,6 +3387,34 @@ pub mod sql_tiers_service {
 pub mod sql_users_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [SqlUsersService][super::super::client::SqlUsersService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_sql_v1::*;
+    /// # use builder::sql_users_service::ClientBuilder;
+    /// # use client::SqlUsersService;
+    /// let builder : ClientBuilder = SqlUsersService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://sqladmin.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SqlUsersService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SqlUsersService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::SqlUsersService] request builders.
     #[derive(Clone, Debug)]

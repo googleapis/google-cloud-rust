@@ -18,6 +18,34 @@ pub mod function_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [FunctionService][super::super::client::FunctionService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_functions_v2::*;
+    /// # use builder::function_service::ClientBuilder;
+    /// # use client::FunctionService;
+    /// let builder : ClientBuilder = FunctionService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudfunctions.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::FunctionService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = FunctionService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::FunctionService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Google Cloud Data Catalog API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_datacatalog_v1::client::DataCatalog;
+/// let client = DataCatalog::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Deprecated: Please use Dataplex Catalog instead.
@@ -30,8 +39,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `DataCatalog` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `DataCatalog` use the `with_*` methods in the type returned
+/// by [builder()][DataCatalog::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://datacatalog.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::data_catalog::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::data_catalog::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -45,21 +69,22 @@ pub struct DataCatalog {
 }
 
 impl DataCatalog {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [DataCatalog].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// let client = DataCatalog::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::data_catalog::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::data_catalog::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::DataCatalog + 'static,
@@ -67,6 +92,11 @@ impl DataCatalog {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -716,6 +746,15 @@ impl DataCatalog {
 
 /// Implements a client for the Google Cloud Data Catalog API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
+/// let client = PolicyTagManager::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Policy Tag Manager API service allows you to manage your policy tags and
@@ -727,8 +766,23 @@ impl DataCatalog {
 ///
 /// # Configuration
 ///
-/// `PolicyTagManager` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `PolicyTagManager` use the `with_*` methods in the type returned
+/// by [builder()][PolicyTagManager::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://datacatalog.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::policy_tag_manager::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::policy_tag_manager::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -742,21 +796,24 @@ pub struct PolicyTagManager {
 }
 
 impl PolicyTagManager {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [PolicyTagManager].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
+    /// let client = PolicyTagManager::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::policy_tag_manager::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::policy_tag_manager::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::PolicyTagManager + 'static,
@@ -764,6 +821,11 @@ impl PolicyTagManager {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -966,6 +1028,15 @@ impl PolicyTagManager {
 
 /// Implements a client for the Google Cloud Data Catalog API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_datacatalog_v1::client::PolicyTagManagerSerialization;
+/// let client = PolicyTagManagerSerialization::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Policy Tag Manager Serialization API service allows you to manipulate
@@ -975,8 +1046,23 @@ impl PolicyTagManager {
 ///
 /// # Configuration
 ///
-/// `PolicyTagManagerSerialization` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `PolicyTagManagerSerialization` use the `with_*` methods in the type returned
+/// by [builder()][PolicyTagManagerSerialization::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://datacatalog.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::policy_tag_manager_serialization::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::policy_tag_manager_serialization::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -990,21 +1076,24 @@ pub struct PolicyTagManagerSerialization {
 }
 
 impl PolicyTagManagerSerialization {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [PolicyTagManagerSerialization].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_datacatalog_v1::client::PolicyTagManagerSerialization;
+    /// let client = PolicyTagManagerSerialization::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::policy_tag_manager_serialization::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::policy_tag_manager_serialization::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::PolicyTagManagerSerialization + 'static,
@@ -1012,6 +1101,11 @@ impl PolicyTagManagerSerialization {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(

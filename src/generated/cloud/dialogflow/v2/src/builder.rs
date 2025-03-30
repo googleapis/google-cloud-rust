@@ -18,6 +18,34 @@ pub mod agents {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [Agents][super::super::client::Agents].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_v2::*;
+    /// # use builder::agents::ClientBuilder;
+    /// # use client::Agents;
+    /// let builder : ClientBuilder = Agents::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dialogflow.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Agents;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Agents;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::Agents] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -922,6 +950,34 @@ pub mod answer_records {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [AnswerRecords][super::super::client::AnswerRecords].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_v2::*;
+    /// # use builder::answer_records::ClientBuilder;
+    /// # use client::AnswerRecords;
+    /// let builder : ClientBuilder = AnswerRecords::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dialogflow.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::AnswerRecords;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = AnswerRecords;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::AnswerRecords] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -1370,6 +1426,34 @@ pub mod answer_records {
 pub mod contexts {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [Contexts][super::super::client::Contexts].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_v2::*;
+    /// # use builder::contexts::ClientBuilder;
+    /// # use client::Contexts;
+    /// let builder : ClientBuilder = Contexts::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dialogflow.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Contexts;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Contexts;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::Contexts] request builders.
     #[derive(Clone, Debug)]
@@ -1987,6 +2071,34 @@ pub mod contexts {
 pub mod conversations {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [Conversations][super::super::client::Conversations].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_v2::*;
+    /// # use builder::conversations::ClientBuilder;
+    /// # use client::Conversations;
+    /// let builder : ClientBuilder = Conversations::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dialogflow.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Conversations;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Conversations;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::Conversations] request builders.
     #[derive(Clone, Debug)]
@@ -3074,6 +3186,34 @@ pub mod conversation_datasets {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [ConversationDatasets][super::super::client::ConversationDatasets].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_v2::*;
+    /// # use builder::conversation_datasets::ClientBuilder;
+    /// # use client::ConversationDatasets;
+    /// let builder : ClientBuilder = ConversationDatasets::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dialogflow.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ConversationDatasets;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ConversationDatasets;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::ConversationDatasets] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -3816,6 +3956,34 @@ pub mod conversation_datasets {
 pub mod conversation_models {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [ConversationModels][super::super::client::ConversationModels].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_v2::*;
+    /// # use builder::conversation_models::ClientBuilder;
+    /// # use client::ConversationModels;
+    /// let builder : ClientBuilder = ConversationModels::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dialogflow.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ConversationModels;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ConversationModels;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::ConversationModels] request builders.
     #[derive(Clone, Debug)]
@@ -4835,6 +5003,34 @@ pub mod conversation_profiles {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [ConversationProfiles][super::super::client::ConversationProfiles].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_v2::*;
+    /// # use builder::conversation_profiles::ClientBuilder;
+    /// # use client::ConversationProfiles;
+    /// let builder : ClientBuilder = ConversationProfiles::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dialogflow.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ConversationProfiles;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ConversationProfiles;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::ConversationProfiles] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -5683,6 +5879,34 @@ pub mod conversation_profiles {
 pub mod documents {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [Documents][super::super::client::Documents].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_v2::*;
+    /// # use builder::documents::ClientBuilder;
+    /// # use client::Documents;
+    /// let builder : ClientBuilder = Documents::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dialogflow.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Documents;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Documents;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::Documents] request builders.
     #[derive(Clone, Debug)]
@@ -6694,6 +6918,34 @@ pub mod encryption_spec_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [EncryptionSpecService][super::super::client::EncryptionSpecService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_v2::*;
+    /// # use builder::encryption_spec_service::ClientBuilder;
+    /// # use client::EncryptionSpecService;
+    /// let builder : ClientBuilder = EncryptionSpecService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dialogflow.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::EncryptionSpecService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = EncryptionSpecService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::EncryptionSpecService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -7161,6 +7413,34 @@ pub mod encryption_spec_service {
 pub mod entity_types {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [EntityTypes][super::super::client::EntityTypes].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_v2::*;
+    /// # use builder::entity_types::ClientBuilder;
+    /// # use client::EntityTypes;
+    /// let builder : ClientBuilder = EntityTypes::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dialogflow.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::EntityTypes;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = EntityTypes;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::EntityTypes] request builders.
     #[derive(Clone, Debug)]
@@ -8267,6 +8547,34 @@ pub mod environments {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [Environments][super::super::client::Environments].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_v2::*;
+    /// # use builder::environments::ClientBuilder;
+    /// # use client::Environments;
+    /// let builder : ClientBuilder = Environments::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dialogflow.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Environments;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Environments;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::Environments] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -8935,6 +9243,34 @@ pub mod fulfillments {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [Fulfillments][super::super::client::Fulfillments].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_v2::*;
+    /// # use builder::fulfillments::ClientBuilder;
+    /// # use client::Fulfillments;
+    /// let builder : ClientBuilder = Fulfillments::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dialogflow.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Fulfillments;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Fulfillments;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::Fulfillments] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -9347,6 +9683,34 @@ pub mod fulfillments {
 pub mod generators {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [Generators][super::super::client::Generators].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_v2::*;
+    /// # use builder::generators::ClientBuilder;
+    /// # use client::Generators;
+    /// let builder : ClientBuilder = Generators::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dialogflow.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Generators;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Generators;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::Generators] request builders.
     #[derive(Clone, Debug)]
@@ -9925,6 +10289,34 @@ pub mod generators {
 pub mod intents {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [Intents][super::super::client::Intents].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_v2::*;
+    /// # use builder::intents::ClientBuilder;
+    /// # use client::Intents;
+    /// let builder : ClientBuilder = Intents::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dialogflow.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Intents;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Intents;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::Intents] request builders.
     #[derive(Clone, Debug)]
@@ -10751,6 +11143,34 @@ pub mod knowledge_bases {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [KnowledgeBases][super::super::client::KnowledgeBases].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_v2::*;
+    /// # use builder::knowledge_bases::ClientBuilder;
+    /// # use client::KnowledgeBases;
+    /// let builder : ClientBuilder = KnowledgeBases::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dialogflow.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::KnowledgeBases;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = KnowledgeBases;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::KnowledgeBases] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -11349,6 +11769,34 @@ pub mod knowledge_bases {
 pub mod participants {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [Participants][super::super::client::Participants].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_v2::*;
+    /// # use builder::participants::ClientBuilder;
+    /// # use client::Participants;
+    /// let builder : ClientBuilder = Participants::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dialogflow.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Participants;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Participants;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::Participants] request builders.
     #[derive(Clone, Debug)]
@@ -12248,6 +12696,34 @@ pub mod sessions {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [Sessions][super::super::client::Sessions].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_v2::*;
+    /// # use builder::sessions::ClientBuilder;
+    /// # use client::Sessions;
+    /// let builder : ClientBuilder = Sessions::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dialogflow.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Sessions;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Sessions;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::Sessions] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -12647,6 +13123,34 @@ pub mod sessions {
 pub mod session_entity_types {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [SessionEntityTypes][super::super::client::SessionEntityTypes].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_v2::*;
+    /// # use builder::session_entity_types::ClientBuilder;
+    /// # use client::SessionEntityTypes;
+    /// let builder : ClientBuilder = SessionEntityTypes::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dialogflow.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SessionEntityTypes;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SessionEntityTypes;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::SessionEntityTypes] request builders.
     #[derive(Clone, Debug)]
@@ -13246,6 +13750,34 @@ pub mod session_entity_types {
 pub mod versions {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [Versions][super::super::client::Versions].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_v2::*;
+    /// # use builder::versions::ClientBuilder;
+    /// # use client::Versions;
+    /// let builder : ClientBuilder = Versions::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dialogflow.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Versions;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Versions;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::Versions] request builders.
     #[derive(Clone, Debug)]

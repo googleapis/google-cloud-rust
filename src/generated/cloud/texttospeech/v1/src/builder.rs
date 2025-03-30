@@ -18,6 +18,34 @@ pub mod text_to_speech {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [TextToSpeech][super::super::client::TextToSpeech].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_texttospeech_v1::*;
+    /// # use builder::text_to_speech::ClientBuilder;
+    /// # use client::TextToSpeech;
+    /// let builder : ClientBuilder = TextToSpeech::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://texttospeech.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::TextToSpeech;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = TextToSpeech;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::TextToSpeech] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -285,6 +313,34 @@ pub mod text_to_speech {
 pub mod text_to_speech_long_audio_synthesize {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [TextToSpeechLongAudioSynthesize][super::super::client::TextToSpeechLongAudioSynthesize].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_texttospeech_v1::*;
+    /// # use builder::text_to_speech_long_audio_synthesize::ClientBuilder;
+    /// # use client::TextToSpeechLongAudioSynthesize;
+    /// let builder : ClientBuilder = TextToSpeechLongAudioSynthesize::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://texttospeech.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::TextToSpeechLongAudioSynthesize;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = TextToSpeechLongAudioSynthesize;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::TextToSpeechLongAudioSynthesize] request builders.
     #[derive(Clone, Debug)]

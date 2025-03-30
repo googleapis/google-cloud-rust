@@ -18,6 +18,34 @@ pub mod service_health {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [ServiceHealth][super::super::client::ServiceHealth].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_servicehealth_v1::*;
+    /// # use builder::service_health::ClientBuilder;
+    /// # use client::ServiceHealth;
+    /// let builder : ClientBuilder = ServiceHealth::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://servicehealth.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ServiceHealth;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ServiceHealth;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::ServiceHealth] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

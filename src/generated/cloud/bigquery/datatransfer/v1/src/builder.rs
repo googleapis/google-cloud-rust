@@ -18,6 +18,34 @@ pub mod data_transfer_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [DataTransferService][super::super::client::DataTransferService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigquery_datatransfer_v1::*;
+    /// # use builder::data_transfer_service::ClientBuilder;
+    /// # use client::DataTransferService;
+    /// let builder : ClientBuilder = DataTransferService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://bigquerydatatransfer.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::DataTransferService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = DataTransferService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::DataTransferService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

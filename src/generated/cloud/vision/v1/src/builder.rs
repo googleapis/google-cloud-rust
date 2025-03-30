@@ -18,6 +18,34 @@ pub mod image_annotator {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [ImageAnnotator][super::super::client::ImageAnnotator].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_vision_v1::*;
+    /// # use builder::image_annotator::ClientBuilder;
+    /// # use client::ImageAnnotator;
+    /// let builder : ClientBuilder = ImageAnnotator::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://vision.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ImageAnnotator;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ImageAnnotator;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::ImageAnnotator] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -455,6 +483,34 @@ pub mod image_annotator {
 pub mod product_search {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [ProductSearch][super::super::client::ProductSearch].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_vision_v1::*;
+    /// # use builder::product_search::ClientBuilder;
+    /// # use client::ProductSearch;
+    /// let builder : ClientBuilder = ProductSearch::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://vision.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ProductSearch;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ProductSearch;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::ProductSearch] request builders.
     #[derive(Clone, Debug)]

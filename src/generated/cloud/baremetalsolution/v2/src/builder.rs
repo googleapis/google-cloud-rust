@@ -18,6 +18,34 @@ pub mod bare_metal_solution {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [BareMetalSolution][super::super::client::BareMetalSolution].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_baremetalsolution_v2::*;
+    /// # use builder::bare_metal_solution::ClientBuilder;
+    /// # use client::BareMetalSolution;
+    /// let builder : ClientBuilder = BareMetalSolution::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://baremetalsolution.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::BareMetalSolution;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = BareMetalSolution;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::BareMetalSolution] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

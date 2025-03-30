@@ -18,6 +18,34 @@ pub mod company_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [CompanyService][super::super::client::CompanyService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_talent_v4::*;
+    /// # use builder::company_service::ClientBuilder;
+    /// # use client::CompanyService;
+    /// let builder : ClientBuilder = CompanyService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://jobs.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::CompanyService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = CompanyService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::CompanyService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -353,6 +381,34 @@ pub mod completion {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [Completion][super::super::client::Completion].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_talent_v4::*;
+    /// # use builder::completion::ClientBuilder;
+    /// # use client::Completion;
+    /// let builder : ClientBuilder = Completion::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://jobs.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Completion;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Completion;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::Completion] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -513,6 +569,34 @@ pub mod event_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [EventService][super::super::client::EventService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_talent_v4::*;
+    /// # use builder::event_service::ClientBuilder;
+    /// # use client::EventService;
+    /// let builder : ClientBuilder = EventService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://jobs.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::EventService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = EventService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::EventService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -637,6 +721,34 @@ pub mod event_service {
 pub mod job_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [JobService][super::super::client::JobService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_talent_v4::*;
+    /// # use builder::job_service::ClientBuilder;
+    /// # use client::JobService;
+    /// let builder : ClientBuilder = JobService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://jobs.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::JobService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = JobService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::JobService] request builders.
     #[derive(Clone, Debug)]
@@ -1592,6 +1704,34 @@ pub mod job_service {
 pub mod tenant_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [TenantService][super::super::client::TenantService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_talent_v4::*;
+    /// # use builder::tenant_service::ClientBuilder;
+    /// # use client::TenantService;
+    /// let builder : ClientBuilder = TenantService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://jobs.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::TenantService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = TenantService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::TenantService] request builders.
     #[derive(Clone, Debug)]

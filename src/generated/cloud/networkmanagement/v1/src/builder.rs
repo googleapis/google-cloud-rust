@@ -18,6 +18,34 @@ pub mod reachability_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [ReachabilityService][super::super::client::ReachabilityService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_networkmanagement_v1::*;
+    /// # use builder::reachability_service::ClientBuilder;
+    /// # use client::ReachabilityService;
+    /// let builder : ClientBuilder = ReachabilityService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://networkmanagement.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ReachabilityService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ReachabilityService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::ReachabilityService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -1031,6 +1059,34 @@ pub mod reachability_service {
 pub mod vpc_flow_logs_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [VpcFlowLogsService][super::super::client::VpcFlowLogsService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_networkmanagement_v1::*;
+    /// # use builder::vpc_flow_logs_service::ClientBuilder;
+    /// # use client::VpcFlowLogsService;
+    /// let builder : ClientBuilder = VpcFlowLogsService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://networkmanagement.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::VpcFlowLogsService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = VpcFlowLogsService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::VpcFlowLogsService] request builders.
     #[derive(Clone, Debug)]

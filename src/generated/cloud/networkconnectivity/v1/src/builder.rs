@@ -18,6 +18,34 @@ pub mod hub_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [HubService][super::super::client::HubService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_networkconnectivity_v1::*;
+    /// # use builder::hub_service::ClientBuilder;
+    /// # use client::HubService;
+    /// let builder : ClientBuilder = HubService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://networkconnectivity.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::HubService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = HubService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::HubService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -2190,6 +2218,34 @@ pub mod hub_service {
 pub mod policy_based_routing_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [PolicyBasedRoutingService][super::super::client::PolicyBasedRoutingService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_networkconnectivity_v1::*;
+    /// # use builder::policy_based_routing_service::ClientBuilder;
+    /// # use client::PolicyBasedRoutingService;
+    /// let builder : ClientBuilder = PolicyBasedRoutingService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://networkconnectivity.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::PolicyBasedRoutingService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = PolicyBasedRoutingService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::PolicyBasedRoutingService] request builders.
     #[derive(Clone, Debug)]

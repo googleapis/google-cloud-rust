@@ -18,6 +18,34 @@ pub mod service_usage {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [ServiceUsage][super::super::client::ServiceUsage].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_api_serviceusage_v1::*;
+    /// # use builder::service_usage::ClientBuilder;
+    /// # use client::ServiceUsage;
+    /// let builder : ClientBuilder = ServiceUsage::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://serviceusage.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ServiceUsage;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ServiceUsage;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::ServiceUsage] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

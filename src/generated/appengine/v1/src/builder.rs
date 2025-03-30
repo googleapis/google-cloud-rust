@@ -18,6 +18,34 @@ pub mod applications {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [Applications][super::super::client::Applications].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_appengine_v1::*;
+    /// # use builder::applications::ClientBuilder;
+    /// # use client::Applications;
+    /// let builder : ClientBuilder = Applications::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://appengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Applications;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Applications;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::Applications] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -482,6 +510,34 @@ pub mod services {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [Services][super::super::client::Services].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_appengine_v1::*;
+    /// # use builder::services::ClientBuilder;
+    /// # use client::Services;
+    /// let builder : ClientBuilder = Services::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://appengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Services;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Services;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::Services] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -922,6 +978,34 @@ pub mod services {
 pub mod versions {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [Versions][super::super::client::Versions].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_appengine_v1::*;
+    /// # use builder::versions::ClientBuilder;
+    /// # use client::Versions;
+    /// let builder : ClientBuilder = Versions::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://appengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Versions;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Versions;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::Versions] request builders.
     #[derive(Clone, Debug)]
@@ -1460,6 +1544,34 @@ pub mod instances {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [Instances][super::super::client::Instances].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_appengine_v1::*;
+    /// # use builder::instances::ClientBuilder;
+    /// # use client::Instances;
+    /// let builder : ClientBuilder = Instances::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://appengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Instances;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Instances;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::Instances] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -1882,6 +1994,34 @@ pub mod instances {
 pub mod firewall {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [Firewall][super::super::client::Firewall].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_appengine_v1::*;
+    /// # use builder::firewall::ClientBuilder;
+    /// # use client::Firewall;
+    /// let builder : ClientBuilder = Firewall::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://appengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Firewall;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Firewall;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::Firewall] request builders.
     #[derive(Clone, Debug)]
@@ -2372,6 +2512,34 @@ pub mod authorized_domains {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [AuthorizedDomains][super::super::client::AuthorizedDomains].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_appengine_v1::*;
+    /// # use builder::authorized_domains::ClientBuilder;
+    /// # use client::AuthorizedDomains;
+    /// let builder : ClientBuilder = AuthorizedDomains::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://appengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::AuthorizedDomains;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = AuthorizedDomains;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::AuthorizedDomains] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -2592,6 +2760,34 @@ pub mod authorized_domains {
 pub mod authorized_certificates {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [AuthorizedCertificates][super::super::client::AuthorizedCertificates].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_appengine_v1::*;
+    /// # use builder::authorized_certificates::ClientBuilder;
+    /// # use client::AuthorizedCertificates;
+    /// let builder : ClientBuilder = AuthorizedCertificates::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://appengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::AuthorizedCertificates;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = AuthorizedCertificates;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::AuthorizedCertificates] request builders.
     #[derive(Clone, Debug)]
@@ -3064,6 +3260,34 @@ pub mod authorized_certificates {
 pub mod domain_mappings {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [DomainMappings][super::super::client::DomainMappings].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_appengine_v1::*;
+    /// # use builder::domain_mappings::ClientBuilder;
+    /// # use client::DomainMappings;
+    /// let builder : ClientBuilder = DomainMappings::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://appengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::DomainMappings;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = DomainMappings;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::DomainMappings] request builders.
     #[derive(Clone, Debug)]

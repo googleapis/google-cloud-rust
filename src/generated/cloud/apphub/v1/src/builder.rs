@@ -18,6 +18,34 @@ pub mod app_hub {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [AppHub][super::super::client::AppHub].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_apphub_v1::*;
+    /// # use builder::app_hub::ClientBuilder;
+    /// # use client::AppHub;
+    /// let builder : ClientBuilder = AppHub::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://apphub.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::AppHub;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = AppHub;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::AppHub] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
