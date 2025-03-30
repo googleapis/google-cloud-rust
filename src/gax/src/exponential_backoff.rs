@@ -41,30 +41,12 @@ impl ExponentialBackoffBuilder {
     /// # use google_cloud_gax::exponential_backoff::*;
     /// use std::time::Duration;
     ///
-    /// fn configure_retry(config: options::ClientConfig) -> Result<options::ClientConfig> {
-    ///     let policy = ExponentialBackoffBuilder::new()
+    /// let policy = ExponentialBackoffBuilder::new()
     ///         .with_initial_delay(Duration::from_millis(100))
     ///         .with_maximum_delay(Duration::from_secs(5))
     ///         .with_scaling(4.0)
     ///         .build()?;
-    ///     Ok(config.set_backoff_policy(policy))
-    /// }
-    /// ```
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gax::*;
-    /// # use exponential_backoff::*;
-    /// use std::time::Duration;
-    ///
-    /// fn configure_polling(config: options::ClientConfig) -> Result<options::ClientConfig> {
-    ///     let policy = ExponentialBackoffBuilder::new()
-    ///         .with_initial_delay(Duration::from_millis(100))
-    ///         .with_maximum_delay(Duration::from_secs(5))
-    ///         .with_scaling(4.0)
-    ///         .build()?;
-    ///     Ok(config.set_polling_backoff_policy(policy))
-    /// }
+    /// # Ok::<(), error::Error>(())
     /// ```
     pub fn new() -> Self {
         Self {
@@ -123,15 +105,16 @@ impl ExponentialBackoffBuilder {
         })
     }
 
-    /// Creates a new exponential backoff policy clamping the ranges to barely
+    /// Creates a new exponential backoff policy clamping the ranges towards
     /// recommended values.
     ///
     /// The maximum delay is clamped first, to be between one second and one day
-    /// (both inclusive). The upper value is hardly useful, except maybe in
+    /// (both inclusive). The upper value is hardly useful, typically the retry
+    /// policy would expire earlier than such a long backoff. The exceptions may
     /// tests and very long running operations.
     ///
     /// Then the initial delay is clamped to be between one millisecond and the
-    /// maximum delay. One millisecond is rarely useful outside of tests, but at
+    /// maximum delay. One millisecond is rarely useful outside of tests, but it
     /// is unlikely to cause problems.
     ///
     /// Finally, the scaling factor is clamped to the `[1.0, 32.0]` range.

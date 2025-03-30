@@ -14,24 +14,49 @@
 
 //! Defines traits for retry throttling and some common implementations.
 //!
-//! The client libraries automatically retry RPCs when (1) they fail due to
-//! transient errors **and** the RPC is [idempotent], (2) or failed before an
-//! RPC was started. That is, when it is safe to attempt the RPC more than once.
+//! The client libraries can be configured to automatically retry RPCs. Most
+//! often retries are only enabled if (1) the request was never sent and the
+//! local error is recoverable, or (2) the failure is a transient errors 
+//! **and** the RPC is [idempotent].
 //!
 //! Retry strategies that do not throttle themselves can slow down recovery when
 //! the service is overloaded, or when recovering from a large incident. This is
 //! also known as "retry storms": the retry attempts can grow to be more than
 //! the normal traffic and hinder recovery.
 //!
-//! # Example
+//! Advanced applications may want to configure a retry throttler when
+//! [Addressing Cascading Failures] and when [Handling Overload] conditions.
+//! This module contains the traits and some implementations of retry throttling
+//! strategies.
+//! 
+//! To configure the default throttler for a client, use 
+//! [ClientBuilder::with_retry_throttler]. To configure the throttler used for
+//! a specific request, use [RequestOptionsBuilder::with_retry_throttler].
+//! 
+//! Typically applications should create one retry throttler and share it
+//! across multiple clients.
+//! 
+//! [ClientBuilder::with_retry_throttler]: crate::client_builder::ClientBuilder::with_retry_throttler
+//! [RequestOptionsBuilder::with_retry_throttler]: crate::options::RequestOptionsBuilder::with_retry_throttler
+//! [Handling Overload]: https://sre.google/sre-book/handling-overload/
+//! [Addressing Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
+//!
+//! # Examples
 //! ```
 //! # use google_cloud_gax::*;
 //! # use google_cloud_gax::retry_throttler::*;
-//! fn configure_throttler() -> options::ClientConfig {
-//!     let throttler = AdaptiveThrottler::default();
-//!     options::ClientConfig::default()
-//!         .set_retry_throttler(throttler)
-//! }
+//! let throttler = AdaptiveThrottler::new(2.0)?;
+//! # Ok::<(), error::Error>(())
+//! ```
+//!
+//! ```
+//! # use google_cloud_gax::*;
+//! # use google_cloud_gax::retry_throttler::*;
+//! let tokens = 1000;
+//! let min_tokens = 250;
+//! let error_cost = 10;
+//! let throttler = CircuitBreaker::new(tokens, min_tokens, error_cost)?;
+//! # Ok::<(), error::Error>(())
 //! ```
 //!
 //! [idempotent]: https://en.wikipedia.org/wiki/Idempotence
@@ -117,6 +142,14 @@ impl std::convert::From<SharedRetryThrottler> for RetryThrottlerArg {
 /// retry attempts even if all requests have succeeded. Setting `factor` to
 /// higher values allows more retry attempts.
 ///
+/// # Example
+/// ```
+/// # use google_cloud_gax::*;
+/// # use google_cloud_gax::retry_throttler::*;
+/// let throttler = AdaptiveThrottler::new(2.0)?;
+/// # Ok::<(), error::Error>(())
+/// ```
+/// 
 /// [Site Reliability Engineering]: https://sre.google/sre-book/table-of-contents/
 /// [Adaptive Throttling]: https://sre.google/sre-book/handling-overload/
 #[derive(Clone, Debug)]
@@ -138,11 +171,8 @@ impl AdaptiveThrottler {
     /// ```
     /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::retry_throttler::*;
-    /// fn configure_throttler() -> Result<options::ClientConfig> {
-    ///     let throttler = AdaptiveThrottler::new(2.0)?;
-    ///     Ok(options::ClientConfig::default()
-    ///           .set_retry_throttler(throttler))
-    /// }
+    /// let throttler = AdaptiveThrottler::new(2.0)?;
+    /// # Ok::<(), error::Error>(())
     /// ```
     pub fn new(factor: f64) -> Result<Self> {
         if factor < 0.0 {
@@ -163,11 +193,7 @@ impl AdaptiveThrottler {
     /// ```
     /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::retry_throttler::*;
-    /// fn configure_throttler() -> options::ClientConfig {
-    ///     let throttler = AdaptiveThrottler::clamp(2.0);
-    ///     options::ClientConfig::default()
-    ///           .set_retry_throttler(throttler)
-    /// }
+    /// let throttler = AdaptiveThrottler::clamp(2.0);
     /// ```
     pub fn clamp(factor: f64) -> Self {
         let factor = if factor < 0.0 { 0.0 } else { factor };
@@ -198,11 +224,7 @@ impl std::default::Default for AdaptiveThrottler {
     /// ```
     /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::retry_throttler::*;
-    /// fn configure_throttler() -> options::ClientConfig {
-    ///     let throttler = AdaptiveThrottler::default();
-    ///     options::ClientConfig::default()
-    ///           .set_retry_throttler(throttler)
-    /// }
+    /// let throttler = AdaptiveThrottler::default();
     /// ```
     fn default() -> Self {
         Self::clamp(2.0)
@@ -230,7 +252,7 @@ impl RetryThrottler for AdaptiveThrottler {
     }
 }
 
-/// A `CircuitBreaker`` throttler rejects retry attempts if the success rate is too low.
+/// A `CircuitBreaker` throttler rejects retry attempts if the success rate is too low.
 ///
 /// This struct implements the [gRPC throttler] algorithm. The throttler works
 /// by tracking the number of available "tokens" for a retry attempt. If this
@@ -245,7 +267,19 @@ impl RetryThrottler for AdaptiveThrottler {
 /// Note: throttling only applies to retry attempts, the initial requests is
 /// never throttled. This may increases the token count even if all retry
 /// attempts are throttled.
-///
+/// 
+/// # Examples
+/// ```
+/// # use google_cloud_gax::*;
+/// # use google_cloud_gax::retry_throttler::*;
+/// let tokens = 1000;
+/// let min_tokens = 250;
+/// let error_cost = 10;
+/// let throttler = CircuitBreaker::new(tokens, min_tokens, error_cost)?;
+/// # Ok::<(), error::Error>(())
+/// ```
+/// 
+/// [ClientBuilder::with_retry_throttler]: crate::client_builder::ClientBuilder::with_retry_throttler
 /// [gRPC throttler]: https://github.com/grpc/proposal/blob/master/A6-client-retries.md
 #[derive(Clone, Debug)]
 pub struct CircuitBreaker {
@@ -271,10 +305,8 @@ impl CircuitBreaker {
     /// ```
     /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::retry_throttler::*;
-    /// fn configure_throttler() -> Result<options::ClientConfig> {
-    ///     let throttler = CircuitBreaker::new(1000, 250, 10)?;
-    ///     Ok(options::ClientConfig::default().set_retry_throttler(throttler))
-    /// }
+    /// let throttler = CircuitBreaker::new(1000, 250, 10)?;
+    /// # Ok::<(), error::Error>(())
     /// ```
     pub fn new(tokens: u64, min_tokens: u64, error_cost: u64) -> Result<Self> {
         if min_tokens > tokens {
@@ -305,10 +337,7 @@ impl CircuitBreaker {
     /// ```
     /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::retry_throttler::*;
-    /// fn configure_throttler() -> options::ClientConfig {
-    ///     let throttler = CircuitBreaker::clamp(1000, 250, 10);
-    ///     options::ClientConfig::default().set_retry_throttler(throttler)
-    /// }
+    /// let throttler = CircuitBreaker::clamp(1000, 250, 10);
     /// ```
     pub fn clamp(tokens: u64, min_tokens: u64, error_cost: u64) -> Self {
         Self {
@@ -327,10 +356,7 @@ impl std::default::Default for CircuitBreaker {
     /// ```
     /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::retry_throttler::*;
-    /// fn configure_throttler() -> options::ClientConfig {
-    ///     let throttler = CircuitBreaker::default();
-    ///     options::ClientConfig::default().set_retry_throttler(throttler)
-    /// }
+    /// let throttler = CircuitBreaker::default();
     /// ```
     fn default() -> Self {
         CircuitBreaker::clamp(100, 50, 10)

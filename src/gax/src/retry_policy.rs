@@ -24,16 +24,30 @@
 //! This module defines the traits for retry policies and some common
 //! implementations.
 //!
-//! # Example:
+//! To configure the default throttler for a client, use
+//! [ClientBuilder::with_retry_policy]. To configure the retry policy used for
+//! a specific request, use [RequestOptionsBuilder::with_retry_policy].
+//!
+//! [ClientBuilder::with_retry_policy]: crate::client_builder::ClientBuilder::with_retry_policy
+//! [RequestOptionsBuilder::with_retry_policy]: crate::options::RequestOptionsBuilder::with_retry_policy
+//! 
+//! # Examples
 //! ```
 //! # use google_cloud_gax::retry_policy::*;
-//! # use google_cloud_gax::options;
-//! fn customize_retry_policy(config: options::ClientConfig) -> options::ClientConfig {
-//!     // Retry for at most 10 seconds or at most 5 attempts: whichever limit
-//!     // is reached first stops the retry loop.
-//!     let d = std::time::Duration::from_secs(10);
-//!     config.set_retry_policy(Aip194Strict.with_time_limit(d).with_attempt_limit(5))
-//! }
+//! use std::time::Duration;
+//! // Create a policy that only retries transient errors, and retries for at
+//! // most 10 seconds or at most 5 attempts: whichever limit is reached first
+//! // stops the retry loop.
+//! let policy = Aip194Strict.with_time_limit(Duration::from_secs(10)).with_attempt_limit(5);
+//! ```
+//!
+//! ```
+//! # use google_cloud_gax::retry_policy::*;
+//! use std::time::Duration;
+//! // Create a policy that retries on any error (even when unsafe to do so), 
+//! // and stops retrying after 5 attempts or 10 seconds, whichever limit is
+//! // reached first stops the retry loop.
+//! let policy = AlwaysRetry.with_time_limit(Duration::from_secs(10)).with_attempt_limit(5);
 //! ```
 //!
 //! [idempotent]: https://en.wikipedia.org/wiki/Idempotence
@@ -484,13 +498,8 @@ impl LimitedAttemptCount {
     ///
     /// # Example
     /// ```
-    /// # use std::sync::Arc;
     /// # use google_cloud_gax::retry_policy::*;
-    /// # use google_cloud_gax::*;
-    /// fn customize_retry_policy() -> options::ClientConfig {
-    ///     options::ClientConfig::new()
-    ///         .set_retry_policy(LimitedAttemptCount::new(5))
-    /// }
+    /// let policy = LimitedAttemptCount::new(5);
     /// ```
     pub fn new(maximum_attempts: u32) -> Self {
         Self {
@@ -509,20 +518,11 @@ where
     /// # Example
     /// ```
     /// # use google_cloud_gax::retry_policy::*;
-    /// # use google_cloud_gax::options::RequestOptionsBuilder;
-    /// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
-    ///     builder.with_retry_policy(LimitedAttemptCount::custom(AlwaysRetry, 10))
-    /// }
-    /// ```
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gax::retry_policy::*;
-    /// # use google_cloud_gax::error;
+    /// # use google_cloud_gax::error::Error;
     /// use std::time::Instant;
     /// let policy = LimitedAttemptCount::custom(AlwaysRetry, 2);
-    /// assert!(policy.on_error(Instant::now(), 1, false, error::Error::other(format!("test"))).is_continue());
-    /// assert!(policy.on_error(Instant::now(), 2, false, error::Error::other(format!("test"))).is_exhausted());
+    /// assert!(policy.on_error(Instant::now(), 1, false, Error::other(format!("test"))).is_continue());
+    /// assert!(policy.on_error(Instant::now(), 2, false, Error::other(format!("test"))).is_exhausted());
     /// ```
     pub fn custom(inner: P, maximum_attempts: u32) -> Self {
         Self {
