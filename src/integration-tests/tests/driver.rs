@@ -15,7 +15,6 @@
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod driver {
     use gax::error::*;
-    use gax::options::ClientConfig as Config;
     use test_case::test_case;
 
     fn report(e: Error) -> Error {
@@ -32,8 +31,8 @@ mod driver {
     }
 
     #[test_case(firestore::client::Firestore::builder(); "default")]
-    #[test_case(firestore::client::Firestore::builder().enable_tracing(); "with tracing enabled")]
-    #[test_case(firestore::client::Firestore::builder().set_retry_policy(retry_policy()); "with retry enabled")]
+    #[test_case(firestore::client::Firestore::builder().with_tracing(); "with tracing enabled")]
+    #[test_case(firestore::client::Firestore::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_firestore(
         builder: firestore::builder::firestore::ClientBuilder,
@@ -44,8 +43,8 @@ mod driver {
     }
 
     #[test_case(sm::client::SecretManagerService::builder(); "default")]
-    #[test_case(sm::client::SecretManagerService::builder().enable_tracing(); "with tracing enabled")]
-    #[test_case(sm::client::SecretManagerService::builder().set_retry_policy(retry_policy()); "with retry enabled")]
+    #[test_case(sm::client::SecretManagerService::builder().with_tracing(); "with tracing enabled")]
+    #[test_case(sm::client::SecretManagerService::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_secretmanager_protobuf(
         builder: sm::builder::secret_manager_service::ClientBuilder,
@@ -56,8 +55,8 @@ mod driver {
     }
 
     #[test_case(smo::client::SecretManagerService::builder(); "default")]
-    #[test_case(smo::client::SecretManagerService::builder()Config::new().enable_tracing(); "with tracing enabled")]
-    #[test_case(smo::client::SecretManagerService::builder()Config::new().set_retry_policy(retry_policy()); "with retry enabled")]
+    #[test_case(smo::client::SecretManagerService::builder().with_tracing(); "with tracing enabled")]
+    #[test_case(smo::client::SecretManagerService::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_secretmanager_openapi(
         builder: smo::builder::secret_manager_service::ClientBuilder,
@@ -68,8 +67,8 @@ mod driver {
     }
 
     #[test_case(smo::client::SecretManagerService::builder(); "default")]
-    #[test_case(smo::client::SecretManagerService::builder().enable_tracing(); "with tracing enabled")]
-    #[test_case(smo::client::SecretManagerService::builder().set_retry_policy(retry_policy()); "with retry enabled")]
+    #[test_case(smo::client::SecretManagerService::builder().with_tracing(); "with tracing enabled")]
+    #[test_case(smo::client::SecretManagerService::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_secretmanager_openapi_locational(
         builder: smo::builder::secret_manager_service::ClientBuilder,
@@ -80,8 +79,8 @@ mod driver {
     }
 
     #[test_case(wf::client::Workflows::builder(); "default")]
-    #[test_case(wf::client::Workflows::builder().enable_tracing(); "with tracing enabled")]
-    #[test_case(wf::client::Workflows::builder().set_retry_policy(retry_policy()); "with retry enabled")]
+    #[test_case(wf::client::Workflows::builder().with_tracing(); "with tracing enabled")]
+    #[test_case(wf::client::Workflows::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn workflows_until_done(
         builder: wf::builder::workflows::ClientBuilder,
@@ -92,8 +91,8 @@ mod driver {
     }
 
     #[test_case(wf::client::Workflows::builder(); "default")]
-    #[test_case(wf::client::Workflows::builder().enable_tracing(); "with tracing enabled")]
-    #[test_case(wf::client::Workflows::builder().set_retry_policy(retry_policy()); "with retry enabled")]
+    #[test_case(wf::client::Workflows::builder().with_tracing(); "with tracing enabled")]
+    #[test_case(wf::client::Workflows::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn workflows_explicit(
         builder: wf::builder::workflows::ClientBuilder,
@@ -104,8 +103,8 @@ mod driver {
     }
 
     #[test_case(wf::client::Workflows::builder(); "default")]
-    #[test_case(wf::client::Workflows::builder().enable_tracing(); "with tracing enabled")]
-    #[test_case(wf::client::Workflows::builder().set_retry_policy(retry_policy()); "with retry enabled")]
+    #[test_case(wf::client::Workflows::builder().with_tracing(); "with tracing enabled")]
+    #[test_case(wf::client::Workflows::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn workflows_manual(
         builder: wf::builder::workflows::ClientBuilder,
