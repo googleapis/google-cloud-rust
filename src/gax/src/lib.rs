@@ -47,6 +47,7 @@ pub mod error;
 pub mod paginator;
 
 pub mod backoff_policy;
+pub mod client_builder;
 pub mod exponential_backoff;
 pub mod loop_state;
 pub mod options;
