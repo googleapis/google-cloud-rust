@@ -16,7 +16,7 @@
 //!
 //! The client libraries can be configured to automatically retry RPCs. Most
 //! often retries are only enabled if (1) the request was never sent and the
-//! local error is recoverable, or (2) the failure is a transient errors 
+//! local error is recoverable, or (2) the failure is a transient errors
 //! **and** the RPC is [idempotent].
 //!
 //! Retry strategies that do not throttle themselves can slow down recovery when
@@ -28,14 +28,14 @@
 //! [Addressing Cascading Failures] and when [Handling Overload] conditions.
 //! This module contains the traits and some implementations of retry throttling
 //! strategies.
-//! 
-//! To configure the default throttler for a client, use 
+//!
+//! To configure the default throttler for a client, use
 //! [ClientBuilder::with_retry_throttler]. To configure the throttler used for
 //! a specific request, use [RequestOptionsBuilder::with_retry_throttler].
-//! 
+//!
 //! Typically applications should create one retry throttler and share it
 //! across multiple clients.
-//! 
+//!
 //! [ClientBuilder::with_retry_throttler]: crate::client_builder::ClientBuilder::with_retry_throttler
 //! [RequestOptionsBuilder::with_retry_throttler]: crate::options::RequestOptionsBuilder::with_retry_throttler
 //! [Handling Overload]: https://sre.google/sre-book/handling-overload/
@@ -149,7 +149,7 @@ impl std::convert::From<SharedRetryThrottler> for RetryThrottlerArg {
 /// let throttler = AdaptiveThrottler::new(2.0)?;
 /// # Ok::<(), error::Error>(())
 /// ```
-/// 
+///
 /// [Site Reliability Engineering]: https://sre.google/sre-book/table-of-contents/
 /// [Adaptive Throttling]: https://sre.google/sre-book/handling-overload/
 #[derive(Clone, Debug)]
@@ -267,7 +267,7 @@ impl RetryThrottler for AdaptiveThrottler {
 /// Note: throttling only applies to retry attempts, the initial requests is
 /// never throttled. This may increases the token count even if all retry
 /// attempts are throttled.
-/// 
+///
 /// # Examples
 /// ```
 /// # use google_cloud_gax::*;
@@ -278,7 +278,7 @@ impl RetryThrottler for AdaptiveThrottler {
 /// let throttler = CircuitBreaker::new(tokens, min_tokens, error_cost)?;
 /// # Ok::<(), error::Error>(())
 /// ```
-/// 
+///
 /// [ClientBuilder::with_retry_throttler]: crate::client_builder::ClientBuilder::with_retry_throttler
 /// [gRPC throttler]: https://github.com/grpc/proposal/blob/master/A6-client-retries.md
 #[derive(Clone, Debug)]

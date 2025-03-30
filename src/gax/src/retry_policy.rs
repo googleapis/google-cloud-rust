@@ -30,7 +30,7 @@
 //!
 //! [ClientBuilder::with_retry_policy]: crate::client_builder::ClientBuilder::with_retry_policy
 //! [RequestOptionsBuilder::with_retry_policy]: crate::options::RequestOptionsBuilder::with_retry_policy
-//! 
+//!
 //! # Examples
 //! ```
 //! # use google_cloud_gax::retry_policy::*;
@@ -44,7 +44,7 @@
 //! ```
 //! # use google_cloud_gax::retry_policy::*;
 //! use std::time::Duration;
-//! // Create a policy that retries on any error (even when unsafe to do so), 
+//! // Create a policy that retries on any error (even when unsafe to do so),
 //! // and stops retrying after 5 attempts or 10 seconds, whichever limit is
 //! // reached first stops the retry loop.
 //! let policy = AlwaysRetry.with_time_limit(Duration::from_secs(10)).with_attempt_limit(5);
