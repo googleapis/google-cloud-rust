@@ -20,4 +20,4 @@ Provides convenience while improving security.
 
 The main types for this package are:
 
-- SecretManagerService
+- `SecretManagerService`

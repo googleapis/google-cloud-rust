@@ -364,8 +364,8 @@ func (annotate *annotateModel) annotateMessage(m *api.Message, imports map[strin
 	for _, f := range m.Fields {
 		annotate.annotateField(f)
 	}
-	for _, f := range m.OneOfs {
-		annotate.annotateOneOf(f)
+	for _, o := range m.OneOfs {
+		annotate.annotateOneOf(o)
 	}
 	for _, e := range m.Enums {
 		annotate.annotateEnum(e)
@@ -464,10 +464,10 @@ func (annotate *annotateModel) annotateMethod(method *api.Method) {
 	method.Codec = annotation
 }
 
-func (annotate *annotateModel) annotateOneOf(field *api.OneOf) {
-	field.Codec = &oneOfAnnotation{
-		Name:     strcase.ToLowerCamel(field.Name),
-		DocLines: formatDocComments(field.Documentation, annotate.state),
+func (annotate *annotateModel) annotateOneOf(oneof *api.OneOf) {
+	oneof.Codec = &oneOfAnnotation{
+		Name:     strcase.ToLowerCamel(oneof.Name),
+		DocLines: formatDocComments(oneof.Documentation, annotate.state),
 	}
 }
 
@@ -476,7 +476,7 @@ func (annotate *annotateModel) annotateField(field *api.Field) {
 	state := annotate.state
 
 	field.Codec = &fieldAnnotation{
-		Name:     strcase.ToLowerCamel(field.Name),
+		Name:     fieldName(field),
 		Type:     annotate.fieldType(field),
 		DocLines: formatDocComments(field.Documentation, state),
 		Required: required,
@@ -487,7 +487,7 @@ func (annotate *annotateModel) annotateField(field *api.Field) {
 }
 
 func createFromJsonLine(field *api.Field, state *api.APIState, required bool) string {
-	name := strcase.ToLowerCamel(field.Name)
+	name := fieldName(field)
 	message := state.MessageByID[field.TypezID]
 	typeName := ""
 
@@ -548,7 +548,7 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 }
 
 func createToJsonLine(field *api.Field, state *api.APIState, required bool) string {
-	name := strcase.ToLowerCamel(field.Name)
+	name := fieldName(field)
 	message := state.MessageByID[field.TypezID]
 
 	isList := field.Repeated

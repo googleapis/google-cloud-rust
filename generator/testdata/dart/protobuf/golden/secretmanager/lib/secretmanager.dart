@@ -41,8 +41,8 @@ class SecretManagerService {
 
   final ServiceClient _client;
 
-  SecretManagerService({required http.Client httpClient})
-      : _client = ServiceClient(httpClient: httpClient);
+  SecretManagerService({required http.Client client})
+      : _client = ServiceClient(client: client);
 
   /// Lists `Secrets`.
   Future<ListSecretsResponse> listSecrets(ListSecretsRequest request) async {
