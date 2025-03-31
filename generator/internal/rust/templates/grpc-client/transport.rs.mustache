@@ -63,31 +63,28 @@ impl std::fmt::Debug for {{Codec.Name}} {
 }
 
 impl {{Codec.Name}} {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::make_inner(&config).await?;
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let cred = Self::make_credentials(&config).await?;
+        let inner = Self::make_inner(config.endpoint).await?;
         Ok(Self {
             inner,
             cred,
-            retry_policy: config.retry_policy().clone(),
-            backoff_policy: config.backoff_policy().clone(),
-            retry_throttler: config.retry_throttler(),
+            retry_policy: config.retry_policy,
+            backoff_policy: config.backoff_policy,
+            retry_throttler: config.retry_throttler,
         })
     }
 
-    async fn make_inner(config: &gax::options::ClientConfig) -> Result<tonic::client::Grpc<tonic::transport::Channel>> {
+    async fn make_inner(endpoint: Option<String>) -> Result<tonic::client::Grpc<tonic::transport::Channel>> {
         let endpoint = tonic::transport::Endpoint::new(
-            config
-            .endpoint()
-            .clone()
-            .unwrap_or_else(|| DEFAULT_HOST.to_string())
+            endpoint.unwrap_or_else(|| DEFAULT_HOST.to_string())
         ).map_err(Error::other)?;
         let conn = endpoint.connect().await.map_err(Error::other)?;
         Ok(tonic::client::Grpc::new(conn))
     }
 
-    async fn make_credentials(config: &gax::options::ClientConfig) -> Result<auth::credentials::Credential> {
-        if let Some(c) = config.credential().clone() {
+    async fn make_credentials(config: &gaxi::options::ClientConfig) -> Result<auth::credentials::Credential> {
+        if let Some(c) = config.cred.clone() {
             return Ok(c);
         }
         auth::credentials::create_access_token_credential()

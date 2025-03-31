@@ -103,18 +103,18 @@ impl {{Codec.Name}} {
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::{{Codec.Name}}>> {
-        if conf.tracing_enabled() {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::{{Codec.Name}}>> {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stub::{{Codec.Name}}> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::{{Codec.Name}}> {
         super::transport::{{Codec.Name}}::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stub::{{Codec.Name}}> {
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::{{Codec.Name}}> {
         Self::build_transport(conf).await.map(super::tracing::{{Codec.Name}}::new)
     }
     {{#Codec.Methods}}
