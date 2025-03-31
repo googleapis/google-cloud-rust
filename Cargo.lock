@@ -6478,6 +6478,7 @@ dependencies = [
  "google-cloud-secretmanager-v1",
  "google-cloud-speech-v2",
  "rand 0.9.0",
+ "mockall",
  "tokio",
 ]
 
