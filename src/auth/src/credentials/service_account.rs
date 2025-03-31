@@ -252,6 +252,7 @@ impl TokenProvider for ServiceAccountTokenProvider {
             aud: self.aud.clone(),
             exp,
             iat: now,
+            typ: None,
             sub: Some(self.service_account_key.client_email.clone()),
         };
 
