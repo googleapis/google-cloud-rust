@@ -26,3 +26,4 @@ include-list = "duration.proto,field_mask.proto,timestamp.proto"
 copyright-year = '2025'
 part-file = "src/protobuf.p.dart"
 dev-dependencies = "test"
+extra-imports = "dart:convert,dart:typed_data"
