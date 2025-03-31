@@ -18,7 +18,7 @@ pub use api_key_credential::ApiKeyOptions;
 pub use api_key_credential::create_api_key_credential;
 
 pub mod mds;
-mod service_account_credential;
+mod service_account;
 pub(crate) mod user_credential;
 
 use crate::Result;
@@ -268,7 +268,7 @@ pub async fn create_access_token_credential() -> Result<Credential> {
         )?;
     match cred_type {
         "authorized_user" => user_credential::creds_from(js),
-        "service_account" => service_account_credential::creds_from(js),
+        "service_account" => service_account::creds_from(js),
         _ => Err(CredentialError::non_retryable_from_str(format!(
             "Unimplemented credential type: {cred_type}"
         ))),
