@@ -114,6 +114,6 @@ Putting all this code together into a full program looks as follows:
 
 [mock-macro]: https://docs.rs/mockall/latest/mockall/macro.mock.html
 [mocking frameworks]: https://blog.logrocket.com/mocking-rust-mockall-alternatives/
-[speech-client]: https://docs.rs/google-cloud-speech-v2/latest/google_cloud_speech_v2/stub/trait.Speech.html
-[speech-stub]: https://docs.rs/google-cloud-speech-v2/latest/google_cloud_speech_v2/client/struct.Speech.html
+[speech-client]: https://docs.rs/google-cloud-speech-v2/latest/google_cloud_speech_v2/client/struct.Speech.html
+[speech-stub]: https://docs.rs/google-cloud-speech-v2/latest/google_cloud_speech_v2/stub/trait.Speech.html
 [`mockall`]: https://docs.rs/mockall/latest/mockall/

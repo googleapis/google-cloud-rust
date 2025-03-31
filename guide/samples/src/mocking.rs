@@ -57,7 +57,7 @@ pub async fn unary() -> crate::Result<()> {
         .withf(move |r, _|
             // Optionally, verify fields in the request.
             r.name == "invalid-test-recognizer")
-        .return_once(move |_, _| {
+        .return_once(|_, _| {
             Ok(speech::model::Recognizer::new().set_display_name("test-display-name"))
         });
     // ANCHOR_END: mock_expectation
