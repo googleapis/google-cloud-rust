@@ -47,7 +47,9 @@ jobs:
       - name: Display rustc version
         run: rustup show active-toolchain -v
       - name: Test gax with features disabled
-        run: cargo clean && cargo test --package google-cloud-gax
+        run: cargo clean && cargo test --package google-cloud-gax --no-default-features
+      - name: Test gax with all features
+        run: cargo clean && cargo test --package google-cloud-gax --all-features
       - name: Test gax-internal with no features
         run: cargo clean && cargo test --package google-cloud-gax-internal --no-default-features
       - name: Test gax-internal with common features
@@ -58,8 +60,13 @@ jobs:
         run: cargo clean && cargo test --package google-cloud-gax-internal --features _internal_grpc_client
       - name: Test gax-internal with all features
         run: cargo clean && cargo test --package google-cloud-gax-internal --all-features
+      - name: Running tests for key crates
+        run: cargo clean && cargo test
+      - name: Build full workspace
+        run: cargo clean && cargo build --workspace
       - name: Running tests for full workspace
         run: cargo clean && cargo test --workspace
+        if: github.event_name == 'push'
   coverage:
     runs-on: ubuntu-24.04
     strategy:
