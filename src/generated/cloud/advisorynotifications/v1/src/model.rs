@@ -616,7 +616,8 @@ impl wkt::message::Message for ListNotificationsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListNotificationsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListNotificationsResponse {
     type PageItem = crate::model::Notification;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

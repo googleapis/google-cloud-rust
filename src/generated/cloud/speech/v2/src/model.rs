@@ -891,7 +891,8 @@ impl wkt::message::Message for ListRecognizersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListRecognizersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRecognizersResponse {
     type PageItem = crate::model::Recognizer;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5730,7 +5731,8 @@ impl wkt::message::Message for ListCustomClassesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCustomClassesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCustomClassesResponse {
     type PageItem = crate::model::CustomClass;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6157,7 +6159,8 @@ impl wkt::message::Message for ListPhraseSetsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListPhraseSetsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListPhraseSetsResponse {
     type PageItem = crate::model::PhraseSet;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

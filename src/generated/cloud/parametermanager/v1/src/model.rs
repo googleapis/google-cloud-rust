@@ -261,7 +261,8 @@ impl wkt::message::Message for ListParametersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListParametersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListParametersResponse {
     type PageItem = crate::model::Parameter;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -748,7 +749,8 @@ impl wkt::message::Message for ListParameterVersionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListParameterVersionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListParameterVersionsResponse {
     type PageItem = crate::model::ParameterVersion;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

@@ -13867,7 +13867,8 @@ impl wkt::message::Message for ListInspectTemplatesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListInspectTemplatesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListInspectTemplatesResponse {
     type PageItem = crate::model::InspectTemplate;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -14397,7 +14398,8 @@ impl wkt::message::Message for ListDiscoveryConfigsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDiscoveryConfigsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDiscoveryConfigsResponse {
     type PageItem = crate::model::DiscoveryConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -14794,7 +14796,8 @@ impl wkt::message::Message for ListJobTriggersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListJobTriggersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListJobTriggersResponse {
     type PageItem = crate::model::JobTrigger;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -22140,7 +22143,8 @@ impl wkt::message::Message for ListDlpJobsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDlpJobsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDlpJobsResponse {
     type PageItem = crate::model::DlpJob;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -22568,7 +22572,8 @@ impl wkt::message::Message for ListDeidentifyTemplatesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDeidentifyTemplatesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDeidentifyTemplatesResponse {
     type PageItem = crate::model::DeidentifyTemplate;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -23524,7 +23529,8 @@ impl wkt::message::Message for ListStoredInfoTypesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListStoredInfoTypesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListStoredInfoTypesResponse {
     type PageItem = crate::model::StoredInfoType;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -23984,7 +23990,8 @@ impl wkt::message::Message for ListProjectDataProfilesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListProjectDataProfilesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListProjectDataProfilesResponse {
     type PageItem = crate::model::ProjectDataProfile;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -24159,7 +24166,8 @@ impl wkt::message::Message for ListTableDataProfilesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTableDataProfilesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTableDataProfilesResponse {
     type PageItem = crate::model::TableDataProfile;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -24335,7 +24343,8 @@ impl wkt::message::Message for ListColumnDataProfilesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListColumnDataProfilesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListColumnDataProfilesResponse {
     type PageItem = crate::model::ColumnDataProfile;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -26692,7 +26701,8 @@ impl wkt::message::Message for ListFileStoreDataProfilesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListFileStoreDataProfilesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListFileStoreDataProfilesResponse {
     type PageItem = crate::model::FileStoreDataProfile;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -27447,7 +27457,8 @@ impl wkt::message::Message for ListConnectionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListConnectionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListConnectionsResponse {
     type PageItem = crate::model::Connection;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -27507,7 +27518,8 @@ impl wkt::message::Message for SearchConnectionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for SearchConnectionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for SearchConnectionsResponse {
     type PageItem = crate::model::Connection;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

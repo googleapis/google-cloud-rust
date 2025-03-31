@@ -5125,7 +5125,8 @@ impl wkt::message::Message for ListCloudExadataInfrastructuresResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCloudExadataInfrastructuresResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCloudExadataInfrastructuresResponse {
     type PageItem = crate::model::CloudExadataInfrastructure;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5411,7 +5412,8 @@ impl wkt::message::Message for ListCloudVmClustersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCloudVmClustersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCloudVmClustersResponse {
     type PageItem = crate::model::CloudVmCluster;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5685,7 +5687,8 @@ impl wkt::message::Message for ListEntitlementsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListEntitlementsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListEntitlementsResponse {
     type PageItem = crate::model::Entitlement;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5793,7 +5796,8 @@ impl wkt::message::Message for ListDbServersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDbServersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDbServersResponse {
     type PageItem = crate::model::DbServer;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5901,7 +5905,8 @@ impl wkt::message::Message for ListDbNodesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDbNodesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDbNodesResponse {
     type PageItem = crate::model::DbNode;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6010,7 +6015,8 @@ impl wkt::message::Message for ListGiVersionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListGiVersionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListGiVersionsResponse {
     type PageItem = crate::model::GiVersion;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6118,7 +6124,8 @@ impl wkt::message::Message for ListDbSystemShapesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDbSystemShapesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDbSystemShapesResponse {
     type PageItem = crate::model::DbSystemShape;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6356,7 +6363,8 @@ impl wkt::message::Message for ListAutonomousDatabasesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAutonomousDatabasesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAutonomousDatabasesResponse {
     type PageItem = crate::model::AutonomousDatabase;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6754,7 +6762,8 @@ impl wkt::message::Message for ListAutonomousDbVersionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAutonomousDbVersionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAutonomousDbVersionsResponse {
     type PageItem = crate::model::AutonomousDbVersion;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6876,7 +6885,8 @@ impl wkt::message::Message for ListAutonomousDatabaseCharacterSetsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAutonomousDatabaseCharacterSetsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAutonomousDatabaseCharacterSetsResponse {
     type PageItem = crate::model::AutonomousDatabaseCharacterSet;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7000,7 +7010,8 @@ impl wkt::message::Message for ListAutonomousDatabaseBackupsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAutonomousDatabaseBackupsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAutonomousDatabaseBackupsResponse {
     type PageItem = crate::model::AutonomousDatabaseBackup;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

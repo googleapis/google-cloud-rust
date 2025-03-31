@@ -771,7 +771,8 @@ impl wkt::message::Message for ListConversationsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListConversationsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListConversationsResponse {
     type PageItem = crate::model::Conversation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1714,7 +1715,8 @@ impl wkt::message::Message for ListAnalysesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAnalysesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAnalysesResponse {
     type PageItem = crate::model::Analysis;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3835,7 +3837,8 @@ impl wkt::message::Message for ListPhraseMatchersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListPhraseMatchersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListPhraseMatchersResponse {
     type PageItem = crate::model::PhraseMatcher;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4280,7 +4283,8 @@ impl wkt::message::Message for ListAnalysisRulesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAnalysisRulesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAnalysisRulesResponse {
     type PageItem = crate::model::AnalysisRule;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4626,7 +4630,8 @@ impl wkt::message::Message for ListViewsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListViewsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListViewsResponse {
     type PageItem = crate::model::View;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6172,7 +6177,8 @@ impl wkt::message::Message for ListQaQuestionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListQaQuestionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListQaQuestionsResponse {
     type PageItem = crate::model::QaQuestion;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7054,7 +7060,8 @@ impl wkt::message::Message for ListQaScorecardsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListQaScorecardsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListQaScorecardsResponse {
     type PageItem = crate::model::QaScorecard;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7179,7 +7186,8 @@ impl wkt::message::Message for ListQaScorecardRevisionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListQaScorecardRevisionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListQaScorecardRevisionsResponse {
     type PageItem = crate::model::QaScorecardRevision;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7371,7 +7379,8 @@ impl wkt::message::Message for ListFeedbackLabelsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListFeedbackLabelsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListFeedbackLabelsResponse {
     type PageItem = crate::model::FeedbackLabel;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7609,7 +7618,8 @@ impl wkt::message::Message for ListAllFeedbackLabelsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAllFeedbackLabelsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAllFeedbackLabelsResponse {
     type PageItem = crate::model::FeedbackLabel;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

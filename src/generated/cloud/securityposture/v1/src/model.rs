@@ -1430,7 +1430,8 @@ impl wkt::message::Message for ListPosturesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListPosturesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListPosturesResponse {
     type PageItem = crate::model::Posture;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1536,7 +1537,8 @@ impl wkt::message::Message for ListPostureRevisionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListPostureRevisionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListPostureRevisionsResponse {
     type PageItem = crate::model::Posture;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2210,7 +2212,8 @@ impl wkt::message::Message for ListPostureDeploymentsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListPostureDeploymentsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListPostureDeploymentsResponse {
     type PageItem = crate::model::PostureDeployment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2648,7 +2651,8 @@ impl wkt::message::Message for ListPostureTemplatesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListPostureTemplatesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListPostureTemplatesResponse {
     type PageItem = crate::model::PostureTemplate;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

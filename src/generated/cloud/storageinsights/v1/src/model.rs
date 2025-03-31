@@ -162,7 +162,8 @@ impl wkt::message::Message for ListReportConfigsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListReportConfigsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListReportConfigsResponse {
     type PageItem = crate::model::ReportConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -701,7 +702,8 @@ impl wkt::message::Message for ListReportDetailsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListReportDetailsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListReportDetailsResponse {
     type PageItem = crate::model::ReportDetail;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

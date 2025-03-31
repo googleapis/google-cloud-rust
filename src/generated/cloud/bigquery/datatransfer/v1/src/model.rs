@@ -833,7 +833,8 @@ impl wkt::message::Message for ListDataSourcesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDataSourcesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDataSourcesResponse {
     type PageItem = crate::model::DataSource;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1342,7 +1343,8 @@ impl wkt::message::Message for ListTransferConfigsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTransferConfigsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTransferConfigsResponse {
     type PageItem = crate::model::TransferConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1546,7 +1548,8 @@ impl wkt::message::Message for ListTransferRunsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTransferRunsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTransferRunsResponse {
     type PageItem = crate::model::TransferRun;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1676,7 +1679,8 @@ impl wkt::message::Message for ListTransferLogsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTransferLogsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTransferLogsResponse {
     type PageItem = crate::model::TransferMessage;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

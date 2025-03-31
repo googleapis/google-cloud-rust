@@ -161,7 +161,8 @@ impl wkt::message::Message for ListActiveDirectoriesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListActiveDirectoriesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListActiveDirectoriesResponse {
     type PageItem = crate::model::ActiveDirectory;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1152,7 +1153,8 @@ impl wkt::message::Message for ListBackupsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListBackupsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBackupsResponse {
     type PageItem = crate::model::Backup;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1780,7 +1782,8 @@ impl wkt::message::Message for ListBackupPoliciesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListBackupPoliciesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBackupPoliciesResponse {
     type PageItem = crate::model::BackupPolicy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2195,7 +2198,8 @@ impl wkt::message::Message for ListBackupVaultsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListBackupVaultsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBackupVaultsResponse {
     type PageItem = crate::model::BackupVault;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2657,7 +2661,8 @@ impl wkt::message::Message for ListKmsConfigsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListKmsConfigsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListKmsConfigsResponse {
     type PageItem = crate::model::KmsConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3273,7 +3278,8 @@ impl wkt::message::Message for ListQuotaRulesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListQuotaRulesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListQuotaRulesResponse {
     type PageItem = crate::model::QuotaRule;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4690,7 +4696,8 @@ impl wkt::message::Message for ListReplicationsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListReplicationsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListReplicationsResponse {
     type PageItem = crate::model::Replication;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5302,7 +5309,8 @@ impl wkt::message::Message for ListSnapshotsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListSnapshotsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListSnapshotsResponse {
     type PageItem = crate::model::Snapshot;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5817,7 +5825,8 @@ impl wkt::message::Message for ListStoragePoolsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListStoragePoolsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListStoragePoolsResponse {
     type PageItem = crate::model::StoragePool;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6518,7 +6527,8 @@ impl wkt::message::Message for ListVolumesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListVolumesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListVolumesResponse {
     type PageItem = crate::model::Volume;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

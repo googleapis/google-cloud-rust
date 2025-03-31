@@ -2193,7 +2193,8 @@ impl wkt::message::Message for ListZonesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListZonesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListZonesResponse {
     type PageItem = crate::model::Zone;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2364,7 +2365,8 @@ impl wkt::message::Message for ListNetworksResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListNetworksResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListNetworksResponse {
     type PageItem = crate::model::Network;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2661,7 +2663,8 @@ impl wkt::message::Message for ListSubnetsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListSubnetsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListSubnetsResponse {
     type PageItem = crate::model::Subnet;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3029,7 +3032,8 @@ impl wkt::message::Message for ListInterconnectsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListInterconnectsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListInterconnectsResponse {
     type PageItem = crate::model::Interconnect;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3199,7 +3203,8 @@ impl wkt::message::Message for ListInterconnectAttachmentsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListInterconnectAttachmentsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListInterconnectAttachmentsResponse {
     type PageItem = crate::model::InterconnectAttachment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3501,7 +3506,8 @@ impl wkt::message::Message for ListRoutersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListRoutersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRoutersResponse {
     type PageItem = crate::model::Router;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

@@ -866,7 +866,8 @@ impl wkt::message::Message for ListPolicyBindingsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListPolicyBindingsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListPolicyBindingsResponse {
     type PageItem = crate::model::PolicyBinding;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1010,7 +1011,8 @@ impl wkt::message::Message for SearchTargetPolicyBindingsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for SearchTargetPolicyBindingsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for SearchTargetPolicyBindingsResponse {
     type PageItem = crate::model::PolicyBinding;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1365,7 +1367,8 @@ impl wkt::message::Message for ListPrincipalAccessBoundaryPoliciesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListPrincipalAccessBoundaryPoliciesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListPrincipalAccessBoundaryPoliciesResponse {
     type PageItem = crate::model::PrincipalAccessBoundaryPolicy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1483,7 +1486,10 @@ impl wkt::message::Message for SearchPrincipalAccessBoundaryPolicyBindingsRespon
     }
 }
 
-impl gax::paginator::PageableResponse for SearchPrincipalAccessBoundaryPolicyBindingsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse
+    for SearchPrincipalAccessBoundaryPolicyBindingsResponse
+{
     type PageItem = crate::model::PolicyBinding;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

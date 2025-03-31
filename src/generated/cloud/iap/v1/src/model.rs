@@ -135,7 +135,8 @@ impl wkt::message::Message for ListTunnelDestGroupsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTunnelDestGroupsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTunnelDestGroupsResponse {
     type PageItem = crate::model::TunnelDestGroup;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1586,7 +1587,8 @@ impl wkt::message::Message for ListIdentityAwareProxyClientsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListIdentityAwareProxyClientsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListIdentityAwareProxyClientsResponse {
     type PageItem = crate::model::IdentityAwareProxyClient;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

@@ -2060,7 +2060,8 @@ impl wkt::message::Message for ListDeliveryPipelinesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDeliveryPipelinesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDeliveryPipelinesResponse {
     type PageItem = crate::model::DeliveryPipeline;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3733,7 +3734,8 @@ impl wkt::message::Message for ListTargetsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTargetsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTargetsResponse {
     type PageItem = crate::model::Target;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4760,7 +4762,8 @@ impl wkt::message::Message for ListCustomTargetTypesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCustomTargetTypesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCustomTargetTypesResponse {
     type PageItem = crate::model::CustomTargetType;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7262,7 +7265,8 @@ impl wkt::message::Message for ListDeployPoliciesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDeployPoliciesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDeployPoliciesResponse {
     type PageItem = crate::model::DeployPolicy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7782,7 +7786,8 @@ impl wkt::message::Message for ListReleasesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListReleasesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListReleasesResponse {
     type PageItem = crate::model::Release;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -9819,7 +9824,8 @@ impl wkt::message::Message for ListRolloutsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListRolloutsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRolloutsResponse {
     type PageItem = crate::model::Rollout;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -11780,7 +11786,8 @@ impl wkt::message::Message for ListJobRunsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListJobRunsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListJobRunsResponse {
     type PageItem = crate::model::JobRun;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -13660,7 +13667,8 @@ impl wkt::message::Message for ListAutomationsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAutomationsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAutomationsResponse {
     type PageItem = crate::model::Automation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -14836,7 +14844,8 @@ impl wkt::message::Message for ListAutomationRunsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAutomationRunsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAutomationRunsResponse {
     type PageItem = crate::model::AutomationRun;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

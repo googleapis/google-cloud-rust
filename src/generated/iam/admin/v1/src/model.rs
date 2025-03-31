@@ -440,7 +440,8 @@ impl wkt::message::Message for ListServiceAccountsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListServiceAccountsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListServiceAccountsResponse {
     type PageItem = crate::model::ServiceAccount;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1794,7 +1795,8 @@ impl wkt::message::Message for QueryGrantableRolesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for QueryGrantableRolesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for QueryGrantableRolesResponse {
     type PageItem = crate::model::Role;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1953,7 +1955,8 @@ impl wkt::message::Message for ListRolesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListRolesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRolesResponse {
     type PageItem = crate::model::Role;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2645,7 +2648,8 @@ impl wkt::message::Message for QueryTestablePermissionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for QueryTestablePermissionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for QueryTestablePermissionsResponse {
     type PageItem = crate::model::Permission;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

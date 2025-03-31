@@ -656,7 +656,8 @@ impl wkt::message::Message for ListInstancesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListInstancesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListInstancesResponse {
     type PageItem = crate::model::Instance;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1701,7 +1702,8 @@ impl wkt::message::Message for ListLunsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListLunsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListLunsResponse {
     type PageItem = crate::model::Lun;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2677,7 +2679,8 @@ impl wkt::message::Message for ListNetworksResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListNetworksResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListNetworksResponse {
     type PageItem = crate::model::Network;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3524,7 +3527,8 @@ impl wkt::message::Message for ListNfsSharesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListNfsSharesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListNfsSharesResponse {
     type PageItem = crate::model::NfsShare;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3876,7 +3880,8 @@ impl wkt::message::Message for ListOSImagesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListOSImagesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListOSImagesResponse {
     type PageItem = crate::model::OSImage;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4651,7 +4656,8 @@ impl wkt::message::Message for ListProvisioningQuotasResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListProvisioningQuotasResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListProvisioningQuotasResponse {
     type PageItem = crate::model::ProvisioningQuota;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6231,7 +6237,8 @@ impl wkt::message::Message for ListSSHKeysResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListSSHKeysResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListSSHKeysResponse {
     type PageItem = crate::model::SSHKey;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7170,7 +7177,8 @@ impl wkt::message::Message for ListVolumesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListVolumesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListVolumesResponse {
     type PageItem = crate::model::Volume;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7629,7 +7637,8 @@ impl wkt::message::Message for ListVolumeSnapshotsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListVolumeSnapshotsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListVolumeSnapshotsResponse {
     type PageItem = crate::model::VolumeSnapshot;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

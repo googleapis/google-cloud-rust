@@ -2502,7 +2502,8 @@ impl wkt::message::Message for ListConnectionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListConnectionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListConnectionsResponse {
     type PageItem = crate::model::Connection;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2876,7 +2877,8 @@ impl wkt::message::Message for ListRuntimeEntitySchemasResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListRuntimeEntitySchemasResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRuntimeEntitySchemasResponse {
     type PageItem = crate::model::RuntimeEntitySchema;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3001,7 +3003,8 @@ impl wkt::message::Message for ListRuntimeActionSchemasResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListRuntimeActionSchemasResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRuntimeActionSchemasResponse {
     type PageItem = crate::model::RuntimeActionSchema;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3438,7 +3441,8 @@ impl wkt::message::Message for ListConnectorsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListConnectorsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListConnectorsResponse {
     type PageItem = crate::model::Connector;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3830,7 +3834,8 @@ impl wkt::message::Message for ListConnectorVersionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListConnectorVersionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListConnectorVersionsResponse {
     type PageItem = crate::model::ConnectorVersion;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4624,7 +4629,8 @@ impl wkt::message::Message for ListProvidersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListProvidersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListProvidersResponse {
     type PageItem = crate::model::Provider;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

@@ -1742,7 +1742,8 @@ impl wkt::message::Message for ListDataExchangesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDataExchangesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDataExchangesResponse {
     type PageItem = crate::model::DataExchange;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1852,7 +1853,8 @@ impl wkt::message::Message for ListOrgDataExchangesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListOrgDataExchangesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListOrgDataExchangesResponse {
     type PageItem = crate::model::DataExchange;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2131,7 +2133,8 @@ impl wkt::message::Message for ListListingsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListListingsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListListingsResponse {
     type PageItem = crate::model::Listing;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2746,7 +2749,8 @@ impl wkt::message::Message for ListSubscriptionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListSubscriptionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListSubscriptionsResponse {
     type PageItem = crate::model::Subscription;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2864,7 +2868,8 @@ impl wkt::message::Message for ListSharedResourceSubscriptionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListSharedResourceSubscriptionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListSharedResourceSubscriptionsResponse {
     type PageItem = crate::model::Subscription;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

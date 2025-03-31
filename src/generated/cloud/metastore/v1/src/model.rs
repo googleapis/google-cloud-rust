@@ -2678,7 +2678,8 @@ impl wkt::message::Message for ListServicesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListServicesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListServicesResponse {
     type PageItem = crate::model::Service;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3095,7 +3096,8 @@ impl wkt::message::Message for ListMetadataImportsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListMetadataImportsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListMetadataImportsResponse {
     type PageItem = crate::model::MetadataImport;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3463,7 +3465,8 @@ impl wkt::message::Message for ListBackupsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListBackupsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBackupsResponse {
     type PageItem = crate::model::Backup;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4907,7 +4910,8 @@ impl wkt::message::Message for ListFederationsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListFederationsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListFederationsResponse {
     type PageItem = crate::model::Federation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

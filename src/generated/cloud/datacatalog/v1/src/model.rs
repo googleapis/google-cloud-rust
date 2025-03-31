@@ -957,7 +957,8 @@ impl wkt::message::Message for SearchCatalogResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for SearchCatalogResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for SearchCatalogResponse {
     type PageItem = crate::model::SearchCatalogResult;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1276,7 +1277,8 @@ impl wkt::message::Message for ListEntryGroupsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListEntryGroupsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListEntryGroupsResponse {
     type PageItem = crate::model::EntryGroup;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5323,7 +5325,8 @@ impl wkt::message::Message for ListTagsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTagsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTagsResponse {
     type PageItem = crate::model::Tag;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5713,7 +5716,8 @@ impl wkt::message::Message for ListEntriesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListEntriesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListEntriesResponse {
     type PageItem = crate::model::Entry;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -8012,7 +8016,8 @@ impl wkt::message::Message for ListTaxonomiesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTaxonomiesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTaxonomiesResponse {
     type PageItem = crate::model::Taxonomy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -8294,7 +8299,8 @@ impl wkt::message::Message for ListPolicyTagsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListPolicyTagsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListPolicyTagsResponse {
     type PageItem = crate::model::PolicyTag;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

@@ -4965,7 +4965,8 @@ impl wkt::message::Message for ListCertificatesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCertificatesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCertificatesResponse {
     type PageItem = crate::model::Certificate;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5701,7 +5702,8 @@ impl wkt::message::Message for ListCertificateAuthoritiesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCertificateAuthoritiesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCertificateAuthoritiesResponse {
     type PageItem = crate::model::CertificateAuthority;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6494,7 +6496,8 @@ impl wkt::message::Message for ListCaPoolsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCaPoolsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCaPoolsResponse {
     type PageItem = crate::model::CaPool;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6701,7 +6704,8 @@ impl wkt::message::Message for ListCertificateRevocationListsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCertificateRevocationListsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCertificateRevocationListsResponse {
     type PageItem = crate::model::CertificateRevocationList;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7132,7 +7136,8 @@ impl wkt::message::Message for ListCertificateTemplatesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCertificateTemplatesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCertificateTemplatesResponse {
     type PageItem = crate::model::CertificateTemplate;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

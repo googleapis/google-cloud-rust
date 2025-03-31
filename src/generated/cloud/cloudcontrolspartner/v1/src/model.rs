@@ -239,7 +239,8 @@ impl wkt::message::Message for ListAccessApprovalRequestsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAccessApprovalRequestsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAccessApprovalRequestsResponse {
     type PageItem = crate::model::AccessApprovalRequest;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -855,7 +856,8 @@ impl wkt::message::Message for ListWorkloadsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListWorkloadsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListWorkloadsResponse {
     type PageItem = crate::model::Workload;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1261,7 +1263,8 @@ impl wkt::message::Message for ListCustomersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCustomersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCustomersResponse {
     type PageItem = crate::model::Customer;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2917,7 +2920,8 @@ impl wkt::message::Message for ListViolationsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListViolationsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListViolationsResponse {
     type PageItem = crate::model::Violation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

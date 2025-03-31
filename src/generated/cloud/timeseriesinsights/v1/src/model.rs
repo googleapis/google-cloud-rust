@@ -852,7 +852,8 @@ impl wkt::message::Message for ListDataSetsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDataSetsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDataSetsResponse {
     type PageItem = crate::model::DataSet;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

@@ -133,7 +133,8 @@ impl wkt::message::Message for ListAccessPoliciesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAccessPoliciesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAccessPoliciesResponse {
     type PageItem = crate::model::AccessPolicy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -369,7 +370,8 @@ impl wkt::message::Message for ListAccessLevelsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAccessLevelsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAccessLevelsResponse {
     type PageItem = crate::model::AccessLevel;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -777,7 +779,8 @@ impl wkt::message::Message for ListServicePerimetersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListServicePerimetersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListServicePerimetersResponse {
     type PageItem = crate::model::ServicePerimeter;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1253,7 +1256,8 @@ impl wkt::message::Message for ListGcpUserAccessBindingsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListGcpUserAccessBindingsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListGcpUserAccessBindingsResponse {
     type PageItem = crate::model::GcpUserAccessBinding;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

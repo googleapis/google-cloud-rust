@@ -1409,7 +1409,8 @@ impl wkt::message::Message for ListAttachedClustersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAttachedClustersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAttachedClustersResponse {
     type PageItem = crate::model::AttachedCluster;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4527,7 +4528,8 @@ impl wkt::message::Message for ListAwsClustersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAwsClustersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAwsClustersResponse {
     type PageItem = crate::model::AwsCluster;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5024,7 +5026,8 @@ impl wkt::message::Message for ListAwsNodePoolsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAwsNodePoolsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAwsNodePoolsResponse {
     type PageItem = crate::model::AwsNodePool;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -8118,7 +8121,8 @@ impl wkt::message::Message for ListAzureClustersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAzureClustersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAzureClustersResponse {
     type PageItem = crate::model::AzureCluster;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -8544,7 +8548,8 @@ impl wkt::message::Message for ListAzureNodePoolsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAzureNodePoolsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAzureNodePoolsResponse {
     type PageItem = crate::model::AzureNodePool;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -9001,7 +9006,8 @@ impl wkt::message::Message for ListAzureClientsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAzureClientsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAzureClientsResponse {
     type PageItem = crate::model::AzureClient;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

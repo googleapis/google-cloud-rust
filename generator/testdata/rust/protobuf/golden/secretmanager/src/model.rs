@@ -1530,7 +1530,8 @@ impl wkt::message::Message for ListSecretsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListSecretsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListSecretsResponse {
     type PageItem = crate::model::Secret;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1842,7 +1843,8 @@ impl wkt::message::Message for ListSecretVersionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListSecretVersionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListSecretVersionsResponse {
     type PageItem = crate::model::SecretVersion;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
