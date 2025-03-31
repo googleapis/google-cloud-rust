@@ -44,4 +44,3 @@ wkt        = { version = "0.3", path = "../../../../../src/wkt", package = "goog
 
 [dev-dependencies]
 tokio-test.workspace = true
-tokio = { version = "1", features = ["time"] }
