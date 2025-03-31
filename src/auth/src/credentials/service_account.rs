@@ -17,7 +17,8 @@
 //! A service account is an account for an application or compute workload
 //! instead of an individual end user. The recommended practice is to use
 //! Google Default Credentials, which relies on the configuration of the Google
-//! Cloud system hosting your application (GCE[gce-link], GKE[gke-link], [Cloud Run]) to authenticate
+//! Cloud system hosting your application ([Google Compute Engine (GCE)][gce-link],
+//! [Google Kubernetes Engine (GKE)][gke-link], [Cloud Run]) to authenticate
 //! your workload or application.  But sometimes you may need to create and
 //! download a [service account key], for example, to use a service account
 //! when running your application on a system that is not part of Google Cloud.
@@ -25,12 +26,12 @@
 //! Service account credentials are used in this latter case.
 //!
 //! You can create multiple service account keys for a single service account.
-//! When you create a service account key, the key is returned as string, in the
-//! format described by [aip/4112]. This string contains an id for the service
-//! account, as well as the cryptographical materials (a RSA private key)
+//! When you create a service account key, the key is returned as a string, in the
+//! format described by [aip/4112]. This string contains an ID for the service
+//! account, as well as the cryptographic materials (an RSA private key)
 //! required to authenticate the caller.
 //!
-//! Therefore, services account keys should be treated as any other secret
+//! Therefore, service account keys should be treated as any other secret
 //! with security implications. Think of them as unencrypted passwords. Do not
 //! store them where unauthorized persons or programs may read them.
 //!
@@ -41,7 +42,7 @@
 //! can be used with the Google Cloud client libraries for Rust.
 //!
 //! While the Google Cloud client libraries for Rust default to
-//! using the types defined in this module. You may want to use said types directly
+//! using the types defined in this module, you may want to use these types directly
 //! when the service account key is obtained from Cloud Secret Manager or a similar service.
 //!
 //! Example usage:
@@ -120,7 +121,7 @@ impl Builder {
 
     /// Sets the audience for this credential.
     ///
-    /// aud is a [JWT] claim specifying intended recipient(s) of the token
+    /// `aud` is a [JWT] claim specifying intended recipient(s) of the token,
     /// that is, a service(s) or resource(s).
     /// This cannot be used at the same time as the scopes claim.
     /// The value should be https://[SERVICE]/. (e.g. https://pubsub.googleapis.com/)
@@ -133,9 +134,9 @@ impl Builder {
 
     /// Sets the [scopes] for this credentials.
     ///
-    /// scope is a [JWT] claim specifying requested permission(s) for the token.
+    /// `scopes` is a [JWT] claim specifying requested permission(s) for the token.
     /// This cannot be used at the same time as the aud claim.
-    /// Multiple scopes can be specified using single space (" ") as delimiter.
+    /// Multiple scopes can be specified using a single space (" ") as delimiter.
     ///
     /// [JWT]: https://google.aip.dev/auth/4111
     /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
@@ -144,7 +145,7 @@ impl Builder {
         self
     }
 
-    /// Set the [quota project] for this credential.
+    /// Sets the [quota project] for this credential.
     ///
     /// In some services, you can use a service account in
     /// one project for authentication and authorization, and charge
@@ -180,7 +181,7 @@ impl Builder {
 /// This type is typically created by
 /// deserializing the JSON key data, for example, when the service account key
 /// is obtained from [Cloud Secret Manager] or a similar service.
-/// This key can then be used to create a [Credential] e.g., by passing it to the [Builder].
+/// This key can then be used to create a [Credential], by passing it to the [Builder].
 ///
 /// [aip/4112]: https://google.aip.dev/auth/4112
 /// [Cloud Secret Manager]: https://cloud.google.com/secret-manager/docs
