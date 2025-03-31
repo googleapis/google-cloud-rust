@@ -18,6 +18,34 @@ pub mod contact_center_insights {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [ContactCenterInsights][super::super::client::ContactCenterInsights].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_contactcenterinsights_v1::*;
+    /// # use builder::contact_center_insights::ClientBuilder;
+    /// # use client::ContactCenterInsights;
+    /// let builder : ClientBuilder = ContactCenterInsights::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://contactcenterinsights.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ContactCenterInsights;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ContactCenterInsights;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::ContactCenterInsights] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

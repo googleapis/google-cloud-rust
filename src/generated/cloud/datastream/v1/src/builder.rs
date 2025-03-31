@@ -18,6 +18,34 @@ pub mod datastream {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [Datastream][super::super::client::Datastream].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_datastream_v1::*;
+    /// # use builder::datastream::ClientBuilder;
+    /// # use client::Datastream;
+    /// let builder : ClientBuilder = Datastream::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://datastream.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Datastream;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Datastream;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::Datastream] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

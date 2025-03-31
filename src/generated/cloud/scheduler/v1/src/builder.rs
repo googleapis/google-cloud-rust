@@ -18,6 +18,34 @@ pub mod cloud_scheduler {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [CloudScheduler][super::super::client::CloudScheduler].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_scheduler_v1::*;
+    /// # use builder::cloud_scheduler::ClientBuilder;
+    /// # use client::CloudScheduler;
+    /// let builder : ClientBuilder = CloudScheduler::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudscheduler.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::CloudScheduler;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = CloudScheduler;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::CloudScheduler] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

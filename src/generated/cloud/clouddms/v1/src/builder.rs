@@ -18,6 +18,34 @@ pub mod data_migration_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [DataMigrationService][super::super::client::DataMigrationService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_clouddms_v1::*;
+    /// # use builder::data_migration_service::ClientBuilder;
+    /// # use client::DataMigrationService;
+    /// let builder : ClientBuilder = DataMigrationService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://datamigration.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::DataMigrationService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = DataMigrationService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::DataMigrationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

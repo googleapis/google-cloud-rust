@@ -18,6 +18,34 @@ pub mod policy_troubleshooter {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [PolicyTroubleshooter][super::super::client::PolicyTroubleshooter].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_policytroubleshooter_iam_v3::*;
+    /// # use builder::policy_troubleshooter::ClientBuilder;
+    /// # use client::PolicyTroubleshooter;
+    /// let builder : ClientBuilder = PolicyTroubleshooter::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://policytroubleshooter.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::PolicyTroubleshooter;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = PolicyTroubleshooter;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::PolicyTroubleshooter] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

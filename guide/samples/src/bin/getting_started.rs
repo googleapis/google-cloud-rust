@@ -17,7 +17,7 @@
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     use google_cloud_secretmanager_v1::client::SecretManagerService;
     let project_id = std::env::args().nth(1).unwrap();
-    let client = SecretManagerService::new().await?;
+    let client = SecretManagerService::builder().build().await?;
 
     let mut items = client
         .list_secrets(format!("projects/{project_id}"))

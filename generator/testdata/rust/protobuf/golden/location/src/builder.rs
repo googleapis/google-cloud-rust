@@ -18,6 +18,34 @@ pub mod locations {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [Locations][super::super::client::Locations].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use location_golden_protobuf::*;
+    /// # use builder::locations::ClientBuilder;
+    /// # use client::Locations;
+    /// let builder : ClientBuilder = Locations::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloud.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Locations;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Locations;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::Locations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

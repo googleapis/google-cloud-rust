@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the GKE Multi-Cloud API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_gkemulticloud_v1::client::AttachedClusters;
+/// let client = AttachedClusters::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// The AttachedClusters API provides a single centrally managed service
@@ -29,8 +38,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `AttachedClusters` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `AttachedClusters` use the `with_*` methods in the type returned
+/// by [builder()][AttachedClusters::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://gkemulticloud.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::attached_clusters::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::attached_clusters::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -44,21 +68,24 @@ pub struct AttachedClusters {
 }
 
 impl AttachedClusters {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [AttachedClusters].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_gkemulticloud_v1::client::AttachedClusters;
+    /// let client = AttachedClusters::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::attached_clusters::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::attached_clusters::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::AttachedClusters + 'static,
@@ -66,6 +93,11 @@ impl AttachedClusters {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -302,6 +334,15 @@ impl AttachedClusters {
 
 /// Implements a client for the GKE Multi-Cloud API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
+/// let client = AwsClusters::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// The AwsClusters API provides a single centrally managed service
@@ -309,8 +350,23 @@ impl AttachedClusters {
 ///
 /// # Configuration
 ///
-/// `AwsClusters` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `AwsClusters` use the `with_*` methods in the type returned
+/// by [builder()][AwsClusters::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://gkemulticloud.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::aws_clusters::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::aws_clusters::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -324,21 +380,22 @@ pub struct AwsClusters {
 }
 
 impl AwsClusters {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [AwsClusters].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
+    /// let client = AwsClusters::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::aws_clusters::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::aws_clusters::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::AwsClusters + 'static,
@@ -346,6 +403,11 @@ impl AwsClusters {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(
@@ -697,6 +759,15 @@ impl AwsClusters {
 
 /// Implements a client for the GKE Multi-Cloud API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
+/// let client = AzureClusters::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// The AzureClusters API provides a single centrally managed service
@@ -704,8 +775,23 @@ impl AwsClusters {
 ///
 /// # Configuration
 ///
-/// `AzureClusters` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `AzureClusters` use the `with_*` methods in the type returned
+/// by [builder()][AzureClusters::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://gkemulticloud.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::azure_clusters::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::azure_clusters::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -719,21 +805,22 @@ pub struct AzureClusters {
 }
 
 impl AzureClusters {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [AzureClusters].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
+    /// let client = AzureClusters::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::azure_clusters::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::azure_clusters::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
         T: super::stub::AzureClusters + 'static,
@@ -741,6 +828,11 @@ impl AzureClusters {
         Self {
             inner: Arc::new(stub),
         }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(

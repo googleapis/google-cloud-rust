@@ -37,8 +37,9 @@ publish                = false
 {{#Codec.RequiredPackages}}
 {{{.}}}
 {{/Codec.RequiredPackages}}
-{{#Codec.HasLROs}}
 
 [dev-dependencies]
+tokio-test.workspace = true
+{{#Codec.HasLROs}}
 tokio = { version = "1", features = ["time"] }
 {{/Codec.HasLROs}}

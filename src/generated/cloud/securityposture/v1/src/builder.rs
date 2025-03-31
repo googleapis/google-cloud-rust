@@ -18,6 +18,34 @@ pub mod security_posture {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [SecurityPosture][super::super::client::SecurityPosture].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_securityposture_v1::*;
+    /// # use builder::security_posture::ClientBuilder;
+    /// # use client::SecurityPosture;
+    /// let builder : ClientBuilder = SecurityPosture::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://securityposture.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SecurityPosture;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SecurityPosture;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::SecurityPosture] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

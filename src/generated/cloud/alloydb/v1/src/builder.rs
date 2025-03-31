@@ -18,6 +18,34 @@ pub mod alloy_db_admin {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [AlloyDBAdmin][super::super::client::AlloyDBAdmin].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_alloydb_v1::*;
+    /// # use builder::alloy_db_admin::ClientBuilder;
+    /// # use client::AlloyDBAdmin;
+    /// let builder : ClientBuilder = AlloyDBAdmin::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://alloydb.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::AlloyDBAdmin;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = AlloyDBAdmin;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::AlloyDBAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

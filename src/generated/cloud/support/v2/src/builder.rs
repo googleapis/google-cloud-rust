@@ -18,6 +18,34 @@ pub mod case_attachment_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [CaseAttachmentService][super::super::client::CaseAttachmentService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_support_v2::*;
+    /// # use builder::case_attachment_service::ClientBuilder;
+    /// # use client::CaseAttachmentService;
+    /// let builder : ClientBuilder = CaseAttachmentService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudsupport.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::CaseAttachmentService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = CaseAttachmentService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::CaseAttachmentService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -116,6 +144,34 @@ pub mod case_attachment_service {
 pub mod case_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [CaseService][super::super::client::CaseService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_support_v2::*;
+    /// # use builder::case_service::ClientBuilder;
+    /// # use client::CaseService;
+    /// let builder : ClientBuilder = CaseService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudsupport.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::CaseService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = CaseService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::CaseService] request builders.
     #[derive(Clone, Debug)]
@@ -601,6 +657,34 @@ pub mod case_service {
 pub mod comment_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [CommentService][super::super::client::CommentService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_support_v2::*;
+    /// # use builder::comment_service::ClientBuilder;
+    /// # use client::CommentService;
+    /// let builder : ClientBuilder = CommentService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudsupport.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::CommentService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = CommentService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::CommentService] request builders.
     #[derive(Clone, Debug)]

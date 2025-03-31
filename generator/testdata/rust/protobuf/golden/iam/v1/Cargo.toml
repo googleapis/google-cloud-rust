@@ -30,3 +30,6 @@ publish                = false
 [dependencies]
 gtype      = { path = "../../../../../../testdata/rust/protobuf/golden/type", package = "type-golden-protobuf" }
 wkt        = { path = "../../../../../../../src/wkt", package = "google-cloud-wkt" }
+
+[dev-dependencies]
+tokio-test.workspace = true

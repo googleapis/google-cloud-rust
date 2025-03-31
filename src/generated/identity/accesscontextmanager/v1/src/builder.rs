@@ -18,6 +18,34 @@ pub mod access_context_manager {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [AccessContextManager][super::super::client::AccessContextManager].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_identity_accesscontextmanager_v1::*;
+    /// # use builder::access_context_manager::ClientBuilder;
+    /// # use client::AccessContextManager;
+    /// let builder : ClientBuilder = AccessContextManager::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://accesscontextmanager.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::AccessContextManager;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = AccessContextManager;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::AccessContextManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

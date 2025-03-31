@@ -18,6 +18,34 @@ pub mod identity_aware_proxy_admin_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [IdentityAwareProxyAdminService][super::super::client::IdentityAwareProxyAdminService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_iap_v1::*;
+    /// # use builder::identity_aware_proxy_admin_service::ClientBuilder;
+    /// # use client::IdentityAwareProxyAdminService;
+    /// let builder : ClientBuilder = IdentityAwareProxyAdminService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://iap.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::IdentityAwareProxyAdminService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = IdentityAwareProxyAdminService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::IdentityAwareProxyAdminService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -614,6 +642,34 @@ pub mod identity_aware_proxy_admin_service {
 pub mod identity_aware_proxy_o_auth_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [IdentityAwareProxyOAuthService][super::super::client::IdentityAwareProxyOAuthService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_iap_v1::*;
+    /// # use builder::identity_aware_proxy_o_auth_service::ClientBuilder;
+    /// # use client::IdentityAwareProxyOAuthService;
+    /// let builder : ClientBuilder = IdentityAwareProxyOAuthService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://iap.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::IdentityAwareProxyOAuthService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = IdentityAwareProxyOAuthService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::IdentityAwareProxyOAuthService] request builders.
     #[derive(Clone, Debug)]

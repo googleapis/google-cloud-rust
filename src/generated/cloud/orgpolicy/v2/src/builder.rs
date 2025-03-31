@@ -18,6 +18,34 @@ pub mod org_policy {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [OrgPolicy][super::super::client::OrgPolicy].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_orgpolicy_v2::*;
+    /// # use builder::org_policy::ClientBuilder;
+    /// # use client::OrgPolicy;
+    /// let builder : ClientBuilder = OrgPolicy::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://orgpolicy.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::OrgPolicy;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = OrgPolicy;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::OrgPolicy] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

@@ -18,6 +18,34 @@ pub mod dataproc_metastore {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [DataprocMetastore][super::super::client::DataprocMetastore].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_metastore_v1::*;
+    /// # use builder::dataproc_metastore::ClientBuilder;
+    /// # use client::DataprocMetastore;
+    /// let builder : ClientBuilder = DataprocMetastore::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://metastore.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::DataprocMetastore;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = DataprocMetastore;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::DataprocMetastore] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -2090,6 +2118,34 @@ pub mod dataproc_metastore {
 pub mod dataproc_metastore_federation {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [DataprocMetastoreFederation][super::super::client::DataprocMetastoreFederation].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_metastore_v1::*;
+    /// # use builder::dataproc_metastore_federation::ClientBuilder;
+    /// # use client::DataprocMetastoreFederation;
+    /// let builder : ClientBuilder = DataprocMetastoreFederation::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://metastore.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::DataprocMetastoreFederation;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = DataprocMetastoreFederation;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::DataprocMetastoreFederation] request builders.
     #[derive(Clone, Debug)]

@@ -18,6 +18,34 @@ pub mod iam_credentials {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [IAMCredentials][super::super::client::IAMCredentials].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_iam_credentials_v1::*;
+    /// # use builder::iam_credentials::ClientBuilder;
+    /// # use client::IAMCredentials;
+    /// let builder : ClientBuilder = IAMCredentials::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://iamcredentials.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::IAMCredentials;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = IAMCredentials;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::IAMCredentials] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

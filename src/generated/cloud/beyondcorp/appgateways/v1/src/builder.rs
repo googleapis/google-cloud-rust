@@ -18,6 +18,34 @@ pub mod app_gateways_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [AppGatewaysService][super::super::client::AppGatewaysService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_beyondcorp_appgateways_v1::*;
+    /// # use builder::app_gateways_service::ClientBuilder;
+    /// # use client::AppGatewaysService;
+    /// let builder : ClientBuilder = AppGatewaysService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://beyondcorp.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::AppGatewaysService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = AppGatewaysService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::AppGatewaysService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

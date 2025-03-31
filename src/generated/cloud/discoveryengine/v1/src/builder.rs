@@ -18,6 +18,34 @@ pub mod completion_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [CompletionService][super::super::client::CompletionService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_discoveryengine_v1::*;
+    /// # use builder::completion_service::ClientBuilder;
+    /// # use client::CompletionService;
+    /// let builder : ClientBuilder = CompletionService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://discoveryengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::CompletionService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = CompletionService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::CompletionService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -669,6 +697,34 @@ pub mod control_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [ControlService][super::super::client::ControlService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_discoveryengine_v1::*;
+    /// # use builder::control_service::ClientBuilder;
+    /// # use client::ControlService;
+    /// let builder : ClientBuilder = ControlService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://discoveryengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ControlService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ControlService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::ControlService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -1132,6 +1188,34 @@ pub mod control_service {
 pub mod conversational_search_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [ConversationalSearchService][super::super::client::ConversationalSearchService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_discoveryengine_v1::*;
+    /// # use builder::conversational_search_service::ClientBuilder;
+    /// # use client::ConversationalSearchService;
+    /// let builder : ClientBuilder = ConversationalSearchService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://discoveryengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ConversationalSearchService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ConversationalSearchService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::ConversationalSearchService] request builders.
     #[derive(Clone, Debug)]
@@ -2206,6 +2290,34 @@ pub mod data_store_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [DataStoreService][super::super::client::DataStoreService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_discoveryengine_v1::*;
+    /// # use builder::data_store_service::ClientBuilder;
+    /// # use client::DataStoreService;
+    /// let builder : ClientBuilder = DataStoreService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://discoveryengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::DataStoreService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = DataStoreService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::DataStoreService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -2755,6 +2867,34 @@ pub mod data_store_service {
 pub mod document_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [DocumentService][super::super::client::DocumentService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_discoveryengine_v1::*;
+    /// # use builder::document_service::ClientBuilder;
+    /// # use client::DocumentService;
+    /// let builder : ClientBuilder = DocumentService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://discoveryengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::DocumentService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = DocumentService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::DocumentService] request builders.
     #[derive(Clone, Debug)]
@@ -3524,6 +3664,34 @@ pub mod engine_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [EngineService][super::super::client::EngineService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_discoveryengine_v1::*;
+    /// # use builder::engine_service::ClientBuilder;
+    /// # use client::EngineService;
+    /// let builder : ClientBuilder = EngineService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://discoveryengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::EngineService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = EngineService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::EngineService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -4061,6 +4229,34 @@ pub mod grounded_generation_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [GroundedGenerationService][super::super::client::GroundedGenerationService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_discoveryengine_v1::*;
+    /// # use builder::grounded_generation_service::ClientBuilder;
+    /// # use client::GroundedGenerationService;
+    /// let builder : ClientBuilder = GroundedGenerationService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://discoveryengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::GroundedGenerationService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = GroundedGenerationService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::GroundedGenerationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -4456,6 +4652,34 @@ pub mod project_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [ProjectService][super::super::client::ProjectService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_discoveryengine_v1::*;
+    /// # use builder::project_service::ClientBuilder;
+    /// # use client::ProjectService;
+    /// let builder : ClientBuilder = ProjectService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://discoveryengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ProjectService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ProjectService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::ProjectService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -4746,6 +4970,34 @@ pub mod rank_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [RankService][super::super::client::RankService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_discoveryengine_v1::*;
+    /// # use builder::rank_service::ClientBuilder;
+    /// # use client::RankService;
+    /// let builder : ClientBuilder = RankService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://discoveryengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::RankService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = RankService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::RankService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -5025,6 +5277,34 @@ pub mod rank_service {
 pub mod recommendation_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [RecommendationService][super::super::client::RecommendationService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_discoveryengine_v1::*;
+    /// # use builder::recommendation_service::ClientBuilder;
+    /// # use client::RecommendationService;
+    /// let builder : ClientBuilder = RecommendationService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://discoveryengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::RecommendationService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = RecommendationService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::RecommendationService] request builders.
     #[derive(Clone, Debug)]
@@ -5320,6 +5600,34 @@ pub mod recommendation_service {
 pub mod schema_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [SchemaService][super::super::client::SchemaService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_discoveryengine_v1::*;
+    /// # use builder::schema_service::ClientBuilder;
+    /// # use client::SchemaService;
+    /// let builder : ClientBuilder = SchemaService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://discoveryengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SchemaService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SchemaService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::SchemaService] request builders.
     #[derive(Clone, Debug)]
@@ -5886,6 +6194,34 @@ pub mod schema_service {
 pub mod search_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [SearchService][super::super::client::SearchService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_discoveryengine_v1::*;
+    /// # use builder::search_service::ClientBuilder;
+    /// # use client::SearchService;
+    /// let builder : ClientBuilder = SearchService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://discoveryengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SearchService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SearchService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::SearchService] request builders.
     #[derive(Clone, Debug)]
@@ -6607,6 +6943,34 @@ pub mod search_tuning_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [SearchTuningService][super::super::client::SearchTuningService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_discoveryengine_v1::*;
+    /// # use builder::search_tuning_service::ClientBuilder;
+    /// # use client::SearchTuningService;
+    /// let builder : ClientBuilder = SearchTuningService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://discoveryengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SearchTuningService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SearchTuningService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::SearchTuningService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -6965,6 +7329,34 @@ pub mod search_tuning_service {
 pub mod site_search_engine_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [SiteSearchEngineService][super::super::client::SiteSearchEngineService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_discoveryengine_v1::*;
+    /// # use builder::site_search_engine_service::ClientBuilder;
+    /// # use client::SiteSearchEngineService;
+    /// let builder : ClientBuilder = SiteSearchEngineService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://discoveryengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SiteSearchEngineService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SiteSearchEngineService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::SiteSearchEngineService] request builders.
     #[derive(Clone, Debug)]
@@ -8152,6 +8544,34 @@ pub mod site_search_engine_service {
 pub mod user_event_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [UserEventService][super::super::client::UserEventService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_discoveryengine_v1::*;
+    /// # use builder::user_event_service::ClientBuilder;
+    /// # use client::UserEventService;
+    /// let builder : ClientBuilder = UserEventService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://discoveryengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::UserEventService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = UserEventService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::UserEventService] request builders.
     #[derive(Clone, Debug)]

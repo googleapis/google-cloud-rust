@@ -39,3 +39,10 @@ pub mod http;
 #[cfg(feature = "_internal_grpc_client")]
 #[doc(hidden)]
 pub mod grpc;
+
+#[cfg(feature = "_internal_common")]
+#[doc(hidden)]
+pub mod options {
+    pub use auth::credentials::Credential as Credentials;
+    pub type ClientConfig = gax::client_builder::internal::ClientConfig<Credentials>;
+}

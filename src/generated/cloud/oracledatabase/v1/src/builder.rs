@@ -18,6 +18,34 @@ pub mod oracle_database {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [OracleDatabase][super::super::client::OracleDatabase].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_oracledatabase_v1::*;
+    /// # use builder::oracle_database::ClientBuilder;
+    /// # use client::OracleDatabase;
+    /// let builder : ClientBuilder = OracleDatabase::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://oracledatabase.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::OracleDatabase;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = OracleDatabase;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::OracleDatabase] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

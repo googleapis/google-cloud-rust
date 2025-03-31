@@ -18,6 +18,34 @@ pub mod policy_bindings {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [PolicyBindings][super::super::client::PolicyBindings].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_iam_v3::*;
+    /// # use builder::policy_bindings::ClientBuilder;
+    /// # use client::PolicyBindings;
+    /// let builder : ClientBuilder = PolicyBindings::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://iam.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::PolicyBindings;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = PolicyBindings;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::PolicyBindings] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -592,6 +620,34 @@ pub mod policy_bindings {
 pub mod principal_access_boundary_policies {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [PrincipalAccessBoundaryPolicies][super::super::client::PrincipalAccessBoundaryPolicies].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_iam_v3::*;
+    /// # use builder::principal_access_boundary_policies::ClientBuilder;
+    /// # use client::PrincipalAccessBoundaryPolicies;
+    /// let builder : ClientBuilder = PrincipalAccessBoundaryPolicies::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://iam.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::PrincipalAccessBoundaryPolicies;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = PrincipalAccessBoundaryPolicies;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::PrincipalAccessBoundaryPolicies] request builders.
     #[derive(Clone, Debug)]

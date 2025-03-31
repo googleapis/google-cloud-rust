@@ -30,6 +30,15 @@ use std::sync::Arc;
 
 /// Implements a client for the {{Codec.APITitle}}.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use {{Model.Codec.PackageNamespace}}::client::{{Codec.Name}};
+/// let client = {{Codec.Name}}::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 {{#Codec.DocLines}}
@@ -38,8 +47,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `{{Codec.Name}}` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `{{Codec.Name}}` use the `with_*` methods in the type returned
+/// by [builder()][{{Codec.Name}}::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://{{Model.Codec.DefaultHost}}`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::{{Codec.ModuleName}}::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::{{Codec.ModuleName}}::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -53,24 +77,30 @@ pub struct {{Codec.Name}} {
 }
 
 impl {{Codec.Name}} {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner }) 
+    /// Returns a builder for [{{Codec.Name}}].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use {{Model.Codec.PackageNamespace}}::client::{{Codec.Name}};
+    /// let client = {{Codec.Name}}::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::{{Codec.ModuleName}}::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::{{Codec.ModuleName}}::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where T: super::stub::{{Codec.Name}} + 'static {
         Self { inner: Arc::new(stub) }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::{{Codec.Name}}>> {
@@ -87,8 +117,8 @@ impl {{Codec.Name}} {
     async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stub::{{Codec.Name}}> {
         Self::build_transport(conf).await.map(super::tracing::{{Codec.Name}}::new)
     }
-
     {{#Codec.Methods}}
+
     {{#Codec.DocLines}}
     {{{.}}}
     {{/Codec.DocLines}}
@@ -116,7 +146,6 @@ impl {{Codec.Name}} {
             .set_{{Codec.SetterName}} ( {{Codec.FieldName}}.into() )
         {{/Codec.PathParams}}
     }
-
     {{/Codec.Methods}}
 }
 {{/Codec.Services}}

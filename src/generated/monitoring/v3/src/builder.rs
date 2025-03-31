@@ -18,6 +18,34 @@ pub mod alert_policy_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [AlertPolicyService][super::super::client::AlertPolicyService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_monitoring_v3::*;
+    /// # use builder::alert_policy_service::ClientBuilder;
+    /// # use client::AlertPolicyService;
+    /// let builder : ClientBuilder = AlertPolicyService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://monitoring.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::AlertPolicyService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = AlertPolicyService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::AlertPolicyService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -325,6 +353,34 @@ pub mod alert_policy_service {
 pub mod group_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [GroupService][super::super::client::GroupService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_monitoring_v3::*;
+    /// # use builder::group_service::ClientBuilder;
+    /// # use client::GroupService;
+    /// let builder : ClientBuilder = GroupService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://monitoring.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::GroupService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = GroupService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::GroupService] request builders.
     #[derive(Clone, Debug)]
@@ -714,6 +770,34 @@ pub mod group_service {
 pub mod metric_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [MetricService][super::super::client::MetricService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_monitoring_v3::*;
+    /// # use builder::metric_service::ClientBuilder;
+    /// # use client::MetricService;
+    /// let builder : ClientBuilder = MetricService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://monitoring.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::MetricService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = MetricService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::MetricService] request builders.
     #[derive(Clone, Debug)]
@@ -1328,6 +1412,34 @@ pub mod metric_service {
 pub mod notification_channel_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [NotificationChannelService][super::super::client::NotificationChannelService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_monitoring_v3::*;
+    /// # use builder::notification_channel_service::ClientBuilder;
+    /// # use client::NotificationChannelService;
+    /// let builder : ClientBuilder = NotificationChannelService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://monitoring.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::NotificationChannelService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = NotificationChannelService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::NotificationChannelService] request builders.
     #[derive(Clone, Debug)]
@@ -1969,6 +2081,34 @@ pub mod query_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [QueryService][super::super::client::QueryService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_monitoring_v3::*;
+    /// # use builder::query_service::ClientBuilder;
+    /// # use client::QueryService;
+    /// let builder : ClientBuilder = QueryService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://monitoring.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::QueryService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = QueryService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::QueryService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -2069,6 +2209,34 @@ pub mod query_service {
 pub mod service_monitoring_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [ServiceMonitoringService][super::super::client::ServiceMonitoringService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_monitoring_v3::*;
+    /// # use builder::service_monitoring_service::ClientBuilder;
+    /// # use client::ServiceMonitoringService;
+    /// let builder : ClientBuilder = ServiceMonitoringService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://monitoring.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ServiceMonitoringService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ServiceMonitoringService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::ServiceMonitoringService] request builders.
     #[derive(Clone, Debug)]
@@ -2710,6 +2878,34 @@ pub mod snooze_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [SnoozeService][super::super::client::SnoozeService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_monitoring_v3::*;
+    /// # use builder::snooze_service::ClientBuilder;
+    /// # use client::SnoozeService;
+    /// let builder : ClientBuilder = SnoozeService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://monitoring.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SnoozeService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SnoozeService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::SnoozeService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -2957,6 +3153,34 @@ pub mod snooze_service {
 pub mod uptime_check_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [UptimeCheckService][super::super::client::UptimeCheckService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_monitoring_v3::*;
+    /// # use builder::uptime_check_service::ClientBuilder;
+    /// # use client::UptimeCheckService;
+    /// let builder : ClientBuilder = UptimeCheckService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://monitoring.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::UptimeCheckService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = UptimeCheckService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::UptimeCheckService] request builders.
     #[derive(Clone, Debug)]

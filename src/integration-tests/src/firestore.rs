@@ -30,7 +30,7 @@ fn new_collection_id() -> String {
     format!("{prefix}{collection_id}")
 }
 
-pub async fn basic(config: Option<gax::options::ClientConfig>) -> Result<()> {
+pub async fn basic(builder: firestore::builder::firestore::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
     #[cfg(feature = "log-integration-tests")]
@@ -48,11 +48,7 @@ pub async fn basic(config: Option<gax::options::ClientConfig>) -> Result<()> {
     cleanup_stale_documents().await?;
 
     let project_id = crate::project_id()?;
-    let client = if let Some(config) = config {
-        Firestore::new_with_config(config).await?
-    } else {
-        Firestore::new().await?
-    };
+    let client = builder.build().await?;
     let collection_id = new_collection_id();
     let response = client
         .create_document(
@@ -118,11 +114,10 @@ async fn cleanup_stale_documents() -> Result<()> {
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
     let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
 
-    let client = Firestore::new_with_config(
-        gax::options::ClientConfig::new()
-            .set_retry_policy(gax::retry_policy::AlwaysRetry.with_attempt_limit(3)),
-    )
-    .await?;
+    let client = Firestore::builder()
+        .with_retry_policy(gax::retry_policy::AlwaysRetry.with_attempt_limit(3))
+        .build()
+        .await?;
 
     let mut stale_documents = Vec::new();
 

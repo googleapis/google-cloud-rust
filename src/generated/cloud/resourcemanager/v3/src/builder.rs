@@ -18,6 +18,34 @@ pub mod folders {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [Folders][super::super::client::Folders].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_resourcemanager_v3::*;
+    /// # use builder::folders::ClientBuilder;
+    /// # use client::Folders;
+    /// let builder : ClientBuilder = Folders::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudresourcemanager.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Folders;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Folders;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::Folders] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -862,6 +890,34 @@ pub mod organizations {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [Organizations][super::super::client::Organizations].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_resourcemanager_v3::*;
+    /// # use builder::organizations::ClientBuilder;
+    /// # use client::Organizations;
+    /// let builder : ClientBuilder = Organizations::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudresourcemanager.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Organizations;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Organizations;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::Organizations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -1213,6 +1269,34 @@ pub mod organizations {
 pub mod projects {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [Projects][super::super::client::Projects].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_resourcemanager_v3::*;
+    /// # use builder::projects::ClientBuilder;
+    /// # use client::Projects;
+    /// let builder : ClientBuilder = Projects::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudresourcemanager.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Projects;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Projects;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::Projects] request builders.
     #[derive(Clone, Debug)]
@@ -2060,6 +2144,34 @@ pub mod tag_bindings {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [TagBindings][super::super::client::TagBindings].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_resourcemanager_v3::*;
+    /// # use builder::tag_bindings::ClientBuilder;
+    /// # use client::TagBindings;
+    /// let builder : ClientBuilder = TagBindings::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudresourcemanager.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::TagBindings;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = TagBindings;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::TagBindings] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -2447,6 +2559,34 @@ pub mod tag_holds {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [TagHolds][super::super::client::TagHolds].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_resourcemanager_v3::*;
+    /// # use builder::tag_holds::ClientBuilder;
+    /// # use client::TagHolds;
+    /// let builder : ClientBuilder = TagHolds::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudresourcemanager.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::TagHolds;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = TagHolds;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::TagHolds] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -2770,6 +2910,34 @@ pub mod tag_holds {
 pub mod tag_keys {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [TagKeys][super::super::client::TagKeys].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_resourcemanager_v3::*;
+    /// # use builder::tag_keys::ClientBuilder;
+    /// # use client::TagKeys;
+    /// let builder : ClientBuilder = TagKeys::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudresourcemanager.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::TagKeys;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = TagKeys;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::TagKeys] request builders.
     #[derive(Clone, Debug)]
@@ -3443,6 +3611,34 @@ pub mod tag_keys {
 pub mod tag_values {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [TagValues][super::super::client::TagValues].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_resourcemanager_v3::*;
+    /// # use builder::tag_values::ClientBuilder;
+    /// # use client::TagValues;
+    /// let builder : ClientBuilder = TagValues::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudresourcemanager.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::TagValues;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = TagValues;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::TagValues] request builders.
     #[derive(Clone, Debug)]

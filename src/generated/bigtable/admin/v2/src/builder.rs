@@ -18,6 +18,34 @@ pub mod bigtable_instance_admin {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [BigtableInstanceAdmin][super::super::client::BigtableInstanceAdmin].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigtable_admin_v2::*;
+    /// # use builder::bigtable_instance_admin::ClientBuilder;
+    /// # use client::BigtableInstanceAdmin;
+    /// let builder : ClientBuilder = BigtableInstanceAdmin::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://bigtableadmin.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::BigtableInstanceAdmin;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = BigtableInstanceAdmin;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::BigtableInstanceAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -2523,6 +2551,34 @@ pub mod bigtable_instance_admin {
 pub mod bigtable_table_admin {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [BigtableTableAdmin][super::super::client::BigtableTableAdmin].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigtable_admin_v2::*;
+    /// # use builder::bigtable_table_admin::ClientBuilder;
+    /// # use client::BigtableTableAdmin;
+    /// let builder : ClientBuilder = BigtableTableAdmin::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://bigtableadmin.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::BigtableTableAdmin;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = BigtableTableAdmin;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::BigtableTableAdmin] request builders.
     #[derive(Clone, Debug)]

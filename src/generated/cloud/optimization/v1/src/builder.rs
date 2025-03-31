@@ -18,6 +18,34 @@ pub mod fleet_routing {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [FleetRouting][super::super::client::FleetRouting].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_optimization_v1::*;
+    /// # use builder::fleet_routing::ClientBuilder;
+    /// # use client::FleetRouting;
+    /// let builder : ClientBuilder = FleetRouting::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudoptimization.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::FleetRouting;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = FleetRouting;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::FleetRouting] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

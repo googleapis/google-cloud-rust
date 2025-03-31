@@ -18,6 +18,34 @@ pub mod model_armor {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [ModelArmor][super::super::client::ModelArmor].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_modelarmor_v1::*;
+    /// # use builder::model_armor::ClientBuilder;
+    /// # use client::ModelArmor;
+    /// let builder : ClientBuilder = ModelArmor::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://modelarmor.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ModelArmor;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ModelArmor;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::ModelArmor] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

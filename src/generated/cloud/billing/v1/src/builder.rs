@@ -18,6 +18,34 @@ pub mod cloud_billing {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [CloudBilling][super::super::client::CloudBilling].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_billing_v1::*;
+    /// # use builder::cloud_billing::ClientBuilder;
+    /// # use client::CloudBilling;
+    /// let builder : ClientBuilder = CloudBilling::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudbilling.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::CloudBilling;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = CloudBilling;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::CloudBilling] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -678,6 +706,34 @@ pub mod cloud_billing {
 pub mod cloud_catalog {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [CloudCatalog][super::super::client::CloudCatalog].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_billing_v1::*;
+    /// # use builder::cloud_catalog::ClientBuilder;
+    /// # use client::CloudCatalog;
+    /// let builder : ClientBuilder = CloudCatalog::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudbilling.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::CloudCatalog;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = CloudCatalog;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::CloudCatalog] request builders.
     #[derive(Clone, Debug)]

@@ -18,6 +18,34 @@ pub mod cloud_memcache {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [CloudMemcache][super::super::client::CloudMemcache].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_memcache_v1::*;
+    /// # use builder::cloud_memcache::ClientBuilder;
+    /// # use client::CloudMemcache;
+    /// let builder : ClientBuilder = CloudMemcache::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://memcache.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::CloudMemcache;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = CloudMemcache;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::CloudMemcache] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

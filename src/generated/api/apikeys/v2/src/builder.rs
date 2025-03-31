@@ -18,6 +18,34 @@ pub mod api_keys {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [ApiKeys][super::super::client::ApiKeys].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_apikeys_v2::*;
+    /// # use builder::api_keys::ClientBuilder;
+    /// # use client::ApiKeys;
+    /// let builder : ClientBuilder = ApiKeys::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://apikeys.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ApiKeys;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ApiKeys;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::ApiKeys] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

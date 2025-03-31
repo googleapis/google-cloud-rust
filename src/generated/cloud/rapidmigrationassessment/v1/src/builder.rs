@@ -18,6 +18,34 @@ pub mod rapid_migration_assessment {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [RapidMigrationAssessment][super::super::client::RapidMigrationAssessment].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_rapidmigrationassessment_v1::*;
+    /// # use builder::rapid_migration_assessment::ClientBuilder;
+    /// # use client::RapidMigrationAssessment;
+    /// let builder : ClientBuilder = RapidMigrationAssessment::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://rapidmigrationassessment.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::RapidMigrationAssessment;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = RapidMigrationAssessment;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::RapidMigrationAssessment] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

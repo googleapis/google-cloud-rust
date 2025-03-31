@@ -18,6 +18,34 @@ pub mod recommender {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [Recommender][super::super::client::Recommender].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_recommender_v1::*;
+    /// # use builder::recommender::ClientBuilder;
+    /// # use client::Recommender;
+    /// let builder : ClientBuilder = Recommender::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://recommender.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Recommender;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Recommender;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::Recommender] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

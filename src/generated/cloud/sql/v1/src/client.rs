@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud SQL Admin API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_sql_v1::client::SqlBackupRunsService;
+/// let client = SqlBackupRunsService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for managing database backups.
 ///
 /// # Configuration
 ///
-/// `SqlBackupRunsService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SqlBackupRunsService` use the `with_*` methods in the type returned
+/// by [builder()][SqlBackupRunsService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://sqladmin.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::sql_backup_runs_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::sql_backup_runs_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -42,24 +66,30 @@ pub struct SqlBackupRunsService {
 }
 
 impl SqlBackupRunsService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner }) 
+    /// Returns a builder for [SqlBackupRunsService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_sql_v1::client::SqlBackupRunsService;
+    /// let client = SqlBackupRunsService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::sql_backup_runs_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::sql_backup_runs_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where T: super::stub::SqlBackupRunsService + 'static {
         Self { inner: Arc::new(stub) }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlBackupRunsService>> {
@@ -130,10 +160,18 @@ impl SqlBackupRunsService {
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
-
 }
 
 /// Implements a client for the Cloud SQL Admin API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_sql_v1::client::SqlConnectService;
+/// let client = SqlConnectService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -141,8 +179,23 @@ impl SqlBackupRunsService {
 ///
 /// # Configuration
 ///
-/// `SqlConnectService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SqlConnectService` use the `with_*` methods in the type returned
+/// by [builder()][SqlConnectService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://sqladmin.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::sql_connect_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::sql_connect_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -156,24 +209,30 @@ pub struct SqlConnectService {
 }
 
 impl SqlConnectService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner }) 
+    /// Returns a builder for [SqlConnectService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_sql_v1::client::SqlConnectService;
+    /// let client = SqlConnectService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::sql_connect_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::sql_connect_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where T: super::stub::SqlConnectService + 'static {
         Self { inner: Arc::new(stub) }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlConnectService>> {
@@ -217,10 +276,18 @@ impl SqlConnectService {
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
-
 }
 
 /// Implements a client for the Cloud SQL Admin API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_sql_v1::client::SqlDatabasesService;
+/// let client = SqlDatabasesService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -228,8 +295,23 @@ impl SqlConnectService {
 ///
 /// # Configuration
 ///
-/// `SqlDatabasesService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SqlDatabasesService` use the `with_*` methods in the type returned
+/// by [builder()][SqlDatabasesService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://sqladmin.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::sql_databases_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::sql_databases_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -243,24 +325,30 @@ pub struct SqlDatabasesService {
 }
 
 impl SqlDatabasesService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner }) 
+    /// Returns a builder for [SqlDatabasesService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_sql_v1::client::SqlDatabasesService;
+    /// let client = SqlDatabasesService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::sql_databases_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::sql_databases_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where T: super::stub::SqlDatabasesService + 'static {
         Self { inner: Arc::new(stub) }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlDatabasesService>> {
@@ -363,10 +451,18 @@ impl SqlDatabasesService {
             .set_instance ( instance.into() )
             .set_database ( database.into() )
     }
-
 }
 
 /// Implements a client for the Cloud SQL Admin API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_sql_v1::client::SqlFlagsService;
+/// let client = SqlFlagsService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -374,8 +470,23 @@ impl SqlDatabasesService {
 ///
 /// # Configuration
 ///
-/// `SqlFlagsService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SqlFlagsService` use the `with_*` methods in the type returned
+/// by [builder()][SqlFlagsService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://sqladmin.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::sql_flags_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::sql_flags_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -389,24 +500,30 @@ pub struct SqlFlagsService {
 }
 
 impl SqlFlagsService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner }) 
+    /// Returns a builder for [SqlFlagsService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_sql_v1::client::SqlFlagsService;
+    /// let client = SqlFlagsService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::sql_flags_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::sql_flags_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where T: super::stub::SqlFlagsService + 'static {
         Self { inner: Arc::new(stub) }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlFlagsService>> {
@@ -431,10 +548,18 @@ impl SqlFlagsService {
     {
         super::builder::sql_flags_service::List::new(self.inner.clone())
     }
-
 }
 
 /// Implements a client for the Cloud SQL Admin API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_sql_v1::client::SqlInstancesService;
+/// let client = SqlInstancesService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -442,8 +567,23 @@ impl SqlFlagsService {
 ///
 /// # Configuration
 ///
-/// `SqlInstancesService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SqlInstancesService` use the `with_*` methods in the type returned
+/// by [builder()][SqlInstancesService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://sqladmin.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::sql_instances_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::sql_instances_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -457,24 +597,30 @@ pub struct SqlInstancesService {
 }
 
 impl SqlInstancesService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner }) 
+    /// Returns a builder for [SqlInstancesService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_sql_v1::client::SqlInstancesService;
+    /// let client = SqlInstancesService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::sql_instances_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::sql_instances_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where T: super::stub::SqlInstancesService + 'static {
         Self { inner: Arc::new(stub) }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlInstancesService>> {
@@ -931,10 +1077,18 @@ impl SqlInstancesService {
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
-
 }
 
 /// Implements a client for the Cloud SQL Admin API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_sql_v1::client::SqlOperationsService;
+/// let client = SqlOperationsService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -942,8 +1096,23 @@ impl SqlInstancesService {
 ///
 /// # Configuration
 ///
-/// `SqlOperationsService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SqlOperationsService` use the `with_*` methods in the type returned
+/// by [builder()][SqlOperationsService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://sqladmin.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::sql_operations_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::sql_operations_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -957,24 +1126,30 @@ pub struct SqlOperationsService {
 }
 
 impl SqlOperationsService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner }) 
+    /// Returns a builder for [SqlOperationsService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_sql_v1::client::SqlOperationsService;
+    /// let client = SqlOperationsService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::sql_operations_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::sql_operations_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where T: super::stub::SqlOperationsService + 'static {
         Self { inner: Arc::new(stub) }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlOperationsService>> {
@@ -1026,10 +1201,18 @@ impl SqlOperationsService {
             .set_project ( project.into() )
             .set_operation ( operation.into() )
     }
-
 }
 
 /// Implements a client for the Cloud SQL Admin API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_sql_v1::client::SqlSslCertsService;
+/// let client = SqlSslCertsService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -1037,8 +1220,23 @@ impl SqlOperationsService {
 ///
 /// # Configuration
 ///
-/// `SqlSslCertsService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SqlSslCertsService` use the `with_*` methods in the type returned
+/// by [builder()][SqlSslCertsService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://sqladmin.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::sql_ssl_certs_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::sql_ssl_certs_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1052,24 +1250,30 @@ pub struct SqlSslCertsService {
 }
 
 impl SqlSslCertsService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner }) 
+    /// Returns a builder for [SqlSslCertsService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_sql_v1::client::SqlSslCertsService;
+    /// let client = SqlSslCertsService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::sql_ssl_certs_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::sql_ssl_certs_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where T: super::stub::SqlSslCertsService + 'static {
         Self { inner: Arc::new(stub) }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlSslCertsService>> {
@@ -1143,10 +1347,18 @@ impl SqlSslCertsService {
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
-
 }
 
 /// Implements a client for the Cloud SQL Admin API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_sql_v1::client::SqlTiersService;
+/// let client = SqlTiersService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -1154,8 +1366,23 @@ impl SqlSslCertsService {
 ///
 /// # Configuration
 ///
-/// `SqlTiersService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SqlTiersService` use the `with_*` methods in the type returned
+/// by [builder()][SqlTiersService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://sqladmin.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::sql_tiers_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::sql_tiers_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1169,24 +1396,30 @@ pub struct SqlTiersService {
 }
 
 impl SqlTiersService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner }) 
+    /// Returns a builder for [SqlTiersService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_sql_v1::client::SqlTiersService;
+    /// let client = SqlTiersService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::sql_tiers_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::sql_tiers_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where T: super::stub::SqlTiersService + 'static {
         Self { inner: Arc::new(stub) }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlTiersService>> {
@@ -1215,10 +1448,18 @@ impl SqlTiersService {
         super::builder::sql_tiers_service::List::new(self.inner.clone())
             .set_project ( project.into() )
     }
-
 }
 
 /// Implements a client for the Cloud SQL Admin API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_sql_v1::client::SqlUsersService;
+/// let client = SqlUsersService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -1226,8 +1467,23 @@ impl SqlTiersService {
 ///
 /// # Configuration
 ///
-/// `SqlUsersService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SqlUsersService` use the `with_*` methods in the type returned
+/// by [builder()][SqlUsersService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://sqladmin.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::sql_users_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::sql_users_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1241,24 +1497,30 @@ pub struct SqlUsersService {
 }
 
 impl SqlUsersService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner }) 
+    /// Returns a builder for [SqlUsersService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_sql_v1::client::SqlUsersService;
+    /// let client = SqlUsersService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::sql_users_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::sql_users_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where T: super::stub::SqlUsersService + 'static {
         Self { inner: Arc::new(stub) }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
     }
 
     async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlUsersService>> {
@@ -1337,5 +1599,4 @@ impl SqlUsersService {
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
-
 }

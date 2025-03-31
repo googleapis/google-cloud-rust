@@ -18,6 +18,34 @@ pub mod profiler_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [ProfilerService][super::super::client::ProfilerService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_profiler_v2::*;
+    /// # use builder::profiler_service::ClientBuilder;
+    /// # use client::ProfilerService;
+    /// let builder : ClientBuilder = ProfilerService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudprofiler.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ProfilerService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ProfilerService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::ProfilerService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -213,6 +241,34 @@ pub mod profiler_service {
 pub mod export_service {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [ExportService][super::super::client::ExportService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_profiler_v2::*;
+    /// # use builder::export_service::ClientBuilder;
+    /// # use client::ExportService;
+    /// let builder : ClientBuilder = ExportService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudprofiler.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ExportService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ExportService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::ExportService] request builders.
     #[derive(Clone, Debug)]

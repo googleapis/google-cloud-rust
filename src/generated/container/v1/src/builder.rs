@@ -18,6 +18,34 @@ pub mod cluster_manager {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [ClusterManager][super::super::client::ClusterManager].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_container_v1::*;
+    /// # use builder::cluster_manager::ClientBuilder;
+    /// # use client::ClusterManager;
+    /// let builder : ClientBuilder = ClusterManager::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://container.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ClusterManager;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ClusterManager;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::ClusterManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

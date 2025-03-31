@@ -18,6 +18,34 @@ pub mod cloud_shell_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [CloudShellService][super::super::client::CloudShellService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_shell_v1::*;
+    /// # use builder::cloud_shell_service::ClientBuilder;
+    /// # use client::CloudShellService;
+    /// let builder : ClientBuilder = CloudShellService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudshell.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::CloudShellService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = CloudShellService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::CloudShellService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

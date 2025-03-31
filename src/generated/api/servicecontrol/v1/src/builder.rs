@@ -18,6 +18,34 @@ pub mod quota_controller {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [QuotaController][super::super::client::QuotaController].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_api_servicecontrol_v1::*;
+    /// # use builder::quota_controller::ClientBuilder;
+    /// # use client::QuotaController;
+    /// let builder : ClientBuilder = QuotaController::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://servicecontrol.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::QuotaController;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = QuotaController;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::QuotaController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -102,6 +130,34 @@ pub mod quota_controller {
 pub mod service_controller {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [ServiceController][super::super::client::ServiceController].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_api_servicecontrol_v1::*;
+    /// # use builder::service_controller::ClientBuilder;
+    /// # use client::ServiceController;
+    /// let builder : ClientBuilder = ServiceController::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://servicecontrol.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ServiceController;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ServiceController;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::ServiceController] request builders.
     #[derive(Clone, Debug)]

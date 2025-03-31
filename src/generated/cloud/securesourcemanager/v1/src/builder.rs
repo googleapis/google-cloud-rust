@@ -18,6 +18,34 @@ pub mod secure_source_manager {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [SecureSourceManager][super::super::client::SecureSourceManager].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_securesourcemanager_v1::*;
+    /// # use builder::secure_source_manager::ClientBuilder;
+    /// # use client::SecureSourceManager;
+    /// let builder : ClientBuilder = SecureSourceManager::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://securesourcemanager.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SecureSourceManager;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SecureSourceManager;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::SecureSourceManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

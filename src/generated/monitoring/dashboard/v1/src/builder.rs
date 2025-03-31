@@ -18,6 +18,34 @@ pub mod dashboards_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [DashboardsService][super::super::client::DashboardsService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_monitoring_dashboard_v1::*;
+    /// # use builder::dashboards_service::ClientBuilder;
+    /// # use client::DashboardsService;
+    /// let builder : ClientBuilder = DashboardsService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://monitoring.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::DashboardsService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = DashboardsService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::DashboardsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

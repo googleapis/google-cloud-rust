@@ -18,6 +18,34 @@ pub mod data_catalog {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [DataCatalog][super::super::client::DataCatalog].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_datacatalog_v1::*;
+    /// # use builder::data_catalog::ClientBuilder;
+    /// # use client::DataCatalog;
+    /// let builder : ClientBuilder = DataCatalog::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://datacatalog.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::DataCatalog;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = DataCatalog;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::DataCatalog] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -2370,6 +2398,34 @@ pub mod policy_tag_manager {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [PolicyTagManager][super::super::client::PolicyTagManager].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_datacatalog_v1::*;
+    /// # use builder::policy_tag_manager::ClientBuilder;
+    /// # use client::PolicyTagManager;
+    /// let builder : ClientBuilder = PolicyTagManager::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://datacatalog.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::PolicyTagManager;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = PolicyTagManager;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::PolicyTagManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -3297,6 +3353,34 @@ pub mod policy_tag_manager {
 pub mod policy_tag_manager_serialization {
     use crate::Result;
     use std::sync::Arc;
+
+    /// A builder for [PolicyTagManagerSerialization][super::super::client::PolicyTagManagerSerialization].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_datacatalog_v1::*;
+    /// # use builder::policy_tag_manager_serialization::ClientBuilder;
+    /// # use client::PolicyTagManagerSerialization;
+    /// let builder : ClientBuilder = PolicyTagManagerSerialization::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://datacatalog.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::PolicyTagManagerSerialization;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = PolicyTagManagerSerialization;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [super::super::client::PolicyTagManagerSerialization] request builders.
     #[derive(Clone, Debug)]

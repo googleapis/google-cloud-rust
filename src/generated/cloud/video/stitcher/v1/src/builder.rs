@@ -18,6 +18,34 @@ pub mod video_stitcher_service {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [VideoStitcherService][super::super::client::VideoStitcherService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_video_stitcher_v1::*;
+    /// # use builder::video_stitcher_service::ClientBuilder;
+    /// # use client::VideoStitcherService;
+    /// let builder : ClientBuilder = VideoStitcherService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://videostitcher.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::VideoStitcherService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = VideoStitcherService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::VideoStitcherService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

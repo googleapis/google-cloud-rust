@@ -42,4 +42,5 @@ tracing    = { version = "0.1" }
 wkt        = { version = "0.3", path = "../../../../../../../src/wkt", package = "google-cloud-wkt" }
 
 [dev-dependencies]
+tokio-test.workspace = true
 tokio = { version = "1", features = ["time"] }

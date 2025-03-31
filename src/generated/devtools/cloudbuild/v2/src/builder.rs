@@ -18,6 +18,34 @@ pub mod repository_manager {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [RepositoryManager][super::super::client::RepositoryManager].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_build_v2::*;
+    /// # use builder::repository_manager::ClientBuilder;
+    /// # use client::RepositoryManager;
+    /// let builder : ClientBuilder = RepositoryManager::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudbuild.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::RepositoryManager;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = RepositoryManager;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::RepositoryManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

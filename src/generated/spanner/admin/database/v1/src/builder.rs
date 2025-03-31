@@ -18,6 +18,34 @@ pub mod database_admin {
     use crate::Result;
     use std::sync::Arc;
 
+    /// A builder for [DatabaseAdmin][super::super::client::DatabaseAdmin].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_spanner_admin_database_v1::*;
+    /// # use builder::database_admin::ClientBuilder;
+    /// # use client::DatabaseAdmin;
+    /// let builder : ClientBuilder = DatabaseAdmin::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://spanner.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::DatabaseAdmin;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = DatabaseAdmin;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [super::super::client::DatabaseAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
