@@ -26,6 +26,14 @@
 //! faults, something like a [RetryThrottler] may be needed to improve recovery
 //! times in larger failures.
 //!
+//! To configure the default retry backoff policy for a client, use
+//! [ClientBuilder::with_backoff_policy]. To configure the retry backoff policy
+//! used for a specific request, use
+//! [RequestOptionsBuilder::with_backoff_policy].
+//!
+//! [ClientBuilder::with_backoff_policy]: crate::client_builder::ClientBuilder::with_backoff_policy
+//! [RequestOptionsBuilder::with_backoff_policy]: crate::options::RequestOptionsBuilder::with_backoff_policy
+//!
 //! # Example
 //! ```
 //! # use google_cloud_gax::*;
@@ -33,14 +41,12 @@
 //! use exponential_backoff::ExponentialBackoffBuilder;
 //! use std::time::Duration;
 //!
-//! fn configure_backoff(config: options::ClientConfig) -> Result<options::ClientConfig> {
-//!     let policy = ExponentialBackoffBuilder::new()
-//!         .with_initial_delay(Duration::from_millis(100))
-//!         .with_maximum_delay(Duration::from_secs(5))
-//!         .with_scaling(4.0)
-//!         .build()?;
-//!     Ok(config.set_backoff_policy(policy))
-//! }
+//! let policy = ExponentialBackoffBuilder::new()
+//!     .with_initial_delay(Duration::from_millis(100))
+//!     .with_maximum_delay(Duration::from_secs(5))
+//!     .with_scaling(4.0)
+//!     .build()?;
+//! # Ok::<(), error::Error>(())
 //! ```
 //!
 //! [RetryThrottler]: crate::retry_throttler::RetryThrottler

@@ -27,6 +27,14 @@
 //! is reached. This works well when the expected execution time is not known
 //! in advance.
 //!
+//! To configure the default polling backoff policy for a client, use
+//! [ClientBuilder::with_polling_backoff_policy]. To configure the polling
+//! backoff policy used for a specific request, use
+//! [RequestOptionsBuilder::with_polling_backoff_policy].
+//!
+//! [ClientBuilder::with_polling_backoff_policy]: crate::client_builder::ClientBuilder::with_polling_backoff_policy
+//! [RequestOptionsBuilder::with_polling_backoff_policy]: crate::options::RequestOptionsBuilder::with_polling_backoff_policy
+//!
 //! # Example
 //! ```
 //! # use google_cloud_gax::*;
@@ -34,14 +42,13 @@
 //! use exponential_backoff::ExponentialBackoffBuilder;
 //! use std::time::Duration;
 //!
-//! fn configure_polling(config: options::ClientConfig) -> Result<options::ClientConfig> {
-//!     let policy = ExponentialBackoffBuilder::new()
-//!         .with_initial_delay(Duration::from_millis(100))
-//!         .with_maximum_delay(Duration::from_secs(5))
-//!         .with_scaling(4.0)
-//!         .build()?;
-//!     Ok(config.set_polling_backoff_policy(policy))
-//! }
+//! let policy = ExponentialBackoffBuilder::new()
+//!     .with_initial_delay(Duration::from_millis(100))
+//!     .with_maximum_delay(Duration::from_secs(5))
+//!     .with_scaling(4.0)
+//!     .build()?;
+//! // `policy` implements the `PollingBackoffPolicy` trait.
+//! # Ok::<(), error::Error>(())
 //! ```
 //!
 //! [Exponential backoff]: https://en.wikipedia.org/wiki/Exponential_backoff
