@@ -15,7 +15,6 @@
 #[cfg(all(test, feature = "_internal_http_client"))]
 mod test {
     use gax::options::*;
-    use google_cloud_gax_internal::http::ReqwestClient;
     use serde_json::json;
 
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
@@ -23,10 +22,10 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn test_user_agent() -> Result<()> {
         let (endpoint, _server) = echo_server::start().await?;
-
-        let config =
-            ClientConfig::default().set_credential(auth::credentials::testing::test_credentials());
-        let client = ReqwestClient::new(config, &endpoint).await?;
+        let client = echo_server::builder(endpoint)
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
 
         let builder = client.builder(reqwest::Method::GET, "/echo".into());
         let body = json!({});
@@ -41,10 +40,10 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn test_user_agent_with_prefix() -> Result<()> {
         let (endpoint, _server) = echo_server::start().await?;
-
-        let config =
-            ClientConfig::default().set_credential(auth::credentials::testing::test_credentials());
-        let client = ReqwestClient::new(config, &endpoint).await?;
+        let client = echo_server::builder(endpoint)
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
 
         let builder = client.builder(reqwest::Method::GET, "/echo".into());
         let body = json!({});

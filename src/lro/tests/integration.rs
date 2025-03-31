@@ -30,6 +30,14 @@ mod test {
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
+    async fn new_client(endpoint: String) -> gax::Result<client::Client> {
+        client::Client::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_endpoint(endpoint)
+            .build()
+            .await
+    }
+
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn until_done_immediate_success() -> TestResult {
         let create = vec![fake_responses::success("op/001", "p/test-p/r/r-001")?];
@@ -40,7 +48,7 @@ mod test {
         })
         .await?;
 
-        let client = client::Client::new(endpoint).await?;
+        let client = new_client(endpoint).await?;
         let response = client
             .create_resource("test-p", "r-001")
             .poller()
@@ -66,7 +74,7 @@ mod test {
         })
         .await?;
 
-        let client = client::Client::new(endpoint).await?;
+        let client = new_client(endpoint).await?;
         let result = client
             .create_resource("test-p", "r-001")
             .poller()
@@ -91,7 +99,7 @@ mod test {
         })
         .await?;
 
-        let client = client::Client::new(endpoint).await?;
+        let client = new_client(endpoint).await?;
         let response = client
             .create_resource("test-p", "r-001")
             .poller()
@@ -120,7 +128,7 @@ mod test {
         })
         .await?;
 
-        let client = client::Client::new(endpoint).await?;
+        let client = new_client(endpoint).await?;
         let result = client
             .create_resource("test-p", "r-001")
             .poller()
@@ -142,7 +150,7 @@ mod test {
         })
         .await?;
 
-        let client = client::Client::new(endpoint).await?;
+        let client = new_client(endpoint).await?;
         let mut poller = client.create_resource("test-p", "r-001").poller();
         while let Some(status) = poller.poll().await {
             match status {
@@ -175,7 +183,7 @@ mod test {
         })
         .await?;
 
-        let client = client::Client::new(endpoint).await?;
+        let client = new_client(endpoint).await?;
         let mut poller = client.create_resource("test-p", "r-001").poller();
         while let Some(status) = poller.poll().await {
             match status {
@@ -208,7 +216,7 @@ mod test {
         })
         .await?;
 
-        let client = client::Client::new(endpoint).await?;
+        let client = new_client(endpoint).await?;
         let mut poller = client.create_resource("test-p", "r-001").poller();
         let status = poller.poll().await.unwrap();
         assert!(
@@ -263,7 +271,7 @@ mod test {
         })
         .await?;
 
-        let client = client::Client::new(endpoint).await?;
+        let client = new_client(endpoint).await?;
         let mut poller = client.create_resource("test-p", "r-001").poller();
         let status = poller.poll().await.unwrap();
         assert!(
@@ -312,7 +320,7 @@ mod test {
         })
         .await?;
 
-        let client = client::Client::new(endpoint).await?;
+        let client = new_client(endpoint).await?;
         let op = client.create_resource("test-p", "r-001").send().await?;
         assert_eq!(op.name, "op/001", "{op:?}");
         assert!(op.done, "{op:?}");
@@ -357,7 +365,7 @@ mod test {
         })
         .await?;
 
-        let client = client::Client::new(endpoint).await?;
+        let client = new_client(endpoint).await?;
         let op = client.create_resource("test-p", "r-001").send().await?;
         assert_eq!(op.name, "op/001", "{op:?}");
         assert_eq!(op.done, false, "{op:?}");
