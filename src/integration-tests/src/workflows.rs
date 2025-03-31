@@ -40,8 +40,6 @@ pub async fn until_done(builder: wf::builder::workflows::ClientBuilder) -> Resul
     let location_id = crate::region_id();
     let workflows_runner = crate::workflows_runner()?;
 
-    // We could simplify the code, but we want to test both ::new_with_config()
-    // and ::new().
     let client = builder.build().await?;
     cleanup_stale_workflows(&client, &project_id, &location_id).await?;
 
@@ -110,8 +108,6 @@ pub async fn explicit_loop(builder: wf::builder::workflows::ClientBuilder) -> Re
     let location_id = crate::region_id();
     let workflows_runner = crate::workflows_runner()?;
 
-    // We could simplify the code, but we want to test both ::new_with_config()
-    // and ::new().
     let client = builder.build().await?;
     cleanup_stale_workflows(&client, &project_id, &location_id).await?;
 
