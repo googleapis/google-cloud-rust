@@ -495,6 +495,7 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 	isMessage := field.Typez == api.MESSAGE_TYPE
 	isEnum := field.Typez == api.ENUM_TYPE
 	isBytes := field.Typez == api.BYTES_TYPE
+	isDouble := field.Typez == api.DOUBLE_TYPE || field.Typez == api.FLOAT_TYPE
 	isMap := message != nil && message.IsMap
 	isMessageMap := isMap && message.Fields[1].Typez == api.MESSAGE_TYPE
 
@@ -541,6 +542,9 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 		}
 	} else if isBytes {
 		return "decodeBytes(" + data + ")" + bang
+	} else if isDouble {
+		// (json['name'] as num?)?.toDouble(),
+		return "(" + data + " as num" + opt + ")" + opt + ".toDouble()"
 	} else {
 		// json['name']
 		return data
