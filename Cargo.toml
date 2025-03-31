@@ -29,7 +29,7 @@ default-members = [
   "src/wkt",
   "tools/check-copyright",
   # We need `cargo test` to run at least some documentation tests for generated
-  # librarie. These libraries are implicitly required by the integration tests
+  # libraries. These libraries are implicitly required by the integration tests
   # and samples, so they are not too expensive to include in the default builds.
   "src/generated/cloud/language/v2",
   "src/generated/cloud/secretmanager/v1",
