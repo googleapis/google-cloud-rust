@@ -22,13 +22,13 @@ enable the retry loop. The application must set the retry policy to enable
 this feature.
 
 This guide will show you how to enable the retry loop. First we will show how
-to enable the a common retry policy for all requests in a cient, and then how
+to enable the a common retry policy for all requests in a client, and then how
 to override this default for a specific request.
 
 ## Prerequisites
 
 The guide uses the [Secret Manager] service, that makes the examples more
-concrete and thefore easier to follow. With that said, the same ideas work for
+concrete and therefore easier to follow. With that said, the same ideas work for
 any other service.
 
 You may want to follow the service [quickstart]. This guide will walk you
