@@ -98,19 +98,21 @@ impl Aml {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::Aml>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stub::Aml> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::Aml> {
         super::transport::Aml::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stub::Aml> {
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> Result<impl super::stub::Aml> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Aml::new)

@@ -33,7 +33,7 @@ impl std::fmt::Debug for DatasetService {
 }
 
 impl DatasetService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -243,7 +243,7 @@ impl std::fmt::Debug for ModelService {
 }
 
 impl ModelService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -376,7 +376,7 @@ impl std::fmt::Debug for ProjectService {
 }
 
 impl ProjectService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -421,7 +421,7 @@ impl std::fmt::Debug for RoutineService {
 }
 
 impl RoutineService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -582,7 +582,7 @@ impl std::fmt::Debug for RowAccessPolicyService {
 }
 
 impl RowAccessPolicyService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -763,7 +763,7 @@ impl std::fmt::Debug for TableService {
 }
 
 impl TableService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }

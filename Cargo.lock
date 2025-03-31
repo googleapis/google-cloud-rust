@@ -2361,6 +2361,7 @@ dependencies = [
  "mockall",
  "prost",
  "reqwest",
+ "scoped-env",
  "serde",
  "serde_json",
  "serde_with",
