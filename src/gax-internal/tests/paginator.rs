@@ -16,7 +16,7 @@
 mod test {
     use axum::extract::Query;
     use axum::http::StatusCode;
-    use gax::paginator::{ItemPaginator, PageableResponse, Paginator};
+    use gax::paginator::{ItemPaginator, Paginator, internal::PageableResponse};
     use google_cloud_gax_internal::http::{NoBody, ReqwestClient};
     use std::collections::HashMap;
 

@@ -194,7 +194,7 @@ pub trait RequestOptionsBuilder: internal::RequestBuilder {
 
 /// This module contains implementation details. It is not part of the public
 /// API. Types inside may be changed or removed without warnings. Applications
-///  should not use any types contained within.
+/// should not use any types contained within.
 #[doc(hidden)]
 pub mod internal {
     /// Simplify implementation of the [super::RequestOptionsBuilder] trait in
