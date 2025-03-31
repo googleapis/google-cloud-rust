@@ -33,7 +33,7 @@ impl std::fmt::Debug for Agents {
 }
 
 impl Agents {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -414,7 +414,7 @@ impl std::fmt::Debug for Changelogs {
 }
 
 impl Changelogs {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -583,7 +583,7 @@ impl std::fmt::Debug for Deployments {
 }
 
 impl Deployments {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -751,7 +751,7 @@ impl std::fmt::Debug for EntityTypes {
 }
 
 impl EntityTypes {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1058,7 +1058,7 @@ impl std::fmt::Debug for Environments {
 }
 
 impl Environments {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1408,7 +1408,7 @@ impl std::fmt::Debug for Experiments {
 }
 
 impl Experiments {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1688,7 +1688,7 @@ impl std::fmt::Debug for Flows {
 }
 
 impl Flows {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -2036,7 +2036,7 @@ impl std::fmt::Debug for Generators {
 }
 
 impl Generators {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -2289,7 +2289,7 @@ impl std::fmt::Debug for Intents {
 }
 
 impl Intents {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -2584,7 +2584,7 @@ impl std::fmt::Debug for Pages {
 }
 
 impl Pages {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -2827,7 +2827,7 @@ impl std::fmt::Debug for SecuritySettingsService {
 }
 
 impl SecuritySettingsService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -3075,7 +3075,7 @@ impl std::fmt::Debug for Sessions {
 }
 
 impl Sessions {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -3286,7 +3286,7 @@ impl std::fmt::Debug for SessionEntityTypes {
 }
 
 impl SessionEntityTypes {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -3534,7 +3534,7 @@ impl std::fmt::Debug for TestCases {
 }
 
 impl TestCases {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -3941,7 +3941,7 @@ impl std::fmt::Debug for TransitionRouteGroups {
 }
 
 impl TransitionRouteGroups {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -4194,7 +4194,7 @@ impl std::fmt::Debug for Versions {
 }
 
 impl Versions {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -4490,7 +4490,7 @@ impl std::fmt::Debug for Webhooks {
 }
 
 impl Webhooks {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }

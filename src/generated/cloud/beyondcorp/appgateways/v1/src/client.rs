@@ -112,22 +112,22 @@ impl AppGatewaysService {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::AppGatewaysService>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::AppGatewaysService> {
         super::transport::AppGatewaysService::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::AppGatewaysService> {
         Self::build_transport(conf)
             .await

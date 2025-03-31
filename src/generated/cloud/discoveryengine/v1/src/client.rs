@@ -99,22 +99,22 @@ impl CompletionService {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::CompletionService>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::CompletionService> {
         super::transport::CompletionService::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::CompletionService> {
         Self::build_transport(conf)
             .await
@@ -337,22 +337,22 @@ impl ControlService {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::ControlService>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::ControlService> {
         super::transport::ControlService::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::ControlService> {
         Self::build_transport(conf)
             .await
@@ -537,22 +537,22 @@ impl ConversationalSearchService {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::ConversationalSearchService>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::ConversationalSearchService> {
         super::transport::ConversationalSearchService::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::ConversationalSearchService> {
         Self::build_transport(conf)
             .await
@@ -832,22 +832,22 @@ impl DataStoreService {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::DataStoreService>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::DataStoreService> {
         super::transport::DataStoreService::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::DataStoreService> {
         Self::build_transport(conf)
             .await
@@ -1055,22 +1055,22 @@ impl DocumentService {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::DocumentService>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::DocumentService> {
         super::transport::DocumentService::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::DocumentService> {
         Self::build_transport(conf)
             .await
@@ -1325,22 +1325,22 @@ impl EngineService {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::EngineService>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::EngineService> {
         super::transport::EngineService::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::EngineService> {
         Self::build_transport(conf)
             .await
@@ -1534,22 +1534,22 @@ impl GroundedGenerationService {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::GroundedGenerationService>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::GroundedGenerationService> {
         super::transport::GroundedGenerationService::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::GroundedGenerationService> {
         Self::build_transport(conf)
             .await
@@ -1691,22 +1691,22 @@ impl ProjectService {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::ProjectService>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::ProjectService> {
         super::transport::ProjectService::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::ProjectService> {
         Self::build_transport(conf)
             .await
@@ -1848,22 +1848,22 @@ impl RankService {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::RankService>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::RankService> {
         super::transport::RankService::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::RankService> {
         Self::build_transport(conf)
             .await
@@ -1990,22 +1990,22 @@ impl RecommendationService {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::RecommendationService>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::RecommendationService> {
         super::transport::RecommendationService::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::RecommendationService> {
         Self::build_transport(conf)
             .await
@@ -2135,22 +2135,22 @@ impl SchemaService {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::SchemaService>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::SchemaService> {
         super::transport::SchemaService::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::SchemaService> {
         Self::build_transport(conf)
             .await
@@ -2351,22 +2351,22 @@ impl SearchService {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::SearchService>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::SearchService> {
         super::transport::SearchService::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::SearchService> {
         Self::build_transport(conf)
             .await
@@ -2518,22 +2518,22 @@ impl SearchTuningService {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::SearchTuningService>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::SearchTuningService> {
         super::transport::SearchTuningService::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::SearchTuningService> {
         Self::build_transport(conf)
             .await
@@ -2682,22 +2682,22 @@ impl SiteSearchEngineService {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::SiteSearchEngineService>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::SiteSearchEngineService> {
         super::transport::SiteSearchEngineService::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::SiteSearchEngineService> {
         Self::build_transport(conf)
             .await
@@ -3032,22 +3032,22 @@ impl UserEventService {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::UserEventService>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::UserEventService> {
         super::transport::UserEventService::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::UserEventService> {
         Self::build_transport(conf)
             .await

@@ -98,22 +98,22 @@ impl PolicyBindings {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::PolicyBindings>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::PolicyBindings> {
         super::transport::PolicyBindings::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::PolicyBindings> {
         Self::build_transport(conf)
             .await
@@ -305,22 +305,22 @@ impl PrincipalAccessBoundaryPolicies {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::PrincipalAccessBoundaryPolicies>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::PrincipalAccessBoundaryPolicies> {
         super::transport::PrincipalAccessBoundaryPolicies::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::PrincipalAccessBoundaryPolicies> {
         Self::build_transport(conf)
             .await

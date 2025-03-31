@@ -99,22 +99,22 @@ impl Folders {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::Folders>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::Folders> {
         super::transport::Folders::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::Folders> {
         Self::build_transport(conf)
             .await
@@ -455,22 +455,22 @@ impl Organizations {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::Organizations>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::Organizations> {
         super::transport::Organizations::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::Organizations> {
         Self::build_transport(conf)
             .await
@@ -627,22 +627,22 @@ impl Projects {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::Projects>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::Projects> {
         super::transport::Projects::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::Projects> {
         Self::build_transport(conf)
             .await
@@ -1001,22 +1001,22 @@ impl TagBindings {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::TagBindings>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::TagBindings> {
         super::transport::TagBindings::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::TagBindings> {
         Self::build_transport(conf)
             .await
@@ -1165,22 +1165,22 @@ impl TagHolds {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::TagHolds>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::TagHolds> {
         super::transport::TagHolds::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::TagHolds> {
         Self::build_transport(conf)
             .await
@@ -1321,22 +1321,22 @@ impl TagKeys {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::TagKeys>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::TagKeys> {
         super::transport::TagKeys::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::TagKeys> {
         Self::build_transport(conf)
             .await
@@ -1548,22 +1548,22 @@ impl TagValues {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::TagValues>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::TagValues> {
         super::transport::TagValues::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::TagValues> {
         Self::build_transport(conf)
             .await

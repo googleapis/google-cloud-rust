@@ -99,22 +99,22 @@ impl HubService {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::HubService>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::HubService> {
         super::transport::HubService::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::HubService> {
         Self::build_transport(conf)
             .await
@@ -565,22 +565,22 @@ impl PolicyBasedRoutingService {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::PolicyBasedRoutingService>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::PolicyBasedRoutingService> {
         super::transport::PolicyBasedRoutingService::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::PolicyBasedRoutingService> {
         Self::build_transport(conf)
             .await

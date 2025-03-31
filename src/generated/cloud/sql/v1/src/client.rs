@@ -92,18 +92,18 @@ impl SqlBackupRunsService {
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlBackupRunsService>> {
-        if conf.tracing_enabled() {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlBackupRunsService>> {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stub::SqlBackupRunsService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::SqlBackupRunsService> {
         super::transport::SqlBackupRunsService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stub::SqlBackupRunsService> {
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::SqlBackupRunsService> {
         Self::build_transport(conf).await.map(super::tracing::SqlBackupRunsService::new)
     }
 
@@ -235,18 +235,18 @@ impl SqlConnectService {
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlConnectService>> {
-        if conf.tracing_enabled() {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlConnectService>> {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stub::SqlConnectService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::SqlConnectService> {
         super::transport::SqlConnectService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stub::SqlConnectService> {
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::SqlConnectService> {
         Self::build_transport(conf).await.map(super::tracing::SqlConnectService::new)
     }
 
@@ -351,18 +351,18 @@ impl SqlDatabasesService {
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlDatabasesService>> {
-        if conf.tracing_enabled() {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlDatabasesService>> {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stub::SqlDatabasesService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::SqlDatabasesService> {
         super::transport::SqlDatabasesService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stub::SqlDatabasesService> {
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::SqlDatabasesService> {
         Self::build_transport(conf).await.map(super::tracing::SqlDatabasesService::new)
     }
 
@@ -526,18 +526,18 @@ impl SqlFlagsService {
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlFlagsService>> {
-        if conf.tracing_enabled() {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlFlagsService>> {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stub::SqlFlagsService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::SqlFlagsService> {
         super::transport::SqlFlagsService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stub::SqlFlagsService> {
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::SqlFlagsService> {
         Self::build_transport(conf).await.map(super::tracing::SqlFlagsService::new)
     }
 
@@ -623,18 +623,18 @@ impl SqlInstancesService {
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlInstancesService>> {
-        if conf.tracing_enabled() {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlInstancesService>> {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stub::SqlInstancesService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::SqlInstancesService> {
         super::transport::SqlInstancesService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stub::SqlInstancesService> {
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::SqlInstancesService> {
         Self::build_transport(conf).await.map(super::tracing::SqlInstancesService::new)
     }
 
@@ -1152,18 +1152,18 @@ impl SqlOperationsService {
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlOperationsService>> {
-        if conf.tracing_enabled() {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlOperationsService>> {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stub::SqlOperationsService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::SqlOperationsService> {
         super::transport::SqlOperationsService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stub::SqlOperationsService> {
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::SqlOperationsService> {
         Self::build_transport(conf).await.map(super::tracing::SqlOperationsService::new)
     }
 
@@ -1276,18 +1276,18 @@ impl SqlSslCertsService {
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlSslCertsService>> {
-        if conf.tracing_enabled() {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlSslCertsService>> {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stub::SqlSslCertsService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::SqlSslCertsService> {
         super::transport::SqlSslCertsService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stub::SqlSslCertsService> {
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::SqlSslCertsService> {
         Self::build_transport(conf).await.map(super::tracing::SqlSslCertsService::new)
     }
 
@@ -1422,18 +1422,18 @@ impl SqlTiersService {
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlTiersService>> {
-        if conf.tracing_enabled() {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlTiersService>> {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stub::SqlTiersService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::SqlTiersService> {
         super::transport::SqlTiersService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stub::SqlTiersService> {
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::SqlTiersService> {
         Self::build_transport(conf).await.map(super::tracing::SqlTiersService::new)
     }
 
@@ -1523,18 +1523,18 @@ impl SqlUsersService {
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlUsersService>> {
-        if conf.tracing_enabled() {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::SqlUsersService>> {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stub::SqlUsersService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::SqlUsersService> {
         super::transport::SqlUsersService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stub::SqlUsersService> {
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::SqlUsersService> {
         Self::build_transport(conf).await.map(super::tracing::SqlUsersService::new)
     }
 

@@ -33,7 +33,7 @@ impl std::fmt::Debug for CompletionService {
 }
 
 impl CompletionService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -237,7 +237,7 @@ impl std::fmt::Debug for ControlService {
 }
 
 impl ControlService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -443,7 +443,7 @@ impl std::fmt::Debug for ConversationalSearchService {
 }
 
 impl ConversationalSearchService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -830,7 +830,7 @@ impl std::fmt::Debug for DataStoreService {
 }
 
 impl DataStoreService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1058,7 +1058,7 @@ impl std::fmt::Debug for DocumentService {
 }
 
 impl DocumentService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1353,7 +1353,7 @@ impl std::fmt::Debug for EngineService {
 }
 
 impl EngineService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1565,7 +1565,7 @@ impl std::fmt::Debug for GroundedGenerationService {
 }
 
 impl GroundedGenerationService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1689,7 +1689,7 @@ impl std::fmt::Debug for ProjectService {
 }
 
 impl ProjectService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1804,7 +1804,7 @@ impl std::fmt::Debug for RankService {
 }
 
 impl RankService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1908,7 +1908,7 @@ impl std::fmt::Debug for RecommendationService {
 }
 
 impl RecommendationService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -2012,7 +2012,7 @@ impl std::fmt::Debug for SchemaService {
 }
 
 impl SchemaService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -2214,7 +2214,7 @@ impl std::fmt::Debug for SearchService {
 }
 
 impl SearchService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -2338,7 +2338,7 @@ impl std::fmt::Debug for SearchTuningService {
 }
 
 impl SearchTuningService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -2478,7 +2478,7 @@ impl std::fmt::Debug for SiteSearchEngineService {
 }
 
 impl SiteSearchEngineService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -2834,7 +2834,7 @@ impl std::fmt::Debug for UserEventService {
 }
 
 impl UserEventService {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
