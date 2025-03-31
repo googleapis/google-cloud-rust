@@ -34,8 +34,7 @@ which seems to be the most popular.
 ```
 
 This guide will use a [`Speech`][speech-client] client. Note that the same
-principles in this guide apply to all of the clients, not just the `Speech`
-client.
+ideas in this guide apply to all of the clients, not just the `Speech` client.
 
 We declare the dependency in our `Cargo.toml`. Yours will be similar, but
 without the custom `path`.
@@ -49,14 +48,14 @@ without the custom `path`.
 First, some `use` declarations to simplify the code:
 
 ```rust,ignore
-{{#include ../samples/src/mocking.rs:use}}
+{{#include ../samples/tests/mocking.rs:use}}
 ```
 
 Let's assume our application has a function that uses the `Speech` client to
 make an RPC, and process the response from the server.
 
 ```rust,ignore
-{{#include ../samples/src/mocking.rs:my_application_function}}
+{{#include ../samples/tests/mocking.rs:my_application_function}}
 ```
 
 We want to test how our code handles different responses from the service.
@@ -64,7 +63,7 @@ We want to test how our code handles different responses from the service.
 First we will define the mock class. This class implements the [`speech::stub::Speech`][speech-stub] trait.
 
 ```rust,ignore
-{{#include ../samples/src/mocking.rs:mockall_macro}}
+{{#include ../samples/tests/mocking.rs:mockall_macro}}
 ```
 
 Next, we create an instance of the mock. Note that the
@@ -72,7 +71,7 @@ Next, we create an instance of the mock. Note that the
 struct from above.
 
 ```rust,ignore
-{{#include ../samples/src/mocking.rs:mock_new}}
+{{#include ../samples/tests/mocking.rs:mock_new}}
 ```
 
 Next we will set expectations on the mock. We expect `GetRecognizer` to be
@@ -81,25 +80,25 @@ called, with a particular name.
 If that happens, we will simulate a successful response from the service.
 
 ```rust,ignore
-{{#include ../samples/src/mocking.rs:mock_expectation}}
+{{#include ../samples/tests/mocking.rs:mock_expectation}}
 ```
 
 Now we are ready to create a `Speech` client with our mock.
 
 ```rust,ignore
-{{#include ../samples/src/mocking.rs:client_from_mock}}
+{{#include ../samples/tests/mocking.rs:client_from_mock}}
 ```
 
 Finally, we are ready to call our function...
 
 ```rust,ignore
-{{#include ../samples/src/mocking.rs:call_fn}}
+{{#include ../samples/tests/mocking.rs:call_fn}}
 ```
 
 ... and verify the results.
 
 ```rust,ignore
-{{#include ../samples/src/mocking.rs:validate}}
+{{#include ../samples/tests/mocking.rs:validate}}
 ```
 
 ______________________________________________________________________
@@ -109,7 +108,7 @@ ______________________________________________________________________
 Putting all this code together into a full program looks as follows:
 
 ```rust,ignore,noplayground
-{{#include ../samples/src/mocking.rs:all}}
+{{#include ../samples/tests/mocking.rs:all}}
 ```
 
 [mock-macro]: https://docs.rs/mockall/latest/mockall/macro.mock.html
