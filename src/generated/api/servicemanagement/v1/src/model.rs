@@ -1108,7 +1108,8 @@ impl wkt::message::Message for ListServicesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListServicesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListServicesResponse {
     type PageItem = crate::model::ManagedService;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1489,7 +1490,8 @@ impl wkt::message::Message for ListServiceConfigsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListServiceConfigsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListServiceConfigsResponse {
     type PageItem = api::model::Service;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1793,7 +1795,8 @@ impl wkt::message::Message for ListServiceRolloutsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListServiceRolloutsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListServiceRolloutsResponse {
     type PageItem = crate::model::Rollout;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

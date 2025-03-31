@@ -1690,7 +1690,8 @@ impl wkt::message::Message for ListInstancesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListInstancesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListInstancesResponse {
     type PageItem = crate::model::Instance;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

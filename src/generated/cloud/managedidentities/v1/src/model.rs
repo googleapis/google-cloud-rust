@@ -392,7 +392,8 @@ impl wkt::message::Message for ListDomainsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDomainsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDomainsResponse {
     type PageItem = crate::model::Domain;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

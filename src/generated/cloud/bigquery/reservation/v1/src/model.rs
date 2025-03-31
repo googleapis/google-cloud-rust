@@ -886,7 +886,8 @@ impl wkt::message::Message for ListReservationsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListReservationsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListReservationsResponse {
     type PageItem = crate::model::Reservation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1223,7 +1224,8 @@ impl wkt::message::Message for ListCapacityCommitmentsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCapacityCommitmentsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCapacityCommitmentsResponse {
     type PageItem = crate::model::CapacityCommitment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1901,7 +1903,8 @@ impl wkt::message::Message for ListAssignmentsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAssignmentsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAssignmentsResponse {
     type PageItem = crate::model::Assignment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2139,7 +2142,8 @@ impl wkt::message::Message for SearchAssignmentsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for SearchAssignmentsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for SearchAssignmentsResponse {
     type PageItem = crate::model::Assignment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2200,7 +2204,8 @@ impl wkt::message::Message for SearchAllAssignmentsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for SearchAllAssignmentsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for SearchAllAssignmentsResponse {
     type PageItem = crate::model::Assignment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

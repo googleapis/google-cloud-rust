@@ -1466,7 +1466,8 @@ impl wkt::message::Message for ListConnectivityTestsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListConnectivityTestsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListConnectivityTestsResponse {
     type PageItem = crate::model::ConnectivityTest;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7940,7 +7941,8 @@ impl wkt::message::Message for ListVpcFlowLogsConfigsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListVpcFlowLogsConfigsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListVpcFlowLogsConfigsResponse {
     type PageItem = crate::model::VpcFlowLogsConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

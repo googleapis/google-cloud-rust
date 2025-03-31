@@ -229,7 +229,8 @@ impl wkt::message::Message for ListServiceProjectAttachmentsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListServiceProjectAttachmentsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListServiceProjectAttachmentsResponse {
     type PageItem = crate::model::ServiceProjectAttachment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -589,7 +590,8 @@ impl wkt::message::Message for ListServicesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListServicesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListServicesResponse {
     type PageItem = crate::model::Service;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -731,7 +733,8 @@ impl wkt::message::Message for ListDiscoveredServicesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDiscoveredServicesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDiscoveredServicesResponse {
     type PageItem = crate::model::DiscoveredService;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1218,7 +1221,8 @@ impl wkt::message::Message for ListApplicationsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListApplicationsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListApplicationsResponse {
     type PageItem = crate::model::Application;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1602,7 +1606,8 @@ impl wkt::message::Message for ListWorkloadsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListWorkloadsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListWorkloadsResponse {
     type PageItem = crate::model::Workload;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1744,7 +1749,8 @@ impl wkt::message::Message for ListDiscoveredWorkloadsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDiscoveredWorkloadsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDiscoveredWorkloadsResponse {
     type PageItem = crate::model::DiscoveredWorkload;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

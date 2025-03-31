@@ -406,7 +406,8 @@ impl wkt::message::Message for ListAppConnectorsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAppConnectorsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAppConnectorsResponse {
     type PageItem = crate::model::AppConnector;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

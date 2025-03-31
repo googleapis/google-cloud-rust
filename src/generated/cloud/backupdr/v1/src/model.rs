@@ -806,7 +806,8 @@ impl wkt::message::Message for ListManagementServersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListManagementServersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListManagementServersResponse {
     type PageItem = crate::model::ManagementServer;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2231,7 +2232,8 @@ impl wkt::message::Message for ListBackupPlansResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListBackupPlansResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBackupPlansResponse {
     type PageItem = crate::model::BackupPlan;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2892,7 +2894,8 @@ impl wkt::message::Message for ListBackupPlanAssociationsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListBackupPlanAssociationsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBackupPlanAssociationsResponse {
     type PageItem = crate::model::BackupPlanAssociation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5482,7 +5485,8 @@ impl wkt::message::Message for ListBackupVaultsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListBackupVaultsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBackupVaultsResponse {
     type PageItem = crate::model::BackupVault;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5635,7 +5639,8 @@ impl wkt::message::Message for FetchUsableBackupVaultsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for FetchUsableBackupVaultsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for FetchUsableBackupVaultsResponse {
     type PageItem = crate::model::BackupVault;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6024,7 +6029,8 @@ impl wkt::message::Message for ListDataSourcesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDataSourcesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDataSourcesResponse {
     type PageItem = crate::model::DataSource;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6297,7 +6303,8 @@ impl wkt::message::Message for ListBackupsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListBackupsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBackupsResponse {
     type PageItem = crate::model::Backup;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

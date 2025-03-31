@@ -1029,7 +1029,8 @@ impl wkt::message::Message for ListProcessesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListProcessesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListProcessesResponse {
     type PageItem = crate::model::Process;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1330,7 +1331,8 @@ impl wkt::message::Message for ListRunsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListRunsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRunsResponse {
     type PageItem = crate::model::Run;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1574,7 +1576,8 @@ impl wkt::message::Message for ListLineageEventsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListLineageEventsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListLineageEventsResponse {
     type PageItem = crate::model::LineageEvent;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1826,7 +1829,8 @@ impl wkt::message::Message for SearchLinksResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for SearchLinksResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for SearchLinksResponse {
     type PageItem = crate::model::Link;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2051,7 +2055,8 @@ impl wkt::message::Message for BatchSearchLinkProcessesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for BatchSearchLinkProcessesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for BatchSearchLinkProcessesResponse {
     type PageItem = crate::model::ProcessLinks;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

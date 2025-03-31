@@ -1876,7 +1876,8 @@ impl wkt::message::Message for ListAssetsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAssetsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAssetsResponse {
     type PageItem = crate::model::Asset;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2559,7 +2560,8 @@ impl wkt::message::Message for ListImportJobsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListImportJobsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListImportJobsResponse {
     type PageItem = crate::model::ImportJob;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3011,7 +3013,8 @@ impl wkt::message::Message for ListImportDataFilesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListImportDataFilesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListImportDataFilesResponse {
     type PageItem = crate::model::ImportDataFile;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3282,7 +3285,8 @@ impl wkt::message::Message for ListGroupsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListGroupsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListGroupsResponse {
     type PageItem = crate::model::Group;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3801,7 +3805,8 @@ impl wkt::message::Message for ListErrorFramesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListErrorFramesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListErrorFramesResponse {
     type PageItem = crate::model::ErrorFrame;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3982,7 +3987,8 @@ impl wkt::message::Message for ListSourcesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListSourcesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListSourcesResponse {
     type PageItem = crate::model::Source;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4344,7 +4350,8 @@ impl wkt::message::Message for ListPreferenceSetsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListPreferenceSetsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListPreferenceSetsResponse {
     type PageItem = crate::model::PreferenceSet;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5016,7 +5023,8 @@ impl wkt::message::Message for ListReportsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListReportsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListReportsResponse {
     type PageItem = crate::model::Report;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5237,7 +5245,8 @@ impl wkt::message::Message for ListReportConfigsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListReportConfigsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListReportConfigsResponse {
     type PageItem = crate::model::ReportConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

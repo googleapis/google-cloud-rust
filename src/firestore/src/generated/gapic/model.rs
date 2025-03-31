@@ -1616,7 +1616,8 @@ impl wkt::message::Message for ListDocumentsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDocumentsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDocumentsResponse {
     type PageItem = crate::model::Document;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3558,7 +3559,8 @@ impl wkt::message::Message for PartitionQueryResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for PartitionQueryResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for PartitionQueryResponse {
     type PageItem = crate::model::Cursor;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

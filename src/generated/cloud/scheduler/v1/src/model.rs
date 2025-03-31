@@ -154,7 +154,8 @@ impl wkt::message::Message for ListJobsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListJobsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListJobsResponse {
     type PageItem = crate::model::Job;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

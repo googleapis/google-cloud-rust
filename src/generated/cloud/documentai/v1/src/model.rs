@@ -6830,7 +6830,8 @@ impl wkt::message::Message for ListProcessorTypesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListProcessorTypesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListProcessorTypesResponse {
     type PageItem = crate::model::ProcessorType;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6943,7 +6944,8 @@ impl wkt::message::Message for ListProcessorsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListProcessorsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListProcessorsResponse {
     type PageItem = crate::model::Processor;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7156,7 +7158,8 @@ impl wkt::message::Message for ListProcessorVersionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListProcessorVersionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListProcessorVersionsResponse {
     type PageItem = crate::model::ProcessorVersion;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -9077,7 +9080,8 @@ impl wkt::message::Message for ListEvaluationsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListEvaluationsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListEvaluationsResponse {
     type PageItem = crate::model::Evaluation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

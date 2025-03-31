@@ -485,7 +485,8 @@ impl wkt::message::Message for ListProfilesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListProfilesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListProfilesResponse {
     type PageItem = crate::model::Profile;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

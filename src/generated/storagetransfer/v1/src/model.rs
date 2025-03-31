@@ -407,7 +407,8 @@ impl wkt::message::Message for ListTransferJobsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTransferJobsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTransferJobsResponse {
     type PageItem = crate::model::TransferJob;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -821,7 +822,8 @@ impl wkt::message::Message for ListAgentPoolsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAgentPoolsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAgentPoolsResponse {
     type PageItem = crate::model::AgentPool;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

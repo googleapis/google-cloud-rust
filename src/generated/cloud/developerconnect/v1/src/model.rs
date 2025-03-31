@@ -1255,7 +1255,8 @@ impl wkt::message::Message for ListConnectionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListConnectionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListConnectionsResponse {
     type PageItem = crate::model::Connection;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2094,7 +2095,8 @@ impl wkt::message::Message for ListGitRepositoryLinksResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListGitRepositoryLinksResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListGitRepositoryLinksResponse {
     type PageItem = crate::model::GitRepositoryLink;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2403,7 +2405,8 @@ impl wkt::message::Message for FetchLinkableGitRepositoriesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for FetchLinkableGitRepositoriesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for FetchLinkableGitRepositoriesResponse {
     type PageItem = crate::model::LinkableGitRepository;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

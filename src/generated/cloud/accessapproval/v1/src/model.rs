@@ -1120,7 +1120,8 @@ impl wkt::message::Message for ListApprovalRequestsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListApprovalRequestsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListApprovalRequestsResponse {
     type PageItem = crate::model::ApprovalRequest;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

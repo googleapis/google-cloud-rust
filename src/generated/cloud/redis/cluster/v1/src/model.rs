@@ -234,7 +234,8 @@ impl wkt::message::Message for ListClustersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListClustersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListClustersResponse {
     type PageItem = crate::model::Cluster;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -543,7 +544,8 @@ impl wkt::message::Message for ListBackupCollectionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListBackupCollectionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBackupCollectionsResponse {
     type PageItem = crate::model::BackupCollection;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -705,7 +707,8 @@ impl wkt::message::Message for ListBackupsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListBackupsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBackupsResponse {
     type PageItem = crate::model::Backup;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

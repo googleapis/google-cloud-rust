@@ -1538,7 +1538,8 @@ impl wkt::message::Message for ListEventsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListEventsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListEventsResponse {
     type PageItem = crate::model::Event;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1753,7 +1754,8 @@ impl wkt::message::Message for ListOrganizationEventsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListOrganizationEventsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListOrganizationEventsResponse {
     type PageItem = crate::model::OrganizationEvent;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1961,7 +1963,8 @@ impl wkt::message::Message for ListOrganizationImpactsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListOrganizationImpactsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListOrganizationImpactsResponse {
     type PageItem = crate::model::OrganizationImpact;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

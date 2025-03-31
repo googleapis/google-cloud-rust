@@ -219,7 +219,8 @@ impl wkt::message::Message for ListConnectionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListConnectionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListConnectionsResponse {
     type PageItem = crate::model::Connection;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

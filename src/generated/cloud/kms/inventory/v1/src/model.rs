@@ -136,7 +136,8 @@ impl wkt::message::Message for ListCryptoKeysResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCryptoKeysResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCryptoKeysResponse {
     type PageItem = kms::model::CryptoKey;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -440,7 +441,8 @@ impl wkt::message::Message for SearchProtectedResourcesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for SearchProtectedResourcesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for SearchProtectedResourcesResponse {
     type PageItem = crate::model::ProtectedResource;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

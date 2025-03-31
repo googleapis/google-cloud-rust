@@ -489,7 +489,8 @@ impl wkt::message::Message for ListAssetsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAssetsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAssetsResponse {
     type PageItem = crate::model::Asset;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2037,7 +2038,8 @@ impl wkt::message::Message for SearchAllResourcesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for SearchAllResourcesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for SearchAllResourcesResponse {
     type PageItem = crate::model::ResourceSearchResult;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2265,7 +2267,8 @@ impl wkt::message::Message for SearchAllIamPoliciesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for SearchAllIamPoliciesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for SearchAllIamPoliciesResponse {
     type PageItem = crate::model::IamPolicySearchResult;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3912,7 +3915,8 @@ impl wkt::message::Message for ListSavedQueriesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListSavedQueriesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListSavedQueriesResponse {
     type PageItem = crate::model::SavedQuery;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6637,7 +6641,8 @@ impl wkt::message::Message for AnalyzeOrgPoliciesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for AnalyzeOrgPoliciesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for AnalyzeOrgPoliciesResponse {
     type PageItem = crate::model::analyze_org_policies_response::OrgPolicyResult;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6923,7 +6928,8 @@ impl wkt::message::Message for AnalyzeOrgPolicyGovernedContainersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for AnalyzeOrgPolicyGovernedContainersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for AnalyzeOrgPolicyGovernedContainersResponse {
     type PageItem =
         crate::model::analyze_org_policy_governed_containers_response::GovernedContainer;
 
@@ -7277,7 +7283,8 @@ impl wkt::message::Message for AnalyzeOrgPolicyGovernedAssetsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for AnalyzeOrgPolicyGovernedAssetsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for AnalyzeOrgPolicyGovernedAssetsResponse {
     type PageItem = crate::model::analyze_org_policy_governed_assets_response::GovernedAsset;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

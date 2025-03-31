@@ -196,7 +196,8 @@ impl wkt::message::Message for ListKeysResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListKeysResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListKeysResponse {
     type PageItem = crate::model::Key;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

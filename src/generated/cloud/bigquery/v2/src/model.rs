@@ -14661,7 +14661,8 @@ impl wkt::message::Message for ListRowAccessPoliciesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListRowAccessPoliciesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRowAccessPoliciesResponse {
     type PageItem = crate::model::RowAccessPolicy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

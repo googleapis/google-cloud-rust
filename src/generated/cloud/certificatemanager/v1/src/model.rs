@@ -168,7 +168,8 @@ impl wkt::message::Message for ListCertificateIssuanceConfigsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCertificateIssuanceConfigsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCertificateIssuanceConfigsResponse {
     type PageItem = crate::model::CertificateIssuanceConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -742,7 +743,8 @@ impl wkt::message::Message for ListCertificatesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCertificatesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCertificatesResponse {
     type PageItem = crate::model::Certificate;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1053,7 +1055,8 @@ impl wkt::message::Message for ListCertificateMapsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCertificateMapsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCertificateMapsResponse {
     type PageItem = crate::model::CertificateMap;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1372,7 +1375,8 @@ impl wkt::message::Message for ListCertificateMapEntriesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCertificateMapEntriesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCertificateMapEntriesResponse {
     type PageItem = crate::model::CertificateMapEntry;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1686,7 +1690,8 @@ impl wkt::message::Message for ListDnsAuthorizationsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDnsAuthorizationsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDnsAuthorizationsResponse {
     type PageItem = crate::model::DnsAuthorization;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3727,7 +3732,8 @@ impl wkt::message::Message for ListTrustConfigsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTrustConfigsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTrustConfigsResponse {
     type PageItem = crate::model::TrustConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

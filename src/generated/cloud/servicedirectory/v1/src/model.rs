@@ -562,7 +562,8 @@ impl wkt::message::Message for ListNamespacesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListNamespacesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListNamespacesResponse {
     type PageItem = crate::model::Namespace;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -908,7 +909,8 @@ impl wkt::message::Message for ListServicesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListServicesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListServicesResponse {
     type PageItem = crate::model::Service;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1259,7 +1261,8 @@ impl wkt::message::Message for ListEndpointsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListEndpointsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListEndpointsResponse {
     type PageItem = crate::model::Endpoint;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

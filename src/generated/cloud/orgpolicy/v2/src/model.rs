@@ -1260,7 +1260,8 @@ impl wkt::message::Message for ListConstraintsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListConstraintsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListConstraintsResponse {
     type PageItem = crate::model::Constraint;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1380,7 +1381,8 @@ impl wkt::message::Message for ListPoliciesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListPoliciesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListPoliciesResponse {
     type PageItem = crate::model::Policy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1781,7 +1783,8 @@ impl wkt::message::Message for ListCustomConstraintsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCustomConstraintsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCustomConstraintsResponse {
     type PageItem = crate::model::CustomConstraint;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

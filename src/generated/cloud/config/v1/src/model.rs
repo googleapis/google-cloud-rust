@@ -1087,7 +1087,8 @@ impl wkt::message::Message for ListDeploymentsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDeploymentsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDeploymentsResponse {
     type PageItem = crate::model::Deployment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1287,7 +1288,8 @@ impl wkt::message::Message for ListRevisionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListRevisionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRevisionsResponse {
     type PageItem = crate::model::Revision;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3163,7 +3165,8 @@ impl wkt::message::Message for ListResourcesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListResourcesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListResourcesResponse {
     type PageItem = crate::model::Resource;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4611,7 +4614,8 @@ impl wkt::message::Message for ListPreviewsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListPreviewsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListPreviewsResponse {
     type PageItem = crate::model::Preview;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4954,7 +4958,8 @@ impl wkt::message::Message for ListTerraformVersionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTerraformVersionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTerraformVersionsResponse {
     type PageItem = crate::model::TerraformVersion;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
