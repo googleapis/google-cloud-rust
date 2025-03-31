@@ -113,22 +113,23 @@ You can find the [full function](#automatically-polling-a-long-running-operation
 
 ## Automatically polling a long-running operation
 
-Spoiler, preparing the request will be identical how we started a long-running
-operation. The difference will come at the end, where instead of sending the
-request to get the `Operation` promise:
+Spoiler, preparing the request will be identical to how we started a
+long-running operation. The difference will come at the end, where instead of
+sending the request to get the `Operation` promise:
 
 ```rust,ignore
 {{#include ../samples/src/lro.rs:send}}
 ```
 
-we create a `Poller` and wait until it is done:
+... we create a `Poller` and wait until it is done:
 
 ```rust,ignore
 {{#include ../samples/src/lro.rs:automatic-poller-until-done}}
 ```
 
-Let's review the code step-by-step, without spoilers this time. First, we need
-to introduce trait in scope via a `use` declaration:
+Let's review the code step-by-step, without spoilers this time.
+
+First, we introduce the trait in scope via a `use` declaration:
 
 ```rust,ignore
 {{#include ../samples/src/lro.rs:automatic-use}}
