@@ -32,6 +32,7 @@ mod test {
 
     async fn new_client(endpoint: String) -> gax::Result<client::Client> {
         client::Client::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
             .with_endpoint(endpoint)
             .build()
             .await
