@@ -13,11 +13,12 @@
 // limitations under the License.
 
 /// Tests to validate the generated JSON encoding code using types from
-/// package:google_cloud_rpc.
+/// package:google_cloud_language and package:google_cloud_rpc.
 library;
 
 import 'dart:convert';
 
+import 'package:google_cloud_language/language.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
 import 'package:google_cloud_rpc/rpc.dart';
 import 'package:test/test.dart';
@@ -141,6 +142,26 @@ void main() {
     expect(actual.code, expected.code);
     expect(actual.message, expected.message);
     expect(actual.details, isEmpty);
+  });
+
+  // doubles
+  test('Sentiment', () {
+    // ints
+    var expected = Sentiment(magnitude: 123, score: 0);
+    var actual = Sentiment.fromJson(encodeDecode(expected.toJson()));
+    expect(actual.magnitude, 123.0);
+    expect(actual.score, 0.0);
+
+    // doubles
+    expected = Sentiment(magnitude: 1.5, score: 0.5);
+    actual = Sentiment.fromJson(encodeDecode(expected.toJson()));
+    expect(actual.magnitude, 1.5);
+    expect(actual.score, 0.5);
+
+    // Make sure we handle ints in JSON as doubles.
+    actual = Sentiment.fromJson(jsonDecode('{"magnitude":123,"score":0}'));
+    expect(actual.magnitude, 123);
+    expect(actual.score, 0);
   });
 }
 
