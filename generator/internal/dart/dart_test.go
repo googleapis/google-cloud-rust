@@ -172,7 +172,7 @@ func TestResolveTypeName(t *testing.T) {
 	}
 }
 
-func TestResolveTypeName_Imports(t *testing.T) {
+func TestResolveTypeName_ImportsMessages(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{
 		{
 			ID:      ".google.protobuf.Any",
@@ -187,6 +187,10 @@ func TestResolveTypeName_Imports(t *testing.T) {
 			Package: "google.type",
 		},
 	}, []*api.Enum{}, []*api.Service{})
+
+	// We use an explicit package name here; NewTestAPI will otherwise default to
+	// 'google.type' and we won't be able to test that package name below.
+	model.PackageName = "google.sample"
 
 	annotate := newAnnotateModel(model)
 	annotate.annotateModel(map[string]string{})
@@ -211,6 +215,38 @@ func TestResolveTypeName_Imports(t *testing.T) {
 		if _, ok := annotate.imports[test.want]; !ok {
 			t.Errorf("import not added, got: %v want: %s", annotate.imports, test.want)
 		}
+	}
+}
+
+func TestResolveTypeName_ImportsEnum(t *testing.T) {
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{
+		{
+			ID:      ".google.type.DayOfWeek",
+			Package: "google.type",
+		},
+	}, []*api.Service{})
+
+	// We use an explicit package name here; NewTestAPI will otherwise default to
+	// 'google.type' and we won't be able to test that package name below.
+	model.PackageName = "google.sample"
+
+	annotate := newAnnotateModel(model)
+	annotate.annotateModel(map[string]string{})
+
+	annotate.packageMapping = map[string]string{
+		"google.type": "package:google_cloud_type/type.dart",
+	}
+
+	field := &api.Field{
+		Name:    "testField",
+		Typez:   api.ENUM_TYPE,
+		TypezID: ".google.type.DayOfWeek",
+	}
+	annotate.imports = map[string]string{}
+	annotate.fieldType(field)
+	want := "google.type"
+	if _, ok := annotate.imports[want]; !ok {
+		t.Errorf("import not added, got: %v want: %s", annotate.imports, want)
 	}
 }
 
