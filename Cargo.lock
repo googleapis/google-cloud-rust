@@ -6366,6 +6366,7 @@ dependencies = [
 name = "user-guide-samples"
 version = "0.0.0"
 dependencies = [
+ "crc32c",
  "google-cloud-gax",
  "google-cloud-longrunning",
  "google-cloud-secretmanager-v1",
