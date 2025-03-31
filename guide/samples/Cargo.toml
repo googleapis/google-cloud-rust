@@ -45,3 +45,6 @@ google-cloud-secretmanager-v1 = { version = "0.2", path = "../../src/generated/c
 [features]
 run-integration-tests = []
 log-integration-tests = []
+
+[dev-dependencies]
+rand = "0.9"

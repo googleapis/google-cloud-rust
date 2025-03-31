@@ -20,5 +20,6 @@ limitations under the License.
 - [Setting up your development environment](setting_up_your_development_environment.md)
 - [Setting up Rust on Cloud Shell](setting_up_rust_on_cloud_shell.md)
 - [How to initialize a client](initialize_a_client.md)
+- [Configuring retry policies](configuring_retry_policies.md)
 - [Working with long-running operations](working_with_long_running_operations.md)
 - [Configuring polling policies](configuring_polling_policies.md)
