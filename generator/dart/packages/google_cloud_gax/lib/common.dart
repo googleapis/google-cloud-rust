@@ -50,12 +50,12 @@ abstract class Enum implements JsonEncodable {
 }
 
 class ServiceClient {
-  final http.Client httpClient;
+  final http.Client client;
 
-  ServiceClient({required this.httpClient});
+  ServiceClient({required this.client});
 
   Future<Map<String, dynamic>> get(Uri url) async {
-    final response = await httpClient.get(
+    final response = await client.get(
       url,
       headers: {
         'x-goog-api-client': _clientName,
@@ -65,7 +65,7 @@ class ServiceClient {
   }
 
   Future<Map<String, dynamic>> post(Uri url, {JsonEncodable? body}) async {
-    final response = await httpClient.post(
+    final response = await client.post(
       url,
       body: body == null ? null : jsonEncode(body.toJson()),
       headers: {
@@ -77,7 +77,7 @@ class ServiceClient {
   }
 
   Future<Map<String, dynamic>> patch(Uri url, {JsonEncodable? body}) async {
-    final response = await httpClient.patch(
+    final response = await client.patch(
       url,
       body: body == null ? null : jsonEncode(body.toJson()),
       headers: {
@@ -89,7 +89,7 @@ class ServiceClient {
   }
 
   Future<Map<String, dynamic>> delete(Uri url) async {
-    final response = await httpClient.delete(
+    final response = await client.delete(
       url,
       headers: {
         'x-goog-api-client': _clientName,
@@ -101,7 +101,7 @@ class ServiceClient {
   /// Closes the client and cleans up any resources associated with it.
   ///
   /// Once [close] is called, no other methods should be called.
-  void close() => httpClient.close();
+  void close() => client.close();
 
   Map<String, dynamic> _processResponse(http.Response response) {
     final statusOK = response.statusCode >= 200 && response.statusCode < 300;

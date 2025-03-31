@@ -22,8 +22,8 @@ class {{Codec.Name}} {
 
   final ServiceClient _client;
 
-  {{Codec.Name}}({required http.Client httpClient})
-      : _client = ServiceClient(httpClient: httpClient);
+  {{Codec.Name}}({required http.Client client})
+      : _client = ServiceClient(client: client);
   {{#Codec.Methods}}
   {{> method}}
   {{/Codec.Methods}}

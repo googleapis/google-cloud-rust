@@ -21,4 +21,4 @@ annotations, to developers.
 
 The main types for this package are:
 
-- LanguageService
+- `LanguageService`

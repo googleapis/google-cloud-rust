@@ -34,8 +34,8 @@ class LanguageService {
 
   final ServiceClient _client;
 
-  LanguageService({required http.Client httpClient})
-      : _client = ServiceClient(httpClient: httpClient);
+  LanguageService({required http.Client client})
+      : _client = ServiceClient(client: client);
 
   /// Analyzes the sentiment of the provided text.
   Future<AnalyzeSentimentResponse> analyzeSentiment(

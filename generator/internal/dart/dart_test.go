@@ -509,7 +509,6 @@ func TestFormatDocCommentsTrimTrailingEmptyLines(t *testing.T) {
 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
 
-
 `
 
 	want := []string{

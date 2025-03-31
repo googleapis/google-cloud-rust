@@ -32,7 +32,7 @@ void main(List<String> args) async {
   final apiKey = args[0];
 
   final client = auth.clientViaApiKey(apiKey);
-  final service = LanguageService(httpClient: client);
+  final service = LanguageService(client: client);
   final document = Document(
     content: 'Hello, world!',
     type: Document$Type.plainText,

@@ -17,7 +17,6 @@ package dart
 import (
 	"embed"
 	"path/filepath"
-	"strconv"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/googleapis/google-cloud-rust/generator/internal/config"
@@ -39,8 +38,7 @@ func Generate(model *api.API, outdir string, config *config.Config) error {
 	if err == nil {
 		// Check if we're configured to skip formatting.
 		skipFormat := config.Codec["skip-format"]
-		value, _ := strconv.ParseBool(skipFormat)
-		if skipFormat == "" || !value {
+		if skipFormat != "true" {
 			err = formatDirectory(outdir)
 		}
 	}
