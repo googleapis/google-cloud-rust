@@ -22,12 +22,12 @@ enable the retry loop. The application must set the retry policy to enable
 this feature.
 
 This guide will show you how to enable the retry loop. First we will show how
-to enable the a common retry policy for all requests in a client, and then how
-to override this default for a specific request.
+to enable a common retry policy for all requests in a client, and then how to
+override this default for a specific request.
 
 ## Prerequisites
 
-The guide uses the [Secret Manager] service, that makes the examples more
+The guide uses the [Secret Manager] service. That makes the examples more
 concrete and therefore easier to follow. With that said, the same ideas work for
 any other service.
 
@@ -60,7 +60,7 @@ client initialization:
 {{#include ../samples/src/retry_policies.rs:client-retry-client}}
 ```
 
-The use the service as usual:
+Then use the service as usual:
 
 ```rust,ignore
 {{#include ../samples/src/retry_policies.rs:client-retry-request}}
@@ -72,8 +72,8 @@ for the complete code.
 ## Configuring the default retry policy with limits
 
 The [`Aip194Strict`] policy does not limit the number of retry attempts or the
-time spent retrying requests. However, it can be decorated to set such limits,
-for example, you can limit *both* the number of attempts and the time spent in
+time spent retrying requests. However, it can be decorated to set such limits.
+For example, you can limit *both* the number of attempts and the time spent in
 the retry loop using::
 
 ```rust,ignore
@@ -92,12 +92,12 @@ for the complete code.
 ## Override the retry policy for one request
 
 Sometimes applications need to override the retry policy for a specific request.
-For example, the application developer may known specific details of the service
+For example, the application developer may know specific details of the service
 or application and determine it is safe to tolerate more errors.
 
-For example, deleting a secret is idempotent, it can only succeed once. But the
-client library assumes all delete operations are unsafe. The application can
-override the policy for one request:
+For example, deleting a secret is idempotent, because it can only succeed once.
+But the client library assumes all delete operations are unsafe. The application
+can override the policy for one request:
 
 ```rust,ignore
 {{#include ../samples/src/retry_policies.rs:request-retry-request}}
