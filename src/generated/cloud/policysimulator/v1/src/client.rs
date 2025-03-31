@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Policy Simulator API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_policysimulator_v1::client::Simulator;
+/// let client = Simulator::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Policy Simulator API service.
@@ -40,8 +49,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `Simulator` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Simulator` use the `with_*` methods in the type returned
+/// by [builder()][Simulator::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://policysimulator.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::simulator::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::simulator::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -51,37 +75,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Simulator {
-    inner: Arc<dyn super::stubs::dynamic::Simulator>,
+    inner: Arc<dyn super::stub::dynamic::Simulator>,
 }
 
 impl Simulator {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Simulator].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_policysimulator_v1::client::Simulator;
+    /// let client = Simulator::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::simulator::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::simulator::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Simulator + 'static,
+        T: super::stub::Simulator + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Simulator>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Simulator>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -90,13 +120,13 @@ impl Simulator {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Simulator> {
+    ) -> Result<impl super::stub::Simulator> {
         super::transport::Simulator::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Simulator> {
+    ) -> Result<impl super::stub::Simulator> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Simulator::new)
@@ -109,8 +139,8 @@ impl Simulator {
     pub fn get_replay(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::simulator::GetReplay {
-        super::builders::simulator::GetReplay::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::simulator::GetReplay {
+        super::builder::simulator::GetReplay::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates and starts a [Replay][google.cloud.policysimulator.v1.Replay] using
@@ -131,8 +161,8 @@ impl Simulator {
     pub fn create_replay(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::simulator::CreateReplay {
-        super::builders::simulator::CreateReplay::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::simulator::CreateReplay {
+        super::builder::simulator::CreateReplay::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Lists the results of running a
@@ -142,8 +172,8 @@ impl Simulator {
     pub fn list_replay_results(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::simulator::ListReplayResults {
-        super::builders::simulator::ListReplayResults::new(self.inner.clone())
+    ) -> super::builder::simulator::ListReplayResults {
+        super::builder::simulator::ListReplayResults::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -153,8 +183,8 @@ impl Simulator {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::simulator::ListOperations {
-        super::builders::simulator::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::simulator::ListOperations {
+        super::builder::simulator::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -163,7 +193,7 @@ impl Simulator {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::simulator::GetOperation {
-        super::builders::simulator::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::simulator::GetOperation {
+        super::builder::simulator::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

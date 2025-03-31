@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Long Running Operations API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_longrunning::client::Operations;
+/// let client = Operations::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Manages long-running operations with an API service.
@@ -37,8 +46,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `Operations` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Operations` use the `with_*` methods in the type returned
+/// by [builder()][Operations::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://longrunning.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::operations::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::operations::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -48,37 +72,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Operations {
-    inner: Arc<dyn super::stubs::dynamic::Operations>,
+    inner: Arc<dyn super::stub::dynamic::Operations>,
 }
 
 impl Operations {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Operations].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_longrunning::client::Operations;
+    /// let client = Operations::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::operations::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::operations::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Operations + 'static,
+        T: super::stub::Operations + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Operations>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Operations>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -87,13 +117,13 @@ impl Operations {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Operations> {
+    ) -> Result<impl super::stub::Operations> {
         super::transport::Operations::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Operations> {
+    ) -> Result<impl super::stub::Operations> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Operations::new)
@@ -104,8 +134,8 @@ impl Operations {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::operations::ListOperations {
-        super::builders::operations::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::operations::ListOperations {
+        super::builder::operations::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets the latest state of a long-running operation.  Clients can use this
@@ -114,8 +144,8 @@ impl Operations {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::operations::GetOperation {
-        super::builders::operations::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::operations::GetOperation {
+        super::builder::operations::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes a long-running operation. This method indicates that the client is
@@ -125,8 +155,8 @@ impl Operations {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::operations::DeleteOperation {
-        super::builders::operations::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::operations::DeleteOperation {
+        super::builder::operations::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Starts asynchronous cancellation on a long-running operation.  The server
@@ -147,7 +177,7 @@ impl Operations {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::operations::CancelOperation {
-        super::builders::operations::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::operations::CancelOperation {
+        super::builder::operations::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

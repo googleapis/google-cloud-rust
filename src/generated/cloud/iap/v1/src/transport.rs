@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [IdentityAwareProxyAdminService](super::stubs::IdentityAwareProxyAdminService) using a [gaxi::http::ReqwestClient].
+/// Implements [IdentityAwareProxyAdminService](super::stub::IdentityAwareProxyAdminService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct IdentityAwareProxyAdminService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl IdentityAwareProxyAdminService {
     }
 }
 
-impl super::stubs::IdentityAwareProxyAdminService for IdentityAwareProxyAdminService {
+impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminService {
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
@@ -230,7 +230,7 @@ impl super::stubs::IdentityAwareProxyAdminService for IdentityAwareProxyAdminSer
         &self,
         req: crate::model::DeleteTunnelDestGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -243,6 +243,7 @@ impl super::stubs::IdentityAwareProxyAdminService for IdentityAwareProxyAdminSer
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn update_tunnel_dest_group(
@@ -284,7 +285,7 @@ impl super::stubs::IdentityAwareProxyAdminService for IdentityAwareProxyAdminSer
     }
 }
 
-/// Implements [IdentityAwareProxyOAuthService](super::stubs::IdentityAwareProxyOAuthService) using a [gaxi::http::ReqwestClient].
+/// Implements [IdentityAwareProxyOAuthService](super::stub::IdentityAwareProxyOAuthService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct IdentityAwareProxyOAuthService {
     inner: gaxi::http::ReqwestClient,
@@ -305,7 +306,7 @@ impl IdentityAwareProxyOAuthService {
     }
 }
 
-impl super::stubs::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthService {
+impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthService {
     async fn list_brands(
         &self,
         req: crate::model::ListBrandsRequest,
@@ -450,7 +451,7 @@ impl super::stubs::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthSer
         &self,
         req: crate::model::DeleteIdentityAwareProxyClientRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -463,5 +464,6 @@ impl super::stubs::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthSer
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 }

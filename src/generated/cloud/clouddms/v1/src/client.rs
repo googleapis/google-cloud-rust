@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the Database Migration API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_clouddms_v1::client::DataMigrationService;
+/// let client = DataMigrationService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Database Migration service
 ///
 /// # Configuration
 ///
-/// `DataMigrationService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `DataMigrationService` use the `with_*` methods in the type returned
+/// by [builder()][DataMigrationService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://datamigration.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::data_migration_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::data_migration_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,37 +62,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct DataMigrationService {
-    inner: Arc<dyn super::stubs::dynamic::DataMigrationService>,
+    inner: Arc<dyn super::stub::dynamic::DataMigrationService>,
 }
 
 impl DataMigrationService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [DataMigrationService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// let client = DataMigrationService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::data_migration_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::data_migration_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::DataMigrationService + 'static,
+        T: super::stub::DataMigrationService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::DataMigrationService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::DataMigrationService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +109,13 @@ impl DataMigrationService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DataMigrationService> {
+    ) -> Result<impl super::stub::DataMigrationService> {
         super::transport::DataMigrationService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DataMigrationService> {
+    ) -> Result<impl super::stub::DataMigrationService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DataMigrationService::new)
@@ -93,8 +125,8 @@ impl DataMigrationService {
     pub fn list_migration_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::ListMigrationJobs {
-        super::builders::data_migration_service::ListMigrationJobs::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::ListMigrationJobs {
+        super::builder::data_migration_service::ListMigrationJobs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,8 +134,8 @@ impl DataMigrationService {
     pub fn get_migration_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::GetMigrationJob {
-        super::builders::data_migration_service::GetMigrationJob::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::GetMigrationJob {
+        super::builder::data_migration_service::GetMigrationJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -121,8 +153,8 @@ impl DataMigrationService {
     pub fn create_migration_job(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::CreateMigrationJob {
-        super::builders::data_migration_service::CreateMigrationJob::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::CreateMigrationJob {
+        super::builder::data_migration_service::CreateMigrationJob::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -140,8 +172,8 @@ impl DataMigrationService {
     pub fn update_migration_job(
         &self,
         migration_job: impl Into<crate::model::MigrationJob>,
-    ) -> super::builders::data_migration_service::UpdateMigrationJob {
-        super::builders::data_migration_service::UpdateMigrationJob::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::UpdateMigrationJob {
+        super::builder::data_migration_service::UpdateMigrationJob::new(self.inner.clone())
             .set_migration_job(migration_job.into())
     }
 
@@ -159,8 +191,8 @@ impl DataMigrationService {
     pub fn delete_migration_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::DeleteMigrationJob {
-        super::builders::data_migration_service::DeleteMigrationJob::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::DeleteMigrationJob {
+        super::builder::data_migration_service::DeleteMigrationJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -178,8 +210,8 @@ impl DataMigrationService {
     pub fn start_migration_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::StartMigrationJob {
-        super::builders::data_migration_service::StartMigrationJob::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::StartMigrationJob {
+        super::builder::data_migration_service::StartMigrationJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -197,8 +229,8 @@ impl DataMigrationService {
     pub fn stop_migration_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::StopMigrationJob {
-        super::builders::data_migration_service::StopMigrationJob::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::StopMigrationJob {
+        super::builder::data_migration_service::StopMigrationJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -217,8 +249,8 @@ impl DataMigrationService {
     pub fn resume_migration_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::ResumeMigrationJob {
-        super::builders::data_migration_service::ResumeMigrationJob::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::ResumeMigrationJob {
+        super::builder::data_migration_service::ResumeMigrationJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -237,8 +269,8 @@ impl DataMigrationService {
     pub fn promote_migration_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::PromoteMigrationJob {
-        super::builders::data_migration_service::PromoteMigrationJob::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::PromoteMigrationJob {
+        super::builder::data_migration_service::PromoteMigrationJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -257,8 +289,8 @@ impl DataMigrationService {
     pub fn verify_migration_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::VerifyMigrationJob {
-        super::builders::data_migration_service::VerifyMigrationJob::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::VerifyMigrationJob {
+        super::builder::data_migration_service::VerifyMigrationJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -278,8 +310,8 @@ impl DataMigrationService {
     pub fn restart_migration_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::RestartMigrationJob {
-        super::builders::data_migration_service::RestartMigrationJob::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::RestartMigrationJob {
+        super::builder::data_migration_service::RestartMigrationJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -288,8 +320,8 @@ impl DataMigrationService {
     pub fn generate_ssh_script(
         &self,
         migration_job: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::GenerateSshScript {
-        super::builders::data_migration_service::GenerateSshScript::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::GenerateSshScript {
+        super::builder::data_migration_service::GenerateSshScript::new(self.inner.clone())
             .set_migration_job(migration_job.into())
     }
 
@@ -298,8 +330,8 @@ impl DataMigrationService {
     pub fn generate_tcp_proxy_script(
         &self,
         migration_job: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::GenerateTcpProxyScript {
-        super::builders::data_migration_service::GenerateTcpProxyScript::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::GenerateTcpProxyScript {
+        super::builder::data_migration_service::GenerateTcpProxyScript::new(self.inner.clone())
             .set_migration_job(migration_job.into())
     }
 
@@ -308,8 +340,8 @@ impl DataMigrationService {
     pub fn list_connection_profiles(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::ListConnectionProfiles {
-        super::builders::data_migration_service::ListConnectionProfiles::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::ListConnectionProfiles {
+        super::builder::data_migration_service::ListConnectionProfiles::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -317,8 +349,8 @@ impl DataMigrationService {
     pub fn get_connection_profile(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::GetConnectionProfile {
-        super::builders::data_migration_service::GetConnectionProfile::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::GetConnectionProfile {
+        super::builder::data_migration_service::GetConnectionProfile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -336,8 +368,8 @@ impl DataMigrationService {
     pub fn create_connection_profile(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::CreateConnectionProfile {
-        super::builders::data_migration_service::CreateConnectionProfile::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::CreateConnectionProfile {
+        super::builder::data_migration_service::CreateConnectionProfile::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -355,8 +387,8 @@ impl DataMigrationService {
     pub fn update_connection_profile(
         &self,
         connection_profile: impl Into<crate::model::ConnectionProfile>,
-    ) -> super::builders::data_migration_service::UpdateConnectionProfile {
-        super::builders::data_migration_service::UpdateConnectionProfile::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::UpdateConnectionProfile {
+        super::builder::data_migration_service::UpdateConnectionProfile::new(self.inner.clone())
             .set_connection_profile(connection_profile.into())
     }
 
@@ -376,8 +408,8 @@ impl DataMigrationService {
     pub fn delete_connection_profile(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::DeleteConnectionProfile {
-        super::builders::data_migration_service::DeleteConnectionProfile::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::DeleteConnectionProfile {
+        super::builder::data_migration_service::DeleteConnectionProfile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -395,8 +427,8 @@ impl DataMigrationService {
     pub fn create_private_connection(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::CreatePrivateConnection {
-        super::builders::data_migration_service::CreatePrivateConnection::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::CreatePrivateConnection {
+        super::builder::data_migration_service::CreatePrivateConnection::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -404,8 +436,8 @@ impl DataMigrationService {
     pub fn get_private_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::GetPrivateConnection {
-        super::builders::data_migration_service::GetPrivateConnection::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::GetPrivateConnection {
+        super::builder::data_migration_service::GetPrivateConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -413,8 +445,8 @@ impl DataMigrationService {
     pub fn list_private_connections(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::ListPrivateConnections {
-        super::builders::data_migration_service::ListPrivateConnections::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::ListPrivateConnections {
+        super::builder::data_migration_service::ListPrivateConnections::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -432,8 +464,8 @@ impl DataMigrationService {
     pub fn delete_private_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::DeletePrivateConnection {
-        super::builders::data_migration_service::DeletePrivateConnection::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::DeletePrivateConnection {
+        super::builder::data_migration_service::DeletePrivateConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -441,8 +473,8 @@ impl DataMigrationService {
     pub fn get_conversion_workspace(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::GetConversionWorkspace {
-        super::builders::data_migration_service::GetConversionWorkspace::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::GetConversionWorkspace {
+        super::builder::data_migration_service::GetConversionWorkspace::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -450,8 +482,8 @@ impl DataMigrationService {
     pub fn list_conversion_workspaces(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::ListConversionWorkspaces {
-        super::builders::data_migration_service::ListConversionWorkspaces::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::ListConversionWorkspaces {
+        super::builder::data_migration_service::ListConversionWorkspaces::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -469,8 +501,8 @@ impl DataMigrationService {
     pub fn create_conversion_workspace(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::CreateConversionWorkspace {
-        super::builders::data_migration_service::CreateConversionWorkspace::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::CreateConversionWorkspace {
+        super::builder::data_migration_service::CreateConversionWorkspace::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -488,8 +520,8 @@ impl DataMigrationService {
     pub fn update_conversion_workspace(
         &self,
         conversion_workspace: impl Into<crate::model::ConversionWorkspace>,
-    ) -> super::builders::data_migration_service::UpdateConversionWorkspace {
-        super::builders::data_migration_service::UpdateConversionWorkspace::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::UpdateConversionWorkspace {
+        super::builder::data_migration_service::UpdateConversionWorkspace::new(self.inner.clone())
             .set_conversion_workspace(conversion_workspace.into())
     }
 
@@ -507,8 +539,8 @@ impl DataMigrationService {
     pub fn delete_conversion_workspace(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::DeleteConversionWorkspace {
-        super::builders::data_migration_service::DeleteConversionWorkspace::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::DeleteConversionWorkspace {
+        super::builder::data_migration_service::DeleteConversionWorkspace::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -516,8 +548,8 @@ impl DataMigrationService {
     pub fn create_mapping_rule(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::CreateMappingRule {
-        super::builders::data_migration_service::CreateMappingRule::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::CreateMappingRule {
+        super::builder::data_migration_service::CreateMappingRule::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -525,8 +557,8 @@ impl DataMigrationService {
     pub fn delete_mapping_rule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::DeleteMappingRule {
-        super::builders::data_migration_service::DeleteMappingRule::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::DeleteMappingRule {
+        super::builder::data_migration_service::DeleteMappingRule::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -534,8 +566,8 @@ impl DataMigrationService {
     pub fn list_mapping_rules(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::ListMappingRules {
-        super::builders::data_migration_service::ListMappingRules::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::ListMappingRules {
+        super::builder::data_migration_service::ListMappingRules::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -543,8 +575,8 @@ impl DataMigrationService {
     pub fn get_mapping_rule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::GetMappingRule {
-        super::builders::data_migration_service::GetMappingRule::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::GetMappingRule {
+        super::builder::data_migration_service::GetMappingRule::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -563,8 +595,8 @@ impl DataMigrationService {
     pub fn seed_conversion_workspace(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::SeedConversionWorkspace {
-        super::builders::data_migration_service::SeedConversionWorkspace::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::SeedConversionWorkspace {
+        super::builder::data_migration_service::SeedConversionWorkspace::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -583,8 +615,8 @@ impl DataMigrationService {
     pub fn import_mapping_rules(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::ImportMappingRules {
-        super::builders::data_migration_service::ImportMappingRules::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::ImportMappingRules {
+        super::builder::data_migration_service::ImportMappingRules::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -602,8 +634,8 @@ impl DataMigrationService {
     pub fn convert_conversion_workspace(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::ConvertConversionWorkspace {
-        super::builders::data_migration_service::ConvertConversionWorkspace::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::ConvertConversionWorkspace {
+        super::builder::data_migration_service::ConvertConversionWorkspace::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -621,8 +653,8 @@ impl DataMigrationService {
     pub fn commit_conversion_workspace(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::CommitConversionWorkspace {
-        super::builders::data_migration_service::CommitConversionWorkspace::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::CommitConversionWorkspace {
+        super::builder::data_migration_service::CommitConversionWorkspace::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -640,11 +672,9 @@ impl DataMigrationService {
     pub fn rollback_conversion_workspace(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::RollbackConversionWorkspace {
-        super::builders::data_migration_service::RollbackConversionWorkspace::new(
-            self.inner.clone(),
-        )
-        .set_name(name.into())
+    ) -> super::builder::data_migration_service::RollbackConversionWorkspace {
+        super::builder::data_migration_service::RollbackConversionWorkspace::new(self.inner.clone())
+            .set_name(name.into())
     }
 
     /// Applies draft tree onto a specific destination database.
@@ -661,8 +691,8 @@ impl DataMigrationService {
     pub fn apply_conversion_workspace(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::ApplyConversionWorkspace {
-        super::builders::data_migration_service::ApplyConversionWorkspace::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::ApplyConversionWorkspace {
+        super::builder::data_migration_service::ApplyConversionWorkspace::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -675,8 +705,8 @@ impl DataMigrationService {
     pub fn describe_database_entities(
         &self,
         conversion_workspace: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::DescribeDatabaseEntities {
-        super::builders::data_migration_service::DescribeDatabaseEntities::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::DescribeDatabaseEntities {
+        super::builder::data_migration_service::DescribeDatabaseEntities::new(self.inner.clone())
             .set_conversion_workspace(conversion_workspace.into())
     }
 
@@ -689,8 +719,8 @@ impl DataMigrationService {
     pub fn search_background_jobs(
         &self,
         conversion_workspace: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::SearchBackgroundJobs {
-        super::builders::data_migration_service::SearchBackgroundJobs::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::SearchBackgroundJobs {
+        super::builder::data_migration_service::SearchBackgroundJobs::new(self.inner.clone())
             .set_conversion_workspace(conversion_workspace.into())
     }
 
@@ -699,8 +729,8 @@ impl DataMigrationService {
     pub fn describe_conversion_workspace_revisions(
         &self,
         conversion_workspace: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::DescribeConversionWorkspaceRevisions {
-        super::builders::data_migration_service::DescribeConversionWorkspaceRevisions::new(
+    ) -> super::builder::data_migration_service::DescribeConversionWorkspaceRevisions {
+        super::builder::data_migration_service::DescribeConversionWorkspaceRevisions::new(
             self.inner.clone(),
         )
         .set_conversion_workspace(conversion_workspace.into())
@@ -711,8 +741,8 @@ impl DataMigrationService {
     pub fn fetch_static_ips(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::FetchStaticIps {
-        super::builders::data_migration_service::FetchStaticIps::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::FetchStaticIps {
+        super::builder::data_migration_service::FetchStaticIps::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -720,8 +750,8 @@ impl DataMigrationService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::ListLocations {
-        super::builders::data_migration_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::ListLocations {
+        super::builder::data_migration_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -729,8 +759,8 @@ impl DataMigrationService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::GetLocation {
-        super::builders::data_migration_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::GetLocation {
+        super::builder::data_migration_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -742,8 +772,8 @@ impl DataMigrationService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::SetIamPolicy {
-        super::builders::data_migration_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::SetIamPolicy {
+        super::builder::data_migration_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -752,8 +782,8 @@ impl DataMigrationService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::GetIamPolicy {
-        super::builders::data_migration_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::GetIamPolicy {
+        super::builder::data_migration_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -767,8 +797,8 @@ impl DataMigrationService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::TestIamPermissions {
-        super::builders::data_migration_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::TestIamPermissions {
+        super::builder::data_migration_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -778,8 +808,8 @@ impl DataMigrationService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::ListOperations {
-        super::builders::data_migration_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::ListOperations {
+        super::builder::data_migration_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -789,8 +819,8 @@ impl DataMigrationService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::GetOperation {
-        super::builders::data_migration_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::GetOperation {
+        super::builder::data_migration_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -800,8 +830,8 @@ impl DataMigrationService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::DeleteOperation {
-        super::builders::data_migration_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::DeleteOperation {
+        super::builder::data_migration_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -811,8 +841,8 @@ impl DataMigrationService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_migration_service::CancelOperation {
-        super::builders::data_migration_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::data_migration_service::CancelOperation {
+        super::builder::data_migration_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

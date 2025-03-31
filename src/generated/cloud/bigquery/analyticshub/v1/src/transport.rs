@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AnalyticsHubService](super::stubs::AnalyticsHubService) using a [gaxi::http::ReqwestClient].
+/// Implements [AnalyticsHubService](super::stub::AnalyticsHubService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct AnalyticsHubService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl AnalyticsHubService {
     }
 }
 
-impl super::stubs::AnalyticsHubService for AnalyticsHubService {
+impl super::stub::AnalyticsHubService for AnalyticsHubService {
     async fn list_data_exchanges(
         &self,
         req: crate::model::ListDataExchangesRequest,
@@ -172,7 +172,7 @@ impl super::stubs::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: crate::model::DeleteDataExchangeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -185,6 +185,7 @@ impl super::stubs::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_listings(
@@ -292,7 +293,7 @@ impl super::stubs::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: crate::model::DeleteListingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -305,6 +306,7 @@ impl super::stubs::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn subscribe_listing(

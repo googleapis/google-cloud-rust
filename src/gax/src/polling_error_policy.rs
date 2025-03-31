@@ -22,21 +22,24 @@
 //! of the polling loop, and some common implementations that should meet most
 //! needs.
 //!
+//! To configure the default polling error policy for a client, use
+//! [ClientBuilder::with_polling_error_policy]. To configure the polling error
+//! policy used for a specific request, use
+//! [RequestOptionsBuilder::with_polling_error_policy].
+//!
+//! [ClientBuilder::with_polling_error_policy]: crate::client_builder::ClientBuilder::with_polling_error_policy
+//! [RequestOptionsBuilder::with_polling_error_policy]: crate::options::RequestOptionsBuilder::with_polling_error_policy
+//!
 //! # Example:
 //! ```
 //! # use google_cloud_gax::polling_error_policy::*;
 //! # use google_cloud_gax::options;
 //! use std::time::Duration;
-//! fn customize_polling_error_policy(config: options::ClientConfig)
-//!     -> options::ClientConfig
-//! {
-//!     // Poll for at most 15 minutes or at most 50 attempts: whichever limit
-//!     // is reached first stops the polling loop.
-//!     config.set_polling_error_policy(
-//!         Aip194Strict
-//!             .with_time_limit(Duration::from_secs(15 * 60))
-//!             .with_attempt_limit(50))
-//! }
+//! // Poll for at most 15 minutes or at most 50 attempts: whichever limit is
+//! // reached first stops the polling loop.
+//! let policy = Aip194Strict
+//!     .with_time_limit(Duration::from_secs(15 * 60))
+//!     .with_attempt_limit(50);
 //! ```
 
 use crate::error::Error;

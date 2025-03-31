@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Grafeas](super::stubs::Grafeas) using a [gaxi::http::ReqwestClient].
+/// Implements [Grafeas](super::stub::Grafeas) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Grafeas {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl Grafeas {
     }
 }
 
-impl super::stubs::Grafeas for Grafeas {
+impl super::stub::Grafeas for Grafeas {
     async fn get_occurrence(
         &self,
         req: crate::model::GetOccurrenceRequest,
@@ -88,7 +88,7 @@ impl super::stubs::Grafeas for Grafeas {
         &self,
         req: crate::model::DeleteOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -101,6 +101,7 @@ impl super::stubs::Grafeas for Grafeas {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_occurrence(
@@ -238,7 +239,7 @@ impl super::stubs::Grafeas for Grafeas {
         &self,
         req: crate::model::DeleteNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -251,6 +252,7 @@ impl super::stubs::Grafeas for Grafeas {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_note(

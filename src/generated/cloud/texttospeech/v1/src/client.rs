@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Text-to-Speech API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_texttospeech_v1::client::TextToSpeech;
+/// let client = TextToSpeech::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service that implements Google Cloud Text-to-Speech API.
 ///
 /// # Configuration
 ///
-/// `TextToSpeech` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `TextToSpeech` use the `with_*` methods in the type returned
+/// by [builder()][TextToSpeech::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://texttospeech.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::text_to_speech::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::text_to_speech::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,37 +62,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct TextToSpeech {
-    inner: Arc<dyn super::stubs::dynamic::TextToSpeech>,
+    inner: Arc<dyn super::stub::dynamic::TextToSpeech>,
 }
 
 impl TextToSpeech {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [TextToSpeech].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_texttospeech_v1::client::TextToSpeech;
+    /// let client = TextToSpeech::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::text_to_speech::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::text_to_speech::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::TextToSpeech + 'static,
+        T: super::stub::TextToSpeech + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::TextToSpeech>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::TextToSpeech>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,27 +107,27 @@ impl TextToSpeech {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::TextToSpeech> {
+    ) -> Result<impl super::stub::TextToSpeech> {
         super::transport::TextToSpeech::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::TextToSpeech> {
+    ) -> Result<impl super::stub::TextToSpeech> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TextToSpeech::new)
     }
 
     /// Returns a list of Voice supported for synthesis.
-    pub fn list_voices(&self) -> super::builders::text_to_speech::ListVoices {
-        super::builders::text_to_speech::ListVoices::new(self.inner.clone())
+    pub fn list_voices(&self) -> super::builder::text_to_speech::ListVoices {
+        super::builder::text_to_speech::ListVoices::new(self.inner.clone())
     }
 
     /// Synthesizes speech synchronously: receive results after all text input
     /// has been processed.
-    pub fn synthesize_speech(&self) -> super::builders::text_to_speech::SynthesizeSpeech {
-        super::builders::text_to_speech::SynthesizeSpeech::new(self.inner.clone())
+    pub fn synthesize_speech(&self) -> super::builder::text_to_speech::SynthesizeSpeech {
+        super::builder::text_to_speech::SynthesizeSpeech::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -106,8 +136,8 @@ impl TextToSpeech {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::text_to_speech::ListOperations {
-        super::builders::text_to_speech::ListOperations::new(self.inner.clone())
+    ) -> super::builder::text_to_speech::ListOperations {
+        super::builder::text_to_speech::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -117,12 +147,21 @@ impl TextToSpeech {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::text_to_speech::GetOperation {
-        super::builders::text_to_speech::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::text_to_speech::GetOperation {
+        super::builder::text_to_speech::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the Cloud Text-to-Speech API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_texttospeech_v1::client::TextToSpeechLongAudioSynthesize;
+/// let client = TextToSpeechLongAudioSynthesize::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -130,8 +169,23 @@ impl TextToSpeech {
 ///
 /// # Configuration
 ///
-/// `TextToSpeechLongAudioSynthesize` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `TextToSpeechLongAudioSynthesize` use the `with_*` methods in the type returned
+/// by [builder()][TextToSpeechLongAudioSynthesize::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://texttospeech.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::text_to_speech_long_audio_synthesize::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::text_to_speech_long_audio_synthesize::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -141,37 +195,45 @@ impl TextToSpeech {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct TextToSpeechLongAudioSynthesize {
-    inner: Arc<dyn super::stubs::dynamic::TextToSpeechLongAudioSynthesize>,
+    inner: Arc<dyn super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
 }
 
 impl TextToSpeechLongAudioSynthesize {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [TextToSpeechLongAudioSynthesize].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_texttospeech_v1::client::TextToSpeechLongAudioSynthesize;
+    /// let client = TextToSpeechLongAudioSynthesize::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::text_to_speech_long_audio_synthesize::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::text_to_speech_long_audio_synthesize::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::TextToSpeechLongAudioSynthesize + 'static,
+        T: super::stub::TextToSpeechLongAudioSynthesize + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::TextToSpeechLongAudioSynthesize>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::TextToSpeechLongAudioSynthesize>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -180,13 +242,13 @@ impl TextToSpeechLongAudioSynthesize {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::TextToSpeechLongAudioSynthesize> {
+    ) -> Result<impl super::stub::TextToSpeechLongAudioSynthesize> {
         super::transport::TextToSpeechLongAudioSynthesize::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::TextToSpeechLongAudioSynthesize> {
+    ) -> Result<impl super::stub::TextToSpeechLongAudioSynthesize> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TextToSpeechLongAudioSynthesize::new)
@@ -206,8 +268,8 @@ impl TextToSpeechLongAudioSynthesize {
     pub fn synthesize_long_audio(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::text_to_speech_long_audio_synthesize::SynthesizeLongAudio {
-        super::builders::text_to_speech_long_audio_synthesize::SynthesizeLongAudio::new(
+    ) -> super::builder::text_to_speech_long_audio_synthesize::SynthesizeLongAudio {
+        super::builder::text_to_speech_long_audio_synthesize::SynthesizeLongAudio::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -219,8 +281,8 @@ impl TextToSpeechLongAudioSynthesize {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::text_to_speech_long_audio_synthesize::ListOperations {
-        super::builders::text_to_speech_long_audio_synthesize::ListOperations::new(
+    ) -> super::builder::text_to_speech_long_audio_synthesize::ListOperations {
+        super::builder::text_to_speech_long_audio_synthesize::ListOperations::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -232,8 +294,8 @@ impl TextToSpeechLongAudioSynthesize {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::text_to_speech_long_audio_synthesize::GetOperation {
-        super::builders::text_to_speech_long_audio_synthesize::GetOperation::new(self.inner.clone())
+    ) -> super::builder::text_to_speech_long_audio_synthesize::GetOperation {
+        super::builder::text_to_speech_long_audio_synthesize::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

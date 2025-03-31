@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [EssentialContactsService](super::stubs::EssentialContactsService) using a [gaxi::http::ReqwestClient].
+/// Implements [EssentialContactsService](super::stub::EssentialContactsService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct EssentialContactsService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl EssentialContactsService {
     }
 }
 
-impl super::stubs::EssentialContactsService for EssentialContactsService {
+impl super::stub::EssentialContactsService for EssentialContactsService {
     async fn create_contact(
         &self,
         req: crate::model::CreateContactRequest,
@@ -144,7 +144,7 @@ impl super::stubs::EssentialContactsService for EssentialContactsService {
         &self,
         req: crate::model::DeleteContactRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -157,6 +157,7 @@ impl super::stubs::EssentialContactsService for EssentialContactsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn compute_contacts(
@@ -193,7 +194,7 @@ impl super::stubs::EssentialContactsService for EssentialContactsService {
         &self,
         req: crate::model::SendTestMessageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -206,6 +207,9 @@ impl super::stubs::EssentialContactsService for EssentialContactsService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 }

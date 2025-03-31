@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the Assured Workloads API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
+/// let client = AssuredWorkloadsService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service to manage AssuredWorkloads.
 ///
 /// # Configuration
 ///
-/// `AssuredWorkloadsService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `AssuredWorkloadsService` use the `with_*` methods in the type returned
+/// by [builder()][AssuredWorkloadsService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://assuredworkloads.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::assured_workloads_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::assured_workloads_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,37 +62,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AssuredWorkloadsService {
-    inner: Arc<dyn super::stubs::dynamic::AssuredWorkloadsService>,
+    inner: Arc<dyn super::stub::dynamic::AssuredWorkloadsService>,
 }
 
 impl AssuredWorkloadsService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [AssuredWorkloadsService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
+    /// let client = AssuredWorkloadsService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::assured_workloads_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::assured_workloads_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::AssuredWorkloadsService + 'static,
+        T: super::stub::AssuredWorkloadsService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::AssuredWorkloadsService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::AssuredWorkloadsService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +109,13 @@ impl AssuredWorkloadsService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AssuredWorkloadsService> {
+    ) -> Result<impl super::stub::AssuredWorkloadsService> {
         super::transport::AssuredWorkloadsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AssuredWorkloadsService> {
+    ) -> Result<impl super::stub::AssuredWorkloadsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AssuredWorkloadsService::new)
@@ -103,8 +135,8 @@ impl AssuredWorkloadsService {
     pub fn create_workload(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::assured_workloads_service::CreateWorkload {
-        super::builders::assured_workloads_service::CreateWorkload::new(self.inner.clone())
+    ) -> super::builder::assured_workloads_service::CreateWorkload {
+        super::builder::assured_workloads_service::CreateWorkload::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -115,8 +147,8 @@ impl AssuredWorkloadsService {
     pub fn update_workload(
         &self,
         workload: impl Into<crate::model::Workload>,
-    ) -> super::builders::assured_workloads_service::UpdateWorkload {
-        super::builders::assured_workloads_service::UpdateWorkload::new(self.inner.clone())
+    ) -> super::builder::assured_workloads_service::UpdateWorkload {
+        super::builder::assured_workloads_service::UpdateWorkload::new(self.inner.clone())
             .set_workload(workload.into())
     }
 
@@ -129,11 +161,9 @@ impl AssuredWorkloadsService {
     pub fn restrict_allowed_resources(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::assured_workloads_service::RestrictAllowedResources {
-        super::builders::assured_workloads_service::RestrictAllowedResources::new(
-            self.inner.clone(),
-        )
-        .set_name(name.into())
+    ) -> super::builder::assured_workloads_service::RestrictAllowedResources {
+        super::builder::assured_workloads_service::RestrictAllowedResources::new(self.inner.clone())
+            .set_name(name.into())
     }
 
     /// Deletes the workload. Make sure that workload's direct children are already
@@ -142,8 +172,8 @@ impl AssuredWorkloadsService {
     pub fn delete_workload(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::assured_workloads_service::DeleteWorkload {
-        super::builders::assured_workloads_service::DeleteWorkload::new(self.inner.clone())
+    ) -> super::builder::assured_workloads_service::DeleteWorkload {
+        super::builder::assured_workloads_service::DeleteWorkload::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -151,8 +181,8 @@ impl AssuredWorkloadsService {
     pub fn get_workload(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::assured_workloads_service::GetWorkload {
-        super::builders::assured_workloads_service::GetWorkload::new(self.inner.clone())
+    ) -> super::builder::assured_workloads_service::GetWorkload {
+        super::builder::assured_workloads_service::GetWorkload::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -160,8 +190,8 @@ impl AssuredWorkloadsService {
     pub fn list_workloads(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::assured_workloads_service::ListWorkloads {
-        super::builders::assured_workloads_service::ListWorkloads::new(self.inner.clone())
+    ) -> super::builder::assured_workloads_service::ListWorkloads {
+        super::builder::assured_workloads_service::ListWorkloads::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -171,8 +201,8 @@ impl AssuredWorkloadsService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::assured_workloads_service::ListOperations {
-        super::builders::assured_workloads_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::assured_workloads_service::ListOperations {
+        super::builder::assured_workloads_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -182,8 +212,8 @@ impl AssuredWorkloadsService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::assured_workloads_service::GetOperation {
-        super::builders::assured_workloads_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::assured_workloads_service::GetOperation {
+        super::builder::assured_workloads_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ImageAnnotator](super::stubs::ImageAnnotator) using a [gaxi::http::ReqwestClient].
+/// Implements [ImageAnnotator](super::stub::ImageAnnotator) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ImageAnnotator {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl ImageAnnotator {
     }
 }
 
-impl super::stubs::ImageAnnotator for ImageAnnotator {
+impl super::stub::ImageAnnotator for ImageAnnotator {
     async fn batch_annotate_images(
         &self,
         req: crate::model::BatchAnnotateImagesRequest,
@@ -148,7 +148,7 @@ impl super::stubs::ImageAnnotator for ImageAnnotator {
     }
 }
 
-/// Implements [ProductSearch](super::stubs::ProductSearch) using a [gaxi::http::ReqwestClient].
+/// Implements [ProductSearch](super::stub::ProductSearch) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ProductSearch {
     inner: gaxi::http::ReqwestClient,
@@ -169,7 +169,7 @@ impl ProductSearch {
     }
 }
 
-impl super::stubs::ProductSearch for ProductSearch {
+impl super::stub::ProductSearch for ProductSearch {
     async fn create_product_set(
         &self,
         req: crate::model::CreateProductSetRequest,
@@ -278,7 +278,7 @@ impl super::stubs::ProductSearch for ProductSearch {
         &self,
         req: crate::model::DeleteProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -291,6 +291,7 @@ impl super::stubs::ProductSearch for ProductSearch {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_product(
@@ -398,7 +399,7 @@ impl super::stubs::ProductSearch for ProductSearch {
         &self,
         req: crate::model::DeleteProductRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -411,6 +412,7 @@ impl super::stubs::ProductSearch for ProductSearch {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_reference_image(
@@ -440,7 +442,7 @@ impl super::stubs::ProductSearch for ProductSearch {
         &self,
         req: crate::model::DeleteReferenceImageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -453,6 +455,7 @@ impl super::stubs::ProductSearch for ProductSearch {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_reference_images(
@@ -502,7 +505,7 @@ impl super::stubs::ProductSearch for ProductSearch {
         &self,
         req: crate::model::AddProductToProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -515,14 +518,17 @@ impl super::stubs::ProductSearch for ProductSearch {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn remove_product_from_product_set(
         &self,
         req: crate::model::RemoveProductFromProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -535,7 +541,10 @@ impl super::stubs::ProductSearch for ProductSearch {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_products_in_product_set(

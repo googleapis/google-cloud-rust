@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Privileged Access Manager API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_privilegedaccessmanager_v1::client::PrivilegedAccessManager;
+/// let client = PrivilegedAccessManager::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// This API allows customers to manage temporary, request based privileged
@@ -46,8 +55,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `PrivilegedAccessManager` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `PrivilegedAccessManager` use the `with_*` methods in the type returned
+/// by [builder()][PrivilegedAccessManager::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://privilegedaccessmanager.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::privileged_access_manager::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::privileged_access_manager::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -57,37 +81,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct PrivilegedAccessManager {
-    inner: Arc<dyn super::stubs::dynamic::PrivilegedAccessManager>,
+    inner: Arc<dyn super::stub::dynamic::PrivilegedAccessManager>,
 }
 
 impl PrivilegedAccessManager {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [PrivilegedAccessManager].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_privilegedaccessmanager_v1::client::PrivilegedAccessManager;
+    /// let client = PrivilegedAccessManager::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::privileged_access_manager::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::privileged_access_manager::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::PrivilegedAccessManager + 'static,
+        T: super::stub::PrivilegedAccessManager + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::PrivilegedAccessManager>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::PrivilegedAccessManager>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -96,13 +128,13 @@ impl PrivilegedAccessManager {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PrivilegedAccessManager> {
+    ) -> Result<impl super::stub::PrivilegedAccessManager> {
         super::transport::PrivilegedAccessManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PrivilegedAccessManager> {
+    ) -> Result<impl super::stub::PrivilegedAccessManager> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PrivilegedAccessManager::new)
@@ -114,8 +146,8 @@ impl PrivilegedAccessManager {
     pub fn check_onboarding_status(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::privileged_access_manager::CheckOnboardingStatus {
-        super::builders::privileged_access_manager::CheckOnboardingStatus::new(self.inner.clone())
+    ) -> super::builder::privileged_access_manager::CheckOnboardingStatus {
+        super::builder::privileged_access_manager::CheckOnboardingStatus::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -123,8 +155,8 @@ impl PrivilegedAccessManager {
     pub fn list_entitlements(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::privileged_access_manager::ListEntitlements {
-        super::builders::privileged_access_manager::ListEntitlements::new(self.inner.clone())
+    ) -> super::builder::privileged_access_manager::ListEntitlements {
+        super::builder::privileged_access_manager::ListEntitlements::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -133,8 +165,8 @@ impl PrivilegedAccessManager {
     pub fn search_entitlements(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::privileged_access_manager::SearchEntitlements {
-        super::builders::privileged_access_manager::SearchEntitlements::new(self.inner.clone())
+    ) -> super::builder::privileged_access_manager::SearchEntitlements {
+        super::builder::privileged_access_manager::SearchEntitlements::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -142,8 +174,8 @@ impl PrivilegedAccessManager {
     pub fn get_entitlement(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::privileged_access_manager::GetEntitlement {
-        super::builders::privileged_access_manager::GetEntitlement::new(self.inner.clone())
+    ) -> super::builder::privileged_access_manager::GetEntitlement {
+        super::builder::privileged_access_manager::GetEntitlement::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -162,8 +194,8 @@ impl PrivilegedAccessManager {
     pub fn create_entitlement(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::privileged_access_manager::CreateEntitlement {
-        super::builders::privileged_access_manager::CreateEntitlement::new(self.inner.clone())
+    ) -> super::builder::privileged_access_manager::CreateEntitlement {
+        super::builder::privileged_access_manager::CreateEntitlement::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -183,8 +215,8 @@ impl PrivilegedAccessManager {
     pub fn delete_entitlement(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::privileged_access_manager::DeleteEntitlement {
-        super::builders::privileged_access_manager::DeleteEntitlement::new(self.inner.clone())
+    ) -> super::builder::privileged_access_manager::DeleteEntitlement {
+        super::builder::privileged_access_manager::DeleteEntitlement::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -221,8 +253,8 @@ impl PrivilegedAccessManager {
     pub fn update_entitlement(
         &self,
         entitlement: impl Into<crate::model::Entitlement>,
-    ) -> super::builders::privileged_access_manager::UpdateEntitlement {
-        super::builders::privileged_access_manager::UpdateEntitlement::new(self.inner.clone())
+    ) -> super::builder::privileged_access_manager::UpdateEntitlement {
+        super::builder::privileged_access_manager::UpdateEntitlement::new(self.inner.clone())
             .set_entitlement(entitlement.into())
     }
 
@@ -230,8 +262,8 @@ impl PrivilegedAccessManager {
     pub fn list_grants(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::privileged_access_manager::ListGrants {
-        super::builders::privileged_access_manager::ListGrants::new(self.inner.clone())
+    ) -> super::builder::privileged_access_manager::ListGrants {
+        super::builder::privileged_access_manager::ListGrants::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -240,8 +272,8 @@ impl PrivilegedAccessManager {
     pub fn search_grants(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::privileged_access_manager::SearchGrants {
-        super::builders::privileged_access_manager::SearchGrants::new(self.inner.clone())
+    ) -> super::builder::privileged_access_manager::SearchGrants {
+        super::builder::privileged_access_manager::SearchGrants::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -249,8 +281,8 @@ impl PrivilegedAccessManager {
     pub fn get_grant(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::privileged_access_manager::GetGrant {
-        super::builders::privileged_access_manager::GetGrant::new(self.inner.clone())
+    ) -> super::builder::privileged_access_manager::GetGrant {
+        super::builder::privileged_access_manager::GetGrant::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -259,8 +291,8 @@ impl PrivilegedAccessManager {
     pub fn create_grant(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::privileged_access_manager::CreateGrant {
-        super::builders::privileged_access_manager::CreateGrant::new(self.inner.clone())
+    ) -> super::builder::privileged_access_manager::CreateGrant {
+        super::builder::privileged_access_manager::CreateGrant::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -270,8 +302,8 @@ impl PrivilegedAccessManager {
     pub fn approve_grant(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::privileged_access_manager::ApproveGrant {
-        super::builders::privileged_access_manager::ApproveGrant::new(self.inner.clone())
+    ) -> super::builder::privileged_access_manager::ApproveGrant {
+        super::builder::privileged_access_manager::ApproveGrant::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -281,8 +313,8 @@ impl PrivilegedAccessManager {
     pub fn deny_grant(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::privileged_access_manager::DenyGrant {
-        super::builders::privileged_access_manager::DenyGrant::new(self.inner.clone())
+    ) -> super::builder::privileged_access_manager::DenyGrant {
+        super::builder::privileged_access_manager::DenyGrant::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -301,8 +333,8 @@ impl PrivilegedAccessManager {
     pub fn revoke_grant(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::privileged_access_manager::RevokeGrant {
-        super::builders::privileged_access_manager::RevokeGrant::new(self.inner.clone())
+    ) -> super::builder::privileged_access_manager::RevokeGrant {
+        super::builder::privileged_access_manager::RevokeGrant::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -310,8 +342,8 @@ impl PrivilegedAccessManager {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::privileged_access_manager::ListLocations {
-        super::builders::privileged_access_manager::ListLocations::new(self.inner.clone())
+    ) -> super::builder::privileged_access_manager::ListLocations {
+        super::builder::privileged_access_manager::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -319,8 +351,8 @@ impl PrivilegedAccessManager {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::privileged_access_manager::GetLocation {
-        super::builders::privileged_access_manager::GetLocation::new(self.inner.clone())
+    ) -> super::builder::privileged_access_manager::GetLocation {
+        super::builder::privileged_access_manager::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -330,8 +362,8 @@ impl PrivilegedAccessManager {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::privileged_access_manager::ListOperations {
-        super::builders::privileged_access_manager::ListOperations::new(self.inner.clone())
+    ) -> super::builder::privileged_access_manager::ListOperations {
+        super::builder::privileged_access_manager::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -341,8 +373,8 @@ impl PrivilegedAccessManager {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::privileged_access_manager::GetOperation {
-        super::builders::privileged_access_manager::GetOperation::new(self.inner.clone())
+    ) -> super::builder::privileged_access_manager::GetOperation {
+        super::builder::privileged_access_manager::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -352,8 +384,8 @@ impl PrivilegedAccessManager {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::privileged_access_manager::DeleteOperation {
-        super::builders::privileged_access_manager::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::privileged_access_manager::DeleteOperation {
+        super::builder::privileged_access_manager::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

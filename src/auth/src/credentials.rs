@@ -18,7 +18,11 @@ pub use api_key_credential::ApiKeyOptions;
 pub use api_key_credential::create_api_key_credential;
 
 pub mod mds;
+<<<<<<< HEAD
 pub mod service_account;
+=======
+mod service_account;
+>>>>>>> 215f5cd3f61170f0d05d4925d1eb3e34871c3d41
 pub(crate) mod user_credential;
 
 use crate::Result;

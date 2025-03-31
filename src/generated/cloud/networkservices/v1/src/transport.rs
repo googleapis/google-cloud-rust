@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DepService](super::stubs::DepService) using a [gaxi::http::ReqwestClient].
+/// Implements [DepService](super::stub::DepService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DepService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl DepService {
     }
 }
 
-impl super::stubs::DepService for DepService {
+impl super::stub::DepService for DepService {
     async fn list_lb_traffic_extensions(
         &self,
         req: crate::model::ListLbTrafficExtensionsRequest,
@@ -454,7 +454,7 @@ impl super::stubs::DepService for DepService {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -467,13 +467,14 @@ impl super::stubs::DepService for DepService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -483,7 +484,10 @@ impl super::stubs::DepService for DepService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -501,7 +505,7 @@ impl super::stubs::DepService for DepService {
     }
 }
 
-/// Implements [NetworkServices](super::stubs::NetworkServices) using a [gaxi::http::ReqwestClient].
+/// Implements [NetworkServices](super::stub::NetworkServices) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct NetworkServices {
     inner: gaxi::http::ReqwestClient,
@@ -522,7 +526,7 @@ impl NetworkServices {
     }
 }
 
-impl super::stubs::NetworkServices for NetworkServices {
+impl super::stub::NetworkServices for NetworkServices {
     async fn list_endpoint_policies(
         &self,
         req: crate::model::ListEndpointPoliciesRequest,
@@ -1614,7 +1618,7 @@ impl super::stubs::NetworkServices for NetworkServices {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1627,13 +1631,14 @@ impl super::stubs::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1643,7 +1648,10 @@ impl super::stubs::NetworkServices for NetworkServices {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(

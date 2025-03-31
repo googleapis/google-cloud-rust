@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Public Certificate Authority API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_security_publicca_v1::client::PublicCertificateAuthorityService;
+/// let client = PublicCertificateAuthorityService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Manages the resources required for ACME [external account
@@ -29,8 +38,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `PublicCertificateAuthorityService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `PublicCertificateAuthorityService` use the `with_*` methods in the type returned
+/// by [builder()][PublicCertificateAuthorityService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://publicca.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::public_certificate_authority_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::public_certificate_authority_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -40,37 +64,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct PublicCertificateAuthorityService {
-    inner: Arc<dyn super::stubs::dynamic::PublicCertificateAuthorityService>,
+    inner: Arc<dyn super::stub::dynamic::PublicCertificateAuthorityService>,
 }
 
 impl PublicCertificateAuthorityService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [PublicCertificateAuthorityService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_security_publicca_v1::client::PublicCertificateAuthorityService;
+    /// let client = PublicCertificateAuthorityService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::public_certificate_authority_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::public_certificate_authority_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::PublicCertificateAuthorityService + 'static,
+        T: super::stub::PublicCertificateAuthorityService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::PublicCertificateAuthorityService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::PublicCertificateAuthorityService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -79,13 +111,13 @@ impl PublicCertificateAuthorityService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PublicCertificateAuthorityService> {
+    ) -> Result<impl super::stub::PublicCertificateAuthorityService> {
         super::transport::PublicCertificateAuthorityService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PublicCertificateAuthorityService> {
+    ) -> Result<impl super::stub::PublicCertificateAuthorityService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PublicCertificateAuthorityService::new)
@@ -99,8 +131,8 @@ impl PublicCertificateAuthorityService {
     pub fn create_external_account_key(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::public_certificate_authority_service::CreateExternalAccountKey {
-        super::builders::public_certificate_authority_service::CreateExternalAccountKey::new(
+    ) -> super::builder::public_certificate_authority_service::CreateExternalAccountKey {
+        super::builder::public_certificate_authority_service::CreateExternalAccountKey::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())

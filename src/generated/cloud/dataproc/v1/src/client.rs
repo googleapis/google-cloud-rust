@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Dataproc API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
+/// let client = AutoscalingPolicyService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// The API interface for managing autoscaling policies in the
@@ -28,8 +37,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `AutoscalingPolicyService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `AutoscalingPolicyService` use the `with_*` methods in the type returned
+/// by [builder()][AutoscalingPolicyService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dataproc.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::autoscaling_policy_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::autoscaling_policy_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -39,37 +63,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AutoscalingPolicyService {
-    inner: Arc<dyn super::stubs::dynamic::AutoscalingPolicyService>,
+    inner: Arc<dyn super::stub::dynamic::AutoscalingPolicyService>,
 }
 
 impl AutoscalingPolicyService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [AutoscalingPolicyService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
+    /// let client = AutoscalingPolicyService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::autoscaling_policy_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::autoscaling_policy_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::AutoscalingPolicyService + 'static,
+        T: super::stub::AutoscalingPolicyService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::AutoscalingPolicyService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::AutoscalingPolicyService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,13 +110,13 @@ impl AutoscalingPolicyService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AutoscalingPolicyService> {
+    ) -> Result<impl super::stub::AutoscalingPolicyService> {
         super::transport::AutoscalingPolicyService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AutoscalingPolicyService> {
+    ) -> Result<impl super::stub::AutoscalingPolicyService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AutoscalingPolicyService::new)
@@ -94,11 +126,9 @@ impl AutoscalingPolicyService {
     pub fn create_autoscaling_policy(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::autoscaling_policy_service::CreateAutoscalingPolicy {
-        super::builders::autoscaling_policy_service::CreateAutoscalingPolicy::new(
-            self.inner.clone(),
-        )
-        .set_parent(parent.into())
+    ) -> super::builder::autoscaling_policy_service::CreateAutoscalingPolicy {
+        super::builder::autoscaling_policy_service::CreateAutoscalingPolicy::new(self.inner.clone())
+            .set_parent(parent.into())
     }
 
     /// Updates (replaces) autoscaling policy.
@@ -108,19 +138,17 @@ impl AutoscalingPolicyService {
     pub fn update_autoscaling_policy(
         &self,
         policy: impl Into<crate::model::AutoscalingPolicy>,
-    ) -> super::builders::autoscaling_policy_service::UpdateAutoscalingPolicy {
-        super::builders::autoscaling_policy_service::UpdateAutoscalingPolicy::new(
-            self.inner.clone(),
-        )
-        .set_policy(policy.into())
+    ) -> super::builder::autoscaling_policy_service::UpdateAutoscalingPolicy {
+        super::builder::autoscaling_policy_service::UpdateAutoscalingPolicy::new(self.inner.clone())
+            .set_policy(policy.into())
     }
 
     /// Retrieves autoscaling policy.
     pub fn get_autoscaling_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::autoscaling_policy_service::GetAutoscalingPolicy {
-        super::builders::autoscaling_policy_service::GetAutoscalingPolicy::new(self.inner.clone())
+    ) -> super::builder::autoscaling_policy_service::GetAutoscalingPolicy {
+        super::builder::autoscaling_policy_service::GetAutoscalingPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -128,11 +156,9 @@ impl AutoscalingPolicyService {
     pub fn list_autoscaling_policies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::autoscaling_policy_service::ListAutoscalingPolicies {
-        super::builders::autoscaling_policy_service::ListAutoscalingPolicies::new(
-            self.inner.clone(),
-        )
-        .set_parent(parent.into())
+    ) -> super::builder::autoscaling_policy_service::ListAutoscalingPolicies {
+        super::builder::autoscaling_policy_service::ListAutoscalingPolicies::new(self.inner.clone())
+            .set_parent(parent.into())
     }
 
     /// Deletes an autoscaling policy. It is an error to delete an autoscaling
@@ -140,11 +166,9 @@ impl AutoscalingPolicyService {
     pub fn delete_autoscaling_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::autoscaling_policy_service::DeleteAutoscalingPolicy {
-        super::builders::autoscaling_policy_service::DeleteAutoscalingPolicy::new(
-            self.inner.clone(),
-        )
-        .set_name(name.into())
+    ) -> super::builder::autoscaling_policy_service::DeleteAutoscalingPolicy {
+        super::builder::autoscaling_policy_service::DeleteAutoscalingPolicy::new(self.inner.clone())
+            .set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -155,8 +179,8 @@ impl AutoscalingPolicyService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::autoscaling_policy_service::SetIamPolicy {
-        super::builders::autoscaling_policy_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::autoscaling_policy_service::SetIamPolicy {
+        super::builder::autoscaling_policy_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -165,8 +189,8 @@ impl AutoscalingPolicyService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::autoscaling_policy_service::GetIamPolicy {
-        super::builders::autoscaling_policy_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::autoscaling_policy_service::GetIamPolicy {
+        super::builder::autoscaling_policy_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -180,8 +204,8 @@ impl AutoscalingPolicyService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::autoscaling_policy_service::TestIamPermissions {
-        super::builders::autoscaling_policy_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::autoscaling_policy_service::TestIamPermissions {
+        super::builder::autoscaling_policy_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -191,8 +215,8 @@ impl AutoscalingPolicyService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::autoscaling_policy_service::ListOperations {
-        super::builders::autoscaling_policy_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::autoscaling_policy_service::ListOperations {
+        super::builder::autoscaling_policy_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -202,8 +226,8 @@ impl AutoscalingPolicyService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::autoscaling_policy_service::GetOperation {
-        super::builders::autoscaling_policy_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::autoscaling_policy_service::GetOperation {
+        super::builder::autoscaling_policy_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -213,8 +237,8 @@ impl AutoscalingPolicyService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::autoscaling_policy_service::DeleteOperation {
-        super::builders::autoscaling_policy_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::autoscaling_policy_service::DeleteOperation {
+        super::builder::autoscaling_policy_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -224,13 +248,22 @@ impl AutoscalingPolicyService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::autoscaling_policy_service::CancelOperation {
-        super::builders::autoscaling_policy_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::autoscaling_policy_service::CancelOperation {
+        super::builder::autoscaling_policy_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Cloud Dataproc API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dataproc_v1::client::BatchController;
+/// let client = BatchController::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -238,8 +271,23 @@ impl AutoscalingPolicyService {
 ///
 /// # Configuration
 ///
-/// `BatchController` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `BatchController` use the `with_*` methods in the type returned
+/// by [builder()][BatchController::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dataproc.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::batch_controller::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::batch_controller::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -249,37 +297,45 @@ impl AutoscalingPolicyService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct BatchController {
-    inner: Arc<dyn super::stubs::dynamic::BatchController>,
+    inner: Arc<dyn super::stub::dynamic::BatchController>,
 }
 
 impl BatchController {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [BatchController].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dataproc_v1::client::BatchController;
+    /// let client = BatchController::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::batch_controller::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::batch_controller::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::BatchController + 'static,
+        T: super::stub::BatchController + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::BatchController>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::BatchController>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -288,13 +344,13 @@ impl BatchController {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::BatchController> {
+    ) -> Result<impl super::stub::BatchController> {
         super::transport::BatchController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::BatchController> {
+    ) -> Result<impl super::stub::BatchController> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::BatchController::new)
@@ -314,8 +370,8 @@ impl BatchController {
     pub fn create_batch(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::batch_controller::CreateBatch {
-        super::builders::batch_controller::CreateBatch::new(self.inner.clone())
+    ) -> super::builder::batch_controller::CreateBatch {
+        super::builder::batch_controller::CreateBatch::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -323,16 +379,16 @@ impl BatchController {
     pub fn get_batch(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::batch_controller::GetBatch {
-        super::builders::batch_controller::GetBatch::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::batch_controller::GetBatch {
+        super::builder::batch_controller::GetBatch::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists batch workloads.
     pub fn list_batches(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::batch_controller::ListBatches {
-        super::builders::batch_controller::ListBatches::new(self.inner.clone())
+    ) -> super::builder::batch_controller::ListBatches {
+        super::builder::batch_controller::ListBatches::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -341,9 +397,8 @@ impl BatchController {
     pub fn delete_batch(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::batch_controller::DeleteBatch {
-        super::builders::batch_controller::DeleteBatch::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::batch_controller::DeleteBatch {
+        super::builder::batch_controller::DeleteBatch::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -354,8 +409,8 @@ impl BatchController {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::batch_controller::SetIamPolicy {
-        super::builders::batch_controller::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::batch_controller::SetIamPolicy {
+        super::builder::batch_controller::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -364,8 +419,8 @@ impl BatchController {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::batch_controller::GetIamPolicy {
-        super::builders::batch_controller::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::batch_controller::GetIamPolicy {
+        super::builder::batch_controller::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -379,8 +434,8 @@ impl BatchController {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::batch_controller::TestIamPermissions {
-        super::builders::batch_controller::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::batch_controller::TestIamPermissions {
+        super::builder::batch_controller::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -390,8 +445,8 @@ impl BatchController {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::batch_controller::ListOperations {
-        super::builders::batch_controller::ListOperations::new(self.inner.clone())
+    ) -> super::builder::batch_controller::ListOperations {
+        super::builder::batch_controller::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -401,8 +456,8 @@ impl BatchController {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::batch_controller::GetOperation {
-        super::builders::batch_controller::GetOperation::new(self.inner.clone())
+    ) -> super::builder::batch_controller::GetOperation {
+        super::builder::batch_controller::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -412,8 +467,8 @@ impl BatchController {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::batch_controller::DeleteOperation {
-        super::builders::batch_controller::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::batch_controller::DeleteOperation {
+        super::builder::batch_controller::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -423,13 +478,22 @@ impl BatchController {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::batch_controller::CancelOperation {
-        super::builders::batch_controller::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::batch_controller::CancelOperation {
+        super::builder::batch_controller::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Cloud Dataproc API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dataproc_v1::client::ClusterController;
+/// let client = ClusterController::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -438,8 +502,23 @@ impl BatchController {
 ///
 /// # Configuration
 ///
-/// `ClusterController` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ClusterController` use the `with_*` methods in the type returned
+/// by [builder()][ClusterController::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dataproc.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::cluster_controller::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::cluster_controller::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -449,37 +528,45 @@ impl BatchController {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ClusterController {
-    inner: Arc<dyn super::stubs::dynamic::ClusterController>,
+    inner: Arc<dyn super::stub::dynamic::ClusterController>,
 }
 
 impl ClusterController {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ClusterController].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dataproc_v1::client::ClusterController;
+    /// let client = ClusterController::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::cluster_controller::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::cluster_controller::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ClusterController + 'static,
+        T: super::stub::ClusterController + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ClusterController>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ClusterController>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -488,13 +575,13 @@ impl ClusterController {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ClusterController> {
+    ) -> Result<impl super::stub::ClusterController> {
         super::transport::ClusterController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ClusterController> {
+    ) -> Result<impl super::stub::ClusterController> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ClusterController::new)
@@ -519,8 +606,8 @@ impl ClusterController {
         &self,
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
-    ) -> super::builders::cluster_controller::CreateCluster {
-        super::builders::cluster_controller::CreateCluster::new(self.inner.clone())
+    ) -> super::builder::cluster_controller::CreateCluster {
+        super::builder::cluster_controller::CreateCluster::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
     }
@@ -549,8 +636,8 @@ impl ClusterController {
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
         cluster_name: impl Into<std::string::String>,
-    ) -> super::builders::cluster_controller::UpdateCluster {
-        super::builders::cluster_controller::UpdateCluster::new(self.inner.clone())
+    ) -> super::builder::cluster_controller::UpdateCluster {
+        super::builder::cluster_controller::UpdateCluster::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
             .set_cluster_name(cluster_name.into())
@@ -572,8 +659,8 @@ impl ClusterController {
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
         cluster_name: impl Into<std::string::String>,
-    ) -> super::builders::cluster_controller::StopCluster {
-        super::builders::cluster_controller::StopCluster::new(self.inner.clone())
+    ) -> super::builder::cluster_controller::StopCluster {
+        super::builder::cluster_controller::StopCluster::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
             .set_cluster_name(cluster_name.into())
@@ -595,8 +682,8 @@ impl ClusterController {
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
         cluster_name: impl Into<std::string::String>,
-    ) -> super::builders::cluster_controller::StartCluster {
-        super::builders::cluster_controller::StartCluster::new(self.inner.clone())
+    ) -> super::builder::cluster_controller::StartCluster {
+        super::builder::cluster_controller::StartCluster::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
             .set_cluster_name(cluster_name.into())
@@ -622,8 +709,8 @@ impl ClusterController {
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
         cluster_name: impl Into<std::string::String>,
-    ) -> super::builders::cluster_controller::DeleteCluster {
-        super::builders::cluster_controller::DeleteCluster::new(self.inner.clone())
+    ) -> super::builder::cluster_controller::DeleteCluster {
+        super::builder::cluster_controller::DeleteCluster::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
             .set_cluster_name(cluster_name.into())
@@ -635,8 +722,8 @@ impl ClusterController {
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
         cluster_name: impl Into<std::string::String>,
-    ) -> super::builders::cluster_controller::GetCluster {
-        super::builders::cluster_controller::GetCluster::new(self.inner.clone())
+    ) -> super::builder::cluster_controller::GetCluster {
+        super::builder::cluster_controller::GetCluster::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
             .set_cluster_name(cluster_name.into())
@@ -647,8 +734,8 @@ impl ClusterController {
         &self,
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
-    ) -> super::builders::cluster_controller::ListClusters {
-        super::builders::cluster_controller::ListClusters::new(self.inner.clone())
+    ) -> super::builder::cluster_controller::ListClusters {
+        super::builder::cluster_controller::ListClusters::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
     }
@@ -678,8 +765,8 @@ impl ClusterController {
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
         cluster_name: impl Into<std::string::String>,
-    ) -> super::builders::cluster_controller::DiagnoseCluster {
-        super::builders::cluster_controller::DiagnoseCluster::new(self.inner.clone())
+    ) -> super::builder::cluster_controller::DiagnoseCluster {
+        super::builder::cluster_controller::DiagnoseCluster::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
             .set_cluster_name(cluster_name.into())
@@ -693,8 +780,8 @@ impl ClusterController {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::cluster_controller::SetIamPolicy {
-        super::builders::cluster_controller::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::cluster_controller::SetIamPolicy {
+        super::builder::cluster_controller::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -703,8 +790,8 @@ impl ClusterController {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::cluster_controller::GetIamPolicy {
-        super::builders::cluster_controller::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::cluster_controller::GetIamPolicy {
+        super::builder::cluster_controller::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -718,8 +805,8 @@ impl ClusterController {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::cluster_controller::TestIamPermissions {
-        super::builders::cluster_controller::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::cluster_controller::TestIamPermissions {
+        super::builder::cluster_controller::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -729,8 +816,8 @@ impl ClusterController {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cluster_controller::ListOperations {
-        super::builders::cluster_controller::ListOperations::new(self.inner.clone())
+    ) -> super::builder::cluster_controller::ListOperations {
+        super::builder::cluster_controller::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -740,8 +827,8 @@ impl ClusterController {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cluster_controller::GetOperation {
-        super::builders::cluster_controller::GetOperation::new(self.inner.clone())
+    ) -> super::builder::cluster_controller::GetOperation {
+        super::builder::cluster_controller::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -751,8 +838,8 @@ impl ClusterController {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cluster_controller::DeleteOperation {
-        super::builders::cluster_controller::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::cluster_controller::DeleteOperation {
+        super::builder::cluster_controller::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -762,13 +849,22 @@ impl ClusterController {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cluster_controller::CancelOperation {
-        super::builders::cluster_controller::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::cluster_controller::CancelOperation {
+        super::builder::cluster_controller::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Cloud Dataproc API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dataproc_v1::client::JobController;
+/// let client = JobController::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -776,8 +872,23 @@ impl ClusterController {
 ///
 /// # Configuration
 ///
-/// `JobController` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `JobController` use the `with_*` methods in the type returned
+/// by [builder()][JobController::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dataproc.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::job_controller::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::job_controller::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -787,37 +898,43 @@ impl ClusterController {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct JobController {
-    inner: Arc<dyn super::stubs::dynamic::JobController>,
+    inner: Arc<dyn super::stub::dynamic::JobController>,
 }
 
 impl JobController {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [JobController].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dataproc_v1::client::JobController;
+    /// let client = JobController::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::job_controller::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::job_controller::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::JobController + 'static,
+        T: super::stub::JobController + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::JobController>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::JobController>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -826,13 +943,13 @@ impl JobController {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::JobController> {
+    ) -> Result<impl super::stub::JobController> {
         super::transport::JobController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::JobController> {
+    ) -> Result<impl super::stub::JobController> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::JobController::new)
@@ -843,8 +960,8 @@ impl JobController {
         &self,
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
-    ) -> super::builders::job_controller::SubmitJob {
-        super::builders::job_controller::SubmitJob::new(self.inner.clone())
+    ) -> super::builder::job_controller::SubmitJob {
+        super::builder::job_controller::SubmitJob::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
     }
@@ -864,8 +981,8 @@ impl JobController {
         &self,
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
-    ) -> super::builders::job_controller::SubmitJobAsOperation {
-        super::builders::job_controller::SubmitJobAsOperation::new(self.inner.clone())
+    ) -> super::builder::job_controller::SubmitJobAsOperation {
+        super::builder::job_controller::SubmitJobAsOperation::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
     }
@@ -876,8 +993,8 @@ impl JobController {
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
         job_id: impl Into<std::string::String>,
-    ) -> super::builders::job_controller::GetJob {
-        super::builders::job_controller::GetJob::new(self.inner.clone())
+    ) -> super::builder::job_controller::GetJob {
+        super::builder::job_controller::GetJob::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
             .set_job_id(job_id.into())
@@ -888,8 +1005,8 @@ impl JobController {
         &self,
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
-    ) -> super::builders::job_controller::ListJobs {
-        super::builders::job_controller::ListJobs::new(self.inner.clone())
+    ) -> super::builder::job_controller::ListJobs {
+        super::builder::job_controller::ListJobs::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
     }
@@ -900,8 +1017,8 @@ impl JobController {
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
         job_id: impl Into<std::string::String>,
-    ) -> super::builders::job_controller::UpdateJob {
-        super::builders::job_controller::UpdateJob::new(self.inner.clone())
+    ) -> super::builder::job_controller::UpdateJob {
+        super::builder::job_controller::UpdateJob::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
             .set_job_id(job_id.into())
@@ -917,8 +1034,8 @@ impl JobController {
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
         job_id: impl Into<std::string::String>,
-    ) -> super::builders::job_controller::CancelJob {
-        super::builders::job_controller::CancelJob::new(self.inner.clone())
+    ) -> super::builder::job_controller::CancelJob {
+        super::builder::job_controller::CancelJob::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
             .set_job_id(job_id.into())
@@ -931,8 +1048,8 @@ impl JobController {
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
         job_id: impl Into<std::string::String>,
-    ) -> super::builders::job_controller::DeleteJob {
-        super::builders::job_controller::DeleteJob::new(self.inner.clone())
+    ) -> super::builder::job_controller::DeleteJob {
+        super::builder::job_controller::DeleteJob::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
             .set_job_id(job_id.into())
@@ -946,8 +1063,8 @@ impl JobController {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::job_controller::SetIamPolicy {
-        super::builders::job_controller::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::job_controller::SetIamPolicy {
+        super::builder::job_controller::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -956,8 +1073,8 @@ impl JobController {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::job_controller::GetIamPolicy {
-        super::builders::job_controller::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::job_controller::GetIamPolicy {
+        super::builder::job_controller::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -971,8 +1088,8 @@ impl JobController {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::job_controller::TestIamPermissions {
-        super::builders::job_controller::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::job_controller::TestIamPermissions {
+        super::builder::job_controller::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -982,8 +1099,8 @@ impl JobController {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_controller::ListOperations {
-        super::builders::job_controller::ListOperations::new(self.inner.clone())
+    ) -> super::builder::job_controller::ListOperations {
+        super::builder::job_controller::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -993,8 +1110,8 @@ impl JobController {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_controller::GetOperation {
-        super::builders::job_controller::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::job_controller::GetOperation {
+        super::builder::job_controller::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1003,8 +1120,8 @@ impl JobController {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_controller::DeleteOperation {
-        super::builders::job_controller::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::job_controller::DeleteOperation {
+        super::builder::job_controller::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1014,13 +1131,22 @@ impl JobController {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::job_controller::CancelOperation {
-        super::builders::job_controller::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::job_controller::CancelOperation {
+        super::builder::job_controller::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Cloud Dataproc API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dataproc_v1::client::NodeGroupController;
+/// let client = NodeGroupController::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -1029,8 +1155,23 @@ impl JobController {
 ///
 /// # Configuration
 ///
-/// `NodeGroupController` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `NodeGroupController` use the `with_*` methods in the type returned
+/// by [builder()][NodeGroupController::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dataproc.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::node_group_controller::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::node_group_controller::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1040,37 +1181,45 @@ impl JobController {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct NodeGroupController {
-    inner: Arc<dyn super::stubs::dynamic::NodeGroupController>,
+    inner: Arc<dyn super::stub::dynamic::NodeGroupController>,
 }
 
 impl NodeGroupController {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [NodeGroupController].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dataproc_v1::client::NodeGroupController;
+    /// let client = NodeGroupController::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::node_group_controller::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::node_group_controller::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::NodeGroupController + 'static,
+        T: super::stub::NodeGroupController + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::NodeGroupController>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::NodeGroupController>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1079,13 +1228,13 @@ impl NodeGroupController {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::NodeGroupController> {
+    ) -> Result<impl super::stub::NodeGroupController> {
         super::transport::NodeGroupController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::NodeGroupController> {
+    ) -> Result<impl super::stub::NodeGroupController> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::NodeGroupController::new)
@@ -1109,8 +1258,8 @@ impl NodeGroupController {
     pub fn create_node_group(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::node_group_controller::CreateNodeGroup {
-        super::builders::node_group_controller::CreateNodeGroup::new(self.inner.clone())
+    ) -> super::builder::node_group_controller::CreateNodeGroup {
+        super::builder::node_group_controller::CreateNodeGroup::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1132,8 +1281,8 @@ impl NodeGroupController {
     pub fn resize_node_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::node_group_controller::ResizeNodeGroup {
-        super::builders::node_group_controller::ResizeNodeGroup::new(self.inner.clone())
+    ) -> super::builder::node_group_controller::ResizeNodeGroup {
+        super::builder::node_group_controller::ResizeNodeGroup::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1142,8 +1291,8 @@ impl NodeGroupController {
     pub fn get_node_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::node_group_controller::GetNodeGroup {
-        super::builders::node_group_controller::GetNodeGroup::new(self.inner.clone())
+    ) -> super::builder::node_group_controller::GetNodeGroup {
+        super::builder::node_group_controller::GetNodeGroup::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1155,8 +1304,8 @@ impl NodeGroupController {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::node_group_controller::SetIamPolicy {
-        super::builders::node_group_controller::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::node_group_controller::SetIamPolicy {
+        super::builder::node_group_controller::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1165,8 +1314,8 @@ impl NodeGroupController {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::node_group_controller::GetIamPolicy {
-        super::builders::node_group_controller::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::node_group_controller::GetIamPolicy {
+        super::builder::node_group_controller::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1180,8 +1329,8 @@ impl NodeGroupController {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::node_group_controller::TestIamPermissions {
-        super::builders::node_group_controller::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::node_group_controller::TestIamPermissions {
+        super::builder::node_group_controller::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1191,8 +1340,8 @@ impl NodeGroupController {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::node_group_controller::ListOperations {
-        super::builders::node_group_controller::ListOperations::new(self.inner.clone())
+    ) -> super::builder::node_group_controller::ListOperations {
+        super::builder::node_group_controller::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1202,8 +1351,8 @@ impl NodeGroupController {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::node_group_controller::GetOperation {
-        super::builders::node_group_controller::GetOperation::new(self.inner.clone())
+    ) -> super::builder::node_group_controller::GetOperation {
+        super::builder::node_group_controller::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1213,8 +1362,8 @@ impl NodeGroupController {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::node_group_controller::DeleteOperation {
-        super::builders::node_group_controller::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::node_group_controller::DeleteOperation {
+        super::builder::node_group_controller::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1224,13 +1373,22 @@ impl NodeGroupController {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::node_group_controller::CancelOperation {
-        super::builders::node_group_controller::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::node_group_controller::CancelOperation {
+        super::builder::node_group_controller::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Cloud Dataproc API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dataproc_v1::client::SessionTemplateController;
+/// let client = SessionTemplateController::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -1238,8 +1396,23 @@ impl NodeGroupController {
 ///
 /// # Configuration
 ///
-/// `SessionTemplateController` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SessionTemplateController` use the `with_*` methods in the type returned
+/// by [builder()][SessionTemplateController::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dataproc.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::session_template_controller::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::session_template_controller::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1249,37 +1422,45 @@ impl NodeGroupController {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SessionTemplateController {
-    inner: Arc<dyn super::stubs::dynamic::SessionTemplateController>,
+    inner: Arc<dyn super::stub::dynamic::SessionTemplateController>,
 }
 
 impl SessionTemplateController {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [SessionTemplateController].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
+    /// let client = SessionTemplateController::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::session_template_controller::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::session_template_controller::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::SessionTemplateController + 'static,
+        T: super::stub::SessionTemplateController + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::SessionTemplateController>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::SessionTemplateController>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1288,13 +1469,13 @@ impl SessionTemplateController {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SessionTemplateController> {
+    ) -> Result<impl super::stub::SessionTemplateController> {
         super::transport::SessionTemplateController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SessionTemplateController> {
+    ) -> Result<impl super::stub::SessionTemplateController> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SessionTemplateController::new)
@@ -1304,8 +1485,8 @@ impl SessionTemplateController {
     pub fn create_session_template(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::session_template_controller::CreateSessionTemplate {
-        super::builders::session_template_controller::CreateSessionTemplate::new(self.inner.clone())
+    ) -> super::builder::session_template_controller::CreateSessionTemplate {
+        super::builder::session_template_controller::CreateSessionTemplate::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1313,8 +1494,8 @@ impl SessionTemplateController {
     pub fn update_session_template(
         &self,
         session_template: impl Into<crate::model::SessionTemplate>,
-    ) -> super::builders::session_template_controller::UpdateSessionTemplate {
-        super::builders::session_template_controller::UpdateSessionTemplate::new(self.inner.clone())
+    ) -> super::builder::session_template_controller::UpdateSessionTemplate {
+        super::builder::session_template_controller::UpdateSessionTemplate::new(self.inner.clone())
             .set_session_template(session_template.into())
     }
 
@@ -1322,8 +1503,8 @@ impl SessionTemplateController {
     pub fn get_session_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::session_template_controller::GetSessionTemplate {
-        super::builders::session_template_controller::GetSessionTemplate::new(self.inner.clone())
+    ) -> super::builder::session_template_controller::GetSessionTemplate {
+        super::builder::session_template_controller::GetSessionTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1331,8 +1512,8 @@ impl SessionTemplateController {
     pub fn list_session_templates(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::session_template_controller::ListSessionTemplates {
-        super::builders::session_template_controller::ListSessionTemplates::new(self.inner.clone())
+    ) -> super::builder::session_template_controller::ListSessionTemplates {
+        super::builder::session_template_controller::ListSessionTemplates::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1340,8 +1521,8 @@ impl SessionTemplateController {
     pub fn delete_session_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::session_template_controller::DeleteSessionTemplate {
-        super::builders::session_template_controller::DeleteSessionTemplate::new(self.inner.clone())
+    ) -> super::builder::session_template_controller::DeleteSessionTemplate {
+        super::builder::session_template_controller::DeleteSessionTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1353,8 +1534,8 @@ impl SessionTemplateController {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::session_template_controller::SetIamPolicy {
-        super::builders::session_template_controller::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::session_template_controller::SetIamPolicy {
+        super::builder::session_template_controller::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1363,8 +1544,8 @@ impl SessionTemplateController {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::session_template_controller::GetIamPolicy {
-        super::builders::session_template_controller::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::session_template_controller::GetIamPolicy {
+        super::builder::session_template_controller::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1378,8 +1559,8 @@ impl SessionTemplateController {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::session_template_controller::TestIamPermissions {
-        super::builders::session_template_controller::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::session_template_controller::TestIamPermissions {
+        super::builder::session_template_controller::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1389,8 +1570,8 @@ impl SessionTemplateController {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::session_template_controller::ListOperations {
-        super::builders::session_template_controller::ListOperations::new(self.inner.clone())
+    ) -> super::builder::session_template_controller::ListOperations {
+        super::builder::session_template_controller::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1400,8 +1581,8 @@ impl SessionTemplateController {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::session_template_controller::GetOperation {
-        super::builders::session_template_controller::GetOperation::new(self.inner.clone())
+    ) -> super::builder::session_template_controller::GetOperation {
+        super::builder::session_template_controller::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1411,8 +1592,8 @@ impl SessionTemplateController {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::session_template_controller::DeleteOperation {
-        super::builders::session_template_controller::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::session_template_controller::DeleteOperation {
+        super::builder::session_template_controller::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1422,13 +1603,22 @@ impl SessionTemplateController {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::session_template_controller::CancelOperation {
-        super::builders::session_template_controller::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::session_template_controller::CancelOperation {
+        super::builder::session_template_controller::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Cloud Dataproc API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dataproc_v1::client::SessionController;
+/// let client = SessionController::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -1436,8 +1626,23 @@ impl SessionTemplateController {
 ///
 /// # Configuration
 ///
-/// `SessionController` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SessionController` use the `with_*` methods in the type returned
+/// by [builder()][SessionController::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dataproc.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::session_controller::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::session_controller::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1447,37 +1652,45 @@ impl SessionTemplateController {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SessionController {
-    inner: Arc<dyn super::stubs::dynamic::SessionController>,
+    inner: Arc<dyn super::stub::dynamic::SessionController>,
 }
 
 impl SessionController {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [SessionController].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dataproc_v1::client::SessionController;
+    /// let client = SessionController::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::session_controller::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::session_controller::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::SessionController + 'static,
+        T: super::stub::SessionController + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::SessionController>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::SessionController>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1486,13 +1699,13 @@ impl SessionController {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SessionController> {
+    ) -> Result<impl super::stub::SessionController> {
         super::transport::SessionController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SessionController> {
+    ) -> Result<impl super::stub::SessionController> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SessionController::new)
@@ -1512,8 +1725,8 @@ impl SessionController {
     pub fn create_session(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::session_controller::CreateSession {
-        super::builders::session_controller::CreateSession::new(self.inner.clone())
+    ) -> super::builder::session_controller::CreateSession {
+        super::builder::session_controller::CreateSession::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1521,8 +1734,8 @@ impl SessionController {
     pub fn get_session(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::session_controller::GetSession {
-        super::builders::session_controller::GetSession::new(self.inner.clone())
+    ) -> super::builder::session_controller::GetSession {
+        super::builder::session_controller::GetSession::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1530,8 +1743,8 @@ impl SessionController {
     pub fn list_sessions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::session_controller::ListSessions {
-        super::builders::session_controller::ListSessions::new(self.inner.clone())
+    ) -> super::builder::session_controller::ListSessions {
+        super::builder::session_controller::ListSessions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1549,8 +1762,8 @@ impl SessionController {
     pub fn terminate_session(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::session_controller::TerminateSession {
-        super::builders::session_controller::TerminateSession::new(self.inner.clone())
+    ) -> super::builder::session_controller::TerminateSession {
+        super::builder::session_controller::TerminateSession::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1569,8 +1782,8 @@ impl SessionController {
     pub fn delete_session(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::session_controller::DeleteSession {
-        super::builders::session_controller::DeleteSession::new(self.inner.clone())
+    ) -> super::builder::session_controller::DeleteSession {
+        super::builder::session_controller::DeleteSession::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1582,8 +1795,8 @@ impl SessionController {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::session_controller::SetIamPolicy {
-        super::builders::session_controller::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::session_controller::SetIamPolicy {
+        super::builder::session_controller::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1592,8 +1805,8 @@ impl SessionController {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::session_controller::GetIamPolicy {
-        super::builders::session_controller::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::session_controller::GetIamPolicy {
+        super::builder::session_controller::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1607,8 +1820,8 @@ impl SessionController {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::session_controller::TestIamPermissions {
-        super::builders::session_controller::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::session_controller::TestIamPermissions {
+        super::builder::session_controller::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1618,8 +1831,8 @@ impl SessionController {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::session_controller::ListOperations {
-        super::builders::session_controller::ListOperations::new(self.inner.clone())
+    ) -> super::builder::session_controller::ListOperations {
+        super::builder::session_controller::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1629,8 +1842,8 @@ impl SessionController {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::session_controller::GetOperation {
-        super::builders::session_controller::GetOperation::new(self.inner.clone())
+    ) -> super::builder::session_controller::GetOperation {
+        super::builder::session_controller::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1640,8 +1853,8 @@ impl SessionController {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::session_controller::DeleteOperation {
-        super::builders::session_controller::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::session_controller::DeleteOperation {
+        super::builder::session_controller::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1651,13 +1864,22 @@ impl SessionController {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::session_controller::CancelOperation {
-        super::builders::session_controller::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::session_controller::CancelOperation {
+        super::builder::session_controller::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Cloud Dataproc API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
+/// let client = WorkflowTemplateService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -1666,8 +1888,23 @@ impl SessionController {
 ///
 /// # Configuration
 ///
-/// `WorkflowTemplateService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `WorkflowTemplateService` use the `with_*` methods in the type returned
+/// by [builder()][WorkflowTemplateService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dataproc.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::workflow_template_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::workflow_template_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1677,37 +1914,45 @@ impl SessionController {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct WorkflowTemplateService {
-    inner: Arc<dyn super::stubs::dynamic::WorkflowTemplateService>,
+    inner: Arc<dyn super::stub::dynamic::WorkflowTemplateService>,
 }
 
 impl WorkflowTemplateService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [WorkflowTemplateService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
+    /// let client = WorkflowTemplateService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::workflow_template_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::workflow_template_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::WorkflowTemplateService + 'static,
+        T: super::stub::WorkflowTemplateService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::WorkflowTemplateService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::WorkflowTemplateService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1716,13 +1961,13 @@ impl WorkflowTemplateService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::WorkflowTemplateService> {
+    ) -> Result<impl super::stub::WorkflowTemplateService> {
         super::transport::WorkflowTemplateService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::WorkflowTemplateService> {
+    ) -> Result<impl super::stub::WorkflowTemplateService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::WorkflowTemplateService::new)
@@ -1732,8 +1977,8 @@ impl WorkflowTemplateService {
     pub fn create_workflow_template(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::workflow_template_service::CreateWorkflowTemplate {
-        super::builders::workflow_template_service::CreateWorkflowTemplate::new(self.inner.clone())
+    ) -> super::builder::workflow_template_service::CreateWorkflowTemplate {
+        super::builder::workflow_template_service::CreateWorkflowTemplate::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1744,8 +1989,8 @@ impl WorkflowTemplateService {
     pub fn get_workflow_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workflow_template_service::GetWorkflowTemplate {
-        super::builders::workflow_template_service::GetWorkflowTemplate::new(self.inner.clone())
+    ) -> super::builder::workflow_template_service::GetWorkflowTemplate {
+        super::builder::workflow_template_service::GetWorkflowTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1786,8 +2031,8 @@ impl WorkflowTemplateService {
     pub fn instantiate_workflow_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workflow_template_service::InstantiateWorkflowTemplate {
-        super::builders::workflow_template_service::InstantiateWorkflowTemplate::new(
+    ) -> super::builder::workflow_template_service::InstantiateWorkflowTemplate {
+        super::builder::workflow_template_service::InstantiateWorkflowTemplate::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -1838,8 +2083,8 @@ impl WorkflowTemplateService {
     pub fn instantiate_inline_workflow_template(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::workflow_template_service::InstantiateInlineWorkflowTemplate {
-        super::builders::workflow_template_service::InstantiateInlineWorkflowTemplate::new(
+    ) -> super::builder::workflow_template_service::InstantiateInlineWorkflowTemplate {
+        super::builder::workflow_template_service::InstantiateInlineWorkflowTemplate::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -1850,8 +2095,8 @@ impl WorkflowTemplateService {
     pub fn update_workflow_template(
         &self,
         template: impl Into<crate::model::WorkflowTemplate>,
-    ) -> super::builders::workflow_template_service::UpdateWorkflowTemplate {
-        super::builders::workflow_template_service::UpdateWorkflowTemplate::new(self.inner.clone())
+    ) -> super::builder::workflow_template_service::UpdateWorkflowTemplate {
+        super::builder::workflow_template_service::UpdateWorkflowTemplate::new(self.inner.clone())
             .set_template(template.into())
     }
 
@@ -1859,8 +2104,8 @@ impl WorkflowTemplateService {
     pub fn list_workflow_templates(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::workflow_template_service::ListWorkflowTemplates {
-        super::builders::workflow_template_service::ListWorkflowTemplates::new(self.inner.clone())
+    ) -> super::builder::workflow_template_service::ListWorkflowTemplates {
+        super::builder::workflow_template_service::ListWorkflowTemplates::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1868,8 +2113,8 @@ impl WorkflowTemplateService {
     pub fn delete_workflow_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workflow_template_service::DeleteWorkflowTemplate {
-        super::builders::workflow_template_service::DeleteWorkflowTemplate::new(self.inner.clone())
+    ) -> super::builder::workflow_template_service::DeleteWorkflowTemplate {
+        super::builder::workflow_template_service::DeleteWorkflowTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1881,8 +2126,8 @@ impl WorkflowTemplateService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::workflow_template_service::SetIamPolicy {
-        super::builders::workflow_template_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::workflow_template_service::SetIamPolicy {
+        super::builder::workflow_template_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1891,8 +2136,8 @@ impl WorkflowTemplateService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::workflow_template_service::GetIamPolicy {
-        super::builders::workflow_template_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::workflow_template_service::GetIamPolicy {
+        super::builder::workflow_template_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1906,8 +2151,8 @@ impl WorkflowTemplateService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::workflow_template_service::TestIamPermissions {
-        super::builders::workflow_template_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::workflow_template_service::TestIamPermissions {
+        super::builder::workflow_template_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1917,8 +2162,8 @@ impl WorkflowTemplateService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workflow_template_service::ListOperations {
-        super::builders::workflow_template_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::workflow_template_service::ListOperations {
+        super::builder::workflow_template_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1928,8 +2173,8 @@ impl WorkflowTemplateService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workflow_template_service::GetOperation {
-        super::builders::workflow_template_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::workflow_template_service::GetOperation {
+        super::builder::workflow_template_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1939,8 +2184,8 @@ impl WorkflowTemplateService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workflow_template_service::DeleteOperation {
-        super::builders::workflow_template_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::workflow_template_service::DeleteOperation {
+        super::builder::workflow_template_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1950,8 +2195,8 @@ impl WorkflowTemplateService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workflow_template_service::CancelOperation {
-        super::builders::workflow_template_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::workflow_template_service::CancelOperation {
+        super::builder::workflow_template_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

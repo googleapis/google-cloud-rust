@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [HubService](super::stubs::HubService) using a [gaxi::http::ReqwestClient].
+/// Implements [HubService](super::stub::HubService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct HubService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl HubService {
     }
 }
 
-impl super::stubs::HubService for HubService {
+impl super::stub::HubService for HubService {
     async fn list_hubs(
         &self,
         req: crate::model::ListHubsRequest,
@@ -694,7 +694,7 @@ impl super::stubs::HubService for HubService {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -707,13 +707,14 @@ impl super::stubs::HubService for HubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -723,7 +724,10 @@ impl super::stubs::HubService for HubService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -741,7 +745,7 @@ impl super::stubs::HubService for HubService {
     }
 }
 
-/// Implements [PolicyBasedRoutingService](super::stubs::PolicyBasedRoutingService) using a [gaxi::http::ReqwestClient].
+/// Implements [PolicyBasedRoutingService](super::stub::PolicyBasedRoutingService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct PolicyBasedRoutingService {
     inner: gaxi::http::ReqwestClient,
@@ -762,7 +766,7 @@ impl PolicyBasedRoutingService {
     }
 }
 
-impl super::stubs::PolicyBasedRoutingService for PolicyBasedRoutingService {
+impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
     async fn list_policy_based_routes(
         &self,
         req: crate::model::ListPolicyBasedRoutesRequest,
@@ -1010,7 +1014,7 @@ impl super::stubs::PolicyBasedRoutingService for PolicyBasedRoutingService {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1023,13 +1027,14 @@ impl super::stubs::PolicyBasedRoutingService for PolicyBasedRoutingService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1039,7 +1044,10 @@ impl super::stubs::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(

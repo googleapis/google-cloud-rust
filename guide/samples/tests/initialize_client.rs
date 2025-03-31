@@ -24,7 +24,7 @@ pub async fn initialize_client(project_id: &str) -> Result {
     // asynchronous operation that may fail, as it requires acquiring an an
     // access token.
     // ANCHOR: new-client
-    let client = SecretManagerService::new().await?;
+    let client = SecretManagerService::builder().build().await?;
     // ANCHOR_END: new-client
 
     // Once initialized, use the client to make requests.

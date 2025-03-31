@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Binary Authorization API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
+/// let client = BinauthzManagementServiceV1::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Google Cloud Management Service for Binary Authorization admission policies
@@ -36,8 +45,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `BinauthzManagementServiceV1` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `BinauthzManagementServiceV1` use the `with_*` methods in the type returned
+/// by [builder()][BinauthzManagementServiceV1::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://binaryauthorization.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::binauthz_management_service_v_1::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::binauthz_management_service_v_1::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -47,37 +71,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct BinauthzManagementServiceV1 {
-    inner: Arc<dyn super::stubs::dynamic::BinauthzManagementServiceV1>,
+    inner: Arc<dyn super::stub::dynamic::BinauthzManagementServiceV1>,
 }
 
 impl BinauthzManagementServiceV1 {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [BinauthzManagementServiceV1].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
+    /// let client = BinauthzManagementServiceV1::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::binauthz_management_service_v_1::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::binauthz_management_service_v_1::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::BinauthzManagementServiceV1 + 'static,
+        T: super::stub::BinauthzManagementServiceV1 + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::BinauthzManagementServiceV1>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::BinauthzManagementServiceV1>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -86,13 +118,13 @@ impl BinauthzManagementServiceV1 {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::BinauthzManagementServiceV1> {
+    ) -> Result<impl super::stub::BinauthzManagementServiceV1> {
         super::transport::BinauthzManagementServiceV1::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::BinauthzManagementServiceV1> {
+    ) -> Result<impl super::stub::BinauthzManagementServiceV1> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::BinauthzManagementServiceV1::new)
@@ -111,8 +143,8 @@ impl BinauthzManagementServiceV1 {
     pub fn get_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::binauthz_management_service_v_1::GetPolicy {
-        super::builders::binauthz_management_service_v_1::GetPolicy::new(self.inner.clone())
+    ) -> super::builder::binauthz_management_service_v_1::GetPolicy {
+        super::builder::binauthz_management_service_v_1::GetPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -126,8 +158,8 @@ impl BinauthzManagementServiceV1 {
     pub fn update_policy(
         &self,
         policy: impl Into<crate::model::Policy>,
-    ) -> super::builders::binauthz_management_service_v_1::UpdatePolicy {
-        super::builders::binauthz_management_service_v_1::UpdatePolicy::new(self.inner.clone())
+    ) -> super::builder::binauthz_management_service_v_1::UpdatePolicy {
+        super::builder::binauthz_management_service_v_1::UpdatePolicy::new(self.inner.clone())
             .set_policy(policy.into())
     }
 
@@ -140,8 +172,8 @@ impl BinauthzManagementServiceV1 {
     pub fn create_attestor(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::binauthz_management_service_v_1::CreateAttestor {
-        super::builders::binauthz_management_service_v_1::CreateAttestor::new(self.inner.clone())
+    ) -> super::builder::binauthz_management_service_v_1::CreateAttestor {
+        super::builder::binauthz_management_service_v_1::CreateAttestor::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -152,8 +184,8 @@ impl BinauthzManagementServiceV1 {
     pub fn get_attestor(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::binauthz_management_service_v_1::GetAttestor {
-        super::builders::binauthz_management_service_v_1::GetAttestor::new(self.inner.clone())
+    ) -> super::builder::binauthz_management_service_v_1::GetAttestor {
+        super::builder::binauthz_management_service_v_1::GetAttestor::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -164,8 +196,8 @@ impl BinauthzManagementServiceV1 {
     pub fn update_attestor(
         &self,
         attestor: impl Into<crate::model::Attestor>,
-    ) -> super::builders::binauthz_management_service_v_1::UpdateAttestor {
-        super::builders::binauthz_management_service_v_1::UpdateAttestor::new(self.inner.clone())
+    ) -> super::builder::binauthz_management_service_v_1::UpdateAttestor {
+        super::builder::binauthz_management_service_v_1::UpdateAttestor::new(self.inner.clone())
             .set_attestor(attestor.into())
     }
 
@@ -176,8 +208,8 @@ impl BinauthzManagementServiceV1 {
     pub fn list_attestors(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::binauthz_management_service_v_1::ListAttestors {
-        super::builders::binauthz_management_service_v_1::ListAttestors::new(self.inner.clone())
+    ) -> super::builder::binauthz_management_service_v_1::ListAttestors {
+        super::builder::binauthz_management_service_v_1::ListAttestors::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -188,13 +220,22 @@ impl BinauthzManagementServiceV1 {
     pub fn delete_attestor(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::binauthz_management_service_v_1::DeleteAttestor {
-        super::builders::binauthz_management_service_v_1::DeleteAttestor::new(self.inner.clone())
+    ) -> super::builder::binauthz_management_service_v_1::DeleteAttestor {
+        super::builder::binauthz_management_service_v_1::DeleteAttestor::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Binary Authorization API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_binaryauthorization_v1::client::SystemPolicyV1;
+/// let client = SystemPolicyV1::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -202,8 +243,23 @@ impl BinauthzManagementServiceV1 {
 ///
 /// # Configuration
 ///
-/// `SystemPolicyV1` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SystemPolicyV1` use the `with_*` methods in the type returned
+/// by [builder()][SystemPolicyV1::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://binaryauthorization.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::system_policy_v_1::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::system_policy_v_1::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -213,37 +269,45 @@ impl BinauthzManagementServiceV1 {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SystemPolicyV1 {
-    inner: Arc<dyn super::stubs::dynamic::SystemPolicyV1>,
+    inner: Arc<dyn super::stub::dynamic::SystemPolicyV1>,
 }
 
 impl SystemPolicyV1 {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [SystemPolicyV1].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_binaryauthorization_v1::client::SystemPolicyV1;
+    /// let client = SystemPolicyV1::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::system_policy_v_1::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::system_policy_v_1::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::SystemPolicyV1 + 'static,
+        T: super::stub::SystemPolicyV1 + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::SystemPolicyV1>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::SystemPolicyV1>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -252,13 +316,13 @@ impl SystemPolicyV1 {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SystemPolicyV1> {
+    ) -> Result<impl super::stub::SystemPolicyV1> {
         super::transport::SystemPolicyV1::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SystemPolicyV1> {
+    ) -> Result<impl super::stub::SystemPolicyV1> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SystemPolicyV1::new)
@@ -268,13 +332,22 @@ impl SystemPolicyV1 {
     pub fn get_system_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::system_policy_v_1::GetSystemPolicy {
-        super::builders::system_policy_v_1::GetSystemPolicy::new(self.inner.clone())
+    ) -> super::builder::system_policy_v_1::GetSystemPolicy {
+        super::builder::system_policy_v_1::GetSystemPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Binary Authorization API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_binaryauthorization_v1::client::ValidationHelperV1;
+/// let client = ValidationHelperV1::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -282,8 +355,23 @@ impl SystemPolicyV1 {
 ///
 /// # Configuration
 ///
-/// `ValidationHelperV1` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ValidationHelperV1` use the `with_*` methods in the type returned
+/// by [builder()][ValidationHelperV1::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://binaryauthorization.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::validation_helper_v_1::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::validation_helper_v_1::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -293,37 +381,45 @@ impl SystemPolicyV1 {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ValidationHelperV1 {
-    inner: Arc<dyn super::stubs::dynamic::ValidationHelperV1>,
+    inner: Arc<dyn super::stub::dynamic::ValidationHelperV1>,
 }
 
 impl ValidationHelperV1 {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ValidationHelperV1].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_binaryauthorization_v1::client::ValidationHelperV1;
+    /// let client = ValidationHelperV1::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::validation_helper_v_1::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::validation_helper_v_1::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ValidationHelperV1 + 'static,
+        T: super::stub::ValidationHelperV1 + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ValidationHelperV1>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ValidationHelperV1>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -332,13 +428,13 @@ impl ValidationHelperV1 {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ValidationHelperV1> {
+    ) -> Result<impl super::stub::ValidationHelperV1> {
         super::transport::ValidationHelperV1::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ValidationHelperV1> {
+    ) -> Result<impl super::stub::ValidationHelperV1> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ValidationHelperV1::new)
@@ -349,8 +445,8 @@ impl ValidationHelperV1 {
     pub fn validate_attestation_occurrence(
         &self,
         attestor: impl Into<std::string::String>,
-    ) -> super::builders::validation_helper_v_1::ValidateAttestationOccurrence {
-        super::builders::validation_helper_v_1::ValidateAttestationOccurrence::new(
+    ) -> super::builder::validation_helper_v_1::ValidateAttestationOccurrence {
+        super::builder::validation_helper_v_1::ValidateAttestationOccurrence::new(
             self.inner.clone(),
         )
         .set_attestor(attestor.into())

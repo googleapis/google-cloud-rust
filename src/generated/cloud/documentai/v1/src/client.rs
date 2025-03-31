@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Document AI API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+/// let client = DocumentProcessorService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service to call Document AI to process documents according to the
@@ -30,8 +39,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `DocumentProcessorService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `DocumentProcessorService` use the `with_*` methods in the type returned
+/// by [builder()][DocumentProcessorService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://documentai.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::document_processor_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::document_processor_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -41,37 +65,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct DocumentProcessorService {
-    inner: Arc<dyn super::stubs::dynamic::DocumentProcessorService>,
+    inner: Arc<dyn super::stub::dynamic::DocumentProcessorService>,
 }
 
 impl DocumentProcessorService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [DocumentProcessorService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// let client = DocumentProcessorService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::document_processor_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::document_processor_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::DocumentProcessorService + 'static,
+        T: super::stub::DocumentProcessorService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::DocumentProcessorService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::DocumentProcessorService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -80,13 +112,13 @@ impl DocumentProcessorService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DocumentProcessorService> {
+    ) -> Result<impl super::stub::DocumentProcessorService> {
         super::transport::DocumentProcessorService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DocumentProcessorService> {
+    ) -> Result<impl super::stub::DocumentProcessorService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DocumentProcessorService::new)
@@ -96,8 +128,8 @@ impl DocumentProcessorService {
     pub fn process_document(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::ProcessDocument {
-        super::builders::document_processor_service::ProcessDocument::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::ProcessDocument {
+        super::builder::document_processor_service::ProcessDocument::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -116,8 +148,8 @@ impl DocumentProcessorService {
     pub fn batch_process_documents(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::BatchProcessDocuments {
-        super::builders::document_processor_service::BatchProcessDocuments::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::BatchProcessDocuments {
+        super::builder::document_processor_service::BatchProcessDocuments::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -129,8 +161,8 @@ impl DocumentProcessorService {
     pub fn fetch_processor_types(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::FetchProcessorTypes {
-        super::builders::document_processor_service::FetchProcessorTypes::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::FetchProcessorTypes {
+        super::builder::document_processor_service::FetchProcessorTypes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -138,8 +170,8 @@ impl DocumentProcessorService {
     pub fn list_processor_types(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::ListProcessorTypes {
-        super::builders::document_processor_service::ListProcessorTypes::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::ListProcessorTypes {
+        super::builder::document_processor_service::ListProcessorTypes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -147,8 +179,8 @@ impl DocumentProcessorService {
     pub fn get_processor_type(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::GetProcessorType {
-        super::builders::document_processor_service::GetProcessorType::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::GetProcessorType {
+        super::builder::document_processor_service::GetProcessorType::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -156,8 +188,8 @@ impl DocumentProcessorService {
     pub fn list_processors(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::ListProcessors {
-        super::builders::document_processor_service::ListProcessors::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::ListProcessors {
+        super::builder::document_processor_service::ListProcessors::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -165,8 +197,8 @@ impl DocumentProcessorService {
     pub fn get_processor(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::GetProcessor {
-        super::builders::document_processor_service::GetProcessor::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::GetProcessor {
+        super::builder::document_processor_service::GetProcessor::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -188,8 +220,8 @@ impl DocumentProcessorService {
     pub fn train_processor_version(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::TrainProcessorVersion {
-        super::builders::document_processor_service::TrainProcessorVersion::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::TrainProcessorVersion {
+        super::builder::document_processor_service::TrainProcessorVersion::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -197,8 +229,8 @@ impl DocumentProcessorService {
     pub fn get_processor_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::GetProcessorVersion {
-        super::builders::document_processor_service::GetProcessorVersion::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::GetProcessorVersion {
+        super::builder::document_processor_service::GetProcessorVersion::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -206,8 +238,8 @@ impl DocumentProcessorService {
     pub fn list_processor_versions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::ListProcessorVersions {
-        super::builders::document_processor_service::ListProcessorVersions::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::ListProcessorVersions {
+        super::builder::document_processor_service::ListProcessorVersions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -226,8 +258,8 @@ impl DocumentProcessorService {
     pub fn delete_processor_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::DeleteProcessorVersion {
-        super::builders::document_processor_service::DeleteProcessorVersion::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::DeleteProcessorVersion {
+        super::builder::document_processor_service::DeleteProcessorVersion::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -245,8 +277,8 @@ impl DocumentProcessorService {
     pub fn deploy_processor_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::DeployProcessorVersion {
-        super::builders::document_processor_service::DeployProcessorVersion::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::DeployProcessorVersion {
+        super::builder::document_processor_service::DeployProcessorVersion::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -264,8 +296,8 @@ impl DocumentProcessorService {
     pub fn undeploy_processor_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::UndeployProcessorVersion {
-        super::builders::document_processor_service::UndeployProcessorVersion::new(
+    ) -> super::builder::document_processor_service::UndeployProcessorVersion {
+        super::builder::document_processor_service::UndeployProcessorVersion::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -283,8 +315,8 @@ impl DocumentProcessorService {
     pub fn create_processor(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::CreateProcessor {
-        super::builders::document_processor_service::CreateProcessor::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::CreateProcessor {
+        super::builder::document_processor_service::CreateProcessor::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -303,8 +335,8 @@ impl DocumentProcessorService {
     pub fn delete_processor(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::DeleteProcessor {
-        super::builders::document_processor_service::DeleteProcessor::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::DeleteProcessor {
+        super::builder::document_processor_service::DeleteProcessor::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -322,8 +354,8 @@ impl DocumentProcessorService {
     pub fn enable_processor(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::EnableProcessor {
-        super::builders::document_processor_service::EnableProcessor::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::EnableProcessor {
+        super::builder::document_processor_service::EnableProcessor::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -341,8 +373,8 @@ impl DocumentProcessorService {
     pub fn disable_processor(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::DisableProcessor {
-        super::builders::document_processor_service::DisableProcessor::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::DisableProcessor {
+        super::builder::document_processor_service::DisableProcessor::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -368,8 +400,8 @@ impl DocumentProcessorService {
     pub fn set_default_processor_version(
         &self,
         processor: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::SetDefaultProcessorVersion {
-        super::builders::document_processor_service::SetDefaultProcessorVersion::new(
+    ) -> super::builder::document_processor_service::SetDefaultProcessorVersion {
+        super::builder::document_processor_service::SetDefaultProcessorVersion::new(
             self.inner.clone(),
         )
         .set_processor(processor.into())
@@ -390,8 +422,8 @@ impl DocumentProcessorService {
     pub fn review_document(
         &self,
         human_review_config: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::ReviewDocument {
-        super::builders::document_processor_service::ReviewDocument::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::ReviewDocument {
+        super::builder::document_processor_service::ReviewDocument::new(self.inner.clone())
             .set_human_review_config(human_review_config.into())
     }
 
@@ -410,8 +442,8 @@ impl DocumentProcessorService {
     pub fn evaluate_processor_version(
         &self,
         processor_version: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::EvaluateProcessorVersion {
-        super::builders::document_processor_service::EvaluateProcessorVersion::new(
+    ) -> super::builder::document_processor_service::EvaluateProcessorVersion {
+        super::builder::document_processor_service::EvaluateProcessorVersion::new(
             self.inner.clone(),
         )
         .set_processor_version(processor_version.into())
@@ -421,8 +453,8 @@ impl DocumentProcessorService {
     pub fn get_evaluation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::GetEvaluation {
-        super::builders::document_processor_service::GetEvaluation::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::GetEvaluation {
+        super::builder::document_processor_service::GetEvaluation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -430,8 +462,8 @@ impl DocumentProcessorService {
     pub fn list_evaluations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::ListEvaluations {
-        super::builders::document_processor_service::ListEvaluations::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::ListEvaluations {
+        super::builder::document_processor_service::ListEvaluations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -439,8 +471,8 @@ impl DocumentProcessorService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::ListLocations {
-        super::builders::document_processor_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::ListLocations {
+        super::builder::document_processor_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -448,8 +480,8 @@ impl DocumentProcessorService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::GetLocation {
-        super::builders::document_processor_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::GetLocation {
+        super::builder::document_processor_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -459,8 +491,8 @@ impl DocumentProcessorService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::ListOperations {
-        super::builders::document_processor_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::ListOperations {
+        super::builder::document_processor_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -470,8 +502,8 @@ impl DocumentProcessorService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::GetOperation {
-        super::builders::document_processor_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::GetOperation {
+        super::builder::document_processor_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -481,8 +513,8 @@ impl DocumentProcessorService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::document_processor_service::CancelOperation {
-        super::builders::document_processor_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::document_processor_service::CancelOperation {
+        super::builder::document_processor_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

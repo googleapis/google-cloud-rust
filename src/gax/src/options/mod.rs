@@ -163,7 +163,7 @@ impl RequestOptions {
 /// These builders can be used to set the request parameters, e.g., the name of
 /// the resource targeted by the RPC, as well as any options affecting the
 /// request, such as additional headers or timeouts.
-pub trait RequestOptionsBuilder {
+pub trait RequestOptionsBuilder: internal::RequestBuilder {
     /// If `v` is `true`, treat the RPC underlying this method as idempotent.
     fn with_idempotency(self, v: bool) -> Self;
 
@@ -192,20 +192,25 @@ pub trait RequestOptionsBuilder {
     fn with_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(self, v: V) -> Self;
 }
 
-/// Simplify implementation of the [RequestOptionsBuilder] trait in generated
-/// code.
-///
-/// This is an implementation detail, most applications have little need to
-/// worry about or use this trait.
-pub trait RequestBuilder {
-    fn request_options(&mut self) -> &mut RequestOptions;
+/// This module contains implementation details. It is not part of the public
+/// API. Types inside may be changed or removed without warnings. Applications
+///  should not use any types contained within.
+#[doc(hidden)]
+pub mod internal {
+    /// Simplify implementation of the [super::RequestOptionsBuilder] trait in
+    /// generated code.
+    ///
+    /// This is an implementation detail, most applications have little need to
+    /// worry about or use this trait.
+    pub trait RequestBuilder {
+        fn request_options(&mut self) -> &mut super::RequestOptions;
+    }
 }
 
-/// Implements the [RequestOptionsBuilder] trait for any [RequestBuilder]
-/// implementation.
+/// Implements the sealed [RequestOptionsBuilder] trait.
 impl<T> RequestOptionsBuilder for T
 where
-    T: RequestBuilder,
+    T: internal::RequestBuilder,
 {
     fn with_idempotency(mut self, v: bool) -> Self {
         self.request_options().set_idempotency(v);
@@ -255,137 +260,11 @@ where
 /// should work for most applications. But some applications may need to
 /// override the default endpoint, the default authentication credentials,
 /// the retry policies, and/or other behaviors of the client.
-pub struct ClientConfig {
-    endpoint: Option<String>,
-    cred: Option<Credential>,
-    tracing: bool,
-    retry_policy: Option<Arc<dyn RetryPolicy>>,
-    backoff_policy: Option<Arc<dyn BackoffPolicy>>,
-    retry_throttler: SharedRetryThrottler,
-    polling_error_policy: Option<Arc<dyn PollingErrorPolicy>>,
-    polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
-}
-
-const LOGGING_VAR: &str = "GOOGLE_CLOUD_RUST_LOGGING";
-
-impl ClientConfig {
-    /// Returns a default [ClientConfig].
-    pub fn new() -> Self {
-        Self::default()
-    }
-
-    pub fn tracing_enabled(&self) -> bool {
-        if self.tracing {
-            return true;
-        }
-        std::env::var(LOGGING_VAR)
-            .map(|v| v == "true")
-            .unwrap_or(false)
-    }
-
-    /// Gets the current endpoint override, if any
-    pub fn endpoint(&self) -> &Option<String> {
-        &self.endpoint
-    }
-
-    /// Sets an endpoint that overrides the default endpoint for a service.
-    pub fn set_endpoint<T: Into<String>>(mut self, v: T) -> Self {
-        self.endpoint = Some(v.into());
-        self
-    }
-
-    /// Enables tracing.
-    pub fn enable_tracing(mut self) -> Self {
-        self.tracing = true;
-        self
-    }
-
-    /// Gets the current credential override, if any.
-    pub fn credential(&self) -> &Option<Credential> {
-        &self.cred
-    }
-
-    /// Configure the authentication credentials.
-    pub fn set_credential<T: Into<Credential>>(mut self, v: T) -> Self {
-        self.cred = Some(v.into());
-        self
-    }
-
-    /// Get the current retry policy override, if any.
-    pub fn retry_policy(&self) -> &Option<Arc<dyn RetryPolicy>> {
-        &self.retry_policy
-    }
-
-    /// Configure the retry policy.
-    pub fn set_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
-        self.retry_policy = Some(v.into().0);
-        self
-    }
-
-    /// Get the current backoff policy override, if any.
-    pub fn backoff_policy(&self) -> &Option<Arc<dyn BackoffPolicy>> {
-        &self.backoff_policy
-    }
-
-    /// Configure the retry backoff policy.
-    pub fn set_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
-        self.backoff_policy = Some(v.into().0);
-        self
-    }
-
-    /// Get the current retry throttler.
-    pub fn retry_throttler(&self) -> SharedRetryThrottler {
-        self.retry_throttler.clone()
-    }
-
-    /// Configure the retry throttler.
-    pub fn set_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
-        self.retry_throttler = v.into().0;
-        self
-    }
-
-    /// Get the current polling policy override, if any.
-    pub fn polling_error_policy(&self) -> &Option<Arc<dyn PollingErrorPolicy>> {
-        &self.polling_error_policy
-    }
-
-    /// Configure the polling backoff policy.
-    pub fn set_polling_error_policy<V: Into<PollingErrorPolicyArg>>(mut self, v: V) -> Self {
-        self.polling_error_policy = Some(v.into().0);
-        self
-    }
-
-    /// Get the current polling backoff policy override, if any.
-    pub fn polling_backoff_policy(&self) -> &Option<Arc<dyn PollingBackoffPolicy>> {
-        &self.polling_backoff_policy
-    }
-
-    /// Configure the polling backoff policy.
-    pub fn set_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(mut self, v: V) -> Self {
-        self.polling_backoff_policy = Some(v.into().0);
-        self
-    }
-}
-
-impl std::default::Default for ClientConfig {
-    fn default() -> Self {
-        use crate::retry_throttler::AdaptiveThrottler;
-        use std::sync::{Arc, Mutex};
-        Self {
-            endpoint: None,
-            cred: None,
-            tracing: false,
-            retry_policy: None,
-            backoff_policy: None,
-            retry_throttler: Arc::new(Mutex::new(AdaptiveThrottler::default())),
-            polling_error_policy: None,
-            polling_backoff_policy: None,
-        }
-    }
-}
+pub type ClientConfig = crate::client_builder::internal::ClientConfig<Credential>;
 
 #[cfg(test)]
 mod test {
+    use super::internal::*;
     use super::*;
     use crate::exponential_backoff::ExponentialBackoffBuilder;
     use crate::polling_error_policy;
@@ -509,95 +388,5 @@ mod test {
         );
 
         Ok(())
-    }
-
-    // This test must run serially because `std::env::remove_var` and
-    // `std::env::set_var` are unsafe otherwise.
-    #[test]
-    #[serial_test::serial]
-    fn config_tracing() {
-        unsafe {
-            std::env::remove_var(LOGGING_VAR);
-        }
-        let config = ClientConfig::new();
-        assert!(!config.tracing_enabled(), "expected tracing to be disabled");
-        let config = ClientConfig::new().enable_tracing();
-        assert!(config.tracing_enabled(), "expected tracing to be enabled");
-
-        unsafe {
-            std::env::set_var(LOGGING_VAR, "true");
-        }
-        let config = ClientConfig::new();
-        assert!(config.tracing_enabled(), "expected tracing to be enabled");
-
-        unsafe {
-            std::env::set_var(LOGGING_VAR, "not-true");
-        }
-        let config = ClientConfig::new();
-        assert!(!config.tracing_enabled(), "expected tracing to be disabled");
-    }
-
-    #[test]
-    fn config_endpoint() {
-        let config = ClientConfig::new().set_endpoint("http://storage.googleapis.com");
-        assert_eq!(
-            config.endpoint,
-            Some("http://storage.googleapis.com".to_string())
-        );
-    }
-
-    #[tokio::test]
-    async fn config_credentials() -> Result {
-        let config =
-            ClientConfig::new().set_credential(auth::credentials::testing::test_credentials());
-        let cred = config.cred.unwrap();
-        let token = cred.get_token().await?;
-        assert_eq!(token.token, "test-only-token");
-        Ok(())
-    }
-
-    #[test]
-    fn config_retry_policy() {
-        let config = ClientConfig::new().set_retry_policy(LimitedAttemptCount::new(5));
-        assert!(config.retry_policy.is_some());
-    }
-
-    #[test]
-    fn config_backoff() {
-        let config =
-            ClientConfig::new().set_backoff_policy(ExponentialBackoffBuilder::new().clamp());
-        assert!(config.backoff_policy.is_some());
-    }
-
-    fn map_lock_err<T>(e: std::sync::PoisonError<T>) -> Box<dyn std::error::Error> {
-        format!("cannot acquire lock {e}").into()
-    }
-
-    #[test]
-    fn config_retry_throttler() -> Result {
-        use crate::retry_throttler::CircuitBreaker;
-        let config = ClientConfig::new();
-        let throttler = config.retry_throttler.lock().map_err(map_lock_err)?;
-        assert!(!throttler.throttle_retry_attempt());
-
-        let config = ClientConfig::new().set_retry_throttler(CircuitBreaker::default());
-        let throttler = config.retry_throttler.lock().map_err(map_lock_err)?;
-        assert!(!throttler.throttle_retry_attempt());
-
-        Ok(())
-    }
-
-    #[test]
-    fn config_polling() {
-        let config =
-            ClientConfig::new().set_polling_error_policy(polling_error_policy::AlwaysContinue);
-        assert!(config.polling_error_policy.is_some());
-    }
-
-    #[test]
-    fn config_polling_backoff() {
-        let config = ClientConfig::new()
-            .set_polling_backoff_policy(ExponentialBackoffBuilder::new().clamp());
-        assert!(config.polling_backoff_policy.is_some());
     }
 }

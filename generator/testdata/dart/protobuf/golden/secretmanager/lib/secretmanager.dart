@@ -1045,7 +1045,7 @@ class SecretPayload extends Message {
 
   factory SecretPayload.fromJson(Map<String, dynamic> json) {
     return SecretPayload(
-      data: json['data'],
+      data: decodeBytes(json['data']),
       dataCrc32C: json['dataCrc32C'],
     );
   }
@@ -1053,7 +1053,7 @@ class SecretPayload extends Message {
   @override
   Object toJson() {
     return {
-      if (data != null) 'data': data,
+      if (data != null) 'data': encodeBytes(data!),
       if (dataCrc32C != null) 'dataCrc32C': dataCrc32C,
     };
   }

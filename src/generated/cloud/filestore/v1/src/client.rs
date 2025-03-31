@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Filestore API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_filestore_v1::client::CloudFilestoreManager;
+/// let client = CloudFilestoreManager::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Configures and manages Filestore resources.
@@ -47,8 +56,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `CloudFilestoreManager` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `CloudFilestoreManager` use the `with_*` methods in the type returned
+/// by [builder()][CloudFilestoreManager::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://file.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::cloud_filestore_manager::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::cloud_filestore_manager::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -58,37 +82,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CloudFilestoreManager {
-    inner: Arc<dyn super::stubs::dynamic::CloudFilestoreManager>,
+    inner: Arc<dyn super::stub::dynamic::CloudFilestoreManager>,
 }
 
 impl CloudFilestoreManager {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [CloudFilestoreManager].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_filestore_v1::client::CloudFilestoreManager;
+    /// let client = CloudFilestoreManager::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::cloud_filestore_manager::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::cloud_filestore_manager::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::CloudFilestoreManager + 'static,
+        T: super::stub::CloudFilestoreManager + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::CloudFilestoreManager>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::CloudFilestoreManager>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -97,13 +129,13 @@ impl CloudFilestoreManager {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CloudFilestoreManager> {
+    ) -> Result<impl super::stub::CloudFilestoreManager> {
         super::transport::CloudFilestoreManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CloudFilestoreManager> {
+    ) -> Result<impl super::stub::CloudFilestoreManager> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CloudFilestoreManager::new)
@@ -114,8 +146,8 @@ impl CloudFilestoreManager {
     pub fn list_instances(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_filestore_manager::ListInstances {
-        super::builders::cloud_filestore_manager::ListInstances::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::ListInstances {
+        super::builder::cloud_filestore_manager::ListInstances::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -123,8 +155,8 @@ impl CloudFilestoreManager {
     pub fn get_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_filestore_manager::GetInstance {
-        super::builders::cloud_filestore_manager::GetInstance::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::GetInstance {
+        super::builder::cloud_filestore_manager::GetInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -145,8 +177,8 @@ impl CloudFilestoreManager {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_filestore_manager::CreateInstance {
-        super::builders::cloud_filestore_manager::CreateInstance::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::CreateInstance {
+        super::builder::cloud_filestore_manager::CreateInstance::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -164,8 +196,8 @@ impl CloudFilestoreManager {
     pub fn update_instance(
         &self,
         instance: impl Into<crate::model::Instance>,
-    ) -> super::builders::cloud_filestore_manager::UpdateInstance {
-        super::builders::cloud_filestore_manager::UpdateInstance::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::UpdateInstance {
+        super::builder::cloud_filestore_manager::UpdateInstance::new(self.inner.clone())
             .set_instance(instance.into())
     }
 
@@ -187,8 +219,8 @@ impl CloudFilestoreManager {
     pub fn restore_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_filestore_manager::RestoreInstance {
-        super::builders::cloud_filestore_manager::RestoreInstance::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::RestoreInstance {
+        super::builder::cloud_filestore_manager::RestoreInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -206,8 +238,8 @@ impl CloudFilestoreManager {
     pub fn revert_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_filestore_manager::RevertInstance {
-        super::builders::cloud_filestore_manager::RevertInstance::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::RevertInstance {
+        super::builder::cloud_filestore_manager::RevertInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -225,8 +257,8 @@ impl CloudFilestoreManager {
     pub fn delete_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_filestore_manager::DeleteInstance {
-        super::builders::cloud_filestore_manager::DeleteInstance::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::DeleteInstance {
+        super::builder::cloud_filestore_manager::DeleteInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -235,8 +267,8 @@ impl CloudFilestoreManager {
     pub fn list_snapshots(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_filestore_manager::ListSnapshots {
-        super::builders::cloud_filestore_manager::ListSnapshots::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::ListSnapshots {
+        super::builder::cloud_filestore_manager::ListSnapshots::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -244,8 +276,8 @@ impl CloudFilestoreManager {
     pub fn get_snapshot(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_filestore_manager::GetSnapshot {
-        super::builders::cloud_filestore_manager::GetSnapshot::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::GetSnapshot {
+        super::builder::cloud_filestore_manager::GetSnapshot::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -263,8 +295,8 @@ impl CloudFilestoreManager {
     pub fn create_snapshot(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_filestore_manager::CreateSnapshot {
-        super::builders::cloud_filestore_manager::CreateSnapshot::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::CreateSnapshot {
+        super::builder::cloud_filestore_manager::CreateSnapshot::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -282,8 +314,8 @@ impl CloudFilestoreManager {
     pub fn delete_snapshot(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_filestore_manager::DeleteSnapshot {
-        super::builders::cloud_filestore_manager::DeleteSnapshot::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::DeleteSnapshot {
+        super::builder::cloud_filestore_manager::DeleteSnapshot::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -301,8 +333,8 @@ impl CloudFilestoreManager {
     pub fn update_snapshot(
         &self,
         snapshot: impl Into<crate::model::Snapshot>,
-    ) -> super::builders::cloud_filestore_manager::UpdateSnapshot {
-        super::builders::cloud_filestore_manager::UpdateSnapshot::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::UpdateSnapshot {
+        super::builder::cloud_filestore_manager::UpdateSnapshot::new(self.inner.clone())
             .set_snapshot(snapshot.into())
     }
 
@@ -311,8 +343,8 @@ impl CloudFilestoreManager {
     pub fn list_backups(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_filestore_manager::ListBackups {
-        super::builders::cloud_filestore_manager::ListBackups::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::ListBackups {
+        super::builder::cloud_filestore_manager::ListBackups::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -320,8 +352,8 @@ impl CloudFilestoreManager {
     pub fn get_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_filestore_manager::GetBackup {
-        super::builders::cloud_filestore_manager::GetBackup::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::GetBackup {
+        super::builder::cloud_filestore_manager::GetBackup::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -339,8 +371,8 @@ impl CloudFilestoreManager {
     pub fn create_backup(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_filestore_manager::CreateBackup {
-        super::builders::cloud_filestore_manager::CreateBackup::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::CreateBackup {
+        super::builder::cloud_filestore_manager::CreateBackup::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -358,8 +390,8 @@ impl CloudFilestoreManager {
     pub fn delete_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_filestore_manager::DeleteBackup {
-        super::builders::cloud_filestore_manager::DeleteBackup::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::DeleteBackup {
+        super::builder::cloud_filestore_manager::DeleteBackup::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -377,8 +409,8 @@ impl CloudFilestoreManager {
     pub fn update_backup(
         &self,
         backup: impl Into<crate::model::Backup>,
-    ) -> super::builders::cloud_filestore_manager::UpdateBackup {
-        super::builders::cloud_filestore_manager::UpdateBackup::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::UpdateBackup {
+        super::builder::cloud_filestore_manager::UpdateBackup::new(self.inner.clone())
             .set_backup(backup.into())
     }
 
@@ -396,8 +428,8 @@ impl CloudFilestoreManager {
     pub fn promote_replica(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_filestore_manager::PromoteReplica {
-        super::builders::cloud_filestore_manager::PromoteReplica::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::PromoteReplica {
+        super::builder::cloud_filestore_manager::PromoteReplica::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -405,8 +437,8 @@ impl CloudFilestoreManager {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_filestore_manager::ListLocations {
-        super::builders::cloud_filestore_manager::ListLocations::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::ListLocations {
+        super::builder::cloud_filestore_manager::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -414,8 +446,8 @@ impl CloudFilestoreManager {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_filestore_manager::GetLocation {
-        super::builders::cloud_filestore_manager::GetLocation::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::GetLocation {
+        super::builder::cloud_filestore_manager::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -425,8 +457,8 @@ impl CloudFilestoreManager {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_filestore_manager::ListOperations {
-        super::builders::cloud_filestore_manager::ListOperations::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::ListOperations {
+        super::builder::cloud_filestore_manager::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -436,8 +468,8 @@ impl CloudFilestoreManager {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_filestore_manager::GetOperation {
-        super::builders::cloud_filestore_manager::GetOperation::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::GetOperation {
+        super::builder::cloud_filestore_manager::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -447,8 +479,8 @@ impl CloudFilestoreManager {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_filestore_manager::DeleteOperation {
-        super::builders::cloud_filestore_manager::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::DeleteOperation {
+        super::builder::cloud_filestore_manager::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -458,8 +490,8 @@ impl CloudFilestoreManager {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_filestore_manager::CancelOperation {
-        super::builders::cloud_filestore_manager::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::cloud_filestore_manager::CancelOperation {
+        super::builder::cloud_filestore_manager::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

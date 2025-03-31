@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the BigQuery Data Policy API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_bigquery_datapolicies_v1::client::DataPolicyService;
+/// let client = DataPolicyService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Data Policy Service provides APIs for managing the label-policy bindings.
 ///
 /// # Configuration
 ///
-/// `DataPolicyService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `DataPolicyService` use the `with_*` methods in the type returned
+/// by [builder()][DataPolicyService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://bigquerydatapolicy.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::data_policy_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::data_policy_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,37 +62,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct DataPolicyService {
-    inner: Arc<dyn super::stubs::dynamic::DataPolicyService>,
+    inner: Arc<dyn super::stub::dynamic::DataPolicyService>,
 }
 
 impl DataPolicyService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [DataPolicyService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigquery_datapolicies_v1::client::DataPolicyService;
+    /// let client = DataPolicyService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::data_policy_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::data_policy_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::DataPolicyService + 'static,
+        T: super::stub::DataPolicyService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::DataPolicyService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::DataPolicyService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +109,13 @@ impl DataPolicyService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DataPolicyService> {
+    ) -> Result<impl super::stub::DataPolicyService> {
         super::transport::DataPolicyService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DataPolicyService> {
+    ) -> Result<impl super::stub::DataPolicyService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DataPolicyService::new)
@@ -94,8 +126,8 @@ impl DataPolicyService {
     pub fn create_data_policy(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_policy_service::CreateDataPolicy {
-        super::builders::data_policy_service::CreateDataPolicy::new(self.inner.clone())
+    ) -> super::builder::data_policy_service::CreateDataPolicy {
+        super::builder::data_policy_service::CreateDataPolicy::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -104,8 +136,8 @@ impl DataPolicyService {
     pub fn update_data_policy(
         &self,
         data_policy: impl Into<crate::model::DataPolicy>,
-    ) -> super::builders::data_policy_service::UpdateDataPolicy {
-        super::builders::data_policy_service::UpdateDataPolicy::new(self.inner.clone())
+    ) -> super::builder::data_policy_service::UpdateDataPolicy {
+        super::builder::data_policy_service::UpdateDataPolicy::new(self.inner.clone())
             .set_data_policy(data_policy.into())
     }
 
@@ -113,8 +145,8 @@ impl DataPolicyService {
     pub fn rename_data_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_policy_service::RenameDataPolicy {
-        super::builders::data_policy_service::RenameDataPolicy::new(self.inner.clone())
+    ) -> super::builder::data_policy_service::RenameDataPolicy {
+        super::builder::data_policy_service::RenameDataPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -122,8 +154,8 @@ impl DataPolicyService {
     pub fn delete_data_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_policy_service::DeleteDataPolicy {
-        super::builders::data_policy_service::DeleteDataPolicy::new(self.inner.clone())
+    ) -> super::builder::data_policy_service::DeleteDataPolicy {
+        super::builder::data_policy_service::DeleteDataPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -131,8 +163,8 @@ impl DataPolicyService {
     pub fn get_data_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_policy_service::GetDataPolicy {
-        super::builders::data_policy_service::GetDataPolicy::new(self.inner.clone())
+    ) -> super::builder::data_policy_service::GetDataPolicy {
+        super::builder::data_policy_service::GetDataPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -140,8 +172,8 @@ impl DataPolicyService {
     pub fn list_data_policies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_policy_service::ListDataPolicies {
-        super::builders::data_policy_service::ListDataPolicies::new(self.inner.clone())
+    ) -> super::builder::data_policy_service::ListDataPolicies {
+        super::builder::data_policy_service::ListDataPolicies::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -149,8 +181,8 @@ impl DataPolicyService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::data_policy_service::GetIamPolicy {
-        super::builders::data_policy_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::data_policy_service::GetIamPolicy {
+        super::builder::data_policy_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -158,8 +190,8 @@ impl DataPolicyService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::data_policy_service::SetIamPolicy {
-        super::builders::data_policy_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::data_policy_service::SetIamPolicy {
+        super::builder::data_policy_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -167,8 +199,8 @@ impl DataPolicyService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::data_policy_service::TestIamPermissions {
-        super::builders::data_policy_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::data_policy_service::TestIamPermissions {
+        super::builder::data_policy_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 }

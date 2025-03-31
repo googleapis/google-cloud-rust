@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud OS Login API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_oslogin_v1::client::OsLoginService;
+/// let client = OsLoginService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Cloud OS Login API
@@ -30,8 +39,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `OsLoginService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `OsLoginService` use the `with_*` methods in the type returned
+/// by [builder()][OsLoginService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://oslogin.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::os_login_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::os_login_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -41,37 +65,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct OsLoginService {
-    inner: Arc<dyn super::stubs::dynamic::OsLoginService>,
+    inner: Arc<dyn super::stub::dynamic::OsLoginService>,
 }
 
 impl OsLoginService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [OsLoginService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_oslogin_v1::client::OsLoginService;
+    /// let client = OsLoginService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::os_login_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::os_login_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::OsLoginService + 'static,
+        T: super::stub::OsLoginService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::OsLoginService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::OsLoginService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -80,13 +112,13 @@ impl OsLoginService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::OsLoginService> {
+    ) -> Result<impl super::stub::OsLoginService> {
         super::transport::OsLoginService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::OsLoginService> {
+    ) -> Result<impl super::stub::OsLoginService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::OsLoginService::new)
@@ -96,8 +128,8 @@ impl OsLoginService {
     pub fn create_ssh_public_key(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::os_login_service::CreateSshPublicKey {
-        super::builders::os_login_service::CreateSshPublicKey::new(self.inner.clone())
+    ) -> super::builder::os_login_service::CreateSshPublicKey {
+        super::builder::os_login_service::CreateSshPublicKey::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -105,8 +137,8 @@ impl OsLoginService {
     pub fn delete_posix_account(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::os_login_service::DeletePosixAccount {
-        super::builders::os_login_service::DeletePosixAccount::new(self.inner.clone())
+    ) -> super::builder::os_login_service::DeletePosixAccount {
+        super::builder::os_login_service::DeletePosixAccount::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -114,8 +146,8 @@ impl OsLoginService {
     pub fn delete_ssh_public_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::os_login_service::DeleteSshPublicKey {
-        super::builders::os_login_service::DeleteSshPublicKey::new(self.inner.clone())
+    ) -> super::builder::os_login_service::DeleteSshPublicKey {
+        super::builder::os_login_service::DeleteSshPublicKey::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -124,8 +156,8 @@ impl OsLoginService {
     pub fn get_login_profile(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::os_login_service::GetLoginProfile {
-        super::builders::os_login_service::GetLoginProfile::new(self.inner.clone())
+    ) -> super::builder::os_login_service::GetLoginProfile {
+        super::builder::os_login_service::GetLoginProfile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -133,8 +165,8 @@ impl OsLoginService {
     pub fn get_ssh_public_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::os_login_service::GetSshPublicKey {
-        super::builders::os_login_service::GetSshPublicKey::new(self.inner.clone())
+    ) -> super::builder::os_login_service::GetSshPublicKey {
+        super::builder::os_login_service::GetSshPublicKey::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -144,8 +176,8 @@ impl OsLoginService {
     pub fn import_ssh_public_key(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::os_login_service::ImportSshPublicKey {
-        super::builders::os_login_service::ImportSshPublicKey::new(self.inner.clone())
+    ) -> super::builder::os_login_service::ImportSshPublicKey {
+        super::builder::os_login_service::ImportSshPublicKey::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -154,8 +186,8 @@ impl OsLoginService {
     pub fn update_ssh_public_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::os_login_service::UpdateSshPublicKey {
-        super::builders::os_login_service::UpdateSshPublicKey::new(self.inner.clone())
+    ) -> super::builder::os_login_service::UpdateSshPublicKey {
+        super::builder::os_login_service::UpdateSshPublicKey::new(self.inner.clone())
             .set_name(name.into())
     }
 }

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DataprocMetastore](super::stubs::DataprocMetastore) using a [gaxi::http::ReqwestClient].
+/// Implements [DataprocMetastore](super::stub::DataprocMetastore) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DataprocMetastore {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl DataprocMetastore {
     }
 }
 
-impl super::stubs::DataprocMetastore for DataprocMetastore {
+impl super::stub::DataprocMetastore for DataprocMetastore {
     async fn list_services(
         &self,
         req: crate::model::ListServicesRequest,
@@ -612,7 +612,7 @@ impl super::stubs::DataprocMetastore for DataprocMetastore {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -625,13 +625,14 @@ impl super::stubs::DataprocMetastore for DataprocMetastore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -641,7 +642,10 @@ impl super::stubs::DataprocMetastore for DataprocMetastore {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -659,7 +663,7 @@ impl super::stubs::DataprocMetastore for DataprocMetastore {
     }
 }
 
-/// Implements [DataprocMetastoreFederation](super::stubs::DataprocMetastoreFederation) using a [gaxi::http::ReqwestClient].
+/// Implements [DataprocMetastoreFederation](super::stub::DataprocMetastoreFederation) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DataprocMetastoreFederation {
     inner: gaxi::http::ReqwestClient,
@@ -680,7 +684,7 @@ impl DataprocMetastoreFederation {
     }
 }
 
-impl super::stubs::DataprocMetastoreFederation for DataprocMetastoreFederation {
+impl super::stub::DataprocMetastoreFederation for DataprocMetastoreFederation {
     async fn list_federations(
         &self,
         req: crate::model::ListFederationsRequest,
@@ -967,7 +971,7 @@ impl super::stubs::DataprocMetastoreFederation for DataprocMetastoreFederation {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -980,13 +984,14 @@ impl super::stubs::DataprocMetastoreFederation for DataprocMetastoreFederation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -996,7 +1001,10 @@ impl super::stubs::DataprocMetastoreFederation for DataprocMetastoreFederation {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(

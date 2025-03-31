@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Distributed Cloud Edge Network API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+/// let client = EdgeNetwork::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// EdgeNetwork API provides managed, highly available cloud dynamic network
@@ -30,8 +39,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `EdgeNetwork` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `EdgeNetwork` use the `with_*` methods in the type returned
+/// by [builder()][EdgeNetwork::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://edgenetwork.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::edge_network::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::edge_network::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -41,37 +65,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct EdgeNetwork {
-    inner: Arc<dyn super::stubs::dynamic::EdgeNetwork>,
+    inner: Arc<dyn super::stub::dynamic::EdgeNetwork>,
 }
 
 impl EdgeNetwork {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [EdgeNetwork].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// let client = EdgeNetwork::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::edge_network::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::edge_network::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::EdgeNetwork + 'static,
+        T: super::stub::EdgeNetwork + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::EdgeNetwork>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::EdgeNetwork>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -80,13 +110,13 @@ impl EdgeNetwork {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::EdgeNetwork> {
+    ) -> Result<impl super::stub::EdgeNetwork> {
         super::transport::EdgeNetwork::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::EdgeNetwork> {
+    ) -> Result<impl super::stub::EdgeNetwork> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::EdgeNetwork::new)
@@ -96,8 +126,8 @@ impl EdgeNetwork {
     pub fn initialize_zone(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::InitializeZone {
-        super::builders::edge_network::InitializeZone::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::edge_network::InitializeZone {
+        super::builder::edge_network::InitializeZone::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deprecated: not implemented.
@@ -105,8 +135,8 @@ impl EdgeNetwork {
     pub fn list_zones(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::ListZones {
-        super::builders::edge_network::ListZones::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::edge_network::ListZones {
+        super::builder::edge_network::ListZones::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Deprecated: not implemented.
@@ -114,16 +144,16 @@ impl EdgeNetwork {
     pub fn get_zone(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::GetZone {
-        super::builders::edge_network::GetZone::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::edge_network::GetZone {
+        super::builder::edge_network::GetZone::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists Networks in a given project and location.
     pub fn list_networks(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::ListNetworks {
-        super::builders::edge_network::ListNetworks::new(self.inner.clone())
+    ) -> super::builder::edge_network::ListNetworks {
+        super::builder::edge_network::ListNetworks::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -131,17 +161,16 @@ impl EdgeNetwork {
     pub fn get_network(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::GetNetwork {
-        super::builders::edge_network::GetNetwork::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::edge_network::GetNetwork {
+        super::builder::edge_network::GetNetwork::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Get the diagnostics of a single network resource.
     pub fn diagnose_network(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::DiagnoseNetwork {
-        super::builders::edge_network::DiagnoseNetwork::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::edge_network::DiagnoseNetwork {
+        super::builder::edge_network::DiagnoseNetwork::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Network in a given project and location.
@@ -158,8 +187,8 @@ impl EdgeNetwork {
     pub fn create_network(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::CreateNetwork {
-        super::builders::edge_network::CreateNetwork::new(self.inner.clone())
+    ) -> super::builder::edge_network::CreateNetwork {
+        super::builder::edge_network::CreateNetwork::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -177,25 +206,24 @@ impl EdgeNetwork {
     pub fn delete_network(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::DeleteNetwork {
-        super::builders::edge_network::DeleteNetwork::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::edge_network::DeleteNetwork {
+        super::builder::edge_network::DeleteNetwork::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists Subnets in a given project and location.
     pub fn list_subnets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::ListSubnets {
-        super::builders::edge_network::ListSubnets::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::edge_network::ListSubnets {
+        super::builder::edge_network::ListSubnets::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets details of a single Subnet.
     pub fn get_subnet(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::GetSubnet {
-        super::builders::edge_network::GetSubnet::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::edge_network::GetSubnet {
+        super::builder::edge_network::GetSubnet::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Subnet in a given project and location.
@@ -212,8 +240,8 @@ impl EdgeNetwork {
     pub fn create_subnet(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::CreateSubnet {
-        super::builders::edge_network::CreateSubnet::new(self.inner.clone())
+    ) -> super::builder::edge_network::CreateSubnet {
+        super::builder::edge_network::CreateSubnet::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -231,8 +259,8 @@ impl EdgeNetwork {
     pub fn update_subnet(
         &self,
         subnet: impl Into<crate::model::Subnet>,
-    ) -> super::builders::edge_network::UpdateSubnet {
-        super::builders::edge_network::UpdateSubnet::new(self.inner.clone())
+    ) -> super::builder::edge_network::UpdateSubnet {
+        super::builder::edge_network::UpdateSubnet::new(self.inner.clone())
             .set_subnet(subnet.into())
     }
 
@@ -250,16 +278,16 @@ impl EdgeNetwork {
     pub fn delete_subnet(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::DeleteSubnet {
-        super::builders::edge_network::DeleteSubnet::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::edge_network::DeleteSubnet {
+        super::builder::edge_network::DeleteSubnet::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists Interconnects in a given project and location.
     pub fn list_interconnects(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::ListInterconnects {
-        super::builders::edge_network::ListInterconnects::new(self.inner.clone())
+    ) -> super::builder::edge_network::ListInterconnects {
+        super::builder::edge_network::ListInterconnects::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -267,17 +295,16 @@ impl EdgeNetwork {
     pub fn get_interconnect(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::GetInterconnect {
-        super::builders::edge_network::GetInterconnect::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::edge_network::GetInterconnect {
+        super::builder::edge_network::GetInterconnect::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Get the diagnostics of a single interconnect resource.
     pub fn diagnose_interconnect(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::DiagnoseInterconnect {
-        super::builders::edge_network::DiagnoseInterconnect::new(self.inner.clone())
+    ) -> super::builder::edge_network::DiagnoseInterconnect {
+        super::builder::edge_network::DiagnoseInterconnect::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -285,8 +312,8 @@ impl EdgeNetwork {
     pub fn list_interconnect_attachments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::ListInterconnectAttachments {
-        super::builders::edge_network::ListInterconnectAttachments::new(self.inner.clone())
+    ) -> super::builder::edge_network::ListInterconnectAttachments {
+        super::builder::edge_network::ListInterconnectAttachments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -294,8 +321,8 @@ impl EdgeNetwork {
     pub fn get_interconnect_attachment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::GetInterconnectAttachment {
-        super::builders::edge_network::GetInterconnectAttachment::new(self.inner.clone())
+    ) -> super::builder::edge_network::GetInterconnectAttachment {
+        super::builder::edge_network::GetInterconnectAttachment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -313,8 +340,8 @@ impl EdgeNetwork {
     pub fn create_interconnect_attachment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::CreateInterconnectAttachment {
-        super::builders::edge_network::CreateInterconnectAttachment::new(self.inner.clone())
+    ) -> super::builder::edge_network::CreateInterconnectAttachment {
+        super::builder::edge_network::CreateInterconnectAttachment::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -332,8 +359,8 @@ impl EdgeNetwork {
     pub fn delete_interconnect_attachment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::DeleteInterconnectAttachment {
-        super::builders::edge_network::DeleteInterconnectAttachment::new(self.inner.clone())
+    ) -> super::builder::edge_network::DeleteInterconnectAttachment {
+        super::builder::edge_network::DeleteInterconnectAttachment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -341,25 +368,24 @@ impl EdgeNetwork {
     pub fn list_routers(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::ListRouters {
-        super::builders::edge_network::ListRouters::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::edge_network::ListRouters {
+        super::builder::edge_network::ListRouters::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets details of a single Router.
     pub fn get_router(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::GetRouter {
-        super::builders::edge_network::GetRouter::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::edge_network::GetRouter {
+        super::builder::edge_network::GetRouter::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Get the diagnostics of a single router resource.
     pub fn diagnose_router(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::DiagnoseRouter {
-        super::builders::edge_network::DiagnoseRouter::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::edge_network::DiagnoseRouter {
+        super::builder::edge_network::DiagnoseRouter::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Router in a given project and location.
@@ -376,8 +402,8 @@ impl EdgeNetwork {
     pub fn create_router(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::CreateRouter {
-        super::builders::edge_network::CreateRouter::new(self.inner.clone())
+    ) -> super::builder::edge_network::CreateRouter {
+        super::builder::edge_network::CreateRouter::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -395,8 +421,8 @@ impl EdgeNetwork {
     pub fn update_router(
         &self,
         router: impl Into<crate::model::Router>,
-    ) -> super::builders::edge_network::UpdateRouter {
-        super::builders::edge_network::UpdateRouter::new(self.inner.clone())
+    ) -> super::builder::edge_network::UpdateRouter {
+        super::builder::edge_network::UpdateRouter::new(self.inner.clone())
             .set_router(router.into())
     }
 
@@ -414,24 +440,24 @@ impl EdgeNetwork {
     pub fn delete_router(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::DeleteRouter {
-        super::builders::edge_network::DeleteRouter::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::edge_network::DeleteRouter {
+        super::builder::edge_network::DeleteRouter::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::ListLocations {
-        super::builders::edge_network::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::edge_network::ListLocations {
+        super::builder::edge_network::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::GetLocation {
-        super::builders::edge_network::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::edge_network::GetLocation {
+        super::builder::edge_network::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -440,8 +466,8 @@ impl EdgeNetwork {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::ListOperations {
-        super::builders::edge_network::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::edge_network::ListOperations {
+        super::builder::edge_network::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -450,8 +476,8 @@ impl EdgeNetwork {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::GetOperation {
-        super::builders::edge_network::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::edge_network::GetOperation {
+        super::builder::edge_network::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -460,9 +486,8 @@ impl EdgeNetwork {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::DeleteOperation {
-        super::builders::edge_network::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::edge_network::DeleteOperation {
+        super::builder::edge_network::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -471,8 +496,7 @@ impl EdgeNetwork {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::edge_network::CancelOperation {
-        super::builders::edge_network::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::edge_network::CancelOperation {
+        super::builder::edge_network::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

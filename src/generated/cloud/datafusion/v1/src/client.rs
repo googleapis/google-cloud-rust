@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Data Fusion API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_datafusion_v1::client::DataFusion;
+/// let client = DataFusion::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for creating and managing Data Fusion instances.
@@ -29,8 +38,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `DataFusion` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `DataFusion` use the `with_*` methods in the type returned
+/// by [builder()][DataFusion::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://datafusion.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::data_fusion::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::data_fusion::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -40,37 +64,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct DataFusion {
-    inner: Arc<dyn super::stubs::dynamic::DataFusion>,
+    inner: Arc<dyn super::stub::dynamic::DataFusion>,
 }
 
 impl DataFusion {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [DataFusion].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_datafusion_v1::client::DataFusion;
+    /// let client = DataFusion::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::data_fusion::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::data_fusion::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::DataFusion + 'static,
+        T: super::stub::DataFusion + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::DataFusion>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::DataFusion>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -79,13 +109,13 @@ impl DataFusion {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DataFusion> {
+    ) -> Result<impl super::stub::DataFusion> {
         super::transport::DataFusion::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DataFusion> {
+    ) -> Result<impl super::stub::DataFusion> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DataFusion::new)
@@ -96,8 +126,8 @@ impl DataFusion {
     pub fn list_available_versions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_fusion::ListAvailableVersions {
-        super::builders::data_fusion::ListAvailableVersions::new(self.inner.clone())
+    ) -> super::builder::data_fusion::ListAvailableVersions {
+        super::builder::data_fusion::ListAvailableVersions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -105,8 +135,8 @@ impl DataFusion {
     pub fn list_instances(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_fusion::ListInstances {
-        super::builders::data_fusion::ListInstances::new(self.inner.clone())
+    ) -> super::builder::data_fusion::ListInstances {
+        super::builder::data_fusion::ListInstances::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -114,8 +144,8 @@ impl DataFusion {
     pub fn get_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_fusion::GetInstance {
-        super::builders::data_fusion::GetInstance::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::data_fusion::GetInstance {
+        super::builder::data_fusion::GetInstance::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Data Fusion instance in the specified project and location.
@@ -132,8 +162,8 @@ impl DataFusion {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_fusion::CreateInstance {
-        super::builders::data_fusion::CreateInstance::new(self.inner.clone())
+    ) -> super::builder::data_fusion::CreateInstance {
+        super::builder::data_fusion::CreateInstance::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -151,8 +181,8 @@ impl DataFusion {
     pub fn delete_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_fusion::DeleteInstance {
-        super::builders::data_fusion::DeleteInstance::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::data_fusion::DeleteInstance {
+        super::builder::data_fusion::DeleteInstance::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates a single Data Fusion instance.
@@ -169,8 +199,8 @@ impl DataFusion {
     pub fn update_instance(
         &self,
         instance: impl Into<crate::model::Instance>,
-    ) -> super::builders::data_fusion::UpdateInstance {
-        super::builders::data_fusion::UpdateInstance::new(self.inner.clone())
+    ) -> super::builder::data_fusion::UpdateInstance {
+        super::builder::data_fusion::UpdateInstance::new(self.inner.clone())
             .set_instance(instance.into())
     }
 
@@ -189,8 +219,8 @@ impl DataFusion {
     pub fn restart_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_fusion::RestartInstance {
-        super::builders::data_fusion::RestartInstance::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::data_fusion::RestartInstance {
+        super::builder::data_fusion::RestartInstance::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -199,8 +229,8 @@ impl DataFusion {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_fusion::ListOperations {
-        super::builders::data_fusion::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::data_fusion::ListOperations {
+        super::builder::data_fusion::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -209,8 +239,8 @@ impl DataFusion {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_fusion::GetOperation {
-        super::builders::data_fusion::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::data_fusion::GetOperation {
+        super::builder::data_fusion::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -219,8 +249,8 @@ impl DataFusion {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_fusion::DeleteOperation {
-        super::builders::data_fusion::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::data_fusion::DeleteOperation {
+        super::builder::data_fusion::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -229,7 +259,7 @@ impl DataFusion {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_fusion::CancelOperation {
-        super::builders::data_fusion::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::data_fusion::CancelOperation {
+        super::builder::data_fusion::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

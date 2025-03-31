@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Functions API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_functions_v2::client::FunctionService;
+/// let client = FunctionService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Google Cloud Functions is used to deploy functions that are executed by
@@ -32,8 +41,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `FunctionService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `FunctionService` use the `with_*` methods in the type returned
+/// by [builder()][FunctionService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://cloudfunctions.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::function_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::function_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -43,37 +67,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct FunctionService {
-    inner: Arc<dyn super::stubs::dynamic::FunctionService>,
+    inner: Arc<dyn super::stub::dynamic::FunctionService>,
 }
 
 impl FunctionService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [FunctionService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_functions_v2::client::FunctionService;
+    /// let client = FunctionService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::function_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::function_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::FunctionService + 'static,
+        T: super::stub::FunctionService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::FunctionService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::FunctionService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -82,13 +114,13 @@ impl FunctionService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::FunctionService> {
+    ) -> Result<impl super::stub::FunctionService> {
         super::transport::FunctionService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::FunctionService> {
+    ) -> Result<impl super::stub::FunctionService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::FunctionService::new)
@@ -98,17 +130,16 @@ impl FunctionService {
     pub fn get_function(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::function_service::GetFunction {
-        super::builders::function_service::GetFunction::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::function_service::GetFunction {
+        super::builder::function_service::GetFunction::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Returns a list of functions that belong to the requested project.
     pub fn list_functions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::function_service::ListFunctions {
-        super::builders::function_service::ListFunctions::new(self.inner.clone())
+    ) -> super::builder::function_service::ListFunctions {
+        super::builder::function_service::ListFunctions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -128,8 +159,8 @@ impl FunctionService {
     pub fn create_function(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::function_service::CreateFunction {
-        super::builders::function_service::CreateFunction::new(self.inner.clone())
+    ) -> super::builder::function_service::CreateFunction {
+        super::builder::function_service::CreateFunction::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -147,8 +178,8 @@ impl FunctionService {
     pub fn update_function(
         &self,
         function: impl Into<crate::model::Function>,
-    ) -> super::builders::function_service::UpdateFunction {
-        super::builders::function_service::UpdateFunction::new(self.inner.clone())
+    ) -> super::builder::function_service::UpdateFunction {
+        super::builder::function_service::UpdateFunction::new(self.inner.clone())
             .set_function(function.into())
     }
 
@@ -168,8 +199,8 @@ impl FunctionService {
     pub fn delete_function(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::function_service::DeleteFunction {
-        super::builders::function_service::DeleteFunction::new(self.inner.clone())
+    ) -> super::builder::function_service::DeleteFunction {
+        super::builder::function_service::DeleteFunction::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -199,8 +230,8 @@ impl FunctionService {
     pub fn generate_upload_url(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::function_service::GenerateUploadUrl {
-        super::builders::function_service::GenerateUploadUrl::new(self.inner.clone())
+    ) -> super::builder::function_service::GenerateUploadUrl {
+        super::builder::function_service::GenerateUploadUrl::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -212,8 +243,8 @@ impl FunctionService {
     pub fn generate_download_url(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::function_service::GenerateDownloadUrl {
-        super::builders::function_service::GenerateDownloadUrl::new(self.inner.clone())
+    ) -> super::builder::function_service::GenerateDownloadUrl {
+        super::builder::function_service::GenerateDownloadUrl::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -221,8 +252,8 @@ impl FunctionService {
     pub fn list_runtimes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::function_service::ListRuntimes {
-        super::builders::function_service::ListRuntimes::new(self.inner.clone())
+    ) -> super::builder::function_service::ListRuntimes {
+        super::builder::function_service::ListRuntimes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -230,8 +261,8 @@ impl FunctionService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::function_service::ListLocations {
-        super::builders::function_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::function_service::ListLocations {
+        super::builder::function_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -243,8 +274,8 @@ impl FunctionService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::function_service::SetIamPolicy {
-        super::builders::function_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::function_service::SetIamPolicy {
+        super::builder::function_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -253,8 +284,8 @@ impl FunctionService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::function_service::GetIamPolicy {
-        super::builders::function_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::function_service::GetIamPolicy {
+        super::builder::function_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -268,8 +299,8 @@ impl FunctionService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::function_service::TestIamPermissions {
-        super::builders::function_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::function_service::TestIamPermissions {
+        super::builder::function_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -279,8 +310,8 @@ impl FunctionService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::function_service::ListOperations {
-        super::builders::function_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::function_service::ListOperations {
+        super::builder::function_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -290,8 +321,8 @@ impl FunctionService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::function_service::GetOperation {
-        super::builders::function_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::function_service::GetOperation {
+        super::builder::function_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

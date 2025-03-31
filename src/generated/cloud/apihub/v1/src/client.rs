@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the API hub API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_apihub_v1::client::ApiHub;
+/// let client = ApiHub::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// This service provides all methods related to the API hub.
 ///
 /// # Configuration
 ///
-/// `ApiHub` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ApiHub` use the `with_*` methods in the type returned
+/// by [builder()][ApiHub::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://apihub.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::api_hub::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::api_hub::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,52 +62,56 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ApiHub {
-    inner: Arc<dyn super::stubs::dynamic::ApiHub>,
+    inner: Arc<dyn super::stub::dynamic::ApiHub>,
 }
 
 impl ApiHub {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ApiHub].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// let client = ApiHub::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::api_hub::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::api_hub::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ApiHub + 'static,
+        T: super::stub::ApiHub + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ApiHub>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ApiHub>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ApiHub> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stub::ApiHub> {
         super::transport::ApiHub::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ApiHub> {
+    ) -> Result<impl super::stub::ApiHub> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ApiHub::new)
@@ -94,24 +122,21 @@ impl ApiHub {
     pub fn create_api(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::CreateApi {
-        super::builders::api_hub::CreateApi::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::api_hub::CreateApi {
+        super::builder::api_hub::CreateApi::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Get API resource details including the API versions contained in it.
-    pub fn get_api(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::GetApi {
-        super::builders::api_hub::GetApi::new(self.inner.clone()).set_name(name.into())
+    pub fn get_api(&self, name: impl Into<std::string::String>) -> super::builder::api_hub::GetApi {
+        super::builder::api_hub::GetApi::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List API resources in the API hub.
     pub fn list_apis(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::ListApis {
-        super::builders::api_hub::ListApis::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::api_hub::ListApis {
+        super::builder::api_hub::ListApis::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Update an API resource in the API hub. The following fields in the
@@ -147,8 +172,8 @@ impl ApiHub {
     pub fn update_api(
         &self,
         api: impl Into<crate::model::Api>,
-    ) -> super::builders::api_hub::UpdateApi {
-        super::builders::api_hub::UpdateApi::new(self.inner.clone()).set_api(api.into())
+    ) -> super::builder::api_hub::UpdateApi {
+        super::builder::api_hub::UpdateApi::new(self.inner.clone()).set_api(api.into())
     }
 
     /// Delete an API resource in the API hub. API can only be deleted if all
@@ -156,16 +181,16 @@ impl ApiHub {
     pub fn delete_api(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::DeleteApi {
-        super::builders::api_hub::DeleteApi::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub::DeleteApi {
+        super::builder::api_hub::DeleteApi::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Create an API version for an API resource in the API hub.
     pub fn create_version(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::CreateVersion {
-        super::builders::api_hub::CreateVersion::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::api_hub::CreateVersion {
+        super::builder::api_hub::CreateVersion::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Get details about the API version of an API resource. This will include
@@ -174,16 +199,16 @@ impl ApiHub {
     pub fn get_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::GetVersion {
-        super::builders::api_hub::GetVersion::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub::GetVersion {
+        super::builder::api_hub::GetVersion::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List API versions of an API resource in the API hub.
     pub fn list_versions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::ListVersions {
-        super::builders::api_hub::ListVersions::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::api_hub::ListVersions {
+        super::builder::api_hub::ListVersions::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Update API version. The following fields in the
@@ -215,8 +240,8 @@ impl ApiHub {
     pub fn update_version(
         &self,
         version: impl Into<crate::model::Version>,
-    ) -> super::builders::api_hub::UpdateVersion {
-        super::builders::api_hub::UpdateVersion::new(self.inner.clone()).set_version(version.into())
+    ) -> super::builder::api_hub::UpdateVersion {
+        super::builder::api_hub::UpdateVersion::new(self.inner.clone()).set_version(version.into())
     }
 
     /// Delete an API version. Version can only be deleted if all underlying specs,
@@ -224,8 +249,8 @@ impl ApiHub {
     pub fn delete_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::DeleteVersion {
-        super::builders::api_hub::DeleteVersion::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub::DeleteVersion {
+        super::builder::api_hub::DeleteVersion::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Add a spec to an API version in the API hub.
@@ -256,8 +281,8 @@ impl ApiHub {
     pub fn create_spec(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::CreateSpec {
-        super::builders::api_hub::CreateSpec::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::api_hub::CreateSpec {
+        super::builder::api_hub::CreateSpec::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Get details about the information parsed from a spec.
@@ -269,24 +294,24 @@ impl ApiHub {
     pub fn get_spec(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::GetSpec {
-        super::builders::api_hub::GetSpec::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub::GetSpec {
+        super::builder::api_hub::GetSpec::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Get spec contents.
     pub fn get_spec_contents(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::GetSpecContents {
-        super::builders::api_hub::GetSpecContents::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub::GetSpecContents {
+        super::builder::api_hub::GetSpecContents::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List specs corresponding to a particular API resource.
     pub fn list_specs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::ListSpecs {
-        super::builders::api_hub::ListSpecs::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::api_hub::ListSpecs {
+        super::builder::api_hub::ListSpecs::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Update spec. The following fields in the
@@ -324,8 +349,8 @@ impl ApiHub {
     pub fn update_spec(
         &self,
         spec: impl Into<crate::model::Spec>,
-    ) -> super::builders::api_hub::UpdateSpec {
-        super::builders::api_hub::UpdateSpec::new(self.inner.clone()).set_spec(spec.into())
+    ) -> super::builder::api_hub::UpdateSpec {
+        super::builder::api_hub::UpdateSpec::new(self.inner.clone()).set_spec(spec.into())
     }
 
     /// Delete a spec.
@@ -334,24 +359,24 @@ impl ApiHub {
     pub fn delete_spec(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::DeleteSpec {
-        super::builders::api_hub::DeleteSpec::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub::DeleteSpec {
+        super::builder::api_hub::DeleteSpec::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Get details about a particular operation in API version.
     pub fn get_api_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::GetApiOperation {
-        super::builders::api_hub::GetApiOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub::GetApiOperation {
+        super::builder::api_hub::GetApiOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List operations in an API version.
     pub fn list_api_operations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::ListApiOperations {
-        super::builders::api_hub::ListApiOperations::new(self.inner.clone())
+    ) -> super::builder::api_hub::ListApiOperations {
+        super::builder::api_hub::ListApiOperations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -359,8 +384,8 @@ impl ApiHub {
     pub fn get_definition(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::GetDefinition {
-        super::builders::api_hub::GetDefinition::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub::GetDefinition {
+        super::builder::api_hub::GetDefinition::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Create a deployment resource in the API hub.
@@ -369,25 +394,24 @@ impl ApiHub {
     pub fn create_deployment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::CreateDeployment {
-        super::builders::api_hub::CreateDeployment::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::api_hub::CreateDeployment {
+        super::builder::api_hub::CreateDeployment::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Get details about a deployment and the API versions linked to it.
     pub fn get_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::GetDeployment {
-        super::builders::api_hub::GetDeployment::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub::GetDeployment {
+        super::builder::api_hub::GetDeployment::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List deployment resources in the API hub.
     pub fn list_deployments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::ListDeployments {
-        super::builders::api_hub::ListDeployments::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::api_hub::ListDeployments {
+        super::builder::api_hub::ListDeployments::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Update a deployment resource in the API hub. The following fields in the
@@ -422,8 +446,8 @@ impl ApiHub {
     pub fn update_deployment(
         &self,
         deployment: impl Into<crate::model::Deployment>,
-    ) -> super::builders::api_hub::UpdateDeployment {
-        super::builders::api_hub::UpdateDeployment::new(self.inner.clone())
+    ) -> super::builder::api_hub::UpdateDeployment {
+        super::builder::api_hub::UpdateDeployment::new(self.inner.clone())
             .set_deployment(deployment.into())
     }
 
@@ -431,8 +455,8 @@ impl ApiHub {
     pub fn delete_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::DeleteDeployment {
-        super::builders::api_hub::DeleteDeployment::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub::DeleteDeployment {
+        super::builder::api_hub::DeleteDeployment::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Create a user defined attribute.
@@ -448,16 +472,16 @@ impl ApiHub {
     pub fn create_attribute(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::CreateAttribute {
-        super::builders::api_hub::CreateAttribute::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::api_hub::CreateAttribute {
+        super::builder::api_hub::CreateAttribute::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Get details about the attribute.
     pub fn get_attribute(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::GetAttribute {
-        super::builders::api_hub::GetAttribute::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub::GetAttribute {
+        super::builder::api_hub::GetAttribute::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Update the attribute.  The following fields in the
@@ -493,8 +517,8 @@ impl ApiHub {
     pub fn update_attribute(
         &self,
         attribute: impl Into<crate::model::Attribute>,
-    ) -> super::builders::api_hub::UpdateAttribute {
-        super::builders::api_hub::UpdateAttribute::new(self.inner.clone())
+    ) -> super::builder::api_hub::UpdateAttribute {
+        super::builder::api_hub::UpdateAttribute::new(self.inner.clone())
             .set_attribute(attribute.into())
     }
 
@@ -506,24 +530,24 @@ impl ApiHub {
     pub fn delete_attribute(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::DeleteAttribute {
-        super::builders::api_hub::DeleteAttribute::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub::DeleteAttribute {
+        super::builder::api_hub::DeleteAttribute::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List all attributes.
     pub fn list_attributes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::ListAttributes {
-        super::builders::api_hub::ListAttributes::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::api_hub::ListAttributes {
+        super::builder::api_hub::ListAttributes::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Search across API-Hub resources.
     pub fn search_resources(
         &self,
         location: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::SearchResources {
-        super::builders::api_hub::SearchResources::new(self.inner.clone())
+    ) -> super::builder::api_hub::SearchResources {
+        super::builder::api_hub::SearchResources::new(self.inner.clone())
             .set_location(location.into())
     }
 
@@ -531,8 +555,8 @@ impl ApiHub {
     pub fn create_external_api(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::CreateExternalApi {
-        super::builders::api_hub::CreateExternalApi::new(self.inner.clone())
+    ) -> super::builder::api_hub::CreateExternalApi {
+        super::builder::api_hub::CreateExternalApi::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -540,8 +564,8 @@ impl ApiHub {
     pub fn get_external_api(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::GetExternalApi {
-        super::builders::api_hub::GetExternalApi::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub::GetExternalApi {
+        super::builder::api_hub::GetExternalApi::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Update an External API resource in the API hub. The following fields can be
@@ -566,8 +590,8 @@ impl ApiHub {
     pub fn update_external_api(
         &self,
         external_api: impl Into<crate::model::ExternalApi>,
-    ) -> super::builders::api_hub::UpdateExternalApi {
-        super::builders::api_hub::UpdateExternalApi::new(self.inner.clone())
+    ) -> super::builder::api_hub::UpdateExternalApi {
+        super::builder::api_hub::UpdateExternalApi::new(self.inner.clone())
             .set_external_api(external_api.into())
     }
 
@@ -575,33 +599,32 @@ impl ApiHub {
     pub fn delete_external_api(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::DeleteExternalApi {
-        super::builders::api_hub::DeleteExternalApi::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub::DeleteExternalApi {
+        super::builder::api_hub::DeleteExternalApi::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List External API resources in the API hub.
     pub fn list_external_apis(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::ListExternalApis {
-        super::builders::api_hub::ListExternalApis::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::api_hub::ListExternalApis {
+        super::builder::api_hub::ListExternalApis::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::ListLocations {
-        super::builders::api_hub::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub::ListLocations {
+        super::builder::api_hub::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::GetLocation {
-        super::builders::api_hub::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub::GetLocation {
+        super::builder::api_hub::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -610,8 +633,8 @@ impl ApiHub {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::ListOperations {
-        super::builders::api_hub::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub::ListOperations {
+        super::builder::api_hub::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -620,8 +643,8 @@ impl ApiHub {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::GetOperation {
-        super::builders::api_hub::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub::GetOperation {
+        super::builder::api_hub::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -630,8 +653,8 @@ impl ApiHub {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::DeleteOperation {
-        super::builders::api_hub::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub::DeleteOperation {
+        super::builder::api_hub::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -640,12 +663,21 @@ impl ApiHub {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub::CancelOperation {
-        super::builders::api_hub::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub::CancelOperation {
+        super::builder::api_hub::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the API hub API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_apihub_v1::client::ApiHubDependencies;
+/// let client = ApiHubDependencies::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -656,8 +688,23 @@ impl ApiHub {
 ///
 /// # Configuration
 ///
-/// `ApiHubDependencies` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ApiHubDependencies` use the `with_*` methods in the type returned
+/// by [builder()][ApiHubDependencies::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://apihub.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::api_hub_dependencies::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::api_hub_dependencies::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -667,37 +714,45 @@ impl ApiHub {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ApiHubDependencies {
-    inner: Arc<dyn super::stubs::dynamic::ApiHubDependencies>,
+    inner: Arc<dyn super::stub::dynamic::ApiHubDependencies>,
 }
 
 impl ApiHubDependencies {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ApiHubDependencies].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
+    /// let client = ApiHubDependencies::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::api_hub_dependencies::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::api_hub_dependencies::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ApiHubDependencies + 'static,
+        T: super::stub::ApiHubDependencies + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ApiHubDependencies>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ApiHubDependencies>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -706,13 +761,13 @@ impl ApiHubDependencies {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ApiHubDependencies> {
+    ) -> Result<impl super::stub::ApiHubDependencies> {
         super::transport::ApiHubDependencies::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ApiHubDependencies> {
+    ) -> Result<impl super::stub::ApiHubDependencies> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ApiHubDependencies::new)
@@ -722,8 +777,8 @@ impl ApiHubDependencies {
     pub fn create_dependency(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::api_hub_dependencies::CreateDependency {
-        super::builders::api_hub_dependencies::CreateDependency::new(self.inner.clone())
+    ) -> super::builder::api_hub_dependencies::CreateDependency {
+        super::builder::api_hub_dependencies::CreateDependency::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -731,8 +786,8 @@ impl ApiHubDependencies {
     pub fn get_dependency(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub_dependencies::GetDependency {
-        super::builders::api_hub_dependencies::GetDependency::new(self.inner.clone())
+    ) -> super::builder::api_hub_dependencies::GetDependency {
+        super::builder::api_hub_dependencies::GetDependency::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -751,8 +806,8 @@ impl ApiHubDependencies {
     pub fn update_dependency(
         &self,
         dependency: impl Into<crate::model::Dependency>,
-    ) -> super::builders::api_hub_dependencies::UpdateDependency {
-        super::builders::api_hub_dependencies::UpdateDependency::new(self.inner.clone())
+    ) -> super::builder::api_hub_dependencies::UpdateDependency {
+        super::builder::api_hub_dependencies::UpdateDependency::new(self.inner.clone())
             .set_dependency(dependency.into())
     }
 
@@ -760,8 +815,8 @@ impl ApiHubDependencies {
     pub fn delete_dependency(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub_dependencies::DeleteDependency {
-        super::builders::api_hub_dependencies::DeleteDependency::new(self.inner.clone())
+    ) -> super::builder::api_hub_dependencies::DeleteDependency {
+        super::builder::api_hub_dependencies::DeleteDependency::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -769,8 +824,8 @@ impl ApiHubDependencies {
     pub fn list_dependencies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::api_hub_dependencies::ListDependencies {
-        super::builders::api_hub_dependencies::ListDependencies::new(self.inner.clone())
+    ) -> super::builder::api_hub_dependencies::ListDependencies {
+        super::builder::api_hub_dependencies::ListDependencies::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -778,8 +833,8 @@ impl ApiHubDependencies {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub_dependencies::ListLocations {
-        super::builders::api_hub_dependencies::ListLocations::new(self.inner.clone())
+    ) -> super::builder::api_hub_dependencies::ListLocations {
+        super::builder::api_hub_dependencies::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -787,8 +842,8 @@ impl ApiHubDependencies {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub_dependencies::GetLocation {
-        super::builders::api_hub_dependencies::GetLocation::new(self.inner.clone())
+    ) -> super::builder::api_hub_dependencies::GetLocation {
+        super::builder::api_hub_dependencies::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -798,8 +853,8 @@ impl ApiHubDependencies {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub_dependencies::ListOperations {
-        super::builders::api_hub_dependencies::ListOperations::new(self.inner.clone())
+    ) -> super::builder::api_hub_dependencies::ListOperations {
+        super::builder::api_hub_dependencies::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -809,8 +864,8 @@ impl ApiHubDependencies {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub_dependencies::GetOperation {
-        super::builders::api_hub_dependencies::GetOperation::new(self.inner.clone())
+    ) -> super::builder::api_hub_dependencies::GetOperation {
+        super::builder::api_hub_dependencies::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -820,8 +875,8 @@ impl ApiHubDependencies {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub_dependencies::DeleteOperation {
-        super::builders::api_hub_dependencies::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::api_hub_dependencies::DeleteOperation {
+        super::builder::api_hub_dependencies::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -831,13 +886,22 @@ impl ApiHubDependencies {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub_dependencies::CancelOperation {
-        super::builders::api_hub_dependencies::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::api_hub_dependencies::CancelOperation {
+        super::builder::api_hub_dependencies::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the API hub API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_apihub_v1::client::HostProjectRegistrationService;
+/// let client = HostProjectRegistrationService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -845,8 +909,23 @@ impl ApiHubDependencies {
 ///
 /// # Configuration
 ///
-/// `HostProjectRegistrationService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `HostProjectRegistrationService` use the `with_*` methods in the type returned
+/// by [builder()][HostProjectRegistrationService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://apihub.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::host_project_registration_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::host_project_registration_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -856,37 +935,45 @@ impl ApiHubDependencies {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct HostProjectRegistrationService {
-    inner: Arc<dyn super::stubs::dynamic::HostProjectRegistrationService>,
+    inner: Arc<dyn super::stub::dynamic::HostProjectRegistrationService>,
 }
 
 impl HostProjectRegistrationService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [HostProjectRegistrationService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_apihub_v1::client::HostProjectRegistrationService;
+    /// let client = HostProjectRegistrationService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::host_project_registration_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::host_project_registration_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::HostProjectRegistrationService + 'static,
+        T: super::stub::HostProjectRegistrationService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::HostProjectRegistrationService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::HostProjectRegistrationService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -895,13 +982,13 @@ impl HostProjectRegistrationService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::HostProjectRegistrationService> {
+    ) -> Result<impl super::stub::HostProjectRegistrationService> {
         super::transport::HostProjectRegistrationService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::HostProjectRegistrationService> {
+    ) -> Result<impl super::stub::HostProjectRegistrationService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::HostProjectRegistrationService::new)
@@ -915,8 +1002,8 @@ impl HostProjectRegistrationService {
     pub fn create_host_project_registration(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::host_project_registration_service::CreateHostProjectRegistration {
-        super::builders::host_project_registration_service::CreateHostProjectRegistration::new(
+    ) -> super::builder::host_project_registration_service::CreateHostProjectRegistration {
+        super::builder::host_project_registration_service::CreateHostProjectRegistration::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -926,8 +1013,8 @@ impl HostProjectRegistrationService {
     pub fn get_host_project_registration(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::host_project_registration_service::GetHostProjectRegistration {
-        super::builders::host_project_registration_service::GetHostProjectRegistration::new(
+    ) -> super::builder::host_project_registration_service::GetHostProjectRegistration {
+        super::builder::host_project_registration_service::GetHostProjectRegistration::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -937,8 +1024,8 @@ impl HostProjectRegistrationService {
     pub fn list_host_project_registrations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::host_project_registration_service::ListHostProjectRegistrations {
-        super::builders::host_project_registration_service::ListHostProjectRegistrations::new(
+    ) -> super::builder::host_project_registration_service::ListHostProjectRegistrations {
+        super::builder::host_project_registration_service::ListHostProjectRegistrations::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -948,8 +1035,8 @@ impl HostProjectRegistrationService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::host_project_registration_service::ListLocations {
-        super::builders::host_project_registration_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::host_project_registration_service::ListLocations {
+        super::builder::host_project_registration_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -957,8 +1044,8 @@ impl HostProjectRegistrationService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::host_project_registration_service::GetLocation {
-        super::builders::host_project_registration_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::host_project_registration_service::GetLocation {
+        super::builder::host_project_registration_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -968,8 +1055,8 @@ impl HostProjectRegistrationService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::host_project_registration_service::ListOperations {
-        super::builders::host_project_registration_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::host_project_registration_service::ListOperations {
+        super::builder::host_project_registration_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -979,8 +1066,8 @@ impl HostProjectRegistrationService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::host_project_registration_service::GetOperation {
-        super::builders::host_project_registration_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::host_project_registration_service::GetOperation {
+        super::builder::host_project_registration_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -990,8 +1077,8 @@ impl HostProjectRegistrationService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::host_project_registration_service::DeleteOperation {
-        super::builders::host_project_registration_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::host_project_registration_service::DeleteOperation {
+        super::builder::host_project_registration_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1001,13 +1088,22 @@ impl HostProjectRegistrationService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::host_project_registration_service::CancelOperation {
-        super::builders::host_project_registration_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::host_project_registration_service::CancelOperation {
+        super::builder::host_project_registration_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the API hub API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_apihub_v1::client::LintingService;
+/// let client = LintingService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -1015,8 +1111,23 @@ impl HostProjectRegistrationService {
 ///
 /// # Configuration
 ///
-/// `LintingService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `LintingService` use the `with_*` methods in the type returned
+/// by [builder()][LintingService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://apihub.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::linting_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::linting_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1026,37 +1137,43 @@ impl HostProjectRegistrationService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct LintingService {
-    inner: Arc<dyn super::stubs::dynamic::LintingService>,
+    inner: Arc<dyn super::stub::dynamic::LintingService>,
 }
 
 impl LintingService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [LintingService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_apihub_v1::client::LintingService;
+    /// let client = LintingService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::linting_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::linting_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::LintingService + 'static,
+        T: super::stub::LintingService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::LintingService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::LintingService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1065,13 +1182,13 @@ impl LintingService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::LintingService> {
+    ) -> Result<impl super::stub::LintingService> {
         super::transport::LintingService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::LintingService> {
+    ) -> Result<impl super::stub::LintingService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::LintingService::new)
@@ -1081,8 +1198,8 @@ impl LintingService {
     pub fn get_style_guide(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::linting_service::GetStyleGuide {
-        super::builders::linting_service::GetStyleGuide::new(self.inner.clone())
+    ) -> super::builder::linting_service::GetStyleGuide {
+        super::builder::linting_service::GetStyleGuide::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1090,8 +1207,8 @@ impl LintingService {
     pub fn update_style_guide(
         &self,
         style_guide: impl Into<crate::model::StyleGuide>,
-    ) -> super::builders::linting_service::UpdateStyleGuide {
-        super::builders::linting_service::UpdateStyleGuide::new(self.inner.clone())
+    ) -> super::builder::linting_service::UpdateStyleGuide {
+        super::builder::linting_service::UpdateStyleGuide::new(self.inner.clone())
             .set_style_guide(style_guide.into())
     }
 
@@ -1099,8 +1216,8 @@ impl LintingService {
     pub fn get_style_guide_contents(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::linting_service::GetStyleGuideContents {
-        super::builders::linting_service::GetStyleGuideContents::new(self.inner.clone())
+    ) -> super::builder::linting_service::GetStyleGuideContents {
+        super::builder::linting_service::GetStyleGuideContents::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1110,16 +1227,16 @@ impl LintingService {
     pub fn lint_spec(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::linting_service::LintSpec {
-        super::builders::linting_service::LintSpec::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::linting_service::LintSpec {
+        super::builder::linting_service::LintSpec::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::linting_service::ListLocations {
-        super::builders::linting_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::linting_service::ListLocations {
+        super::builder::linting_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1127,8 +1244,8 @@ impl LintingService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::linting_service::GetLocation {
-        super::builders::linting_service::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::linting_service::GetLocation {
+        super::builder::linting_service::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1137,8 +1254,8 @@ impl LintingService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::linting_service::ListOperations {
-        super::builders::linting_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::linting_service::ListOperations {
+        super::builder::linting_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1148,9 +1265,8 @@ impl LintingService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::linting_service::GetOperation {
-        super::builders::linting_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::linting_service::GetOperation {
+        super::builder::linting_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1159,8 +1275,8 @@ impl LintingService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::linting_service::DeleteOperation {
-        super::builders::linting_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::linting_service::DeleteOperation {
+        super::builder::linting_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1170,13 +1286,22 @@ impl LintingService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::linting_service::CancelOperation {
-        super::builders::linting_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::linting_service::CancelOperation {
+        super::builder::linting_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the API hub API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_apihub_v1::client::ApiHubPlugin;
+/// let client = ApiHubPlugin::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -1184,8 +1309,23 @@ impl LintingService {
 ///
 /// # Configuration
 ///
-/// `ApiHubPlugin` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ApiHubPlugin` use the `with_*` methods in the type returned
+/// by [builder()][ApiHubPlugin::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://apihub.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::api_hub_plugin::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::api_hub_plugin::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1195,37 +1335,43 @@ impl LintingService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ApiHubPlugin {
-    inner: Arc<dyn super::stubs::dynamic::ApiHubPlugin>,
+    inner: Arc<dyn super::stub::dynamic::ApiHubPlugin>,
 }
 
 impl ApiHubPlugin {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ApiHubPlugin].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
+    /// let client = ApiHubPlugin::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::api_hub_plugin::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::api_hub_plugin::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ApiHubPlugin + 'static,
+        T: super::stub::ApiHubPlugin + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ApiHubPlugin>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ApiHubPlugin>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1234,13 +1380,13 @@ impl ApiHubPlugin {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ApiHubPlugin> {
+    ) -> Result<impl super::stub::ApiHubPlugin> {
         super::transport::ApiHubPlugin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ApiHubPlugin> {
+    ) -> Result<impl super::stub::ApiHubPlugin> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ApiHubPlugin::new)
@@ -1250,8 +1396,8 @@ impl ApiHubPlugin {
     pub fn get_plugin(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub_plugin::GetPlugin {
-        super::builders::api_hub_plugin::GetPlugin::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub_plugin::GetPlugin {
+        super::builder::api_hub_plugin::GetPlugin::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Enables a plugin.
@@ -1259,8 +1405,8 @@ impl ApiHubPlugin {
     pub fn enable_plugin(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub_plugin::EnablePlugin {
-        super::builders::api_hub_plugin::EnablePlugin::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub_plugin::EnablePlugin {
+        super::builder::api_hub_plugin::EnablePlugin::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Disables a plugin.
@@ -1268,26 +1414,24 @@ impl ApiHubPlugin {
     pub fn disable_plugin(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub_plugin::DisablePlugin {
-        super::builders::api_hub_plugin::DisablePlugin::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::api_hub_plugin::DisablePlugin {
+        super::builder::api_hub_plugin::DisablePlugin::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub_plugin::ListLocations {
-        super::builders::api_hub_plugin::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::api_hub_plugin::ListLocations {
+        super::builder::api_hub_plugin::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub_plugin::GetLocation {
-        super::builders::api_hub_plugin::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub_plugin::GetLocation {
+        super::builder::api_hub_plugin::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1296,8 +1440,8 @@ impl ApiHubPlugin {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub_plugin::ListOperations {
-        super::builders::api_hub_plugin::ListOperations::new(self.inner.clone())
+    ) -> super::builder::api_hub_plugin::ListOperations {
+        super::builder::api_hub_plugin::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1307,8 +1451,8 @@ impl ApiHubPlugin {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub_plugin::GetOperation {
-        super::builders::api_hub_plugin::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_hub_plugin::GetOperation {
+        super::builder::api_hub_plugin::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1317,8 +1461,8 @@ impl ApiHubPlugin {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub_plugin::DeleteOperation {
-        super::builders::api_hub_plugin::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::api_hub_plugin::DeleteOperation {
+        super::builder::api_hub_plugin::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1328,13 +1472,22 @@ impl ApiHubPlugin {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_hub_plugin::CancelOperation {
-        super::builders::api_hub_plugin::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::api_hub_plugin::CancelOperation {
+        super::builder::api_hub_plugin::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the API hub API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_apihub_v1::client::Provisioning;
+/// let client = Provisioning::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -1342,8 +1495,23 @@ impl ApiHubPlugin {
 ///
 /// # Configuration
 ///
-/// `Provisioning` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Provisioning` use the `with_*` methods in the type returned
+/// by [builder()][Provisioning::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://apihub.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::provisioning::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::provisioning::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1353,37 +1521,43 @@ impl ApiHubPlugin {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Provisioning {
-    inner: Arc<dyn super::stubs::dynamic::Provisioning>,
+    inner: Arc<dyn super::stub::dynamic::Provisioning>,
 }
 
 impl Provisioning {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Provisioning].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_apihub_v1::client::Provisioning;
+    /// let client = Provisioning::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::provisioning::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::provisioning::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Provisioning + 'static,
+        T: super::stub::Provisioning + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Provisioning>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Provisioning>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1392,13 +1566,13 @@ impl Provisioning {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Provisioning> {
+    ) -> Result<impl super::stub::Provisioning> {
         super::transport::Provisioning::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Provisioning> {
+    ) -> Result<impl super::stub::Provisioning> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Provisioning::new)
@@ -1418,8 +1592,8 @@ impl Provisioning {
     pub fn create_api_hub_instance(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::provisioning::CreateApiHubInstance {
-        super::builders::provisioning::CreateApiHubInstance::new(self.inner.clone())
+    ) -> super::builder::provisioning::CreateApiHubInstance {
+        super::builder::provisioning::CreateApiHubInstance::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1427,8 +1601,8 @@ impl Provisioning {
     pub fn get_api_hub_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::provisioning::GetApiHubInstance {
-        super::builders::provisioning::GetApiHubInstance::new(self.inner.clone())
+    ) -> super::builder::provisioning::GetApiHubInstance {
+        super::builder::provisioning::GetApiHubInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1437,8 +1611,8 @@ impl Provisioning {
     pub fn lookup_api_hub_instance(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::provisioning::LookupApiHubInstance {
-        super::builders::provisioning::LookupApiHubInstance::new(self.inner.clone())
+    ) -> super::builder::provisioning::LookupApiHubInstance {
+        super::builder::provisioning::LookupApiHubInstance::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1446,16 +1620,16 @@ impl Provisioning {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::provisioning::ListLocations {
-        super::builders::provisioning::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::provisioning::ListLocations {
+        super::builder::provisioning::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::provisioning::GetLocation {
-        super::builders::provisioning::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::provisioning::GetLocation {
+        super::builder::provisioning::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1464,8 +1638,8 @@ impl Provisioning {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::provisioning::ListOperations {
-        super::builders::provisioning::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::provisioning::ListOperations {
+        super::builder::provisioning::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1474,8 +1648,8 @@ impl Provisioning {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::provisioning::GetOperation {
-        super::builders::provisioning::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::provisioning::GetOperation {
+        super::builder::provisioning::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1484,9 +1658,8 @@ impl Provisioning {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::provisioning::DeleteOperation {
-        super::builders::provisioning::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::provisioning::DeleteOperation {
+        super::builder::provisioning::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1495,13 +1668,21 @@ impl Provisioning {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::provisioning::CancelOperation {
-        super::builders::provisioning::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::provisioning::CancelOperation {
+        super::builder::provisioning::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the API hub API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
+/// let client = RuntimeProjectAttachmentService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -1509,8 +1690,23 @@ impl Provisioning {
 ///
 /// # Configuration
 ///
-/// `RuntimeProjectAttachmentService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `RuntimeProjectAttachmentService` use the `with_*` methods in the type returned
+/// by [builder()][RuntimeProjectAttachmentService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://apihub.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::runtime_project_attachment_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::runtime_project_attachment_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1520,37 +1716,45 @@ impl Provisioning {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct RuntimeProjectAttachmentService {
-    inner: Arc<dyn super::stubs::dynamic::RuntimeProjectAttachmentService>,
+    inner: Arc<dyn super::stub::dynamic::RuntimeProjectAttachmentService>,
 }
 
 impl RuntimeProjectAttachmentService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [RuntimeProjectAttachmentService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
+    /// let client = RuntimeProjectAttachmentService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::runtime_project_attachment_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::runtime_project_attachment_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::RuntimeProjectAttachmentService + 'static,
+        T: super::stub::RuntimeProjectAttachmentService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::RuntimeProjectAttachmentService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::RuntimeProjectAttachmentService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1559,13 +1763,13 @@ impl RuntimeProjectAttachmentService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::RuntimeProjectAttachmentService> {
+    ) -> Result<impl super::stub::RuntimeProjectAttachmentService> {
         super::transport::RuntimeProjectAttachmentService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::RuntimeProjectAttachmentService> {
+    ) -> Result<impl super::stub::RuntimeProjectAttachmentService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::RuntimeProjectAttachmentService::new)
@@ -1575,8 +1779,8 @@ impl RuntimeProjectAttachmentService {
     pub fn create_runtime_project_attachment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::runtime_project_attachment_service::CreateRuntimeProjectAttachment {
-        super::builders::runtime_project_attachment_service::CreateRuntimeProjectAttachment::new(
+    ) -> super::builder::runtime_project_attachment_service::CreateRuntimeProjectAttachment {
+        super::builder::runtime_project_attachment_service::CreateRuntimeProjectAttachment::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -1586,8 +1790,8 @@ impl RuntimeProjectAttachmentService {
     pub fn get_runtime_project_attachment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::runtime_project_attachment_service::GetRuntimeProjectAttachment {
-        super::builders::runtime_project_attachment_service::GetRuntimeProjectAttachment::new(
+    ) -> super::builder::runtime_project_attachment_service::GetRuntimeProjectAttachment {
+        super::builder::runtime_project_attachment_service::GetRuntimeProjectAttachment::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -1597,8 +1801,8 @@ impl RuntimeProjectAttachmentService {
     pub fn list_runtime_project_attachments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::runtime_project_attachment_service::ListRuntimeProjectAttachments {
-        super::builders::runtime_project_attachment_service::ListRuntimeProjectAttachments::new(
+    ) -> super::builder::runtime_project_attachment_service::ListRuntimeProjectAttachments {
+        super::builder::runtime_project_attachment_service::ListRuntimeProjectAttachments::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -1609,8 +1813,8 @@ impl RuntimeProjectAttachmentService {
     pub fn delete_runtime_project_attachment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::runtime_project_attachment_service::DeleteRuntimeProjectAttachment {
-        super::builders::runtime_project_attachment_service::DeleteRuntimeProjectAttachment::new(
+    ) -> super::builder::runtime_project_attachment_service::DeleteRuntimeProjectAttachment {
+        super::builder::runtime_project_attachment_service::DeleteRuntimeProjectAttachment::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -1621,8 +1825,8 @@ impl RuntimeProjectAttachmentService {
     pub fn lookup_runtime_project_attachment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::runtime_project_attachment_service::LookupRuntimeProjectAttachment {
-        super::builders::runtime_project_attachment_service::LookupRuntimeProjectAttachment::new(
+    ) -> super::builder::runtime_project_attachment_service::LookupRuntimeProjectAttachment {
+        super::builder::runtime_project_attachment_service::LookupRuntimeProjectAttachment::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -1632,8 +1836,8 @@ impl RuntimeProjectAttachmentService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::runtime_project_attachment_service::ListLocations {
-        super::builders::runtime_project_attachment_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::runtime_project_attachment_service::ListLocations {
+        super::builder::runtime_project_attachment_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1641,8 +1845,8 @@ impl RuntimeProjectAttachmentService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::runtime_project_attachment_service::GetLocation {
-        super::builders::runtime_project_attachment_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::runtime_project_attachment_service::GetLocation {
+        super::builder::runtime_project_attachment_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1652,8 +1856,8 @@ impl RuntimeProjectAttachmentService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::runtime_project_attachment_service::ListOperations {
-        super::builders::runtime_project_attachment_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::runtime_project_attachment_service::ListOperations {
+        super::builder::runtime_project_attachment_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1663,8 +1867,8 @@ impl RuntimeProjectAttachmentService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::runtime_project_attachment_service::GetOperation {
-        super::builders::runtime_project_attachment_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::runtime_project_attachment_service::GetOperation {
+        super::builder::runtime_project_attachment_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1674,11 +1878,9 @@ impl RuntimeProjectAttachmentService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::runtime_project_attachment_service::DeleteOperation {
-        super::builders::runtime_project_attachment_service::DeleteOperation::new(
-            self.inner.clone(),
-        )
-        .set_name(name.into())
+    ) -> super::builder::runtime_project_attachment_service::DeleteOperation {
+        super::builder::runtime_project_attachment_service::DeleteOperation::new(self.inner.clone())
+            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1687,10 +1889,8 @@ impl RuntimeProjectAttachmentService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::runtime_project_attachment_service::CancelOperation {
-        super::builders::runtime_project_attachment_service::CancelOperation::new(
-            self.inner.clone(),
-        )
-        .set_name(name.into())
+    ) -> super::builder::runtime_project_attachment_service::CancelOperation {
+        super::builder::runtime_project_attachment_service::CancelOperation::new(self.inner.clone())
+            .set_name(name.into())
     }
 }

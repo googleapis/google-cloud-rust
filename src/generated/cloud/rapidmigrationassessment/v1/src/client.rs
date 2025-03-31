@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the Rapid Migration Assessment API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
+/// let client = RapidMigrationAssessment::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service describing handlers for resources.
 ///
 /// # Configuration
 ///
-/// `RapidMigrationAssessment` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `RapidMigrationAssessment` use the `with_*` methods in the type returned
+/// by [builder()][RapidMigrationAssessment::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://rapidmigrationassessment.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::rapid_migration_assessment::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::rapid_migration_assessment::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,37 +62,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct RapidMigrationAssessment {
-    inner: Arc<dyn super::stubs::dynamic::RapidMigrationAssessment>,
+    inner: Arc<dyn super::stub::dynamic::RapidMigrationAssessment>,
 }
 
 impl RapidMigrationAssessment {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [RapidMigrationAssessment].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
+    /// let client = RapidMigrationAssessment::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::rapid_migration_assessment::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::rapid_migration_assessment::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::RapidMigrationAssessment + 'static,
+        T: super::stub::RapidMigrationAssessment + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::RapidMigrationAssessment>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::RapidMigrationAssessment>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +109,13 @@ impl RapidMigrationAssessment {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::RapidMigrationAssessment> {
+    ) -> Result<impl super::stub::RapidMigrationAssessment> {
         super::transport::RapidMigrationAssessment::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::RapidMigrationAssessment> {
+    ) -> Result<impl super::stub::RapidMigrationAssessment> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::RapidMigrationAssessment::new)
@@ -104,8 +136,8 @@ impl RapidMigrationAssessment {
     pub fn create_collector(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::rapid_migration_assessment::CreateCollector {
-        super::builders::rapid_migration_assessment::CreateCollector::new(self.inner.clone())
+    ) -> super::builder::rapid_migration_assessment::CreateCollector {
+        super::builder::rapid_migration_assessment::CreateCollector::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -123,8 +155,8 @@ impl RapidMigrationAssessment {
     pub fn create_annotation(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::rapid_migration_assessment::CreateAnnotation {
-        super::builders::rapid_migration_assessment::CreateAnnotation::new(self.inner.clone())
+    ) -> super::builder::rapid_migration_assessment::CreateAnnotation {
+        super::builder::rapid_migration_assessment::CreateAnnotation::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -132,8 +164,8 @@ impl RapidMigrationAssessment {
     pub fn get_annotation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::rapid_migration_assessment::GetAnnotation {
-        super::builders::rapid_migration_assessment::GetAnnotation::new(self.inner.clone())
+    ) -> super::builder::rapid_migration_assessment::GetAnnotation {
+        super::builder::rapid_migration_assessment::GetAnnotation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -141,8 +173,8 @@ impl RapidMigrationAssessment {
     pub fn list_collectors(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::rapid_migration_assessment::ListCollectors {
-        super::builders::rapid_migration_assessment::ListCollectors::new(self.inner.clone())
+    ) -> super::builder::rapid_migration_assessment::ListCollectors {
+        super::builder::rapid_migration_assessment::ListCollectors::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -150,8 +182,8 @@ impl RapidMigrationAssessment {
     pub fn get_collector(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::rapid_migration_assessment::GetCollector {
-        super::builders::rapid_migration_assessment::GetCollector::new(self.inner.clone())
+    ) -> super::builder::rapid_migration_assessment::GetCollector {
+        super::builder::rapid_migration_assessment::GetCollector::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -169,8 +201,8 @@ impl RapidMigrationAssessment {
     pub fn update_collector(
         &self,
         collector: impl Into<crate::model::Collector>,
-    ) -> super::builders::rapid_migration_assessment::UpdateCollector {
-        super::builders::rapid_migration_assessment::UpdateCollector::new(self.inner.clone())
+    ) -> super::builder::rapid_migration_assessment::UpdateCollector {
+        super::builder::rapid_migration_assessment::UpdateCollector::new(self.inner.clone())
             .set_collector(collector.into())
     }
 
@@ -189,8 +221,8 @@ impl RapidMigrationAssessment {
     pub fn delete_collector(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::rapid_migration_assessment::DeleteCollector {
-        super::builders::rapid_migration_assessment::DeleteCollector::new(self.inner.clone())
+    ) -> super::builder::rapid_migration_assessment::DeleteCollector {
+        super::builder::rapid_migration_assessment::DeleteCollector::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -208,8 +240,8 @@ impl RapidMigrationAssessment {
     pub fn resume_collector(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::rapid_migration_assessment::ResumeCollector {
-        super::builders::rapid_migration_assessment::ResumeCollector::new(self.inner.clone())
+    ) -> super::builder::rapid_migration_assessment::ResumeCollector {
+        super::builder::rapid_migration_assessment::ResumeCollector::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -227,8 +259,8 @@ impl RapidMigrationAssessment {
     pub fn register_collector(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::rapid_migration_assessment::RegisterCollector {
-        super::builders::rapid_migration_assessment::RegisterCollector::new(self.inner.clone())
+    ) -> super::builder::rapid_migration_assessment::RegisterCollector {
+        super::builder::rapid_migration_assessment::RegisterCollector::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -246,8 +278,8 @@ impl RapidMigrationAssessment {
     pub fn pause_collector(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::rapid_migration_assessment::PauseCollector {
-        super::builders::rapid_migration_assessment::PauseCollector::new(self.inner.clone())
+    ) -> super::builder::rapid_migration_assessment::PauseCollector {
+        super::builder::rapid_migration_assessment::PauseCollector::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -255,8 +287,8 @@ impl RapidMigrationAssessment {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::rapid_migration_assessment::ListLocations {
-        super::builders::rapid_migration_assessment::ListLocations::new(self.inner.clone())
+    ) -> super::builder::rapid_migration_assessment::ListLocations {
+        super::builder::rapid_migration_assessment::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -264,8 +296,8 @@ impl RapidMigrationAssessment {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::rapid_migration_assessment::GetLocation {
-        super::builders::rapid_migration_assessment::GetLocation::new(self.inner.clone())
+    ) -> super::builder::rapid_migration_assessment::GetLocation {
+        super::builder::rapid_migration_assessment::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -275,8 +307,8 @@ impl RapidMigrationAssessment {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::rapid_migration_assessment::ListOperations {
-        super::builders::rapid_migration_assessment::ListOperations::new(self.inner.clone())
+    ) -> super::builder::rapid_migration_assessment::ListOperations {
+        super::builder::rapid_migration_assessment::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -286,8 +318,8 @@ impl RapidMigrationAssessment {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::rapid_migration_assessment::GetOperation {
-        super::builders::rapid_migration_assessment::GetOperation::new(self.inner.clone())
+    ) -> super::builder::rapid_migration_assessment::GetOperation {
+        super::builder::rapid_migration_assessment::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -297,8 +329,8 @@ impl RapidMigrationAssessment {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::rapid_migration_assessment::DeleteOperation {
-        super::builders::rapid_migration_assessment::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::rapid_migration_assessment::DeleteOperation {
+        super::builder::rapid_migration_assessment::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -308,8 +340,8 @@ impl RapidMigrationAssessment {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::rapid_migration_assessment::CancelOperation {
-        super::builders::rapid_migration_assessment::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::rapid_migration_assessment::CancelOperation {
+        super::builder::rapid_migration_assessment::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Certificate Manager API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+/// let client = CertificateManager::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// API Overview
@@ -53,8 +62,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `CertificateManager` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `CertificateManager` use the `with_*` methods in the type returned
+/// by [builder()][CertificateManager::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://certificatemanager.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::certificate_manager::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::certificate_manager::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -64,37 +88,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CertificateManager {
-    inner: Arc<dyn super::stubs::dynamic::CertificateManager>,
+    inner: Arc<dyn super::stub::dynamic::CertificateManager>,
 }
 
 impl CertificateManager {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [CertificateManager].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// let client = CertificateManager::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::certificate_manager::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::certificate_manager::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::CertificateManager + 'static,
+        T: super::stub::CertificateManager + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::CertificateManager>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::CertificateManager>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -103,13 +135,13 @@ impl CertificateManager {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CertificateManager> {
+    ) -> Result<impl super::stub::CertificateManager> {
         super::transport::CertificateManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CertificateManager> {
+    ) -> Result<impl super::stub::CertificateManager> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CertificateManager::new)
@@ -119,8 +151,8 @@ impl CertificateManager {
     pub fn list_certificates(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::ListCertificates {
-        super::builders::certificate_manager::ListCertificates::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::ListCertificates {
+        super::builder::certificate_manager::ListCertificates::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -128,8 +160,8 @@ impl CertificateManager {
     pub fn get_certificate(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::GetCertificate {
-        super::builders::certificate_manager::GetCertificate::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::GetCertificate {
+        super::builder::certificate_manager::GetCertificate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -147,8 +179,8 @@ impl CertificateManager {
     pub fn create_certificate(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::CreateCertificate {
-        super::builders::certificate_manager::CreateCertificate::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::CreateCertificate {
+        super::builder::certificate_manager::CreateCertificate::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -166,8 +198,8 @@ impl CertificateManager {
     pub fn update_certificate(
         &self,
         certificate: impl Into<crate::model::Certificate>,
-    ) -> super::builders::certificate_manager::UpdateCertificate {
-        super::builders::certificate_manager::UpdateCertificate::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::UpdateCertificate {
+        super::builder::certificate_manager::UpdateCertificate::new(self.inner.clone())
             .set_certificate(certificate.into())
     }
 
@@ -185,8 +217,8 @@ impl CertificateManager {
     pub fn delete_certificate(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::DeleteCertificate {
-        super::builders::certificate_manager::DeleteCertificate::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::DeleteCertificate {
+        super::builder::certificate_manager::DeleteCertificate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -194,8 +226,8 @@ impl CertificateManager {
     pub fn list_certificate_maps(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::ListCertificateMaps {
-        super::builders::certificate_manager::ListCertificateMaps::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::ListCertificateMaps {
+        super::builder::certificate_manager::ListCertificateMaps::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -203,8 +235,8 @@ impl CertificateManager {
     pub fn get_certificate_map(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::GetCertificateMap {
-        super::builders::certificate_manager::GetCertificateMap::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::GetCertificateMap {
+        super::builder::certificate_manager::GetCertificateMap::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -222,8 +254,8 @@ impl CertificateManager {
     pub fn create_certificate_map(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::CreateCertificateMap {
-        super::builders::certificate_manager::CreateCertificateMap::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::CreateCertificateMap {
+        super::builder::certificate_manager::CreateCertificateMap::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -241,8 +273,8 @@ impl CertificateManager {
     pub fn update_certificate_map(
         &self,
         certificate_map: impl Into<crate::model::CertificateMap>,
-    ) -> super::builders::certificate_manager::UpdateCertificateMap {
-        super::builders::certificate_manager::UpdateCertificateMap::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::UpdateCertificateMap {
+        super::builder::certificate_manager::UpdateCertificateMap::new(self.inner.clone())
             .set_certificate_map(certificate_map.into())
     }
 
@@ -262,8 +294,8 @@ impl CertificateManager {
     pub fn delete_certificate_map(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::DeleteCertificateMap {
-        super::builders::certificate_manager::DeleteCertificateMap::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::DeleteCertificateMap {
+        super::builder::certificate_manager::DeleteCertificateMap::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -271,8 +303,8 @@ impl CertificateManager {
     pub fn list_certificate_map_entries(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::ListCertificateMapEntries {
-        super::builders::certificate_manager::ListCertificateMapEntries::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::ListCertificateMapEntries {
+        super::builder::certificate_manager::ListCertificateMapEntries::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -280,8 +312,8 @@ impl CertificateManager {
     pub fn get_certificate_map_entry(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::GetCertificateMapEntry {
-        super::builders::certificate_manager::GetCertificateMapEntry::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::GetCertificateMapEntry {
+        super::builder::certificate_manager::GetCertificateMapEntry::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -299,8 +331,8 @@ impl CertificateManager {
     pub fn create_certificate_map_entry(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::CreateCertificateMapEntry {
-        super::builders::certificate_manager::CreateCertificateMapEntry::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::CreateCertificateMapEntry {
+        super::builder::certificate_manager::CreateCertificateMapEntry::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -318,8 +350,8 @@ impl CertificateManager {
     pub fn update_certificate_map_entry(
         &self,
         certificate_map_entry: impl Into<crate::model::CertificateMapEntry>,
-    ) -> super::builders::certificate_manager::UpdateCertificateMapEntry {
-        super::builders::certificate_manager::UpdateCertificateMapEntry::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::UpdateCertificateMapEntry {
+        super::builder::certificate_manager::UpdateCertificateMapEntry::new(self.inner.clone())
             .set_certificate_map_entry(certificate_map_entry.into())
     }
 
@@ -337,8 +369,8 @@ impl CertificateManager {
     pub fn delete_certificate_map_entry(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::DeleteCertificateMapEntry {
-        super::builders::certificate_manager::DeleteCertificateMapEntry::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::DeleteCertificateMapEntry {
+        super::builder::certificate_manager::DeleteCertificateMapEntry::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -346,8 +378,8 @@ impl CertificateManager {
     pub fn list_dns_authorizations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::ListDnsAuthorizations {
-        super::builders::certificate_manager::ListDnsAuthorizations::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::ListDnsAuthorizations {
+        super::builder::certificate_manager::ListDnsAuthorizations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -355,8 +387,8 @@ impl CertificateManager {
     pub fn get_dns_authorization(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::GetDnsAuthorization {
-        super::builders::certificate_manager::GetDnsAuthorization::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::GetDnsAuthorization {
+        super::builder::certificate_manager::GetDnsAuthorization::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -374,8 +406,8 @@ impl CertificateManager {
     pub fn create_dns_authorization(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::CreateDnsAuthorization {
-        super::builders::certificate_manager::CreateDnsAuthorization::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::CreateDnsAuthorization {
+        super::builder::certificate_manager::CreateDnsAuthorization::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -393,8 +425,8 @@ impl CertificateManager {
     pub fn update_dns_authorization(
         &self,
         dns_authorization: impl Into<crate::model::DnsAuthorization>,
-    ) -> super::builders::certificate_manager::UpdateDnsAuthorization {
-        super::builders::certificate_manager::UpdateDnsAuthorization::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::UpdateDnsAuthorization {
+        super::builder::certificate_manager::UpdateDnsAuthorization::new(self.inner.clone())
             .set_dns_authorization(dns_authorization.into())
     }
 
@@ -412,8 +444,8 @@ impl CertificateManager {
     pub fn delete_dns_authorization(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::DeleteDnsAuthorization {
-        super::builders::certificate_manager::DeleteDnsAuthorization::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::DeleteDnsAuthorization {
+        super::builder::certificate_manager::DeleteDnsAuthorization::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -421,19 +453,17 @@ impl CertificateManager {
     pub fn list_certificate_issuance_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::ListCertificateIssuanceConfigs {
-        super::builders::certificate_manager::ListCertificateIssuanceConfigs::new(
-            self.inner.clone(),
-        )
-        .set_parent(parent.into())
+    ) -> super::builder::certificate_manager::ListCertificateIssuanceConfigs {
+        super::builder::certificate_manager::ListCertificateIssuanceConfigs::new(self.inner.clone())
+            .set_parent(parent.into())
     }
 
     /// Gets details of a single CertificateIssuanceConfig.
     pub fn get_certificate_issuance_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::GetCertificateIssuanceConfig {
-        super::builders::certificate_manager::GetCertificateIssuanceConfig::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::GetCertificateIssuanceConfig {
+        super::builder::certificate_manager::GetCertificateIssuanceConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -451,8 +481,8 @@ impl CertificateManager {
     pub fn create_certificate_issuance_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::CreateCertificateIssuanceConfig {
-        super::builders::certificate_manager::CreateCertificateIssuanceConfig::new(
+    ) -> super::builder::certificate_manager::CreateCertificateIssuanceConfig {
+        super::builder::certificate_manager::CreateCertificateIssuanceConfig::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -472,8 +502,8 @@ impl CertificateManager {
     pub fn delete_certificate_issuance_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::DeleteCertificateIssuanceConfig {
-        super::builders::certificate_manager::DeleteCertificateIssuanceConfig::new(
+    ) -> super::builder::certificate_manager::DeleteCertificateIssuanceConfig {
+        super::builder::certificate_manager::DeleteCertificateIssuanceConfig::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -483,8 +513,8 @@ impl CertificateManager {
     pub fn list_trust_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::ListTrustConfigs {
-        super::builders::certificate_manager::ListTrustConfigs::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::ListTrustConfigs {
+        super::builder::certificate_manager::ListTrustConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -492,8 +522,8 @@ impl CertificateManager {
     pub fn get_trust_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::GetTrustConfig {
-        super::builders::certificate_manager::GetTrustConfig::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::GetTrustConfig {
+        super::builder::certificate_manager::GetTrustConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -511,8 +541,8 @@ impl CertificateManager {
     pub fn create_trust_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::CreateTrustConfig {
-        super::builders::certificate_manager::CreateTrustConfig::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::CreateTrustConfig {
+        super::builder::certificate_manager::CreateTrustConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -530,8 +560,8 @@ impl CertificateManager {
     pub fn update_trust_config(
         &self,
         trust_config: impl Into<crate::model::TrustConfig>,
-    ) -> super::builders::certificate_manager::UpdateTrustConfig {
-        super::builders::certificate_manager::UpdateTrustConfig::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::UpdateTrustConfig {
+        super::builder::certificate_manager::UpdateTrustConfig::new(self.inner.clone())
             .set_trust_config(trust_config.into())
     }
 
@@ -549,8 +579,8 @@ impl CertificateManager {
     pub fn delete_trust_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::DeleteTrustConfig {
-        super::builders::certificate_manager::DeleteTrustConfig::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::DeleteTrustConfig {
+        super::builder::certificate_manager::DeleteTrustConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -558,8 +588,8 @@ impl CertificateManager {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::ListLocations {
-        super::builders::certificate_manager::ListLocations::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::ListLocations {
+        super::builder::certificate_manager::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -567,8 +597,8 @@ impl CertificateManager {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::GetLocation {
-        super::builders::certificate_manager::GetLocation::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::GetLocation {
+        super::builder::certificate_manager::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -578,8 +608,8 @@ impl CertificateManager {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::ListOperations {
-        super::builders::certificate_manager::ListOperations::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::ListOperations {
+        super::builder::certificate_manager::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -589,8 +619,8 @@ impl CertificateManager {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::GetOperation {
-        super::builders::certificate_manager::GetOperation::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::GetOperation {
+        super::builder::certificate_manager::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -600,8 +630,8 @@ impl CertificateManager {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::DeleteOperation {
-        super::builders::certificate_manager::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::DeleteOperation {
+        super::builder::certificate_manager::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -611,8 +641,8 @@ impl CertificateManager {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_manager::CancelOperation {
-        super::builders::certificate_manager::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::certificate_manager::CancelOperation {
+        super::builder::certificate_manager::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

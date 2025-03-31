@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Simulator](super::stubs::Simulator) using a [gaxi::http::ReqwestClient].
+/// Implements [Simulator](super::stub::Simulator) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Simulator {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl Simulator {
     }
 }
 
-impl super::stubs::Simulator for Simulator {
+impl super::stub::Simulator for Simulator {
     async fn get_replay(
         &self,
         req: crate::model::GetReplayRequest,

@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Container Analysis API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_containeranalysis_v1::client::ContainerAnalysis;
+/// let client = ContainerAnalysis::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Retrieves analysis results of Cloud components such as Docker container
@@ -39,8 +48,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `ContainerAnalysis` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ContainerAnalysis` use the `with_*` methods in the type returned
+/// by [builder()][ContainerAnalysis::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://containeranalysis.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::container_analysis::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::container_analysis::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -50,37 +74,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ContainerAnalysis {
-    inner: Arc<dyn super::stubs::dynamic::ContainerAnalysis>,
+    inner: Arc<dyn super::stub::dynamic::ContainerAnalysis>,
 }
 
 impl ContainerAnalysis {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ContainerAnalysis].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_containeranalysis_v1::client::ContainerAnalysis;
+    /// let client = ContainerAnalysis::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::container_analysis::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::container_analysis::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ContainerAnalysis + 'static,
+        T: super::stub::ContainerAnalysis + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ContainerAnalysis>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ContainerAnalysis>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -89,13 +121,13 @@ impl ContainerAnalysis {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ContainerAnalysis> {
+    ) -> Result<impl super::stub::ContainerAnalysis> {
         super::transport::ContainerAnalysis::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ContainerAnalysis> {
+    ) -> Result<impl super::stub::ContainerAnalysis> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ContainerAnalysis::new)
@@ -112,8 +144,8 @@ impl ContainerAnalysis {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::container_analysis::SetIamPolicy {
-        super::builders::container_analysis::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::container_analysis::SetIamPolicy {
+        super::builder::container_analysis::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -128,8 +160,8 @@ impl ContainerAnalysis {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::container_analysis::GetIamPolicy {
-        super::builders::container_analysis::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::container_analysis::GetIamPolicy {
+        super::builder::container_analysis::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -143,8 +175,8 @@ impl ContainerAnalysis {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::container_analysis::TestIamPermissions {
-        super::builders::container_analysis::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::container_analysis::TestIamPermissions {
+        super::builder::container_analysis::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -152,8 +184,8 @@ impl ContainerAnalysis {
     pub fn get_vulnerability_occurrences_summary(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::container_analysis::GetVulnerabilityOccurrencesSummary {
-        super::builders::container_analysis::GetVulnerabilityOccurrencesSummary::new(
+    ) -> super::builder::container_analysis::GetVulnerabilityOccurrencesSummary {
+        super::builder::container_analysis::GetVulnerabilityOccurrencesSummary::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())

@@ -93,7 +93,7 @@ where
     /// Convert the paginator to a stream.
     ///
     /// This API is gated by the `unstable-stream` feature.
-    pub fn to_stream(self) -> impl futures::Stream<Item = Result<T, E>> + Unpin {
+    pub fn into_stream(self) -> impl futures::Stream<Item = Result<T, E>> + Unpin {
         Box::pin(unfold(Some(self), move |state| async move {
             if let Some(mut paginator) = state {
                 if let Some(pr) = paginator.next().await {
@@ -165,7 +165,7 @@ where
     /// Convert the paginator to a stream.
     ///
     /// This API is gated by the `unstable-stream` feature.
-    pub fn to_stream(self) -> impl futures::Stream<Item = Result<T::PageItem, E>> + Unpin {
+    pub fn into_stream(self) -> impl futures::Stream<Item = Result<T::PageItem, E>> + Unpin {
         Box::pin(unfold(Some(self), move |state| async move {
             if let Some(mut paginator) = state {
                 if let Some(pr) = paginator.next().await {
@@ -364,7 +364,7 @@ mod tests {
 
     #[cfg(feature = "unstable-stream")]
     #[tokio::test]
-    async fn test_paginator_to_stream() {
+    async fn test_paginator_into_stream() {
         let responses = vec![
             TestResponse {
                 items: vec![
@@ -391,7 +391,7 @@ mod tests {
             }),
         };
         let mut resps = vec![];
-        let mut stream = client.list_rpc_stream(TestRequest::default()).to_stream();
+        let mut stream = client.list_rpc_stream(TestRequest::default()).into_stream();
         while let Some(resp) = stream.next().await {
             if let Ok(resp) = resp {
                 resps.push(resp)
@@ -405,7 +405,7 @@ mod tests {
 
     #[cfg(feature = "unstable-stream")]
     #[tokio::test]
-    async fn test_item_paginator_to_stream() {
+    async fn test_item_paginator_into_stream() {
         let responses = vec![
             TestResponse {
                 items: vec![
@@ -435,7 +435,7 @@ mod tests {
         let mut stream = client
             .list_rpc_stream(TestRequest::default())
             .items()
-            .to_stream();
+            .into_stream();
         while let Some(item) = stream.next().await {
             if let Ok(item) = item {
                 items.push(item)

@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the Backup and DR Service API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_backupdr_v1::client::BackupDR;
+/// let client = BackupDR::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// The BackupDR Service
 ///
 /// # Configuration
 ///
-/// `BackupDR` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `BackupDR` use the `with_*` methods in the type returned
+/// by [builder()][BackupDR::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://backupdr.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::backup_dr::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::backup_dr::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,37 +62,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct BackupDR {
-    inner: Arc<dyn super::stubs::dynamic::BackupDR>,
+    inner: Arc<dyn super::stub::dynamic::BackupDR>,
 }
 
 impl BackupDR {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [BackupDR].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// let client = BackupDR::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::backup_dr::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::backup_dr::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::BackupDR + 'static,
+        T: super::stub::BackupDR + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::BackupDR>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::BackupDR>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +107,13 @@ impl BackupDR {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::BackupDR> {
+    ) -> Result<impl super::stub::BackupDR> {
         super::transport::BackupDR::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::BackupDR> {
+    ) -> Result<impl super::stub::BackupDR> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::BackupDR::new)
@@ -93,8 +123,8 @@ impl BackupDR {
     pub fn list_management_servers(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::ListManagementServers {
-        super::builders::backup_dr::ListManagementServers::new(self.inner.clone())
+    ) -> super::builder::backup_dr::ListManagementServers {
+        super::builder::backup_dr::ListManagementServers::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,8 +132,8 @@ impl BackupDR {
     pub fn get_management_server(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::GetManagementServer {
-        super::builders::backup_dr::GetManagementServer::new(self.inner.clone())
+    ) -> super::builder::backup_dr::GetManagementServer {
+        super::builder::backup_dr::GetManagementServer::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -121,8 +151,8 @@ impl BackupDR {
     pub fn create_management_server(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::CreateManagementServer {
-        super::builders::backup_dr::CreateManagementServer::new(self.inner.clone())
+    ) -> super::builder::backup_dr::CreateManagementServer {
+        super::builder::backup_dr::CreateManagementServer::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -140,8 +170,8 @@ impl BackupDR {
     pub fn delete_management_server(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::DeleteManagementServer {
-        super::builders::backup_dr::DeleteManagementServer::new(self.inner.clone())
+    ) -> super::builder::backup_dr::DeleteManagementServer {
+        super::builder::backup_dr::DeleteManagementServer::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -159,8 +189,8 @@ impl BackupDR {
     pub fn create_backup_vault(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::CreateBackupVault {
-        super::builders::backup_dr::CreateBackupVault::new(self.inner.clone())
+    ) -> super::builder::backup_dr::CreateBackupVault {
+        super::builder::backup_dr::CreateBackupVault::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -168,8 +198,8 @@ impl BackupDR {
     pub fn list_backup_vaults(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::ListBackupVaults {
-        super::builders::backup_dr::ListBackupVaults::new(self.inner.clone())
+    ) -> super::builder::backup_dr::ListBackupVaults {
+        super::builder::backup_dr::ListBackupVaults::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -179,8 +209,8 @@ impl BackupDR {
     pub fn fetch_usable_backup_vaults(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::FetchUsableBackupVaults {
-        super::builders::backup_dr::FetchUsableBackupVaults::new(self.inner.clone())
+    ) -> super::builder::backup_dr::FetchUsableBackupVaults {
+        super::builder::backup_dr::FetchUsableBackupVaults::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -188,8 +218,8 @@ impl BackupDR {
     pub fn get_backup_vault(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::GetBackupVault {
-        super::builders::backup_dr::GetBackupVault::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::backup_dr::GetBackupVault {
+        super::builder::backup_dr::GetBackupVault::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the settings of a BackupVault.
@@ -206,8 +236,8 @@ impl BackupDR {
     pub fn update_backup_vault(
         &self,
         backup_vault: impl Into<crate::model::BackupVault>,
-    ) -> super::builders::backup_dr::UpdateBackupVault {
-        super::builders::backup_dr::UpdateBackupVault::new(self.inner.clone())
+    ) -> super::builder::backup_dr::UpdateBackupVault {
+        super::builder::backup_dr::UpdateBackupVault::new(self.inner.clone())
             .set_backup_vault(backup_vault.into())
     }
 
@@ -225,16 +255,16 @@ impl BackupDR {
     pub fn delete_backup_vault(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::DeleteBackupVault {
-        super::builders::backup_dr::DeleteBackupVault::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::backup_dr::DeleteBackupVault {
+        super::builder::backup_dr::DeleteBackupVault::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists DataSources in a given project and location.
     pub fn list_data_sources(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::ListDataSources {
-        super::builders::backup_dr::ListDataSources::new(self.inner.clone())
+    ) -> super::builder::backup_dr::ListDataSources {
+        super::builder::backup_dr::ListDataSources::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -242,8 +272,8 @@ impl BackupDR {
     pub fn get_data_source(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::GetDataSource {
-        super::builders::backup_dr::GetDataSource::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::backup_dr::GetDataSource {
+        super::builder::backup_dr::GetDataSource::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the settings of a DataSource.
@@ -260,8 +290,8 @@ impl BackupDR {
     pub fn update_data_source(
         &self,
         data_source: impl Into<crate::model::DataSource>,
-    ) -> super::builders::backup_dr::UpdateDataSource {
-        super::builders::backup_dr::UpdateDataSource::new(self.inner.clone())
+    ) -> super::builder::backup_dr::UpdateDataSource {
+        super::builder::backup_dr::UpdateDataSource::new(self.inner.clone())
             .set_data_source(data_source.into())
     }
 
@@ -269,16 +299,16 @@ impl BackupDR {
     pub fn list_backups(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::ListBackups {
-        super::builders::backup_dr::ListBackups::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::backup_dr::ListBackups {
+        super::builder::backup_dr::ListBackups::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets details of a Backup.
     pub fn get_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::GetBackup {
-        super::builders::backup_dr::GetBackup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::backup_dr::GetBackup {
+        super::builder::backup_dr::GetBackup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the settings of a Backup.
@@ -295,8 +325,8 @@ impl BackupDR {
     pub fn update_backup(
         &self,
         backup: impl Into<crate::model::Backup>,
-    ) -> super::builders::backup_dr::UpdateBackup {
-        super::builders::backup_dr::UpdateBackup::new(self.inner.clone()).set_backup(backup.into())
+    ) -> super::builder::backup_dr::UpdateBackup {
+        super::builder::backup_dr::UpdateBackup::new(self.inner.clone()).set_backup(backup.into())
     }
 
     /// Deletes a Backup.
@@ -313,8 +343,8 @@ impl BackupDR {
     pub fn delete_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::DeleteBackup {
-        super::builders::backup_dr::DeleteBackup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::backup_dr::DeleteBackup {
+        super::builder::backup_dr::DeleteBackup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Restore from a Backup
@@ -331,8 +361,8 @@ impl BackupDR {
     pub fn restore_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::RestoreBackup {
-        super::builders::backup_dr::RestoreBackup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::backup_dr::RestoreBackup {
+        super::builder::backup_dr::RestoreBackup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Create a BackupPlan
@@ -349,8 +379,8 @@ impl BackupDR {
     pub fn create_backup_plan(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::CreateBackupPlan {
-        super::builders::backup_dr::CreateBackupPlan::new(self.inner.clone())
+    ) -> super::builder::backup_dr::CreateBackupPlan {
+        super::builder::backup_dr::CreateBackupPlan::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -358,16 +388,16 @@ impl BackupDR {
     pub fn get_backup_plan(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::GetBackupPlan {
-        super::builders::backup_dr::GetBackupPlan::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::backup_dr::GetBackupPlan {
+        super::builder::backup_dr::GetBackupPlan::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists BackupPlans in a given project and location.
     pub fn list_backup_plans(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::ListBackupPlans {
-        super::builders::backup_dr::ListBackupPlans::new(self.inner.clone())
+    ) -> super::builder::backup_dr::ListBackupPlans {
+        super::builder::backup_dr::ListBackupPlans::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -385,8 +415,8 @@ impl BackupDR {
     pub fn delete_backup_plan(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::DeleteBackupPlan {
-        super::builders::backup_dr::DeleteBackupPlan::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::backup_dr::DeleteBackupPlan {
+        super::builder::backup_dr::DeleteBackupPlan::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Create a BackupPlanAssociation
@@ -403,8 +433,8 @@ impl BackupDR {
     pub fn create_backup_plan_association(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::CreateBackupPlanAssociation {
-        super::builders::backup_dr::CreateBackupPlanAssociation::new(self.inner.clone())
+    ) -> super::builder::backup_dr::CreateBackupPlanAssociation {
+        super::builder::backup_dr::CreateBackupPlanAssociation::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -412,8 +442,8 @@ impl BackupDR {
     pub fn get_backup_plan_association(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::GetBackupPlanAssociation {
-        super::builders::backup_dr::GetBackupPlanAssociation::new(self.inner.clone())
+    ) -> super::builder::backup_dr::GetBackupPlanAssociation {
+        super::builder::backup_dr::GetBackupPlanAssociation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -421,8 +451,8 @@ impl BackupDR {
     pub fn list_backup_plan_associations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::ListBackupPlanAssociations {
-        super::builders::backup_dr::ListBackupPlanAssociations::new(self.inner.clone())
+    ) -> super::builder::backup_dr::ListBackupPlanAssociations {
+        super::builder::backup_dr::ListBackupPlanAssociations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -440,8 +470,8 @@ impl BackupDR {
     pub fn delete_backup_plan_association(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::DeleteBackupPlanAssociation {
-        super::builders::backup_dr::DeleteBackupPlanAssociation::new(self.inner.clone())
+    ) -> super::builder::backup_dr::DeleteBackupPlanAssociation {
+        super::builder::backup_dr::DeleteBackupPlanAssociation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -459,8 +489,8 @@ impl BackupDR {
     pub fn trigger_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::TriggerBackup {
-        super::builders::backup_dr::TriggerBackup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::backup_dr::TriggerBackup {
+        super::builder::backup_dr::TriggerBackup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Initializes the service related config for a project.
@@ -477,24 +507,24 @@ impl BackupDR {
     pub fn initialize_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::InitializeService {
-        super::builders::backup_dr::InitializeService::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::backup_dr::InitializeService {
+        super::builder::backup_dr::InitializeService::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::ListLocations {
-        super::builders::backup_dr::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::backup_dr::ListLocations {
+        super::builder::backup_dr::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::GetLocation {
-        super::builders::backup_dr::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::backup_dr::GetLocation {
+        super::builder::backup_dr::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -505,8 +535,8 @@ impl BackupDR {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::SetIamPolicy {
-        super::builders::backup_dr::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::backup_dr::SetIamPolicy {
+        super::builder::backup_dr::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -515,8 +545,8 @@ impl BackupDR {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::GetIamPolicy {
-        super::builders::backup_dr::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::backup_dr::GetIamPolicy {
+        super::builder::backup_dr::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -530,8 +560,8 @@ impl BackupDR {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::TestIamPermissions {
-        super::builders::backup_dr::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::backup_dr::TestIamPermissions {
+        super::builder::backup_dr::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -541,8 +571,8 @@ impl BackupDR {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::ListOperations {
-        super::builders::backup_dr::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::backup_dr::ListOperations {
+        super::builder::backup_dr::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -551,8 +581,8 @@ impl BackupDR {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::GetOperation {
-        super::builders::backup_dr::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::backup_dr::GetOperation {
+        super::builder::backup_dr::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -561,8 +591,8 @@ impl BackupDR {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::DeleteOperation {
-        super::builders::backup_dr::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::backup_dr::DeleteOperation {
+        super::builder::backup_dr::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -571,7 +601,7 @@ impl BackupDR {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::backup_dr::CancelOperation {
-        super::builders::backup_dr::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::backup_dr::CancelOperation {
+        super::builder::backup_dr::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

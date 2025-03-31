@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Monitoring API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_monitoring_v3::client::AlertPolicyService;
+/// let client = AlertPolicyService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// The AlertPolicyService API is used to manage (list, create, delete,
@@ -35,8 +44,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `AlertPolicyService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `AlertPolicyService` use the `with_*` methods in the type returned
+/// by [builder()][AlertPolicyService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://monitoring.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::alert_policy_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::alert_policy_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -46,37 +70,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AlertPolicyService {
-    inner: Arc<dyn super::stubs::dynamic::AlertPolicyService>,
+    inner: Arc<dyn super::stub::dynamic::AlertPolicyService>,
 }
 
 impl AlertPolicyService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [AlertPolicyService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_monitoring_v3::client::AlertPolicyService;
+    /// let client = AlertPolicyService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::alert_policy_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::alert_policy_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::AlertPolicyService + 'static,
+        T: super::stub::AlertPolicyService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::AlertPolicyService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::AlertPolicyService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -85,13 +117,13 @@ impl AlertPolicyService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AlertPolicyService> {
+    ) -> Result<impl super::stub::AlertPolicyService> {
         super::transport::AlertPolicyService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AlertPolicyService> {
+    ) -> Result<impl super::stub::AlertPolicyService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AlertPolicyService::new)
@@ -101,8 +133,8 @@ impl AlertPolicyService {
     pub fn list_alert_policies(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alert_policy_service::ListAlertPolicies {
-        super::builders::alert_policy_service::ListAlertPolicies::new(self.inner.clone())
+    ) -> super::builder::alert_policy_service::ListAlertPolicies {
+        super::builder::alert_policy_service::ListAlertPolicies::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -110,8 +142,8 @@ impl AlertPolicyService {
     pub fn get_alert_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alert_policy_service::GetAlertPolicy {
-        super::builders::alert_policy_service::GetAlertPolicy::new(self.inner.clone())
+    ) -> super::builder::alert_policy_service::GetAlertPolicy {
+        super::builder::alert_policy_service::GetAlertPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -123,8 +155,8 @@ impl AlertPolicyService {
     pub fn create_alert_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alert_policy_service::CreateAlertPolicy {
-        super::builders::alert_policy_service::CreateAlertPolicy::new(self.inner.clone())
+    ) -> super::builder::alert_policy_service::CreateAlertPolicy {
+        super::builder::alert_policy_service::CreateAlertPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -136,8 +168,8 @@ impl AlertPolicyService {
     pub fn delete_alert_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alert_policy_service::DeleteAlertPolicy {
-        super::builders::alert_policy_service::DeleteAlertPolicy::new(self.inner.clone())
+    ) -> super::builder::alert_policy_service::DeleteAlertPolicy {
+        super::builder::alert_policy_service::DeleteAlertPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -152,13 +184,22 @@ impl AlertPolicyService {
     pub fn update_alert_policy(
         &self,
         alert_policy: impl Into<crate::model::AlertPolicy>,
-    ) -> super::builders::alert_policy_service::UpdateAlertPolicy {
-        super::builders::alert_policy_service::UpdateAlertPolicy::new(self.inner.clone())
+    ) -> super::builder::alert_policy_service::UpdateAlertPolicy {
+        super::builder::alert_policy_service::UpdateAlertPolicy::new(self.inner.clone())
             .set_alert_policy(alert_policy.into())
     }
 }
 
 /// Implements a client for the Cloud Monitoring API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_monitoring_v3::client::GroupService;
+/// let client = GroupService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -177,8 +218,23 @@ impl AlertPolicyService {
 ///
 /// # Configuration
 ///
-/// `GroupService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `GroupService` use the `with_*` methods in the type returned
+/// by [builder()][GroupService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://monitoring.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::group_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::group_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -188,37 +244,43 @@ impl AlertPolicyService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct GroupService {
-    inner: Arc<dyn super::stubs::dynamic::GroupService>,
+    inner: Arc<dyn super::stub::dynamic::GroupService>,
 }
 
 impl GroupService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [GroupService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_monitoring_v3::client::GroupService;
+    /// let client = GroupService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::group_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::group_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::GroupService + 'static,
+        T: super::stub::GroupService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::GroupService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::GroupService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -227,13 +289,13 @@ impl GroupService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::GroupService> {
+    ) -> Result<impl super::stub::GroupService> {
         super::transport::GroupService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::GroupService> {
+    ) -> Result<impl super::stub::GroupService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::GroupService::new)
@@ -243,24 +305,24 @@ impl GroupService {
     pub fn list_groups(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::group_service::ListGroups {
-        super::builders::group_service::ListGroups::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::group_service::ListGroups {
+        super::builder::group_service::ListGroups::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets a single group.
     pub fn get_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::group_service::GetGroup {
-        super::builders::group_service::GetGroup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::group_service::GetGroup {
+        super::builder::group_service::GetGroup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new group.
     pub fn create_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::group_service::CreateGroup {
-        super::builders::group_service::CreateGroup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::group_service::CreateGroup {
+        super::builder::group_service::CreateGroup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates an existing group.
@@ -268,29 +330,38 @@ impl GroupService {
     pub fn update_group(
         &self,
         group: impl Into<crate::model::Group>,
-    ) -> super::builders::group_service::UpdateGroup {
-        super::builders::group_service::UpdateGroup::new(self.inner.clone()).set_group(group.into())
+    ) -> super::builder::group_service::UpdateGroup {
+        super::builder::group_service::UpdateGroup::new(self.inner.clone()).set_group(group.into())
     }
 
     /// Deletes an existing group.
     pub fn delete_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::group_service::DeleteGroup {
-        super::builders::group_service::DeleteGroup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::group_service::DeleteGroup {
+        super::builder::group_service::DeleteGroup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists the monitored resources that are members of a group.
     pub fn list_group_members(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::group_service::ListGroupMembers {
-        super::builders::group_service::ListGroupMembers::new(self.inner.clone())
+    ) -> super::builder::group_service::ListGroupMembers {
+        super::builder::group_service::ListGroupMembers::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Cloud Monitoring API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_monitoring_v3::client::MetricService;
+/// let client = MetricService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -299,8 +370,23 @@ impl GroupService {
 ///
 /// # Configuration
 ///
-/// `MetricService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `MetricService` use the `with_*` methods in the type returned
+/// by [builder()][MetricService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://monitoring.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::metric_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::metric_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -310,37 +396,43 @@ impl GroupService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct MetricService {
-    inner: Arc<dyn super::stubs::dynamic::MetricService>,
+    inner: Arc<dyn super::stub::dynamic::MetricService>,
 }
 
 impl MetricService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [MetricService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_monitoring_v3::client::MetricService;
+    /// let client = MetricService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::metric_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::metric_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::MetricService + 'static,
+        T: super::stub::MetricService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::MetricService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::MetricService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -349,13 +441,13 @@ impl MetricService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::MetricService> {
+    ) -> Result<impl super::stub::MetricService> {
         super::transport::MetricService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::MetricService> {
+    ) -> Result<impl super::stub::MetricService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::MetricService::new)
@@ -365,8 +457,8 @@ impl MetricService {
     pub fn list_monitored_resource_descriptors(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metric_service::ListMonitoredResourceDescriptors {
-        super::builders::metric_service::ListMonitoredResourceDescriptors::new(self.inner.clone())
+    ) -> super::builder::metric_service::ListMonitoredResourceDescriptors {
+        super::builder::metric_service::ListMonitoredResourceDescriptors::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -374,8 +466,8 @@ impl MetricService {
     pub fn get_monitored_resource_descriptor(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metric_service::GetMonitoredResourceDescriptor {
-        super::builders::metric_service::GetMonitoredResourceDescriptor::new(self.inner.clone())
+    ) -> super::builder::metric_service::GetMonitoredResourceDescriptor {
+        super::builder::metric_service::GetMonitoredResourceDescriptor::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -383,8 +475,8 @@ impl MetricService {
     pub fn list_metric_descriptors(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metric_service::ListMetricDescriptors {
-        super::builders::metric_service::ListMetricDescriptors::new(self.inner.clone())
+    ) -> super::builder::metric_service::ListMetricDescriptors {
+        super::builder::metric_service::ListMetricDescriptors::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -392,8 +484,8 @@ impl MetricService {
     pub fn get_metric_descriptor(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metric_service::GetMetricDescriptor {
-        super::builders::metric_service::GetMetricDescriptor::new(self.inner.clone())
+    ) -> super::builder::metric_service::GetMetricDescriptor {
+        super::builder::metric_service::GetMetricDescriptor::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -406,8 +498,8 @@ impl MetricService {
     pub fn create_metric_descriptor(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metric_service::CreateMetricDescriptor {
-        super::builders::metric_service::CreateMetricDescriptor::new(self.inner.clone())
+    ) -> super::builder::metric_service::CreateMetricDescriptor {
+        super::builder::metric_service::CreateMetricDescriptor::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -417,8 +509,8 @@ impl MetricService {
     pub fn delete_metric_descriptor(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metric_service::DeleteMetricDescriptor {
-        super::builders::metric_service::DeleteMetricDescriptor::new(self.inner.clone())
+    ) -> super::builder::metric_service::DeleteMetricDescriptor {
+        super::builder::metric_service::DeleteMetricDescriptor::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -426,8 +518,8 @@ impl MetricService {
     pub fn list_time_series(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metric_service::ListTimeSeries {
-        super::builders::metric_service::ListTimeSeries::new(self.inner.clone())
+    ) -> super::builder::metric_service::ListTimeSeries {
+        super::builder::metric_service::ListTimeSeries::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -441,8 +533,8 @@ impl MetricService {
     pub fn create_time_series(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metric_service::CreateTimeSeries {
-        super::builders::metric_service::CreateTimeSeries::new(self.inner.clone())
+    ) -> super::builder::metric_service::CreateTimeSeries {
+        super::builder::metric_service::CreateTimeSeries::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -460,13 +552,22 @@ impl MetricService {
     pub fn create_service_time_series(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metric_service::CreateServiceTimeSeries {
-        super::builders::metric_service::CreateServiceTimeSeries::new(self.inner.clone())
+    ) -> super::builder::metric_service::CreateServiceTimeSeries {
+        super::builder::metric_service::CreateServiceTimeSeries::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Cloud Monitoring API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_monitoring_v3::client::NotificationChannelService;
+/// let client = NotificationChannelService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -475,8 +576,23 @@ impl MetricService {
 ///
 /// # Configuration
 ///
-/// `NotificationChannelService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `NotificationChannelService` use the `with_*` methods in the type returned
+/// by [builder()][NotificationChannelService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://monitoring.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::notification_channel_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::notification_channel_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -486,37 +602,45 @@ impl MetricService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct NotificationChannelService {
-    inner: Arc<dyn super::stubs::dynamic::NotificationChannelService>,
+    inner: Arc<dyn super::stub::dynamic::NotificationChannelService>,
 }
 
 impl NotificationChannelService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [NotificationChannelService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
+    /// let client = NotificationChannelService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::notification_channel_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::notification_channel_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::NotificationChannelService + 'static,
+        T: super::stub::NotificationChannelService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::NotificationChannelService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::NotificationChannelService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -525,13 +649,13 @@ impl NotificationChannelService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::NotificationChannelService> {
+    ) -> Result<impl super::stub::NotificationChannelService> {
         super::transport::NotificationChannelService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::NotificationChannelService> {
+    ) -> Result<impl super::stub::NotificationChannelService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::NotificationChannelService::new)
@@ -542,8 +666,8 @@ impl NotificationChannelService {
     pub fn list_notification_channel_descriptors(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notification_channel_service::ListNotificationChannelDescriptors {
-        super::builders::notification_channel_service::ListNotificationChannelDescriptors::new(
+    ) -> super::builder::notification_channel_service::ListNotificationChannelDescriptors {
+        super::builder::notification_channel_service::ListNotificationChannelDescriptors::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -554,8 +678,8 @@ impl NotificationChannelService {
     pub fn get_notification_channel_descriptor(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notification_channel_service::GetNotificationChannelDescriptor {
-        super::builders::notification_channel_service::GetNotificationChannelDescriptor::new(
+    ) -> super::builder::notification_channel_service::GetNotificationChannelDescriptor {
+        super::builder::notification_channel_service::GetNotificationChannelDescriptor::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -567,8 +691,8 @@ impl NotificationChannelService {
     pub fn list_notification_channels(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notification_channel_service::ListNotificationChannels {
-        super::builders::notification_channel_service::ListNotificationChannels::new(
+    ) -> super::builder::notification_channel_service::ListNotificationChannels {
+        super::builder::notification_channel_service::ListNotificationChannels::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -582,8 +706,8 @@ impl NotificationChannelService {
     pub fn get_notification_channel(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notification_channel_service::GetNotificationChannel {
-        super::builders::notification_channel_service::GetNotificationChannel::new(
+    ) -> super::builder::notification_channel_service::GetNotificationChannel {
+        super::builder::notification_channel_service::GetNotificationChannel::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -599,8 +723,8 @@ impl NotificationChannelService {
     pub fn create_notification_channel(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notification_channel_service::CreateNotificationChannel {
-        super::builders::notification_channel_service::CreateNotificationChannel::new(
+    ) -> super::builder::notification_channel_service::CreateNotificationChannel {
+        super::builder::notification_channel_service::CreateNotificationChannel::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -616,8 +740,8 @@ impl NotificationChannelService {
     pub fn update_notification_channel(
         &self,
         notification_channel: impl Into<crate::model::NotificationChannel>,
-    ) -> super::builders::notification_channel_service::UpdateNotificationChannel {
-        super::builders::notification_channel_service::UpdateNotificationChannel::new(
+    ) -> super::builder::notification_channel_service::UpdateNotificationChannel {
+        super::builder::notification_channel_service::UpdateNotificationChannel::new(
             self.inner.clone(),
         )
         .set_notification_channel(notification_channel.into())
@@ -632,8 +756,8 @@ impl NotificationChannelService {
     pub fn delete_notification_channel(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notification_channel_service::DeleteNotificationChannel {
-        super::builders::notification_channel_service::DeleteNotificationChannel::new(
+    ) -> super::builder::notification_channel_service::DeleteNotificationChannel {
+        super::builder::notification_channel_service::DeleteNotificationChannel::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -644,9 +768,8 @@ impl NotificationChannelService {
     pub fn send_notification_channel_verification_code(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notification_channel_service::SendNotificationChannelVerificationCode
-    {
-        super::builders::notification_channel_service::SendNotificationChannelVerificationCode::new(
+    ) -> super::builder::notification_channel_service::SendNotificationChannelVerificationCode {
+        super::builder::notification_channel_service::SendNotificationChannelVerificationCode::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -676,8 +799,8 @@ impl NotificationChannelService {
     pub fn get_notification_channel_verification_code(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notification_channel_service::GetNotificationChannelVerificationCode {
-        super::builders::notification_channel_service::GetNotificationChannelVerificationCode::new(
+    ) -> super::builder::notification_channel_service::GetNotificationChannelVerificationCode {
+        super::builder::notification_channel_service::GetNotificationChannelVerificationCode::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -689,8 +812,8 @@ impl NotificationChannelService {
     pub fn verify_notification_channel(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::notification_channel_service::VerifyNotificationChannel {
-        super::builders::notification_channel_service::VerifyNotificationChannel::new(
+    ) -> super::builder::notification_channel_service::VerifyNotificationChannel {
+        super::builder::notification_channel_service::VerifyNotificationChannel::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -698,6 +821,15 @@ impl NotificationChannelService {
 }
 
 /// Implements a client for the Cloud Monitoring API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_monitoring_v3::client::QueryService;
+/// let client = QueryService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -707,8 +839,23 @@ impl NotificationChannelService {
 ///
 /// # Configuration
 ///
-/// `QueryService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `QueryService` use the `with_*` methods in the type returned
+/// by [builder()][QueryService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://monitoring.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::query_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::query_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -718,37 +865,43 @@ impl NotificationChannelService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct QueryService {
-    inner: Arc<dyn super::stubs::dynamic::QueryService>,
+    inner: Arc<dyn super::stub::dynamic::QueryService>,
 }
 
 impl QueryService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [QueryService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_monitoring_v3::client::QueryService;
+    /// let client = QueryService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::query_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::query_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::QueryService + 'static,
+        T: super::stub::QueryService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::QueryService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::QueryService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -757,13 +910,13 @@ impl QueryService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::QueryService> {
+    ) -> Result<impl super::stub::QueryService> {
         super::transport::QueryService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::QueryService> {
+    ) -> Result<impl super::stub::QueryService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::QueryService::new)
@@ -776,13 +929,22 @@ impl QueryService {
     pub fn query_time_series(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::query_service::QueryTimeSeries {
-        super::builders::query_service::QueryTimeSeries::new(self.inner.clone())
+    ) -> super::builder::query_service::QueryTimeSeries {
+        super::builder::query_service::QueryTimeSeries::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Cloud Monitoring API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
+/// let client = ServiceMonitoringService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -793,8 +955,23 @@ impl QueryService {
 ///
 /// # Configuration
 ///
-/// `ServiceMonitoringService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ServiceMonitoringService` use the `with_*` methods in the type returned
+/// by [builder()][ServiceMonitoringService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://monitoring.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::service_monitoring_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::service_monitoring_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -804,37 +981,45 @@ impl QueryService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ServiceMonitoringService {
-    inner: Arc<dyn super::stubs::dynamic::ServiceMonitoringService>,
+    inner: Arc<dyn super::stub::dynamic::ServiceMonitoringService>,
 }
 
 impl ServiceMonitoringService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ServiceMonitoringService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
+    /// let client = ServiceMonitoringService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::service_monitoring_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::service_monitoring_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ServiceMonitoringService + 'static,
+        T: super::stub::ServiceMonitoringService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ServiceMonitoringService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ServiceMonitoringService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -843,13 +1028,13 @@ impl ServiceMonitoringService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ServiceMonitoringService> {
+    ) -> Result<impl super::stub::ServiceMonitoringService> {
         super::transport::ServiceMonitoringService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ServiceMonitoringService> {
+    ) -> Result<impl super::stub::ServiceMonitoringService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ServiceMonitoringService::new)
@@ -859,8 +1044,8 @@ impl ServiceMonitoringService {
     pub fn create_service(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::service_monitoring_service::CreateService {
-        super::builders::service_monitoring_service::CreateService::new(self.inner.clone())
+    ) -> super::builder::service_monitoring_service::CreateService {
+        super::builder::service_monitoring_service::CreateService::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -868,8 +1053,8 @@ impl ServiceMonitoringService {
     pub fn get_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::service_monitoring_service::GetService {
-        super::builders::service_monitoring_service::GetService::new(self.inner.clone())
+    ) -> super::builder::service_monitoring_service::GetService {
+        super::builder::service_monitoring_service::GetService::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -877,8 +1062,8 @@ impl ServiceMonitoringService {
     pub fn list_services(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::service_monitoring_service::ListServices {
-        super::builders::service_monitoring_service::ListServices::new(self.inner.clone())
+    ) -> super::builder::service_monitoring_service::ListServices {
+        super::builder::service_monitoring_service::ListServices::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -886,8 +1071,8 @@ impl ServiceMonitoringService {
     pub fn update_service(
         &self,
         service: impl Into<crate::model::Service>,
-    ) -> super::builders::service_monitoring_service::UpdateService {
-        super::builders::service_monitoring_service::UpdateService::new(self.inner.clone())
+    ) -> super::builder::service_monitoring_service::UpdateService {
+        super::builder::service_monitoring_service::UpdateService::new(self.inner.clone())
             .set_service(service.into())
     }
 
@@ -895,8 +1080,8 @@ impl ServiceMonitoringService {
     pub fn delete_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::service_monitoring_service::DeleteService {
-        super::builders::service_monitoring_service::DeleteService::new(self.inner.clone())
+    ) -> super::builder::service_monitoring_service::DeleteService {
+        super::builder::service_monitoring_service::DeleteService::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -904,8 +1089,8 @@ impl ServiceMonitoringService {
     pub fn create_service_level_objective(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::service_monitoring_service::CreateServiceLevelObjective {
-        super::builders::service_monitoring_service::CreateServiceLevelObjective::new(
+    ) -> super::builder::service_monitoring_service::CreateServiceLevelObjective {
+        super::builder::service_monitoring_service::CreateServiceLevelObjective::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -915,8 +1100,8 @@ impl ServiceMonitoringService {
     pub fn get_service_level_objective(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::service_monitoring_service::GetServiceLevelObjective {
-        super::builders::service_monitoring_service::GetServiceLevelObjective::new(
+    ) -> super::builder::service_monitoring_service::GetServiceLevelObjective {
+        super::builder::service_monitoring_service::GetServiceLevelObjective::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -926,8 +1111,8 @@ impl ServiceMonitoringService {
     pub fn list_service_level_objectives(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::service_monitoring_service::ListServiceLevelObjectives {
-        super::builders::service_monitoring_service::ListServiceLevelObjectives::new(
+    ) -> super::builder::service_monitoring_service::ListServiceLevelObjectives {
+        super::builder::service_monitoring_service::ListServiceLevelObjectives::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -937,8 +1122,8 @@ impl ServiceMonitoringService {
     pub fn update_service_level_objective(
         &self,
         service_level_objective: impl Into<crate::model::ServiceLevelObjective>,
-    ) -> super::builders::service_monitoring_service::UpdateServiceLevelObjective {
-        super::builders::service_monitoring_service::UpdateServiceLevelObjective::new(
+    ) -> super::builder::service_monitoring_service::UpdateServiceLevelObjective {
+        super::builder::service_monitoring_service::UpdateServiceLevelObjective::new(
             self.inner.clone(),
         )
         .set_service_level_objective(service_level_objective.into())
@@ -948,8 +1133,8 @@ impl ServiceMonitoringService {
     pub fn delete_service_level_objective(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::service_monitoring_service::DeleteServiceLevelObjective {
-        super::builders::service_monitoring_service::DeleteServiceLevelObjective::new(
+    ) -> super::builder::service_monitoring_service::DeleteServiceLevelObjective {
+        super::builder::service_monitoring_service::DeleteServiceLevelObjective::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -957,6 +1142,15 @@ impl ServiceMonitoringService {
 }
 
 /// Implements a client for the Cloud Monitoring API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_monitoring_v3::client::SnoozeService;
+/// let client = SnoozeService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -966,8 +1160,23 @@ impl ServiceMonitoringService {
 ///
 /// # Configuration
 ///
-/// `SnoozeService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SnoozeService` use the `with_*` methods in the type returned
+/// by [builder()][SnoozeService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://monitoring.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::snooze_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::snooze_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -977,37 +1186,43 @@ impl ServiceMonitoringService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SnoozeService {
-    inner: Arc<dyn super::stubs::dynamic::SnoozeService>,
+    inner: Arc<dyn super::stub::dynamic::SnoozeService>,
 }
 
 impl SnoozeService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [SnoozeService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_monitoring_v3::client::SnoozeService;
+    /// let client = SnoozeService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::snooze_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::snooze_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::SnoozeService + 'static,
+        T: super::stub::SnoozeService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::SnoozeService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::SnoozeService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1016,13 +1231,13 @@ impl SnoozeService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SnoozeService> {
+    ) -> Result<impl super::stub::SnoozeService> {
         super::transport::SnoozeService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SnoozeService> {
+    ) -> Result<impl super::stub::SnoozeService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SnoozeService::new)
@@ -1034,8 +1249,8 @@ impl SnoozeService {
     pub fn create_snooze(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::snooze_service::CreateSnooze {
-        super::builders::snooze_service::CreateSnooze::new(self.inner.clone())
+    ) -> super::builder::snooze_service::CreateSnooze {
+        super::builder::snooze_service::CreateSnooze::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1044,8 +1259,8 @@ impl SnoozeService {
     pub fn list_snoozes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::snooze_service::ListSnoozes {
-        super::builders::snooze_service::ListSnoozes::new(self.inner.clone())
+    ) -> super::builder::snooze_service::ListSnoozes {
+        super::builder::snooze_service::ListSnoozes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1053,8 +1268,8 @@ impl SnoozeService {
     pub fn get_snooze(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::snooze_service::GetSnooze {
-        super::builders::snooze_service::GetSnooze::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::snooze_service::GetSnooze {
+        super::builder::snooze_service::GetSnooze::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates a `Snooze`, identified by its `name`, with the parameters in the
@@ -1062,13 +1277,22 @@ impl SnoozeService {
     pub fn update_snooze(
         &self,
         snooze: impl Into<crate::model::Snooze>,
-    ) -> super::builders::snooze_service::UpdateSnooze {
-        super::builders::snooze_service::UpdateSnooze::new(self.inner.clone())
+    ) -> super::builder::snooze_service::UpdateSnooze {
+        super::builder::snooze_service::UpdateSnooze::new(self.inner.clone())
             .set_snooze(snooze.into())
     }
 }
 
 /// Implements a client for the Cloud Monitoring API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_monitoring_v3::client::UptimeCheckService;
+/// let client = UptimeCheckService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -1083,8 +1307,23 @@ impl SnoozeService {
 ///
 /// # Configuration
 ///
-/// `UptimeCheckService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `UptimeCheckService` use the `with_*` methods in the type returned
+/// by [builder()][UptimeCheckService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://monitoring.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::uptime_check_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::uptime_check_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1094,37 +1333,45 @@ impl SnoozeService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct UptimeCheckService {
-    inner: Arc<dyn super::stubs::dynamic::UptimeCheckService>,
+    inner: Arc<dyn super::stub::dynamic::UptimeCheckService>,
 }
 
 impl UptimeCheckService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [UptimeCheckService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_monitoring_v3::client::UptimeCheckService;
+    /// let client = UptimeCheckService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::uptime_check_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::uptime_check_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::UptimeCheckService + 'static,
+        T: super::stub::UptimeCheckService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::UptimeCheckService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::UptimeCheckService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1133,13 +1380,13 @@ impl UptimeCheckService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::UptimeCheckService> {
+    ) -> Result<impl super::stub::UptimeCheckService> {
         super::transport::UptimeCheckService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::UptimeCheckService> {
+    ) -> Result<impl super::stub::UptimeCheckService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::UptimeCheckService::new)
@@ -1150,8 +1397,8 @@ impl UptimeCheckService {
     pub fn list_uptime_check_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::uptime_check_service::ListUptimeCheckConfigs {
-        super::builders::uptime_check_service::ListUptimeCheckConfigs::new(self.inner.clone())
+    ) -> super::builder::uptime_check_service::ListUptimeCheckConfigs {
+        super::builder::uptime_check_service::ListUptimeCheckConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1159,8 +1406,8 @@ impl UptimeCheckService {
     pub fn get_uptime_check_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::uptime_check_service::GetUptimeCheckConfig {
-        super::builders::uptime_check_service::GetUptimeCheckConfig::new(self.inner.clone())
+    ) -> super::builder::uptime_check_service::GetUptimeCheckConfig {
+        super::builder::uptime_check_service::GetUptimeCheckConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1168,8 +1415,8 @@ impl UptimeCheckService {
     pub fn create_uptime_check_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::uptime_check_service::CreateUptimeCheckConfig {
-        super::builders::uptime_check_service::CreateUptimeCheckConfig::new(self.inner.clone())
+    ) -> super::builder::uptime_check_service::CreateUptimeCheckConfig {
+        super::builder::uptime_check_service::CreateUptimeCheckConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1180,8 +1427,8 @@ impl UptimeCheckService {
     pub fn update_uptime_check_config(
         &self,
         uptime_check_config: impl Into<crate::model::UptimeCheckConfig>,
-    ) -> super::builders::uptime_check_service::UpdateUptimeCheckConfig {
-        super::builders::uptime_check_service::UpdateUptimeCheckConfig::new(self.inner.clone())
+    ) -> super::builder::uptime_check_service::UpdateUptimeCheckConfig {
+        super::builder::uptime_check_service::UpdateUptimeCheckConfig::new(self.inner.clone())
             .set_uptime_check_config(uptime_check_config.into())
     }
 
@@ -1191,15 +1438,15 @@ impl UptimeCheckService {
     pub fn delete_uptime_check_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::uptime_check_service::DeleteUptimeCheckConfig {
-        super::builders::uptime_check_service::DeleteUptimeCheckConfig::new(self.inner.clone())
+    ) -> super::builder::uptime_check_service::DeleteUptimeCheckConfig {
+        super::builder::uptime_check_service::DeleteUptimeCheckConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
     /// Returns the list of IP addresses that checkers run from.
     pub fn list_uptime_check_ips(
         &self,
-    ) -> super::builders::uptime_check_service::ListUptimeCheckIps {
-        super::builders::uptime_check_service::ListUptimeCheckIps::new(self.inner.clone())
+    ) -> super::builder::uptime_check_service::ListUptimeCheckIps {
+        super::builder::uptime_check_service::ListUptimeCheckIps::new(self.inner.clone())
     }
 }

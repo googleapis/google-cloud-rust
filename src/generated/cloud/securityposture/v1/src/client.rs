@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the Security Posture API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_securityposture_v1::client::SecurityPosture;
+/// let client = SecurityPosture::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service describing handlers for resources.
 ///
 /// # Configuration
 ///
-/// `SecurityPosture` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SecurityPosture` use the `with_*` methods in the type returned
+/// by [builder()][SecurityPosture::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://securityposture.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::security_posture::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::security_posture::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,37 +62,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SecurityPosture {
-    inner: Arc<dyn super::stubs::dynamic::SecurityPosture>,
+    inner: Arc<dyn super::stub::dynamic::SecurityPosture>,
 }
 
 impl SecurityPosture {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [SecurityPosture].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// let client = SecurityPosture::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::security_posture::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::security_posture::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::SecurityPosture + 'static,
+        T: super::stub::SecurityPosture + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::SecurityPosture>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::SecurityPosture>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +109,13 @@ impl SecurityPosture {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SecurityPosture> {
+    ) -> Result<impl super::stub::SecurityPosture> {
         super::transport::SecurityPosture::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SecurityPosture> {
+    ) -> Result<impl super::stub::SecurityPosture> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SecurityPosture::new)
@@ -99,8 +131,8 @@ impl SecurityPosture {
     pub fn list_postures(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_posture::ListPostures {
-        super::builders::security_posture::ListPostures::new(self.inner.clone())
+    ) -> super::builder::security_posture::ListPostures {
+        super::builder::security_posture::ListPostures::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -108,8 +140,8 @@ impl SecurityPosture {
     pub fn list_posture_revisions(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_posture::ListPostureRevisions {
-        super::builders::security_posture::ListPostureRevisions::new(self.inner.clone())
+    ) -> super::builder::security_posture::ListPostureRevisions {
+        super::builder::security_posture::ListPostureRevisions::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -122,8 +154,8 @@ impl SecurityPosture {
     pub fn get_posture(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_posture::GetPosture {
-        super::builders::security_posture::GetPosture::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::security_posture::GetPosture {
+        super::builder::security_posture::GetPosture::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Posture resource.
@@ -143,8 +175,8 @@ impl SecurityPosture {
     pub fn create_posture(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_posture::CreatePosture {
-        super::builders::security_posture::CreatePosture::new(self.inner.clone())
+    ) -> super::builder::security_posture::CreatePosture {
+        super::builder::security_posture::CreatePosture::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -173,8 +205,8 @@ impl SecurityPosture {
     pub fn update_posture(
         &self,
         posture: impl Into<crate::model::Posture>,
-    ) -> super::builders::security_posture::UpdatePosture {
-        super::builders::security_posture::UpdatePosture::new(self.inner.clone())
+    ) -> super::builder::security_posture::UpdatePosture {
+        super::builder::security_posture::UpdatePosture::new(self.inner.clone())
             .set_posture(posture.into())
     }
 
@@ -194,8 +226,8 @@ impl SecurityPosture {
     pub fn delete_posture(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_posture::DeletePosture {
-        super::builders::security_posture::DeletePosture::new(self.inner.clone())
+    ) -> super::builder::security_posture::DeletePosture {
+        super::builder::security_posture::DeletePosture::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -215,8 +247,8 @@ impl SecurityPosture {
     pub fn extract_posture(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_posture::ExtractPosture {
-        super::builders::security_posture::ExtractPosture::new(self.inner.clone())
+    ) -> super::builder::security_posture::ExtractPosture {
+        super::builder::security_posture::ExtractPosture::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -225,8 +257,8 @@ impl SecurityPosture {
     pub fn list_posture_deployments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_posture::ListPostureDeployments {
-        super::builders::security_posture::ListPostureDeployments::new(self.inner.clone())
+    ) -> super::builder::security_posture::ListPostureDeployments {
+        super::builder::security_posture::ListPostureDeployments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -234,8 +266,8 @@ impl SecurityPosture {
     pub fn get_posture_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_posture::GetPostureDeployment {
-        super::builders::security_posture::GetPostureDeployment::new(self.inner.clone())
+    ) -> super::builder::security_posture::GetPostureDeployment {
+        super::builder::security_posture::GetPostureDeployment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -253,8 +285,8 @@ impl SecurityPosture {
     pub fn create_posture_deployment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_posture::CreatePostureDeployment {
-        super::builders::security_posture::CreatePostureDeployment::new(self.inner.clone())
+    ) -> super::builder::security_posture::CreatePostureDeployment {
+        super::builder::security_posture::CreatePostureDeployment::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -272,8 +304,8 @@ impl SecurityPosture {
     pub fn update_posture_deployment(
         &self,
         posture_deployment: impl Into<crate::model::PostureDeployment>,
-    ) -> super::builders::security_posture::UpdatePostureDeployment {
-        super::builders::security_posture::UpdatePostureDeployment::new(self.inner.clone())
+    ) -> super::builder::security_posture::UpdatePostureDeployment {
+        super::builder::security_posture::UpdatePostureDeployment::new(self.inner.clone())
             .set_posture_deployment(posture_deployment.into())
     }
 
@@ -291,8 +323,8 @@ impl SecurityPosture {
     pub fn delete_posture_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_posture::DeletePostureDeployment {
-        super::builders::security_posture::DeletePostureDeployment::new(self.inner.clone())
+    ) -> super::builder::security_posture::DeletePostureDeployment {
+        super::builder::security_posture::DeletePostureDeployment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -301,8 +333,8 @@ impl SecurityPosture {
     pub fn list_posture_templates(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_posture::ListPostureTemplates {
-        super::builders::security_posture::ListPostureTemplates::new(self.inner.clone())
+    ) -> super::builder::security_posture::ListPostureTemplates {
+        super::builder::security_posture::ListPostureTemplates::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -315,8 +347,8 @@ impl SecurityPosture {
     pub fn get_posture_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_posture::GetPostureTemplate {
-        super::builders::security_posture::GetPostureTemplate::new(self.inner.clone())
+    ) -> super::builder::security_posture::GetPostureTemplate {
+        super::builder::security_posture::GetPostureTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -324,8 +356,8 @@ impl SecurityPosture {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_posture::ListLocations {
-        super::builders::security_posture::ListLocations::new(self.inner.clone())
+    ) -> super::builder::security_posture::ListLocations {
+        super::builder::security_posture::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -333,9 +365,8 @@ impl SecurityPosture {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_posture::GetLocation {
-        super::builders::security_posture::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::security_posture::GetLocation {
+        super::builder::security_posture::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -344,8 +375,8 @@ impl SecurityPosture {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_posture::ListOperations {
-        super::builders::security_posture::ListOperations::new(self.inner.clone())
+    ) -> super::builder::security_posture::ListOperations {
+        super::builder::security_posture::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -355,8 +386,8 @@ impl SecurityPosture {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_posture::GetOperation {
-        super::builders::security_posture::GetOperation::new(self.inner.clone())
+    ) -> super::builder::security_posture::GetOperation {
+        super::builder::security_posture::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -366,8 +397,8 @@ impl SecurityPosture {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_posture::DeleteOperation {
-        super::builders::security_posture::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::security_posture::DeleteOperation {
+        super::builder::security_posture::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -377,8 +408,8 @@ impl SecurityPosture {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_posture::CancelOperation {
-        super::builders::security_posture::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::security_posture::CancelOperation {
+        super::builder::security_posture::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

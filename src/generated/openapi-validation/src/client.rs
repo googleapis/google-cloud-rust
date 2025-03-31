@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Secret Manager API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use secretmanager_openapi_v1::client::SecretManagerService;
+/// let client = SecretManagerService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Stores sensitive data such as API keys, passwords, and certificates.
@@ -28,8 +37,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `SecretManagerService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SecretManagerService` use the `with_*` methods in the type returned
+/// by [builder()][SecretManagerService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://secretmanager.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::secret_manager_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::secret_manager_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -39,37 +63,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SecretManagerService {
-    inner: Arc<dyn super::stubs::dynamic::SecretManagerService>,
+    inner: Arc<dyn super::stub::dynamic::SecretManagerService>,
 }
 
 impl SecretManagerService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [SecretManagerService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// let client = SecretManagerService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::secret_manager_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::secret_manager_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::SecretManagerService + 'static,
+        T: super::stub::SecretManagerService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::SecretManagerService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::SecretManagerService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,13 +110,13 @@ impl SecretManagerService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SecretManagerService> {
+    ) -> Result<impl super::stub::SecretManagerService> {
         super::transport::SecretManagerService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SecretManagerService> {
+    ) -> Result<impl super::stub::SecretManagerService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SecretManagerService::new)
@@ -94,8 +126,8 @@ impl SecretManagerService {
     pub fn list_locations(
         &self,
         project: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::ListLocations {
-        super::builders::secret_manager_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::secret_manager_service::ListLocations {
+        super::builder::secret_manager_service::ListLocations::new(self.inner.clone())
             .set_project(project.into())
     }
 
@@ -104,8 +136,8 @@ impl SecretManagerService {
         &self,
         project: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::GetLocation {
-        super::builders::secret_manager_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::secret_manager_service::GetLocation {
+        super::builder::secret_manager_service::GetLocation::new(self.inner.clone())
             .set_project(project.into())
             .set_location(location.into())
     }
@@ -114,8 +146,8 @@ impl SecretManagerService {
     pub fn list_secrets(
         &self,
         project: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::ListSecrets {
-        super::builders::secret_manager_service::ListSecrets::new(self.inner.clone())
+    ) -> super::builder::secret_manager_service::ListSecrets {
+        super::builder::secret_manager_service::ListSecrets::new(self.inner.clone())
             .set_project(project.into())
     }
 
@@ -123,8 +155,8 @@ impl SecretManagerService {
     pub fn create_secret(
         &self,
         project: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::CreateSecret {
-        super::builders::secret_manager_service::CreateSecret::new(self.inner.clone())
+    ) -> super::builder::secret_manager_service::CreateSecret {
+        super::builder::secret_manager_service::CreateSecret::new(self.inner.clone())
             .set_project(project.into())
     }
 
@@ -133,8 +165,8 @@ impl SecretManagerService {
         &self,
         project: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::ListSecretsByProjectAndLocation {
-        super::builders::secret_manager_service::ListSecretsByProjectAndLocation::new(
+    ) -> super::builder::secret_manager_service::ListSecretsByProjectAndLocation {
+        super::builder::secret_manager_service::ListSecretsByProjectAndLocation::new(
             self.inner.clone(),
         )
         .set_project(project.into())
@@ -146,8 +178,8 @@ impl SecretManagerService {
         &self,
         project: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::CreateSecretByProjectAndLocation {
-        super::builders::secret_manager_service::CreateSecretByProjectAndLocation::new(
+    ) -> super::builder::secret_manager_service::CreateSecretByProjectAndLocation {
+        super::builder::secret_manager_service::CreateSecretByProjectAndLocation::new(
             self.inner.clone(),
         )
         .set_project(project.into())
@@ -160,8 +192,8 @@ impl SecretManagerService {
         &self,
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::AddSecretVersion {
-        super::builders::secret_manager_service::AddSecretVersion::new(self.inner.clone())
+    ) -> super::builder::secret_manager_service::AddSecretVersion {
+        super::builder::secret_manager_service::AddSecretVersion::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
     }
@@ -173,9 +205,8 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecret
-    {
-        super::builders::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecret::new(
+    ) -> super::builder::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecret {
+        super::builder::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecret::new(
             self.inner.clone(),
         )
         .set_project(project.into())
@@ -188,8 +219,8 @@ impl SecretManagerService {
         &self,
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::GetSecret {
-        super::builders::secret_manager_service::GetSecret::new(self.inner.clone())
+    ) -> super::builder::secret_manager_service::GetSecret {
+        super::builder::secret_manager_service::GetSecret::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
     }
@@ -199,8 +230,8 @@ impl SecretManagerService {
         &self,
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::DeleteSecret {
-        super::builders::secret_manager_service::DeleteSecret::new(self.inner.clone())
+    ) -> super::builder::secret_manager_service::DeleteSecret {
+        super::builder::secret_manager_service::DeleteSecret::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
     }
@@ -210,8 +241,8 @@ impl SecretManagerService {
         &self,
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::UpdateSecret {
-        super::builders::secret_manager_service::UpdateSecret::new(self.inner.clone())
+    ) -> super::builder::secret_manager_service::UpdateSecret {
+        super::builder::secret_manager_service::UpdateSecret::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
     }
@@ -222,8 +253,8 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::GetSecretByProjectAndLocationAndSecret {
-        super::builders::secret_manager_service::GetSecretByProjectAndLocationAndSecret::new(
+    ) -> super::builder::secret_manager_service::GetSecretByProjectAndLocationAndSecret {
+        super::builder::secret_manager_service::GetSecretByProjectAndLocationAndSecret::new(
             self.inner.clone(),
         )
         .set_project(project.into())
@@ -237,8 +268,8 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::DeleteSecretByProjectAndLocationAndSecret {
-        super::builders::secret_manager_service::DeleteSecretByProjectAndLocationAndSecret::new(
+    ) -> super::builder::secret_manager_service::DeleteSecretByProjectAndLocationAndSecret {
+        super::builder::secret_manager_service::DeleteSecretByProjectAndLocationAndSecret::new(
             self.inner.clone(),
         )
         .set_project(project.into())
@@ -252,8 +283,8 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::UpdateSecretByProjectAndLocationAndSecret {
-        super::builders::secret_manager_service::UpdateSecretByProjectAndLocationAndSecret::new(
+    ) -> super::builder::secret_manager_service::UpdateSecretByProjectAndLocationAndSecret {
+        super::builder::secret_manager_service::UpdateSecretByProjectAndLocationAndSecret::new(
             self.inner.clone(),
         )
         .set_project(project.into())
@@ -267,8 +298,8 @@ impl SecretManagerService {
         &self,
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::ListSecretVersions {
-        super::builders::secret_manager_service::ListSecretVersions::new(self.inner.clone())
+    ) -> super::builder::secret_manager_service::ListSecretVersions {
+        super::builder::secret_manager_service::ListSecretVersions::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
     }
@@ -280,9 +311,9 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecret
+    ) -> super::builder::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecret
     {
-        super::builders::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecret::new(self.inner.clone())
+        super::builder::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecret::new(self.inner.clone())
             .set_project ( project.into() )
             .set_location ( location.into() )
             .set_secret ( secret.into() )
@@ -297,8 +328,8 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::GetSecretVersion {
-        super::builders::secret_manager_service::GetSecretVersion::new(self.inner.clone())
+    ) -> super::builder::secret_manager_service::GetSecretVersion {
+        super::builder::secret_manager_service::GetSecretVersion::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
             .set_version(version.into())
@@ -314,9 +345,9 @@ impl SecretManagerService {
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersion
+    ) -> super::builder::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersion
     {
-        super::builders::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
+        super::builder::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
             .set_project ( project.into() )
             .set_location ( location.into() )
             .set_secret ( secret.into() )
@@ -332,8 +363,8 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::AccessSecretVersion {
-        super::builders::secret_manager_service::AccessSecretVersion::new(self.inner.clone())
+    ) -> super::builder::secret_manager_service::AccessSecretVersion {
+        super::builder::secret_manager_service::AccessSecretVersion::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
             .set_version(version.into())
@@ -349,9 +380,9 @@ impl SecretManagerService {
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersion
+    ) -> super::builder::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersion
     {
-        super::builders::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
+        super::builder::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
             .set_project ( project.into() )
             .set_location ( location.into() )
             .set_secret ( secret.into() )
@@ -367,8 +398,8 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::DisableSecretVersion {
-        super::builders::secret_manager_service::DisableSecretVersion::new(self.inner.clone())
+    ) -> super::builder::secret_manager_service::DisableSecretVersion {
+        super::builder::secret_manager_service::DisableSecretVersion::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
             .set_version(version.into())
@@ -384,9 +415,9 @@ impl SecretManagerService {
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersion
+    ) -> super::builder::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersion
     {
-        super::builders::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
+        super::builder::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
             .set_project ( project.into() )
             .set_location ( location.into() )
             .set_secret ( secret.into() )
@@ -402,8 +433,8 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::EnableSecretVersion {
-        super::builders::secret_manager_service::EnableSecretVersion::new(self.inner.clone())
+    ) -> super::builder::secret_manager_service::EnableSecretVersion {
+        super::builder::secret_manager_service::EnableSecretVersion::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
             .set_version(version.into())
@@ -419,9 +450,9 @@ impl SecretManagerService {
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersion
+    ) -> super::builder::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersion
     {
-        super::builders::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
+        super::builder::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
             .set_project ( project.into() )
             .set_location ( location.into() )
             .set_secret ( secret.into() )
@@ -438,8 +469,8 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::DestroySecretVersion {
-        super::builders::secret_manager_service::DestroySecretVersion::new(self.inner.clone())
+    ) -> super::builder::secret_manager_service::DestroySecretVersion {
+        super::builder::secret_manager_service::DestroySecretVersion::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
             .set_version(version.into())
@@ -456,9 +487,9 @@ impl SecretManagerService {
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersion
+    ) -> super::builder::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersion
     {
-        super::builders::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
+        super::builder::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
             .set_project ( project.into() )
             .set_location ( location.into() )
             .set_secret ( secret.into() )
@@ -474,8 +505,8 @@ impl SecretManagerService {
         &self,
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::SetIamPolicy {
-        super::builders::secret_manager_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::secret_manager_service::SetIamPolicy {
+        super::builder::secret_manager_service::SetIamPolicy::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
     }
@@ -490,8 +521,8 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecret {
-        super::builders::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecret::new(
+    ) -> super::builder::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecret {
+        super::builder::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecret::new(
             self.inner.clone(),
         )
         .set_project(project.into())
@@ -505,8 +536,8 @@ impl SecretManagerService {
         &self,
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::GetIamPolicy {
-        super::builders::secret_manager_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::secret_manager_service::GetIamPolicy {
+        super::builder::secret_manager_service::GetIamPolicy::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
     }
@@ -518,8 +549,8 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecret {
-        super::builders::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecret::new(
+    ) -> super::builder::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecret {
+        super::builder::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecret::new(
             self.inner.clone(),
         )
         .set_project(project.into())
@@ -538,8 +569,8 @@ impl SecretManagerService {
         &self,
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::TestIamPermissions {
-        super::builders::secret_manager_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::secret_manager_service::TestIamPermissions {
+        super::builder::secret_manager_service::TestIamPermissions::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
     }
@@ -556,9 +587,9 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> super::builders::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecret
+    ) -> super::builder::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecret
     {
-        super::builders::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecret::new(self.inner.clone())
+        super::builder::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecret::new(self.inner.clone())
             .set_project ( project.into() )
             .set_location ( location.into() )
             .set_secret ( secret.into() )

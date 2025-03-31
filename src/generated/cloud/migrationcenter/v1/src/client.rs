@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the Migration Center API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+/// let client = MigrationCenter::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service describing handlers for resources.
 ///
 /// # Configuration
 ///
-/// `MigrationCenter` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `MigrationCenter` use the `with_*` methods in the type returned
+/// by [builder()][MigrationCenter::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://migrationcenter.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::migration_center::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::migration_center::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,37 +62,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct MigrationCenter {
-    inner: Arc<dyn super::stubs::dynamic::MigrationCenter>,
+    inner: Arc<dyn super::stub::dynamic::MigrationCenter>,
 }
 
 impl MigrationCenter {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [MigrationCenter].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// let client = MigrationCenter::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::migration_center::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::migration_center::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::MigrationCenter + 'static,
+        T: super::stub::MigrationCenter + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::MigrationCenter>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::MigrationCenter>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +109,13 @@ impl MigrationCenter {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::MigrationCenter> {
+    ) -> Result<impl super::stub::MigrationCenter> {
         super::transport::MigrationCenter::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::MigrationCenter> {
+    ) -> Result<impl super::stub::MigrationCenter> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::MigrationCenter::new)
@@ -93,8 +125,8 @@ impl MigrationCenter {
     pub fn list_assets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::ListAssets {
-        super::builders::migration_center::ListAssets::new(self.inner.clone())
+    ) -> super::builder::migration_center::ListAssets {
+        super::builder::migration_center::ListAssets::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,16 +134,16 @@ impl MigrationCenter {
     pub fn get_asset(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::GetAsset {
-        super::builders::migration_center::GetAsset::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::migration_center::GetAsset {
+        super::builder::migration_center::GetAsset::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the parameters of an asset.
     pub fn update_asset(
         &self,
         asset: impl Into<crate::model::Asset>,
-    ) -> super::builders::migration_center::UpdateAsset {
-        super::builders::migration_center::UpdateAsset::new(self.inner.clone())
+    ) -> super::builder::migration_center::UpdateAsset {
+        super::builder::migration_center::UpdateAsset::new(self.inner.clone())
             .set_asset(asset.into())
     }
 
@@ -119,8 +151,8 @@ impl MigrationCenter {
     pub fn batch_update_assets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::BatchUpdateAssets {
-        super::builders::migration_center::BatchUpdateAssets::new(self.inner.clone())
+    ) -> super::builder::migration_center::BatchUpdateAssets {
+        super::builder::migration_center::BatchUpdateAssets::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -128,17 +160,16 @@ impl MigrationCenter {
     pub fn delete_asset(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::DeleteAsset {
-        super::builders::migration_center::DeleteAsset::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::migration_center::DeleteAsset {
+        super::builder::migration_center::DeleteAsset::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes list of Assets.
     pub fn batch_delete_assets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::BatchDeleteAssets {
-        super::builders::migration_center::BatchDeleteAssets::new(self.inner.clone())
+    ) -> super::builder::migration_center::BatchDeleteAssets {
+        super::builder::migration_center::BatchDeleteAssets::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -146,8 +177,8 @@ impl MigrationCenter {
     pub fn report_asset_frames(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::ReportAssetFrames {
-        super::builders::migration_center::ReportAssetFrames::new(self.inner.clone())
+    ) -> super::builder::migration_center::ReportAssetFrames {
+        super::builder::migration_center::ReportAssetFrames::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -155,8 +186,8 @@ impl MigrationCenter {
     pub fn aggregate_assets_values(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::AggregateAssetsValues {
-        super::builders::migration_center::AggregateAssetsValues::new(self.inner.clone())
+    ) -> super::builder::migration_center::AggregateAssetsValues {
+        super::builder::migration_center::AggregateAssetsValues::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -174,8 +205,8 @@ impl MigrationCenter {
     pub fn create_import_job(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::CreateImportJob {
-        super::builders::migration_center::CreateImportJob::new(self.inner.clone())
+    ) -> super::builder::migration_center::CreateImportJob {
+        super::builder::migration_center::CreateImportJob::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -183,8 +214,8 @@ impl MigrationCenter {
     pub fn list_import_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::ListImportJobs {
-        super::builders::migration_center::ListImportJobs::new(self.inner.clone())
+    ) -> super::builder::migration_center::ListImportJobs {
+        super::builder::migration_center::ListImportJobs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -192,8 +223,8 @@ impl MigrationCenter {
     pub fn get_import_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::GetImportJob {
-        super::builders::migration_center::GetImportJob::new(self.inner.clone())
+    ) -> super::builder::migration_center::GetImportJob {
+        super::builder::migration_center::GetImportJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -211,8 +242,8 @@ impl MigrationCenter {
     pub fn delete_import_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::DeleteImportJob {
-        super::builders::migration_center::DeleteImportJob::new(self.inner.clone())
+    ) -> super::builder::migration_center::DeleteImportJob {
+        super::builder::migration_center::DeleteImportJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -230,8 +261,8 @@ impl MigrationCenter {
     pub fn update_import_job(
         &self,
         import_job: impl Into<crate::model::ImportJob>,
-    ) -> super::builders::migration_center::UpdateImportJob {
-        super::builders::migration_center::UpdateImportJob::new(self.inner.clone())
+    ) -> super::builder::migration_center::UpdateImportJob {
+        super::builder::migration_center::UpdateImportJob::new(self.inner.clone())
             .set_import_job(import_job.into())
     }
 
@@ -249,8 +280,8 @@ impl MigrationCenter {
     pub fn validate_import_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::ValidateImportJob {
-        super::builders::migration_center::ValidateImportJob::new(self.inner.clone())
+    ) -> super::builder::migration_center::ValidateImportJob {
+        super::builder::migration_center::ValidateImportJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -268,8 +299,8 @@ impl MigrationCenter {
     pub fn run_import_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::RunImportJob {
-        super::builders::migration_center::RunImportJob::new(self.inner.clone())
+    ) -> super::builder::migration_center::RunImportJob {
+        super::builder::migration_center::RunImportJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -277,8 +308,8 @@ impl MigrationCenter {
     pub fn get_import_data_file(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::GetImportDataFile {
-        super::builders::migration_center::GetImportDataFile::new(self.inner.clone())
+    ) -> super::builder::migration_center::GetImportDataFile {
+        super::builder::migration_center::GetImportDataFile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -286,8 +317,8 @@ impl MigrationCenter {
     pub fn list_import_data_files(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::ListImportDataFiles {
-        super::builders::migration_center::ListImportDataFiles::new(self.inner.clone())
+    ) -> super::builder::migration_center::ListImportDataFiles {
+        super::builder::migration_center::ListImportDataFiles::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -305,8 +336,8 @@ impl MigrationCenter {
     pub fn create_import_data_file(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::CreateImportDataFile {
-        super::builders::migration_center::CreateImportDataFile::new(self.inner.clone())
+    ) -> super::builder::migration_center::CreateImportDataFile {
+        super::builder::migration_center::CreateImportDataFile::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -324,8 +355,8 @@ impl MigrationCenter {
     pub fn delete_import_data_file(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::DeleteImportDataFile {
-        super::builders::migration_center::DeleteImportDataFile::new(self.inner.clone())
+    ) -> super::builder::migration_center::DeleteImportDataFile {
+        super::builder::migration_center::DeleteImportDataFile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -333,8 +364,8 @@ impl MigrationCenter {
     pub fn list_groups(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::ListGroups {
-        super::builders::migration_center::ListGroups::new(self.inner.clone())
+    ) -> super::builder::migration_center::ListGroups {
+        super::builder::migration_center::ListGroups::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -342,8 +373,8 @@ impl MigrationCenter {
     pub fn get_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::GetGroup {
-        super::builders::migration_center::GetGroup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::migration_center::GetGroup {
+        super::builder::migration_center::GetGroup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new group in a given project and location.
@@ -360,8 +391,8 @@ impl MigrationCenter {
     pub fn create_group(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::CreateGroup {
-        super::builders::migration_center::CreateGroup::new(self.inner.clone())
+    ) -> super::builder::migration_center::CreateGroup {
+        super::builder::migration_center::CreateGroup::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -379,8 +410,8 @@ impl MigrationCenter {
     pub fn update_group(
         &self,
         group: impl Into<crate::model::Group>,
-    ) -> super::builders::migration_center::UpdateGroup {
-        super::builders::migration_center::UpdateGroup::new(self.inner.clone())
+    ) -> super::builder::migration_center::UpdateGroup {
+        super::builder::migration_center::UpdateGroup::new(self.inner.clone())
             .set_group(group.into())
     }
 
@@ -398,9 +429,8 @@ impl MigrationCenter {
     pub fn delete_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::DeleteGroup {
-        super::builders::migration_center::DeleteGroup::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::migration_center::DeleteGroup {
+        super::builder::migration_center::DeleteGroup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Adds assets to a group.
@@ -417,8 +447,8 @@ impl MigrationCenter {
     pub fn add_assets_to_group(
         &self,
         group: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::AddAssetsToGroup {
-        super::builders::migration_center::AddAssetsToGroup::new(self.inner.clone())
+    ) -> super::builder::migration_center::AddAssetsToGroup {
+        super::builder::migration_center::AddAssetsToGroup::new(self.inner.clone())
             .set_group(group.into())
     }
 
@@ -436,8 +466,8 @@ impl MigrationCenter {
     pub fn remove_assets_from_group(
         &self,
         group: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::RemoveAssetsFromGroup {
-        super::builders::migration_center::RemoveAssetsFromGroup::new(self.inner.clone())
+    ) -> super::builder::migration_center::RemoveAssetsFromGroup {
+        super::builder::migration_center::RemoveAssetsFromGroup::new(self.inner.clone())
             .set_group(group.into())
     }
 
@@ -445,8 +475,8 @@ impl MigrationCenter {
     pub fn list_error_frames(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::ListErrorFrames {
-        super::builders::migration_center::ListErrorFrames::new(self.inner.clone())
+    ) -> super::builder::migration_center::ListErrorFrames {
+        super::builder::migration_center::ListErrorFrames::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -454,8 +484,8 @@ impl MigrationCenter {
     pub fn get_error_frame(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::GetErrorFrame {
-        super::builders::migration_center::GetErrorFrame::new(self.inner.clone())
+    ) -> super::builder::migration_center::GetErrorFrame {
+        super::builder::migration_center::GetErrorFrame::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -463,8 +493,8 @@ impl MigrationCenter {
     pub fn list_sources(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::ListSources {
-        super::builders::migration_center::ListSources::new(self.inner.clone())
+    ) -> super::builder::migration_center::ListSources {
+        super::builder::migration_center::ListSources::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -472,8 +502,8 @@ impl MigrationCenter {
     pub fn get_source(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::GetSource {
-        super::builders::migration_center::GetSource::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::migration_center::GetSource {
+        super::builder::migration_center::GetSource::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new source in a given project and location.
@@ -490,8 +520,8 @@ impl MigrationCenter {
     pub fn create_source(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::CreateSource {
-        super::builders::migration_center::CreateSource::new(self.inner.clone())
+    ) -> super::builder::migration_center::CreateSource {
+        super::builder::migration_center::CreateSource::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -509,8 +539,8 @@ impl MigrationCenter {
     pub fn update_source(
         &self,
         source: impl Into<crate::model::Source>,
-    ) -> super::builders::migration_center::UpdateSource {
-        super::builders::migration_center::UpdateSource::new(self.inner.clone())
+    ) -> super::builder::migration_center::UpdateSource {
+        super::builder::migration_center::UpdateSource::new(self.inner.clone())
             .set_source(source.into())
     }
 
@@ -528,8 +558,8 @@ impl MigrationCenter {
     pub fn delete_source(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::DeleteSource {
-        super::builders::migration_center::DeleteSource::new(self.inner.clone())
+    ) -> super::builder::migration_center::DeleteSource {
+        super::builder::migration_center::DeleteSource::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -537,8 +567,8 @@ impl MigrationCenter {
     pub fn list_preference_sets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::ListPreferenceSets {
-        super::builders::migration_center::ListPreferenceSets::new(self.inner.clone())
+    ) -> super::builder::migration_center::ListPreferenceSets {
+        super::builder::migration_center::ListPreferenceSets::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -546,8 +576,8 @@ impl MigrationCenter {
     pub fn get_preference_set(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::GetPreferenceSet {
-        super::builders::migration_center::GetPreferenceSet::new(self.inner.clone())
+    ) -> super::builder::migration_center::GetPreferenceSet {
+        super::builder::migration_center::GetPreferenceSet::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -565,8 +595,8 @@ impl MigrationCenter {
     pub fn create_preference_set(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::CreatePreferenceSet {
-        super::builders::migration_center::CreatePreferenceSet::new(self.inner.clone())
+    ) -> super::builder::migration_center::CreatePreferenceSet {
+        super::builder::migration_center::CreatePreferenceSet::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -584,8 +614,8 @@ impl MigrationCenter {
     pub fn update_preference_set(
         &self,
         preference_set: impl Into<crate::model::PreferenceSet>,
-    ) -> super::builders::migration_center::UpdatePreferenceSet {
-        super::builders::migration_center::UpdatePreferenceSet::new(self.inner.clone())
+    ) -> super::builder::migration_center::UpdatePreferenceSet {
+        super::builder::migration_center::UpdatePreferenceSet::new(self.inner.clone())
             .set_preference_set(preference_set.into())
     }
 
@@ -603,8 +633,8 @@ impl MigrationCenter {
     pub fn delete_preference_set(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::DeletePreferenceSet {
-        super::builders::migration_center::DeletePreferenceSet::new(self.inner.clone())
+    ) -> super::builder::migration_center::DeletePreferenceSet {
+        super::builder::migration_center::DeletePreferenceSet::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -612,9 +642,8 @@ impl MigrationCenter {
     pub fn get_settings(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::GetSettings {
-        super::builders::migration_center::GetSettings::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::migration_center::GetSettings {
+        super::builder::migration_center::GetSettings::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the regional-level project settings.
@@ -631,8 +660,8 @@ impl MigrationCenter {
     pub fn update_settings(
         &self,
         settings: impl Into<crate::model::Settings>,
-    ) -> super::builders::migration_center::UpdateSettings {
-        super::builders::migration_center::UpdateSettings::new(self.inner.clone())
+    ) -> super::builder::migration_center::UpdateSettings {
+        super::builder::migration_center::UpdateSettings::new(self.inner.clone())
             .set_settings(settings.into())
     }
 
@@ -650,8 +679,8 @@ impl MigrationCenter {
     pub fn create_report_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::CreateReportConfig {
-        super::builders::migration_center::CreateReportConfig::new(self.inner.clone())
+    ) -> super::builder::migration_center::CreateReportConfig {
+        super::builder::migration_center::CreateReportConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -659,8 +688,8 @@ impl MigrationCenter {
     pub fn get_report_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::GetReportConfig {
-        super::builders::migration_center::GetReportConfig::new(self.inner.clone())
+    ) -> super::builder::migration_center::GetReportConfig {
+        super::builder::migration_center::GetReportConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -668,8 +697,8 @@ impl MigrationCenter {
     pub fn list_report_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::ListReportConfigs {
-        super::builders::migration_center::ListReportConfigs::new(self.inner.clone())
+    ) -> super::builder::migration_center::ListReportConfigs {
+        super::builder::migration_center::ListReportConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -687,8 +716,8 @@ impl MigrationCenter {
     pub fn delete_report_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::DeleteReportConfig {
-        super::builders::migration_center::DeleteReportConfig::new(self.inner.clone())
+    ) -> super::builder::migration_center::DeleteReportConfig {
+        super::builder::migration_center::DeleteReportConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -706,8 +735,8 @@ impl MigrationCenter {
     pub fn create_report(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::CreateReport {
-        super::builders::migration_center::CreateReport::new(self.inner.clone())
+    ) -> super::builder::migration_center::CreateReport {
+        super::builder::migration_center::CreateReport::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -715,16 +744,16 @@ impl MigrationCenter {
     pub fn get_report(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::GetReport {
-        super::builders::migration_center::GetReport::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::migration_center::GetReport {
+        super::builder::migration_center::GetReport::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists Reports in a given ReportConfig.
     pub fn list_reports(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::ListReports {
-        super::builders::migration_center::ListReports::new(self.inner.clone())
+    ) -> super::builder::migration_center::ListReports {
+        super::builder::migration_center::ListReports::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -742,8 +771,8 @@ impl MigrationCenter {
     pub fn delete_report(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::DeleteReport {
-        super::builders::migration_center::DeleteReport::new(self.inner.clone())
+    ) -> super::builder::migration_center::DeleteReport {
+        super::builder::migration_center::DeleteReport::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -751,8 +780,8 @@ impl MigrationCenter {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::ListLocations {
-        super::builders::migration_center::ListLocations::new(self.inner.clone())
+    ) -> super::builder::migration_center::ListLocations {
+        super::builder::migration_center::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -760,9 +789,8 @@ impl MigrationCenter {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::GetLocation {
-        super::builders::migration_center::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::migration_center::GetLocation {
+        super::builder::migration_center::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -771,8 +799,8 @@ impl MigrationCenter {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::ListOperations {
-        super::builders::migration_center::ListOperations::new(self.inner.clone())
+    ) -> super::builder::migration_center::ListOperations {
+        super::builder::migration_center::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -782,8 +810,8 @@ impl MigrationCenter {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::GetOperation {
-        super::builders::migration_center::GetOperation::new(self.inner.clone())
+    ) -> super::builder::migration_center::GetOperation {
+        super::builder::migration_center::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -793,8 +821,8 @@ impl MigrationCenter {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::DeleteOperation {
-        super::builders::migration_center::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::migration_center::DeleteOperation {
+        super::builder::migration_center::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -804,8 +832,8 @@ impl MigrationCenter {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_center::CancelOperation {
-        super::builders::migration_center::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::migration_center::CancelOperation {
+        super::builder::migration_center::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [TranscoderService](super::stubs::TranscoderService) using a [gaxi::http::ReqwestClient].
+/// Implements [TranscoderService](super::stub::TranscoderService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct TranscoderService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl TranscoderService {
     }
 }
 
-impl super::stubs::TranscoderService for TranscoderService {
+impl super::stub::TranscoderService for TranscoderService {
     async fn create_job(
         &self,
         req: crate::model::CreateJobRequest,
@@ -103,7 +103,7 @@ impl super::stubs::TranscoderService for TranscoderService {
         &self,
         req: crate::model::DeleteJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -117,6 +117,7 @@ impl super::stubs::TranscoderService for TranscoderService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_job_template(
@@ -191,7 +192,7 @@ impl super::stubs::TranscoderService for TranscoderService {
         &self,
         req: crate::model::DeleteJobTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -205,5 +206,6 @@ impl super::stubs::TranscoderService for TranscoderService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 }

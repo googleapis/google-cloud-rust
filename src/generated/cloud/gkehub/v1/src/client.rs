@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the GKE Hub.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_gkehub_v1::client::GkeHub;
+/// let client = GkeHub::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// The GKE Hub service handles the registration of many Kubernetes clusters to
@@ -46,8 +55,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `GkeHub` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `GkeHub` use the `with_*` methods in the type returned
+/// by [builder()][GkeHub::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://gkehub.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::gke_hub::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::gke_hub::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -57,52 +81,56 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct GkeHub {
-    inner: Arc<dyn super::stubs::dynamic::GkeHub>,
+    inner: Arc<dyn super::stub::dynamic::GkeHub>,
 }
 
 impl GkeHub {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [GkeHub].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// let client = GkeHub::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::gke_hub::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::gke_hub::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::GkeHub + 'static,
+        T: super::stub::GkeHub + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::GkeHub>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::GkeHub>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::GkeHub> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stub::GkeHub> {
         super::transport::GkeHub::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::GkeHub> {
+    ) -> Result<impl super::stub::GkeHub> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::GkeHub::new)
@@ -112,32 +140,32 @@ impl GkeHub {
     pub fn list_memberships(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::gke_hub::ListMemberships {
-        super::builders::gke_hub::ListMemberships::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::gke_hub::ListMemberships {
+        super::builder::gke_hub::ListMemberships::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Lists Features in a given project and location.
     pub fn list_features(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::gke_hub::ListFeatures {
-        super::builders::gke_hub::ListFeatures::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::gke_hub::ListFeatures {
+        super::builder::gke_hub::ListFeatures::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets the details of a Membership.
     pub fn get_membership(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gke_hub::GetMembership {
-        super::builders::gke_hub::GetMembership::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::gke_hub::GetMembership {
+        super::builder::gke_hub::GetMembership::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets details of a single Feature.
     pub fn get_feature(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gke_hub::GetFeature {
-        super::builders::gke_hub::GetFeature::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::gke_hub::GetFeature {
+        super::builder::gke_hub::GetFeature::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Membership.
@@ -158,9 +186,8 @@ impl GkeHub {
     pub fn create_membership(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::gke_hub::CreateMembership {
-        super::builders::gke_hub::CreateMembership::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::gke_hub::CreateMembership {
+        super::builder::gke_hub::CreateMembership::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Adds a new Feature.
@@ -177,8 +204,8 @@ impl GkeHub {
     pub fn create_feature(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::gke_hub::CreateFeature {
-        super::builders::gke_hub::CreateFeature::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::gke_hub::CreateFeature {
+        super::builder::gke_hub::CreateFeature::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Removes a Membership.
@@ -199,8 +226,8 @@ impl GkeHub {
     pub fn delete_membership(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gke_hub::DeleteMembership {
-        super::builders::gke_hub::DeleteMembership::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::gke_hub::DeleteMembership {
+        super::builder::gke_hub::DeleteMembership::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Removes a Feature.
@@ -217,8 +244,8 @@ impl GkeHub {
     pub fn delete_feature(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gke_hub::DeleteFeature {
-        super::builders::gke_hub::DeleteFeature::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::gke_hub::DeleteFeature {
+        super::builder::gke_hub::DeleteFeature::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates an existing Membership.
@@ -235,8 +262,8 @@ impl GkeHub {
     pub fn update_membership(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gke_hub::UpdateMembership {
-        super::builders::gke_hub::UpdateMembership::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::gke_hub::UpdateMembership {
+        super::builder::gke_hub::UpdateMembership::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates an existing Feature.
@@ -253,8 +280,8 @@ impl GkeHub {
     pub fn update_feature(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gke_hub::UpdateFeature {
-        super::builders::gke_hub::UpdateFeature::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::gke_hub::UpdateFeature {
+        super::builder::gke_hub::UpdateFeature::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Generates the manifest for deployment of the GKE connect agent.
@@ -264,8 +291,8 @@ impl GkeHub {
     pub fn generate_connect_manifest(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gke_hub::GenerateConnectManifest {
-        super::builders::gke_hub::GenerateConnectManifest::new(self.inner.clone())
+    ) -> super::builder::gke_hub::GenerateConnectManifest {
+        super::builder::gke_hub::GenerateConnectManifest::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -275,8 +302,8 @@ impl GkeHub {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gke_hub::ListOperations {
-        super::builders::gke_hub::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::gke_hub::ListOperations {
+        super::builder::gke_hub::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -285,8 +312,8 @@ impl GkeHub {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gke_hub::GetOperation {
-        super::builders::gke_hub::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::gke_hub::GetOperation {
+        super::builder::gke_hub::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -295,8 +322,8 @@ impl GkeHub {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gke_hub::DeleteOperation {
-        super::builders::gke_hub::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::gke_hub::DeleteOperation {
+        super::builder::gke_hub::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -305,7 +332,7 @@ impl GkeHub {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::gke_hub::CancelOperation {
-        super::builders::gke_hub::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::gke_hub::CancelOperation {
+        super::builder::gke_hub::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

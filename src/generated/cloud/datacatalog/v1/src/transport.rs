@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DataCatalog](super::stubs::DataCatalog) using a [gaxi::http::ReqwestClient].
+/// Implements [DataCatalog](super::stub::DataCatalog) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DataCatalog {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl DataCatalog {
     }
 }
 
-impl super::stubs::DataCatalog for DataCatalog {
+impl super::stub::DataCatalog for DataCatalog {
     async fn search_catalog(
         &self,
         req: crate::model::SearchCatalogRequest,
@@ -151,7 +151,7 @@ impl super::stubs::DataCatalog for DataCatalog {
         &self,
         req: crate::model::DeleteEntryGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -165,6 +165,7 @@ impl super::stubs::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_entry_groups(
@@ -249,7 +250,7 @@ impl super::stubs::DataCatalog for DataCatalog {
         &self,
         req: crate::model::DeleteEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -262,6 +263,7 @@ impl super::stubs::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn get_entry(
@@ -475,7 +477,7 @@ impl super::stubs::DataCatalog for DataCatalog {
         &self,
         req: crate::model::DeleteTagTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -489,6 +491,7 @@ impl super::stubs::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_tag_template_field(
@@ -578,7 +581,7 @@ impl super::stubs::DataCatalog for DataCatalog {
         &self,
         req: crate::model::DeleteTagTemplateFieldRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -592,6 +595,7 @@ impl super::stubs::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_tag(
@@ -651,7 +655,7 @@ impl super::stubs::DataCatalog for DataCatalog {
         &self,
         req: crate::model::DeleteTagRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -664,6 +668,7 @@ impl super::stubs::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_tags(
@@ -927,7 +932,7 @@ impl super::stubs::DataCatalog for DataCatalog {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -940,13 +945,14 @@ impl super::stubs::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -959,6 +965,7 @@ impl super::stubs::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -976,7 +983,7 @@ impl super::stubs::DataCatalog for DataCatalog {
     }
 }
 
-/// Implements [PolicyTagManager](super::stubs::PolicyTagManager) using a [gaxi::http::ReqwestClient].
+/// Implements [PolicyTagManager](super::stub::PolicyTagManager) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct PolicyTagManager {
     inner: gaxi::http::ReqwestClient,
@@ -997,7 +1004,7 @@ impl PolicyTagManager {
     }
 }
 
-impl super::stubs::PolicyTagManager for PolicyTagManager {
+impl super::stub::PolicyTagManager for PolicyTagManager {
     async fn create_taxonomy(
         &self,
         req: crate::model::CreateTaxonomyRequest,
@@ -1024,7 +1031,7 @@ impl super::stubs::PolicyTagManager for PolicyTagManager {
         &self,
         req: crate::model::DeleteTaxonomyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1037,6 +1044,7 @@ impl super::stubs::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn update_taxonomy(
@@ -1147,7 +1155,7 @@ impl super::stubs::PolicyTagManager for PolicyTagManager {
         &self,
         req: crate::model::DeletePolicyTagRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1160,6 +1168,7 @@ impl super::stubs::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn update_policy_tag(
@@ -1348,7 +1357,7 @@ impl super::stubs::PolicyTagManager for PolicyTagManager {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1361,13 +1370,14 @@ impl super::stubs::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1380,10 +1390,11 @@ impl super::stubs::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
-/// Implements [PolicyTagManagerSerialization](super::stubs::PolicyTagManagerSerialization) using a [gaxi::http::ReqwestClient].
+/// Implements [PolicyTagManagerSerialization](super::stub::PolicyTagManagerSerialization) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct PolicyTagManagerSerialization {
     inner: gaxi::http::ReqwestClient,
@@ -1404,7 +1415,7 @@ impl PolicyTagManagerSerialization {
     }
 }
 
-impl super::stubs::PolicyTagManagerSerialization for PolicyTagManagerSerialization {
+impl super::stub::PolicyTagManagerSerialization for PolicyTagManagerSerialization {
     async fn replace_taxonomy(
         &self,
         req: crate::model::ReplaceTaxonomyRequest,
@@ -1519,7 +1530,7 @@ impl super::stubs::PolicyTagManagerSerialization for PolicyTagManagerSerializati
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1532,13 +1543,14 @@ impl super::stubs::PolicyTagManagerSerialization for PolicyTagManagerSerializati
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1551,5 +1563,6 @@ impl super::stubs::PolicyTagManagerSerialization for PolicyTagManagerSerializati
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 }

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Operations](super::stubs::Operations) using a [gaxi::http::ReqwestClient].
+/// Implements [Operations](super::stub::Operations) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Operations {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl Operations {
     }
 }
 
-impl super::stubs::Operations for Operations {
+impl super::stub::Operations for Operations {
     async fn list_operations(
         &self,
         req: crate::model::ListOperationsRequest,
@@ -85,7 +85,7 @@ impl super::stubs::Operations for Operations {
         &self,
         req: crate::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -98,13 +98,14 @@ impl super::stubs::Operations for Operations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: crate::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -114,6 +115,9 @@ impl super::stubs::Operations for Operations {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 }

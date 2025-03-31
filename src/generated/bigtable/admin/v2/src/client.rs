@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Bigtable Admin API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+/// let client = BigtableInstanceAdmin::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for creating, configuring, and deleting Cloud Bigtable Instances and
@@ -29,8 +38,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `BigtableInstanceAdmin` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `BigtableInstanceAdmin` use the `with_*` methods in the type returned
+/// by [builder()][BigtableInstanceAdmin::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://bigtableadmin.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::bigtable_instance_admin::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::bigtable_instance_admin::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -40,37 +64,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct BigtableInstanceAdmin {
-    inner: Arc<dyn super::stubs::dynamic::BigtableInstanceAdmin>,
+    inner: Arc<dyn super::stub::dynamic::BigtableInstanceAdmin>,
 }
 
 impl BigtableInstanceAdmin {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [BigtableInstanceAdmin].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// let client = BigtableInstanceAdmin::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::bigtable_instance_admin::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::bigtable_instance_admin::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::BigtableInstanceAdmin + 'static,
+        T: super::stub::BigtableInstanceAdmin + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::BigtableInstanceAdmin>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::BigtableInstanceAdmin>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -79,13 +111,13 @@ impl BigtableInstanceAdmin {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::BigtableInstanceAdmin> {
+    ) -> Result<impl super::stub::BigtableInstanceAdmin> {
         super::transport::BigtableInstanceAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::BigtableInstanceAdmin> {
+    ) -> Result<impl super::stub::BigtableInstanceAdmin> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::BigtableInstanceAdmin::new)
@@ -111,8 +143,8 @@ impl BigtableInstanceAdmin {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::CreateInstance {
-        super::builders::bigtable_instance_admin::CreateInstance::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::CreateInstance {
+        super::builder::bigtable_instance_admin::CreateInstance::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -120,8 +152,8 @@ impl BigtableInstanceAdmin {
     pub fn get_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::GetInstance {
-        super::builders::bigtable_instance_admin::GetInstance::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::GetInstance {
+        super::builder::bigtable_instance_admin::GetInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -129,8 +161,8 @@ impl BigtableInstanceAdmin {
     pub fn list_instances(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::ListInstances {
-        super::builders::bigtable_instance_admin::ListInstances::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::ListInstances {
+        super::builder::bigtable_instance_admin::ListInstances::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -140,8 +172,8 @@ impl BigtableInstanceAdmin {
     pub fn update_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::UpdateInstance {
-        super::builders::bigtable_instance_admin::UpdateInstance::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::UpdateInstance {
+        super::builder::bigtable_instance_admin::UpdateInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -160,8 +192,8 @@ impl BigtableInstanceAdmin {
     pub fn partial_update_instance(
         &self,
         instance: impl Into<crate::model::Instance>,
-    ) -> super::builders::bigtable_instance_admin::PartialUpdateInstance {
-        super::builders::bigtable_instance_admin::PartialUpdateInstance::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::PartialUpdateInstance {
+        super::builder::bigtable_instance_admin::PartialUpdateInstance::new(self.inner.clone())
             .set_instance(instance.into())
     }
 
@@ -169,8 +201,8 @@ impl BigtableInstanceAdmin {
     pub fn delete_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::DeleteInstance {
-        super::builders::bigtable_instance_admin::DeleteInstance::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::DeleteInstance {
+        super::builder::bigtable_instance_admin::DeleteInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -194,8 +226,8 @@ impl BigtableInstanceAdmin {
     pub fn create_cluster(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::CreateCluster {
-        super::builders::bigtable_instance_admin::CreateCluster::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::CreateCluster {
+        super::builder::bigtable_instance_admin::CreateCluster::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -203,8 +235,8 @@ impl BigtableInstanceAdmin {
     pub fn get_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::GetCluster {
-        super::builders::bigtable_instance_admin::GetCluster::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::GetCluster {
+        super::builder::bigtable_instance_admin::GetCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -212,8 +244,8 @@ impl BigtableInstanceAdmin {
     pub fn list_clusters(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::ListClusters {
-        super::builders::bigtable_instance_admin::ListClusters::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::ListClusters {
+        super::builder::bigtable_instance_admin::ListClusters::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -235,8 +267,8 @@ impl BigtableInstanceAdmin {
     pub fn update_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::UpdateCluster {
-        super::builders::bigtable_instance_admin::UpdateCluster::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::UpdateCluster {
+        super::builder::bigtable_instance_admin::UpdateCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -265,8 +297,8 @@ impl BigtableInstanceAdmin {
     pub fn partial_update_cluster(
         &self,
         cluster: impl Into<crate::model::Cluster>,
-    ) -> super::builders::bigtable_instance_admin::PartialUpdateCluster {
-        super::builders::bigtable_instance_admin::PartialUpdateCluster::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::PartialUpdateCluster {
+        super::builder::bigtable_instance_admin::PartialUpdateCluster::new(self.inner.clone())
             .set_cluster(cluster.into())
     }
 
@@ -274,8 +306,8 @@ impl BigtableInstanceAdmin {
     pub fn delete_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::DeleteCluster {
-        super::builders::bigtable_instance_admin::DeleteCluster::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::DeleteCluster {
+        super::builder::bigtable_instance_admin::DeleteCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -283,8 +315,8 @@ impl BigtableInstanceAdmin {
     pub fn create_app_profile(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::CreateAppProfile {
-        super::builders::bigtable_instance_admin::CreateAppProfile::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::CreateAppProfile {
+        super::builder::bigtable_instance_admin::CreateAppProfile::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -292,8 +324,8 @@ impl BigtableInstanceAdmin {
     pub fn get_app_profile(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::GetAppProfile {
-        super::builders::bigtable_instance_admin::GetAppProfile::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::GetAppProfile {
+        super::builder::bigtable_instance_admin::GetAppProfile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -301,8 +333,8 @@ impl BigtableInstanceAdmin {
     pub fn list_app_profiles(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::ListAppProfiles {
-        super::builders::bigtable_instance_admin::ListAppProfiles::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::ListAppProfiles {
+        super::builder::bigtable_instance_admin::ListAppProfiles::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -320,8 +352,8 @@ impl BigtableInstanceAdmin {
     pub fn update_app_profile(
         &self,
         app_profile: impl Into<crate::model::AppProfile>,
-    ) -> super::builders::bigtable_instance_admin::UpdateAppProfile {
-        super::builders::bigtable_instance_admin::UpdateAppProfile::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::UpdateAppProfile {
+        super::builder::bigtable_instance_admin::UpdateAppProfile::new(self.inner.clone())
             .set_app_profile(app_profile.into())
     }
 
@@ -329,8 +361,8 @@ impl BigtableInstanceAdmin {
     pub fn delete_app_profile(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::DeleteAppProfile {
-        super::builders::bigtable_instance_admin::DeleteAppProfile::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::DeleteAppProfile {
+        super::builder::bigtable_instance_admin::DeleteAppProfile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -339,8 +371,8 @@ impl BigtableInstanceAdmin {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::GetIamPolicy {
-        super::builders::bigtable_instance_admin::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::GetIamPolicy {
+        super::builder::bigtable_instance_admin::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -349,8 +381,8 @@ impl BigtableInstanceAdmin {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::SetIamPolicy {
-        super::builders::bigtable_instance_admin::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::SetIamPolicy {
+        super::builder::bigtable_instance_admin::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -358,8 +390,8 @@ impl BigtableInstanceAdmin {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::TestIamPermissions {
-        super::builders::bigtable_instance_admin::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::TestIamPermissions {
+        super::builder::bigtable_instance_admin::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -368,8 +400,8 @@ impl BigtableInstanceAdmin {
     pub fn list_hot_tablets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::ListHotTablets {
-        super::builders::bigtable_instance_admin::ListHotTablets::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::ListHotTablets {
+        super::builder::bigtable_instance_admin::ListHotTablets::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -387,8 +419,8 @@ impl BigtableInstanceAdmin {
     pub fn create_logical_view(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::CreateLogicalView {
-        super::builders::bigtable_instance_admin::CreateLogicalView::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::CreateLogicalView {
+        super::builder::bigtable_instance_admin::CreateLogicalView::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -396,8 +428,8 @@ impl BigtableInstanceAdmin {
     pub fn get_logical_view(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::GetLogicalView {
-        super::builders::bigtable_instance_admin::GetLogicalView::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::GetLogicalView {
+        super::builder::bigtable_instance_admin::GetLogicalView::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -405,8 +437,8 @@ impl BigtableInstanceAdmin {
     pub fn list_logical_views(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::ListLogicalViews {
-        super::builders::bigtable_instance_admin::ListLogicalViews::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::ListLogicalViews {
+        super::builder::bigtable_instance_admin::ListLogicalViews::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -424,8 +456,8 @@ impl BigtableInstanceAdmin {
     pub fn update_logical_view(
         &self,
         logical_view: impl Into<crate::model::LogicalView>,
-    ) -> super::builders::bigtable_instance_admin::UpdateLogicalView {
-        super::builders::bigtable_instance_admin::UpdateLogicalView::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::UpdateLogicalView {
+        super::builder::bigtable_instance_admin::UpdateLogicalView::new(self.inner.clone())
             .set_logical_view(logical_view.into())
     }
 
@@ -433,8 +465,8 @@ impl BigtableInstanceAdmin {
     pub fn delete_logical_view(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::DeleteLogicalView {
-        super::builders::bigtable_instance_admin::DeleteLogicalView::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::DeleteLogicalView {
+        super::builder::bigtable_instance_admin::DeleteLogicalView::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -452,8 +484,8 @@ impl BigtableInstanceAdmin {
     pub fn create_materialized_view(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::CreateMaterializedView {
-        super::builders::bigtable_instance_admin::CreateMaterializedView::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::CreateMaterializedView {
+        super::builder::bigtable_instance_admin::CreateMaterializedView::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -461,8 +493,8 @@ impl BigtableInstanceAdmin {
     pub fn get_materialized_view(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::GetMaterializedView {
-        super::builders::bigtable_instance_admin::GetMaterializedView::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::GetMaterializedView {
+        super::builder::bigtable_instance_admin::GetMaterializedView::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -470,8 +502,8 @@ impl BigtableInstanceAdmin {
     pub fn list_materialized_views(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::ListMaterializedViews {
-        super::builders::bigtable_instance_admin::ListMaterializedViews::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::ListMaterializedViews {
+        super::builder::bigtable_instance_admin::ListMaterializedViews::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -489,8 +521,8 @@ impl BigtableInstanceAdmin {
     pub fn update_materialized_view(
         &self,
         materialized_view: impl Into<crate::model::MaterializedView>,
-    ) -> super::builders::bigtable_instance_admin::UpdateMaterializedView {
-        super::builders::bigtable_instance_admin::UpdateMaterializedView::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::UpdateMaterializedView {
+        super::builder::bigtable_instance_admin::UpdateMaterializedView::new(self.inner.clone())
             .set_materialized_view(materialized_view.into())
     }
 
@@ -498,8 +530,8 @@ impl BigtableInstanceAdmin {
     pub fn delete_materialized_view(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::DeleteMaterializedView {
-        super::builders::bigtable_instance_admin::DeleteMaterializedView::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::DeleteMaterializedView {
+        super::builder::bigtable_instance_admin::DeleteMaterializedView::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -509,8 +541,8 @@ impl BigtableInstanceAdmin {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::ListOperations {
-        super::builders::bigtable_instance_admin::ListOperations::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::ListOperations {
+        super::builder::bigtable_instance_admin::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -520,8 +552,8 @@ impl BigtableInstanceAdmin {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::GetOperation {
-        super::builders::bigtable_instance_admin::GetOperation::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::GetOperation {
+        super::builder::bigtable_instance_admin::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -531,8 +563,8 @@ impl BigtableInstanceAdmin {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::DeleteOperation {
-        super::builders::bigtable_instance_admin::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::DeleteOperation {
+        super::builder::bigtable_instance_admin::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -542,13 +574,22 @@ impl BigtableInstanceAdmin {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_instance_admin::CancelOperation {
-        super::builders::bigtable_instance_admin::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::bigtable_instance_admin::CancelOperation {
+        super::builder::bigtable_instance_admin::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Cloud Bigtable Admin API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+/// let client = BigtableTableAdmin::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -559,8 +600,23 @@ impl BigtableInstanceAdmin {
 ///
 /// # Configuration
 ///
-/// `BigtableTableAdmin` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `BigtableTableAdmin` use the `with_*` methods in the type returned
+/// by [builder()][BigtableTableAdmin::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://bigtableadmin.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::bigtable_table_admin::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::bigtable_table_admin::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -570,37 +626,45 @@ impl BigtableInstanceAdmin {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct BigtableTableAdmin {
-    inner: Arc<dyn super::stubs::dynamic::BigtableTableAdmin>,
+    inner: Arc<dyn super::stub::dynamic::BigtableTableAdmin>,
 }
 
 impl BigtableTableAdmin {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [BigtableTableAdmin].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// let client = BigtableTableAdmin::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::bigtable_table_admin::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::bigtable_table_admin::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::BigtableTableAdmin + 'static,
+        T: super::stub::BigtableTableAdmin + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::BigtableTableAdmin>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::BigtableTableAdmin>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -609,13 +673,13 @@ impl BigtableTableAdmin {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::BigtableTableAdmin> {
+    ) -> Result<impl super::stub::BigtableTableAdmin> {
         super::transport::BigtableTableAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::BigtableTableAdmin> {
+    ) -> Result<impl super::stub::BigtableTableAdmin> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::BigtableTableAdmin::new)
@@ -627,8 +691,8 @@ impl BigtableTableAdmin {
     pub fn create_table(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::CreateTable {
-        super::builders::bigtable_table_admin::CreateTable::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::CreateTable {
+        super::builder::bigtable_table_admin::CreateTable::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -653,8 +717,8 @@ impl BigtableTableAdmin {
     pub fn create_table_from_snapshot(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::CreateTableFromSnapshot {
-        super::builders::bigtable_table_admin::CreateTableFromSnapshot::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::CreateTableFromSnapshot {
+        super::builder::bigtable_table_admin::CreateTableFromSnapshot::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -662,8 +726,8 @@ impl BigtableTableAdmin {
     pub fn list_tables(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::ListTables {
-        super::builders::bigtable_table_admin::ListTables::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::ListTables {
+        super::builder::bigtable_table_admin::ListTables::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -671,8 +735,8 @@ impl BigtableTableAdmin {
     pub fn get_table(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::GetTable {
-        super::builders::bigtable_table_admin::GetTable::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::GetTable {
+        super::builder::bigtable_table_admin::GetTable::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -690,8 +754,8 @@ impl BigtableTableAdmin {
     pub fn update_table(
         &self,
         table: impl Into<crate::model::Table>,
-    ) -> super::builders::bigtable_table_admin::UpdateTable {
-        super::builders::bigtable_table_admin::UpdateTable::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::UpdateTable {
+        super::builder::bigtable_table_admin::UpdateTable::new(self.inner.clone())
             .set_table(table.into())
     }
 
@@ -699,8 +763,8 @@ impl BigtableTableAdmin {
     pub fn delete_table(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::DeleteTable {
-        super::builders::bigtable_table_admin::DeleteTable::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::DeleteTable {
+        super::builder::bigtable_table_admin::DeleteTable::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -718,8 +782,8 @@ impl BigtableTableAdmin {
     pub fn undelete_table(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::UndeleteTable {
-        super::builders::bigtable_table_admin::UndeleteTable::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::UndeleteTable {
+        super::builder::bigtable_table_admin::UndeleteTable::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -737,8 +801,8 @@ impl BigtableTableAdmin {
     pub fn create_authorized_view(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::CreateAuthorizedView {
-        super::builders::bigtable_table_admin::CreateAuthorizedView::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::CreateAuthorizedView {
+        super::builder::bigtable_table_admin::CreateAuthorizedView::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -746,8 +810,8 @@ impl BigtableTableAdmin {
     pub fn list_authorized_views(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::ListAuthorizedViews {
-        super::builders::bigtable_table_admin::ListAuthorizedViews::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::ListAuthorizedViews {
+        super::builder::bigtable_table_admin::ListAuthorizedViews::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -755,8 +819,8 @@ impl BigtableTableAdmin {
     pub fn get_authorized_view(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::GetAuthorizedView {
-        super::builders::bigtable_table_admin::GetAuthorizedView::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::GetAuthorizedView {
+        super::builder::bigtable_table_admin::GetAuthorizedView::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -774,8 +838,8 @@ impl BigtableTableAdmin {
     pub fn update_authorized_view(
         &self,
         authorized_view: impl Into<crate::model::AuthorizedView>,
-    ) -> super::builders::bigtable_table_admin::UpdateAuthorizedView {
-        super::builders::bigtable_table_admin::UpdateAuthorizedView::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::UpdateAuthorizedView {
+        super::builder::bigtable_table_admin::UpdateAuthorizedView::new(self.inner.clone())
             .set_authorized_view(authorized_view.into())
     }
 
@@ -783,8 +847,8 @@ impl BigtableTableAdmin {
     pub fn delete_authorized_view(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::DeleteAuthorizedView {
-        super::builders::bigtable_table_admin::DeleteAuthorizedView::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::DeleteAuthorizedView {
+        super::builder::bigtable_table_admin::DeleteAuthorizedView::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -795,8 +859,8 @@ impl BigtableTableAdmin {
     pub fn modify_column_families(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::ModifyColumnFamilies {
-        super::builders::bigtable_table_admin::ModifyColumnFamilies::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::ModifyColumnFamilies {
+        super::builder::bigtable_table_admin::ModifyColumnFamilies::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -806,8 +870,8 @@ impl BigtableTableAdmin {
     pub fn drop_row_range(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::DropRowRange {
-        super::builders::bigtable_table_admin::DropRowRange::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::DropRowRange {
+        super::builder::bigtable_table_admin::DropRowRange::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -818,8 +882,8 @@ impl BigtableTableAdmin {
     pub fn generate_consistency_token(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::GenerateConsistencyToken {
-        super::builders::bigtable_table_admin::GenerateConsistencyToken::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::GenerateConsistencyToken {
+        super::builder::bigtable_table_admin::GenerateConsistencyToken::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -829,8 +893,8 @@ impl BigtableTableAdmin {
     pub fn check_consistency(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::CheckConsistency {
-        super::builders::bigtable_table_admin::CheckConsistency::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::CheckConsistency {
+        super::builder::bigtable_table_admin::CheckConsistency::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -855,8 +919,8 @@ impl BigtableTableAdmin {
     pub fn snapshot_table(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::SnapshotTable {
-        super::builders::bigtable_table_admin::SnapshotTable::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::SnapshotTable {
+        super::builder::bigtable_table_admin::SnapshotTable::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -870,8 +934,8 @@ impl BigtableTableAdmin {
     pub fn get_snapshot(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::GetSnapshot {
-        super::builders::bigtable_table_admin::GetSnapshot::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::GetSnapshot {
+        super::builder::bigtable_table_admin::GetSnapshot::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -885,8 +949,8 @@ impl BigtableTableAdmin {
     pub fn list_snapshots(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::ListSnapshots {
-        super::builders::bigtable_table_admin::ListSnapshots::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::ListSnapshots {
+        super::builder::bigtable_table_admin::ListSnapshots::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -900,8 +964,8 @@ impl BigtableTableAdmin {
     pub fn delete_snapshot(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::DeleteSnapshot {
-        super::builders::bigtable_table_admin::DeleteSnapshot::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::DeleteSnapshot {
+        super::builder::bigtable_table_admin::DeleteSnapshot::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -932,8 +996,8 @@ impl BigtableTableAdmin {
     pub fn create_backup(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::CreateBackup {
-        super::builders::bigtable_table_admin::CreateBackup::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::CreateBackup {
+        super::builder::bigtable_table_admin::CreateBackup::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -941,8 +1005,8 @@ impl BigtableTableAdmin {
     pub fn get_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::GetBackup {
-        super::builders::bigtable_table_admin::GetBackup::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::GetBackup {
+        super::builder::bigtable_table_admin::GetBackup::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -950,8 +1014,8 @@ impl BigtableTableAdmin {
     pub fn update_backup(
         &self,
         backup: impl Into<crate::model::Backup>,
-    ) -> super::builders::bigtable_table_admin::UpdateBackup {
-        super::builders::bigtable_table_admin::UpdateBackup::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::UpdateBackup {
+        super::builder::bigtable_table_admin::UpdateBackup::new(self.inner.clone())
             .set_backup(backup.into())
     }
 
@@ -959,8 +1023,8 @@ impl BigtableTableAdmin {
     pub fn delete_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::DeleteBackup {
-        super::builders::bigtable_table_admin::DeleteBackup::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::DeleteBackup {
+        super::builder::bigtable_table_admin::DeleteBackup::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -969,8 +1033,8 @@ impl BigtableTableAdmin {
     pub fn list_backups(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::ListBackups {
-        super::builders::bigtable_table_admin::ListBackups::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::ListBackups {
+        super::builder::bigtable_table_admin::ListBackups::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1000,8 +1064,8 @@ impl BigtableTableAdmin {
     pub fn restore_table(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::RestoreTable {
-        super::builders::bigtable_table_admin::RestoreTable::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::RestoreTable {
+        super::builder::bigtable_table_admin::RestoreTable::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1020,8 +1084,8 @@ impl BigtableTableAdmin {
     pub fn copy_backup(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::CopyBackup {
-        super::builders::bigtable_table_admin::CopyBackup::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::CopyBackup {
+        super::builder::bigtable_table_admin::CopyBackup::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1031,8 +1095,8 @@ impl BigtableTableAdmin {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::GetIamPolicy {
-        super::builders::bigtable_table_admin::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::GetIamPolicy {
+        super::builder::bigtable_table_admin::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1041,8 +1105,8 @@ impl BigtableTableAdmin {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::SetIamPolicy {
-        super::builders::bigtable_table_admin::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::SetIamPolicy {
+        super::builder::bigtable_table_admin::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1051,8 +1115,8 @@ impl BigtableTableAdmin {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::TestIamPermissions {
-        super::builders::bigtable_table_admin::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::TestIamPermissions {
+        super::builder::bigtable_table_admin::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1062,8 +1126,8 @@ impl BigtableTableAdmin {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::ListOperations {
-        super::builders::bigtable_table_admin::ListOperations::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::ListOperations {
+        super::builder::bigtable_table_admin::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1073,8 +1137,8 @@ impl BigtableTableAdmin {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::GetOperation {
-        super::builders::bigtable_table_admin::GetOperation::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::GetOperation {
+        super::builder::bigtable_table_admin::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1084,8 +1148,8 @@ impl BigtableTableAdmin {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::DeleteOperation {
-        super::builders::bigtable_table_admin::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::DeleteOperation {
+        super::builder::bigtable_table_admin::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1095,8 +1159,8 @@ impl BigtableTableAdmin {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::bigtable_table_admin::CancelOperation {
-        super::builders::bigtable_table_admin::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::bigtable_table_admin::CancelOperation {
+        super::builder::bigtable_table_admin::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

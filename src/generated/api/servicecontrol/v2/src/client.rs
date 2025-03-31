@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Service Control API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_api_servicecontrol_v2::client::ServiceController;
+/// let client = ServiceController::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// [Service Control API
@@ -34,8 +43,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `ServiceController` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ServiceController` use the `with_*` methods in the type returned
+/// by [builder()][ServiceController::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://servicecontrol.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::service_controller::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::service_controller::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -45,37 +69,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ServiceController {
-    inner: Arc<dyn super::stubs::dynamic::ServiceController>,
+    inner: Arc<dyn super::stub::dynamic::ServiceController>,
 }
 
 impl ServiceController {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ServiceController].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_api_servicecontrol_v2::client::ServiceController;
+    /// let client = ServiceController::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::service_controller::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::service_controller::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ServiceController + 'static,
+        T: super::stub::ServiceController + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ServiceController>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ServiceController>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -84,13 +116,13 @@ impl ServiceController {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ServiceController> {
+    ) -> Result<impl super::stub::ServiceController> {
         super::transport::ServiceController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ServiceController> {
+    ) -> Result<impl super::stub::ServiceController> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ServiceController::new)
@@ -121,8 +153,8 @@ impl ServiceController {
     pub fn check(
         &self,
         service_name: impl Into<std::string::String>,
-    ) -> super::builders::service_controller::Check {
-        super::builders::service_controller::Check::new(self.inner.clone())
+    ) -> super::builder::service_controller::Check {
+        super::builder::service_controller::Check::new(self.inner.clone())
             .set_service_name(service_name.into())
     }
 
@@ -147,8 +179,8 @@ impl ServiceController {
     pub fn report(
         &self,
         service_name: impl Into<std::string::String>,
-    ) -> super::builders::service_controller::Report {
-        super::builders::service_controller::Report::new(self.inner.clone())
+    ) -> super::builder::service_controller::Report {
+        super::builder::service_controller::Report::new(self.inner.clone())
             .set_service_name(service_name.into())
     }
 }

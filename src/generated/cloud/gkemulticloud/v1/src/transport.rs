@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AttachedClusters](super::stubs::AttachedClusters) using a [gaxi::http::ReqwestClient].
+/// Implements [AttachedClusters](super::stub::AttachedClusters) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct AttachedClusters {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl AttachedClusters {
     }
 }
 
-impl super::stubs::AttachedClusters for AttachedClusters {
+impl super::stub::AttachedClusters for AttachedClusters {
     async fn create_attached_cluster(
         &self,
         req: crate::model::CreateAttachedClusterRequest,
@@ -310,7 +310,7 @@ impl super::stubs::AttachedClusters for AttachedClusters {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -323,13 +323,14 @@ impl super::stubs::AttachedClusters for AttachedClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -339,7 +340,10 @@ impl super::stubs::AttachedClusters for AttachedClusters {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -357,7 +361,7 @@ impl super::stubs::AttachedClusters for AttachedClusters {
     }
 }
 
-/// Implements [AwsClusters](super::stubs::AwsClusters) using a [gaxi::http::ReqwestClient].
+/// Implements [AwsClusters](super::stub::AwsClusters) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct AwsClusters {
     inner: gaxi::http::ReqwestClient,
@@ -378,7 +382,7 @@ impl AwsClusters {
     }
 }
 
-impl super::stubs::AwsClusters for AwsClusters {
+impl super::stub::AwsClusters for AwsClusters {
     async fn create_aws_cluster(
         &self,
         req: crate::model::CreateAwsClusterRequest,
@@ -804,7 +808,7 @@ impl super::stubs::AwsClusters for AwsClusters {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -817,13 +821,14 @@ impl super::stubs::AwsClusters for AwsClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -833,7 +838,10 @@ impl super::stubs::AwsClusters for AwsClusters {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -851,7 +859,7 @@ impl super::stubs::AwsClusters for AwsClusters {
     }
 }
 
-/// Implements [AzureClusters](super::stubs::AzureClusters) using a [gaxi::http::ReqwestClient].
+/// Implements [AzureClusters](super::stub::AzureClusters) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct AzureClusters {
     inner: gaxi::http::ReqwestClient,
@@ -872,7 +880,7 @@ impl AzureClusters {
     }
 }
 
-impl super::stubs::AzureClusters for AzureClusters {
+impl super::stub::AzureClusters for AzureClusters {
     async fn create_azure_client(
         &self,
         req: crate::model::CreateAzureClientRequest,
@@ -1369,7 +1377,7 @@ impl super::stubs::AzureClusters for AzureClusters {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1382,13 +1390,14 @@ impl super::stubs::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1398,7 +1407,10 @@ impl super::stubs::AzureClusters for AzureClusters {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Folders](super::stubs::Folders) using a [gaxi::http::ReqwestClient].
+/// Implements [Folders](super::stub::Folders) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Folders {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl Folders {
     }
 }
 
-impl super::stubs::Folders for Folders {
+impl super::stub::Folders for Folders {
     async fn get_folder(
         &self,
         req: crate::model::GetFolderRequest,
@@ -304,7 +304,7 @@ impl super::stubs::Folders for Folders {
     }
 }
 
-/// Implements [Organizations](super::stubs::Organizations) using a [gaxi::http::ReqwestClient].
+/// Implements [Organizations](super::stub::Organizations) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Organizations {
     inner: gaxi::http::ReqwestClient,
@@ -325,7 +325,7 @@ impl Organizations {
     }
 }
 
-impl super::stubs::Organizations for Organizations {
+impl super::stub::Organizations for Organizations {
     async fn get_organization(
         &self,
         req: crate::model::GetOrganizationRequest,
@@ -447,7 +447,7 @@ impl super::stubs::Organizations for Organizations {
     }
 }
 
-/// Implements [Projects](super::stubs::Projects) using a [gaxi::http::ReqwestClient].
+/// Implements [Projects](super::stub::Projects) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Projects {
     inner: gaxi::http::ReqwestClient,
@@ -468,7 +468,7 @@ impl Projects {
     }
 }
 
-impl super::stubs::Projects for Projects {
+impl super::stub::Projects for Projects {
     async fn get_project(
         &self,
         req: crate::model::GetProjectRequest,
@@ -737,7 +737,7 @@ impl super::stubs::Projects for Projects {
     }
 }
 
-/// Implements [TagBindings](super::stubs::TagBindings) using a [gaxi::http::ReqwestClient].
+/// Implements [TagBindings](super::stub::TagBindings) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct TagBindings {
     inner: gaxi::http::ReqwestClient,
@@ -758,7 +758,7 @@ impl TagBindings {
     }
 }
 
-impl super::stubs::TagBindings for TagBindings {
+impl super::stub::TagBindings for TagBindings {
     async fn list_tag_bindings(
         &self,
         req: crate::model::ListTagBindingsRequest,
@@ -876,7 +876,7 @@ impl super::stubs::TagBindings for TagBindings {
     }
 }
 
-/// Implements [TagHolds](super::stubs::TagHolds) using a [gaxi::http::ReqwestClient].
+/// Implements [TagHolds](super::stub::TagHolds) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct TagHolds {
     inner: gaxi::http::ReqwestClient,
@@ -897,7 +897,7 @@ impl TagHolds {
     }
 }
 
-impl super::stubs::TagHolds for TagHolds {
+impl super::stub::TagHolds for TagHolds {
     async fn create_tag_hold(
         &self,
         req: crate::model::CreateTagHoldRequest,
@@ -997,7 +997,7 @@ impl super::stubs::TagHolds for TagHolds {
     }
 }
 
-/// Implements [TagKeys](super::stubs::TagKeys) using a [gaxi::http::ReqwestClient].
+/// Implements [TagKeys](super::stub::TagKeys) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct TagKeys {
     inner: gaxi::http::ReqwestClient,
@@ -1018,7 +1018,7 @@ impl TagKeys {
     }
 }
 
-impl super::stubs::TagKeys for TagKeys {
+impl super::stub::TagKeys for TagKeys {
     async fn list_tag_keys(
         &self,
         req: crate::model::ListTagKeysRequest,
@@ -1254,7 +1254,7 @@ impl super::stubs::TagKeys for TagKeys {
     }
 }
 
-/// Implements [TagValues](super::stubs::TagValues) using a [gaxi::http::ReqwestClient].
+/// Implements [TagValues](super::stub::TagValues) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct TagValues {
     inner: gaxi::http::ReqwestClient,
@@ -1275,7 +1275,7 @@ impl TagValues {
     }
 }
 
-impl super::stubs::TagValues for TagValues {
+impl super::stub::TagValues for TagValues {
     async fn list_tag_values(
         &self,
         req: crate::model::ListTagValuesRequest,

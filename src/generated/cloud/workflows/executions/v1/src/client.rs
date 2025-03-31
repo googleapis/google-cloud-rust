@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Workflow Executions API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_workflows_executions_v1::client::Executions;
+/// let client = Executions::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Executions is used to start and manage running instances of
@@ -28,8 +37,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `Executions` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Executions` use the `with_*` methods in the type returned
+/// by [builder()][Executions::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://workflowexecutions.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::executions::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::executions::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -39,37 +63,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Executions {
-    inner: Arc<dyn super::stubs::dynamic::Executions>,
+    inner: Arc<dyn super::stub::dynamic::Executions>,
 }
 
 impl Executions {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Executions].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_workflows_executions_v1::client::Executions;
+    /// let client = Executions::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::executions::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::executions::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Executions + 'static,
+        T: super::stub::Executions + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Executions>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Executions>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,13 +108,13 @@ impl Executions {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Executions> {
+    ) -> Result<impl super::stub::Executions> {
         super::transport::Executions::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Executions> {
+    ) -> Result<impl super::stub::Executions> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Executions::new)
@@ -97,8 +127,8 @@ impl Executions {
     pub fn list_executions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::executions::ListExecutions {
-        super::builders::executions::ListExecutions::new(self.inner.clone())
+    ) -> super::builder::executions::ListExecutions {
+        super::builder::executions::ListExecutions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -106,8 +136,8 @@ impl Executions {
     pub fn create_execution(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::executions::CreateExecution {
-        super::builders::executions::CreateExecution::new(self.inner.clone())
+    ) -> super::builder::executions::CreateExecution {
+        super::builder::executions::CreateExecution::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -115,15 +145,15 @@ impl Executions {
     pub fn get_execution(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::executions::GetExecution {
-        super::builders::executions::GetExecution::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::executions::GetExecution {
+        super::builder::executions::GetExecution::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Cancels an execution of the given name.
     pub fn cancel_execution(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::executions::CancelExecution {
-        super::builders::executions::CancelExecution::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::executions::CancelExecution {
+        super::builder::executions::CancelExecution::new(self.inner.clone()).set_name(name.into())
     }
 }

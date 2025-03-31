@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Vertex AI Search for Retail API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_retail_v2::client::AnalyticsService;
+/// let client = AnalyticsService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for managing & accessing retail search business metric.
@@ -28,8 +37,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `AnalyticsService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `AnalyticsService` use the `with_*` methods in the type returned
+/// by [builder()][AnalyticsService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://retail.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::analytics_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::analytics_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -39,37 +63,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AnalyticsService {
-    inner: Arc<dyn super::stubs::dynamic::AnalyticsService>,
+    inner: Arc<dyn super::stub::dynamic::AnalyticsService>,
 }
 
 impl AnalyticsService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [AnalyticsService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_retail_v2::client::AnalyticsService;
+    /// let client = AnalyticsService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::analytics_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::analytics_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::AnalyticsService + 'static,
+        T: super::stub::AnalyticsService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::AnalyticsService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::AnalyticsService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,13 +110,13 @@ impl AnalyticsService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AnalyticsService> {
+    ) -> Result<impl super::stub::AnalyticsService> {
         super::transport::AnalyticsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AnalyticsService> {
+    ) -> Result<impl super::stub::AnalyticsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AnalyticsService::new)
@@ -107,8 +139,8 @@ impl AnalyticsService {
     pub fn export_analytics_metrics(
         &self,
         catalog: impl Into<std::string::String>,
-    ) -> super::builders::analytics_service::ExportAnalyticsMetrics {
-        super::builders::analytics_service::ExportAnalyticsMetrics::new(self.inner.clone())
+    ) -> super::builder::analytics_service::ExportAnalyticsMetrics {
+        super::builder::analytics_service::ExportAnalyticsMetrics::new(self.inner.clone())
             .set_catalog(catalog.into())
     }
 
@@ -118,8 +150,8 @@ impl AnalyticsService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::analytics_service::ListOperations {
-        super::builders::analytics_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::analytics_service::ListOperations {
+        super::builder::analytics_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -129,13 +161,22 @@ impl AnalyticsService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::analytics_service::GetOperation {
-        super::builders::analytics_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::analytics_service::GetOperation {
+        super::builder::analytics_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Vertex AI Search for Retail API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_retail_v2::client::CatalogService;
+/// let client = CatalogService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -143,8 +184,23 @@ impl AnalyticsService {
 ///
 /// # Configuration
 ///
-/// `CatalogService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `CatalogService` use the `with_*` methods in the type returned
+/// by [builder()][CatalogService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://retail.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::catalog_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::catalog_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -154,37 +210,43 @@ impl AnalyticsService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CatalogService {
-    inner: Arc<dyn super::stubs::dynamic::CatalogService>,
+    inner: Arc<dyn super::stub::dynamic::CatalogService>,
 }
 
 impl CatalogService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [CatalogService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_retail_v2::client::CatalogService;
+    /// let client = CatalogService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::catalog_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::catalog_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::CatalogService + 'static,
+        T: super::stub::CatalogService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::CatalogService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::CatalogService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -193,13 +255,13 @@ impl CatalogService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CatalogService> {
+    ) -> Result<impl super::stub::CatalogService> {
         super::transport::CatalogService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CatalogService> {
+    ) -> Result<impl super::stub::CatalogService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CatalogService::new)
@@ -212,8 +274,8 @@ impl CatalogService {
     pub fn list_catalogs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::catalog_service::ListCatalogs {
-        super::builders::catalog_service::ListCatalogs::new(self.inner.clone())
+    ) -> super::builder::catalog_service::ListCatalogs {
+        super::builder::catalog_service::ListCatalogs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -223,8 +285,8 @@ impl CatalogService {
     pub fn update_catalog(
         &self,
         catalog: impl Into<crate::model::Catalog>,
-    ) -> super::builders::catalog_service::UpdateCatalog {
-        super::builders::catalog_service::UpdateCatalog::new(self.inner.clone())
+    ) -> super::builder::catalog_service::UpdateCatalog {
+        super::builder::catalog_service::UpdateCatalog::new(self.inner.clone())
             .set_catalog(catalog.into())
     }
 
@@ -269,8 +331,8 @@ impl CatalogService {
     pub fn set_default_branch(
         &self,
         catalog: impl Into<std::string::String>,
-    ) -> super::builders::catalog_service::SetDefaultBranch {
-        super::builders::catalog_service::SetDefaultBranch::new(self.inner.clone())
+    ) -> super::builder::catalog_service::SetDefaultBranch {
+        super::builder::catalog_service::SetDefaultBranch::new(self.inner.clone())
             .set_catalog(catalog.into())
     }
 
@@ -282,8 +344,8 @@ impl CatalogService {
     pub fn get_default_branch(
         &self,
         catalog: impl Into<std::string::String>,
-    ) -> super::builders::catalog_service::GetDefaultBranch {
-        super::builders::catalog_service::GetDefaultBranch::new(self.inner.clone())
+    ) -> super::builder::catalog_service::GetDefaultBranch {
+        super::builder::catalog_service::GetDefaultBranch::new(self.inner.clone())
             .set_catalog(catalog.into())
     }
 
@@ -293,8 +355,8 @@ impl CatalogService {
     pub fn get_completion_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::catalog_service::GetCompletionConfig {
-        super::builders::catalog_service::GetCompletionConfig::new(self.inner.clone())
+    ) -> super::builder::catalog_service::GetCompletionConfig {
+        super::builder::catalog_service::GetCompletionConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -304,8 +366,8 @@ impl CatalogService {
     pub fn update_completion_config(
         &self,
         completion_config: impl Into<crate::model::CompletionConfig>,
-    ) -> super::builders::catalog_service::UpdateCompletionConfig {
-        super::builders::catalog_service::UpdateCompletionConfig::new(self.inner.clone())
+    ) -> super::builder::catalog_service::UpdateCompletionConfig {
+        super::builder::catalog_service::UpdateCompletionConfig::new(self.inner.clone())
             .set_completion_config(completion_config.into())
     }
 
@@ -315,8 +377,8 @@ impl CatalogService {
     pub fn get_attributes_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::catalog_service::GetAttributesConfig {
-        super::builders::catalog_service::GetAttributesConfig::new(self.inner.clone())
+    ) -> super::builder::catalog_service::GetAttributesConfig {
+        super::builder::catalog_service::GetAttributesConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -333,8 +395,8 @@ impl CatalogService {
     pub fn update_attributes_config(
         &self,
         attributes_config: impl Into<crate::model::AttributesConfig>,
-    ) -> super::builders::catalog_service::UpdateAttributesConfig {
-        super::builders::catalog_service::UpdateAttributesConfig::new(self.inner.clone())
+    ) -> super::builder::catalog_service::UpdateAttributesConfig {
+        super::builder::catalog_service::UpdateAttributesConfig::new(self.inner.clone())
             .set_attributes_config(attributes_config.into())
     }
 
@@ -350,8 +412,8 @@ impl CatalogService {
     pub fn add_catalog_attribute(
         &self,
         attributes_config: impl Into<std::string::String>,
-    ) -> super::builders::catalog_service::AddCatalogAttribute {
-        super::builders::catalog_service::AddCatalogAttribute::new(self.inner.clone())
+    ) -> super::builder::catalog_service::AddCatalogAttribute {
+        super::builder::catalog_service::AddCatalogAttribute::new(self.inner.clone())
             .set_attributes_config(attributes_config.into())
     }
 
@@ -367,8 +429,8 @@ impl CatalogService {
     pub fn remove_catalog_attribute(
         &self,
         attributes_config: impl Into<std::string::String>,
-    ) -> super::builders::catalog_service::RemoveCatalogAttribute {
-        super::builders::catalog_service::RemoveCatalogAttribute::new(self.inner.clone())
+    ) -> super::builder::catalog_service::RemoveCatalogAttribute {
+        super::builder::catalog_service::RemoveCatalogAttribute::new(self.inner.clone())
             .set_attributes_config(attributes_config.into())
     }
 
@@ -387,8 +449,8 @@ impl CatalogService {
     pub fn replace_catalog_attribute(
         &self,
         attributes_config: impl Into<std::string::String>,
-    ) -> super::builders::catalog_service::ReplaceCatalogAttribute {
-        super::builders::catalog_service::ReplaceCatalogAttribute::new(self.inner.clone())
+    ) -> super::builder::catalog_service::ReplaceCatalogAttribute {
+        super::builder::catalog_service::ReplaceCatalogAttribute::new(self.inner.clone())
             .set_attributes_config(attributes_config.into())
     }
 
@@ -398,8 +460,8 @@ impl CatalogService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::catalog_service::ListOperations {
-        super::builders::catalog_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::catalog_service::ListOperations {
+        super::builder::catalog_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -409,13 +471,21 @@ impl CatalogService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::catalog_service::GetOperation {
-        super::builders::catalog_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::catalog_service::GetOperation {
+        super::builder::catalog_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the Vertex AI Search for Retail API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_retail_v2::client::CompletionService;
+/// let client = CompletionService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -426,8 +496,23 @@ impl CatalogService {
 ///
 /// # Configuration
 ///
-/// `CompletionService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `CompletionService` use the `with_*` methods in the type returned
+/// by [builder()][CompletionService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://retail.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::completion_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::completion_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -437,37 +522,45 @@ impl CatalogService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CompletionService {
-    inner: Arc<dyn super::stubs::dynamic::CompletionService>,
+    inner: Arc<dyn super::stub::dynamic::CompletionService>,
 }
 
 impl CompletionService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [CompletionService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_retail_v2::client::CompletionService;
+    /// let client = CompletionService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::completion_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::completion_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::CompletionService + 'static,
+        T: super::stub::CompletionService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::CompletionService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::CompletionService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -476,13 +569,13 @@ impl CompletionService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CompletionService> {
+    ) -> Result<impl super::stub::CompletionService> {
         super::transport::CompletionService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CompletionService> {
+    ) -> Result<impl super::stub::CompletionService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CompletionService::new)
@@ -495,8 +588,8 @@ impl CompletionService {
     pub fn complete_query(
         &self,
         catalog: impl Into<std::string::String>,
-    ) -> super::builders::completion_service::CompleteQuery {
-        super::builders::completion_service::CompleteQuery::new(self.inner.clone())
+    ) -> super::builder::completion_service::CompleteQuery {
+        super::builder::completion_service::CompleteQuery::new(self.inner.clone())
             .set_catalog(catalog.into())
     }
 
@@ -522,8 +615,8 @@ impl CompletionService {
     pub fn import_completion_data(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::completion_service::ImportCompletionData {
-        super::builders::completion_service::ImportCompletionData::new(self.inner.clone())
+    ) -> super::builder::completion_service::ImportCompletionData {
+        super::builder::completion_service::ImportCompletionData::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -533,8 +626,8 @@ impl CompletionService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::completion_service::ListOperations {
-        super::builders::completion_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::completion_service::ListOperations {
+        super::builder::completion_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -544,13 +637,22 @@ impl CompletionService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::completion_service::GetOperation {
-        super::builders::completion_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::completion_service::GetOperation {
+        super::builder::completion_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Vertex AI Search for Retail API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_retail_v2::client::ControlService;
+/// let client = ControlService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -558,8 +660,23 @@ impl CompletionService {
 ///
 /// # Configuration
 ///
-/// `ControlService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ControlService` use the `with_*` methods in the type returned
+/// by [builder()][ControlService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://retail.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::control_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::control_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -569,37 +686,43 @@ impl CompletionService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ControlService {
-    inner: Arc<dyn super::stubs::dynamic::ControlService>,
+    inner: Arc<dyn super::stub::dynamic::ControlService>,
 }
 
 impl ControlService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ControlService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_retail_v2::client::ControlService;
+    /// let client = ControlService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::control_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::control_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ControlService + 'static,
+        T: super::stub::ControlService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ControlService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ControlService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -608,13 +731,13 @@ impl ControlService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ControlService> {
+    ) -> Result<impl super::stub::ControlService> {
         super::transport::ControlService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ControlService> {
+    ) -> Result<impl super::stub::ControlService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ControlService::new)
@@ -629,8 +752,8 @@ impl ControlService {
     pub fn create_control(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::control_service::CreateControl {
-        super::builders::control_service::CreateControl::new(self.inner.clone())
+    ) -> super::builder::control_service::CreateControl {
+        super::builder::control_service::CreateControl::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -643,8 +766,8 @@ impl ControlService {
     pub fn delete_control(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::control_service::DeleteControl {
-        super::builders::control_service::DeleteControl::new(self.inner.clone())
+    ) -> super::builder::control_service::DeleteControl {
+        super::builder::control_service::DeleteControl::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -659,8 +782,8 @@ impl ControlService {
     pub fn update_control(
         &self,
         control: impl Into<crate::model::Control>,
-    ) -> super::builders::control_service::UpdateControl {
-        super::builders::control_service::UpdateControl::new(self.inner.clone())
+    ) -> super::builder::control_service::UpdateControl {
+        super::builder::control_service::UpdateControl::new(self.inner.clone())
             .set_control(control.into())
     }
 
@@ -668,8 +791,8 @@ impl ControlService {
     pub fn get_control(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::control_service::GetControl {
-        super::builders::control_service::GetControl::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::control_service::GetControl {
+        super::builder::control_service::GetControl::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists all Controls by their parent
@@ -679,8 +802,8 @@ impl ControlService {
     pub fn list_controls(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::control_service::ListControls {
-        super::builders::control_service::ListControls::new(self.inner.clone())
+    ) -> super::builder::control_service::ListControls {
+        super::builder::control_service::ListControls::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -690,8 +813,8 @@ impl ControlService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::control_service::ListOperations {
-        super::builders::control_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::control_service::ListOperations {
+        super::builder::control_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -701,13 +824,21 @@ impl ControlService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::control_service::GetOperation {
-        super::builders::control_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::control_service::GetOperation {
+        super::builder::control_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the Vertex AI Search for Retail API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_retail_v2::client::GenerativeQuestionService;
+/// let client = GenerativeQuestionService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -715,8 +846,23 @@ impl ControlService {
 ///
 /// # Configuration
 ///
-/// `GenerativeQuestionService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `GenerativeQuestionService` use the `with_*` methods in the type returned
+/// by [builder()][GenerativeQuestionService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://retail.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::generative_question_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::generative_question_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -726,37 +872,45 @@ impl ControlService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct GenerativeQuestionService {
-    inner: Arc<dyn super::stubs::dynamic::GenerativeQuestionService>,
+    inner: Arc<dyn super::stub::dynamic::GenerativeQuestionService>,
 }
 
 impl GenerativeQuestionService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [GenerativeQuestionService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_retail_v2::client::GenerativeQuestionService;
+    /// let client = GenerativeQuestionService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::generative_question_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::generative_question_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::GenerativeQuestionService + 'static,
+        T: super::stub::GenerativeQuestionService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::GenerativeQuestionService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::GenerativeQuestionService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -765,13 +919,13 @@ impl GenerativeQuestionService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::GenerativeQuestionService> {
+    ) -> Result<impl super::stub::GenerativeQuestionService> {
         super::transport::GenerativeQuestionService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::GenerativeQuestionService> {
+    ) -> Result<impl super::stub::GenerativeQuestionService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::GenerativeQuestionService::new)
@@ -782,8 +936,8 @@ impl GenerativeQuestionService {
     pub fn update_generative_questions_feature_config(
         &self,
         generative_questions_feature_config: impl Into<crate::model::GenerativeQuestionsFeatureConfig>,
-    ) -> super::builders::generative_question_service::UpdateGenerativeQuestionsFeatureConfig {
-        super::builders::generative_question_service::UpdateGenerativeQuestionsFeatureConfig::new(
+    ) -> super::builder::generative_question_service::UpdateGenerativeQuestionsFeatureConfig {
+        super::builder::generative_question_service::UpdateGenerativeQuestionsFeatureConfig::new(
             self.inner.clone(),
         )
         .set_generative_questions_feature_config(generative_questions_feature_config.into())
@@ -794,8 +948,8 @@ impl GenerativeQuestionService {
     pub fn get_generative_questions_feature_config(
         &self,
         catalog: impl Into<std::string::String>,
-    ) -> super::builders::generative_question_service::GetGenerativeQuestionsFeatureConfig {
-        super::builders::generative_question_service::GetGenerativeQuestionsFeatureConfig::new(
+    ) -> super::builder::generative_question_service::GetGenerativeQuestionsFeatureConfig {
+        super::builder::generative_question_service::GetGenerativeQuestionsFeatureConfig::new(
             self.inner.clone(),
         )
         .set_catalog(catalog.into())
@@ -805,8 +959,8 @@ impl GenerativeQuestionService {
     pub fn list_generative_question_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::generative_question_service::ListGenerativeQuestionConfigs {
-        super::builders::generative_question_service::ListGenerativeQuestionConfigs::new(
+    ) -> super::builder::generative_question_service::ListGenerativeQuestionConfigs {
+        super::builder::generative_question_service::ListGenerativeQuestionConfigs::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -816,8 +970,8 @@ impl GenerativeQuestionService {
     pub fn update_generative_question_config(
         &self,
         generative_question_config: impl Into<crate::model::GenerativeQuestionConfig>,
-    ) -> super::builders::generative_question_service::UpdateGenerativeQuestionConfig {
-        super::builders::generative_question_service::UpdateGenerativeQuestionConfig::new(
+    ) -> super::builder::generative_question_service::UpdateGenerativeQuestionConfig {
+        super::builder::generative_question_service::UpdateGenerativeQuestionConfig::new(
             self.inner.clone(),
         )
         .set_generative_question_config(generative_question_config.into())
@@ -827,8 +981,8 @@ impl GenerativeQuestionService {
     pub fn batch_update_generative_question_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::generative_question_service::BatchUpdateGenerativeQuestionConfigs {
-        super::builders::generative_question_service::BatchUpdateGenerativeQuestionConfigs::new(
+    ) -> super::builder::generative_question_service::BatchUpdateGenerativeQuestionConfigs {
+        super::builder::generative_question_service::BatchUpdateGenerativeQuestionConfigs::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -840,8 +994,8 @@ impl GenerativeQuestionService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::generative_question_service::ListOperations {
-        super::builders::generative_question_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::generative_question_service::ListOperations {
+        super::builder::generative_question_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -851,13 +1005,22 @@ impl GenerativeQuestionService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::generative_question_service::GetOperation {
-        super::builders::generative_question_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::generative_question_service::GetOperation {
+        super::builder::generative_question_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Vertex AI Search for Retail API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_retail_v2::client::ModelService;
+/// let client = ModelService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -876,8 +1039,23 @@ impl GenerativeQuestionService {
 ///
 /// # Configuration
 ///
-/// `ModelService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ModelService` use the `with_*` methods in the type returned
+/// by [builder()][ModelService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://retail.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::model_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::model_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -887,37 +1065,43 @@ impl GenerativeQuestionService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ModelService {
-    inner: Arc<dyn super::stubs::dynamic::ModelService>,
+    inner: Arc<dyn super::stub::dynamic::ModelService>,
 }
 
 impl ModelService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ModelService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_retail_v2::client::ModelService;
+    /// let client = ModelService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::model_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::model_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ModelService + 'static,
+        T: super::stub::ModelService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ModelService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ModelService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -926,13 +1110,13 @@ impl ModelService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ModelService> {
+    ) -> Result<impl super::stub::ModelService> {
         super::transport::ModelService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ModelService> {
+    ) -> Result<impl super::stub::ModelService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ModelService::new)
@@ -952,8 +1136,8 @@ impl ModelService {
     pub fn create_model(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::model_service::CreateModel {
-        super::builders::model_service::CreateModel::new(self.inner.clone())
+    ) -> super::builder::model_service::CreateModel {
+        super::builder::model_service::CreateModel::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -961,41 +1145,40 @@ impl ModelService {
     pub fn get_model(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::GetModel {
-        super::builders::model_service::GetModel::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::model_service::GetModel {
+        super::builder::model_service::GetModel::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Pauses the training of an existing model.
     pub fn pause_model(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::PauseModel {
-        super::builders::model_service::PauseModel::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::model_service::PauseModel {
+        super::builder::model_service::PauseModel::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Resumes the training of an existing model.
     pub fn resume_model(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::ResumeModel {
-        super::builders::model_service::ResumeModel::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::model_service::ResumeModel {
+        super::builder::model_service::ResumeModel::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes an existing model.
     pub fn delete_model(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::DeleteModel {
-        super::builders::model_service::DeleteModel::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::model_service::DeleteModel {
+        super::builder::model_service::DeleteModel::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists all the models linked to this event store.
     pub fn list_models(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::model_service::ListModels {
-        super::builders::model_service::ListModels::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::model_service::ListModels {
+        super::builder::model_service::ListModels::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Update of model metadata. Only fields that
@@ -1005,8 +1188,8 @@ impl ModelService {
     pub fn update_model(
         &self,
         model: impl Into<crate::model::Model>,
-    ) -> super::builders::model_service::UpdateModel {
-        super::builders::model_service::UpdateModel::new(self.inner.clone()).set_model(model.into())
+    ) -> super::builder::model_service::UpdateModel {
+        super::builder::model_service::UpdateModel::new(self.inner.clone()).set_model(model.into())
     }
 
     /// Tunes an existing model.
@@ -1023,8 +1206,8 @@ impl ModelService {
     pub fn tune_model(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::TuneModel {
-        super::builders::model_service::TuneModel::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::model_service::TuneModel {
+        super::builder::model_service::TuneModel::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1033,9 +1216,8 @@ impl ModelService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::ListOperations {
-        super::builders::model_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::model_service::ListOperations {
+        super::builder::model_service::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1044,12 +1226,21 @@ impl ModelService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::model_service::GetOperation {
-        super::builders::model_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::model_service::GetOperation {
+        super::builder::model_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the Vertex AI Search for Retail API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_retail_v2::client::PredictionService;
+/// let client = PredictionService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -1057,8 +1248,23 @@ impl ModelService {
 ///
 /// # Configuration
 ///
-/// `PredictionService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `PredictionService` use the `with_*` methods in the type returned
+/// by [builder()][PredictionService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://retail.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::prediction_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::prediction_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1068,37 +1274,45 @@ impl ModelService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct PredictionService {
-    inner: Arc<dyn super::stubs::dynamic::PredictionService>,
+    inner: Arc<dyn super::stub::dynamic::PredictionService>,
 }
 
 impl PredictionService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [PredictionService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_retail_v2::client::PredictionService;
+    /// let client = PredictionService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::prediction_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::prediction_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::PredictionService + 'static,
+        T: super::stub::PredictionService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::PredictionService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::PredictionService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1107,13 +1321,13 @@ impl PredictionService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PredictionService> {
+    ) -> Result<impl super::stub::PredictionService> {
         super::transport::PredictionService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PredictionService> {
+    ) -> Result<impl super::stub::PredictionService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PredictionService::new)
@@ -1123,8 +1337,8 @@ impl PredictionService {
     pub fn predict(
         &self,
         placement: impl Into<std::string::String>,
-    ) -> super::builders::prediction_service::Predict {
-        super::builders::prediction_service::Predict::new(self.inner.clone())
+    ) -> super::builder::prediction_service::Predict {
+        super::builder::prediction_service::Predict::new(self.inner.clone())
             .set_placement(placement.into())
     }
 
@@ -1134,8 +1348,8 @@ impl PredictionService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::prediction_service::ListOperations {
-        super::builders::prediction_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::prediction_service::ListOperations {
+        super::builder::prediction_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1145,13 +1359,22 @@ impl PredictionService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::prediction_service::GetOperation {
-        super::builders::prediction_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::prediction_service::GetOperation {
+        super::builder::prediction_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Vertex AI Search for Retail API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_retail_v2::client::ProductService;
+/// let client = ProductService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -1162,8 +1385,23 @@ impl PredictionService {
 ///
 /// # Configuration
 ///
-/// `ProductService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ProductService` use the `with_*` methods in the type returned
+/// by [builder()][ProductService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://retail.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::product_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::product_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1173,37 +1411,43 @@ impl PredictionService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ProductService {
-    inner: Arc<dyn super::stubs::dynamic::ProductService>,
+    inner: Arc<dyn super::stub::dynamic::ProductService>,
 }
 
 impl ProductService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ProductService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_retail_v2::client::ProductService;
+    /// let client = ProductService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::product_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::product_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ProductService + 'static,
+        T: super::stub::ProductService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ProductService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ProductService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1212,13 +1456,13 @@ impl ProductService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ProductService> {
+    ) -> Result<impl super::stub::ProductService> {
         super::transport::ProductService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ProductService> {
+    ) -> Result<impl super::stub::ProductService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ProductService::new)
@@ -1230,8 +1474,8 @@ impl ProductService {
     pub fn create_product(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::product_service::CreateProduct {
-        super::builders::product_service::CreateProduct::new(self.inner.clone())
+    ) -> super::builder::product_service::CreateProduct {
+        super::builder::product_service::CreateProduct::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1241,8 +1485,8 @@ impl ProductService {
     pub fn get_product(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::product_service::GetProduct {
-        super::builders::product_service::GetProduct::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::product_service::GetProduct {
+        super::builder::product_service::GetProduct::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets a list of [Product][google.cloud.retail.v2.Product]s.
@@ -1251,8 +1495,8 @@ impl ProductService {
     pub fn list_products(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::product_service::ListProducts {
-        super::builders::product_service::ListProducts::new(self.inner.clone())
+    ) -> super::builder::product_service::ListProducts {
+        super::builder::product_service::ListProducts::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1262,8 +1506,8 @@ impl ProductService {
     pub fn update_product(
         &self,
         product: impl Into<crate::model::Product>,
-    ) -> super::builders::product_service::UpdateProduct {
-        super::builders::product_service::UpdateProduct::new(self.inner.clone())
+    ) -> super::builder::product_service::UpdateProduct {
+        super::builder::product_service::UpdateProduct::new(self.inner.clone())
             .set_product(product.into())
     }
 
@@ -1273,8 +1517,8 @@ impl ProductService {
     pub fn delete_product(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::product_service::DeleteProduct {
-        super::builders::product_service::DeleteProduct::new(self.inner.clone())
+    ) -> super::builder::product_service::DeleteProduct {
+        super::builder::product_service::DeleteProduct::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1313,8 +1557,8 @@ impl ProductService {
     pub fn purge_products(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::product_service::PurgeProducts {
-        super::builders::product_service::PurgeProducts::new(self.inner.clone())
+    ) -> super::builder::product_service::PurgeProducts {
+        super::builder::product_service::PurgeProducts::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1340,8 +1584,8 @@ impl ProductService {
     pub fn import_products(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::product_service::ImportProducts {
-        super::builders::product_service::ImportProducts::new(self.inner.clone())
+    ) -> super::builder::product_service::ImportProducts {
+        super::builder::product_service::ImportProducts::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1420,8 +1664,8 @@ impl ProductService {
     pub fn set_inventory(
         &self,
         inventory: impl Into<crate::model::Product>,
-    ) -> super::builders::product_service::SetInventory {
-        super::builders::product_service::SetInventory::new(self.inner.clone())
+    ) -> super::builder::product_service::SetInventory {
+        super::builder::product_service::SetInventory::new(self.inner.clone())
             .set_inventory(inventory.into())
     }
 
@@ -1477,8 +1721,8 @@ impl ProductService {
     pub fn add_fulfillment_places(
         &self,
         product: impl Into<std::string::String>,
-    ) -> super::builders::product_service::AddFulfillmentPlaces {
-        super::builders::product_service::AddFulfillmentPlaces::new(self.inner.clone())
+    ) -> super::builder::product_service::AddFulfillmentPlaces {
+        super::builder::product_service::AddFulfillmentPlaces::new(self.inner.clone())
             .set_product(product.into())
     }
 
@@ -1534,8 +1778,8 @@ impl ProductService {
     pub fn remove_fulfillment_places(
         &self,
         product: impl Into<std::string::String>,
-    ) -> super::builders::product_service::RemoveFulfillmentPlaces {
-        super::builders::product_service::RemoveFulfillmentPlaces::new(self.inner.clone())
+    ) -> super::builder::product_service::RemoveFulfillmentPlaces {
+        super::builder::product_service::RemoveFulfillmentPlaces::new(self.inner.clone())
             .set_product(product.into())
     }
 
@@ -1588,8 +1832,8 @@ impl ProductService {
     pub fn add_local_inventories(
         &self,
         product: impl Into<std::string::String>,
-    ) -> super::builders::product_service::AddLocalInventories {
-        super::builders::product_service::AddLocalInventories::new(self.inner.clone())
+    ) -> super::builder::product_service::AddLocalInventories {
+        super::builder::product_service::AddLocalInventories::new(self.inner.clone())
             .set_product(product.into())
     }
 
@@ -1640,8 +1884,8 @@ impl ProductService {
     pub fn remove_local_inventories(
         &self,
         product: impl Into<std::string::String>,
-    ) -> super::builders::product_service::RemoveLocalInventories {
-        super::builders::product_service::RemoveLocalInventories::new(self.inner.clone())
+    ) -> super::builder::product_service::RemoveLocalInventories {
+        super::builder::product_service::RemoveLocalInventories::new(self.inner.clone())
             .set_product(product.into())
     }
 
@@ -1651,8 +1895,8 @@ impl ProductService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::product_service::ListOperations {
-        super::builders::product_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::product_service::ListOperations {
+        super::builder::product_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1662,13 +1906,21 @@ impl ProductService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::product_service::GetOperation {
-        super::builders::product_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::product_service::GetOperation {
+        super::builder::product_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the Vertex AI Search for Retail API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_retail_v2::client::SearchService;
+/// let client = SearchService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -1679,8 +1931,23 @@ impl ProductService {
 ///
 /// # Configuration
 ///
-/// `SearchService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SearchService` use the `with_*` methods in the type returned
+/// by [builder()][SearchService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://retail.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::search_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::search_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1690,37 +1957,43 @@ impl ProductService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SearchService {
-    inner: Arc<dyn super::stubs::dynamic::SearchService>,
+    inner: Arc<dyn super::stub::dynamic::SearchService>,
 }
 
 impl SearchService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [SearchService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_retail_v2::client::SearchService;
+    /// let client = SearchService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::search_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::search_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::SearchService + 'static,
+        T: super::stub::SearchService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::SearchService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::SearchService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1729,13 +2002,13 @@ impl SearchService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SearchService> {
+    ) -> Result<impl super::stub::SearchService> {
         super::transport::SearchService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SearchService> {
+    ) -> Result<impl super::stub::SearchService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SearchService::new)
@@ -1748,8 +2021,8 @@ impl SearchService {
     pub fn search(
         &self,
         placement: impl Into<std::string::String>,
-    ) -> super::builders::search_service::Search {
-        super::builders::search_service::Search::new(self.inner.clone())
+    ) -> super::builder::search_service::Search {
+        super::builder::search_service::Search::new(self.inner.clone())
             .set_placement(placement.into())
     }
 
@@ -1759,8 +2032,8 @@ impl SearchService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::search_service::ListOperations {
-        super::builders::search_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::search_service::ListOperations {
+        super::builder::search_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1770,12 +2043,21 @@ impl SearchService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::search_service::GetOperation {
-        super::builders::search_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::search_service::GetOperation {
+        super::builder::search_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the Vertex AI Search for Retail API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_retail_v2::client::ServingConfigService;
+/// let client = ServingConfigService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -1783,8 +2065,23 @@ impl SearchService {
 ///
 /// # Configuration
 ///
-/// `ServingConfigService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ServingConfigService` use the `with_*` methods in the type returned
+/// by [builder()][ServingConfigService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://retail.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::serving_config_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::serving_config_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1794,37 +2091,45 @@ impl SearchService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ServingConfigService {
-    inner: Arc<dyn super::stubs::dynamic::ServingConfigService>,
+    inner: Arc<dyn super::stub::dynamic::ServingConfigService>,
 }
 
 impl ServingConfigService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ServingConfigService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_retail_v2::client::ServingConfigService;
+    /// let client = ServingConfigService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::serving_config_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::serving_config_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ServingConfigService + 'static,
+        T: super::stub::ServingConfigService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ServingConfigService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ServingConfigService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1833,13 +2138,13 @@ impl ServingConfigService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ServingConfigService> {
+    ) -> Result<impl super::stub::ServingConfigService> {
         super::transport::ServingConfigService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ServingConfigService> {
+    ) -> Result<impl super::stub::ServingConfigService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ServingConfigService::new)
@@ -1856,8 +2161,8 @@ impl ServingConfigService {
     pub fn create_serving_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::serving_config_service::CreateServingConfig {
-        super::builders::serving_config_service::CreateServingConfig::new(self.inner.clone())
+    ) -> super::builder::serving_config_service::CreateServingConfig {
+        super::builder::serving_config_service::CreateServingConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1867,8 +2172,8 @@ impl ServingConfigService {
     pub fn delete_serving_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::serving_config_service::DeleteServingConfig {
-        super::builders::serving_config_service::DeleteServingConfig::new(self.inner.clone())
+    ) -> super::builder::serving_config_service::DeleteServingConfig {
+        super::builder::serving_config_service::DeleteServingConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1876,8 +2181,8 @@ impl ServingConfigService {
     pub fn update_serving_config(
         &self,
         serving_config: impl Into<crate::model::ServingConfig>,
-    ) -> super::builders::serving_config_service::UpdateServingConfig {
-        super::builders::serving_config_service::UpdateServingConfig::new(self.inner.clone())
+    ) -> super::builder::serving_config_service::UpdateServingConfig {
+        super::builder::serving_config_service::UpdateServingConfig::new(self.inner.clone())
             .set_serving_config(serving_config.into())
     }
 
@@ -1887,8 +2192,8 @@ impl ServingConfigService {
     pub fn get_serving_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::serving_config_service::GetServingConfig {
-        super::builders::serving_config_service::GetServingConfig::new(self.inner.clone())
+    ) -> super::builder::serving_config_service::GetServingConfig {
+        super::builder::serving_config_service::GetServingConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1896,8 +2201,8 @@ impl ServingConfigService {
     pub fn list_serving_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::serving_config_service::ListServingConfigs {
-        super::builders::serving_config_service::ListServingConfigs::new(self.inner.clone())
+    ) -> super::builder::serving_config_service::ListServingConfigs {
+        super::builder::serving_config_service::ListServingConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1911,8 +2216,8 @@ impl ServingConfigService {
     pub fn add_control(
         &self,
         serving_config: impl Into<std::string::String>,
-    ) -> super::builders::serving_config_service::AddControl {
-        super::builders::serving_config_service::AddControl::new(self.inner.clone())
+    ) -> super::builder::serving_config_service::AddControl {
+        super::builder::serving_config_service::AddControl::new(self.inner.clone())
             .set_serving_config(serving_config.into())
     }
 
@@ -1923,8 +2228,8 @@ impl ServingConfigService {
     pub fn remove_control(
         &self,
         serving_config: impl Into<std::string::String>,
-    ) -> super::builders::serving_config_service::RemoveControl {
-        super::builders::serving_config_service::RemoveControl::new(self.inner.clone())
+    ) -> super::builder::serving_config_service::RemoveControl {
+        super::builder::serving_config_service::RemoveControl::new(self.inner.clone())
             .set_serving_config(serving_config.into())
     }
 
@@ -1934,8 +2239,8 @@ impl ServingConfigService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::serving_config_service::ListOperations {
-        super::builders::serving_config_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::serving_config_service::ListOperations {
+        super::builder::serving_config_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1945,13 +2250,22 @@ impl ServingConfigService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::serving_config_service::GetOperation {
-        super::builders::serving_config_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::serving_config_service::GetOperation {
+        super::builder::serving_config_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Vertex AI Search for Retail API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_retail_v2::client::UserEventService;
+/// let client = UserEventService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -1959,8 +2273,23 @@ impl ServingConfigService {
 ///
 /// # Configuration
 ///
-/// `UserEventService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `UserEventService` use the `with_*` methods in the type returned
+/// by [builder()][UserEventService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://retail.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::user_event_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::user_event_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1970,37 +2299,45 @@ impl ServingConfigService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct UserEventService {
-    inner: Arc<dyn super::stubs::dynamic::UserEventService>,
+    inner: Arc<dyn super::stub::dynamic::UserEventService>,
 }
 
 impl UserEventService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [UserEventService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_retail_v2::client::UserEventService;
+    /// let client = UserEventService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::user_event_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::user_event_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::UserEventService + 'static,
+        T: super::stub::UserEventService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::UserEventService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::UserEventService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -2009,13 +2346,13 @@ impl UserEventService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::UserEventService> {
+    ) -> Result<impl super::stub::UserEventService> {
         super::transport::UserEventService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::UserEventService> {
+    ) -> Result<impl super::stub::UserEventService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::UserEventService::new)
@@ -2025,8 +2362,8 @@ impl UserEventService {
     pub fn write_user_event(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::user_event_service::WriteUserEvent {
-        super::builders::user_event_service::WriteUserEvent::new(self.inner.clone())
+    ) -> super::builder::user_event_service::WriteUserEvent {
+        super::builder::user_event_service::WriteUserEvent::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2038,8 +2375,8 @@ impl UserEventService {
     pub fn collect_user_event(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::user_event_service::CollectUserEvent {
-        super::builders::user_event_service::CollectUserEvent::new(self.inner.clone())
+    ) -> super::builder::user_event_service::CollectUserEvent {
+        super::builder::user_event_service::CollectUserEvent::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2060,8 +2397,8 @@ impl UserEventService {
     pub fn purge_user_events(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::user_event_service::PurgeUserEvents {
-        super::builders::user_event_service::PurgeUserEvents::new(self.inner.clone())
+    ) -> super::builder::user_event_service::PurgeUserEvents {
+        super::builder::user_event_service::PurgeUserEvents::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2085,8 +2422,8 @@ impl UserEventService {
     pub fn import_user_events(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::user_event_service::ImportUserEvents {
-        super::builders::user_event_service::ImportUserEvents::new(self.inner.clone())
+    ) -> super::builder::user_event_service::ImportUserEvents {
+        super::builder::user_event_service::ImportUserEvents::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2111,8 +2448,8 @@ impl UserEventService {
     pub fn rejoin_user_events(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::user_event_service::RejoinUserEvents {
-        super::builders::user_event_service::RejoinUserEvents::new(self.inner.clone())
+    ) -> super::builder::user_event_service::RejoinUserEvents {
+        super::builder::user_event_service::RejoinUserEvents::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2122,8 +2459,8 @@ impl UserEventService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::user_event_service::ListOperations {
-        super::builders::user_event_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::user_event_service::ListOperations {
+        super::builder::user_event_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2133,8 +2470,8 @@ impl UserEventService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::user_event_service::GetOperation {
-        super::builders::user_event_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::user_event_service::GetOperation {
+        super::builder::user_event_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

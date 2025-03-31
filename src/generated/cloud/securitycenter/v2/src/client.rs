@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the Security Command Center API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+/// let client = SecurityCenter::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// V2 APIs for Security Center service.
 ///
 /// # Configuration
 ///
-/// `SecurityCenter` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SecurityCenter` use the `with_*` methods in the type returned
+/// by [builder()][SecurityCenter::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://securitycenter.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::security_center::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::security_center::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,37 +62,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SecurityCenter {
-    inner: Arc<dyn super::stubs::dynamic::SecurityCenter>,
+    inner: Arc<dyn super::stub::dynamic::SecurityCenter>,
 }
 
 impl SecurityCenter {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [SecurityCenter].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// let client = SecurityCenter::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::security_center::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::security_center::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::SecurityCenter + 'static,
+        T: super::stub::SecurityCenter + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::SecurityCenter>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::SecurityCenter>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +107,13 @@ impl SecurityCenter {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SecurityCenter> {
+    ) -> Result<impl super::stub::SecurityCenter> {
         super::transport::SecurityCenter::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SecurityCenter> {
+    ) -> Result<impl super::stub::SecurityCenter> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SecurityCenter::new)
@@ -94,8 +124,8 @@ impl SecurityCenter {
     pub fn batch_create_resource_value_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_center::BatchCreateResourceValueConfigs {
-        super::builders::security_center::BatchCreateResourceValueConfigs::new(self.inner.clone())
+    ) -> super::builder::security_center::BatchCreateResourceValueConfigs {
+        super::builder::security_center::BatchCreateResourceValueConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -116,8 +146,8 @@ impl SecurityCenter {
     pub fn bulk_mute_findings(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_center::BulkMuteFindings {
-        super::builders::security_center::BulkMuteFindings::new(self.inner.clone())
+    ) -> super::builder::security_center::BulkMuteFindings {
+        super::builder::security_center::BulkMuteFindings::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -125,8 +155,8 @@ impl SecurityCenter {
     pub fn create_big_query_export(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_center::CreateBigQueryExport {
-        super::builders::security_center::CreateBigQueryExport::new(self.inner.clone())
+    ) -> super::builder::security_center::CreateBigQueryExport {
+        super::builder::security_center::CreateBigQueryExport::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -135,8 +165,8 @@ impl SecurityCenter {
     pub fn create_finding(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_center::CreateFinding {
-        super::builders::security_center::CreateFinding::new(self.inner.clone())
+    ) -> super::builder::security_center::CreateFinding {
+        super::builder::security_center::CreateFinding::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -144,8 +174,8 @@ impl SecurityCenter {
     pub fn create_mute_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_center::CreateMuteConfig {
-        super::builders::security_center::CreateMuteConfig::new(self.inner.clone())
+    ) -> super::builder::security_center::CreateMuteConfig {
+        super::builder::security_center::CreateMuteConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -153,8 +183,8 @@ impl SecurityCenter {
     pub fn create_notification_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_center::CreateNotificationConfig {
-        super::builders::security_center::CreateNotificationConfig::new(self.inner.clone())
+    ) -> super::builder::security_center::CreateNotificationConfig {
+        super::builder::security_center::CreateNotificationConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -162,8 +192,8 @@ impl SecurityCenter {
     pub fn create_source(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_center::CreateSource {
-        super::builders::security_center::CreateSource::new(self.inner.clone())
+    ) -> super::builder::security_center::CreateSource {
+        super::builder::security_center::CreateSource::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -171,8 +201,8 @@ impl SecurityCenter {
     pub fn delete_big_query_export(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_center::DeleteBigQueryExport {
-        super::builders::security_center::DeleteBigQueryExport::new(self.inner.clone())
+    ) -> super::builder::security_center::DeleteBigQueryExport {
+        super::builder::security_center::DeleteBigQueryExport::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -181,8 +211,8 @@ impl SecurityCenter {
     pub fn delete_mute_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_center::DeleteMuteConfig {
-        super::builders::security_center::DeleteMuteConfig::new(self.inner.clone())
+    ) -> super::builder::security_center::DeleteMuteConfig {
+        super::builder::security_center::DeleteMuteConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -190,8 +220,8 @@ impl SecurityCenter {
     pub fn delete_notification_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_center::DeleteNotificationConfig {
-        super::builders::security_center::DeleteNotificationConfig::new(self.inner.clone())
+    ) -> super::builder::security_center::DeleteNotificationConfig {
+        super::builder::security_center::DeleteNotificationConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -199,8 +229,8 @@ impl SecurityCenter {
     pub fn delete_resource_value_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_center::DeleteResourceValueConfig {
-        super::builders::security_center::DeleteResourceValueConfig::new(self.inner.clone())
+    ) -> super::builder::security_center::DeleteResourceValueConfig {
+        super::builder::security_center::DeleteResourceValueConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -208,8 +238,8 @@ impl SecurityCenter {
     pub fn get_big_query_export(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_center::GetBigQueryExport {
-        super::builders::security_center::GetBigQueryExport::new(self.inner.clone())
+    ) -> super::builder::security_center::GetBigQueryExport {
+        super::builder::security_center::GetBigQueryExport::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -218,8 +248,8 @@ impl SecurityCenter {
     pub fn get_simulation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_center::GetSimulation {
-        super::builders::security_center::GetSimulation::new(self.inner.clone())
+    ) -> super::builder::security_center::GetSimulation {
+        super::builder::security_center::GetSimulation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -227,8 +257,8 @@ impl SecurityCenter {
     pub fn get_valued_resource(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_center::GetValuedResource {
-        super::builders::security_center::GetValuedResource::new(self.inner.clone())
+    ) -> super::builder::security_center::GetValuedResource {
+        super::builder::security_center::GetValuedResource::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -236,8 +266,8 @@ impl SecurityCenter {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::security_center::GetIamPolicy {
-        super::builders::security_center::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::security_center::GetIamPolicy {
+        super::builder::security_center::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -246,8 +276,8 @@ impl SecurityCenter {
     pub fn get_mute_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_center::GetMuteConfig {
-        super::builders::security_center::GetMuteConfig::new(self.inner.clone())
+    ) -> super::builder::security_center::GetMuteConfig {
+        super::builder::security_center::GetMuteConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -255,8 +285,8 @@ impl SecurityCenter {
     pub fn get_notification_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_center::GetNotificationConfig {
-        super::builders::security_center::GetNotificationConfig::new(self.inner.clone())
+    ) -> super::builder::security_center::GetNotificationConfig {
+        super::builder::security_center::GetNotificationConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -264,8 +294,8 @@ impl SecurityCenter {
     pub fn get_resource_value_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_center::GetResourceValueConfig {
-        super::builders::security_center::GetResourceValueConfig::new(self.inner.clone())
+    ) -> super::builder::security_center::GetResourceValueConfig {
+        super::builder::security_center::GetResourceValueConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -273,8 +303,8 @@ impl SecurityCenter {
     pub fn get_source(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_center::GetSource {
-        super::builders::security_center::GetSource::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::security_center::GetSource {
+        super::builder::security_center::GetSource::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Filters an organization or source's findings and groups them by their
@@ -295,8 +325,8 @@ impl SecurityCenter {
     pub fn group_findings(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_center::GroupFindings {
-        super::builders::security_center::GroupFindings::new(self.inner.clone())
+    ) -> super::builder::security_center::GroupFindings {
+        super::builder::security_center::GroupFindings::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -305,8 +335,8 @@ impl SecurityCenter {
     pub fn list_attack_paths(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_center::ListAttackPaths {
-        super::builders::security_center::ListAttackPaths::new(self.inner.clone())
+    ) -> super::builder::security_center::ListAttackPaths {
+        super::builder::security_center::ListAttackPaths::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -318,8 +348,8 @@ impl SecurityCenter {
     pub fn list_big_query_exports(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_center::ListBigQueryExports {
-        super::builders::security_center::ListBigQueryExports::new(self.inner.clone())
+    ) -> super::builder::security_center::ListBigQueryExports {
+        super::builder::security_center::ListBigQueryExports::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -335,8 +365,8 @@ impl SecurityCenter {
     pub fn list_findings(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_center::ListFindings {
-        super::builders::security_center::ListFindings::new(self.inner.clone())
+    ) -> super::builder::security_center::ListFindings {
+        super::builder::security_center::ListFindings::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -345,8 +375,8 @@ impl SecurityCenter {
     pub fn list_mute_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_center::ListMuteConfigs {
-        super::builders::security_center::ListMuteConfigs::new(self.inner.clone())
+    ) -> super::builder::security_center::ListMuteConfigs {
+        super::builder::security_center::ListMuteConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -354,8 +384,8 @@ impl SecurityCenter {
     pub fn list_notification_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_center::ListNotificationConfigs {
-        super::builders::security_center::ListNotificationConfigs::new(self.inner.clone())
+    ) -> super::builder::security_center::ListNotificationConfigs {
+        super::builder::security_center::ListNotificationConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -363,8 +393,8 @@ impl SecurityCenter {
     pub fn list_resource_value_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_center::ListResourceValueConfigs {
-        super::builders::security_center::ListResourceValueConfigs::new(self.inner.clone())
+    ) -> super::builder::security_center::ListResourceValueConfigs {
+        super::builder::security_center::ListResourceValueConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -372,8 +402,8 @@ impl SecurityCenter {
     pub fn list_sources(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_center::ListSources {
-        super::builders::security_center::ListSources::new(self.inner.clone())
+    ) -> super::builder::security_center::ListSources {
+        super::builder::security_center::ListSources::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -381,8 +411,8 @@ impl SecurityCenter {
     pub fn list_valued_resources(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_center::ListValuedResources {
-        super::builders::security_center::ListValuedResources::new(self.inner.clone())
+    ) -> super::builder::security_center::ListValuedResources {
+        super::builder::security_center::ListValuedResources::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -391,8 +421,8 @@ impl SecurityCenter {
     pub fn set_finding_state(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_center::SetFindingState {
-        super::builders::security_center::SetFindingState::new(self.inner.clone())
+    ) -> super::builder::security_center::SetFindingState {
+        super::builder::security_center::SetFindingState::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -400,8 +430,8 @@ impl SecurityCenter {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::security_center::SetIamPolicy {
-        super::builders::security_center::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::security_center::SetIamPolicy {
+        super::builder::security_center::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -410,16 +440,16 @@ impl SecurityCenter {
     pub fn set_mute(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_center::SetMute {
-        super::builders::security_center::SetMute::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::security_center::SetMute {
+        super::builder::security_center::SetMute::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Returns the permissions that a caller has on the specified source.
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::security_center::TestIamPermissions {
-        super::builders::security_center::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::security_center::TestIamPermissions {
+        super::builder::security_center::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -427,8 +457,8 @@ impl SecurityCenter {
     pub fn update_big_query_export(
         &self,
         big_query_export: impl Into<crate::model::BigQueryExport>,
-    ) -> super::builders::security_center::UpdateBigQueryExport {
-        super::builders::security_center::UpdateBigQueryExport::new(self.inner.clone())
+    ) -> super::builder::security_center::UpdateBigQueryExport {
+        super::builder::security_center::UpdateBigQueryExport::new(self.inner.clone())
             .set_big_query_export(big_query_export.into())
     }
 
@@ -437,8 +467,8 @@ impl SecurityCenter {
     pub fn update_external_system(
         &self,
         external_system: impl Into<crate::model::ExternalSystem>,
-    ) -> super::builders::security_center::UpdateExternalSystem {
-        super::builders::security_center::UpdateExternalSystem::new(self.inner.clone())
+    ) -> super::builder::security_center::UpdateExternalSystem {
+        super::builder::security_center::UpdateExternalSystem::new(self.inner.clone())
             .set_external_system(external_system.into())
     }
 
@@ -448,8 +478,8 @@ impl SecurityCenter {
     pub fn update_finding(
         &self,
         finding: impl Into<crate::model::Finding>,
-    ) -> super::builders::security_center::UpdateFinding {
-        super::builders::security_center::UpdateFinding::new(self.inner.clone())
+    ) -> super::builder::security_center::UpdateFinding {
+        super::builder::security_center::UpdateFinding::new(self.inner.clone())
             .set_finding(finding.into())
     }
 
@@ -458,8 +488,8 @@ impl SecurityCenter {
     pub fn update_mute_config(
         &self,
         mute_config: impl Into<crate::model::MuteConfig>,
-    ) -> super::builders::security_center::UpdateMuteConfig {
-        super::builders::security_center::UpdateMuteConfig::new(self.inner.clone())
+    ) -> super::builder::security_center::UpdateMuteConfig {
+        super::builder::security_center::UpdateMuteConfig::new(self.inner.clone())
             .set_mute_config(mute_config.into())
     }
 
@@ -468,8 +498,8 @@ impl SecurityCenter {
     pub fn update_notification_config(
         &self,
         notification_config: impl Into<crate::model::NotificationConfig>,
-    ) -> super::builders::security_center::UpdateNotificationConfig {
-        super::builders::security_center::UpdateNotificationConfig::new(self.inner.clone())
+    ) -> super::builder::security_center::UpdateNotificationConfig {
+        super::builder::security_center::UpdateNotificationConfig::new(self.inner.clone())
             .set_notification_config(notification_config.into())
     }
 
@@ -477,8 +507,8 @@ impl SecurityCenter {
     pub fn update_resource_value_config(
         &self,
         resource_value_config: impl Into<crate::model::ResourceValueConfig>,
-    ) -> super::builders::security_center::UpdateResourceValueConfig {
-        super::builders::security_center::UpdateResourceValueConfig::new(self.inner.clone())
+    ) -> super::builder::security_center::UpdateResourceValueConfig {
+        super::builder::security_center::UpdateResourceValueConfig::new(self.inner.clone())
             .set_resource_value_config(resource_value_config.into())
     }
 
@@ -488,8 +518,8 @@ impl SecurityCenter {
     pub fn update_security_marks(
         &self,
         security_marks: impl Into<crate::model::SecurityMarks>,
-    ) -> super::builders::security_center::UpdateSecurityMarks {
-        super::builders::security_center::UpdateSecurityMarks::new(self.inner.clone())
+    ) -> super::builder::security_center::UpdateSecurityMarks {
+        super::builder::security_center::UpdateSecurityMarks::new(self.inner.clone())
             .set_security_marks(security_marks.into())
     }
 
@@ -497,8 +527,8 @@ impl SecurityCenter {
     pub fn update_source(
         &self,
         source: impl Into<crate::model::Source>,
-    ) -> super::builders::security_center::UpdateSource {
-        super::builders::security_center::UpdateSource::new(self.inner.clone())
+    ) -> super::builder::security_center::UpdateSource {
+        super::builder::security_center::UpdateSource::new(self.inner.clone())
             .set_source(source.into())
     }
 
@@ -508,8 +538,8 @@ impl SecurityCenter {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_center::ListOperations {
-        super::builders::security_center::ListOperations::new(self.inner.clone())
+    ) -> super::builder::security_center::ListOperations {
+        super::builder::security_center::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -519,9 +549,8 @@ impl SecurityCenter {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_center::GetOperation {
-        super::builders::security_center::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::security_center::GetOperation {
+        super::builder::security_center::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -530,8 +559,8 @@ impl SecurityCenter {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_center::DeleteOperation {
-        super::builders::security_center::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::security_center::DeleteOperation {
+        super::builder::security_center::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -541,8 +570,8 @@ impl SecurityCenter {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_center::CancelOperation {
-        super::builders::security_center::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::security_center::CancelOperation {
+        super::builder::security_center::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

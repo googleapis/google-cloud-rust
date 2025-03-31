@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Shell API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_shell_v1::client::CloudShellService;
+/// let client = CloudShellService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// API for interacting with Google Cloud Shell. Each user of Cloud Shell has at
@@ -33,8 +42,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `CloudShellService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `CloudShellService` use the `with_*` methods in the type returned
+/// by [builder()][CloudShellService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://cloudshell.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::cloud_shell_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::cloud_shell_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -44,37 +68,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CloudShellService {
-    inner: Arc<dyn super::stubs::dynamic::CloudShellService>,
+    inner: Arc<dyn super::stub::dynamic::CloudShellService>,
 }
 
 impl CloudShellService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [CloudShellService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_shell_v1::client::CloudShellService;
+    /// let client = CloudShellService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::cloud_shell_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::cloud_shell_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::CloudShellService + 'static,
+        T: super::stub::CloudShellService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::CloudShellService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::CloudShellService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -83,13 +115,13 @@ impl CloudShellService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CloudShellService> {
+    ) -> Result<impl super::stub::CloudShellService> {
         super::transport::CloudShellService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CloudShellService> {
+    ) -> Result<impl super::stub::CloudShellService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CloudShellService::new)
@@ -99,8 +131,8 @@ impl CloudShellService {
     pub fn get_environment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_shell_service::GetEnvironment {
-        super::builders::cloud_shell_service::GetEnvironment::new(self.inner.clone())
+    ) -> super::builder::cloud_shell_service::GetEnvironment {
+        super::builder::cloud_shell_service::GetEnvironment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -123,8 +155,8 @@ impl CloudShellService {
     pub fn start_environment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_shell_service::StartEnvironment {
-        super::builders::cloud_shell_service::StartEnvironment::new(self.inner.clone())
+    ) -> super::builder::cloud_shell_service::StartEnvironment {
+        super::builder::cloud_shell_service::StartEnvironment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -145,8 +177,8 @@ impl CloudShellService {
     pub fn authorize_environment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_shell_service::AuthorizeEnvironment {
-        super::builders::cloud_shell_service::AuthorizeEnvironment::new(self.inner.clone())
+    ) -> super::builder::cloud_shell_service::AuthorizeEnvironment {
+        super::builder::cloud_shell_service::AuthorizeEnvironment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -166,8 +198,8 @@ impl CloudShellService {
     pub fn add_public_key(
         &self,
         environment: impl Into<std::string::String>,
-    ) -> super::builders::cloud_shell_service::AddPublicKey {
-        super::builders::cloud_shell_service::AddPublicKey::new(self.inner.clone())
+    ) -> super::builder::cloud_shell_service::AddPublicKey {
+        super::builder::cloud_shell_service::AddPublicKey::new(self.inner.clone())
             .set_environment(environment.into())
     }
 
@@ -188,8 +220,8 @@ impl CloudShellService {
     pub fn remove_public_key(
         &self,
         environment: impl Into<std::string::String>,
-    ) -> super::builders::cloud_shell_service::RemovePublicKey {
-        super::builders::cloud_shell_service::RemovePublicKey::new(self.inner.clone())
+    ) -> super::builder::cloud_shell_service::RemovePublicKey {
+        super::builder::cloud_shell_service::RemovePublicKey::new(self.inner.clone())
             .set_environment(environment.into())
     }
 
@@ -199,8 +231,8 @@ impl CloudShellService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_shell_service::GetOperation {
-        super::builders::cloud_shell_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::cloud_shell_service::GetOperation {
+        super::builder::cloud_shell_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

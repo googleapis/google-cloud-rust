@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [TraceService](super::stubs::TraceService) using a [gaxi::http::ReqwestClient].
+/// Implements [TraceService](super::stub::TraceService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct TraceService {
     inner: gaxi::http::ReqwestClient,
@@ -39,12 +39,12 @@ impl TraceService {
     }
 }
 
-impl super::stubs::TraceService for TraceService {
+impl super::stub::TraceService for TraceService {
     async fn batch_write_spans(
         &self,
         req: crate::model::BatchWriteSpansRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -57,7 +57,10 @@ impl super::stubs::TraceService for TraceService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_span(

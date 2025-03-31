@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Billing API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_billing_v1::client::CloudBilling;
+/// let client = CloudBilling::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Retrieves the Google Cloud Console billing accounts and associates them with
@@ -28,8 +37,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `CloudBilling` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `CloudBilling` use the `with_*` methods in the type returned
+/// by [builder()][CloudBilling::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://cloudbilling.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::cloud_billing::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::cloud_billing::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -39,37 +63,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CloudBilling {
-    inner: Arc<dyn super::stubs::dynamic::CloudBilling>,
+    inner: Arc<dyn super::stub::dynamic::CloudBilling>,
 }
 
 impl CloudBilling {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [CloudBilling].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_billing_v1::client::CloudBilling;
+    /// let client = CloudBilling::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::cloud_billing::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::cloud_billing::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::CloudBilling + 'static,
+        T: super::stub::CloudBilling + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::CloudBilling>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::CloudBilling>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,13 +108,13 @@ impl CloudBilling {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CloudBilling> {
+    ) -> Result<impl super::stub::CloudBilling> {
         super::transport::CloudBilling::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CloudBilling> {
+    ) -> Result<impl super::stub::CloudBilling> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CloudBilling::new)
@@ -96,16 +126,16 @@ impl CloudBilling {
     pub fn get_billing_account(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_billing::GetBillingAccount {
-        super::builders::cloud_billing::GetBillingAccount::new(self.inner.clone())
+    ) -> super::builder::cloud_billing::GetBillingAccount {
+        super::builder::cloud_billing::GetBillingAccount::new(self.inner.clone())
             .set_name(name.into())
     }
 
     /// Lists the billing accounts that the current authenticated user has
     /// permission to
     /// [view](https://cloud.google.com/billing/docs/how-to/billing-access).
-    pub fn list_billing_accounts(&self) -> super::builders::cloud_billing::ListBillingAccounts {
-        super::builders::cloud_billing::ListBillingAccounts::new(self.inner.clone())
+    pub fn list_billing_accounts(&self) -> super::builder::cloud_billing::ListBillingAccounts {
+        super::builder::cloud_billing::ListBillingAccounts::new(self.inner.clone())
     }
 
     /// Updates a billing account's fields.
@@ -117,8 +147,8 @@ impl CloudBilling {
     pub fn update_billing_account(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_billing::UpdateBillingAccount {
-        super::builders::cloud_billing::UpdateBillingAccount::new(self.inner.clone())
+    ) -> super::builder::cloud_billing::UpdateBillingAccount {
+        super::builder::cloud_billing::UpdateBillingAccount::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -137,8 +167,8 @@ impl CloudBilling {
     /// [administrators](https://cloud.google.com/billing/docs/how-to/billing-access).
     /// This method will return an error if the parent account has not been
     /// provisioned for subaccounts.
-    pub fn create_billing_account(&self) -> super::builders::cloud_billing::CreateBillingAccount {
-        super::builders::cloud_billing::CreateBillingAccount::new(self.inner.clone())
+    pub fn create_billing_account(&self) -> super::builder::cloud_billing::CreateBillingAccount {
+        super::builder::cloud_billing::CreateBillingAccount::new(self.inner.clone())
     }
 
     /// Lists the projects associated with a billing account. The current
@@ -148,8 +178,8 @@ impl CloudBilling {
     pub fn list_project_billing_info(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_billing::ListProjectBillingInfo {
-        super::builders::cloud_billing::ListProjectBillingInfo::new(self.inner.clone())
+    ) -> super::builder::cloud_billing::ListProjectBillingInfo {
+        super::builder::cloud_billing::ListProjectBillingInfo::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -161,8 +191,8 @@ impl CloudBilling {
     pub fn get_project_billing_info(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_billing::GetProjectBillingInfo {
-        super::builders::cloud_billing::GetProjectBillingInfo::new(self.inner.clone())
+    ) -> super::builder::cloud_billing::GetProjectBillingInfo {
+        super::builder::cloud_billing::GetProjectBillingInfo::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -201,8 +231,8 @@ impl CloudBilling {
     pub fn update_project_billing_info(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_billing::UpdateProjectBillingInfo {
-        super::builders::cloud_billing::UpdateProjectBillingInfo::new(self.inner.clone())
+    ) -> super::builder::cloud_billing::UpdateProjectBillingInfo {
+        super::builder::cloud_billing::UpdateProjectBillingInfo::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -213,8 +243,8 @@ impl CloudBilling {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::cloud_billing::GetIamPolicy {
-        super::builders::cloud_billing::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::cloud_billing::GetIamPolicy {
+        super::builder::cloud_billing::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -226,8 +256,8 @@ impl CloudBilling {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::cloud_billing::SetIamPolicy {
-        super::builders::cloud_billing::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::cloud_billing::SetIamPolicy {
+        super::builder::cloud_billing::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -237,8 +267,8 @@ impl CloudBilling {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::cloud_billing::TestIamPermissions {
-        super::builders::cloud_billing::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::cloud_billing::TestIamPermissions {
+        super::builder::cloud_billing::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -246,13 +276,22 @@ impl CloudBilling {
     pub fn move_billing_account(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_billing::MoveBillingAccount {
-        super::builders::cloud_billing::MoveBillingAccount::new(self.inner.clone())
+    ) -> super::builder::cloud_billing::MoveBillingAccount {
+        super::builder::cloud_billing::MoveBillingAccount::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Cloud Billing API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_billing_v1::client::CloudCatalog;
+/// let client = CloudCatalog::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -262,8 +301,23 @@ impl CloudBilling {
 ///
 /// # Configuration
 ///
-/// `CloudCatalog` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `CloudCatalog` use the `with_*` methods in the type returned
+/// by [builder()][CloudCatalog::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://cloudbilling.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::cloud_catalog::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::cloud_catalog::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -273,37 +327,43 @@ impl CloudBilling {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CloudCatalog {
-    inner: Arc<dyn super::stubs::dynamic::CloudCatalog>,
+    inner: Arc<dyn super::stub::dynamic::CloudCatalog>,
 }
 
 impl CloudCatalog {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [CloudCatalog].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_billing_v1::client::CloudCatalog;
+    /// let client = CloudCatalog::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::cloud_catalog::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::cloud_catalog::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::CloudCatalog + 'static,
+        T: super::stub::CloudCatalog + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::CloudCatalog>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::CloudCatalog>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -312,28 +372,28 @@ impl CloudCatalog {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CloudCatalog> {
+    ) -> Result<impl super::stub::CloudCatalog> {
         super::transport::CloudCatalog::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CloudCatalog> {
+    ) -> Result<impl super::stub::CloudCatalog> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CloudCatalog::new)
     }
 
     /// Lists all public cloud services.
-    pub fn list_services(&self) -> super::builders::cloud_catalog::ListServices {
-        super::builders::cloud_catalog::ListServices::new(self.inner.clone())
+    pub fn list_services(&self) -> super::builder::cloud_catalog::ListServices {
+        super::builder::cloud_catalog::ListServices::new(self.inner.clone())
     }
 
     /// Lists all publicly available SKUs for a given cloud service.
     pub fn list_skus(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_catalog::ListSkus {
-        super::builders::cloud_catalog::ListSkus::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::cloud_catalog::ListSkus {
+        super::builder::cloud_catalog::ListSkus::new(self.inner.clone()).set_parent(parent.into())
     }
 }

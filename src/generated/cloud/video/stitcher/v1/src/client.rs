@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Video Stitcher API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
+/// let client = VideoStitcherService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Video-On-Demand content stitching API allows you to insert ads
@@ -31,8 +40,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `VideoStitcherService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `VideoStitcherService` use the `with_*` methods in the type returned
+/// by [builder()][VideoStitcherService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://videostitcher.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::video_stitcher_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::video_stitcher_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -42,37 +66,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct VideoStitcherService {
-    inner: Arc<dyn super::stubs::dynamic::VideoStitcherService>,
+    inner: Arc<dyn super::stub::dynamic::VideoStitcherService>,
 }
 
 impl VideoStitcherService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [VideoStitcherService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
+    /// let client = VideoStitcherService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::video_stitcher_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::video_stitcher_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::VideoStitcherService + 'static,
+        T: super::stub::VideoStitcherService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::VideoStitcherService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::VideoStitcherService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -81,13 +113,13 @@ impl VideoStitcherService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::VideoStitcherService> {
+    ) -> Result<impl super::stub::VideoStitcherService> {
         super::transport::VideoStitcherService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::VideoStitcherService> {
+    ) -> Result<impl super::stub::VideoStitcherService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::VideoStitcherService::new)
@@ -107,8 +139,8 @@ impl VideoStitcherService {
     pub fn create_cdn_key(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::CreateCdnKey {
-        super::builders::video_stitcher_service::CreateCdnKey::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::CreateCdnKey {
+        super::builder::video_stitcher_service::CreateCdnKey::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -116,8 +148,8 @@ impl VideoStitcherService {
     pub fn list_cdn_keys(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::ListCdnKeys {
-        super::builders::video_stitcher_service::ListCdnKeys::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::ListCdnKeys {
+        super::builder::video_stitcher_service::ListCdnKeys::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -125,8 +157,8 @@ impl VideoStitcherService {
     pub fn get_cdn_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::GetCdnKey {
-        super::builders::video_stitcher_service::GetCdnKey::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::GetCdnKey {
+        super::builder::video_stitcher_service::GetCdnKey::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -144,8 +176,8 @@ impl VideoStitcherService {
     pub fn delete_cdn_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::DeleteCdnKey {
-        super::builders::video_stitcher_service::DeleteCdnKey::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::DeleteCdnKey {
+        super::builder::video_stitcher_service::DeleteCdnKey::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -164,8 +196,8 @@ impl VideoStitcherService {
     pub fn update_cdn_key(
         &self,
         cdn_key: impl Into<crate::model::CdnKey>,
-    ) -> super::builders::video_stitcher_service::UpdateCdnKey {
-        super::builders::video_stitcher_service::UpdateCdnKey::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::UpdateCdnKey {
+        super::builder::video_stitcher_service::UpdateCdnKey::new(self.inner.clone())
             .set_cdn_key(cdn_key.into())
     }
 
@@ -174,8 +206,8 @@ impl VideoStitcherService {
     pub fn create_vod_session(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::CreateVodSession {
-        super::builders::video_stitcher_service::CreateVodSession::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::CreateVodSession {
+        super::builder::video_stitcher_service::CreateVodSession::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -184,8 +216,8 @@ impl VideoStitcherService {
     pub fn get_vod_session(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::GetVodSession {
-        super::builders::video_stitcher_service::GetVodSession::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::GetVodSession {
+        super::builder::video_stitcher_service::GetVodSession::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -194,8 +226,8 @@ impl VideoStitcherService {
     pub fn list_vod_stitch_details(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::ListVodStitchDetails {
-        super::builders::video_stitcher_service::ListVodStitchDetails::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::ListVodStitchDetails {
+        super::builder::video_stitcher_service::ListVodStitchDetails::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -203,8 +235,8 @@ impl VideoStitcherService {
     pub fn get_vod_stitch_detail(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::GetVodStitchDetail {
-        super::builders::video_stitcher_service::GetVodStitchDetail::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::GetVodStitchDetail {
+        super::builder::video_stitcher_service::GetVodStitchDetail::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -212,8 +244,8 @@ impl VideoStitcherService {
     pub fn list_vod_ad_tag_details(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::ListVodAdTagDetails {
-        super::builders::video_stitcher_service::ListVodAdTagDetails::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::ListVodAdTagDetails {
+        super::builder::video_stitcher_service::ListVodAdTagDetails::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -221,8 +253,8 @@ impl VideoStitcherService {
     pub fn get_vod_ad_tag_detail(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::GetVodAdTagDetail {
-        super::builders::video_stitcher_service::GetVodAdTagDetail::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::GetVodAdTagDetail {
+        super::builder::video_stitcher_service::GetVodAdTagDetail::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -230,8 +262,8 @@ impl VideoStitcherService {
     pub fn list_live_ad_tag_details(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::ListLiveAdTagDetails {
-        super::builders::video_stitcher_service::ListLiveAdTagDetails::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::ListLiveAdTagDetails {
+        super::builder::video_stitcher_service::ListLiveAdTagDetails::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -239,8 +271,8 @@ impl VideoStitcherService {
     pub fn get_live_ad_tag_detail(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::GetLiveAdTagDetail {
-        super::builders::video_stitcher_service::GetLiveAdTagDetail::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::GetLiveAdTagDetail {
+        super::builder::video_stitcher_service::GetLiveAdTagDetail::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -258,8 +290,8 @@ impl VideoStitcherService {
     pub fn create_slate(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::CreateSlate {
-        super::builders::video_stitcher_service::CreateSlate::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::CreateSlate {
+        super::builder::video_stitcher_service::CreateSlate::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -267,8 +299,8 @@ impl VideoStitcherService {
     pub fn list_slates(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::ListSlates {
-        super::builders::video_stitcher_service::ListSlates::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::ListSlates {
+        super::builder::video_stitcher_service::ListSlates::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -276,8 +308,8 @@ impl VideoStitcherService {
     pub fn get_slate(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::GetSlate {
-        super::builders::video_stitcher_service::GetSlate::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::GetSlate {
+        super::builder::video_stitcher_service::GetSlate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -295,8 +327,8 @@ impl VideoStitcherService {
     pub fn update_slate(
         &self,
         slate: impl Into<crate::model::Slate>,
-    ) -> super::builders::video_stitcher_service::UpdateSlate {
-        super::builders::video_stitcher_service::UpdateSlate::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::UpdateSlate {
+        super::builder::video_stitcher_service::UpdateSlate::new(self.inner.clone())
             .set_slate(slate.into())
     }
 
@@ -314,8 +346,8 @@ impl VideoStitcherService {
     pub fn delete_slate(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::DeleteSlate {
-        super::builders::video_stitcher_service::DeleteSlate::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::DeleteSlate {
+        super::builder::video_stitcher_service::DeleteSlate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -323,8 +355,8 @@ impl VideoStitcherService {
     pub fn create_live_session(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::CreateLiveSession {
-        super::builders::video_stitcher_service::CreateLiveSession::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::CreateLiveSession {
+        super::builder::video_stitcher_service::CreateLiveSession::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -332,8 +364,8 @@ impl VideoStitcherService {
     pub fn get_live_session(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::GetLiveSession {
-        super::builders::video_stitcher_service::GetLiveSession::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::GetLiveSession {
+        super::builder::video_stitcher_service::GetLiveSession::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -352,8 +384,8 @@ impl VideoStitcherService {
     pub fn create_live_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::CreateLiveConfig {
-        super::builders::video_stitcher_service::CreateLiveConfig::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::CreateLiveConfig {
+        super::builder::video_stitcher_service::CreateLiveConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -362,8 +394,8 @@ impl VideoStitcherService {
     pub fn list_live_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::ListLiveConfigs {
-        super::builders::video_stitcher_service::ListLiveConfigs::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::ListLiveConfigs {
+        super::builder::video_stitcher_service::ListLiveConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -372,8 +404,8 @@ impl VideoStitcherService {
     pub fn get_live_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::GetLiveConfig {
-        super::builders::video_stitcher_service::GetLiveConfig::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::GetLiveConfig {
+        super::builder::video_stitcher_service::GetLiveConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -391,8 +423,8 @@ impl VideoStitcherService {
     pub fn delete_live_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::DeleteLiveConfig {
-        super::builders::video_stitcher_service::DeleteLiveConfig::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::DeleteLiveConfig {
+        super::builder::video_stitcher_service::DeleteLiveConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -411,8 +443,8 @@ impl VideoStitcherService {
     pub fn update_live_config(
         &self,
         live_config: impl Into<crate::model::LiveConfig>,
-    ) -> super::builders::video_stitcher_service::UpdateLiveConfig {
-        super::builders::video_stitcher_service::UpdateLiveConfig::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::UpdateLiveConfig {
+        super::builder::video_stitcher_service::UpdateLiveConfig::new(self.inner.clone())
             .set_live_config(live_config.into())
     }
 
@@ -431,8 +463,8 @@ impl VideoStitcherService {
     pub fn create_vod_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::CreateVodConfig {
-        super::builders::video_stitcher_service::CreateVodConfig::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::CreateVodConfig {
+        super::builder::video_stitcher_service::CreateVodConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -441,8 +473,8 @@ impl VideoStitcherService {
     pub fn list_vod_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::ListVodConfigs {
-        super::builders::video_stitcher_service::ListVodConfigs::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::ListVodConfigs {
+        super::builder::video_stitcher_service::ListVodConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -451,8 +483,8 @@ impl VideoStitcherService {
     pub fn get_vod_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::GetVodConfig {
-        super::builders::video_stitcher_service::GetVodConfig::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::GetVodConfig {
+        super::builder::video_stitcher_service::GetVodConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -470,8 +502,8 @@ impl VideoStitcherService {
     pub fn delete_vod_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::DeleteVodConfig {
-        super::builders::video_stitcher_service::DeleteVodConfig::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::DeleteVodConfig {
+        super::builder::video_stitcher_service::DeleteVodConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -490,8 +522,8 @@ impl VideoStitcherService {
     pub fn update_vod_config(
         &self,
         vod_config: impl Into<crate::model::VodConfig>,
-    ) -> super::builders::video_stitcher_service::UpdateVodConfig {
-        super::builders::video_stitcher_service::UpdateVodConfig::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::UpdateVodConfig {
+        super::builder::video_stitcher_service::UpdateVodConfig::new(self.inner.clone())
             .set_vod_config(vod_config.into())
     }
 
@@ -501,8 +533,8 @@ impl VideoStitcherService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::ListOperations {
-        super::builders::video_stitcher_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::ListOperations {
+        super::builder::video_stitcher_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -512,8 +544,8 @@ impl VideoStitcherService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::GetOperation {
-        super::builders::video_stitcher_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::GetOperation {
+        super::builder::video_stitcher_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -523,8 +555,8 @@ impl VideoStitcherService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::DeleteOperation {
-        super::builders::video_stitcher_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::DeleteOperation {
+        super::builder::video_stitcher_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -534,8 +566,8 @@ impl VideoStitcherService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_stitcher_service::CancelOperation {
-        super::builders::video_stitcher_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::video_stitcher_service::CancelOperation {
+        super::builder::video_stitcher_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

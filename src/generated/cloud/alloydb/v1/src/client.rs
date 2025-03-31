@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the AlloyDB API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+/// let client = AlloyDBAdmin::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service describing handlers for resources
 ///
 /// # Configuration
 ///
-/// `AlloyDBAdmin` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `AlloyDBAdmin` use the `with_*` methods in the type returned
+/// by [builder()][AlloyDBAdmin::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://alloydb.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::alloy_db_admin::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::alloy_db_admin::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,37 +62,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AlloyDBAdmin {
-    inner: Arc<dyn super::stubs::dynamic::AlloyDBAdmin>,
+    inner: Arc<dyn super::stub::dynamic::AlloyDBAdmin>,
 }
 
 impl AlloyDBAdmin {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [AlloyDBAdmin].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// let client = AlloyDBAdmin::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::alloy_db_admin::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::alloy_db_admin::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::AlloyDBAdmin + 'static,
+        T: super::stub::AlloyDBAdmin + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::AlloyDBAdmin>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::AlloyDBAdmin>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +107,13 @@ impl AlloyDBAdmin {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AlloyDBAdmin> {
+    ) -> Result<impl super::stub::AlloyDBAdmin> {
         super::transport::AlloyDBAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AlloyDBAdmin> {
+    ) -> Result<impl super::stub::AlloyDBAdmin> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AlloyDBAdmin::new)
@@ -93,8 +123,8 @@ impl AlloyDBAdmin {
     pub fn list_clusters(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::ListClusters {
-        super::builders::alloy_db_admin::ListClusters::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::ListClusters {
+        super::builder::alloy_db_admin::ListClusters::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,8 +132,8 @@ impl AlloyDBAdmin {
     pub fn get_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::GetCluster {
-        super::builders::alloy_db_admin::GetCluster::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::alloy_db_admin::GetCluster {
+        super::builder::alloy_db_admin::GetCluster::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Cluster in a given project and location.
@@ -120,8 +150,8 @@ impl AlloyDBAdmin {
     pub fn create_cluster(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::CreateCluster {
-        super::builders::alloy_db_admin::CreateCluster::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::CreateCluster {
+        super::builder::alloy_db_admin::CreateCluster::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -139,8 +169,8 @@ impl AlloyDBAdmin {
     pub fn update_cluster(
         &self,
         cluster: impl Into<crate::model::Cluster>,
-    ) -> super::builders::alloy_db_admin::UpdateCluster {
-        super::builders::alloy_db_admin::UpdateCluster::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::UpdateCluster {
+        super::builder::alloy_db_admin::UpdateCluster::new(self.inner.clone())
             .set_cluster(cluster.into())
     }
 
@@ -158,9 +188,8 @@ impl AlloyDBAdmin {
     pub fn delete_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::DeleteCluster {
-        super::builders::alloy_db_admin::DeleteCluster::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::alloy_db_admin::DeleteCluster {
+        super::builder::alloy_db_admin::DeleteCluster::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Promotes a SECONDARY cluster. This turns down replication
@@ -180,8 +209,8 @@ impl AlloyDBAdmin {
     pub fn promote_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::PromoteCluster {
-        super::builders::alloy_db_admin::PromoteCluster::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::PromoteCluster {
+        super::builder::alloy_db_admin::PromoteCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -201,8 +230,8 @@ impl AlloyDBAdmin {
     pub fn switchover_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::SwitchoverCluster {
-        super::builders::alloy_db_admin::SwitchoverCluster::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::SwitchoverCluster {
+        super::builder::alloy_db_admin::SwitchoverCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -222,8 +251,8 @@ impl AlloyDBAdmin {
     pub fn restore_cluster(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::RestoreCluster {
-        super::builders::alloy_db_admin::RestoreCluster::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::RestoreCluster {
+        super::builder::alloy_db_admin::RestoreCluster::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -242,8 +271,8 @@ impl AlloyDBAdmin {
     pub fn create_secondary_cluster(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::CreateSecondaryCluster {
-        super::builders::alloy_db_admin::CreateSecondaryCluster::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::CreateSecondaryCluster {
+        super::builder::alloy_db_admin::CreateSecondaryCluster::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -251,8 +280,8 @@ impl AlloyDBAdmin {
     pub fn list_instances(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::ListInstances {
-        super::builders::alloy_db_admin::ListInstances::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::ListInstances {
+        super::builder::alloy_db_admin::ListInstances::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -260,8 +289,8 @@ impl AlloyDBAdmin {
     pub fn get_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::GetInstance {
-        super::builders::alloy_db_admin::GetInstance::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::alloy_db_admin::GetInstance {
+        super::builder::alloy_db_admin::GetInstance::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Instance in a given project and location.
@@ -278,8 +307,8 @@ impl AlloyDBAdmin {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::CreateInstance {
-        super::builders::alloy_db_admin::CreateInstance::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::CreateInstance {
+        super::builder::alloy_db_admin::CreateInstance::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -297,8 +326,8 @@ impl AlloyDBAdmin {
     pub fn create_secondary_instance(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::CreateSecondaryInstance {
-        super::builders::alloy_db_admin::CreateSecondaryInstance::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::CreateSecondaryInstance {
+        super::builder::alloy_db_admin::CreateSecondaryInstance::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -325,8 +354,8 @@ impl AlloyDBAdmin {
     pub fn batch_create_instances(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::BatchCreateInstances {
-        super::builders::alloy_db_admin::BatchCreateInstances::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::BatchCreateInstances {
+        super::builder::alloy_db_admin::BatchCreateInstances::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -344,8 +373,8 @@ impl AlloyDBAdmin {
     pub fn update_instance(
         &self,
         instance: impl Into<crate::model::Instance>,
-    ) -> super::builders::alloy_db_admin::UpdateInstance {
-        super::builders::alloy_db_admin::UpdateInstance::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::UpdateInstance {
+        super::builder::alloy_db_admin::UpdateInstance::new(self.inner.clone())
             .set_instance(instance.into())
     }
 
@@ -363,8 +392,8 @@ impl AlloyDBAdmin {
     pub fn delete_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::DeleteInstance {
-        super::builders::alloy_db_admin::DeleteInstance::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::DeleteInstance {
+        super::builder::alloy_db_admin::DeleteInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -384,8 +413,8 @@ impl AlloyDBAdmin {
     pub fn failover_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::FailoverInstance {
-        super::builders::alloy_db_admin::FailoverInstance::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::FailoverInstance {
+        super::builder::alloy_db_admin::FailoverInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -404,8 +433,8 @@ impl AlloyDBAdmin {
     pub fn inject_fault(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::InjectFault {
-        super::builders::alloy_db_admin::InjectFault::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::alloy_db_admin::InjectFault {
+        super::builder::alloy_db_admin::InjectFault::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Restart an Instance in a cluster.
@@ -423,8 +452,8 @@ impl AlloyDBAdmin {
     pub fn restart_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::RestartInstance {
-        super::builders::alloy_db_admin::RestartInstance::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::RestartInstance {
+        super::builder::alloy_db_admin::RestartInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -432,8 +461,8 @@ impl AlloyDBAdmin {
     pub fn execute_sql(
         &self,
         instance: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::ExecuteSql {
-        super::builders::alloy_db_admin::ExecuteSql::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::ExecuteSql {
+        super::builder::alloy_db_admin::ExecuteSql::new(self.inner.clone())
             .set_instance(instance.into())
     }
 
@@ -441,8 +470,8 @@ impl AlloyDBAdmin {
     pub fn list_backups(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::ListBackups {
-        super::builders::alloy_db_admin::ListBackups::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::ListBackups {
+        super::builder::alloy_db_admin::ListBackups::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -450,8 +479,8 @@ impl AlloyDBAdmin {
     pub fn get_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::GetBackup {
-        super::builders::alloy_db_admin::GetBackup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::alloy_db_admin::GetBackup {
+        super::builder::alloy_db_admin::GetBackup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Backup in a given project and location.
@@ -468,8 +497,8 @@ impl AlloyDBAdmin {
     pub fn create_backup(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::CreateBackup {
-        super::builders::alloy_db_admin::CreateBackup::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::CreateBackup {
+        super::builder::alloy_db_admin::CreateBackup::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -487,8 +516,8 @@ impl AlloyDBAdmin {
     pub fn update_backup(
         &self,
         backup: impl Into<crate::model::Backup>,
-    ) -> super::builders::alloy_db_admin::UpdateBackup {
-        super::builders::alloy_db_admin::UpdateBackup::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::UpdateBackup {
+        super::builder::alloy_db_admin::UpdateBackup::new(self.inner.clone())
             .set_backup(backup.into())
     }
 
@@ -506,16 +535,16 @@ impl AlloyDBAdmin {
     pub fn delete_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::DeleteBackup {
-        super::builders::alloy_db_admin::DeleteBackup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::alloy_db_admin::DeleteBackup {
+        super::builder::alloy_db_admin::DeleteBackup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists SupportedDatabaseFlags for a given project and location.
     pub fn list_supported_database_flags(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::ListSupportedDatabaseFlags {
-        super::builders::alloy_db_admin::ListSupportedDatabaseFlags::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::ListSupportedDatabaseFlags {
+        super::builder::alloy_db_admin::ListSupportedDatabaseFlags::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -527,8 +556,8 @@ impl AlloyDBAdmin {
     pub fn generate_client_certificate(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::GenerateClientCertificate {
-        super::builders::alloy_db_admin::GenerateClientCertificate::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::GenerateClientCertificate {
+        super::builder::alloy_db_admin::GenerateClientCertificate::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -536,8 +565,8 @@ impl AlloyDBAdmin {
     pub fn get_connection_info(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::GetConnectionInfo {
-        super::builders::alloy_db_admin::GetConnectionInfo::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::GetConnectionInfo {
+        super::builder::alloy_db_admin::GetConnectionInfo::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -545,25 +574,24 @@ impl AlloyDBAdmin {
     pub fn list_users(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::ListUsers {
-        super::builders::alloy_db_admin::ListUsers::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::alloy_db_admin::ListUsers {
+        super::builder::alloy_db_admin::ListUsers::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets details of a single User.
     pub fn get_user(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::GetUser {
-        super::builders::alloy_db_admin::GetUser::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::alloy_db_admin::GetUser {
+        super::builder::alloy_db_admin::GetUser::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new User in a given project, location, and cluster.
     pub fn create_user(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::CreateUser {
-        super::builders::alloy_db_admin::CreateUser::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::CreateUser {
+        super::builder::alloy_db_admin::CreateUser::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -571,24 +599,24 @@ impl AlloyDBAdmin {
     pub fn update_user(
         &self,
         user: impl Into<crate::model::User>,
-    ) -> super::builders::alloy_db_admin::UpdateUser {
-        super::builders::alloy_db_admin::UpdateUser::new(self.inner.clone()).set_user(user.into())
+    ) -> super::builder::alloy_db_admin::UpdateUser {
+        super::builder::alloy_db_admin::UpdateUser::new(self.inner.clone()).set_user(user.into())
     }
 
     /// Deletes a single User.
     pub fn delete_user(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::DeleteUser {
-        super::builders::alloy_db_admin::DeleteUser::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::alloy_db_admin::DeleteUser {
+        super::builder::alloy_db_admin::DeleteUser::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists Databases in a given project and location.
     pub fn list_databases(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::ListDatabases {
-        super::builders::alloy_db_admin::ListDatabases::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::ListDatabases {
+        super::builder::alloy_db_admin::ListDatabases::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -596,17 +624,16 @@ impl AlloyDBAdmin {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::ListLocations {
-        super::builders::alloy_db_admin::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::alloy_db_admin::ListLocations {
+        super::builder::alloy_db_admin::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::GetLocation {
-        super::builders::alloy_db_admin::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::alloy_db_admin::GetLocation {
+        super::builder::alloy_db_admin::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -615,8 +642,8 @@ impl AlloyDBAdmin {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::ListOperations {
-        super::builders::alloy_db_admin::ListOperations::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::ListOperations {
+        super::builder::alloy_db_admin::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -626,8 +653,8 @@ impl AlloyDBAdmin {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::GetOperation {
-        super::builders::alloy_db_admin::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::alloy_db_admin::GetOperation {
+        super::builder::alloy_db_admin::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -636,8 +663,8 @@ impl AlloyDBAdmin {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::DeleteOperation {
-        super::builders::alloy_db_admin::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::DeleteOperation {
+        super::builder::alloy_db_admin::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -647,8 +674,8 @@ impl AlloyDBAdmin {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::alloy_db_admin::CancelOperation {
-        super::builders::alloy_db_admin::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::alloy_db_admin::CancelOperation {
+        super::builder::alloy_db_admin::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

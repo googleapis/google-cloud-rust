@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Google Cloud Memorystore for Redis API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+/// let client = CloudRedisCluster::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Configures and manages Cloud Memorystore for Redis clusters
@@ -43,8 +52,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `CloudRedisCluster` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `CloudRedisCluster` use the `with_*` methods in the type returned
+/// by [builder()][CloudRedisCluster::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://redis.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::cloud_redis_cluster::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::cloud_redis_cluster::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -54,37 +78,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CloudRedisCluster {
-    inner: Arc<dyn super::stubs::dynamic::CloudRedisCluster>,
+    inner: Arc<dyn super::stub::dynamic::CloudRedisCluster>,
 }
 
 impl CloudRedisCluster {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [CloudRedisCluster].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// let client = CloudRedisCluster::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::cloud_redis_cluster::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::cloud_redis_cluster::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::CloudRedisCluster + 'static,
+        T: super::stub::CloudRedisCluster + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::CloudRedisCluster>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::CloudRedisCluster>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -93,13 +125,13 @@ impl CloudRedisCluster {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CloudRedisCluster> {
+    ) -> Result<impl super::stub::CloudRedisCluster> {
         super::transport::CloudRedisCluster::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CloudRedisCluster> {
+    ) -> Result<impl super::stub::CloudRedisCluster> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CloudRedisCluster::new)
@@ -117,8 +149,8 @@ impl CloudRedisCluster {
     pub fn list_clusters(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_redis_cluster::ListClusters {
-        super::builders::cloud_redis_cluster::ListClusters::new(self.inner.clone())
+    ) -> super::builder::cloud_redis_cluster::ListClusters {
+        super::builder::cloud_redis_cluster::ListClusters::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -126,8 +158,8 @@ impl CloudRedisCluster {
     pub fn get_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_redis_cluster::GetCluster {
-        super::builders::cloud_redis_cluster::GetCluster::new(self.inner.clone())
+    ) -> super::builder::cloud_redis_cluster::GetCluster {
+        super::builder::cloud_redis_cluster::GetCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -149,8 +181,8 @@ impl CloudRedisCluster {
     pub fn update_cluster(
         &self,
         cluster: impl Into<crate::model::Cluster>,
-    ) -> super::builders::cloud_redis_cluster::UpdateCluster {
-        super::builders::cloud_redis_cluster::UpdateCluster::new(self.inner.clone())
+    ) -> super::builder::cloud_redis_cluster::UpdateCluster {
+        super::builder::cloud_redis_cluster::UpdateCluster::new(self.inner.clone())
             .set_cluster(cluster.into())
     }
 
@@ -169,8 +201,8 @@ impl CloudRedisCluster {
     pub fn delete_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_redis_cluster::DeleteCluster {
-        super::builders::cloud_redis_cluster::DeleteCluster::new(self.inner.clone())
+    ) -> super::builder::cloud_redis_cluster::DeleteCluster {
+        super::builder::cloud_redis_cluster::DeleteCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -195,8 +227,8 @@ impl CloudRedisCluster {
     pub fn create_cluster(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_redis_cluster::CreateCluster {
-        super::builders::cloud_redis_cluster::CreateCluster::new(self.inner.clone())
+    ) -> super::builder::cloud_redis_cluster::CreateCluster {
+        super::builder::cloud_redis_cluster::CreateCluster::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -204,11 +236,9 @@ impl CloudRedisCluster {
     pub fn get_cluster_certificate_authority(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_redis_cluster::GetClusterCertificateAuthority {
-        super::builders::cloud_redis_cluster::GetClusterCertificateAuthority::new(
-            self.inner.clone(),
-        )
-        .set_name(name.into())
+    ) -> super::builder::cloud_redis_cluster::GetClusterCertificateAuthority {
+        super::builder::cloud_redis_cluster::GetClusterCertificateAuthority::new(self.inner.clone())
+            .set_name(name.into())
     }
 
     /// Reschedules upcoming maintenance event.
@@ -225,8 +255,8 @@ impl CloudRedisCluster {
     pub fn reschedule_cluster_maintenance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_redis_cluster::RescheduleClusterMaintenance {
-        super::builders::cloud_redis_cluster::RescheduleClusterMaintenance::new(self.inner.clone())
+    ) -> super::builder::cloud_redis_cluster::RescheduleClusterMaintenance {
+        super::builder::cloud_redis_cluster::RescheduleClusterMaintenance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -238,8 +268,8 @@ impl CloudRedisCluster {
     pub fn list_backup_collections(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_redis_cluster::ListBackupCollections {
-        super::builders::cloud_redis_cluster::ListBackupCollections::new(self.inner.clone())
+    ) -> super::builder::cloud_redis_cluster::ListBackupCollections {
+        super::builder::cloud_redis_cluster::ListBackupCollections::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -247,8 +277,8 @@ impl CloudRedisCluster {
     pub fn get_backup_collection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_redis_cluster::GetBackupCollection {
-        super::builders::cloud_redis_cluster::GetBackupCollection::new(self.inner.clone())
+    ) -> super::builder::cloud_redis_cluster::GetBackupCollection {
+        super::builder::cloud_redis_cluster::GetBackupCollection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -256,8 +286,8 @@ impl CloudRedisCluster {
     pub fn list_backups(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_redis_cluster::ListBackups {
-        super::builders::cloud_redis_cluster::ListBackups::new(self.inner.clone())
+    ) -> super::builder::cloud_redis_cluster::ListBackups {
+        super::builder::cloud_redis_cluster::ListBackups::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -265,8 +295,8 @@ impl CloudRedisCluster {
     pub fn get_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_redis_cluster::GetBackup {
-        super::builders::cloud_redis_cluster::GetBackup::new(self.inner.clone())
+    ) -> super::builder::cloud_redis_cluster::GetBackup {
+        super::builder::cloud_redis_cluster::GetBackup::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -284,8 +314,8 @@ impl CloudRedisCluster {
     pub fn delete_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_redis_cluster::DeleteBackup {
-        super::builders::cloud_redis_cluster::DeleteBackup::new(self.inner.clone())
+    ) -> super::builder::cloud_redis_cluster::DeleteBackup {
+        super::builder::cloud_redis_cluster::DeleteBackup::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -303,8 +333,8 @@ impl CloudRedisCluster {
     pub fn export_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_redis_cluster::ExportBackup {
-        super::builders::cloud_redis_cluster::ExportBackup::new(self.inner.clone())
+    ) -> super::builder::cloud_redis_cluster::ExportBackup {
+        super::builder::cloud_redis_cluster::ExportBackup::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -333,8 +363,8 @@ impl CloudRedisCluster {
     pub fn backup_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_redis_cluster::BackupCluster {
-        super::builders::cloud_redis_cluster::BackupCluster::new(self.inner.clone())
+    ) -> super::builder::cloud_redis_cluster::BackupCluster {
+        super::builder::cloud_redis_cluster::BackupCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -342,8 +372,8 @@ impl CloudRedisCluster {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_redis_cluster::ListLocations {
-        super::builders::cloud_redis_cluster::ListLocations::new(self.inner.clone())
+    ) -> super::builder::cloud_redis_cluster::ListLocations {
+        super::builder::cloud_redis_cluster::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -351,8 +381,8 @@ impl CloudRedisCluster {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_redis_cluster::GetLocation {
-        super::builders::cloud_redis_cluster::GetLocation::new(self.inner.clone())
+    ) -> super::builder::cloud_redis_cluster::GetLocation {
+        super::builder::cloud_redis_cluster::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -362,8 +392,8 @@ impl CloudRedisCluster {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_redis_cluster::ListOperations {
-        super::builders::cloud_redis_cluster::ListOperations::new(self.inner.clone())
+    ) -> super::builder::cloud_redis_cluster::ListOperations {
+        super::builder::cloud_redis_cluster::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -373,8 +403,8 @@ impl CloudRedisCluster {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_redis_cluster::GetOperation {
-        super::builders::cloud_redis_cluster::GetOperation::new(self.inner.clone())
+    ) -> super::builder::cloud_redis_cluster::GetOperation {
+        super::builder::cloud_redis_cluster::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -384,8 +414,8 @@ impl CloudRedisCluster {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_redis_cluster::DeleteOperation {
-        super::builders::cloud_redis_cluster::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::cloud_redis_cluster::DeleteOperation {
+        super::builder::cloud_redis_cluster::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -395,8 +425,8 @@ impl CloudRedisCluster {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_redis_cluster::CancelOperation {
-        super::builders::cloud_redis_cluster::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::cloud_redis_cluster::CancelOperation {
+        super::builder::cloud_redis_cluster::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

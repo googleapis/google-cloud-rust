@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [WebRiskService](super::stubs::WebRiskService) using a [gaxi::http::ReqwestClient].
+/// Implements [WebRiskService](super::stub::WebRiskService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct WebRiskService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl WebRiskService {
     }
 }
 
-impl super::stubs::WebRiskService for WebRiskService {
+impl super::stub::WebRiskService for WebRiskService {
     async fn compute_threat_list_diff(
         &self,
         req: crate::model::ComputeThreatListDiffRequest,
@@ -207,7 +207,7 @@ impl super::stubs::WebRiskService for WebRiskService {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -220,13 +220,14 @@ impl super::stubs::WebRiskService for WebRiskService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -236,7 +237,10 @@ impl super::stubs::WebRiskService for WebRiskService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(

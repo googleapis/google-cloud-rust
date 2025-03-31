@@ -32,3 +32,6 @@ recommender = { version = "0.2", path = "../../../../../../src/generated/cloud/r
 serde      = { version = "1", features = ["serde_derive"] }
 serde_with = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
 wkt        = { version = "0.3", path = "../../../../../../src/wkt", package = "google-cloud-wkt" }
+
+[dev-dependencies]
+tokio-test.workspace = true

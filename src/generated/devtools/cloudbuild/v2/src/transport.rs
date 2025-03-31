@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [RepositoryManager](super::stubs::RepositoryManager) using a [gaxi::http::ReqwestClient].
+/// Implements [RepositoryManager](super::stub::RepositoryManager) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct RepositoryManager {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl RepositoryManager {
     }
 }
 
-impl super::stubs::RepositoryManager for RepositoryManager {
+impl super::stub::RepositoryManager for RepositoryManager {
     async fn create_connection(
         &self,
         req: crate::model::CreateConnectionRequest,
@@ -457,7 +457,7 @@ impl super::stubs::RepositoryManager for RepositoryManager {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -467,7 +467,10 @@ impl super::stubs::RepositoryManager for RepositoryManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(

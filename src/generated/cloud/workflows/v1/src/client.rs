@@ -23,6 +23,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Workflows API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_workflows_v1::client::Workflows;
+/// let client = Workflows::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Workflows is used to deploy and execute workflow programs.
@@ -31,8 +40,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `Workflows` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Workflows` use the `with_*` methods in the type returned
+/// by [builder()][Workflows::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://workflows.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::workflows::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::workflows::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -42,37 +66,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Workflows {
-    inner: Arc<dyn super::stubs::dynamic::Workflows>,
+    inner: Arc<dyn super::stub::dynamic::Workflows>,
 }
 
 impl Workflows {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Workflows].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_workflows_v1::client::Workflows;
+    /// let client = Workflows::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::workflows::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::workflows::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Workflows + 'static,
+        T: super::stub::Workflows + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Workflows>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Workflows>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -81,13 +111,13 @@ impl Workflows {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Workflows> {
+    ) -> Result<impl super::stub::Workflows> {
         super::transport::Workflows::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Workflows> {
+    ) -> Result<impl super::stub::Workflows> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Workflows::new)
@@ -98,16 +128,16 @@ impl Workflows {
     pub fn list_workflows(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::workflows::ListWorkflows {
-        super::builders::workflows::ListWorkflows::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::workflows::ListWorkflows {
+        super::builder::workflows::ListWorkflows::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets details of a single workflow.
     pub fn get_workflow(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workflows::GetWorkflow {
-        super::builders::workflows::GetWorkflow::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::workflows::GetWorkflow {
+        super::builder::workflows::GetWorkflow::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new workflow. If a workflow with the specified name already
@@ -126,9 +156,8 @@ impl Workflows {
     pub fn create_workflow(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::workflows::CreateWorkflow {
-        super::builders::workflows::CreateWorkflow::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::workflows::CreateWorkflow {
+        super::builder::workflows::CreateWorkflow::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Deletes a workflow with the specified name.
@@ -147,8 +176,8 @@ impl Workflows {
     pub fn delete_workflow(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workflows::DeleteWorkflow {
-        super::builders::workflows::DeleteWorkflow::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::workflows::DeleteWorkflow {
+        super::builder::workflows::DeleteWorkflow::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates an existing workflow.
@@ -169,8 +198,8 @@ impl Workflows {
     pub fn update_workflow(
         &self,
         workflow: impl Into<crate::model::Workflow>,
-    ) -> super::builders::workflows::UpdateWorkflow {
-        super::builders::workflows::UpdateWorkflow::new(self.inner.clone())
+    ) -> super::builder::workflows::UpdateWorkflow {
+        super::builder::workflows::UpdateWorkflow::new(self.inner.clone())
             .set_workflow(workflow.into())
     }
 
@@ -178,8 +207,8 @@ impl Workflows {
     pub fn list_workflow_revisions(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workflows::ListWorkflowRevisions {
-        super::builders::workflows::ListWorkflowRevisions::new(self.inner.clone())
+    ) -> super::builder::workflows::ListWorkflowRevisions {
+        super::builder::workflows::ListWorkflowRevisions::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -187,16 +216,16 @@ impl Workflows {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workflows::ListLocations {
-        super::builders::workflows::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::workflows::ListLocations {
+        super::builder::workflows::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workflows::GetLocation {
-        super::builders::workflows::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::workflows::GetLocation {
+        super::builder::workflows::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -205,8 +234,8 @@ impl Workflows {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workflows::ListOperations {
-        super::builders::workflows::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::workflows::ListOperations {
+        super::builder::workflows::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -215,8 +244,8 @@ impl Workflows {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workflows::GetOperation {
-        super::builders::workflows::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::workflows::GetOperation {
+        super::builder::workflows::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -225,7 +254,7 @@ impl Workflows {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workflows::DeleteOperation {
-        super::builders::workflows::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::workflows::DeleteOperation {
+        super::builder::workflows::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

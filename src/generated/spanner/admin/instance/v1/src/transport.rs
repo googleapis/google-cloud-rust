@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [InstanceAdmin](super::stubs::InstanceAdmin) using a [gaxi::http::ReqwestClient].
+/// Implements [InstanceAdmin](super::stub::InstanceAdmin) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct InstanceAdmin {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl InstanceAdmin {
     }
 }
 
-impl super::stubs::InstanceAdmin for InstanceAdmin {
+impl super::stub::InstanceAdmin for InstanceAdmin {
     async fn list_instance_configs(
         &self,
         req: crate::model::ListInstanceConfigsRequest,
@@ -133,7 +133,7 @@ impl super::stubs::InstanceAdmin for InstanceAdmin {
         &self,
         req: crate::model::DeleteInstanceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -148,6 +148,7 @@ impl super::stubs::InstanceAdmin for InstanceAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_instance_config_operations(
@@ -323,7 +324,7 @@ impl super::stubs::InstanceAdmin for InstanceAdmin {
         &self,
         req: crate::model::DeleteInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -336,6 +337,7 @@ impl super::stubs::InstanceAdmin for InstanceAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn set_iam_policy(
@@ -441,7 +443,7 @@ impl super::stubs::InstanceAdmin for InstanceAdmin {
         &self,
         req: crate::model::DeleteInstancePartitionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -455,6 +457,7 @@ impl super::stubs::InstanceAdmin for InstanceAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn update_instance_partition(
@@ -580,7 +583,7 @@ impl super::stubs::InstanceAdmin for InstanceAdmin {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -593,13 +596,14 @@ impl super::stubs::InstanceAdmin for InstanceAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -612,6 +616,7 @@ impl super::stubs::InstanceAdmin for InstanceAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(

@@ -29,8 +29,6 @@ pub(crate) struct TokenCache {
     rx_token: watch::Receiver<Option<Result<Token>>>,
 }
 
-// TODO(#1552): Use the token cache in all creds
-#[allow(dead_code)]
 impl TokenCache {
     pub(crate) fn new<T>(inner: T) -> Self
     where

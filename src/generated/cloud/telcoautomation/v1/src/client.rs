@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Telco Automation API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+/// let client = TelcoAutomation::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// TelcoAutomation Service manages the control plane cluster a.k.a.
@@ -31,8 +40,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `TelcoAutomation` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `TelcoAutomation` use the `with_*` methods in the type returned
+/// by [builder()][TelcoAutomation::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://telcoautomation.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::telco_automation::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::telco_automation::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -42,37 +66,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct TelcoAutomation {
-    inner: Arc<dyn super::stubs::dynamic::TelcoAutomation>,
+    inner: Arc<dyn super::stub::dynamic::TelcoAutomation>,
 }
 
 impl TelcoAutomation {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [TelcoAutomation].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// let client = TelcoAutomation::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::telco_automation::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::telco_automation::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::TelcoAutomation + 'static,
+        T: super::stub::TelcoAutomation + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::TelcoAutomation>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::TelcoAutomation>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -81,13 +113,13 @@ impl TelcoAutomation {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::TelcoAutomation> {
+    ) -> Result<impl super::stub::TelcoAutomation> {
         super::transport::TelcoAutomation::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::TelcoAutomation> {
+    ) -> Result<impl super::stub::TelcoAutomation> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TelcoAutomation::new)
@@ -97,8 +129,8 @@ impl TelcoAutomation {
     pub fn list_orchestration_clusters(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::ListOrchestrationClusters {
-        super::builders::telco_automation::ListOrchestrationClusters::new(self.inner.clone())
+    ) -> super::builder::telco_automation::ListOrchestrationClusters {
+        super::builder::telco_automation::ListOrchestrationClusters::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -106,8 +138,8 @@ impl TelcoAutomation {
     pub fn get_orchestration_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::GetOrchestrationCluster {
-        super::builders::telco_automation::GetOrchestrationCluster::new(self.inner.clone())
+    ) -> super::builder::telco_automation::GetOrchestrationCluster {
+        super::builder::telco_automation::GetOrchestrationCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -125,8 +157,8 @@ impl TelcoAutomation {
     pub fn create_orchestration_cluster(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::CreateOrchestrationCluster {
-        super::builders::telco_automation::CreateOrchestrationCluster::new(self.inner.clone())
+    ) -> super::builder::telco_automation::CreateOrchestrationCluster {
+        super::builder::telco_automation::CreateOrchestrationCluster::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -144,8 +176,8 @@ impl TelcoAutomation {
     pub fn delete_orchestration_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::DeleteOrchestrationCluster {
-        super::builders::telco_automation::DeleteOrchestrationCluster::new(self.inner.clone())
+    ) -> super::builder::telco_automation::DeleteOrchestrationCluster {
+        super::builder::telco_automation::DeleteOrchestrationCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -153,8 +185,8 @@ impl TelcoAutomation {
     pub fn list_edge_slms(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::ListEdgeSlms {
-        super::builders::telco_automation::ListEdgeSlms::new(self.inner.clone())
+    ) -> super::builder::telco_automation::ListEdgeSlms {
+        super::builder::telco_automation::ListEdgeSlms::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -162,8 +194,8 @@ impl TelcoAutomation {
     pub fn get_edge_slm(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::GetEdgeSlm {
-        super::builders::telco_automation::GetEdgeSlm::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::telco_automation::GetEdgeSlm {
+        super::builder::telco_automation::GetEdgeSlm::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new EdgeSlm in a given project and location.
@@ -180,8 +212,8 @@ impl TelcoAutomation {
     pub fn create_edge_slm(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::CreateEdgeSlm {
-        super::builders::telco_automation::CreateEdgeSlm::new(self.inner.clone())
+    ) -> super::builder::telco_automation::CreateEdgeSlm {
+        super::builder::telco_automation::CreateEdgeSlm::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -199,8 +231,8 @@ impl TelcoAutomation {
     pub fn delete_edge_slm(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::DeleteEdgeSlm {
-        super::builders::telco_automation::DeleteEdgeSlm::new(self.inner.clone())
+    ) -> super::builder::telco_automation::DeleteEdgeSlm {
+        super::builder::telco_automation::DeleteEdgeSlm::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -208,8 +240,8 @@ impl TelcoAutomation {
     pub fn create_blueprint(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::CreateBlueprint {
-        super::builders::telco_automation::CreateBlueprint::new(self.inner.clone())
+    ) -> super::builder::telco_automation::CreateBlueprint {
+        super::builder::telco_automation::CreateBlueprint::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -217,8 +249,8 @@ impl TelcoAutomation {
     pub fn update_blueprint(
         &self,
         blueprint: impl Into<crate::model::Blueprint>,
-    ) -> super::builders::telco_automation::UpdateBlueprint {
-        super::builders::telco_automation::UpdateBlueprint::new(self.inner.clone())
+    ) -> super::builder::telco_automation::UpdateBlueprint {
+        super::builder::telco_automation::UpdateBlueprint::new(self.inner.clone())
             .set_blueprint(blueprint.into())
     }
 
@@ -226,8 +258,8 @@ impl TelcoAutomation {
     pub fn get_blueprint(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::GetBlueprint {
-        super::builders::telco_automation::GetBlueprint::new(self.inner.clone())
+    ) -> super::builder::telco_automation::GetBlueprint {
+        super::builder::telco_automation::GetBlueprint::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -235,8 +267,8 @@ impl TelcoAutomation {
     pub fn delete_blueprint(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::DeleteBlueprint {
-        super::builders::telco_automation::DeleteBlueprint::new(self.inner.clone())
+    ) -> super::builder::telco_automation::DeleteBlueprint {
+        super::builder::telco_automation::DeleteBlueprint::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -244,8 +276,8 @@ impl TelcoAutomation {
     pub fn list_blueprints(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::ListBlueprints {
-        super::builders::telco_automation::ListBlueprints::new(self.inner.clone())
+    ) -> super::builder::telco_automation::ListBlueprints {
+        super::builder::telco_automation::ListBlueprints::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -253,8 +285,8 @@ impl TelcoAutomation {
     pub fn approve_blueprint(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::ApproveBlueprint {
-        super::builders::telco_automation::ApproveBlueprint::new(self.inner.clone())
+    ) -> super::builder::telco_automation::ApproveBlueprint {
+        super::builder::telco_automation::ApproveBlueprint::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -262,8 +294,8 @@ impl TelcoAutomation {
     pub fn propose_blueprint(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::ProposeBlueprint {
-        super::builders::telco_automation::ProposeBlueprint::new(self.inner.clone())
+    ) -> super::builder::telco_automation::ProposeBlueprint {
+        super::builder::telco_automation::ProposeBlueprint::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -271,8 +303,8 @@ impl TelcoAutomation {
     pub fn reject_blueprint(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::RejectBlueprint {
-        super::builders::telco_automation::RejectBlueprint::new(self.inner.clone())
+    ) -> super::builder::telco_automation::RejectBlueprint {
+        super::builder::telco_automation::RejectBlueprint::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -280,8 +312,8 @@ impl TelcoAutomation {
     pub fn list_blueprint_revisions(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::ListBlueprintRevisions {
-        super::builders::telco_automation::ListBlueprintRevisions::new(self.inner.clone())
+    ) -> super::builder::telco_automation::ListBlueprintRevisions {
+        super::builder::telco_automation::ListBlueprintRevisions::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -289,8 +321,8 @@ impl TelcoAutomation {
     pub fn search_blueprint_revisions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::SearchBlueprintRevisions {
-        super::builders::telco_automation::SearchBlueprintRevisions::new(self.inner.clone())
+    ) -> super::builder::telco_automation::SearchBlueprintRevisions {
+        super::builder::telco_automation::SearchBlueprintRevisions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -298,8 +330,8 @@ impl TelcoAutomation {
     pub fn search_deployment_revisions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::SearchDeploymentRevisions {
-        super::builders::telco_automation::SearchDeploymentRevisions::new(self.inner.clone())
+    ) -> super::builder::telco_automation::SearchDeploymentRevisions {
+        super::builder::telco_automation::SearchDeploymentRevisions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -309,8 +341,8 @@ impl TelcoAutomation {
     pub fn discard_blueprint_changes(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::DiscardBlueprintChanges {
-        super::builders::telco_automation::DiscardBlueprintChanges::new(self.inner.clone())
+    ) -> super::builder::telco_automation::DiscardBlueprintChanges {
+        super::builder::telco_automation::DiscardBlueprintChanges::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -319,8 +351,8 @@ impl TelcoAutomation {
     pub fn list_public_blueprints(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::ListPublicBlueprints {
-        super::builders::telco_automation::ListPublicBlueprints::new(self.inner.clone())
+    ) -> super::builder::telco_automation::ListPublicBlueprints {
+        super::builder::telco_automation::ListPublicBlueprints::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -328,8 +360,8 @@ impl TelcoAutomation {
     pub fn get_public_blueprint(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::GetPublicBlueprint {
-        super::builders::telco_automation::GetPublicBlueprint::new(self.inner.clone())
+    ) -> super::builder::telco_automation::GetPublicBlueprint {
+        super::builder::telco_automation::GetPublicBlueprint::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -337,8 +369,8 @@ impl TelcoAutomation {
     pub fn create_deployment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::CreateDeployment {
-        super::builders::telco_automation::CreateDeployment::new(self.inner.clone())
+    ) -> super::builder::telco_automation::CreateDeployment {
+        super::builder::telco_automation::CreateDeployment::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -346,8 +378,8 @@ impl TelcoAutomation {
     pub fn update_deployment(
         &self,
         deployment: impl Into<crate::model::Deployment>,
-    ) -> super::builders::telco_automation::UpdateDeployment {
-        super::builders::telco_automation::UpdateDeployment::new(self.inner.clone())
+    ) -> super::builder::telco_automation::UpdateDeployment {
+        super::builder::telco_automation::UpdateDeployment::new(self.inner.clone())
             .set_deployment(deployment.into())
     }
 
@@ -355,8 +387,8 @@ impl TelcoAutomation {
     pub fn get_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::GetDeployment {
-        super::builders::telco_automation::GetDeployment::new(self.inner.clone())
+    ) -> super::builder::telco_automation::GetDeployment {
+        super::builder::telco_automation::GetDeployment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -365,8 +397,8 @@ impl TelcoAutomation {
     pub fn remove_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::RemoveDeployment {
-        super::builders::telco_automation::RemoveDeployment::new(self.inner.clone())
+    ) -> super::builder::telco_automation::RemoveDeployment {
+        super::builder::telco_automation::RemoveDeployment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -374,8 +406,8 @@ impl TelcoAutomation {
     pub fn list_deployments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::ListDeployments {
-        super::builders::telco_automation::ListDeployments::new(self.inner.clone())
+    ) -> super::builder::telco_automation::ListDeployments {
+        super::builder::telco_automation::ListDeployments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -383,8 +415,8 @@ impl TelcoAutomation {
     pub fn list_deployment_revisions(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::ListDeploymentRevisions {
-        super::builders::telco_automation::ListDeploymentRevisions::new(self.inner.clone())
+    ) -> super::builder::telco_automation::ListDeploymentRevisions {
+        super::builder::telco_automation::ListDeploymentRevisions::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -394,8 +426,8 @@ impl TelcoAutomation {
     pub fn discard_deployment_changes(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::DiscardDeploymentChanges {
-        super::builders::telco_automation::DiscardDeploymentChanges::new(self.inner.clone())
+    ) -> super::builder::telco_automation::DiscardDeploymentChanges {
+        super::builder::telco_automation::DiscardDeploymentChanges::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -403,8 +435,8 @@ impl TelcoAutomation {
     pub fn apply_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::ApplyDeployment {
-        super::builders::telco_automation::ApplyDeployment::new(self.inner.clone())
+    ) -> super::builder::telco_automation::ApplyDeployment {
+        super::builder::telco_automation::ApplyDeployment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -412,8 +444,8 @@ impl TelcoAutomation {
     pub fn compute_deployment_status(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::ComputeDeploymentStatus {
-        super::builders::telco_automation::ComputeDeploymentStatus::new(self.inner.clone())
+    ) -> super::builder::telco_automation::ComputeDeploymentStatus {
+        super::builder::telco_automation::ComputeDeploymentStatus::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -422,8 +454,8 @@ impl TelcoAutomation {
     pub fn rollback_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::RollbackDeployment {
-        super::builders::telco_automation::RollbackDeployment::new(self.inner.clone())
+    ) -> super::builder::telco_automation::RollbackDeployment {
+        super::builder::telco_automation::RollbackDeployment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -431,8 +463,8 @@ impl TelcoAutomation {
     pub fn get_hydrated_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::GetHydratedDeployment {
-        super::builders::telco_automation::GetHydratedDeployment::new(self.inner.clone())
+    ) -> super::builder::telco_automation::GetHydratedDeployment {
+        super::builder::telco_automation::GetHydratedDeployment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -440,8 +472,8 @@ impl TelcoAutomation {
     pub fn list_hydrated_deployments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::ListHydratedDeployments {
-        super::builders::telco_automation::ListHydratedDeployments::new(self.inner.clone())
+    ) -> super::builder::telco_automation::ListHydratedDeployments {
+        super::builder::telco_automation::ListHydratedDeployments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -449,8 +481,8 @@ impl TelcoAutomation {
     pub fn update_hydrated_deployment(
         &self,
         hydrated_deployment: impl Into<crate::model::HydratedDeployment>,
-    ) -> super::builders::telco_automation::UpdateHydratedDeployment {
-        super::builders::telco_automation::UpdateHydratedDeployment::new(self.inner.clone())
+    ) -> super::builder::telco_automation::UpdateHydratedDeployment {
+        super::builder::telco_automation::UpdateHydratedDeployment::new(self.inner.clone())
             .set_hydrated_deployment(hydrated_deployment.into())
     }
 
@@ -458,8 +490,8 @@ impl TelcoAutomation {
     pub fn apply_hydrated_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::ApplyHydratedDeployment {
-        super::builders::telco_automation::ApplyHydratedDeployment::new(self.inner.clone())
+    ) -> super::builder::telco_automation::ApplyHydratedDeployment {
+        super::builder::telco_automation::ApplyHydratedDeployment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -467,8 +499,8 @@ impl TelcoAutomation {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::ListLocations {
-        super::builders::telco_automation::ListLocations::new(self.inner.clone())
+    ) -> super::builder::telco_automation::ListLocations {
+        super::builder::telco_automation::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -476,9 +508,8 @@ impl TelcoAutomation {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::GetLocation {
-        super::builders::telco_automation::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::telco_automation::GetLocation {
+        super::builder::telco_automation::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -487,8 +518,8 @@ impl TelcoAutomation {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::ListOperations {
-        super::builders::telco_automation::ListOperations::new(self.inner.clone())
+    ) -> super::builder::telco_automation::ListOperations {
+        super::builder::telco_automation::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -498,8 +529,8 @@ impl TelcoAutomation {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::GetOperation {
-        super::builders::telco_automation::GetOperation::new(self.inner.clone())
+    ) -> super::builder::telco_automation::GetOperation {
+        super::builder::telco_automation::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -509,8 +540,8 @@ impl TelcoAutomation {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::DeleteOperation {
-        super::builders::telco_automation::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::telco_automation::DeleteOperation {
+        super::builder::telco_automation::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -520,8 +551,8 @@ impl TelcoAutomation {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::telco_automation::CancelOperation {
-        super::builders::telco_automation::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::telco_automation::CancelOperation {
+        super::builder::telco_automation::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

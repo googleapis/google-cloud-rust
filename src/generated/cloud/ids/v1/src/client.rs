@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud IDS API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_ids_v1::client::Ids;
+/// let client = Ids::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// The IDS Service
 ///
 /// # Configuration
 ///
-/// `Ids` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Ids` use the `with_*` methods in the type returned
+/// by [builder()][Ids::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://ids.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::ids::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::ids::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,50 +62,54 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Ids {
-    inner: Arc<dyn super::stubs::dynamic::Ids>,
+    inner: Arc<dyn super::stub::dynamic::Ids>,
 }
 
 impl Ids {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Ids].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_ids_v1::client::Ids;
+    /// let client = Ids::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::ids::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::ids::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Ids + 'static,
+        T: super::stub::Ids + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Ids>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Ids>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stubs::Ids> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stub::Ids> {
         super::transport::Ids::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Ids> {
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stub::Ids> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Ids::new)
@@ -91,16 +119,16 @@ impl Ids {
     pub fn list_endpoints(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::ids::ListEndpoints {
-        super::builders::ids::ListEndpoints::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::ids::ListEndpoints {
+        super::builder::ids::ListEndpoints::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets details of a single Endpoint.
     pub fn get_endpoint(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::ids::GetEndpoint {
-        super::builders::ids::GetEndpoint::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::ids::GetEndpoint {
+        super::builder::ids::GetEndpoint::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Endpoint in a given project and location.
@@ -117,8 +145,8 @@ impl Ids {
     pub fn create_endpoint(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::ids::CreateEndpoint {
-        super::builders::ids::CreateEndpoint::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::ids::CreateEndpoint {
+        super::builder::ids::CreateEndpoint::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Deletes a single Endpoint.
@@ -135,8 +163,8 @@ impl Ids {
     pub fn delete_endpoint(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::ids::DeleteEndpoint {
-        super::builders::ids::DeleteEndpoint::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::ids::DeleteEndpoint {
+        super::builder::ids::DeleteEndpoint::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -145,8 +173,8 @@ impl Ids {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::ids::ListOperations {
-        super::builders::ids::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::ids::ListOperations {
+        super::builder::ids::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -155,8 +183,8 @@ impl Ids {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::ids::GetOperation {
-        super::builders::ids::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::ids::GetOperation {
+        super::builder::ids::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -165,8 +193,8 @@ impl Ids {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::ids::DeleteOperation {
-        super::builders::ids::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::ids::DeleteOperation {
+        super::builder::ids::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -175,7 +203,7 @@ impl Ids {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::ids::CancelOperation {
-        super::builders::ids::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::ids::CancelOperation {
+        super::builder::ids::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

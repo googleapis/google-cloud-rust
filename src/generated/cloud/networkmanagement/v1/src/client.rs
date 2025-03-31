@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Network Management API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+/// let client = ReachabilityService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// The Reachability service in the Google Cloud Network Management API provides
@@ -34,8 +43,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `ReachabilityService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ReachabilityService` use the `with_*` methods in the type returned
+/// by [builder()][ReachabilityService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://networkmanagement.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::reachability_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::reachability_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -45,37 +69,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ReachabilityService {
-    inner: Arc<dyn super::stubs::dynamic::ReachabilityService>,
+    inner: Arc<dyn super::stub::dynamic::ReachabilityService>,
 }
 
 impl ReachabilityService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ReachabilityService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// let client = ReachabilityService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::reachability_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::reachability_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ReachabilityService + 'static,
+        T: super::stub::ReachabilityService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ReachabilityService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ReachabilityService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -84,13 +116,13 @@ impl ReachabilityService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ReachabilityService> {
+    ) -> Result<impl super::stub::ReachabilityService> {
         super::transport::ReachabilityService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ReachabilityService> {
+    ) -> Result<impl super::stub::ReachabilityService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ReachabilityService::new)
@@ -100,8 +132,8 @@ impl ReachabilityService {
     pub fn list_connectivity_tests(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::reachability_service::ListConnectivityTests {
-        super::builders::reachability_service::ListConnectivityTests::new(self.inner.clone())
+    ) -> super::builder::reachability_service::ListConnectivityTests {
+        super::builder::reachability_service::ListConnectivityTests::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -109,8 +141,8 @@ impl ReachabilityService {
     pub fn get_connectivity_test(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reachability_service::GetConnectivityTest {
-        super::builders::reachability_service::GetConnectivityTest::new(self.inner.clone())
+    ) -> super::builder::reachability_service::GetConnectivityTest {
+        super::builder::reachability_service::GetConnectivityTest::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -140,8 +172,8 @@ impl ReachabilityService {
     pub fn create_connectivity_test(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::reachability_service::CreateConnectivityTest {
-        super::builders::reachability_service::CreateConnectivityTest::new(self.inner.clone())
+    ) -> super::builder::reachability_service::CreateConnectivityTest {
+        super::builder::reachability_service::CreateConnectivityTest::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -172,8 +204,8 @@ impl ReachabilityService {
     pub fn update_connectivity_test(
         &self,
         resource: impl Into<crate::model::ConnectivityTest>,
-    ) -> super::builders::reachability_service::UpdateConnectivityTest {
-        super::builders::reachability_service::UpdateConnectivityTest::new(self.inner.clone())
+    ) -> super::builder::reachability_service::UpdateConnectivityTest {
+        super::builder::reachability_service::UpdateConnectivityTest::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -202,8 +234,8 @@ impl ReachabilityService {
     pub fn rerun_connectivity_test(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reachability_service::RerunConnectivityTest {
-        super::builders::reachability_service::RerunConnectivityTest::new(self.inner.clone())
+    ) -> super::builder::reachability_service::RerunConnectivityTest {
+        super::builder::reachability_service::RerunConnectivityTest::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -221,8 +253,8 @@ impl ReachabilityService {
     pub fn delete_connectivity_test(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reachability_service::DeleteConnectivityTest {
-        super::builders::reachability_service::DeleteConnectivityTest::new(self.inner.clone())
+    ) -> super::builder::reachability_service::DeleteConnectivityTest {
+        super::builder::reachability_service::DeleteConnectivityTest::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -230,8 +262,8 @@ impl ReachabilityService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reachability_service::ListLocations {
-        super::builders::reachability_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::reachability_service::ListLocations {
+        super::builder::reachability_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -239,8 +271,8 @@ impl ReachabilityService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reachability_service::GetLocation {
-        super::builders::reachability_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::reachability_service::GetLocation {
+        super::builder::reachability_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -252,8 +284,8 @@ impl ReachabilityService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::reachability_service::SetIamPolicy {
-        super::builders::reachability_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::reachability_service::SetIamPolicy {
+        super::builder::reachability_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -262,8 +294,8 @@ impl ReachabilityService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::reachability_service::GetIamPolicy {
-        super::builders::reachability_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::reachability_service::GetIamPolicy {
+        super::builder::reachability_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -277,8 +309,8 @@ impl ReachabilityService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::reachability_service::TestIamPermissions {
-        super::builders::reachability_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::reachability_service::TestIamPermissions {
+        super::builder::reachability_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -288,8 +320,8 @@ impl ReachabilityService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reachability_service::ListOperations {
-        super::builders::reachability_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::reachability_service::ListOperations {
+        super::builder::reachability_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -299,8 +331,8 @@ impl ReachabilityService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reachability_service::GetOperation {
-        super::builders::reachability_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::reachability_service::GetOperation {
+        super::builder::reachability_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -310,8 +342,8 @@ impl ReachabilityService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reachability_service::DeleteOperation {
-        super::builders::reachability_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::reachability_service::DeleteOperation {
+        super::builder::reachability_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -321,13 +353,22 @@ impl ReachabilityService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::reachability_service::CancelOperation {
-        super::builders::reachability_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::reachability_service::CancelOperation {
+        super::builder::reachability_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Network Management API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+/// let client = VpcFlowLogsService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -337,8 +378,23 @@ impl ReachabilityService {
 ///
 /// # Configuration
 ///
-/// `VpcFlowLogsService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `VpcFlowLogsService` use the `with_*` methods in the type returned
+/// by [builder()][VpcFlowLogsService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://networkmanagement.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::vpc_flow_logs_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::vpc_flow_logs_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -348,37 +404,45 @@ impl ReachabilityService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct VpcFlowLogsService {
-    inner: Arc<dyn super::stubs::dynamic::VpcFlowLogsService>,
+    inner: Arc<dyn super::stub::dynamic::VpcFlowLogsService>,
 }
 
 impl VpcFlowLogsService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [VpcFlowLogsService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// let client = VpcFlowLogsService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::vpc_flow_logs_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::vpc_flow_logs_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::VpcFlowLogsService + 'static,
+        T: super::stub::VpcFlowLogsService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::VpcFlowLogsService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::VpcFlowLogsService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -387,13 +451,13 @@ impl VpcFlowLogsService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::VpcFlowLogsService> {
+    ) -> Result<impl super::stub::VpcFlowLogsService> {
         super::transport::VpcFlowLogsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::VpcFlowLogsService> {
+    ) -> Result<impl super::stub::VpcFlowLogsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::VpcFlowLogsService::new)
@@ -403,8 +467,8 @@ impl VpcFlowLogsService {
     pub fn list_vpc_flow_logs_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vpc_flow_logs_service::ListVpcFlowLogsConfigs {
-        super::builders::vpc_flow_logs_service::ListVpcFlowLogsConfigs::new(self.inner.clone())
+    ) -> super::builder::vpc_flow_logs_service::ListVpcFlowLogsConfigs {
+        super::builder::vpc_flow_logs_service::ListVpcFlowLogsConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -412,8 +476,8 @@ impl VpcFlowLogsService {
     pub fn get_vpc_flow_logs_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vpc_flow_logs_service::GetVpcFlowLogsConfig {
-        super::builders::vpc_flow_logs_service::GetVpcFlowLogsConfig::new(self.inner.clone())
+    ) -> super::builder::vpc_flow_logs_service::GetVpcFlowLogsConfig {
+        super::builder::vpc_flow_logs_service::GetVpcFlowLogsConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -445,8 +509,8 @@ impl VpcFlowLogsService {
     pub fn create_vpc_flow_logs_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::vpc_flow_logs_service::CreateVpcFlowLogsConfig {
-        super::builders::vpc_flow_logs_service::CreateVpcFlowLogsConfig::new(self.inner.clone())
+    ) -> super::builder::vpc_flow_logs_service::CreateVpcFlowLogsConfig {
+        super::builder::vpc_flow_logs_service::CreateVpcFlowLogsConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -478,8 +542,8 @@ impl VpcFlowLogsService {
     pub fn update_vpc_flow_logs_config(
         &self,
         vpc_flow_logs_config: impl Into<crate::model::VpcFlowLogsConfig>,
-    ) -> super::builders::vpc_flow_logs_service::UpdateVpcFlowLogsConfig {
-        super::builders::vpc_flow_logs_service::UpdateVpcFlowLogsConfig::new(self.inner.clone())
+    ) -> super::builder::vpc_flow_logs_service::UpdateVpcFlowLogsConfig {
+        super::builder::vpc_flow_logs_service::UpdateVpcFlowLogsConfig::new(self.inner.clone())
             .set_vpc_flow_logs_config(vpc_flow_logs_config.into())
     }
 
@@ -497,8 +561,8 @@ impl VpcFlowLogsService {
     pub fn delete_vpc_flow_logs_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vpc_flow_logs_service::DeleteVpcFlowLogsConfig {
-        super::builders::vpc_flow_logs_service::DeleteVpcFlowLogsConfig::new(self.inner.clone())
+    ) -> super::builder::vpc_flow_logs_service::DeleteVpcFlowLogsConfig {
+        super::builder::vpc_flow_logs_service::DeleteVpcFlowLogsConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -506,8 +570,8 @@ impl VpcFlowLogsService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vpc_flow_logs_service::ListLocations {
-        super::builders::vpc_flow_logs_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::vpc_flow_logs_service::ListLocations {
+        super::builder::vpc_flow_logs_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -515,8 +579,8 @@ impl VpcFlowLogsService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vpc_flow_logs_service::GetLocation {
-        super::builders::vpc_flow_logs_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::vpc_flow_logs_service::GetLocation {
+        super::builder::vpc_flow_logs_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -528,8 +592,8 @@ impl VpcFlowLogsService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::vpc_flow_logs_service::SetIamPolicy {
-        super::builders::vpc_flow_logs_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::vpc_flow_logs_service::SetIamPolicy {
+        super::builder::vpc_flow_logs_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -538,8 +602,8 @@ impl VpcFlowLogsService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::vpc_flow_logs_service::GetIamPolicy {
-        super::builders::vpc_flow_logs_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::vpc_flow_logs_service::GetIamPolicy {
+        super::builder::vpc_flow_logs_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -553,8 +617,8 @@ impl VpcFlowLogsService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::vpc_flow_logs_service::TestIamPermissions {
-        super::builders::vpc_flow_logs_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::vpc_flow_logs_service::TestIamPermissions {
+        super::builder::vpc_flow_logs_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -564,8 +628,8 @@ impl VpcFlowLogsService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vpc_flow_logs_service::ListOperations {
-        super::builders::vpc_flow_logs_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::vpc_flow_logs_service::ListOperations {
+        super::builder::vpc_flow_logs_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -575,8 +639,8 @@ impl VpcFlowLogsService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vpc_flow_logs_service::GetOperation {
-        super::builders::vpc_flow_logs_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::vpc_flow_logs_service::GetOperation {
+        super::builder::vpc_flow_logs_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -586,8 +650,8 @@ impl VpcFlowLogsService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vpc_flow_logs_service::DeleteOperation {
-        super::builders::vpc_flow_logs_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::vpc_flow_logs_service::DeleteOperation {
+        super::builder::vpc_flow_logs_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -597,8 +661,8 @@ impl VpcFlowLogsService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::vpc_flow_logs_service::CancelOperation {
-        super::builders::vpc_flow_logs_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::vpc_flow_logs_service::CancelOperation {
+        super::builder::vpc_flow_logs_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

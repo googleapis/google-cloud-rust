@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Build API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_build_v2::client::RepositoryManager;
+/// let client = RepositoryManager::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Manages connections to source code repositories.
 ///
 /// # Configuration
 ///
-/// `RepositoryManager` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `RepositoryManager` use the `with_*` methods in the type returned
+/// by [builder()][RepositoryManager::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://cloudbuild.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::repository_manager::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::repository_manager::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,37 +62,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct RepositoryManager {
-    inner: Arc<dyn super::stubs::dynamic::RepositoryManager>,
+    inner: Arc<dyn super::stub::dynamic::RepositoryManager>,
 }
 
 impl RepositoryManager {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [RepositoryManager].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_build_v2::client::RepositoryManager;
+    /// let client = RepositoryManager::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::repository_manager::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::repository_manager::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::RepositoryManager + 'static,
+        T: super::stub::RepositoryManager + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::RepositoryManager>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::RepositoryManager>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +109,13 @@ impl RepositoryManager {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::RepositoryManager> {
+    ) -> Result<impl super::stub::RepositoryManager> {
         super::transport::RepositoryManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::RepositoryManager> {
+    ) -> Result<impl super::stub::RepositoryManager> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::RepositoryManager::new)
@@ -103,8 +135,8 @@ impl RepositoryManager {
     pub fn create_connection(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::repository_manager::CreateConnection {
-        super::builders::repository_manager::CreateConnection::new(self.inner.clone())
+    ) -> super::builder::repository_manager::CreateConnection {
+        super::builder::repository_manager::CreateConnection::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -112,8 +144,8 @@ impl RepositoryManager {
     pub fn get_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::repository_manager::GetConnection {
-        super::builders::repository_manager::GetConnection::new(self.inner.clone())
+    ) -> super::builder::repository_manager::GetConnection {
+        super::builder::repository_manager::GetConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -121,8 +153,8 @@ impl RepositoryManager {
     pub fn list_connections(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::repository_manager::ListConnections {
-        super::builders::repository_manager::ListConnections::new(self.inner.clone())
+    ) -> super::builder::repository_manager::ListConnections {
+        super::builder::repository_manager::ListConnections::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -140,8 +172,8 @@ impl RepositoryManager {
     pub fn update_connection(
         &self,
         connection: impl Into<crate::model::Connection>,
-    ) -> super::builders::repository_manager::UpdateConnection {
-        super::builders::repository_manager::UpdateConnection::new(self.inner.clone())
+    ) -> super::builder::repository_manager::UpdateConnection {
+        super::builder::repository_manager::UpdateConnection::new(self.inner.clone())
             .set_connection(connection.into())
     }
 
@@ -159,8 +191,8 @@ impl RepositoryManager {
     pub fn delete_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::repository_manager::DeleteConnection {
-        super::builders::repository_manager::DeleteConnection::new(self.inner.clone())
+    ) -> super::builder::repository_manager::DeleteConnection {
+        super::builder::repository_manager::DeleteConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -178,8 +210,8 @@ impl RepositoryManager {
     pub fn create_repository(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::repository_manager::CreateRepository {
-        super::builders::repository_manager::CreateRepository::new(self.inner.clone())
+    ) -> super::builder::repository_manager::CreateRepository {
+        super::builder::repository_manager::CreateRepository::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -197,8 +229,8 @@ impl RepositoryManager {
     pub fn batch_create_repositories(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::repository_manager::BatchCreateRepositories {
-        super::builders::repository_manager::BatchCreateRepositories::new(self.inner.clone())
+    ) -> super::builder::repository_manager::BatchCreateRepositories {
+        super::builder::repository_manager::BatchCreateRepositories::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -206,8 +238,8 @@ impl RepositoryManager {
     pub fn get_repository(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::repository_manager::GetRepository {
-        super::builders::repository_manager::GetRepository::new(self.inner.clone())
+    ) -> super::builder::repository_manager::GetRepository {
+        super::builder::repository_manager::GetRepository::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -215,8 +247,8 @@ impl RepositoryManager {
     pub fn list_repositories(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::repository_manager::ListRepositories {
-        super::builders::repository_manager::ListRepositories::new(self.inner.clone())
+    ) -> super::builder::repository_manager::ListRepositories {
+        super::builder::repository_manager::ListRepositories::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -234,8 +266,8 @@ impl RepositoryManager {
     pub fn delete_repository(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::repository_manager::DeleteRepository {
-        super::builders::repository_manager::DeleteRepository::new(self.inner.clone())
+    ) -> super::builder::repository_manager::DeleteRepository {
+        super::builder::repository_manager::DeleteRepository::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -243,8 +275,8 @@ impl RepositoryManager {
     pub fn fetch_read_write_token(
         &self,
         repository: impl Into<std::string::String>,
-    ) -> super::builders::repository_manager::FetchReadWriteToken {
-        super::builders::repository_manager::FetchReadWriteToken::new(self.inner.clone())
+    ) -> super::builder::repository_manager::FetchReadWriteToken {
+        super::builder::repository_manager::FetchReadWriteToken::new(self.inner.clone())
             .set_repository(repository.into())
     }
 
@@ -252,8 +284,8 @@ impl RepositoryManager {
     pub fn fetch_read_token(
         &self,
         repository: impl Into<std::string::String>,
-    ) -> super::builders::repository_manager::FetchReadToken {
-        super::builders::repository_manager::FetchReadToken::new(self.inner.clone())
+    ) -> super::builder::repository_manager::FetchReadToken {
+        super::builder::repository_manager::FetchReadToken::new(self.inner.clone())
             .set_repository(repository.into())
     }
 
@@ -262,8 +294,8 @@ impl RepositoryManager {
     pub fn fetch_linkable_repositories(
         &self,
         connection: impl Into<std::string::String>,
-    ) -> super::builders::repository_manager::FetchLinkableRepositories {
-        super::builders::repository_manager::FetchLinkableRepositories::new(self.inner.clone())
+    ) -> super::builder::repository_manager::FetchLinkableRepositories {
+        super::builder::repository_manager::FetchLinkableRepositories::new(self.inner.clone())
             .set_connection(connection.into())
     }
 
@@ -271,8 +303,8 @@ impl RepositoryManager {
     pub fn fetch_git_refs(
         &self,
         repository: impl Into<std::string::String>,
-    ) -> super::builders::repository_manager::FetchGitRefs {
-        super::builders::repository_manager::FetchGitRefs::new(self.inner.clone())
+    ) -> super::builder::repository_manager::FetchGitRefs {
+        super::builder::repository_manager::FetchGitRefs::new(self.inner.clone())
             .set_repository(repository.into())
     }
 
@@ -284,8 +316,8 @@ impl RepositoryManager {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::repository_manager::SetIamPolicy {
-        super::builders::repository_manager::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::repository_manager::SetIamPolicy {
+        super::builder::repository_manager::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -294,8 +326,8 @@ impl RepositoryManager {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::repository_manager::GetIamPolicy {
-        super::builders::repository_manager::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::repository_manager::GetIamPolicy {
+        super::builder::repository_manager::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -309,8 +341,8 @@ impl RepositoryManager {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::repository_manager::TestIamPermissions {
-        super::builders::repository_manager::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::repository_manager::TestIamPermissions {
+        super::builder::repository_manager::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -320,8 +352,8 @@ impl RepositoryManager {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::repository_manager::GetOperation {
-        super::builders::repository_manager::GetOperation::new(self.inner.clone())
+    ) -> super::builder::repository_manager::GetOperation {
+        super::builder::repository_manager::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -331,8 +363,8 @@ impl RepositoryManager {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::repository_manager::CancelOperation {
-        super::builders::repository_manager::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::repository_manager::CancelOperation {
+        super::builder::repository_manager::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

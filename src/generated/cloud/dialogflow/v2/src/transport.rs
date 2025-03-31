@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Agents](super::stubs::Agents) using a [gaxi::http::ReqwestClient].
+/// Implements [Agents](super::stub::Agents) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Agents {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl Agents {
     }
 }
 
-impl super::stubs::Agents for Agents {
+impl super::stub::Agents for Agents {
     async fn get_agent(
         &self,
         req: crate::model::GetAgentRequest,
@@ -99,7 +99,7 @@ impl super::stubs::Agents for Agents {
         &self,
         req: crate::model::DeleteAgentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -112,6 +112,7 @@ impl super::stubs::Agents for Agents {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn search_agents(
@@ -327,7 +328,7 @@ impl super::stubs::Agents for Agents {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -340,6 +341,7 @@ impl super::stubs::Agents for Agents {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -357,7 +359,7 @@ impl super::stubs::Agents for Agents {
     }
 }
 
-/// Implements [AnswerRecords](super::stubs::AnswerRecords) using a [gaxi::http::ReqwestClient].
+/// Implements [AnswerRecords](super::stub::AnswerRecords) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct AnswerRecords {
     inner: gaxi::http::ReqwestClient,
@@ -378,7 +380,7 @@ impl AnswerRecords {
     }
 }
 
-impl super::stubs::AnswerRecords for AnswerRecords {
+impl super::stub::AnswerRecords for AnswerRecords {
     async fn list_answer_records(
         &self,
         req: crate::model::ListAnswerRecordsRequest,
@@ -528,7 +530,7 @@ impl super::stubs::AnswerRecords for AnswerRecords {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -541,10 +543,11 @@ impl super::stubs::AnswerRecords for AnswerRecords {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
-/// Implements [Contexts](super::stubs::Contexts) using a [gaxi::http::ReqwestClient].
+/// Implements [Contexts](super::stub::Contexts) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Contexts {
     inner: gaxi::http::ReqwestClient,
@@ -565,7 +568,7 @@ impl Contexts {
     }
 }
 
-impl super::stubs::Contexts for Contexts {
+impl super::stub::Contexts for Contexts {
     async fn list_contexts(
         &self,
         req: crate::model::ListContextsRequest,
@@ -670,7 +673,7 @@ impl super::stubs::Contexts for Contexts {
         &self,
         req: crate::model::DeleteContextRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -683,13 +686,14 @@ impl super::stubs::Contexts for Contexts {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn delete_all_contexts(
         &self,
         req: crate::model::DeleteAllContextsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -705,6 +709,7 @@ impl super::stubs::Contexts for Contexts {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_locations(
@@ -793,7 +798,7 @@ impl super::stubs::Contexts for Contexts {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -806,10 +811,11 @@ impl super::stubs::Contexts for Contexts {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
-/// Implements [Conversations](super::stubs::Conversations) using a [gaxi::http::ReqwestClient].
+/// Implements [Conversations](super::stub::Conversations) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Conversations {
     inner: gaxi::http::ReqwestClient,
@@ -830,7 +836,7 @@ impl Conversations {
     }
 }
 
-impl super::stubs::Conversations for Conversations {
+impl super::stub::Conversations for Conversations {
     async fn create_conversation(
         &self,
         req: crate::model::CreateConversationRequest,
@@ -1152,7 +1158,7 @@ impl super::stubs::Conversations for Conversations {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1165,10 +1171,11 @@ impl super::stubs::Conversations for Conversations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
-/// Implements [ConversationDatasets](super::stubs::ConversationDatasets) using a [gaxi::http::ReqwestClient].
+/// Implements [ConversationDatasets](super::stub::ConversationDatasets) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ConversationDatasets {
     inner: gaxi::http::ReqwestClient,
@@ -1189,7 +1196,7 @@ impl ConversationDatasets {
     }
 }
 
-impl super::stubs::ConversationDatasets for ConversationDatasets {
+impl super::stub::ConversationDatasets for ConversationDatasets {
     async fn create_conversation_dataset(
         &self,
         req: crate::model::CreateConversationDatasetRequest,
@@ -1380,7 +1387,7 @@ impl super::stubs::ConversationDatasets for ConversationDatasets {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1393,6 +1400,7 @@ impl super::stubs::ConversationDatasets for ConversationDatasets {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -1410,7 +1418,7 @@ impl super::stubs::ConversationDatasets for ConversationDatasets {
     }
 }
 
-/// Implements [ConversationModels](super::stubs::ConversationModels) using a [gaxi::http::ReqwestClient].
+/// Implements [ConversationModels](super::stub::ConversationModels) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ConversationModels {
     inner: gaxi::http::ReqwestClient,
@@ -1431,7 +1439,7 @@ impl ConversationModels {
     }
 }
 
-impl super::stubs::ConversationModels for ConversationModels {
+impl super::stub::ConversationModels for ConversationModels {
     async fn create_conversation_model(
         &self,
         req: crate::model::CreateConversationModelRequest,
@@ -1699,7 +1707,7 @@ impl super::stubs::ConversationModels for ConversationModels {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1712,6 +1720,7 @@ impl super::stubs::ConversationModels for ConversationModels {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -1729,7 +1738,7 @@ impl super::stubs::ConversationModels for ConversationModels {
     }
 }
 
-/// Implements [ConversationProfiles](super::stubs::ConversationProfiles) using a [gaxi::http::ReqwestClient].
+/// Implements [ConversationProfiles](super::stub::ConversationProfiles) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ConversationProfiles {
     inner: gaxi::http::ReqwestClient,
@@ -1750,7 +1759,7 @@ impl ConversationProfiles {
     }
 }
 
-impl super::stubs::ConversationProfiles for ConversationProfiles {
+impl super::stub::ConversationProfiles for ConversationProfiles {
     async fn list_conversation_profiles(
         &self,
         req: crate::model::ListConversationProfilesRequest,
@@ -1858,7 +1867,7 @@ impl super::stubs::ConversationProfiles for ConversationProfiles {
         &self,
         req: crate::model::DeleteConversationProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1871,6 +1880,7 @@ impl super::stubs::ConversationProfiles for ConversationProfiles {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn set_suggestion_feature_config(
@@ -2005,7 +2015,7 @@ impl super::stubs::ConversationProfiles for ConversationProfiles {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2018,6 +2028,7 @@ impl super::stubs::ConversationProfiles for ConversationProfiles {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -2035,7 +2046,7 @@ impl super::stubs::ConversationProfiles for ConversationProfiles {
     }
 }
 
-/// Implements [Documents](super::stubs::Documents) using a [gaxi::http::ReqwestClient].
+/// Implements [Documents](super::stub::Documents) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Documents {
     inner: gaxi::http::ReqwestClient,
@@ -2056,7 +2067,7 @@ impl Documents {
     }
 }
 
-impl super::stubs::Documents for Documents {
+impl super::stub::Documents for Documents {
     async fn list_documents(
         &self,
         req: crate::model::ListDocumentsRequest,
@@ -2320,7 +2331,7 @@ impl super::stubs::Documents for Documents {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2333,6 +2344,7 @@ impl super::stubs::Documents for Documents {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -2350,7 +2362,7 @@ impl super::stubs::Documents for Documents {
     }
 }
 
-/// Implements [EncryptionSpecService](super::stubs::EncryptionSpecService) using a [gaxi::http::ReqwestClient].
+/// Implements [EncryptionSpecService](super::stub::EncryptionSpecService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct EncryptionSpecService {
     inner: gaxi::http::ReqwestClient,
@@ -2371,7 +2383,7 @@ impl EncryptionSpecService {
     }
 }
 
-impl super::stubs::EncryptionSpecService for EncryptionSpecService {
+impl super::stub::EncryptionSpecService for EncryptionSpecService {
     async fn get_encryption_spec(
         &self,
         req: crate::model::GetEncryptionSpecRequest,
@@ -2503,7 +2515,7 @@ impl super::stubs::EncryptionSpecService for EncryptionSpecService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2516,6 +2528,7 @@ impl super::stubs::EncryptionSpecService for EncryptionSpecService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -2533,7 +2546,7 @@ impl super::stubs::EncryptionSpecService for EncryptionSpecService {
     }
 }
 
-/// Implements [EntityTypes](super::stubs::EntityTypes) using a [gaxi::http::ReqwestClient].
+/// Implements [EntityTypes](super::stub::EntityTypes) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct EntityTypes {
     inner: gaxi::http::ReqwestClient,
@@ -2554,7 +2567,7 @@ impl EntityTypes {
     }
 }
 
-impl super::stubs::EntityTypes for EntityTypes {
+impl super::stub::EntityTypes for EntityTypes {
     async fn list_entity_types(
         &self,
         req: crate::model::ListEntityTypesRequest,
@@ -2666,7 +2679,7 @@ impl super::stubs::EntityTypes for EntityTypes {
         &self,
         req: crate::model::DeleteEntityTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -2679,6 +2692,7 @@ impl super::stubs::EntityTypes for EntityTypes {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn batch_update_entity_types(
@@ -2867,7 +2881,7 @@ impl super::stubs::EntityTypes for EntityTypes {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2880,6 +2894,7 @@ impl super::stubs::EntityTypes for EntityTypes {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -2897,7 +2912,7 @@ impl super::stubs::EntityTypes for EntityTypes {
     }
 }
 
-/// Implements [Environments](super::stubs::Environments) using a [gaxi::http::ReqwestClient].
+/// Implements [Environments](super::stub::Environments) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Environments {
     inner: gaxi::http::ReqwestClient,
@@ -2918,7 +2933,7 @@ impl Environments {
     }
 }
 
-impl super::stubs::Environments for Environments {
+impl super::stub::Environments for Environments {
     async fn list_environments(
         &self,
         req: crate::model::ListEnvironmentsRequest,
@@ -3031,7 +3046,7 @@ impl super::stubs::Environments for Environments {
         &self,
         req: crate::model::DeleteEnvironmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -3044,6 +3059,7 @@ impl super::stubs::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn get_environment_history(
@@ -3153,7 +3169,7 @@ impl super::stubs::Environments for Environments {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -3166,10 +3182,11 @@ impl super::stubs::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
-/// Implements [Fulfillments](super::stubs::Fulfillments) using a [gaxi::http::ReqwestClient].
+/// Implements [Fulfillments](super::stub::Fulfillments) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Fulfillments {
     inner: gaxi::http::ReqwestClient,
@@ -3190,7 +3207,7 @@ impl Fulfillments {
     }
 }
 
-impl super::stubs::Fulfillments for Fulfillments {
+impl super::stub::Fulfillments for Fulfillments {
     async fn get_fulfillment(
         &self,
         req: crate::model::GetFulfillmentRequest,
@@ -3334,7 +3351,7 @@ impl super::stubs::Fulfillments for Fulfillments {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -3347,10 +3364,11 @@ impl super::stubs::Fulfillments for Fulfillments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
-/// Implements [Generators](super::stubs::Generators) using a [gaxi::http::ReqwestClient].
+/// Implements [Generators](super::stub::Generators) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Generators {
     inner: gaxi::http::ReqwestClient,
@@ -3371,7 +3389,7 @@ impl Generators {
     }
 }
 
-impl super::stubs::Generators for Generators {
+impl super::stub::Generators for Generators {
     async fn create_generator(
         &self,
         req: crate::model::CreateGeneratorRequest,
@@ -3442,7 +3460,7 @@ impl super::stubs::Generators for Generators {
         &self,
         req: crate::model::DeleteGeneratorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -3455,6 +3473,7 @@ impl super::stubs::Generators for Generators {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn update_generator(
@@ -3581,7 +3600,7 @@ impl super::stubs::Generators for Generators {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -3594,10 +3613,11 @@ impl super::stubs::Generators for Generators {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
-/// Implements [Intents](super::stubs::Intents) using a [gaxi::http::ReqwestClient].
+/// Implements [Intents](super::stub::Intents) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Intents {
     inner: gaxi::http::ReqwestClient,
@@ -3618,7 +3638,7 @@ impl Intents {
     }
 }
 
-impl super::stubs::Intents for Intents {
+impl super::stub::Intents for Intents {
     async fn list_intents(
         &self,
         req: crate::model::ListIntentsRequest,
@@ -3724,7 +3744,7 @@ impl super::stubs::Intents for Intents {
         &self,
         req: crate::model::DeleteIntentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -3737,6 +3757,7 @@ impl super::stubs::Intents for Intents {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn batch_update_intents(
@@ -3865,7 +3886,7 @@ impl super::stubs::Intents for Intents {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -3878,6 +3899,7 @@ impl super::stubs::Intents for Intents {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -3895,7 +3917,7 @@ impl super::stubs::Intents for Intents {
     }
 }
 
-/// Implements [KnowledgeBases](super::stubs::KnowledgeBases) using a [gaxi::http::ReqwestClient].
+/// Implements [KnowledgeBases](super::stub::KnowledgeBases) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct KnowledgeBases {
     inner: gaxi::http::ReqwestClient,
@@ -3916,7 +3938,7 @@ impl KnowledgeBases {
     }
 }
 
-impl super::stubs::KnowledgeBases for KnowledgeBases {
+impl super::stub::KnowledgeBases for KnowledgeBases {
     async fn list_knowledge_bases(
         &self,
         req: crate::model::ListKnowledgeBasesRequest,
@@ -3987,7 +4009,7 @@ impl super::stubs::KnowledgeBases for KnowledgeBases {
         &self,
         req: crate::model::DeleteKnowledgeBaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -4001,6 +4023,7 @@ impl super::stubs::KnowledgeBases for KnowledgeBases {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn update_knowledge_base(
@@ -4127,7 +4150,7 @@ impl super::stubs::KnowledgeBases for KnowledgeBases {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -4140,10 +4163,11 @@ impl super::stubs::KnowledgeBases for KnowledgeBases {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
-/// Implements [Participants](super::stubs::Participants) using a [gaxi::http::ReqwestClient].
+/// Implements [Participants](super::stub::Participants) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Participants {
     inner: gaxi::http::ReqwestClient,
@@ -4164,7 +4188,7 @@ impl Participants {
     }
 }
 
-impl super::stubs::Participants for Participants {
+impl super::stub::Participants for Participants {
     async fn create_participant(
         &self,
         req: crate::model::CreateParticipantRequest,
@@ -4454,7 +4478,7 @@ impl super::stubs::Participants for Participants {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -4467,10 +4491,11 @@ impl super::stubs::Participants for Participants {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
-/// Implements [Sessions](super::stubs::Sessions) using a [gaxi::http::ReqwestClient].
+/// Implements [Sessions](super::stub::Sessions) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Sessions {
     inner: gaxi::http::ReqwestClient,
@@ -4491,7 +4516,7 @@ impl Sessions {
     }
 }
 
-impl super::stubs::Sessions for Sessions {
+impl super::stub::Sessions for Sessions {
     async fn detect_intent(
         &self,
         req: crate::model::DetectIntentRequest,
@@ -4598,7 +4623,7 @@ impl super::stubs::Sessions for Sessions {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -4611,10 +4636,11 @@ impl super::stubs::Sessions for Sessions {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
-/// Implements [SessionEntityTypes](super::stubs::SessionEntityTypes) using a [gaxi::http::ReqwestClient].
+/// Implements [SessionEntityTypes](super::stub::SessionEntityTypes) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct SessionEntityTypes {
     inner: gaxi::http::ReqwestClient,
@@ -4635,7 +4661,7 @@ impl SessionEntityTypes {
     }
 }
 
-impl super::stubs::SessionEntityTypes for SessionEntityTypes {
+impl super::stub::SessionEntityTypes for SessionEntityTypes {
     async fn list_session_entity_types(
         &self,
         req: crate::model::ListSessionEntityTypesRequest,
@@ -4743,7 +4769,7 @@ impl super::stubs::SessionEntityTypes for SessionEntityTypes {
         &self,
         req: crate::model::DeleteSessionEntityTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -4756,6 +4782,7 @@ impl super::stubs::SessionEntityTypes for SessionEntityTypes {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_locations(
@@ -4844,7 +4871,7 @@ impl super::stubs::SessionEntityTypes for SessionEntityTypes {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -4857,10 +4884,11 @@ impl super::stubs::SessionEntityTypes for SessionEntityTypes {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
-/// Implements [Versions](super::stubs::Versions) using a [gaxi::http::ReqwestClient].
+/// Implements [Versions](super::stub::Versions) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Versions {
     inner: gaxi::http::ReqwestClient,
@@ -4881,7 +4909,7 @@ impl Versions {
     }
 }
 
-impl super::stubs::Versions for Versions {
+impl super::stub::Versions for Versions {
     async fn list_versions(
         &self,
         req: crate::model::ListVersionsRequest,
@@ -4986,7 +5014,7 @@ impl super::stubs::Versions for Versions {
         &self,
         req: crate::model::DeleteVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -4999,6 +5027,7 @@ impl super::stubs::Versions for Versions {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_locations(
@@ -5087,7 +5116,7 @@ impl super::stubs::Versions for Versions {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -5100,5 +5129,6 @@ impl super::stubs::Versions for Versions {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 }

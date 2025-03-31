@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Spanner API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+/// let client = DatabaseAdmin::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Cloud Spanner Database Admin API
@@ -34,8 +43,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `DatabaseAdmin` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `DatabaseAdmin` use the `with_*` methods in the type returned
+/// by [builder()][DatabaseAdmin::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://spanner.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::database_admin::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::database_admin::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -45,37 +69,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct DatabaseAdmin {
-    inner: Arc<dyn super::stubs::dynamic::DatabaseAdmin>,
+    inner: Arc<dyn super::stub::dynamic::DatabaseAdmin>,
 }
 
 impl DatabaseAdmin {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [DatabaseAdmin].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+    /// let client = DatabaseAdmin::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::database_admin::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::database_admin::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::DatabaseAdmin + 'static,
+        T: super::stub::DatabaseAdmin + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::DatabaseAdmin>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::DatabaseAdmin>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -84,13 +114,13 @@ impl DatabaseAdmin {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DatabaseAdmin> {
+    ) -> Result<impl super::stub::DatabaseAdmin> {
         super::transport::DatabaseAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DatabaseAdmin> {
+    ) -> Result<impl super::stub::DatabaseAdmin> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DatabaseAdmin::new)
@@ -100,8 +130,8 @@ impl DatabaseAdmin {
     pub fn list_databases(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::ListDatabases {
-        super::builders::database_admin::ListDatabases::new(self.inner.clone())
+    ) -> super::builder::database_admin::ListDatabases {
+        super::builder::database_admin::ListDatabases::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -132,8 +162,8 @@ impl DatabaseAdmin {
     pub fn create_database(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::CreateDatabase {
-        super::builders::database_admin::CreateDatabase::new(self.inner.clone())
+    ) -> super::builder::database_admin::CreateDatabase {
+        super::builder::database_admin::CreateDatabase::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -141,8 +171,8 @@ impl DatabaseAdmin {
     pub fn get_database(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::GetDatabase {
-        super::builders::database_admin::GetDatabase::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::database_admin::GetDatabase {
+        super::builder::database_admin::GetDatabase::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates a Cloud Spanner database. The returned
@@ -202,8 +232,8 @@ impl DatabaseAdmin {
     pub fn update_database(
         &self,
         database: impl Into<crate::model::Database>,
-    ) -> super::builders::database_admin::UpdateDatabase {
-        super::builders::database_admin::UpdateDatabase::new(self.inner.clone())
+    ) -> super::builder::database_admin::UpdateDatabase {
+        super::builder::database_admin::UpdateDatabase::new(self.inner.clone())
             .set_database(database.into())
     }
 
@@ -232,8 +262,8 @@ impl DatabaseAdmin {
     pub fn update_database_ddl(
         &self,
         database: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::UpdateDatabaseDdl {
-        super::builders::database_admin::UpdateDatabaseDdl::new(self.inner.clone())
+    ) -> super::builder::database_admin::UpdateDatabaseDdl {
+        super::builder::database_admin::UpdateDatabaseDdl::new(self.inner.clone())
             .set_database(database.into())
     }
 
@@ -245,8 +275,8 @@ impl DatabaseAdmin {
     pub fn drop_database(
         &self,
         database: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::DropDatabase {
-        super::builders::database_admin::DropDatabase::new(self.inner.clone())
+    ) -> super::builder::database_admin::DropDatabase {
+        super::builder::database_admin::DropDatabase::new(self.inner.clone())
             .set_database(database.into())
     }
 
@@ -258,8 +288,8 @@ impl DatabaseAdmin {
     pub fn get_database_ddl(
         &self,
         database: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::GetDatabaseDdl {
-        super::builders::database_admin::GetDatabaseDdl::new(self.inner.clone())
+    ) -> super::builder::database_admin::GetDatabaseDdl {
+        super::builder::database_admin::GetDatabaseDdl::new(self.inner.clone())
             .set_database(database.into())
     }
 
@@ -275,8 +305,8 @@ impl DatabaseAdmin {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::SetIamPolicy {
-        super::builders::database_admin::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::database_admin::SetIamPolicy {
+        super::builder::database_admin::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -293,8 +323,8 @@ impl DatabaseAdmin {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::GetIamPolicy {
-        super::builders::database_admin::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::database_admin::GetIamPolicy {
+        super::builder::database_admin::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -311,8 +341,8 @@ impl DatabaseAdmin {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::TestIamPermissions {
-        super::builders::database_admin::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::database_admin::TestIamPermissions {
+        super::builder::database_admin::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -347,8 +377,8 @@ impl DatabaseAdmin {
     pub fn create_backup(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::CreateBackup {
-        super::builders::database_admin::CreateBackup::new(self.inner.clone())
+    ) -> super::builder::database_admin::CreateBackup {
+        super::builder::database_admin::CreateBackup::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -384,8 +414,8 @@ impl DatabaseAdmin {
     pub fn copy_backup(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::CopyBackup {
-        super::builders::database_admin::CopyBackup::new(self.inner.clone())
+    ) -> super::builder::database_admin::CopyBackup {
+        super::builder::database_admin::CopyBackup::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -396,8 +426,8 @@ impl DatabaseAdmin {
     pub fn get_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::GetBackup {
-        super::builders::database_admin::GetBackup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::database_admin::GetBackup {
+        super::builder::database_admin::GetBackup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates a pending or completed
@@ -407,8 +437,8 @@ impl DatabaseAdmin {
     pub fn update_backup(
         &self,
         backup: impl Into<crate::model::Backup>,
-    ) -> super::builders::database_admin::UpdateBackup {
-        super::builders::database_admin::UpdateBackup::new(self.inner.clone())
+    ) -> super::builder::database_admin::UpdateBackup {
+        super::builder::database_admin::UpdateBackup::new(self.inner.clone())
             .set_backup(backup.into())
     }
 
@@ -419,8 +449,8 @@ impl DatabaseAdmin {
     pub fn delete_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::DeleteBackup {
-        super::builders::database_admin::DeleteBackup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::database_admin::DeleteBackup {
+        super::builder::database_admin::DeleteBackup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists completed and pending backups.
@@ -429,8 +459,8 @@ impl DatabaseAdmin {
     pub fn list_backups(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::ListBackups {
-        super::builders::database_admin::ListBackups::new(self.inner.clone())
+    ) -> super::builder::database_admin::ListBackups {
+        super::builder::database_admin::ListBackups::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -470,8 +500,8 @@ impl DatabaseAdmin {
     pub fn restore_database(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::RestoreDatabase {
-        super::builders::database_admin::RestoreDatabase::new(self.inner.clone())
+    ) -> super::builder::database_admin::RestoreDatabase {
+        super::builder::database_admin::RestoreDatabase::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -489,8 +519,8 @@ impl DatabaseAdmin {
     pub fn list_database_operations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::ListDatabaseOperations {
-        super::builders::database_admin::ListDatabaseOperations::new(self.inner.clone())
+    ) -> super::builder::database_admin::ListDatabaseOperations {
+        super::builder::database_admin::ListDatabaseOperations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -510,8 +540,8 @@ impl DatabaseAdmin {
     pub fn list_backup_operations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::ListBackupOperations {
-        super::builders::database_admin::ListBackupOperations::new(self.inner.clone())
+    ) -> super::builder::database_admin::ListBackupOperations {
+        super::builder::database_admin::ListBackupOperations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -519,8 +549,8 @@ impl DatabaseAdmin {
     pub fn list_database_roles(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::ListDatabaseRoles {
-        super::builders::database_admin::ListDatabaseRoles::new(self.inner.clone())
+    ) -> super::builder::database_admin::ListDatabaseRoles {
+        super::builder::database_admin::ListDatabaseRoles::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -528,8 +558,8 @@ impl DatabaseAdmin {
     pub fn add_split_points(
         &self,
         database: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::AddSplitPoints {
-        super::builders::database_admin::AddSplitPoints::new(self.inner.clone())
+    ) -> super::builder::database_admin::AddSplitPoints {
+        super::builder::database_admin::AddSplitPoints::new(self.inner.clone())
             .set_database(database.into())
     }
 
@@ -537,8 +567,8 @@ impl DatabaseAdmin {
     pub fn create_backup_schedule(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::CreateBackupSchedule {
-        super::builders::database_admin::CreateBackupSchedule::new(self.inner.clone())
+    ) -> super::builder::database_admin::CreateBackupSchedule {
+        super::builder::database_admin::CreateBackupSchedule::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -546,8 +576,8 @@ impl DatabaseAdmin {
     pub fn get_backup_schedule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::GetBackupSchedule {
-        super::builders::database_admin::GetBackupSchedule::new(self.inner.clone())
+    ) -> super::builder::database_admin::GetBackupSchedule {
+        super::builder::database_admin::GetBackupSchedule::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -555,8 +585,8 @@ impl DatabaseAdmin {
     pub fn update_backup_schedule(
         &self,
         backup_schedule: impl Into<crate::model::BackupSchedule>,
-    ) -> super::builders::database_admin::UpdateBackupSchedule {
-        super::builders::database_admin::UpdateBackupSchedule::new(self.inner.clone())
+    ) -> super::builder::database_admin::UpdateBackupSchedule {
+        super::builder::database_admin::UpdateBackupSchedule::new(self.inner.clone())
             .set_backup_schedule(backup_schedule.into())
     }
 
@@ -564,8 +594,8 @@ impl DatabaseAdmin {
     pub fn delete_backup_schedule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::DeleteBackupSchedule {
-        super::builders::database_admin::DeleteBackupSchedule::new(self.inner.clone())
+    ) -> super::builder::database_admin::DeleteBackupSchedule {
+        super::builder::database_admin::DeleteBackupSchedule::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -573,8 +603,8 @@ impl DatabaseAdmin {
     pub fn list_backup_schedules(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::ListBackupSchedules {
-        super::builders::database_admin::ListBackupSchedules::new(self.inner.clone())
+    ) -> super::builder::database_admin::ListBackupSchedules {
+        super::builder::database_admin::ListBackupSchedules::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -584,8 +614,8 @@ impl DatabaseAdmin {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::ListOperations {
-        super::builders::database_admin::ListOperations::new(self.inner.clone())
+    ) -> super::builder::database_admin::ListOperations {
+        super::builder::database_admin::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -595,8 +625,8 @@ impl DatabaseAdmin {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::GetOperation {
-        super::builders::database_admin::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::database_admin::GetOperation {
+        super::builder::database_admin::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -605,8 +635,8 @@ impl DatabaseAdmin {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::DeleteOperation {
-        super::builders::database_admin::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::database_admin::DeleteOperation {
+        super::builder::database_admin::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -616,8 +646,8 @@ impl DatabaseAdmin {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::database_admin::CancelOperation {
-        super::builders::database_admin::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::database_admin::CancelOperation {
+        super::builder::database_admin::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

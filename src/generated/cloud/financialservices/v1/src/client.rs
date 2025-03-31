@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Financial Services API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_financialservices_v1::client::Aml;
+/// let client = Aml::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// The AML (Anti Money Laundering) service allows users to perform REST
@@ -28,8 +37,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `Aml` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Aml` use the `with_*` methods in the type returned
+/// by [builder()][Aml::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://financialservices.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::aml::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::aml::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -39,50 +63,54 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Aml {
-    inner: Arc<dyn super::stubs::dynamic::Aml>,
+    inner: Arc<dyn super::stub::dynamic::Aml>,
 }
 
 impl Aml {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Aml].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// let client = Aml::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::aml::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::aml::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Aml + 'static,
+        T: super::stub::Aml + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Aml>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Aml>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stubs::Aml> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stub::Aml> {
         super::transport::Aml::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Aml> {
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stub::Aml> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Aml::new)
@@ -92,16 +120,16 @@ impl Aml {
     pub fn list_instances(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::aml::ListInstances {
-        super::builders::aml::ListInstances::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::aml::ListInstances {
+        super::builder::aml::ListInstances::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets an instance.
     pub fn get_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::aml::GetInstance {
-        super::builders::aml::GetInstance::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::aml::GetInstance {
+        super::builder::aml::GetInstance::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates an instance.
@@ -118,8 +146,8 @@ impl Aml {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::aml::CreateInstance {
-        super::builders::aml::CreateInstance::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::aml::CreateInstance {
+        super::builder::aml::CreateInstance::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates the parameters of a single Instance.
@@ -136,8 +164,8 @@ impl Aml {
     pub fn update_instance(
         &self,
         instance: impl Into<crate::model::Instance>,
-    ) -> super::builders::aml::UpdateInstance {
-        super::builders::aml::UpdateInstance::new(self.inner.clone()).set_instance(instance.into())
+    ) -> super::builder::aml::UpdateInstance {
+        super::builder::aml::UpdateInstance::new(self.inner.clone()).set_instance(instance.into())
     }
 
     /// Deletes an instance.
@@ -154,8 +182,8 @@ impl Aml {
     pub fn delete_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::aml::DeleteInstance {
-        super::builders::aml::DeleteInstance::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::aml::DeleteInstance {
+        super::builder::aml::DeleteInstance::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Imports the list of registered parties. See
@@ -175,8 +203,8 @@ impl Aml {
     pub fn import_registered_parties(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::aml::ImportRegisteredParties {
-        super::builders::aml::ImportRegisteredParties::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::aml::ImportRegisteredParties {
+        super::builder::aml::ImportRegisteredParties::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Exports the list of registered parties. See
@@ -196,24 +224,24 @@ impl Aml {
     pub fn export_registered_parties(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::aml::ExportRegisteredParties {
-        super::builders::aml::ExportRegisteredParties::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::aml::ExportRegisteredParties {
+        super::builder::aml::ExportRegisteredParties::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists datasets.
     pub fn list_datasets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::aml::ListDatasets {
-        super::builders::aml::ListDatasets::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::aml::ListDatasets {
+        super::builder::aml::ListDatasets::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets a dataset.
     pub fn get_dataset(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::aml::GetDataset {
-        super::builders::aml::GetDataset::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::aml::GetDataset {
+        super::builder::aml::GetDataset::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a dataset.
@@ -230,8 +258,8 @@ impl Aml {
     pub fn create_dataset(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::aml::CreateDataset {
-        super::builders::aml::CreateDataset::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::aml::CreateDataset {
+        super::builder::aml::CreateDataset::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates the parameters of a single Dataset.
@@ -248,8 +276,8 @@ impl Aml {
     pub fn update_dataset(
         &self,
         dataset: impl Into<crate::model::Dataset>,
-    ) -> super::builders::aml::UpdateDataset {
-        super::builders::aml::UpdateDataset::new(self.inner.clone()).set_dataset(dataset.into())
+    ) -> super::builder::aml::UpdateDataset {
+        super::builder::aml::UpdateDataset::new(self.inner.clone()).set_dataset(dataset.into())
     }
 
     /// Deletes a dataset.
@@ -266,24 +294,21 @@ impl Aml {
     pub fn delete_dataset(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::aml::DeleteDataset {
-        super::builders::aml::DeleteDataset::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::aml::DeleteDataset {
+        super::builder::aml::DeleteDataset::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists models.
     pub fn list_models(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::aml::ListModels {
-        super::builders::aml::ListModels::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::aml::ListModels {
+        super::builder::aml::ListModels::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets a model.
-    pub fn get_model(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builders::aml::GetModel {
-        super::builders::aml::GetModel::new(self.inner.clone()).set_name(name.into())
+    pub fn get_model(&self, name: impl Into<std::string::String>) -> super::builder::aml::GetModel {
+        super::builder::aml::GetModel::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a model.
@@ -300,8 +325,8 @@ impl Aml {
     pub fn create_model(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::aml::CreateModel {
-        super::builders::aml::CreateModel::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::aml::CreateModel {
+        super::builder::aml::CreateModel::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates the parameters of a single Model.
@@ -318,8 +343,8 @@ impl Aml {
     pub fn update_model(
         &self,
         model: impl Into<crate::model::Model>,
-    ) -> super::builders::aml::UpdateModel {
-        super::builders::aml::UpdateModel::new(self.inner.clone()).set_model(model.into())
+    ) -> super::builder::aml::UpdateModel {
+        super::builder::aml::UpdateModel::new(self.inner.clone()).set_model(model.into())
     }
 
     /// Export governance information for a Model resource. For
@@ -339,8 +364,8 @@ impl Aml {
     pub fn export_model_metadata(
         &self,
         model: impl Into<std::string::String>,
-    ) -> super::builders::aml::ExportModelMetadata {
-        super::builders::aml::ExportModelMetadata::new(self.inner.clone()).set_model(model.into())
+    ) -> super::builder::aml::ExportModelMetadata {
+        super::builder::aml::ExportModelMetadata::new(self.inner.clone()).set_model(model.into())
     }
 
     /// Deletes a model.
@@ -357,24 +382,24 @@ impl Aml {
     pub fn delete_model(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::aml::DeleteModel {
-        super::builders::aml::DeleteModel::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::aml::DeleteModel {
+        super::builder::aml::DeleteModel::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists engine configs.
     pub fn list_engine_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::aml::ListEngineConfigs {
-        super::builders::aml::ListEngineConfigs::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::aml::ListEngineConfigs {
+        super::builder::aml::ListEngineConfigs::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets an engine config.
     pub fn get_engine_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::aml::GetEngineConfig {
-        super::builders::aml::GetEngineConfig::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::aml::GetEngineConfig {
+        super::builder::aml::GetEngineConfig::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates an engine config.
@@ -391,8 +416,8 @@ impl Aml {
     pub fn create_engine_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::aml::CreateEngineConfig {
-        super::builders::aml::CreateEngineConfig::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::aml::CreateEngineConfig {
+        super::builder::aml::CreateEngineConfig::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates the parameters of a single EngineConfig.
@@ -409,8 +434,8 @@ impl Aml {
     pub fn update_engine_config(
         &self,
         engine_config: impl Into<crate::model::EngineConfig>,
-    ) -> super::builders::aml::UpdateEngineConfig {
-        super::builders::aml::UpdateEngineConfig::new(self.inner.clone())
+    ) -> super::builder::aml::UpdateEngineConfig {
+        super::builder::aml::UpdateEngineConfig::new(self.inner.clone())
             .set_engine_config(engine_config.into())
     }
 
@@ -431,8 +456,8 @@ impl Aml {
     pub fn export_engine_config_metadata(
         &self,
         engine_config: impl Into<std::string::String>,
-    ) -> super::builders::aml::ExportEngineConfigMetadata {
-        super::builders::aml::ExportEngineConfigMetadata::new(self.inner.clone())
+    ) -> super::builder::aml::ExportEngineConfigMetadata {
+        super::builder::aml::ExportEngineConfigMetadata::new(self.inner.clone())
             .set_engine_config(engine_config.into())
     }
 
@@ -450,32 +475,32 @@ impl Aml {
     pub fn delete_engine_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::aml::DeleteEngineConfig {
-        super::builders::aml::DeleteEngineConfig::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::aml::DeleteEngineConfig {
+        super::builder::aml::DeleteEngineConfig::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets a single EngineVersion.
     pub fn get_engine_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::aml::GetEngineVersion {
-        super::builders::aml::GetEngineVersion::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::aml::GetEngineVersion {
+        super::builder::aml::GetEngineVersion::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists EngineVersions for given location.
     pub fn list_engine_versions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::aml::ListEngineVersions {
-        super::builders::aml::ListEngineVersions::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::aml::ListEngineVersions {
+        super::builder::aml::ListEngineVersions::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// List PredictionResults.
     pub fn list_prediction_results(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::aml::ListPredictionResults {
-        super::builders::aml::ListPredictionResults::new(self.inner.clone())
+    ) -> super::builder::aml::ListPredictionResults {
+        super::builder::aml::ListPredictionResults::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -483,8 +508,8 @@ impl Aml {
     pub fn get_prediction_result(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::aml::GetPredictionResult {
-        super::builders::aml::GetPredictionResult::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::aml::GetPredictionResult {
+        super::builder::aml::GetPredictionResult::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Create a PredictionResult.
@@ -501,8 +526,8 @@ impl Aml {
     pub fn create_prediction_result(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::aml::CreatePredictionResult {
-        super::builders::aml::CreatePredictionResult::new(self.inner.clone())
+    ) -> super::builder::aml::CreatePredictionResult {
+        super::builder::aml::CreatePredictionResult::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -520,8 +545,8 @@ impl Aml {
     pub fn update_prediction_result(
         &self,
         prediction_result: impl Into<crate::model::PredictionResult>,
-    ) -> super::builders::aml::UpdatePredictionResult {
-        super::builders::aml::UpdatePredictionResult::new(self.inner.clone())
+    ) -> super::builder::aml::UpdatePredictionResult {
+        super::builder::aml::UpdatePredictionResult::new(self.inner.clone())
             .set_prediction_result(prediction_result.into())
     }
 
@@ -542,8 +567,8 @@ impl Aml {
     pub fn export_prediction_result_metadata(
         &self,
         prediction_result: impl Into<std::string::String>,
-    ) -> super::builders::aml::ExportPredictionResultMetadata {
-        super::builders::aml::ExportPredictionResultMetadata::new(self.inner.clone())
+    ) -> super::builder::aml::ExportPredictionResultMetadata {
+        super::builder::aml::ExportPredictionResultMetadata::new(self.inner.clone())
             .set_prediction_result(prediction_result.into())
     }
 
@@ -561,24 +586,24 @@ impl Aml {
     pub fn delete_prediction_result(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::aml::DeletePredictionResult {
-        super::builders::aml::DeletePredictionResult::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::aml::DeletePredictionResult {
+        super::builder::aml::DeletePredictionResult::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List BacktestResults.
     pub fn list_backtest_results(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::aml::ListBacktestResults {
-        super::builders::aml::ListBacktestResults::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::aml::ListBacktestResults {
+        super::builder::aml::ListBacktestResults::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets a BacktestResult.
     pub fn get_backtest_result(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::aml::GetBacktestResult {
-        super::builders::aml::GetBacktestResult::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::aml::GetBacktestResult {
+        super::builder::aml::GetBacktestResult::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Create a BacktestResult.
@@ -595,9 +620,8 @@ impl Aml {
     pub fn create_backtest_result(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::aml::CreateBacktestResult {
-        super::builders::aml::CreateBacktestResult::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::aml::CreateBacktestResult {
+        super::builder::aml::CreateBacktestResult::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates the parameters of a single BacktestResult.
@@ -614,8 +638,8 @@ impl Aml {
     pub fn update_backtest_result(
         &self,
         backtest_result: impl Into<crate::model::BacktestResult>,
-    ) -> super::builders::aml::UpdateBacktestResult {
-        super::builders::aml::UpdateBacktestResult::new(self.inner.clone())
+    ) -> super::builder::aml::UpdateBacktestResult {
+        super::builder::aml::UpdateBacktestResult::new(self.inner.clone())
             .set_backtest_result(backtest_result.into())
     }
 
@@ -636,8 +660,8 @@ impl Aml {
     pub fn export_backtest_result_metadata(
         &self,
         backtest_result: impl Into<std::string::String>,
-    ) -> super::builders::aml::ExportBacktestResultMetadata {
-        super::builders::aml::ExportBacktestResultMetadata::new(self.inner.clone())
+    ) -> super::builder::aml::ExportBacktestResultMetadata {
+        super::builder::aml::ExportBacktestResultMetadata::new(self.inner.clone())
             .set_backtest_result(backtest_result.into())
     }
 
@@ -655,24 +679,24 @@ impl Aml {
     pub fn delete_backtest_result(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::aml::DeleteBacktestResult {
-        super::builders::aml::DeleteBacktestResult::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::aml::DeleteBacktestResult {
+        super::builder::aml::DeleteBacktestResult::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::aml::ListLocations {
-        super::builders::aml::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::aml::ListLocations {
+        super::builder::aml::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::aml::GetLocation {
-        super::builders::aml::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::aml::GetLocation {
+        super::builder::aml::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -681,8 +705,8 @@ impl Aml {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::aml::ListOperations {
-        super::builders::aml::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::aml::ListOperations {
+        super::builder::aml::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -691,8 +715,8 @@ impl Aml {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::aml::GetOperation {
-        super::builders::aml::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::aml::GetOperation {
+        super::builder::aml::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -701,8 +725,8 @@ impl Aml {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::aml::DeleteOperation {
-        super::builders::aml::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::aml::DeleteOperation {
+        super::builder::aml::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -711,7 +735,7 @@ impl Aml {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::aml::CancelOperation {
-        super::builders::aml::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::aml::CancelOperation {
+        super::builder::aml::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

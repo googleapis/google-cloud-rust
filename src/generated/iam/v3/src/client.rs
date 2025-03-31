@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Identity and Access Management (IAM) API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_iam_v3::client::PolicyBindings;
+/// let client = PolicyBindings::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// An interface for managing Identity and Access Management (IAM) policy
@@ -28,8 +37,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `PolicyBindings` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `PolicyBindings` use the `with_*` methods in the type returned
+/// by [builder()][PolicyBindings::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://iam.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::policy_bindings::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::policy_bindings::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -39,37 +63,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct PolicyBindings {
-    inner: Arc<dyn super::stubs::dynamic::PolicyBindings>,
+    inner: Arc<dyn super::stub::dynamic::PolicyBindings>,
 }
 
 impl PolicyBindings {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [PolicyBindings].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_iam_v3::client::PolicyBindings;
+    /// let client = PolicyBindings::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::policy_bindings::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::policy_bindings::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::PolicyBindings + 'static,
+        T: super::stub::PolicyBindings + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::PolicyBindings>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::PolicyBindings>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,13 +108,13 @@ impl PolicyBindings {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PolicyBindings> {
+    ) -> Result<impl super::stub::PolicyBindings> {
         super::transport::PolicyBindings::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PolicyBindings> {
+    ) -> Result<impl super::stub::PolicyBindings> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PolicyBindings::new)
@@ -106,8 +136,8 @@ impl PolicyBindings {
     pub fn create_policy_binding(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::policy_bindings::CreatePolicyBinding {
-        super::builders::policy_bindings::CreatePolicyBinding::new(self.inner.clone())
+    ) -> super::builder::policy_bindings::CreatePolicyBinding {
+        super::builder::policy_bindings::CreatePolicyBinding::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -115,8 +145,8 @@ impl PolicyBindings {
     pub fn get_policy_binding(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::policy_bindings::GetPolicyBinding {
-        super::builders::policy_bindings::GetPolicyBinding::new(self.inner.clone())
+    ) -> super::builder::policy_bindings::GetPolicyBinding {
+        super::builder::policy_bindings::GetPolicyBinding::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -138,8 +168,8 @@ impl PolicyBindings {
     pub fn update_policy_binding(
         &self,
         policy_binding: impl Into<crate::model::PolicyBinding>,
-    ) -> super::builders::policy_bindings::UpdatePolicyBinding {
-        super::builders::policy_bindings::UpdatePolicyBinding::new(self.inner.clone())
+    ) -> super::builder::policy_bindings::UpdatePolicyBinding {
+        super::builder::policy_bindings::UpdatePolicyBinding::new(self.inner.clone())
             .set_policy_binding(policy_binding.into())
     }
 
@@ -159,8 +189,8 @@ impl PolicyBindings {
     pub fn delete_policy_binding(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::policy_bindings::DeletePolicyBinding {
-        super::builders::policy_bindings::DeletePolicyBinding::new(self.inner.clone())
+    ) -> super::builder::policy_bindings::DeletePolicyBinding {
+        super::builder::policy_bindings::DeletePolicyBinding::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -168,8 +198,8 @@ impl PolicyBindings {
     pub fn list_policy_bindings(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::policy_bindings::ListPolicyBindings {
-        super::builders::policy_bindings::ListPolicyBindings::new(self.inner.clone())
+    ) -> super::builder::policy_bindings::ListPolicyBindings {
+        super::builder::policy_bindings::ListPolicyBindings::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -178,8 +208,8 @@ impl PolicyBindings {
     pub fn search_target_policy_bindings(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::policy_bindings::SearchTargetPolicyBindings {
-        super::builders::policy_bindings::SearchTargetPolicyBindings::new(self.inner.clone())
+    ) -> super::builder::policy_bindings::SearchTargetPolicyBindings {
+        super::builder::policy_bindings::SearchTargetPolicyBindings::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -189,13 +219,21 @@ impl PolicyBindings {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::policy_bindings::GetOperation {
-        super::builders::policy_bindings::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::policy_bindings::GetOperation {
+        super::builder::policy_bindings::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the Identity and Access Management (IAM) API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
+/// let client = PrincipalAccessBoundaryPolicies::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -204,8 +242,23 @@ impl PolicyBindings {
 ///
 /// # Configuration
 ///
-/// `PrincipalAccessBoundaryPolicies` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `PrincipalAccessBoundaryPolicies` use the `with_*` methods in the type returned
+/// by [builder()][PrincipalAccessBoundaryPolicies::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://iam.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::principal_access_boundary_policies::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::principal_access_boundary_policies::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -215,37 +268,45 @@ impl PolicyBindings {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct PrincipalAccessBoundaryPolicies {
-    inner: Arc<dyn super::stubs::dynamic::PrincipalAccessBoundaryPolicies>,
+    inner: Arc<dyn super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
 }
 
 impl PrincipalAccessBoundaryPolicies {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [PrincipalAccessBoundaryPolicies].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
+    /// let client = PrincipalAccessBoundaryPolicies::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::principal_access_boundary_policies::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::principal_access_boundary_policies::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::PrincipalAccessBoundaryPolicies + 'static,
+        T: super::stub::PrincipalAccessBoundaryPolicies + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::PrincipalAccessBoundaryPolicies>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::PrincipalAccessBoundaryPolicies>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -254,13 +315,13 @@ impl PrincipalAccessBoundaryPolicies {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PrincipalAccessBoundaryPolicies> {
+    ) -> Result<impl super::stub::PrincipalAccessBoundaryPolicies> {
         super::transport::PrincipalAccessBoundaryPolicies::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::PrincipalAccessBoundaryPolicies> {
+    ) -> Result<impl super::stub::PrincipalAccessBoundaryPolicies> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PrincipalAccessBoundaryPolicies::new)
@@ -281,9 +342,9 @@ impl PrincipalAccessBoundaryPolicies {
     pub fn create_principal_access_boundary_policy(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy
+    ) -> super::builder::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy
     {
-        super::builders::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy::new(self.inner.clone())
+        super::builder::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy::new(self.inner.clone())
             .set_parent ( parent.into() )
     }
 
@@ -291,8 +352,8 @@ impl PrincipalAccessBoundaryPolicies {
     pub fn get_principal_access_boundary_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::principal_access_boundary_policies::GetPrincipalAccessBoundaryPolicy {
-        super::builders::principal_access_boundary_policies::GetPrincipalAccessBoundaryPolicy::new(
+    ) -> super::builder::principal_access_boundary_policies::GetPrincipalAccessBoundaryPolicy {
+        super::builder::principal_access_boundary_policies::GetPrincipalAccessBoundaryPolicy::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -312,9 +373,9 @@ impl PrincipalAccessBoundaryPolicies {
     pub fn update_principal_access_boundary_policy(
         &self,
         principal_access_boundary_policy: impl Into<crate::model::PrincipalAccessBoundaryPolicy>,
-    ) -> super::builders::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy
+    ) -> super::builder::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy
     {
-        super::builders::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy::new(self.inner.clone())
+        super::builder::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy::new(self.inner.clone())
             .set_principal_access_boundary_policy ( principal_access_boundary_policy.into() )
     }
 
@@ -332,9 +393,9 @@ impl PrincipalAccessBoundaryPolicies {
     pub fn delete_principal_access_boundary_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy
+    ) -> super::builder::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy
     {
-        super::builders::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy::new(self.inner.clone())
+        super::builder::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy::new(self.inner.clone())
             .set_name ( name.into() )
     }
 
@@ -342,9 +403,9 @@ impl PrincipalAccessBoundaryPolicies {
     pub fn list_principal_access_boundary_policies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::principal_access_boundary_policies::ListPrincipalAccessBoundaryPolicies
+    ) -> super::builder::principal_access_boundary_policies::ListPrincipalAccessBoundaryPolicies
     {
-        super::builders::principal_access_boundary_policies::ListPrincipalAccessBoundaryPolicies::new(self.inner.clone())
+        super::builder::principal_access_boundary_policies::ListPrincipalAccessBoundaryPolicies::new(self.inner.clone())
             .set_parent ( parent.into() )
     }
 
@@ -353,9 +414,9 @@ impl PrincipalAccessBoundaryPolicies {
     pub fn search_principal_access_boundary_policy_bindings(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::principal_access_boundary_policies::SearchPrincipalAccessBoundaryPolicyBindings
+    ) -> super::builder::principal_access_boundary_policies::SearchPrincipalAccessBoundaryPolicyBindings
     {
-        super::builders::principal_access_boundary_policies::SearchPrincipalAccessBoundaryPolicyBindings::new(self.inner.clone())
+        super::builder::principal_access_boundary_policies::SearchPrincipalAccessBoundaryPolicyBindings::new(self.inner.clone())
             .set_name ( name.into() )
     }
 
@@ -365,8 +426,8 @@ impl PrincipalAccessBoundaryPolicies {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::principal_access_boundary_policies::GetOperation {
-        super::builders::principal_access_boundary_policies::GetOperation::new(self.inner.clone())
+    ) -> super::builder::principal_access_boundary_policies::GetOperation {
+        super::builder::principal_access_boundary_policies::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

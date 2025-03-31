@@ -51,4 +51,5 @@ rpc = { version = "0.2", path = "../generated/rpc/types", package = "google-clou
 wkt = { version = "0.3", path = "../wkt", package = "google-cloud-wkt", features = ["prost"] }
 
 [dev-dependencies]
-tokio = { version = "1", features = ["full", "macros"] }
+tokio                = { version = "1", features = ["full", "macros"] }
+tokio-test.workspace = true

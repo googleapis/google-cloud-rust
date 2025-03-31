@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the API Gateway API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_apigateway_v1::client::ApiGatewayService;
+/// let client = ApiGatewayService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// The API Gateway Service is the interface for managing API Gateways.
 ///
 /// # Configuration
 ///
-/// `ApiGatewayService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ApiGatewayService` use the `with_*` methods in the type returned
+/// by [builder()][ApiGatewayService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://apigateway.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::api_gateway_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::api_gateway_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,37 +62,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ApiGatewayService {
-    inner: Arc<dyn super::stubs::dynamic::ApiGatewayService>,
+    inner: Arc<dyn super::stub::dynamic::ApiGatewayService>,
 }
 
 impl ApiGatewayService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ApiGatewayService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_apigateway_v1::client::ApiGatewayService;
+    /// let client = ApiGatewayService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::api_gateway_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::api_gateway_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ApiGatewayService + 'static,
+        T: super::stub::ApiGatewayService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ApiGatewayService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ApiGatewayService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +109,13 @@ impl ApiGatewayService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ApiGatewayService> {
+    ) -> Result<impl super::stub::ApiGatewayService> {
         super::transport::ApiGatewayService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ApiGatewayService> {
+    ) -> Result<impl super::stub::ApiGatewayService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ApiGatewayService::new)
@@ -93,8 +125,8 @@ impl ApiGatewayService {
     pub fn list_gateways(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::api_gateway_service::ListGateways {
-        super::builders::api_gateway_service::ListGateways::new(self.inner.clone())
+    ) -> super::builder::api_gateway_service::ListGateways {
+        super::builder::api_gateway_service::ListGateways::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,8 +134,8 @@ impl ApiGatewayService {
     pub fn get_gateway(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_gateway_service::GetGateway {
-        super::builders::api_gateway_service::GetGateway::new(self.inner.clone())
+    ) -> super::builder::api_gateway_service::GetGateway {
+        super::builder::api_gateway_service::GetGateway::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -121,8 +153,8 @@ impl ApiGatewayService {
     pub fn create_gateway(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::api_gateway_service::CreateGateway {
-        super::builders::api_gateway_service::CreateGateway::new(self.inner.clone())
+    ) -> super::builder::api_gateway_service::CreateGateway {
+        super::builder::api_gateway_service::CreateGateway::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -140,8 +172,8 @@ impl ApiGatewayService {
     pub fn update_gateway(
         &self,
         gateway: impl Into<crate::model::Gateway>,
-    ) -> super::builders::api_gateway_service::UpdateGateway {
-        super::builders::api_gateway_service::UpdateGateway::new(self.inner.clone())
+    ) -> super::builder::api_gateway_service::UpdateGateway {
+        super::builder::api_gateway_service::UpdateGateway::new(self.inner.clone())
             .set_gateway(gateway.into())
     }
 
@@ -159,8 +191,8 @@ impl ApiGatewayService {
     pub fn delete_gateway(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_gateway_service::DeleteGateway {
-        super::builders::api_gateway_service::DeleteGateway::new(self.inner.clone())
+    ) -> super::builder::api_gateway_service::DeleteGateway {
+        super::builder::api_gateway_service::DeleteGateway::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -168,8 +200,8 @@ impl ApiGatewayService {
     pub fn list_apis(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::api_gateway_service::ListApis {
-        super::builders::api_gateway_service::ListApis::new(self.inner.clone())
+    ) -> super::builder::api_gateway_service::ListApis {
+        super::builder::api_gateway_service::ListApis::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -177,8 +209,8 @@ impl ApiGatewayService {
     pub fn get_api(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_gateway_service::GetApi {
-        super::builders::api_gateway_service::GetApi::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::api_gateway_service::GetApi {
+        super::builder::api_gateway_service::GetApi::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Api in a given project and location.
@@ -195,8 +227,8 @@ impl ApiGatewayService {
     pub fn create_api(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::api_gateway_service::CreateApi {
-        super::builders::api_gateway_service::CreateApi::new(self.inner.clone())
+    ) -> super::builder::api_gateway_service::CreateApi {
+        super::builder::api_gateway_service::CreateApi::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -214,8 +246,8 @@ impl ApiGatewayService {
     pub fn update_api(
         &self,
         api: impl Into<crate::model::Api>,
-    ) -> super::builders::api_gateway_service::UpdateApi {
-        super::builders::api_gateway_service::UpdateApi::new(self.inner.clone()).set_api(api.into())
+    ) -> super::builder::api_gateway_service::UpdateApi {
+        super::builder::api_gateway_service::UpdateApi::new(self.inner.clone()).set_api(api.into())
     }
 
     /// Deletes a single Api.
@@ -232,8 +264,8 @@ impl ApiGatewayService {
     pub fn delete_api(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_gateway_service::DeleteApi {
-        super::builders::api_gateway_service::DeleteApi::new(self.inner.clone())
+    ) -> super::builder::api_gateway_service::DeleteApi {
+        super::builder::api_gateway_service::DeleteApi::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -241,8 +273,8 @@ impl ApiGatewayService {
     pub fn list_api_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::api_gateway_service::ListApiConfigs {
-        super::builders::api_gateway_service::ListApiConfigs::new(self.inner.clone())
+    ) -> super::builder::api_gateway_service::ListApiConfigs {
+        super::builder::api_gateway_service::ListApiConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -250,8 +282,8 @@ impl ApiGatewayService {
     pub fn get_api_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_gateway_service::GetApiConfig {
-        super::builders::api_gateway_service::GetApiConfig::new(self.inner.clone())
+    ) -> super::builder::api_gateway_service::GetApiConfig {
+        super::builder::api_gateway_service::GetApiConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -269,8 +301,8 @@ impl ApiGatewayService {
     pub fn create_api_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::api_gateway_service::CreateApiConfig {
-        super::builders::api_gateway_service::CreateApiConfig::new(self.inner.clone())
+    ) -> super::builder::api_gateway_service::CreateApiConfig {
+        super::builder::api_gateway_service::CreateApiConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -288,8 +320,8 @@ impl ApiGatewayService {
     pub fn update_api_config(
         &self,
         api_config: impl Into<crate::model::ApiConfig>,
-    ) -> super::builders::api_gateway_service::UpdateApiConfig {
-        super::builders::api_gateway_service::UpdateApiConfig::new(self.inner.clone())
+    ) -> super::builder::api_gateway_service::UpdateApiConfig {
+        super::builder::api_gateway_service::UpdateApiConfig::new(self.inner.clone())
             .set_api_config(api_config.into())
     }
 
@@ -307,8 +339,8 @@ impl ApiGatewayService {
     pub fn delete_api_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_gateway_service::DeleteApiConfig {
-        super::builders::api_gateway_service::DeleteApiConfig::new(self.inner.clone())
+    ) -> super::builder::api_gateway_service::DeleteApiConfig {
+        super::builder::api_gateway_service::DeleteApiConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -318,8 +350,8 @@ impl ApiGatewayService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_gateway_service::ListOperations {
-        super::builders::api_gateway_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::api_gateway_service::ListOperations {
+        super::builder::api_gateway_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -329,8 +361,8 @@ impl ApiGatewayService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_gateway_service::GetOperation {
-        super::builders::api_gateway_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::api_gateway_service::GetOperation {
+        super::builder::api_gateway_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -340,8 +372,8 @@ impl ApiGatewayService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_gateway_service::DeleteOperation {
-        super::builders::api_gateway_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::api_gateway_service::DeleteOperation {
+        super::builder::api_gateway_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -351,8 +383,8 @@ impl ApiGatewayService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::api_gateway_service::CancelOperation {
-        super::builders::api_gateway_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::api_gateway_service::CancelOperation {
+        super::builder::api_gateway_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

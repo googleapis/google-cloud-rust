@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DataMigrationService](super::stubs::DataMigrationService) using a [gaxi::http::ReqwestClient].
+/// Implements [DataMigrationService](super::stub::DataMigrationService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DataMigrationService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl DataMigrationService {
     }
 }
 
-impl super::stubs::DataMigrationService for DataMigrationService {
+impl super::stub::DataMigrationService for DataMigrationService {
     async fn list_migration_jobs(
         &self,
         req: crate::model::ListMigrationJobsRequest,
@@ -690,7 +690,7 @@ impl super::stubs::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::DeleteMappingRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -704,6 +704,7 @@ impl super::stubs::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_mapping_rules(
@@ -1128,7 +1129,7 @@ impl super::stubs::DataMigrationService for DataMigrationService {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1141,13 +1142,14 @@ impl super::stubs::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1157,7 +1159,10 @@ impl super::stubs::DataMigrationService for DataMigrationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(

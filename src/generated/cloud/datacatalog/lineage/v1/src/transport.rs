@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Lineage](super::stubs::Lineage) using a [gaxi::http::ReqwestClient].
+/// Implements [Lineage](super::stub::Lineage) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Lineage {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl Lineage {
     }
 }
 
-impl super::stubs::Lineage for Lineage {
+impl super::stub::Lineage for Lineage {
     async fn process_open_lineage_run_event(
         &self,
         req: crate::model::ProcessOpenLineageRunEventRequest,
@@ -373,7 +373,7 @@ impl super::stubs::Lineage for Lineage {
         &self,
         req: crate::model::DeleteLineageEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -387,6 +387,7 @@ impl super::stubs::Lineage for Lineage {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn search_links(
@@ -474,7 +475,7 @@ impl super::stubs::Lineage for Lineage {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -487,13 +488,14 @@ impl super::stubs::Lineage for Lineage {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -503,7 +505,10 @@ impl super::stubs::Lineage for Lineage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(

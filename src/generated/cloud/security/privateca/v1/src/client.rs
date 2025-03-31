@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Certificate Authority API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+/// let client = CertificateAuthorityService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// [Certificate Authority
@@ -31,8 +40,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `CertificateAuthorityService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `CertificateAuthorityService` use the `with_*` methods in the type returned
+/// by [builder()][CertificateAuthorityService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://privateca.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::certificate_authority_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::certificate_authority_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -42,37 +66,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CertificateAuthorityService {
-    inner: Arc<dyn super::stubs::dynamic::CertificateAuthorityService>,
+    inner: Arc<dyn super::stub::dynamic::CertificateAuthorityService>,
 }
 
 impl CertificateAuthorityService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [CertificateAuthorityService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// let client = CertificateAuthorityService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::certificate_authority_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::certificate_authority_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::CertificateAuthorityService + 'static,
+        T: super::stub::CertificateAuthorityService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::CertificateAuthorityService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::CertificateAuthorityService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -81,13 +113,13 @@ impl CertificateAuthorityService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CertificateAuthorityService> {
+    ) -> Result<impl super::stub::CertificateAuthorityService> {
         super::transport::CertificateAuthorityService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CertificateAuthorityService> {
+    ) -> Result<impl super::stub::CertificateAuthorityService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CertificateAuthorityService::new)
@@ -102,8 +134,8 @@ impl CertificateAuthorityService {
     pub fn create_certificate(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::CreateCertificate {
-        super::builders::certificate_authority_service::CreateCertificate::new(self.inner.clone())
+    ) -> super::builder::certificate_authority_service::CreateCertificate {
+        super::builder::certificate_authority_service::CreateCertificate::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -113,8 +145,8 @@ impl CertificateAuthorityService {
     pub fn get_certificate(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::GetCertificate {
-        super::builders::certificate_authority_service::GetCertificate::new(self.inner.clone())
+    ) -> super::builder::certificate_authority_service::GetCertificate {
+        super::builder::certificate_authority_service::GetCertificate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -124,8 +156,8 @@ impl CertificateAuthorityService {
     pub fn list_certificates(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::ListCertificates {
-        super::builders::certificate_authority_service::ListCertificates::new(self.inner.clone())
+    ) -> super::builder::certificate_authority_service::ListCertificates {
+        super::builder::certificate_authority_service::ListCertificates::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -135,8 +167,8 @@ impl CertificateAuthorityService {
     pub fn revoke_certificate(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::RevokeCertificate {
-        super::builders::certificate_authority_service::RevokeCertificate::new(self.inner.clone())
+    ) -> super::builder::certificate_authority_service::RevokeCertificate {
+        super::builder::certificate_authority_service::RevokeCertificate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -149,8 +181,8 @@ impl CertificateAuthorityService {
     pub fn update_certificate(
         &self,
         certificate: impl Into<crate::model::Certificate>,
-    ) -> super::builders::certificate_authority_service::UpdateCertificate {
-        super::builders::certificate_authority_service::UpdateCertificate::new(self.inner.clone())
+    ) -> super::builder::certificate_authority_service::UpdateCertificate {
+        super::builder::certificate_authority_service::UpdateCertificate::new(self.inner.clone())
             .set_certificate(certificate.into())
     }
 
@@ -182,8 +214,8 @@ impl CertificateAuthorityService {
     pub fn activate_certificate_authority(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::ActivateCertificateAuthority {
-        super::builders::certificate_authority_service::ActivateCertificateAuthority::new(
+    ) -> super::builder::certificate_authority_service::ActivateCertificateAuthority {
+        super::builder::certificate_authority_service::ActivateCertificateAuthority::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -207,8 +239,8 @@ impl CertificateAuthorityService {
     pub fn create_certificate_authority(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::CreateCertificateAuthority {
-        super::builders::certificate_authority_service::CreateCertificateAuthority::new(
+    ) -> super::builder::certificate_authority_service::CreateCertificateAuthority {
+        super::builder::certificate_authority_service::CreateCertificateAuthority::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -231,8 +263,8 @@ impl CertificateAuthorityService {
     pub fn disable_certificate_authority(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::DisableCertificateAuthority {
-        super::builders::certificate_authority_service::DisableCertificateAuthority::new(
+    ) -> super::builder::certificate_authority_service::DisableCertificateAuthority {
+        super::builder::certificate_authority_service::DisableCertificateAuthority::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -255,8 +287,8 @@ impl CertificateAuthorityService {
     pub fn enable_certificate_authority(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::EnableCertificateAuthority {
-        super::builders::certificate_authority_service::EnableCertificateAuthority::new(
+    ) -> super::builder::certificate_authority_service::EnableCertificateAuthority {
+        super::builder::certificate_authority_service::EnableCertificateAuthority::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -281,8 +313,8 @@ impl CertificateAuthorityService {
     pub fn fetch_certificate_authority_csr(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::FetchCertificateAuthorityCsr {
-        super::builders::certificate_authority_service::FetchCertificateAuthorityCsr::new(
+    ) -> super::builder::certificate_authority_service::FetchCertificateAuthorityCsr {
+        super::builder::certificate_authority_service::FetchCertificateAuthorityCsr::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -295,8 +327,8 @@ impl CertificateAuthorityService {
     pub fn get_certificate_authority(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::GetCertificateAuthority {
-        super::builders::certificate_authority_service::GetCertificateAuthority::new(
+    ) -> super::builder::certificate_authority_service::GetCertificateAuthority {
+        super::builder::certificate_authority_service::GetCertificateAuthority::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -309,8 +341,8 @@ impl CertificateAuthorityService {
     pub fn list_certificate_authorities(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::ListCertificateAuthorities {
-        super::builders::certificate_authority_service::ListCertificateAuthorities::new(
+    ) -> super::builder::certificate_authority_service::ListCertificateAuthorities {
+        super::builder::certificate_authority_service::ListCertificateAuthorities::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -334,8 +366,8 @@ impl CertificateAuthorityService {
     pub fn undelete_certificate_authority(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::UndeleteCertificateAuthority {
-        super::builders::certificate_authority_service::UndeleteCertificateAuthority::new(
+    ) -> super::builder::certificate_authority_service::UndeleteCertificateAuthority {
+        super::builder::certificate_authority_service::UndeleteCertificateAuthority::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -358,8 +390,8 @@ impl CertificateAuthorityService {
     pub fn delete_certificate_authority(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::DeleteCertificateAuthority {
-        super::builders::certificate_authority_service::DeleteCertificateAuthority::new(
+    ) -> super::builder::certificate_authority_service::DeleteCertificateAuthority {
+        super::builder::certificate_authority_service::DeleteCertificateAuthority::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -382,8 +414,8 @@ impl CertificateAuthorityService {
     pub fn update_certificate_authority(
         &self,
         certificate_authority: impl Into<crate::model::CertificateAuthority>,
-    ) -> super::builders::certificate_authority_service::UpdateCertificateAuthority {
-        super::builders::certificate_authority_service::UpdateCertificateAuthority::new(
+    ) -> super::builder::certificate_authority_service::UpdateCertificateAuthority {
+        super::builder::certificate_authority_service::UpdateCertificateAuthority::new(
             self.inner.clone(),
         )
         .set_certificate_authority(certificate_authority.into())
@@ -405,8 +437,8 @@ impl CertificateAuthorityService {
     pub fn create_ca_pool(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::CreateCaPool {
-        super::builders::certificate_authority_service::CreateCaPool::new(self.inner.clone())
+    ) -> super::builder::certificate_authority_service::CreateCaPool {
+        super::builder::certificate_authority_service::CreateCaPool::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -426,8 +458,8 @@ impl CertificateAuthorityService {
     pub fn update_ca_pool(
         &self,
         ca_pool: impl Into<crate::model::CaPool>,
-    ) -> super::builders::certificate_authority_service::UpdateCaPool {
-        super::builders::certificate_authority_service::UpdateCaPool::new(self.inner.clone())
+    ) -> super::builder::certificate_authority_service::UpdateCaPool {
+        super::builder::certificate_authority_service::UpdateCaPool::new(self.inner.clone())
             .set_ca_pool(ca_pool.into())
     }
 
@@ -437,8 +469,8 @@ impl CertificateAuthorityService {
     pub fn get_ca_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::GetCaPool {
-        super::builders::certificate_authority_service::GetCaPool::new(self.inner.clone())
+    ) -> super::builder::certificate_authority_service::GetCaPool {
+        super::builder::certificate_authority_service::GetCaPool::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -448,8 +480,8 @@ impl CertificateAuthorityService {
     pub fn list_ca_pools(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::ListCaPools {
-        super::builders::certificate_authority_service::ListCaPools::new(self.inner.clone())
+    ) -> super::builder::certificate_authority_service::ListCaPools {
+        super::builder::certificate_authority_service::ListCaPools::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -469,8 +501,8 @@ impl CertificateAuthorityService {
     pub fn delete_ca_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::DeleteCaPool {
-        super::builders::certificate_authority_service::DeleteCaPool::new(self.inner.clone())
+    ) -> super::builder::certificate_authority_service::DeleteCaPool {
+        super::builder::certificate_authority_service::DeleteCaPool::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -483,8 +515,8 @@ impl CertificateAuthorityService {
     pub fn fetch_ca_certs(
         &self,
         ca_pool: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::FetchCaCerts {
-        super::builders::certificate_authority_service::FetchCaCerts::new(self.inner.clone())
+    ) -> super::builder::certificate_authority_service::FetchCaCerts {
+        super::builder::certificate_authority_service::FetchCaCerts::new(self.inner.clone())
             .set_ca_pool(ca_pool.into())
     }
 
@@ -495,8 +527,8 @@ impl CertificateAuthorityService {
     pub fn get_certificate_revocation_list(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::GetCertificateRevocationList {
-        super::builders::certificate_authority_service::GetCertificateRevocationList::new(
+    ) -> super::builder::certificate_authority_service::GetCertificateRevocationList {
+        super::builder::certificate_authority_service::GetCertificateRevocationList::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -509,8 +541,8 @@ impl CertificateAuthorityService {
     pub fn list_certificate_revocation_lists(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::ListCertificateRevocationLists {
-        super::builders::certificate_authority_service::ListCertificateRevocationLists::new(
+    ) -> super::builder::certificate_authority_service::ListCertificateRevocationLists {
+        super::builder::certificate_authority_service::ListCertificateRevocationLists::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -533,8 +565,8 @@ impl CertificateAuthorityService {
     pub fn update_certificate_revocation_list(
         &self,
         certificate_revocation_list: impl Into<crate::model::CertificateRevocationList>,
-    ) -> super::builders::certificate_authority_service::UpdateCertificateRevocationList {
-        super::builders::certificate_authority_service::UpdateCertificateRevocationList::new(
+    ) -> super::builder::certificate_authority_service::UpdateCertificateRevocationList {
+        super::builder::certificate_authority_service::UpdateCertificateRevocationList::new(
             self.inner.clone(),
         )
         .set_certificate_revocation_list(certificate_revocation_list.into())
@@ -558,8 +590,8 @@ impl CertificateAuthorityService {
     pub fn create_certificate_template(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::CreateCertificateTemplate {
-        super::builders::certificate_authority_service::CreateCertificateTemplate::new(
+    ) -> super::builder::certificate_authority_service::CreateCertificateTemplate {
+        super::builder::certificate_authority_service::CreateCertificateTemplate::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -582,8 +614,8 @@ impl CertificateAuthorityService {
     pub fn delete_certificate_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::DeleteCertificateTemplate {
-        super::builders::certificate_authority_service::DeleteCertificateTemplate::new(
+    ) -> super::builder::certificate_authority_service::DeleteCertificateTemplate {
+        super::builder::certificate_authority_service::DeleteCertificateTemplate::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -596,8 +628,8 @@ impl CertificateAuthorityService {
     pub fn get_certificate_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::GetCertificateTemplate {
-        super::builders::certificate_authority_service::GetCertificateTemplate::new(
+    ) -> super::builder::certificate_authority_service::GetCertificateTemplate {
+        super::builder::certificate_authority_service::GetCertificateTemplate::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -610,8 +642,8 @@ impl CertificateAuthorityService {
     pub fn list_certificate_templates(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::ListCertificateTemplates {
-        super::builders::certificate_authority_service::ListCertificateTemplates::new(
+    ) -> super::builder::certificate_authority_service::ListCertificateTemplates {
+        super::builder::certificate_authority_service::ListCertificateTemplates::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -634,8 +666,8 @@ impl CertificateAuthorityService {
     pub fn update_certificate_template(
         &self,
         certificate_template: impl Into<crate::model::CertificateTemplate>,
-    ) -> super::builders::certificate_authority_service::UpdateCertificateTemplate {
-        super::builders::certificate_authority_service::UpdateCertificateTemplate::new(
+    ) -> super::builder::certificate_authority_service::UpdateCertificateTemplate {
+        super::builder::certificate_authority_service::UpdateCertificateTemplate::new(
             self.inner.clone(),
         )
         .set_certificate_template(certificate_template.into())
@@ -645,8 +677,8 @@ impl CertificateAuthorityService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::ListLocations {
-        super::builders::certificate_authority_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::certificate_authority_service::ListLocations {
+        super::builder::certificate_authority_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -654,8 +686,8 @@ impl CertificateAuthorityService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::GetLocation {
-        super::builders::certificate_authority_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::certificate_authority_service::GetLocation {
+        super::builder::certificate_authority_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -667,8 +699,8 @@ impl CertificateAuthorityService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::SetIamPolicy {
-        super::builders::certificate_authority_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::certificate_authority_service::SetIamPolicy {
+        super::builder::certificate_authority_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -677,8 +709,8 @@ impl CertificateAuthorityService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::GetIamPolicy {
-        super::builders::certificate_authority_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::certificate_authority_service::GetIamPolicy {
+        super::builder::certificate_authority_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -692,8 +724,8 @@ impl CertificateAuthorityService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::TestIamPermissions {
-        super::builders::certificate_authority_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::certificate_authority_service::TestIamPermissions {
+        super::builder::certificate_authority_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -703,8 +735,8 @@ impl CertificateAuthorityService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::ListOperations {
-        super::builders::certificate_authority_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::certificate_authority_service::ListOperations {
+        super::builder::certificate_authority_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -714,8 +746,8 @@ impl CertificateAuthorityService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::GetOperation {
-        super::builders::certificate_authority_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::certificate_authority_service::GetOperation {
+        super::builder::certificate_authority_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -725,8 +757,8 @@ impl CertificateAuthorityService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::DeleteOperation {
-        super::builders::certificate_authority_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::certificate_authority_service::DeleteOperation {
+        super::builder::certificate_authority_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -736,8 +768,8 @@ impl CertificateAuthorityService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::certificate_authority_service::CancelOperation {
-        super::builders::certificate_authority_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::certificate_authority_service::CancelOperation {
+        super::builder::certificate_authority_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

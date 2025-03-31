@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Secure Source Manager API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+/// let client = SecureSourceManager::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Secure Source Manager API
@@ -46,8 +55,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `SecureSourceManager` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SecureSourceManager` use the `with_*` methods in the type returned
+/// by [builder()][SecureSourceManager::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://securesourcemanager.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::secure_source_manager::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::secure_source_manager::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -57,37 +81,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SecureSourceManager {
-    inner: Arc<dyn super::stubs::dynamic::SecureSourceManager>,
+    inner: Arc<dyn super::stub::dynamic::SecureSourceManager>,
 }
 
 impl SecureSourceManager {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [SecureSourceManager].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// let client = SecureSourceManager::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::secure_source_manager::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::secure_source_manager::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::SecureSourceManager + 'static,
+        T: super::stub::SecureSourceManager + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::SecureSourceManager>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::SecureSourceManager>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -96,13 +128,13 @@ impl SecureSourceManager {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SecureSourceManager> {
+    ) -> Result<impl super::stub::SecureSourceManager> {
         super::transport::SecureSourceManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SecureSourceManager> {
+    ) -> Result<impl super::stub::SecureSourceManager> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SecureSourceManager::new)
@@ -112,8 +144,8 @@ impl SecureSourceManager {
     pub fn list_instances(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::ListInstances {
-        super::builders::secure_source_manager::ListInstances::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::ListInstances {
+        super::builder::secure_source_manager::ListInstances::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -121,8 +153,8 @@ impl SecureSourceManager {
     pub fn get_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::GetInstance {
-        super::builders::secure_source_manager::GetInstance::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::GetInstance {
+        super::builder::secure_source_manager::GetInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -140,8 +172,8 @@ impl SecureSourceManager {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::CreateInstance {
-        super::builders::secure_source_manager::CreateInstance::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::CreateInstance {
+        super::builder::secure_source_manager::CreateInstance::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -159,8 +191,8 @@ impl SecureSourceManager {
     pub fn delete_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::DeleteInstance {
-        super::builders::secure_source_manager::DeleteInstance::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::DeleteInstance {
+        super::builder::secure_source_manager::DeleteInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -170,8 +202,8 @@ impl SecureSourceManager {
     pub fn list_repositories(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::ListRepositories {
-        super::builders::secure_source_manager::ListRepositories::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::ListRepositories {
+        super::builder::secure_source_manager::ListRepositories::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -181,8 +213,8 @@ impl SecureSourceManager {
     pub fn get_repository(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::GetRepository {
-        super::builders::secure_source_manager::GetRepository::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::GetRepository {
+        super::builder::secure_source_manager::GetRepository::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -202,8 +234,8 @@ impl SecureSourceManager {
     pub fn create_repository(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::CreateRepository {
-        super::builders::secure_source_manager::CreateRepository::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::CreateRepository {
+        super::builder::secure_source_manager::CreateRepository::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -223,8 +255,8 @@ impl SecureSourceManager {
     pub fn delete_repository(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::DeleteRepository {
-        super::builders::secure_source_manager::DeleteRepository::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::DeleteRepository {
+        super::builder::secure_source_manager::DeleteRepository::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -232,8 +264,8 @@ impl SecureSourceManager {
     pub fn get_iam_policy_repo(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::GetIamPolicyRepo {
-        super::builders::secure_source_manager::GetIamPolicyRepo::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::GetIamPolicyRepo {
+        super::builder::secure_source_manager::GetIamPolicyRepo::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -241,8 +273,8 @@ impl SecureSourceManager {
     pub fn set_iam_policy_repo(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::SetIamPolicyRepo {
-        super::builders::secure_source_manager::SetIamPolicyRepo::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::SetIamPolicyRepo {
+        super::builder::secure_source_manager::SetIamPolicyRepo::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -251,8 +283,8 @@ impl SecureSourceManager {
     pub fn test_iam_permissions_repo(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::TestIamPermissionsRepo {
-        super::builders::secure_source_manager::TestIamPermissionsRepo::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::TestIamPermissionsRepo {
+        super::builder::secure_source_manager::TestIamPermissionsRepo::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -270,8 +302,8 @@ impl SecureSourceManager {
     pub fn create_branch_rule(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::CreateBranchRule {
-        super::builders::secure_source_manager::CreateBranchRule::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::CreateBranchRule {
+        super::builder::secure_source_manager::CreateBranchRule::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -279,8 +311,8 @@ impl SecureSourceManager {
     pub fn list_branch_rules(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::ListBranchRules {
-        super::builders::secure_source_manager::ListBranchRules::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::ListBranchRules {
+        super::builder::secure_source_manager::ListBranchRules::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -288,8 +320,8 @@ impl SecureSourceManager {
     pub fn get_branch_rule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::GetBranchRule {
-        super::builders::secure_source_manager::GetBranchRule::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::GetBranchRule {
+        super::builder::secure_source_manager::GetBranchRule::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -307,8 +339,8 @@ impl SecureSourceManager {
     pub fn update_branch_rule(
         &self,
         branch_rule: impl Into<crate::model::BranchRule>,
-    ) -> super::builders::secure_source_manager::UpdateBranchRule {
-        super::builders::secure_source_manager::UpdateBranchRule::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::UpdateBranchRule {
+        super::builder::secure_source_manager::UpdateBranchRule::new(self.inner.clone())
             .set_branch_rule(branch_rule.into())
     }
 
@@ -326,8 +358,8 @@ impl SecureSourceManager {
     pub fn delete_branch_rule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::DeleteBranchRule {
-        super::builders::secure_source_manager::DeleteBranchRule::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::DeleteBranchRule {
+        super::builder::secure_source_manager::DeleteBranchRule::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -335,8 +367,8 @@ impl SecureSourceManager {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::ListLocations {
-        super::builders::secure_source_manager::ListLocations::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::ListLocations {
+        super::builder::secure_source_manager::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -344,8 +376,8 @@ impl SecureSourceManager {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::GetLocation {
-        super::builders::secure_source_manager::GetLocation::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::GetLocation {
+        super::builder::secure_source_manager::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -357,8 +389,8 @@ impl SecureSourceManager {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::SetIamPolicy {
-        super::builders::secure_source_manager::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::SetIamPolicy {
+        super::builder::secure_source_manager::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -367,8 +399,8 @@ impl SecureSourceManager {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::GetIamPolicy {
-        super::builders::secure_source_manager::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::GetIamPolicy {
+        super::builder::secure_source_manager::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -382,8 +414,8 @@ impl SecureSourceManager {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::TestIamPermissions {
-        super::builders::secure_source_manager::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::TestIamPermissions {
+        super::builder::secure_source_manager::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -393,8 +425,8 @@ impl SecureSourceManager {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::ListOperations {
-        super::builders::secure_source_manager::ListOperations::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::ListOperations {
+        super::builder::secure_source_manager::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -404,8 +436,8 @@ impl SecureSourceManager {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::GetOperation {
-        super::builders::secure_source_manager::GetOperation::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::GetOperation {
+        super::builder::secure_source_manager::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -415,8 +447,8 @@ impl SecureSourceManager {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::DeleteOperation {
-        super::builders::secure_source_manager::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::DeleteOperation {
+        super::builder::secure_source_manager::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -426,8 +458,8 @@ impl SecureSourceManager {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::secure_source_manager::CancelOperation {
-        super::builders::secure_source_manager::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::secure_source_manager::CancelOperation {
+        super::builder::secure_source_manager::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

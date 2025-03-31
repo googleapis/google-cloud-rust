@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Deploy API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_deploy_v1::client::CloudDeploy;
+/// let client = CloudDeploy::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// CloudDeploy service creates and manages Continuous Delivery operations
@@ -28,8 +37,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `CloudDeploy` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `CloudDeploy` use the `with_*` methods in the type returned
+/// by [builder()][CloudDeploy::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://clouddeploy.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::cloud_deploy::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::cloud_deploy::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -39,37 +63,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CloudDeploy {
-    inner: Arc<dyn super::stubs::dynamic::CloudDeploy>,
+    inner: Arc<dyn super::stub::dynamic::CloudDeploy>,
 }
 
 impl CloudDeploy {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [CloudDeploy].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// let client = CloudDeploy::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::cloud_deploy::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::cloud_deploy::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::CloudDeploy + 'static,
+        T: super::stub::CloudDeploy + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::CloudDeploy>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::CloudDeploy>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,13 +108,13 @@ impl CloudDeploy {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CloudDeploy> {
+    ) -> Result<impl super::stub::CloudDeploy> {
         super::transport::CloudDeploy::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::CloudDeploy> {
+    ) -> Result<impl super::stub::CloudDeploy> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CloudDeploy::new)
@@ -94,8 +124,8 @@ impl CloudDeploy {
     pub fn list_delivery_pipelines(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::ListDeliveryPipelines {
-        super::builders::cloud_deploy::ListDeliveryPipelines::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::ListDeliveryPipelines {
+        super::builder::cloud_deploy::ListDeliveryPipelines::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -103,8 +133,8 @@ impl CloudDeploy {
     pub fn get_delivery_pipeline(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::GetDeliveryPipeline {
-        super::builders::cloud_deploy::GetDeliveryPipeline::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::GetDeliveryPipeline {
+        super::builder::cloud_deploy::GetDeliveryPipeline::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -122,8 +152,8 @@ impl CloudDeploy {
     pub fn create_delivery_pipeline(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::CreateDeliveryPipeline {
-        super::builders::cloud_deploy::CreateDeliveryPipeline::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::CreateDeliveryPipeline {
+        super::builder::cloud_deploy::CreateDeliveryPipeline::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -141,8 +171,8 @@ impl CloudDeploy {
     pub fn update_delivery_pipeline(
         &self,
         delivery_pipeline: impl Into<crate::model::DeliveryPipeline>,
-    ) -> super::builders::cloud_deploy::UpdateDeliveryPipeline {
-        super::builders::cloud_deploy::UpdateDeliveryPipeline::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::UpdateDeliveryPipeline {
+        super::builder::cloud_deploy::UpdateDeliveryPipeline::new(self.inner.clone())
             .set_delivery_pipeline(delivery_pipeline.into())
     }
 
@@ -160,8 +190,8 @@ impl CloudDeploy {
     pub fn delete_delivery_pipeline(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::DeleteDeliveryPipeline {
-        super::builders::cloud_deploy::DeleteDeliveryPipeline::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::DeleteDeliveryPipeline {
+        super::builder::cloud_deploy::DeleteDeliveryPipeline::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -169,25 +199,24 @@ impl CloudDeploy {
     pub fn list_targets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::ListTargets {
-        super::builders::cloud_deploy::ListTargets::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::cloud_deploy::ListTargets {
+        super::builder::cloud_deploy::ListTargets::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Creates a `Rollout` to roll back the specified target.
     pub fn rollback_target(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::RollbackTarget {
-        super::builders::cloud_deploy::RollbackTarget::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::cloud_deploy::RollbackTarget {
+        super::builder::cloud_deploy::RollbackTarget::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets details of a single Target.
     pub fn get_target(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::GetTarget {
-        super::builders::cloud_deploy::GetTarget::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::cloud_deploy::GetTarget {
+        super::builder::cloud_deploy::GetTarget::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Target in a given project and location.
@@ -204,8 +233,8 @@ impl CloudDeploy {
     pub fn create_target(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::CreateTarget {
-        super::builders::cloud_deploy::CreateTarget::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::CreateTarget {
+        super::builder::cloud_deploy::CreateTarget::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -223,8 +252,8 @@ impl CloudDeploy {
     pub fn update_target(
         &self,
         target: impl Into<crate::model::Target>,
-    ) -> super::builders::cloud_deploy::UpdateTarget {
-        super::builders::cloud_deploy::UpdateTarget::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::UpdateTarget {
+        super::builder::cloud_deploy::UpdateTarget::new(self.inner.clone())
             .set_target(target.into())
     }
 
@@ -242,16 +271,16 @@ impl CloudDeploy {
     pub fn delete_target(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::DeleteTarget {
-        super::builders::cloud_deploy::DeleteTarget::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::cloud_deploy::DeleteTarget {
+        super::builder::cloud_deploy::DeleteTarget::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists CustomTargetTypes in a given project and location.
     pub fn list_custom_target_types(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::ListCustomTargetTypes {
-        super::builders::cloud_deploy::ListCustomTargetTypes::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::ListCustomTargetTypes {
+        super::builder::cloud_deploy::ListCustomTargetTypes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -259,8 +288,8 @@ impl CloudDeploy {
     pub fn get_custom_target_type(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::GetCustomTargetType {
-        super::builders::cloud_deploy::GetCustomTargetType::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::GetCustomTargetType {
+        super::builder::cloud_deploy::GetCustomTargetType::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -278,8 +307,8 @@ impl CloudDeploy {
     pub fn create_custom_target_type(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::CreateCustomTargetType {
-        super::builders::cloud_deploy::CreateCustomTargetType::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::CreateCustomTargetType {
+        super::builder::cloud_deploy::CreateCustomTargetType::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -297,8 +326,8 @@ impl CloudDeploy {
     pub fn update_custom_target_type(
         &self,
         custom_target_type: impl Into<crate::model::CustomTargetType>,
-    ) -> super::builders::cloud_deploy::UpdateCustomTargetType {
-        super::builders::cloud_deploy::UpdateCustomTargetType::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::UpdateCustomTargetType {
+        super::builder::cloud_deploy::UpdateCustomTargetType::new(self.inner.clone())
             .set_custom_target_type(custom_target_type.into())
     }
 
@@ -316,8 +345,8 @@ impl CloudDeploy {
     pub fn delete_custom_target_type(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::DeleteCustomTargetType {
-        super::builders::cloud_deploy::DeleteCustomTargetType::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::DeleteCustomTargetType {
+        super::builder::cloud_deploy::DeleteCustomTargetType::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -325,8 +354,8 @@ impl CloudDeploy {
     pub fn list_releases(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::ListReleases {
-        super::builders::cloud_deploy::ListReleases::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::ListReleases {
+        super::builder::cloud_deploy::ListReleases::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -334,8 +363,8 @@ impl CloudDeploy {
     pub fn get_release(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::GetRelease {
-        super::builders::cloud_deploy::GetRelease::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::cloud_deploy::GetRelease {
+        super::builder::cloud_deploy::GetRelease::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Release in a given project and location.
@@ -352,8 +381,8 @@ impl CloudDeploy {
     pub fn create_release(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::CreateRelease {
-        super::builders::cloud_deploy::CreateRelease::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::CreateRelease {
+        super::builder::cloud_deploy::CreateRelease::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -361,8 +390,8 @@ impl CloudDeploy {
     pub fn abandon_release(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::AbandonRelease {
-        super::builders::cloud_deploy::AbandonRelease::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::cloud_deploy::AbandonRelease {
+        super::builder::cloud_deploy::AbandonRelease::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new DeployPolicy in a given project and location.
@@ -379,8 +408,8 @@ impl CloudDeploy {
     pub fn create_deploy_policy(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::CreateDeployPolicy {
-        super::builders::cloud_deploy::CreateDeployPolicy::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::CreateDeployPolicy {
+        super::builder::cloud_deploy::CreateDeployPolicy::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -398,8 +427,8 @@ impl CloudDeploy {
     pub fn update_deploy_policy(
         &self,
         deploy_policy: impl Into<crate::model::DeployPolicy>,
-    ) -> super::builders::cloud_deploy::UpdateDeployPolicy {
-        super::builders::cloud_deploy::UpdateDeployPolicy::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::UpdateDeployPolicy {
+        super::builder::cloud_deploy::UpdateDeployPolicy::new(self.inner.clone())
             .set_deploy_policy(deploy_policy.into())
     }
 
@@ -417,8 +446,8 @@ impl CloudDeploy {
     pub fn delete_deploy_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::DeleteDeployPolicy {
-        super::builders::cloud_deploy::DeleteDeployPolicy::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::DeleteDeployPolicy {
+        super::builder::cloud_deploy::DeleteDeployPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -426,8 +455,8 @@ impl CloudDeploy {
     pub fn list_deploy_policies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::ListDeployPolicies {
-        super::builders::cloud_deploy::ListDeployPolicies::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::ListDeployPolicies {
+        super::builder::cloud_deploy::ListDeployPolicies::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -435,41 +464,40 @@ impl CloudDeploy {
     pub fn get_deploy_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::GetDeployPolicy {
-        super::builders::cloud_deploy::GetDeployPolicy::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::cloud_deploy::GetDeployPolicy {
+        super::builder::cloud_deploy::GetDeployPolicy::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Approves a Rollout.
     pub fn approve_rollout(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::ApproveRollout {
-        super::builders::cloud_deploy::ApproveRollout::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::cloud_deploy::ApproveRollout {
+        super::builder::cloud_deploy::ApproveRollout::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Advances a Rollout in a given project and location.
     pub fn advance_rollout(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::AdvanceRollout {
-        super::builders::cloud_deploy::AdvanceRollout::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::cloud_deploy::AdvanceRollout {
+        super::builder::cloud_deploy::AdvanceRollout::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Cancels a Rollout in a given project and location.
     pub fn cancel_rollout(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::CancelRollout {
-        super::builders::cloud_deploy::CancelRollout::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::cloud_deploy::CancelRollout {
+        super::builder::cloud_deploy::CancelRollout::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists Rollouts in a given project and location.
     pub fn list_rollouts(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::ListRollouts {
-        super::builders::cloud_deploy::ListRollouts::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::ListRollouts {
+        super::builder::cloud_deploy::ListRollouts::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -477,8 +505,8 @@ impl CloudDeploy {
     pub fn get_rollout(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::GetRollout {
-        super::builders::cloud_deploy::GetRollout::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::cloud_deploy::GetRollout {
+        super::builder::cloud_deploy::GetRollout::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Rollout in a given project and location.
@@ -495,8 +523,8 @@ impl CloudDeploy {
     pub fn create_rollout(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::CreateRollout {
-        super::builders::cloud_deploy::CreateRollout::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::CreateRollout {
+        super::builder::cloud_deploy::CreateRollout::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -504,51 +532,48 @@ impl CloudDeploy {
     pub fn ignore_job(
         &self,
         rollout: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::IgnoreJob {
-        super::builders::cloud_deploy::IgnoreJob::new(self.inner.clone())
-            .set_rollout(rollout.into())
+    ) -> super::builder::cloud_deploy::IgnoreJob {
+        super::builder::cloud_deploy::IgnoreJob::new(self.inner.clone()).set_rollout(rollout.into())
     }
 
     /// Retries the specified Job in a Rollout.
     pub fn retry_job(
         &self,
         rollout: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::RetryJob {
-        super::builders::cloud_deploy::RetryJob::new(self.inner.clone()).set_rollout(rollout.into())
+    ) -> super::builder::cloud_deploy::RetryJob {
+        super::builder::cloud_deploy::RetryJob::new(self.inner.clone()).set_rollout(rollout.into())
     }
 
     /// Lists JobRuns in a given project and location.
     pub fn list_job_runs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::ListJobRuns {
-        super::builders::cloud_deploy::ListJobRuns::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::cloud_deploy::ListJobRuns {
+        super::builder::cloud_deploy::ListJobRuns::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets details of a single JobRun.
     pub fn get_job_run(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::GetJobRun {
-        super::builders::cloud_deploy::GetJobRun::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::cloud_deploy::GetJobRun {
+        super::builder::cloud_deploy::GetJobRun::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Terminates a Job Run in a given project and location.
     pub fn terminate_job_run(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::TerminateJobRun {
-        super::builders::cloud_deploy::TerminateJobRun::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::cloud_deploy::TerminateJobRun {
+        super::builder::cloud_deploy::TerminateJobRun::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets the configuration for a location.
     pub fn get_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::GetConfig {
-        super::builders::cloud_deploy::GetConfig::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::cloud_deploy::GetConfig {
+        super::builder::cloud_deploy::GetConfig::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Automation in a given project and location.
@@ -565,8 +590,8 @@ impl CloudDeploy {
     pub fn create_automation(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::CreateAutomation {
-        super::builders::cloud_deploy::CreateAutomation::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::CreateAutomation {
+        super::builder::cloud_deploy::CreateAutomation::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -584,8 +609,8 @@ impl CloudDeploy {
     pub fn update_automation(
         &self,
         automation: impl Into<crate::model::Automation>,
-    ) -> super::builders::cloud_deploy::UpdateAutomation {
-        super::builders::cloud_deploy::UpdateAutomation::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::UpdateAutomation {
+        super::builder::cloud_deploy::UpdateAutomation::new(self.inner.clone())
             .set_automation(automation.into())
     }
 
@@ -603,8 +628,8 @@ impl CloudDeploy {
     pub fn delete_automation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::DeleteAutomation {
-        super::builders::cloud_deploy::DeleteAutomation::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::DeleteAutomation {
+        super::builder::cloud_deploy::DeleteAutomation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -612,16 +637,16 @@ impl CloudDeploy {
     pub fn get_automation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::GetAutomation {
-        super::builders::cloud_deploy::GetAutomation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::cloud_deploy::GetAutomation {
+        super::builder::cloud_deploy::GetAutomation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists Automations in a given project and location.
     pub fn list_automations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::ListAutomations {
-        super::builders::cloud_deploy::ListAutomations::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::ListAutomations {
+        super::builder::cloud_deploy::ListAutomations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -629,8 +654,8 @@ impl CloudDeploy {
     pub fn get_automation_run(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::GetAutomationRun {
-        super::builders::cloud_deploy::GetAutomationRun::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::GetAutomationRun {
+        super::builder::cloud_deploy::GetAutomationRun::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -638,8 +663,8 @@ impl CloudDeploy {
     pub fn list_automation_runs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::ListAutomationRuns {
-        super::builders::cloud_deploy::ListAutomationRuns::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::ListAutomationRuns {
+        super::builder::cloud_deploy::ListAutomationRuns::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -650,8 +675,8 @@ impl CloudDeploy {
     pub fn cancel_automation_run(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::CancelAutomationRun {
-        super::builders::cloud_deploy::CancelAutomationRun::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::CancelAutomationRun {
+        super::builder::cloud_deploy::CancelAutomationRun::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -659,16 +684,16 @@ impl CloudDeploy {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::ListLocations {
-        super::builders::cloud_deploy::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::cloud_deploy::ListLocations {
+        super::builder::cloud_deploy::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::GetLocation {
-        super::builders::cloud_deploy::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::cloud_deploy::GetLocation {
+        super::builder::cloud_deploy::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -679,8 +704,8 @@ impl CloudDeploy {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::SetIamPolicy {
-        super::builders::cloud_deploy::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::SetIamPolicy {
+        super::builder::cloud_deploy::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -689,8 +714,8 @@ impl CloudDeploy {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::GetIamPolicy {
-        super::builders::cloud_deploy::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::GetIamPolicy {
+        super::builder::cloud_deploy::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -704,8 +729,8 @@ impl CloudDeploy {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::TestIamPermissions {
-        super::builders::cloud_deploy::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::cloud_deploy::TestIamPermissions {
+        super::builder::cloud_deploy::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -715,8 +740,8 @@ impl CloudDeploy {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::ListOperations {
-        super::builders::cloud_deploy::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::cloud_deploy::ListOperations {
+        super::builder::cloud_deploy::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -725,8 +750,8 @@ impl CloudDeploy {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::GetOperation {
-        super::builders::cloud_deploy::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::cloud_deploy::GetOperation {
+        super::builder::cloud_deploy::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -735,9 +760,8 @@ impl CloudDeploy {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::DeleteOperation {
-        super::builders::cloud_deploy::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::cloud_deploy::DeleteOperation {
+        super::builder::cloud_deploy::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -746,8 +770,7 @@ impl CloudDeploy {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::cloud_deploy::CancelOperation {
-        super::builders::cloud_deploy::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::cloud_deploy::CancelOperation {
+        super::builder::cloud_deploy::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

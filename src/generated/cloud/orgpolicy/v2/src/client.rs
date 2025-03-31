@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Organization Policy API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
+/// let client = OrgPolicy::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// An interface for managing organization policies.
@@ -46,8 +55,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `OrgPolicy` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `OrgPolicy` use the `with_*` methods in the type returned
+/// by [builder()][OrgPolicy::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://orgpolicy.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::org_policy::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::org_policy::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -57,37 +81,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct OrgPolicy {
-    inner: Arc<dyn super::stubs::dynamic::OrgPolicy>,
+    inner: Arc<dyn super::stub::dynamic::OrgPolicy>,
 }
 
 impl OrgPolicy {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [OrgPolicy].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
+    /// let client = OrgPolicy::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::org_policy::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::org_policy::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::OrgPolicy + 'static,
+        T: super::stub::OrgPolicy + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::OrgPolicy>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::OrgPolicy>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -96,13 +126,13 @@ impl OrgPolicy {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::OrgPolicy> {
+    ) -> Result<impl super::stub::OrgPolicy> {
         super::transport::OrgPolicy::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::OrgPolicy> {
+    ) -> Result<impl super::stub::OrgPolicy> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::OrgPolicy::new)
@@ -112,8 +142,8 @@ impl OrgPolicy {
     pub fn list_constraints(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::org_policy::ListConstraints {
-        super::builders::org_policy::ListConstraints::new(self.inner.clone())
+    ) -> super::builder::org_policy::ListConstraints {
+        super::builder::org_policy::ListConstraints::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -121,8 +151,8 @@ impl OrgPolicy {
     pub fn list_policies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::org_policy::ListPolicies {
-        super::builders::org_policy::ListPolicies::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::org_policy::ListPolicies {
+        super::builder::org_policy::ListPolicies::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets a policy on a resource.
@@ -133,8 +163,8 @@ impl OrgPolicy {
     pub fn get_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::org_policy::GetPolicy {
-        super::builders::org_policy::GetPolicy::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::org_policy::GetPolicy {
+        super::builder::org_policy::GetPolicy::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets the effective policy on a resource. This is the result of merging
@@ -146,8 +176,8 @@ impl OrgPolicy {
     pub fn get_effective_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::org_policy::GetEffectivePolicy {
-        super::builders::org_policy::GetEffectivePolicy::new(self.inner.clone())
+    ) -> super::builder::org_policy::GetEffectivePolicy {
+        super::builder::org_policy::GetEffectivePolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -160,8 +190,8 @@ impl OrgPolicy {
     pub fn create_policy(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::org_policy::CreatePolicy {
-        super::builders::org_policy::CreatePolicy::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::org_policy::CreatePolicy {
+        super::builder::org_policy::CreatePolicy::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates a policy.
@@ -176,8 +206,8 @@ impl OrgPolicy {
     pub fn update_policy(
         &self,
         policy: impl Into<crate::model::Policy>,
-    ) -> super::builders::org_policy::UpdatePolicy {
-        super::builders::org_policy::UpdatePolicy::new(self.inner.clone()).set_policy(policy.into())
+    ) -> super::builder::org_policy::UpdatePolicy {
+        super::builder::org_policy::UpdatePolicy::new(self.inner.clone()).set_policy(policy.into())
     }
 
     /// Deletes a policy.
@@ -187,8 +217,8 @@ impl OrgPolicy {
     pub fn delete_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::org_policy::DeletePolicy {
-        super::builders::org_policy::DeletePolicy::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::org_policy::DeletePolicy {
+        super::builder::org_policy::DeletePolicy::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a custom constraint.
@@ -200,8 +230,8 @@ impl OrgPolicy {
     pub fn create_custom_constraint(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::org_policy::CreateCustomConstraint {
-        super::builders::org_policy::CreateCustomConstraint::new(self.inner.clone())
+    ) -> super::builder::org_policy::CreateCustomConstraint {
+        super::builder::org_policy::CreateCustomConstraint::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -215,8 +245,8 @@ impl OrgPolicy {
     pub fn update_custom_constraint(
         &self,
         custom_constraint: impl Into<crate::model::CustomConstraint>,
-    ) -> super::builders::org_policy::UpdateCustomConstraint {
-        super::builders::org_policy::UpdateCustomConstraint::new(self.inner.clone())
+    ) -> super::builder::org_policy::UpdateCustomConstraint {
+        super::builder::org_policy::UpdateCustomConstraint::new(self.inner.clone())
             .set_custom_constraint(custom_constraint.into())
     }
 
@@ -227,8 +257,8 @@ impl OrgPolicy {
     pub fn get_custom_constraint(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::org_policy::GetCustomConstraint {
-        super::builders::org_policy::GetCustomConstraint::new(self.inner.clone())
+    ) -> super::builder::org_policy::GetCustomConstraint {
+        super::builder::org_policy::GetCustomConstraint::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -237,8 +267,8 @@ impl OrgPolicy {
     pub fn list_custom_constraints(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::org_policy::ListCustomConstraints {
-        super::builders::org_policy::ListCustomConstraints::new(self.inner.clone())
+    ) -> super::builder::org_policy::ListCustomConstraints {
+        super::builder::org_policy::ListCustomConstraints::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -249,8 +279,8 @@ impl OrgPolicy {
     pub fn delete_custom_constraint(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::org_policy::DeleteCustomConstraint {
-        super::builders::org_policy::DeleteCustomConstraint::new(self.inner.clone())
+    ) -> super::builder::org_policy::DeleteCustomConstraint {
+        super::builder::org_policy::DeleteCustomConstraint::new(self.inner.clone())
             .set_name(name.into())
     }
 }

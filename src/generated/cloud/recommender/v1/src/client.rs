@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Recommender API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_recommender_v1::client::Recommender;
+/// let client = Recommender::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Provides insights and recommendations for cloud customers for various
@@ -30,8 +39,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `Recommender` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Recommender` use the `with_*` methods in the type returned
+/// by [builder()][Recommender::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://recommender.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::recommender::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::recommender::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -41,37 +65,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Recommender {
-    inner: Arc<dyn super::stubs::dynamic::Recommender>,
+    inner: Arc<dyn super::stub::dynamic::Recommender>,
 }
 
 impl Recommender {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Recommender].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_recommender_v1::client::Recommender;
+    /// let client = Recommender::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::recommender::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::recommender::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Recommender + 'static,
+        T: super::stub::Recommender + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Recommender>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Recommender>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -80,13 +110,13 @@ impl Recommender {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Recommender> {
+    ) -> Result<impl super::stub::Recommender> {
         super::transport::Recommender::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Recommender> {
+    ) -> Result<impl super::stub::Recommender> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Recommender::new)
@@ -97,9 +127,8 @@ impl Recommender {
     pub fn list_insights(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::recommender::ListInsights {
-        super::builders::recommender::ListInsights::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::recommender::ListInsights {
+        super::builder::recommender::ListInsights::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets the requested insight. Requires the recommender.*.get IAM permission
@@ -107,8 +136,8 @@ impl Recommender {
     pub fn get_insight(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::recommender::GetInsight {
-        super::builders::recommender::GetInsight::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::recommender::GetInsight {
+        super::builder::recommender::GetInsight::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Marks the Insight State as Accepted. Users can use this method to
@@ -120,8 +149,8 @@ impl Recommender {
     pub fn mark_insight_accepted(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::recommender::MarkInsightAccepted {
-        super::builders::recommender::MarkInsightAccepted::new(self.inner.clone())
+    ) -> super::builder::recommender::MarkInsightAccepted {
+        super::builder::recommender::MarkInsightAccepted::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -130,8 +159,8 @@ impl Recommender {
     pub fn list_recommendations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::recommender::ListRecommendations {
-        super::builders::recommender::ListRecommendations::new(self.inner.clone())
+    ) -> super::builder::recommender::ListRecommendations {
+        super::builder::recommender::ListRecommendations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -140,8 +169,8 @@ impl Recommender {
     pub fn get_recommendation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::recommender::GetRecommendation {
-        super::builders::recommender::GetRecommendation::new(self.inner.clone())
+    ) -> super::builder::recommender::GetRecommendation {
+        super::builder::recommender::GetRecommendation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -157,8 +186,8 @@ impl Recommender {
     pub fn mark_recommendation_dismissed(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::recommender::MarkRecommendationDismissed {
-        super::builders::recommender::MarkRecommendationDismissed::new(self.inner.clone())
+    ) -> super::builder::recommender::MarkRecommendationDismissed {
+        super::builder::recommender::MarkRecommendationDismissed::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -175,8 +204,8 @@ impl Recommender {
     pub fn mark_recommendation_claimed(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::recommender::MarkRecommendationClaimed {
-        super::builders::recommender::MarkRecommendationClaimed::new(self.inner.clone())
+    ) -> super::builder::recommender::MarkRecommendationClaimed {
+        super::builder::recommender::MarkRecommendationClaimed::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -194,8 +223,8 @@ impl Recommender {
     pub fn mark_recommendation_succeeded(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::recommender::MarkRecommendationSucceeded {
-        super::builders::recommender::MarkRecommendationSucceeded::new(self.inner.clone())
+    ) -> super::builder::recommender::MarkRecommendationSucceeded {
+        super::builder::recommender::MarkRecommendationSucceeded::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -213,8 +242,8 @@ impl Recommender {
     pub fn mark_recommendation_failed(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::recommender::MarkRecommendationFailed {
-        super::builders::recommender::MarkRecommendationFailed::new(self.inner.clone())
+    ) -> super::builder::recommender::MarkRecommendationFailed {
+        super::builder::recommender::MarkRecommendationFailed::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -223,8 +252,8 @@ impl Recommender {
     pub fn get_recommender_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::recommender::GetRecommenderConfig {
-        super::builders::recommender::GetRecommenderConfig::new(self.inner.clone())
+    ) -> super::builder::recommender::GetRecommenderConfig {
+        super::builder::recommender::GetRecommenderConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -233,8 +262,8 @@ impl Recommender {
     pub fn update_recommender_config(
         &self,
         recommender_config: impl Into<crate::model::RecommenderConfig>,
-    ) -> super::builders::recommender::UpdateRecommenderConfig {
-        super::builders::recommender::UpdateRecommenderConfig::new(self.inner.clone())
+    ) -> super::builder::recommender::UpdateRecommenderConfig {
+        super::builder::recommender::UpdateRecommenderConfig::new(self.inner.clone())
             .set_recommender_config(recommender_config.into())
     }
 
@@ -243,8 +272,8 @@ impl Recommender {
     pub fn get_insight_type_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::recommender::GetInsightTypeConfig {
-        super::builders::recommender::GetInsightTypeConfig::new(self.inner.clone())
+    ) -> super::builder::recommender::GetInsightTypeConfig {
+        super::builder::recommender::GetInsightTypeConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -253,8 +282,8 @@ impl Recommender {
     pub fn update_insight_type_config(
         &self,
         insight_type_config: impl Into<crate::model::InsightTypeConfig>,
-    ) -> super::builders::recommender::UpdateInsightTypeConfig {
-        super::builders::recommender::UpdateInsightTypeConfig::new(self.inner.clone())
+    ) -> super::builder::recommender::UpdateInsightTypeConfig {
+        super::builder::recommender::UpdateInsightTypeConfig::new(self.inner.clone())
             .set_insight_type_config(insight_type_config.into())
     }
 }

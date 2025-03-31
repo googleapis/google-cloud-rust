@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Dialogflow API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Agents;
+/// let client = Agents::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for managing [Agents][google.cloud.dialogflow.cx.v3.Agent].
@@ -29,8 +38,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `Agents` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Agents` use the `with_*` methods in the type returned
+/// by [builder()][Agents::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::agents::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::agents::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -40,52 +64,56 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Agents {
-    inner: Arc<dyn super::stubs::dynamic::Agents>,
+    inner: Arc<dyn super::stub::dynamic::Agents>,
 }
 
 impl Agents {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Agents].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Agents;
+    /// let client = Agents::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::agents::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::agents::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Agents + 'static,
+        T: super::stub::Agents + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Agents>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Agents>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Agents> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stub::Agents> {
         super::transport::Agents::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Agents> {
+    ) -> Result<impl super::stub::Agents> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Agents::new)
@@ -95,16 +123,16 @@ impl Agents {
     pub fn list_agents(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::agents::ListAgents {
-        super::builders::agents::ListAgents::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::agents::ListAgents {
+        super::builder::agents::ListAgents::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Retrieves the specified agent.
     pub fn get_agent(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::agents::GetAgent {
-        super::builders::agents::GetAgent::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::agents::GetAgent {
+        super::builder::agents::GetAgent::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates an agent in the specified location.
@@ -115,8 +143,8 @@ impl Agents {
     pub fn create_agent(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::agents::CreateAgent {
-        super::builders::agents::CreateAgent::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::agents::CreateAgent {
+        super::builder::agents::CreateAgent::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates the specified agent.
@@ -127,16 +155,16 @@ impl Agents {
     pub fn update_agent(
         &self,
         agent: impl Into<crate::model::Agent>,
-    ) -> super::builders::agents::UpdateAgent {
-        super::builders::agents::UpdateAgent::new(self.inner.clone()).set_agent(agent.into())
+    ) -> super::builder::agents::UpdateAgent {
+        super::builder::agents::UpdateAgent::new(self.inner.clone()).set_agent(agent.into())
     }
 
     /// Deletes the specified agent.
     pub fn delete_agent(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::agents::DeleteAgent {
-        super::builders::agents::DeleteAgent::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::agents::DeleteAgent {
+        super::builder::agents::DeleteAgent::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Exports the specified agent to a binary file.
@@ -164,8 +192,8 @@ impl Agents {
     pub fn export_agent(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::agents::ExportAgent {
-        super::builders::agents::ExportAgent::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::agents::ExportAgent {
+        super::builder::agents::ExportAgent::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Restores the specified agent from a binary file.
@@ -198,8 +226,8 @@ impl Agents {
     pub fn restore_agent(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::agents::RestoreAgent {
-        super::builders::agents::RestoreAgent::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::agents::RestoreAgent {
+        super::builder::agents::RestoreAgent::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Validates the specified agent and creates or updates validation results.
@@ -208,8 +236,8 @@ impl Agents {
     pub fn validate_agent(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::agents::ValidateAgent {
-        super::builders::agents::ValidateAgent::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::agents::ValidateAgent {
+        super::builder::agents::ValidateAgent::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets the latest agent validation result. Agent validation is performed
@@ -217,8 +245,8 @@ impl Agents {
     pub fn get_agent_validation_result(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::agents::GetAgentValidationResult {
-        super::builders::agents::GetAgentValidationResult::new(self.inner.clone())
+    ) -> super::builder::agents::GetAgentValidationResult {
+        super::builder::agents::GetAgentValidationResult::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -226,17 +254,16 @@ impl Agents {
     pub fn get_generative_settings(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::agents::GetGenerativeSettings {
-        super::builders::agents::GetGenerativeSettings::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::agents::GetGenerativeSettings {
+        super::builder::agents::GetGenerativeSettings::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the generative settings for the agent.
     pub fn update_generative_settings(
         &self,
         generative_settings: impl Into<crate::model::GenerativeSettings>,
-    ) -> super::builders::agents::UpdateGenerativeSettings {
-        super::builders::agents::UpdateGenerativeSettings::new(self.inner.clone())
+    ) -> super::builder::agents::UpdateGenerativeSettings {
+        super::builder::agents::UpdateGenerativeSettings::new(self.inner.clone())
             .set_generative_settings(generative_settings.into())
     }
 
@@ -244,16 +271,16 @@ impl Agents {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::agents::ListLocations {
-        super::builders::agents::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::agents::ListLocations {
+        super::builder::agents::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::agents::GetLocation {
-        super::builders::agents::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::agents::GetLocation {
+        super::builder::agents::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -262,8 +289,8 @@ impl Agents {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::agents::ListOperations {
-        super::builders::agents::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::agents::ListOperations {
+        super::builder::agents::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -272,8 +299,8 @@ impl Agents {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::agents::GetOperation {
-        super::builders::agents::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::agents::GetOperation {
+        super::builder::agents::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -282,12 +309,21 @@ impl Agents {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::agents::CancelOperation {
-        super::builders::agents::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::agents::CancelOperation {
+        super::builder::agents::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Changelogs;
+/// let client = Changelogs::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -297,8 +333,23 @@ impl Agents {
 ///
 /// # Configuration
 ///
-/// `Changelogs` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Changelogs` use the `with_*` methods in the type returned
+/// by [builder()][Changelogs::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::changelogs::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::changelogs::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -308,37 +359,43 @@ impl Agents {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Changelogs {
-    inner: Arc<dyn super::stubs::dynamic::Changelogs>,
+    inner: Arc<dyn super::stub::dynamic::Changelogs>,
 }
 
 impl Changelogs {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Changelogs].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Changelogs;
+    /// let client = Changelogs::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::changelogs::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::changelogs::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Changelogs + 'static,
+        T: super::stub::Changelogs + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Changelogs>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Changelogs>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -347,13 +404,13 @@ impl Changelogs {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Changelogs> {
+    ) -> Result<impl super::stub::Changelogs> {
         super::transport::Changelogs::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Changelogs> {
+    ) -> Result<impl super::stub::Changelogs> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Changelogs::new)
@@ -363,8 +420,8 @@ impl Changelogs {
     pub fn list_changelogs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::changelogs::ListChangelogs {
-        super::builders::changelogs::ListChangelogs::new(self.inner.clone())
+    ) -> super::builder::changelogs::ListChangelogs {
+        super::builder::changelogs::ListChangelogs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -372,24 +429,24 @@ impl Changelogs {
     pub fn get_changelog(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::changelogs::GetChangelog {
-        super::builders::changelogs::GetChangelog::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::changelogs::GetChangelog {
+        super::builder::changelogs::GetChangelog::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::changelogs::ListLocations {
-        super::builders::changelogs::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::changelogs::ListLocations {
+        super::builder::changelogs::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::changelogs::GetLocation {
-        super::builders::changelogs::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::changelogs::GetLocation {
+        super::builder::changelogs::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -398,8 +455,8 @@ impl Changelogs {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::changelogs::ListOperations {
-        super::builders::changelogs::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::changelogs::ListOperations {
+        super::builder::changelogs::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -408,8 +465,8 @@ impl Changelogs {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::changelogs::GetOperation {
-        super::builders::changelogs::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::changelogs::GetOperation {
+        super::builder::changelogs::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -418,12 +475,21 @@ impl Changelogs {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::changelogs::CancelOperation {
-        super::builders::changelogs::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::changelogs::CancelOperation {
+        super::builder::changelogs::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Deployments;
+/// let client = Deployments::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -433,8 +499,23 @@ impl Changelogs {
 ///
 /// # Configuration
 ///
-/// `Deployments` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Deployments` use the `with_*` methods in the type returned
+/// by [builder()][Deployments::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::deployments::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::deployments::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -444,37 +525,43 @@ impl Changelogs {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Deployments {
-    inner: Arc<dyn super::stubs::dynamic::Deployments>,
+    inner: Arc<dyn super::stub::dynamic::Deployments>,
 }
 
 impl Deployments {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Deployments].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Deployments;
+    /// let client = Deployments::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::deployments::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::deployments::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Deployments + 'static,
+        T: super::stub::Deployments + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Deployments>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Deployments>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -483,13 +570,13 @@ impl Deployments {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Deployments> {
+    ) -> Result<impl super::stub::Deployments> {
         super::transport::Deployments::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Deployments> {
+    ) -> Result<impl super::stub::Deployments> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Deployments::new)
@@ -502,8 +589,8 @@ impl Deployments {
     pub fn list_deployments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::deployments::ListDeployments {
-        super::builders::deployments::ListDeployments::new(self.inner.clone())
+    ) -> super::builder::deployments::ListDeployments {
+        super::builder::deployments::ListDeployments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -514,24 +601,24 @@ impl Deployments {
     pub fn get_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::deployments::GetDeployment {
-        super::builders::deployments::GetDeployment::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::deployments::GetDeployment {
+        super::builder::deployments::GetDeployment::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::deployments::ListLocations {
-        super::builders::deployments::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::deployments::ListLocations {
+        super::builder::deployments::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::deployments::GetLocation {
-        super::builders::deployments::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::deployments::GetLocation {
+        super::builder::deployments::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -540,8 +627,8 @@ impl Deployments {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::deployments::ListOperations {
-        super::builders::deployments::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::deployments::ListOperations {
+        super::builder::deployments::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -550,8 +637,8 @@ impl Deployments {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::deployments::GetOperation {
-        super::builders::deployments::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::deployments::GetOperation {
+        super::builder::deployments::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -560,12 +647,21 @@ impl Deployments {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::deployments::CancelOperation {
-        super::builders::deployments::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::deployments::CancelOperation {
+        super::builder::deployments::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::EntityTypes;
+/// let client = EntityTypes::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -575,8 +671,23 @@ impl Deployments {
 ///
 /// # Configuration
 ///
-/// `EntityTypes` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `EntityTypes` use the `with_*` methods in the type returned
+/// by [builder()][EntityTypes::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::entity_types::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::entity_types::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -586,37 +697,43 @@ impl Deployments {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct EntityTypes {
-    inner: Arc<dyn super::stubs::dynamic::EntityTypes>,
+    inner: Arc<dyn super::stub::dynamic::EntityTypes>,
 }
 
 impl EntityTypes {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [EntityTypes].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::EntityTypes;
+    /// let client = EntityTypes::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::entity_types::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::entity_types::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::EntityTypes + 'static,
+        T: super::stub::EntityTypes + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::EntityTypes>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::EntityTypes>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -625,13 +742,13 @@ impl EntityTypes {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::EntityTypes> {
+    ) -> Result<impl super::stub::EntityTypes> {
         super::transport::EntityTypes::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::EntityTypes> {
+    ) -> Result<impl super::stub::EntityTypes> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::EntityTypes::new)
@@ -641,8 +758,8 @@ impl EntityTypes {
     pub fn get_entity_type(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::entity_types::GetEntityType {
-        super::builders::entity_types::GetEntityType::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::entity_types::GetEntityType {
+        super::builder::entity_types::GetEntityType::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates an entity type in the specified agent.
@@ -653,8 +770,8 @@ impl EntityTypes {
     pub fn create_entity_type(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::entity_types::CreateEntityType {
-        super::builders::entity_types::CreateEntityType::new(self.inner.clone())
+    ) -> super::builder::entity_types::CreateEntityType {
+        super::builder::entity_types::CreateEntityType::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -666,8 +783,8 @@ impl EntityTypes {
     pub fn update_entity_type(
         &self,
         entity_type: impl Into<crate::model::EntityType>,
-    ) -> super::builders::entity_types::UpdateEntityType {
-        super::builders::entity_types::UpdateEntityType::new(self.inner.clone())
+    ) -> super::builder::entity_types::UpdateEntityType {
+        super::builder::entity_types::UpdateEntityType::new(self.inner.clone())
             .set_entity_type(entity_type.into())
     }
 
@@ -679,8 +796,8 @@ impl EntityTypes {
     pub fn delete_entity_type(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::entity_types::DeleteEntityType {
-        super::builders::entity_types::DeleteEntityType::new(self.inner.clone())
+    ) -> super::builder::entity_types::DeleteEntityType {
+        super::builder::entity_types::DeleteEntityType::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -688,8 +805,8 @@ impl EntityTypes {
     pub fn list_entity_types(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::entity_types::ListEntityTypes {
-        super::builders::entity_types::ListEntityTypes::new(self.inner.clone())
+    ) -> super::builder::entity_types::ListEntityTypes {
+        super::builder::entity_types::ListEntityTypes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -707,8 +824,8 @@ impl EntityTypes {
     pub fn export_entity_types(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::entity_types::ExportEntityTypes {
-        super::builders::entity_types::ExportEntityTypes::new(self.inner.clone())
+    ) -> super::builder::entity_types::ExportEntityTypes {
+        super::builder::entity_types::ExportEntityTypes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -726,8 +843,8 @@ impl EntityTypes {
     pub fn import_entity_types(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::entity_types::ImportEntityTypes {
-        super::builders::entity_types::ImportEntityTypes::new(self.inner.clone())
+    ) -> super::builder::entity_types::ImportEntityTypes {
+        super::builder::entity_types::ImportEntityTypes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -735,16 +852,16 @@ impl EntityTypes {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::entity_types::ListLocations {
-        super::builders::entity_types::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::entity_types::ListLocations {
+        super::builder::entity_types::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::entity_types::GetLocation {
-        super::builders::entity_types::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::entity_types::GetLocation {
+        super::builder::entity_types::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -753,8 +870,8 @@ impl EntityTypes {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::entity_types::ListOperations {
-        super::builders::entity_types::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::entity_types::ListOperations {
+        super::builder::entity_types::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -763,8 +880,8 @@ impl EntityTypes {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::entity_types::GetOperation {
-        super::builders::entity_types::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::entity_types::GetOperation {
+        super::builder::entity_types::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -773,13 +890,21 @@ impl EntityTypes {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::entity_types::CancelOperation {
-        super::builders::entity_types::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::entity_types::CancelOperation {
+        super::builder::entity_types::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Environments;
+/// let client = Environments::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -790,8 +915,23 @@ impl EntityTypes {
 ///
 /// # Configuration
 ///
-/// `Environments` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Environments` use the `with_*` methods in the type returned
+/// by [builder()][Environments::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::environments::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::environments::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -801,37 +941,43 @@ impl EntityTypes {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Environments {
-    inner: Arc<dyn super::stubs::dynamic::Environments>,
+    inner: Arc<dyn super::stub::dynamic::Environments>,
 }
 
 impl Environments {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Environments].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Environments;
+    /// let client = Environments::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::environments::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::environments::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Environments + 'static,
+        T: super::stub::Environments + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Environments>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Environments>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -840,13 +986,13 @@ impl Environments {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Environments> {
+    ) -> Result<impl super::stub::Environments> {
         super::transport::Environments::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Environments> {
+    ) -> Result<impl super::stub::Environments> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Environments::new)
@@ -859,8 +1005,8 @@ impl Environments {
     pub fn list_environments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::environments::ListEnvironments {
-        super::builders::environments::ListEnvironments::new(self.inner.clone())
+    ) -> super::builder::environments::ListEnvironments {
+        super::builder::environments::ListEnvironments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -871,8 +1017,8 @@ impl Environments {
     pub fn get_environment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::environments::GetEnvironment {
-        super::builders::environments::GetEnvironment::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::environments::GetEnvironment {
+        super::builder::environments::GetEnvironment::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates an [Environment][google.cloud.dialogflow.cx.v3.Environment] in the
@@ -901,8 +1047,8 @@ impl Environments {
     pub fn create_environment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::environments::CreateEnvironment {
-        super::builders::environments::CreateEnvironment::new(self.inner.clone())
+    ) -> super::builder::environments::CreateEnvironment {
+        super::builder::environments::CreateEnvironment::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -931,8 +1077,8 @@ impl Environments {
     pub fn update_environment(
         &self,
         environment: impl Into<crate::model::Environment>,
-    ) -> super::builders::environments::UpdateEnvironment {
-        super::builders::environments::UpdateEnvironment::new(self.inner.clone())
+    ) -> super::builder::environments::UpdateEnvironment {
+        super::builder::environments::UpdateEnvironment::new(self.inner.clone())
             .set_environment(environment.into())
     }
 
@@ -943,8 +1089,8 @@ impl Environments {
     pub fn delete_environment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::environments::DeleteEnvironment {
-        super::builders::environments::DeleteEnvironment::new(self.inner.clone())
+    ) -> super::builder::environments::DeleteEnvironment {
+        super::builder::environments::DeleteEnvironment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -955,8 +1101,8 @@ impl Environments {
     pub fn lookup_environment_history(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::environments::LookupEnvironmentHistory {
-        super::builders::environments::LookupEnvironmentHistory::new(self.inner.clone())
+    ) -> super::builder::environments::LookupEnvironmentHistory {
+        super::builder::environments::LookupEnvironmentHistory::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -988,8 +1134,8 @@ impl Environments {
     pub fn run_continuous_test(
         &self,
         environment: impl Into<std::string::String>,
-    ) -> super::builders::environments::RunContinuousTest {
-        super::builders::environments::RunContinuousTest::new(self.inner.clone())
+    ) -> super::builder::environments::RunContinuousTest {
+        super::builder::environments::RunContinuousTest::new(self.inner.clone())
             .set_environment(environment.into())
     }
 
@@ -997,8 +1143,8 @@ impl Environments {
     pub fn list_continuous_test_results(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::environments::ListContinuousTestResults {
-        super::builders::environments::ListContinuousTestResults::new(self.inner.clone())
+    ) -> super::builder::environments::ListContinuousTestResults {
+        super::builder::environments::ListContinuousTestResults::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1030,8 +1176,8 @@ impl Environments {
     pub fn deploy_flow(
         &self,
         environment: impl Into<std::string::String>,
-    ) -> super::builders::environments::DeployFlow {
-        super::builders::environments::DeployFlow::new(self.inner.clone())
+    ) -> super::builder::environments::DeployFlow {
+        super::builder::environments::DeployFlow::new(self.inner.clone())
             .set_environment(environment.into())
     }
 
@@ -1039,16 +1185,16 @@ impl Environments {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::environments::ListLocations {
-        super::builders::environments::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::environments::ListLocations {
+        super::builder::environments::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::environments::GetLocation {
-        super::builders::environments::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::environments::GetLocation {
+        super::builder::environments::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1057,8 +1203,8 @@ impl Environments {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::environments::ListOperations {
-        super::builders::environments::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::environments::ListOperations {
+        super::builder::environments::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1067,8 +1213,8 @@ impl Environments {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::environments::GetOperation {
-        super::builders::environments::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::environments::GetOperation {
+        super::builder::environments::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1077,13 +1223,21 @@ impl Environments {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::environments::CancelOperation {
-        super::builders::environments::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::environments::CancelOperation {
+        super::builder::environments::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Experiments;
+/// let client = Experiments::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -1093,8 +1247,23 @@ impl Environments {
 ///
 /// # Configuration
 ///
-/// `Experiments` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Experiments` use the `with_*` methods in the type returned
+/// by [builder()][Experiments::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::experiments::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::experiments::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1104,37 +1273,43 @@ impl Environments {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Experiments {
-    inner: Arc<dyn super::stubs::dynamic::Experiments>,
+    inner: Arc<dyn super::stub::dynamic::Experiments>,
 }
 
 impl Experiments {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Experiments].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Experiments;
+    /// let client = Experiments::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::experiments::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::experiments::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Experiments + 'static,
+        T: super::stub::Experiments + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Experiments>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Experiments>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1143,13 +1318,13 @@ impl Experiments {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Experiments> {
+    ) -> Result<impl super::stub::Experiments> {
         super::transport::Experiments::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Experiments> {
+    ) -> Result<impl super::stub::Experiments> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Experiments::new)
@@ -1162,8 +1337,8 @@ impl Experiments {
     pub fn list_experiments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::experiments::ListExperiments {
-        super::builders::experiments::ListExperiments::new(self.inner.clone())
+    ) -> super::builder::experiments::ListExperiments {
+        super::builder::experiments::ListExperiments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1174,8 +1349,8 @@ impl Experiments {
     pub fn get_experiment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::experiments::GetExperiment {
-        super::builders::experiments::GetExperiment::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::experiments::GetExperiment {
+        super::builder::experiments::GetExperiment::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates an [Experiment][google.cloud.dialogflow.cx.v3.Experiment] in the
@@ -1186,8 +1361,8 @@ impl Experiments {
     pub fn create_experiment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::experiments::CreateExperiment {
-        super::builders::experiments::CreateExperiment::new(self.inner.clone())
+    ) -> super::builder::experiments::CreateExperiment {
+        super::builder::experiments::CreateExperiment::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1198,8 +1373,8 @@ impl Experiments {
     pub fn update_experiment(
         &self,
         experiment: impl Into<crate::model::Experiment>,
-    ) -> super::builders::experiments::UpdateExperiment {
-        super::builders::experiments::UpdateExperiment::new(self.inner.clone())
+    ) -> super::builder::experiments::UpdateExperiment {
+        super::builder::experiments::UpdateExperiment::new(self.inner.clone())
             .set_experiment(experiment.into())
     }
 
@@ -1210,9 +1385,8 @@ impl Experiments {
     pub fn delete_experiment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::experiments::DeleteExperiment {
-        super::builders::experiments::DeleteExperiment::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::experiments::DeleteExperiment {
+        super::builder::experiments::DeleteExperiment::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Starts the specified
@@ -1223,8 +1397,8 @@ impl Experiments {
     pub fn start_experiment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::experiments::StartExperiment {
-        super::builders::experiments::StartExperiment::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::experiments::StartExperiment {
+        super::builder::experiments::StartExperiment::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Stops the specified [Experiment][google.cloud.dialogflow.cx.v3.Experiment].
@@ -1234,24 +1408,24 @@ impl Experiments {
     pub fn stop_experiment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::experiments::StopExperiment {
-        super::builders::experiments::StopExperiment::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::experiments::StopExperiment {
+        super::builder::experiments::StopExperiment::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::experiments::ListLocations {
-        super::builders::experiments::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::experiments::ListLocations {
+        super::builder::experiments::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::experiments::GetLocation {
-        super::builders::experiments::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::experiments::GetLocation {
+        super::builder::experiments::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1260,8 +1434,8 @@ impl Experiments {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::experiments::ListOperations {
-        super::builders::experiments::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::experiments::ListOperations {
+        super::builder::experiments::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1270,8 +1444,8 @@ impl Experiments {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::experiments::GetOperation {
-        super::builders::experiments::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::experiments::GetOperation {
+        super::builder::experiments::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1280,12 +1454,21 @@ impl Experiments {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::experiments::CancelOperation {
-        super::builders::experiments::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::experiments::CancelOperation {
+        super::builder::experiments::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Flows;
+/// let client = Flows::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -1295,8 +1478,23 @@ impl Experiments {
 ///
 /// # Configuration
 ///
-/// `Flows` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Flows` use the `with_*` methods in the type returned
+/// by [builder()][Flows::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::flows::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::flows::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1306,50 +1504,56 @@ impl Experiments {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Flows {
-    inner: Arc<dyn super::stubs::dynamic::Flows>,
+    inner: Arc<dyn super::stub::dynamic::Flows>,
 }
 
 impl Flows {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Flows].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Flows;
+    /// let client = Flows::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::flows::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::flows::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Flows + 'static,
+        T: super::stub::Flows + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Flows>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Flows>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stubs::Flows> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stub::Flows> {
         super::transport::Flows::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Flows> {
+    ) -> Result<impl super::stub::Flows> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Flows::new)
@@ -1363,32 +1567,29 @@ impl Flows {
     pub fn create_flow(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::flows::CreateFlow {
-        super::builders::flows::CreateFlow::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::flows::CreateFlow {
+        super::builder::flows::CreateFlow::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Deletes a specified flow.
     pub fn delete_flow(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::flows::DeleteFlow {
-        super::builders::flows::DeleteFlow::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::flows::DeleteFlow {
+        super::builder::flows::DeleteFlow::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Returns the list of all flows in the specified agent.
     pub fn list_flows(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::flows::ListFlows {
-        super::builders::flows::ListFlows::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::flows::ListFlows {
+        super::builder::flows::ListFlows::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Retrieves the specified flow.
-    pub fn get_flow(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builders::flows::GetFlow {
-        super::builders::flows::GetFlow::new(self.inner.clone()).set_name(name.into())
+    pub fn get_flow(&self, name: impl Into<std::string::String>) -> super::builder::flows::GetFlow {
+        super::builder::flows::GetFlow::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the specified flow.
@@ -1399,8 +1600,8 @@ impl Flows {
     pub fn update_flow(
         &self,
         flow: impl Into<crate::model::Flow>,
-    ) -> super::builders::flows::UpdateFlow {
-        super::builders::flows::UpdateFlow::new(self.inner.clone()).set_flow(flow.into())
+    ) -> super::builder::flows::UpdateFlow {
+        super::builder::flows::UpdateFlow::new(self.inner.clone()).set_flow(flow.into())
     }
 
     /// Trains the specified flow. Note that only the flow in 'draft' environment
@@ -1431,8 +1632,8 @@ impl Flows {
     pub fn train_flow(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::flows::TrainFlow {
-        super::builders::flows::TrainFlow::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::flows::TrainFlow {
+        super::builder::flows::TrainFlow::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Validates the specified flow and creates or updates validation results.
@@ -1441,8 +1642,8 @@ impl Flows {
     pub fn validate_flow(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::flows::ValidateFlow {
-        super::builders::flows::ValidateFlow::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::flows::ValidateFlow {
+        super::builder::flows::ValidateFlow::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets the latest flow validation result. Flow validation is performed
@@ -1450,8 +1651,8 @@ impl Flows {
     pub fn get_flow_validation_result(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::flows::GetFlowValidationResult {
-        super::builders::flows::GetFlowValidationResult::new(self.inner.clone())
+    ) -> super::builder::flows::GetFlowValidationResult {
+        super::builder::flows::GetFlowValidationResult::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1484,8 +1685,8 @@ impl Flows {
     pub fn import_flow(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::flows::ImportFlow {
-        super::builders::flows::ImportFlow::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::flows::ImportFlow {
+        super::builder::flows::ImportFlow::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Exports the specified flow to a binary file.
@@ -1516,24 +1717,24 @@ impl Flows {
     pub fn export_flow(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::flows::ExportFlow {
-        super::builders::flows::ExportFlow::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::flows::ExportFlow {
+        super::builder::flows::ExportFlow::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::flows::ListLocations {
-        super::builders::flows::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::flows::ListLocations {
+        super::builder::flows::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::flows::GetLocation {
-        super::builders::flows::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::flows::GetLocation {
+        super::builder::flows::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1542,8 +1743,8 @@ impl Flows {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::flows::ListOperations {
-        super::builders::flows::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::flows::ListOperations {
+        super::builder::flows::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1552,8 +1753,8 @@ impl Flows {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::flows::GetOperation {
-        super::builders::flows::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::flows::GetOperation {
+        super::builder::flows::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1562,12 +1763,21 @@ impl Flows {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::flows::CancelOperation {
-        super::builders::flows::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::flows::CancelOperation {
+        super::builder::flows::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Generators;
+/// let client = Generators::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -1577,8 +1787,23 @@ impl Flows {
 ///
 /// # Configuration
 ///
-/// `Generators` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Generators` use the `with_*` methods in the type returned
+/// by [builder()][Generators::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::generators::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::generators::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1588,37 +1813,43 @@ impl Flows {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Generators {
-    inner: Arc<dyn super::stubs::dynamic::Generators>,
+    inner: Arc<dyn super::stub::dynamic::Generators>,
 }
 
 impl Generators {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Generators].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Generators;
+    /// let client = Generators::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::generators::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::generators::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Generators + 'static,
+        T: super::stub::Generators + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Generators>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Generators>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1627,13 +1858,13 @@ impl Generators {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Generators> {
+    ) -> Result<impl super::stub::Generators> {
         super::transport::Generators::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Generators> {
+    ) -> Result<impl super::stub::Generators> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Generators::new)
@@ -1643,8 +1874,8 @@ impl Generators {
     pub fn list_generators(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::generators::ListGenerators {
-        super::builders::generators::ListGenerators::new(self.inner.clone())
+    ) -> super::builder::generators::ListGenerators {
+        super::builder::generators::ListGenerators::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1652,16 +1883,16 @@ impl Generators {
     pub fn get_generator(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::generators::GetGenerator {
-        super::builders::generators::GetGenerator::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::generators::GetGenerator {
+        super::builder::generators::GetGenerator::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a generator in the specified agent.
     pub fn create_generator(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::generators::CreateGenerator {
-        super::builders::generators::CreateGenerator::new(self.inner.clone())
+    ) -> super::builder::generators::CreateGenerator {
+        super::builder::generators::CreateGenerator::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1669,8 +1900,8 @@ impl Generators {
     pub fn update_generator(
         &self,
         generator: impl Into<crate::model::Generator>,
-    ) -> super::builders::generators::UpdateGenerator {
-        super::builders::generators::UpdateGenerator::new(self.inner.clone())
+    ) -> super::builder::generators::UpdateGenerator {
+        super::builder::generators::UpdateGenerator::new(self.inner.clone())
             .set_generator(generator.into())
     }
 
@@ -1678,24 +1909,24 @@ impl Generators {
     pub fn delete_generator(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::generators::DeleteGenerator {
-        super::builders::generators::DeleteGenerator::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::generators::DeleteGenerator {
+        super::builder::generators::DeleteGenerator::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::generators::ListLocations {
-        super::builders::generators::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::generators::ListLocations {
+        super::builder::generators::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::generators::GetLocation {
-        super::builders::generators::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::generators::GetLocation {
+        super::builder::generators::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1704,8 +1935,8 @@ impl Generators {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::generators::ListOperations {
-        super::builders::generators::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::generators::ListOperations {
+        super::builder::generators::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1714,8 +1945,8 @@ impl Generators {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::generators::GetOperation {
-        super::builders::generators::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::generators::GetOperation {
+        super::builder::generators::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1724,12 +1955,21 @@ impl Generators {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::generators::CancelOperation {
-        super::builders::generators::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::generators::CancelOperation {
+        super::builder::generators::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Intents;
+/// let client = Intents::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -1739,8 +1979,23 @@ impl Generators {
 ///
 /// # Configuration
 ///
-/// `Intents` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Intents` use the `with_*` methods in the type returned
+/// by [builder()][Intents::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::intents::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::intents::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1750,37 +2005,43 @@ impl Generators {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Intents {
-    inner: Arc<dyn super::stubs::dynamic::Intents>,
+    inner: Arc<dyn super::stub::dynamic::Intents>,
 }
 
 impl Intents {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Intents].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Intents;
+    /// let client = Intents::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::intents::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::intents::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Intents + 'static,
+        T: super::stub::Intents + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Intents>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Intents>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1789,13 +2050,13 @@ impl Intents {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Intents> {
+    ) -> Result<impl super::stub::Intents> {
         super::transport::Intents::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Intents> {
+    ) -> Result<impl super::stub::Intents> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Intents::new)
@@ -1805,16 +2066,16 @@ impl Intents {
     pub fn list_intents(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::intents::ListIntents {
-        super::builders::intents::ListIntents::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::intents::ListIntents {
+        super::builder::intents::ListIntents::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Retrieves the specified intent.
     pub fn get_intent(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::intents::GetIntent {
-        super::builders::intents::GetIntent::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::intents::GetIntent {
+        super::builder::intents::GetIntent::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates an intent in the specified agent.
@@ -1825,8 +2086,8 @@ impl Intents {
     pub fn create_intent(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::intents::CreateIntent {
-        super::builders::intents::CreateIntent::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::intents::CreateIntent {
+        super::builder::intents::CreateIntent::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates the specified intent.
@@ -1837,8 +2098,8 @@ impl Intents {
     pub fn update_intent(
         &self,
         intent: impl Into<crate::model::Intent>,
-    ) -> super::builders::intents::UpdateIntent {
-        super::builders::intents::UpdateIntent::new(self.inner.clone()).set_intent(intent.into())
+    ) -> super::builder::intents::UpdateIntent {
+        super::builder::intents::UpdateIntent::new(self.inner.clone()).set_intent(intent.into())
     }
 
     /// Deletes the specified intent.
@@ -1849,8 +2110,8 @@ impl Intents {
     pub fn delete_intent(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::intents::DeleteIntent {
-        super::builders::intents::DeleteIntent::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::intents::DeleteIntent {
+        super::builder::intents::DeleteIntent::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Imports the specified intents into the agent.
@@ -1879,8 +2140,8 @@ impl Intents {
     pub fn import_intents(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::intents::ImportIntents {
-        super::builders::intents::ImportIntents::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::intents::ImportIntents {
+        super::builder::intents::ImportIntents::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Exports the selected intents.
@@ -1909,24 +2170,24 @@ impl Intents {
     pub fn export_intents(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::intents::ExportIntents {
-        super::builders::intents::ExportIntents::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::intents::ExportIntents {
+        super::builder::intents::ExportIntents::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::intents::ListLocations {
-        super::builders::intents::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::intents::ListLocations {
+        super::builder::intents::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::intents::GetLocation {
-        super::builders::intents::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::intents::GetLocation {
+        super::builder::intents::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1935,8 +2196,8 @@ impl Intents {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::intents::ListOperations {
-        super::builders::intents::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::intents::ListOperations {
+        super::builder::intents::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1945,8 +2206,8 @@ impl Intents {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::intents::GetOperation {
-        super::builders::intents::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::intents::GetOperation {
+        super::builder::intents::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1955,12 +2216,21 @@ impl Intents {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::intents::CancelOperation {
-        super::builders::intents::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::intents::CancelOperation {
+        super::builder::intents::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Pages;
+/// let client = Pages::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -1970,8 +2240,23 @@ impl Intents {
 ///
 /// # Configuration
 ///
-/// `Pages` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Pages` use the `with_*` methods in the type returned
+/// by [builder()][Pages::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::pages::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::pages::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -1981,50 +2266,56 @@ impl Intents {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Pages {
-    inner: Arc<dyn super::stubs::dynamic::Pages>,
+    inner: Arc<dyn super::stub::dynamic::Pages>,
 }
 
 impl Pages {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Pages].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Pages;
+    /// let client = Pages::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::pages::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::pages::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Pages + 'static,
+        T: super::stub::Pages + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Pages>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Pages>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stubs::Pages> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stub::Pages> {
         super::transport::Pages::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Pages> {
+    ) -> Result<impl super::stub::Pages> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Pages::new)
@@ -2034,16 +2325,13 @@ impl Pages {
     pub fn list_pages(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::pages::ListPages {
-        super::builders::pages::ListPages::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::pages::ListPages {
+        super::builder::pages::ListPages::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Retrieves the specified page.
-    pub fn get_page(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builders::pages::GetPage {
-        super::builders::pages::GetPage::new(self.inner.clone()).set_name(name.into())
+    pub fn get_page(&self, name: impl Into<std::string::String>) -> super::builder::pages::GetPage {
+        super::builder::pages::GetPage::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a page in the specified flow.
@@ -2054,8 +2342,8 @@ impl Pages {
     pub fn create_page(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::pages::CreatePage {
-        super::builders::pages::CreatePage::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::pages::CreatePage {
+        super::builder::pages::CreatePage::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates the specified page.
@@ -2066,8 +2354,8 @@ impl Pages {
     pub fn update_page(
         &self,
         page: impl Into<crate::model::Page>,
-    ) -> super::builders::pages::UpdatePage {
-        super::builders::pages::UpdatePage::new(self.inner.clone()).set_page(page.into())
+    ) -> super::builder::pages::UpdatePage {
+        super::builder::pages::UpdatePage::new(self.inner.clone()).set_page(page.into())
     }
 
     /// Deletes the specified page.
@@ -2078,24 +2366,24 @@ impl Pages {
     pub fn delete_page(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::pages::DeletePage {
-        super::builders::pages::DeletePage::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::pages::DeletePage {
+        super::builder::pages::DeletePage::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::pages::ListLocations {
-        super::builders::pages::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::pages::ListLocations {
+        super::builder::pages::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::pages::GetLocation {
-        super::builders::pages::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::pages::GetLocation {
+        super::builder::pages::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2104,8 +2392,8 @@ impl Pages {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::pages::ListOperations {
-        super::builders::pages::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::pages::ListOperations {
+        super::builder::pages::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2114,8 +2402,8 @@ impl Pages {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::pages::GetOperation {
-        super::builders::pages::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::pages::GetOperation {
+        super::builder::pages::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2124,12 +2412,21 @@ impl Pages {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::pages::CancelOperation {
-        super::builders::pages::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::pages::CancelOperation {
+        super::builder::pages::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::SecuritySettingsService;
+/// let client = SecuritySettingsService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -2137,8 +2434,23 @@ impl Pages {
 ///
 /// # Configuration
 ///
-/// `SecuritySettingsService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SecuritySettingsService` use the `with_*` methods in the type returned
+/// by [builder()][SecuritySettingsService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::security_settings_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::security_settings_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -2148,37 +2460,45 @@ impl Pages {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SecuritySettingsService {
-    inner: Arc<dyn super::stubs::dynamic::SecuritySettingsService>,
+    inner: Arc<dyn super::stub::dynamic::SecuritySettingsService>,
 }
 
 impl SecuritySettingsService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [SecuritySettingsService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::SecuritySettingsService;
+    /// let client = SecuritySettingsService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::security_settings_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::security_settings_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::SecuritySettingsService + 'static,
+        T: super::stub::SecuritySettingsService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::SecuritySettingsService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::SecuritySettingsService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -2187,13 +2507,13 @@ impl SecuritySettingsService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SecuritySettingsService> {
+    ) -> Result<impl super::stub::SecuritySettingsService> {
         super::transport::SecuritySettingsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SecuritySettingsService> {
+    ) -> Result<impl super::stub::SecuritySettingsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SecuritySettingsService::new)
@@ -2203,8 +2523,8 @@ impl SecuritySettingsService {
     pub fn create_security_settings(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_settings_service::CreateSecuritySettings {
-        super::builders::security_settings_service::CreateSecuritySettings::new(self.inner.clone())
+    ) -> super::builder::security_settings_service::CreateSecuritySettings {
+        super::builder::security_settings_service::CreateSecuritySettings::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2216,8 +2536,8 @@ impl SecuritySettingsService {
     pub fn get_security_settings(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_settings_service::GetSecuritySettings {
-        super::builders::security_settings_service::GetSecuritySettings::new(self.inner.clone())
+    ) -> super::builder::security_settings_service::GetSecuritySettings {
+        super::builder::security_settings_service::GetSecuritySettings::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2228,8 +2548,8 @@ impl SecuritySettingsService {
     pub fn update_security_settings(
         &self,
         security_settings: impl Into<crate::model::SecuritySettings>,
-    ) -> super::builders::security_settings_service::UpdateSecuritySettings {
-        super::builders::security_settings_service::UpdateSecuritySettings::new(self.inner.clone())
+    ) -> super::builder::security_settings_service::UpdateSecuritySettings {
+        super::builder::security_settings_service::UpdateSecuritySettings::new(self.inner.clone())
             .set_security_settings(security_settings.into())
     }
 
@@ -2237,8 +2557,8 @@ impl SecuritySettingsService {
     pub fn list_security_settings(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::security_settings_service::ListSecuritySettings {
-        super::builders::security_settings_service::ListSecuritySettings::new(self.inner.clone())
+    ) -> super::builder::security_settings_service::ListSecuritySettings {
+        super::builder::security_settings_service::ListSecuritySettings::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2249,8 +2569,8 @@ impl SecuritySettingsService {
     pub fn delete_security_settings(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_settings_service::DeleteSecuritySettings {
-        super::builders::security_settings_service::DeleteSecuritySettings::new(self.inner.clone())
+    ) -> super::builder::security_settings_service::DeleteSecuritySettings {
+        super::builder::security_settings_service::DeleteSecuritySettings::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2258,8 +2578,8 @@ impl SecuritySettingsService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_settings_service::ListLocations {
-        super::builders::security_settings_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::security_settings_service::ListLocations {
+        super::builder::security_settings_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2267,8 +2587,8 @@ impl SecuritySettingsService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_settings_service::GetLocation {
-        super::builders::security_settings_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::security_settings_service::GetLocation {
+        super::builder::security_settings_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2278,8 +2598,8 @@ impl SecuritySettingsService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_settings_service::ListOperations {
-        super::builders::security_settings_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::security_settings_service::ListOperations {
+        super::builder::security_settings_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2289,8 +2609,8 @@ impl SecuritySettingsService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_settings_service::GetOperation {
-        super::builders::security_settings_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::security_settings_service::GetOperation {
+        super::builder::security_settings_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2300,13 +2620,22 @@ impl SecuritySettingsService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::security_settings_service::CancelOperation {
-        super::builders::security_settings_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::security_settings_service::CancelOperation {
+        super::builder::security_settings_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Sessions;
+/// let client = Sessions::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -2319,8 +2648,23 @@ impl SecuritySettingsService {
 ///
 /// # Configuration
 ///
-/// `Sessions` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Sessions` use the `with_*` methods in the type returned
+/// by [builder()][Sessions::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::sessions::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::sessions::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -2330,37 +2674,43 @@ impl SecuritySettingsService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Sessions {
-    inner: Arc<dyn super::stubs::dynamic::Sessions>,
+    inner: Arc<dyn super::stub::dynamic::Sessions>,
 }
 
 impl Sessions {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Sessions].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Sessions;
+    /// let client = Sessions::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::sessions::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::sessions::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Sessions + 'static,
+        T: super::stub::Sessions + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Sessions>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Sessions>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -2369,13 +2719,13 @@ impl Sessions {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Sessions> {
+    ) -> Result<impl super::stub::Sessions> {
         super::transport::Sessions::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Sessions> {
+    ) -> Result<impl super::stub::Sessions> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Sessions::new)
@@ -2392,8 +2742,8 @@ impl Sessions {
     pub fn detect_intent(
         &self,
         session: impl Into<std::string::String>,
-    ) -> super::builders::sessions::DetectIntent {
-        super::builders::sessions::DetectIntent::new(self.inner.clone()).set_session(session.into())
+    ) -> super::builder::sessions::DetectIntent {
+        super::builder::sessions::DetectIntent::new(self.inner.clone()).set_session(session.into())
     }
 
     /// Returns preliminary intent match results, doesn't change the session
@@ -2401,8 +2751,8 @@ impl Sessions {
     pub fn match_intent(
         &self,
         session: impl Into<std::string::String>,
-    ) -> super::builders::sessions::MatchIntent {
-        super::builders::sessions::MatchIntent::new(self.inner.clone()).set_session(session.into())
+    ) -> super::builder::sessions::MatchIntent {
+        super::builder::sessions::MatchIntent::new(self.inner.clone()).set_session(session.into())
     }
 
     /// Fulfills a matched intent returned by
@@ -2418,8 +2768,8 @@ impl Sessions {
     pub fn fulfill_intent(
         &self,
         match_intent_request: impl Into<crate::model::MatchIntentRequest>,
-    ) -> super::builders::sessions::FulfillIntent {
-        super::builders::sessions::FulfillIntent::new(self.inner.clone())
+    ) -> super::builder::sessions::FulfillIntent {
+        super::builder::sessions::FulfillIntent::new(self.inner.clone())
             .set_match_intent_request(match_intent_request.into())
     }
 
@@ -2428,8 +2778,8 @@ impl Sessions {
     pub fn submit_answer_feedback(
         &self,
         session: impl Into<std::string::String>,
-    ) -> super::builders::sessions::SubmitAnswerFeedback {
-        super::builders::sessions::SubmitAnswerFeedback::new(self.inner.clone())
+    ) -> super::builder::sessions::SubmitAnswerFeedback {
+        super::builder::sessions::SubmitAnswerFeedback::new(self.inner.clone())
             .set_session(session.into())
     }
 
@@ -2437,16 +2787,16 @@ impl Sessions {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::sessions::ListLocations {
-        super::builders::sessions::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::sessions::ListLocations {
+        super::builder::sessions::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::sessions::GetLocation {
-        super::builders::sessions::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::sessions::GetLocation {
+        super::builder::sessions::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2455,8 +2805,8 @@ impl Sessions {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::sessions::ListOperations {
-        super::builders::sessions::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::sessions::ListOperations {
+        super::builder::sessions::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2465,8 +2815,8 @@ impl Sessions {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::sessions::GetOperation {
-        super::builders::sessions::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::sessions::GetOperation {
+        super::builder::sessions::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2475,12 +2825,21 @@ impl Sessions {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::sessions::CancelOperation {
-        super::builders::sessions::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::sessions::CancelOperation {
+        super::builder::sessions::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::SessionEntityTypes;
+/// let client = SessionEntityTypes::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -2491,8 +2850,23 @@ impl Sessions {
 ///
 /// # Configuration
 ///
-/// `SessionEntityTypes` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `SessionEntityTypes` use the `with_*` methods in the type returned
+/// by [builder()][SessionEntityTypes::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::session_entity_types::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::session_entity_types::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -2502,37 +2876,45 @@ impl Sessions {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SessionEntityTypes {
-    inner: Arc<dyn super::stubs::dynamic::SessionEntityTypes>,
+    inner: Arc<dyn super::stub::dynamic::SessionEntityTypes>,
 }
 
 impl SessionEntityTypes {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [SessionEntityTypes].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::SessionEntityTypes;
+    /// let client = SessionEntityTypes::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::session_entity_types::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::session_entity_types::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::SessionEntityTypes + 'static,
+        T: super::stub::SessionEntityTypes + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::SessionEntityTypes>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::SessionEntityTypes>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -2541,13 +2923,13 @@ impl SessionEntityTypes {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SessionEntityTypes> {
+    ) -> Result<impl super::stub::SessionEntityTypes> {
         super::transport::SessionEntityTypes::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::SessionEntityTypes> {
+    ) -> Result<impl super::stub::SessionEntityTypes> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SessionEntityTypes::new)
@@ -2557,8 +2939,8 @@ impl SessionEntityTypes {
     pub fn list_session_entity_types(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::session_entity_types::ListSessionEntityTypes {
-        super::builders::session_entity_types::ListSessionEntityTypes::new(self.inner.clone())
+    ) -> super::builder::session_entity_types::ListSessionEntityTypes {
+        super::builder::session_entity_types::ListSessionEntityTypes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2566,8 +2948,8 @@ impl SessionEntityTypes {
     pub fn get_session_entity_type(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::session_entity_types::GetSessionEntityType {
-        super::builders::session_entity_types::GetSessionEntityType::new(self.inner.clone())
+    ) -> super::builder::session_entity_types::GetSessionEntityType {
+        super::builder::session_entity_types::GetSessionEntityType::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2575,8 +2957,8 @@ impl SessionEntityTypes {
     pub fn create_session_entity_type(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::session_entity_types::CreateSessionEntityType {
-        super::builders::session_entity_types::CreateSessionEntityType::new(self.inner.clone())
+    ) -> super::builder::session_entity_types::CreateSessionEntityType {
+        super::builder::session_entity_types::CreateSessionEntityType::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2584,8 +2966,8 @@ impl SessionEntityTypes {
     pub fn update_session_entity_type(
         &self,
         session_entity_type: impl Into<crate::model::SessionEntityType>,
-    ) -> super::builders::session_entity_types::UpdateSessionEntityType {
-        super::builders::session_entity_types::UpdateSessionEntityType::new(self.inner.clone())
+    ) -> super::builder::session_entity_types::UpdateSessionEntityType {
+        super::builder::session_entity_types::UpdateSessionEntityType::new(self.inner.clone())
             .set_session_entity_type(session_entity_type.into())
     }
 
@@ -2593,8 +2975,8 @@ impl SessionEntityTypes {
     pub fn delete_session_entity_type(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::session_entity_types::DeleteSessionEntityType {
-        super::builders::session_entity_types::DeleteSessionEntityType::new(self.inner.clone())
+    ) -> super::builder::session_entity_types::DeleteSessionEntityType {
+        super::builder::session_entity_types::DeleteSessionEntityType::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2602,8 +2984,8 @@ impl SessionEntityTypes {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::session_entity_types::ListLocations {
-        super::builders::session_entity_types::ListLocations::new(self.inner.clone())
+    ) -> super::builder::session_entity_types::ListLocations {
+        super::builder::session_entity_types::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2611,8 +2993,8 @@ impl SessionEntityTypes {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::session_entity_types::GetLocation {
-        super::builders::session_entity_types::GetLocation::new(self.inner.clone())
+    ) -> super::builder::session_entity_types::GetLocation {
+        super::builder::session_entity_types::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2622,8 +3004,8 @@ impl SessionEntityTypes {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::session_entity_types::ListOperations {
-        super::builders::session_entity_types::ListOperations::new(self.inner.clone())
+    ) -> super::builder::session_entity_types::ListOperations {
+        super::builder::session_entity_types::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2633,8 +3015,8 @@ impl SessionEntityTypes {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::session_entity_types::GetOperation {
-        super::builders::session_entity_types::GetOperation::new(self.inner.clone())
+    ) -> super::builder::session_entity_types::GetOperation {
+        super::builder::session_entity_types::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2644,13 +3026,22 @@ impl SessionEntityTypes {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::session_entity_types::CancelOperation {
-        super::builders::session_entity_types::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::session_entity_types::CancelOperation {
+        super::builder::session_entity_types::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::TestCases;
+/// let client = TestCases::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -2662,8 +3053,23 @@ impl SessionEntityTypes {
 ///
 /// # Configuration
 ///
-/// `TestCases` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `TestCases` use the `with_*` methods in the type returned
+/// by [builder()][TestCases::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::test_cases::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::test_cases::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -2673,37 +3079,43 @@ impl SessionEntityTypes {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct TestCases {
-    inner: Arc<dyn super::stubs::dynamic::TestCases>,
+    inner: Arc<dyn super::stub::dynamic::TestCases>,
 }
 
 impl TestCases {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [TestCases].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::TestCases;
+    /// let client = TestCases::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::test_cases::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::test_cases::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::TestCases + 'static,
+        T: super::stub::TestCases + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::TestCases>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::TestCases>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -2712,13 +3124,13 @@ impl TestCases {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::TestCases> {
+    ) -> Result<impl super::stub::TestCases> {
         super::transport::TestCases::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::TestCases> {
+    ) -> Result<impl super::stub::TestCases> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TestCases::new)
@@ -2728,17 +3140,16 @@ impl TestCases {
     pub fn list_test_cases(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::test_cases::ListTestCases {
-        super::builders::test_cases::ListTestCases::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::test_cases::ListTestCases {
+        super::builder::test_cases::ListTestCases::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Batch deletes test cases.
     pub fn batch_delete_test_cases(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::test_cases::BatchDeleteTestCases {
-        super::builders::test_cases::BatchDeleteTestCases::new(self.inner.clone())
+    ) -> super::builder::test_cases::BatchDeleteTestCases {
+        super::builder::test_cases::BatchDeleteTestCases::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2746,16 +3157,16 @@ impl TestCases {
     pub fn get_test_case(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::test_cases::GetTestCase {
-        super::builders::test_cases::GetTestCase::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::test_cases::GetTestCase {
+        super::builder::test_cases::GetTestCase::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a test case for the given agent.
     pub fn create_test_case(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::test_cases::CreateTestCase {
-        super::builders::test_cases::CreateTestCase::new(self.inner.clone())
+    ) -> super::builder::test_cases::CreateTestCase {
+        super::builder::test_cases::CreateTestCase::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2763,8 +3174,8 @@ impl TestCases {
     pub fn update_test_case(
         &self,
         test_case: impl Into<crate::model::TestCase>,
-    ) -> super::builders::test_cases::UpdateTestCase {
-        super::builders::test_cases::UpdateTestCase::new(self.inner.clone())
+    ) -> super::builder::test_cases::UpdateTestCase {
+        super::builder::test_cases::UpdateTestCase::new(self.inner.clone())
             .set_test_case(test_case.into())
     }
 
@@ -2794,8 +3205,8 @@ impl TestCases {
     pub fn run_test_case(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::test_cases::RunTestCase {
-        super::builders::test_cases::RunTestCase::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::test_cases::RunTestCase {
+        super::builder::test_cases::RunTestCase::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Kicks off a batch run of test cases.
@@ -2824,8 +3235,8 @@ impl TestCases {
     pub fn batch_run_test_cases(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::test_cases::BatchRunTestCases {
-        super::builders::test_cases::BatchRunTestCases::new(self.inner.clone())
+    ) -> super::builder::test_cases::BatchRunTestCases {
+        super::builder::test_cases::BatchRunTestCases::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2833,8 +3244,8 @@ impl TestCases {
     pub fn calculate_coverage(
         &self,
         agent: impl Into<std::string::String>,
-    ) -> super::builders::test_cases::CalculateCoverage {
-        super::builders::test_cases::CalculateCoverage::new(self.inner.clone())
+    ) -> super::builder::test_cases::CalculateCoverage {
+        super::builder::test_cases::CalculateCoverage::new(self.inner.clone())
             .set_agent(agent.into())
     }
 
@@ -2866,8 +3277,8 @@ impl TestCases {
     pub fn import_test_cases(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::test_cases::ImportTestCases {
-        super::builders::test_cases::ImportTestCases::new(self.inner.clone())
+    ) -> super::builder::test_cases::ImportTestCases {
+        super::builder::test_cases::ImportTestCases::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2898,8 +3309,8 @@ impl TestCases {
     pub fn export_test_cases(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::test_cases::ExportTestCases {
-        super::builders::test_cases::ExportTestCases::new(self.inner.clone())
+    ) -> super::builder::test_cases::ExportTestCases {
+        super::builder::test_cases::ExportTestCases::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2908,8 +3319,8 @@ impl TestCases {
     pub fn list_test_case_results(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::test_cases::ListTestCaseResults {
-        super::builders::test_cases::ListTestCaseResults::new(self.inner.clone())
+    ) -> super::builder::test_cases::ListTestCaseResults {
+        super::builder::test_cases::ListTestCaseResults::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2917,25 +3328,24 @@ impl TestCases {
     pub fn get_test_case_result(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::test_cases::GetTestCaseResult {
-        super::builders::test_cases::GetTestCaseResult::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::test_cases::GetTestCaseResult {
+        super::builder::test_cases::GetTestCaseResult::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::test_cases::ListLocations {
-        super::builders::test_cases::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::test_cases::ListLocations {
+        super::builder::test_cases::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::test_cases::GetLocation {
-        super::builders::test_cases::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::test_cases::GetLocation {
+        super::builder::test_cases::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2944,8 +3354,8 @@ impl TestCases {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::test_cases::ListOperations {
-        super::builders::test_cases::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::test_cases::ListOperations {
+        super::builder::test_cases::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2954,8 +3364,8 @@ impl TestCases {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::test_cases::GetOperation {
-        super::builders::test_cases::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::test_cases::GetOperation {
+        super::builder::test_cases::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2964,12 +3374,21 @@ impl TestCases {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::test_cases::CancelOperation {
-        super::builders::test_cases::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::test_cases::CancelOperation {
+        super::builder::test_cases::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::TransitionRouteGroups;
+/// let client = TransitionRouteGroups::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -2980,8 +3399,23 @@ impl TestCases {
 ///
 /// # Configuration
 ///
-/// `TransitionRouteGroups` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `TransitionRouteGroups` use the `with_*` methods in the type returned
+/// by [builder()][TransitionRouteGroups::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::transition_route_groups::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::transition_route_groups::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -2991,37 +3425,45 @@ impl TestCases {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct TransitionRouteGroups {
-    inner: Arc<dyn super::stubs::dynamic::TransitionRouteGroups>,
+    inner: Arc<dyn super::stub::dynamic::TransitionRouteGroups>,
 }
 
 impl TransitionRouteGroups {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [TransitionRouteGroups].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::TransitionRouteGroups;
+    /// let client = TransitionRouteGroups::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::transition_route_groups::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::transition_route_groups::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::TransitionRouteGroups + 'static,
+        T: super::stub::TransitionRouteGroups + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::TransitionRouteGroups>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::TransitionRouteGroups>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -3030,13 +3472,13 @@ impl TransitionRouteGroups {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::TransitionRouteGroups> {
+    ) -> Result<impl super::stub::TransitionRouteGroups> {
         super::transport::TransitionRouteGroups::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::TransitionRouteGroups> {
+    ) -> Result<impl super::stub::TransitionRouteGroups> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TransitionRouteGroups::new)
@@ -3046,8 +3488,8 @@ impl TransitionRouteGroups {
     pub fn list_transition_route_groups(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::transition_route_groups::ListTransitionRouteGroups {
-        super::builders::transition_route_groups::ListTransitionRouteGroups::new(self.inner.clone())
+    ) -> super::builder::transition_route_groups::ListTransitionRouteGroups {
+        super::builder::transition_route_groups::ListTransitionRouteGroups::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -3058,8 +3500,8 @@ impl TransitionRouteGroups {
     pub fn get_transition_route_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::transition_route_groups::GetTransitionRouteGroup {
-        super::builders::transition_route_groups::GetTransitionRouteGroup::new(self.inner.clone())
+    ) -> super::builder::transition_route_groups::GetTransitionRouteGroup {
+        super::builder::transition_route_groups::GetTransitionRouteGroup::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3075,11 +3517,9 @@ impl TransitionRouteGroups {
     pub fn create_transition_route_group(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::transition_route_groups::CreateTransitionRouteGroup {
-        super::builders::transition_route_groups::CreateTransitionRouteGroup::new(
-            self.inner.clone(),
-        )
-        .set_parent(parent.into())
+    ) -> super::builder::transition_route_groups::CreateTransitionRouteGroup {
+        super::builder::transition_route_groups::CreateTransitionRouteGroup::new(self.inner.clone())
+            .set_parent(parent.into())
     }
 
     /// Updates the specified
@@ -3093,11 +3533,9 @@ impl TransitionRouteGroups {
     pub fn update_transition_route_group(
         &self,
         transition_route_group: impl Into<crate::model::TransitionRouteGroup>,
-    ) -> super::builders::transition_route_groups::UpdateTransitionRouteGroup {
-        super::builders::transition_route_groups::UpdateTransitionRouteGroup::new(
-            self.inner.clone(),
-        )
-        .set_transition_route_group(transition_route_group.into())
+    ) -> super::builder::transition_route_groups::UpdateTransitionRouteGroup {
+        super::builder::transition_route_groups::UpdateTransitionRouteGroup::new(self.inner.clone())
+            .set_transition_route_group(transition_route_group.into())
     }
 
     /// Deletes the specified
@@ -3111,19 +3549,17 @@ impl TransitionRouteGroups {
     pub fn delete_transition_route_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::transition_route_groups::DeleteTransitionRouteGroup {
-        super::builders::transition_route_groups::DeleteTransitionRouteGroup::new(
-            self.inner.clone(),
-        )
-        .set_name(name.into())
+    ) -> super::builder::transition_route_groups::DeleteTransitionRouteGroup {
+        super::builder::transition_route_groups::DeleteTransitionRouteGroup::new(self.inner.clone())
+            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::transition_route_groups::ListLocations {
-        super::builders::transition_route_groups::ListLocations::new(self.inner.clone())
+    ) -> super::builder::transition_route_groups::ListLocations {
+        super::builder::transition_route_groups::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3131,8 +3567,8 @@ impl TransitionRouteGroups {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::transition_route_groups::GetLocation {
-        super::builders::transition_route_groups::GetLocation::new(self.inner.clone())
+    ) -> super::builder::transition_route_groups::GetLocation {
+        super::builder::transition_route_groups::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3142,8 +3578,8 @@ impl TransitionRouteGroups {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::transition_route_groups::ListOperations {
-        super::builders::transition_route_groups::ListOperations::new(self.inner.clone())
+    ) -> super::builder::transition_route_groups::ListOperations {
+        super::builder::transition_route_groups::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3153,8 +3589,8 @@ impl TransitionRouteGroups {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::transition_route_groups::GetOperation {
-        super::builders::transition_route_groups::GetOperation::new(self.inner.clone())
+    ) -> super::builder::transition_route_groups::GetOperation {
+        super::builder::transition_route_groups::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3164,13 +3600,22 @@ impl TransitionRouteGroups {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::transition_route_groups::CancelOperation {
-        super::builders::transition_route_groups::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::transition_route_groups::CancelOperation {
+        super::builder::transition_route_groups::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Versions;
+/// let client = Versions::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -3180,8 +3625,23 @@ impl TransitionRouteGroups {
 ///
 /// # Configuration
 ///
-/// `Versions` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Versions` use the `with_*` methods in the type returned
+/// by [builder()][Versions::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::versions::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::versions::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -3191,37 +3651,43 @@ impl TransitionRouteGroups {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Versions {
-    inner: Arc<dyn super::stubs::dynamic::Versions>,
+    inner: Arc<dyn super::stub::dynamic::Versions>,
 }
 
 impl Versions {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Versions].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Versions;
+    /// let client = Versions::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::versions::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::versions::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Versions + 'static,
+        T: super::stub::Versions + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Versions>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Versions>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -3230,13 +3696,13 @@ impl Versions {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Versions> {
+    ) -> Result<impl super::stub::Versions> {
         super::transport::Versions::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Versions> {
+    ) -> Result<impl super::stub::Versions> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Versions::new)
@@ -3249,8 +3715,8 @@ impl Versions {
     pub fn list_versions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::versions::ListVersions {
-        super::builders::versions::ListVersions::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::versions::ListVersions {
+        super::builder::versions::ListVersions::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Retrieves the specified [Version][google.cloud.dialogflow.cx.v3.Version].
@@ -3259,8 +3725,8 @@ impl Versions {
     pub fn get_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::versions::GetVersion {
-        super::builders::versions::GetVersion::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::versions::GetVersion {
+        super::builder::versions::GetVersion::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a [Version][google.cloud.dialogflow.cx.v3.Version] in the specified
@@ -3290,8 +3756,8 @@ impl Versions {
     pub fn create_version(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::versions::CreateVersion {
-        super::builders::versions::CreateVersion::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::versions::CreateVersion {
+        super::builder::versions::CreateVersion::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates the specified [Version][google.cloud.dialogflow.cx.v3.Version].
@@ -3300,9 +3766,8 @@ impl Versions {
     pub fn update_version(
         &self,
         version: impl Into<crate::model::Version>,
-    ) -> super::builders::versions::UpdateVersion {
-        super::builders::versions::UpdateVersion::new(self.inner.clone())
-            .set_version(version.into())
+    ) -> super::builder::versions::UpdateVersion {
+        super::builder::versions::UpdateVersion::new(self.inner.clone()).set_version(version.into())
     }
 
     /// Deletes the specified [Version][google.cloud.dialogflow.cx.v3.Version].
@@ -3311,8 +3776,8 @@ impl Versions {
     pub fn delete_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::versions::DeleteVersion {
-        super::builders::versions::DeleteVersion::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::versions::DeleteVersion {
+        super::builder::versions::DeleteVersion::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Loads resources in the specified version to the draft flow.
@@ -3338,16 +3803,16 @@ impl Versions {
     pub fn load_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::versions::LoadVersion {
-        super::builders::versions::LoadVersion::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::versions::LoadVersion {
+        super::builder::versions::LoadVersion::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Compares the specified base version with target version.
     pub fn compare_versions(
         &self,
         base_version: impl Into<std::string::String>,
-    ) -> super::builders::versions::CompareVersions {
-        super::builders::versions::CompareVersions::new(self.inner.clone())
+    ) -> super::builder::versions::CompareVersions {
+        super::builder::versions::CompareVersions::new(self.inner.clone())
             .set_base_version(base_version.into())
     }
 
@@ -3355,16 +3820,16 @@ impl Versions {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::versions::ListLocations {
-        super::builders::versions::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::versions::ListLocations {
+        super::builder::versions::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::versions::GetLocation {
-        super::builders::versions::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::versions::GetLocation {
+        super::builder::versions::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3373,8 +3838,8 @@ impl Versions {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::versions::ListOperations {
-        super::builders::versions::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::versions::ListOperations {
+        super::builder::versions::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3383,8 +3848,8 @@ impl Versions {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::versions::GetOperation {
-        super::builders::versions::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::versions::GetOperation {
+        super::builder::versions::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3393,12 +3858,21 @@ impl Versions {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::versions::CancelOperation {
-        super::builders::versions::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::versions::CancelOperation {
+        super::builder::versions::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_cx_v3::client::Webhooks;
+/// let client = Webhooks::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -3408,8 +3882,23 @@ impl Versions {
 ///
 /// # Configuration
 ///
-/// `Webhooks` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Webhooks` use the `with_*` methods in the type returned
+/// by [builder()][Webhooks::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::webhooks::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::webhooks::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -3419,37 +3908,43 @@ impl Versions {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Webhooks {
-    inner: Arc<dyn super::stubs::dynamic::Webhooks>,
+    inner: Arc<dyn super::stub::dynamic::Webhooks>,
 }
 
 impl Webhooks {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Webhooks].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_cx_v3::client::Webhooks;
+    /// let client = Webhooks::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::webhooks::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::webhooks::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Webhooks + 'static,
+        T: super::stub::Webhooks + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Webhooks>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Webhooks>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -3458,13 +3953,13 @@ impl Webhooks {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Webhooks> {
+    ) -> Result<impl super::stub::Webhooks> {
         super::transport::Webhooks::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Webhooks> {
+    ) -> Result<impl super::stub::Webhooks> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Webhooks::new)
@@ -3474,57 +3969,56 @@ impl Webhooks {
     pub fn list_webhooks(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::webhooks::ListWebhooks {
-        super::builders::webhooks::ListWebhooks::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::webhooks::ListWebhooks {
+        super::builder::webhooks::ListWebhooks::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Retrieves the specified webhook.
     pub fn get_webhook(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::webhooks::GetWebhook {
-        super::builders::webhooks::GetWebhook::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::webhooks::GetWebhook {
+        super::builder::webhooks::GetWebhook::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a webhook in the specified agent.
     pub fn create_webhook(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::webhooks::CreateWebhook {
-        super::builders::webhooks::CreateWebhook::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::webhooks::CreateWebhook {
+        super::builder::webhooks::CreateWebhook::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates the specified webhook.
     pub fn update_webhook(
         &self,
         webhook: impl Into<crate::model::Webhook>,
-    ) -> super::builders::webhooks::UpdateWebhook {
-        super::builders::webhooks::UpdateWebhook::new(self.inner.clone())
-            .set_webhook(webhook.into())
+    ) -> super::builder::webhooks::UpdateWebhook {
+        super::builder::webhooks::UpdateWebhook::new(self.inner.clone()).set_webhook(webhook.into())
     }
 
     /// Deletes the specified webhook.
     pub fn delete_webhook(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::webhooks::DeleteWebhook {
-        super::builders::webhooks::DeleteWebhook::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::webhooks::DeleteWebhook {
+        super::builder::webhooks::DeleteWebhook::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::webhooks::ListLocations {
-        super::builders::webhooks::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::webhooks::ListLocations {
+        super::builder::webhooks::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::webhooks::GetLocation {
-        super::builders::webhooks::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::webhooks::GetLocation {
+        super::builder::webhooks::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3533,8 +4027,8 @@ impl Webhooks {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::webhooks::ListOperations {
-        super::builders::webhooks::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::webhooks::ListOperations {
+        super::builder::webhooks::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3543,8 +4037,8 @@ impl Webhooks {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::webhooks::GetOperation {
-        super::builders::webhooks::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::webhooks::GetOperation {
+        super::builder::webhooks::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3553,7 +4047,7 @@ impl Webhooks {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::webhooks::CancelOperation {
-        super::builders::webhooks::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::webhooks::CancelOperation {
+        super::builder::webhooks::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

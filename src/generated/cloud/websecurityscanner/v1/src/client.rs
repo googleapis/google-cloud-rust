@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Web Security Scanner API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_websecurityscanner_v1::client::WebSecurityScanner;
+/// let client = WebSecurityScanner::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Web Security Scanner Service identifies security vulnerabilities in web
@@ -29,8 +38,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `WebSecurityScanner` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `WebSecurityScanner` use the `with_*` methods in the type returned
+/// by [builder()][WebSecurityScanner::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://websecurityscanner.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::web_security_scanner::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::web_security_scanner::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -40,37 +64,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct WebSecurityScanner {
-    inner: Arc<dyn super::stubs::dynamic::WebSecurityScanner>,
+    inner: Arc<dyn super::stub::dynamic::WebSecurityScanner>,
 }
 
 impl WebSecurityScanner {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [WebSecurityScanner].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_websecurityscanner_v1::client::WebSecurityScanner;
+    /// let client = WebSecurityScanner::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::web_security_scanner::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::web_security_scanner::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::WebSecurityScanner + 'static,
+        T: super::stub::WebSecurityScanner + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::WebSecurityScanner>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::WebSecurityScanner>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -79,13 +111,13 @@ impl WebSecurityScanner {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::WebSecurityScanner> {
+    ) -> Result<impl super::stub::WebSecurityScanner> {
         super::transport::WebSecurityScanner::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::WebSecurityScanner> {
+    ) -> Result<impl super::stub::WebSecurityScanner> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::WebSecurityScanner::new)
@@ -95,8 +127,8 @@ impl WebSecurityScanner {
     pub fn create_scan_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::web_security_scanner::CreateScanConfig {
-        super::builders::web_security_scanner::CreateScanConfig::new(self.inner.clone())
+    ) -> super::builder::web_security_scanner::CreateScanConfig {
+        super::builder::web_security_scanner::CreateScanConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -104,8 +136,8 @@ impl WebSecurityScanner {
     pub fn delete_scan_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::web_security_scanner::DeleteScanConfig {
-        super::builders::web_security_scanner::DeleteScanConfig::new(self.inner.clone())
+    ) -> super::builder::web_security_scanner::DeleteScanConfig {
+        super::builder::web_security_scanner::DeleteScanConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -113,8 +145,8 @@ impl WebSecurityScanner {
     pub fn get_scan_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::web_security_scanner::GetScanConfig {
-        super::builders::web_security_scanner::GetScanConfig::new(self.inner.clone())
+    ) -> super::builder::web_security_scanner::GetScanConfig {
+        super::builder::web_security_scanner::GetScanConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -122,8 +154,8 @@ impl WebSecurityScanner {
     pub fn list_scan_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::web_security_scanner::ListScanConfigs {
-        super::builders::web_security_scanner::ListScanConfigs::new(self.inner.clone())
+    ) -> super::builder::web_security_scanner::ListScanConfigs {
+        super::builder::web_security_scanner::ListScanConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -131,8 +163,8 @@ impl WebSecurityScanner {
     pub fn update_scan_config(
         &self,
         scan_config: impl Into<crate::model::ScanConfig>,
-    ) -> super::builders::web_security_scanner::UpdateScanConfig {
-        super::builders::web_security_scanner::UpdateScanConfig::new(self.inner.clone())
+    ) -> super::builder::web_security_scanner::UpdateScanConfig {
+        super::builder::web_security_scanner::UpdateScanConfig::new(self.inner.clone())
             .set_scan_config(scan_config.into())
     }
 
@@ -140,8 +172,8 @@ impl WebSecurityScanner {
     pub fn start_scan_run(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::web_security_scanner::StartScanRun {
-        super::builders::web_security_scanner::StartScanRun::new(self.inner.clone())
+    ) -> super::builder::web_security_scanner::StartScanRun {
+        super::builder::web_security_scanner::StartScanRun::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -149,8 +181,8 @@ impl WebSecurityScanner {
     pub fn get_scan_run(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::web_security_scanner::GetScanRun {
-        super::builders::web_security_scanner::GetScanRun::new(self.inner.clone())
+    ) -> super::builder::web_security_scanner::GetScanRun {
+        super::builder::web_security_scanner::GetScanRun::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -159,8 +191,8 @@ impl WebSecurityScanner {
     pub fn list_scan_runs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::web_security_scanner::ListScanRuns {
-        super::builders::web_security_scanner::ListScanRuns::new(self.inner.clone())
+    ) -> super::builder::web_security_scanner::ListScanRuns {
+        super::builder::web_security_scanner::ListScanRuns::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -168,8 +200,8 @@ impl WebSecurityScanner {
     pub fn stop_scan_run(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::web_security_scanner::StopScanRun {
-        super::builders::web_security_scanner::StopScanRun::new(self.inner.clone())
+    ) -> super::builder::web_security_scanner::StopScanRun {
+        super::builder::web_security_scanner::StopScanRun::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -177,8 +209,8 @@ impl WebSecurityScanner {
     pub fn list_crawled_urls(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::web_security_scanner::ListCrawledUrls {
-        super::builders::web_security_scanner::ListCrawledUrls::new(self.inner.clone())
+    ) -> super::builder::web_security_scanner::ListCrawledUrls {
+        super::builder::web_security_scanner::ListCrawledUrls::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -186,8 +218,8 @@ impl WebSecurityScanner {
     pub fn get_finding(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::web_security_scanner::GetFinding {
-        super::builders::web_security_scanner::GetFinding::new(self.inner.clone())
+    ) -> super::builder::web_security_scanner::GetFinding {
+        super::builder::web_security_scanner::GetFinding::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -195,8 +227,8 @@ impl WebSecurityScanner {
     pub fn list_findings(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::web_security_scanner::ListFindings {
-        super::builders::web_security_scanner::ListFindings::new(self.inner.clone())
+    ) -> super::builder::web_security_scanner::ListFindings {
+        super::builder::web_security_scanner::ListFindings::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -204,8 +236,8 @@ impl WebSecurityScanner {
     pub fn list_finding_type_stats(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::web_security_scanner::ListFindingTypeStats {
-        super::builders::web_security_scanner::ListFindingTypeStats::new(self.inner.clone())
+    ) -> super::builder::web_security_scanner::ListFindingTypeStats {
+        super::builder::web_security_scanner::ListFindingTypeStats::new(self.inner.clone())
             .set_parent(parent.into())
     }
 }

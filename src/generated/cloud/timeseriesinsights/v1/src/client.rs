@@ -21,13 +21,37 @@ use std::sync::Arc;
 
 /// Implements a client for the Timeseries Insights API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_timeseriesinsights_v1::client::TimeseriesInsightsController;
+/// let client = TimeseriesInsightsController::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 ///
 /// # Configuration
 ///
-/// `TimeseriesInsightsController` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `TimeseriesInsightsController` use the `with_*` methods in the type returned
+/// by [builder()][TimeseriesInsightsController::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://timeseriesinsights.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::timeseries_insights_controller::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::timeseries_insights_controller::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -37,37 +61,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct TimeseriesInsightsController {
-    inner: Arc<dyn super::stubs::dynamic::TimeseriesInsightsController>,
+    inner: Arc<dyn super::stub::dynamic::TimeseriesInsightsController>,
 }
 
 impl TimeseriesInsightsController {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [TimeseriesInsightsController].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_timeseriesinsights_v1::client::TimeseriesInsightsController;
+    /// let client = TimeseriesInsightsController::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::timeseries_insights_controller::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::timeseries_insights_controller::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::TimeseriesInsightsController + 'static,
+        T: super::stub::TimeseriesInsightsController + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::TimeseriesInsightsController>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::TimeseriesInsightsController>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -76,13 +108,13 @@ impl TimeseriesInsightsController {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::TimeseriesInsightsController> {
+    ) -> Result<impl super::stub::TimeseriesInsightsController> {
         super::transport::TimeseriesInsightsController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::TimeseriesInsightsController> {
+    ) -> Result<impl super::stub::TimeseriesInsightsController> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TimeseriesInsightsController::new)
@@ -98,8 +130,8 @@ impl TimeseriesInsightsController {
     pub fn list_data_sets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::timeseries_insights_controller::ListDataSets {
-        super::builders::timeseries_insights_controller::ListDataSets::new(self.inner.clone())
+    ) -> super::builder::timeseries_insights_controller::ListDataSets {
+        super::builder::timeseries_insights_controller::ListDataSets::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -114,8 +146,8 @@ impl TimeseriesInsightsController {
     pub fn create_data_set(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::timeseries_insights_controller::CreateDataSet {
-        super::builders::timeseries_insights_controller::CreateDataSet::new(self.inner.clone())
+    ) -> super::builder::timeseries_insights_controller::CreateDataSet {
+        super::builder::timeseries_insights_controller::CreateDataSet::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -128,8 +160,8 @@ impl TimeseriesInsightsController {
     pub fn delete_data_set(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::timeseries_insights_controller::DeleteDataSet {
-        super::builders::timeseries_insights_controller::DeleteDataSet::new(self.inner.clone())
+    ) -> super::builder::timeseries_insights_controller::DeleteDataSet {
+        super::builder::timeseries_insights_controller::DeleteDataSet::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -139,8 +171,8 @@ impl TimeseriesInsightsController {
     pub fn append_events(
         &self,
         dataset: impl Into<std::string::String>,
-    ) -> super::builders::timeseries_insights_controller::AppendEvents {
-        super::builders::timeseries_insights_controller::AppendEvents::new(self.inner.clone())
+    ) -> super::builder::timeseries_insights_controller::AppendEvents {
+        super::builder::timeseries_insights_controller::AppendEvents::new(self.inner.clone())
             .set_dataset(dataset.into())
     }
 
@@ -151,8 +183,8 @@ impl TimeseriesInsightsController {
     pub fn query_data_set(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::timeseries_insights_controller::QueryDataSet {
-        super::builders::timeseries_insights_controller::QueryDataSet::new(self.inner.clone())
+    ) -> super::builder::timeseries_insights_controller::QueryDataSet {
+        super::builder::timeseries_insights_controller::QueryDataSet::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -162,8 +194,8 @@ impl TimeseriesInsightsController {
     pub fn evaluate_slice(
         &self,
         dataset: impl Into<std::string::String>,
-    ) -> super::builders::timeseries_insights_controller::EvaluateSlice {
-        super::builders::timeseries_insights_controller::EvaluateSlice::new(self.inner.clone())
+    ) -> super::builder::timeseries_insights_controller::EvaluateSlice {
+        super::builder::timeseries_insights_controller::EvaluateSlice::new(self.inner.clone())
             .set_dataset(dataset.into())
     }
 
@@ -171,8 +203,8 @@ impl TimeseriesInsightsController {
     pub fn evaluate_timeseries(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::timeseries_insights_controller::EvaluateTimeseries {
-        super::builders::timeseries_insights_controller::EvaluateTimeseries::new(self.inner.clone())
+    ) -> super::builder::timeseries_insights_controller::EvaluateTimeseries {
+        super::builder::timeseries_insights_controller::EvaluateTimeseries::new(self.inner.clone())
             .set_parent(parent.into())
     }
 }

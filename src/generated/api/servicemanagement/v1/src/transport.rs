@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ServiceManager](super::stubs::ServiceManager) using a [gaxi::http::ReqwestClient].
+/// Implements [ServiceManager](super::stub::ServiceManager) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ServiceManager {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl ServiceManager {
     }
 }
 
-impl super::stubs::ServiceManager for ServiceManager {
+impl super::stub::ServiceManager for ServiceManager {
     async fn list_services(
         &self,
         req: crate::model::ListServicesRequest,

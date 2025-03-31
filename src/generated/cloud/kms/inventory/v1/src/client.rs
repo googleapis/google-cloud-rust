@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the KMS Inventory API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_kms_inventory_v1::client::KeyDashboardService;
+/// let client = KeyDashboardService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Provides a cross-region view of all Cloud KMS keys in a given Cloud project.
 ///
 /// # Configuration
 ///
-/// `KeyDashboardService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `KeyDashboardService` use the `with_*` methods in the type returned
+/// by [builder()][KeyDashboardService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://kmsinventory.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::key_dashboard_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::key_dashboard_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,37 +62,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct KeyDashboardService {
-    inner: Arc<dyn super::stubs::dynamic::KeyDashboardService>,
+    inner: Arc<dyn super::stub::dynamic::KeyDashboardService>,
 }
 
 impl KeyDashboardService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [KeyDashboardService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_kms_inventory_v1::client::KeyDashboardService;
+    /// let client = KeyDashboardService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::key_dashboard_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::key_dashboard_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::KeyDashboardService + 'static,
+        T: super::stub::KeyDashboardService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::KeyDashboardService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::KeyDashboardService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +109,13 @@ impl KeyDashboardService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::KeyDashboardService> {
+    ) -> Result<impl super::stub::KeyDashboardService> {
         super::transport::KeyDashboardService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::KeyDashboardService> {
+    ) -> Result<impl super::stub::KeyDashboardService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::KeyDashboardService::new)
@@ -95,13 +127,22 @@ impl KeyDashboardService {
     pub fn list_crypto_keys(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::key_dashboard_service::ListCryptoKeys {
-        super::builders::key_dashboard_service::ListCryptoKeys::new(self.inner.clone())
+    ) -> super::builder::key_dashboard_service::ListCryptoKeys {
+        super::builder::key_dashboard_service::ListCryptoKeys::new(self.inner.clone())
             .set_parent(parent.into())
     }
 }
 
 /// Implements a client for the KMS Inventory API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_kms_inventory_v1::client::KeyTrackingService;
+/// let client = KeyTrackingService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -110,8 +151,23 @@ impl KeyDashboardService {
 ///
 /// # Configuration
 ///
-/// `KeyTrackingService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `KeyTrackingService` use the `with_*` methods in the type returned
+/// by [builder()][KeyTrackingService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://kmsinventory.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::key_tracking_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::key_tracking_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -121,37 +177,45 @@ impl KeyDashboardService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct KeyTrackingService {
-    inner: Arc<dyn super::stubs::dynamic::KeyTrackingService>,
+    inner: Arc<dyn super::stub::dynamic::KeyTrackingService>,
 }
 
 impl KeyTrackingService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [KeyTrackingService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_kms_inventory_v1::client::KeyTrackingService;
+    /// let client = KeyTrackingService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::key_tracking_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::key_tracking_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::KeyTrackingService + 'static,
+        T: super::stub::KeyTrackingService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::KeyTrackingService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::KeyTrackingService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -160,13 +224,13 @@ impl KeyTrackingService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::KeyTrackingService> {
+    ) -> Result<impl super::stub::KeyTrackingService> {
         super::transport::KeyTrackingService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::KeyTrackingService> {
+    ) -> Result<impl super::stub::KeyTrackingService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::KeyTrackingService::new)
@@ -182,8 +246,8 @@ impl KeyTrackingService {
     pub fn get_protected_resources_summary(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::key_tracking_service::GetProtectedResourcesSummary {
-        super::builders::key_tracking_service::GetProtectedResourcesSummary::new(self.inner.clone())
+    ) -> super::builder::key_tracking_service::GetProtectedResourcesSummary {
+        super::builder::key_tracking_service::GetProtectedResourcesSummary::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -194,8 +258,8 @@ impl KeyTrackingService {
     pub fn search_protected_resources(
         &self,
         scope: impl Into<std::string::String>,
-    ) -> super::builders::key_tracking_service::SearchProtectedResources {
-        super::builders::key_tracking_service::SearchProtectedResources::new(self.inner.clone())
+    ) -> super::builder::key_tracking_service::SearchProtectedResources {
+        super::builder::key_tracking_service::SearchProtectedResources::new(self.inner.clone())
             .set_scope(scope.into())
     }
 }

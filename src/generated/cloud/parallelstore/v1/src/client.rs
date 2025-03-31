@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Parallelstore API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_parallelstore_v1::client::Parallelstore;
+/// let client = Parallelstore::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service describing handlers for resources
@@ -43,8 +52,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `Parallelstore` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Parallelstore` use the `with_*` methods in the type returned
+/// by [builder()][Parallelstore::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://parallelstore.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::parallelstore::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::parallelstore::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -54,37 +78,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Parallelstore {
-    inner: Arc<dyn super::stubs::dynamic::Parallelstore>,
+    inner: Arc<dyn super::stub::dynamic::Parallelstore>,
 }
 
 impl Parallelstore {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Parallelstore].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_parallelstore_v1::client::Parallelstore;
+    /// let client = Parallelstore::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::parallelstore::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::parallelstore::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Parallelstore + 'static,
+        T: super::stub::Parallelstore + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Parallelstore>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Parallelstore>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -93,13 +123,13 @@ impl Parallelstore {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Parallelstore> {
+    ) -> Result<impl super::stub::Parallelstore> {
         super::transport::Parallelstore::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Parallelstore> {
+    ) -> Result<impl super::stub::Parallelstore> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Parallelstore::new)
@@ -109,8 +139,8 @@ impl Parallelstore {
     pub fn list_instances(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::parallelstore::ListInstances {
-        super::builders::parallelstore::ListInstances::new(self.inner.clone())
+    ) -> super::builder::parallelstore::ListInstances {
+        super::builder::parallelstore::ListInstances::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -118,8 +148,8 @@ impl Parallelstore {
     pub fn get_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::parallelstore::GetInstance {
-        super::builders::parallelstore::GetInstance::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::parallelstore::GetInstance {
+        super::builder::parallelstore::GetInstance::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a Parallelstore instance in a given project and location.
@@ -136,8 +166,8 @@ impl Parallelstore {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::parallelstore::CreateInstance {
-        super::builders::parallelstore::CreateInstance::new(self.inner.clone())
+    ) -> super::builder::parallelstore::CreateInstance {
+        super::builder::parallelstore::CreateInstance::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -155,8 +185,8 @@ impl Parallelstore {
     pub fn update_instance(
         &self,
         instance: impl Into<crate::model::Instance>,
-    ) -> super::builders::parallelstore::UpdateInstance {
-        super::builders::parallelstore::UpdateInstance::new(self.inner.clone())
+    ) -> super::builder::parallelstore::UpdateInstance {
+        super::builder::parallelstore::UpdateInstance::new(self.inner.clone())
             .set_instance(instance.into())
     }
 
@@ -174,9 +204,8 @@ impl Parallelstore {
     pub fn delete_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::parallelstore::DeleteInstance {
-        super::builders::parallelstore::DeleteInstance::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::parallelstore::DeleteInstance {
+        super::builder::parallelstore::DeleteInstance::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Copies data from Cloud Storage to Parallelstore.
@@ -193,8 +222,8 @@ impl Parallelstore {
     pub fn import_data(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::parallelstore::ImportData {
-        super::builders::parallelstore::ImportData::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::parallelstore::ImportData {
+        super::builder::parallelstore::ImportData::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Copies data from Parallelstore to Cloud Storage.
@@ -211,24 +240,24 @@ impl Parallelstore {
     pub fn export_data(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::parallelstore::ExportData {
-        super::builders::parallelstore::ExportData::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::parallelstore::ExportData {
+        super::builder::parallelstore::ExportData::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::parallelstore::ListLocations {
-        super::builders::parallelstore::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::parallelstore::ListLocations {
+        super::builder::parallelstore::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::parallelstore::GetLocation {
-        super::builders::parallelstore::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::parallelstore::GetLocation {
+        super::builder::parallelstore::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -237,9 +266,8 @@ impl Parallelstore {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::parallelstore::ListOperations {
-        super::builders::parallelstore::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::parallelstore::ListOperations {
+        super::builder::parallelstore::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -248,8 +276,8 @@ impl Parallelstore {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::parallelstore::GetOperation {
-        super::builders::parallelstore::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::parallelstore::GetOperation {
+        super::builder::parallelstore::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -258,8 +286,8 @@ impl Parallelstore {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::parallelstore::DeleteOperation {
-        super::builders::parallelstore::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::parallelstore::DeleteOperation {
+        super::builder::parallelstore::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -269,8 +297,8 @@ impl Parallelstore {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::parallelstore::CancelOperation {
-        super::builders::parallelstore::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::parallelstore::CancelOperation {
+        super::builder::parallelstore::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

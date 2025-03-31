@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [TimeseriesInsightsController](super::stubs::TimeseriesInsightsController) using a [gaxi::http::ReqwestClient].
+/// Implements [TimeseriesInsightsController](super::stub::TimeseriesInsightsController) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct TimeseriesInsightsController {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl TimeseriesInsightsController {
     }
 }
 
-impl super::stubs::TimeseriesInsightsController for TimeseriesInsightsController {
+impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController {
     async fn list_data_sets(
         &self,
         req: crate::model::ListDataSetsRequest,
@@ -87,7 +87,7 @@ impl super::stubs::TimeseriesInsightsController for TimeseriesInsightsController
         &self,
         req: crate::model::DeleteDataSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -100,6 +100,7 @@ impl super::stubs::TimeseriesInsightsController for TimeseriesInsightsController
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn append_events(

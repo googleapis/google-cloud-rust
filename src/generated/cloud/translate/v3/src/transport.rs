@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [TranslationService](super::stubs::TranslationService) using a [gaxi::http::ReqwestClient].
+/// Implements [TranslationService](super::stub::TranslationService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct TranslationService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl TranslationService {
     }
 }
 
-impl super::stubs::TranslationService for TranslationService {
+impl super::stub::TranslationService for TranslationService {
     async fn translate_text(
         &self,
         req: crate::model::TranslateTextRequest,
@@ -404,7 +404,7 @@ impl super::stubs::TranslationService for TranslationService {
         &self,
         req: crate::model::DeleteGlossaryEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -417,6 +417,7 @@ impl super::stubs::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_dataset(
@@ -526,7 +527,7 @@ impl super::stubs::TranslationService for TranslationService {
         &self,
         req: crate::model::DeleteAdaptiveMtDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -539,6 +540,7 @@ impl super::stubs::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn get_adaptive_mt_dataset(
@@ -628,7 +630,7 @@ impl super::stubs::TranslationService for TranslationService {
         &self,
         req: crate::model::DeleteAdaptiveMtFileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -641,6 +643,7 @@ impl super::stubs::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn import_adaptive_mt_file(
@@ -936,7 +939,7 @@ impl super::stubs::TranslationService for TranslationService {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -949,13 +952,14 @@ impl super::stubs::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -965,7 +969,10 @@ impl super::stubs::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn wait_operation(

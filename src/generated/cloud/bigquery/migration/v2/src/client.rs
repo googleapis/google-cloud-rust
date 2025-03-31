@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the BigQuery Migration API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_bigquery_migration_v2::client::MigrationService;
+/// let client = MigrationService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service to handle EDW migrations.
 ///
 /// # Configuration
 ///
-/// `MigrationService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `MigrationService` use the `with_*` methods in the type returned
+/// by [builder()][MigrationService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://bigquerymigration.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::migration_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::migration_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,37 +62,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct MigrationService {
-    inner: Arc<dyn super::stubs::dynamic::MigrationService>,
+    inner: Arc<dyn super::stub::dynamic::MigrationService>,
 }
 
 impl MigrationService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [MigrationService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigquery_migration_v2::client::MigrationService;
+    /// let client = MigrationService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::migration_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::migration_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::MigrationService + 'static,
+        T: super::stub::MigrationService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::MigrationService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::MigrationService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +109,13 @@ impl MigrationService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::MigrationService> {
+    ) -> Result<impl super::stub::MigrationService> {
         super::transport::MigrationService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::MigrationService> {
+    ) -> Result<impl super::stub::MigrationService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::MigrationService::new)
@@ -93,8 +125,8 @@ impl MigrationService {
     pub fn create_migration_workflow(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::CreateMigrationWorkflow {
-        super::builders::migration_service::CreateMigrationWorkflow::new(self.inner.clone())
+    ) -> super::builder::migration_service::CreateMigrationWorkflow {
+        super::builder::migration_service::CreateMigrationWorkflow::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,8 +134,8 @@ impl MigrationService {
     pub fn get_migration_workflow(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::GetMigrationWorkflow {
-        super::builders::migration_service::GetMigrationWorkflow::new(self.inner.clone())
+    ) -> super::builder::migration_service::GetMigrationWorkflow {
+        super::builder::migration_service::GetMigrationWorkflow::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -111,8 +143,8 @@ impl MigrationService {
     pub fn list_migration_workflows(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::ListMigrationWorkflows {
-        super::builders::migration_service::ListMigrationWorkflows::new(self.inner.clone())
+    ) -> super::builder::migration_service::ListMigrationWorkflows {
+        super::builder::migration_service::ListMigrationWorkflows::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -120,8 +152,8 @@ impl MigrationService {
     pub fn delete_migration_workflow(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::DeleteMigrationWorkflow {
-        super::builders::migration_service::DeleteMigrationWorkflow::new(self.inner.clone())
+    ) -> super::builder::migration_service::DeleteMigrationWorkflow {
+        super::builder::migration_service::DeleteMigrationWorkflow::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -132,8 +164,8 @@ impl MigrationService {
     pub fn start_migration_workflow(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::StartMigrationWorkflow {
-        super::builders::migration_service::StartMigrationWorkflow::new(self.inner.clone())
+    ) -> super::builder::migration_service::StartMigrationWorkflow {
+        super::builder::migration_service::StartMigrationWorkflow::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -141,8 +173,8 @@ impl MigrationService {
     pub fn get_migration_subtask(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::GetMigrationSubtask {
-        super::builders::migration_service::GetMigrationSubtask::new(self.inner.clone())
+    ) -> super::builder::migration_service::GetMigrationSubtask {
+        super::builder::migration_service::GetMigrationSubtask::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -150,8 +182,8 @@ impl MigrationService {
     pub fn list_migration_subtasks(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::migration_service::ListMigrationSubtasks {
-        super::builders::migration_service::ListMigrationSubtasks::new(self.inner.clone())
+    ) -> super::builder::migration_service::ListMigrationSubtasks {
+        super::builder::migration_service::ListMigrationSubtasks::new(self.inner.clone())
             .set_parent(parent.into())
     }
 }

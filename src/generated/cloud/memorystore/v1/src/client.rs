@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the Memorystore API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_memorystore_v1::client::Memorystore;
+/// let client = Memorystore::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service describing handlers for resources
 ///
 /// # Configuration
 ///
-/// `Memorystore` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Memorystore` use the `with_*` methods in the type returned
+/// by [builder()][Memorystore::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://memorystore.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::memorystore::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::memorystore::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,37 +62,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Memorystore {
-    inner: Arc<dyn super::stubs::dynamic::Memorystore>,
+    inner: Arc<dyn super::stub::dynamic::Memorystore>,
 }
 
 impl Memorystore {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Memorystore].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// let client = Memorystore::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::memorystore::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::memorystore::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Memorystore + 'static,
+        T: super::stub::Memorystore + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Memorystore>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Memorystore>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +107,13 @@ impl Memorystore {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Memorystore> {
+    ) -> Result<impl super::stub::Memorystore> {
         super::transport::Memorystore::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Memorystore> {
+    ) -> Result<impl super::stub::Memorystore> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Memorystore::new)
@@ -93,8 +123,8 @@ impl Memorystore {
     pub fn list_instances(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::memorystore::ListInstances {
-        super::builders::memorystore::ListInstances::new(self.inner.clone())
+    ) -> super::builder::memorystore::ListInstances {
+        super::builder::memorystore::ListInstances::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,8 +132,8 @@ impl Memorystore {
     pub fn get_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::memorystore::GetInstance {
-        super::builders::memorystore::GetInstance::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::memorystore::GetInstance {
+        super::builder::memorystore::GetInstance::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Instance in a given project and location.
@@ -120,8 +150,8 @@ impl Memorystore {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::memorystore::CreateInstance {
-        super::builders::memorystore::CreateInstance::new(self.inner.clone())
+    ) -> super::builder::memorystore::CreateInstance {
+        super::builder::memorystore::CreateInstance::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -139,8 +169,8 @@ impl Memorystore {
     pub fn update_instance(
         &self,
         instance: impl Into<crate::model::Instance>,
-    ) -> super::builders::memorystore::UpdateInstance {
-        super::builders::memorystore::UpdateInstance::new(self.inner.clone())
+    ) -> super::builder::memorystore::UpdateInstance {
+        super::builder::memorystore::UpdateInstance::new(self.inner.clone())
             .set_instance(instance.into())
     }
 
@@ -158,16 +188,16 @@ impl Memorystore {
     pub fn delete_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::memorystore::DeleteInstance {
-        super::builders::memorystore::DeleteInstance::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::memorystore::DeleteInstance {
+        super::builder::memorystore::DeleteInstance::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets details about the certificate authority for an Instance.
     pub fn get_certificate_authority(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::memorystore::GetCertificateAuthority {
-        super::builders::memorystore::GetCertificateAuthority::new(self.inner.clone())
+    ) -> super::builder::memorystore::GetCertificateAuthority {
+        super::builder::memorystore::GetCertificateAuthority::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -175,16 +205,16 @@ impl Memorystore {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::memorystore::ListLocations {
-        super::builders::memorystore::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::memorystore::ListLocations {
+        super::builder::memorystore::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::memorystore::GetLocation {
-        super::builders::memorystore::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::memorystore::GetLocation {
+        super::builder::memorystore::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -193,8 +223,8 @@ impl Memorystore {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::memorystore::ListOperations {
-        super::builders::memorystore::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::memorystore::ListOperations {
+        super::builder::memorystore::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -203,8 +233,8 @@ impl Memorystore {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::memorystore::GetOperation {
-        super::builders::memorystore::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::memorystore::GetOperation {
+        super::builder::memorystore::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -213,8 +243,8 @@ impl Memorystore {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::memorystore::DeleteOperation {
-        super::builders::memorystore::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::memorystore::DeleteOperation {
+        super::builder::memorystore::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -223,7 +253,7 @@ impl Memorystore {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::memorystore::CancelOperation {
-        super::builders::memorystore::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::memorystore::CancelOperation {
+        super::builder::memorystore::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

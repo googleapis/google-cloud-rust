@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Policy Troubleshooter API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_policytroubleshooter_v1::client::IamChecker;
+/// let client = IamChecker::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// IAM Policy Troubleshooter service.
@@ -29,8 +38,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `IamChecker` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `IamChecker` use the `with_*` methods in the type returned
+/// by [builder()][IamChecker::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://policytroubleshooter.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::iam_checker::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::iam_checker::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -40,37 +64,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct IamChecker {
-    inner: Arc<dyn super::stubs::dynamic::IamChecker>,
+    inner: Arc<dyn super::stub::dynamic::IamChecker>,
 }
 
 impl IamChecker {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [IamChecker].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_policytroubleshooter_v1::client::IamChecker;
+    /// let client = IamChecker::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::iam_checker::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::iam_checker::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::IamChecker + 'static,
+        T: super::stub::IamChecker + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::IamChecker>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::IamChecker>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -79,13 +109,13 @@ impl IamChecker {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::IamChecker> {
+    ) -> Result<impl super::stub::IamChecker> {
         super::transport::IamChecker::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::IamChecker> {
+    ) -> Result<impl super::stub::IamChecker> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::IamChecker::new)
@@ -94,7 +124,7 @@ impl IamChecker {
     /// Checks whether a principal has a specific permission for a specific
     /// resource, and explains why the principal does or does not have that
     /// permission.
-    pub fn troubleshoot_iam_policy(&self) -> super::builders::iam_checker::TroubleshootIamPolicy {
-        super::builders::iam_checker::TroubleshootIamPolicy::new(self.inner.clone())
+    pub fn troubleshoot_iam_policy(&self) -> super::builder::iam_checker::TroubleshootIamPolicy {
+        super::builder::iam_checker::TroubleshootIamPolicy::new(self.inner.clone())
     }
 }

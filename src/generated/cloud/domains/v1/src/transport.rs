@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Domains](super::stubs::Domains) using a [gaxi::http::ReqwestClient].
+/// Implements [Domains](super::stub::Domains) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Domains {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl Domains {
     }
 }
 
-impl super::stubs::Domains for Domains {
+impl super::stub::Domains for Domains {
     async fn search_domains(
         &self,
         req: crate::model::SearchDomainsRequest,

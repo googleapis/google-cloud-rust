@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Service Usage API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_api_serviceusage_v1::client::ServiceUsage;
+/// let client = ServiceUsage::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Enables services that service consumers want to use on Google Cloud Platform,
@@ -31,8 +40,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `ServiceUsage` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ServiceUsage` use the `with_*` methods in the type returned
+/// by [builder()][ServiceUsage::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://serviceusage.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::service_usage::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::service_usage::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -42,37 +66,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ServiceUsage {
-    inner: Arc<dyn super::stubs::dynamic::ServiceUsage>,
+    inner: Arc<dyn super::stub::dynamic::ServiceUsage>,
 }
 
 impl ServiceUsage {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ServiceUsage].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_api_serviceusage_v1::client::ServiceUsage;
+    /// let client = ServiceUsage::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::service_usage::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::service_usage::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ServiceUsage + 'static,
+        T: super::stub::ServiceUsage + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ServiceUsage>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ServiceUsage>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -81,13 +111,13 @@ impl ServiceUsage {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ServiceUsage> {
+    ) -> Result<impl super::stub::ServiceUsage> {
         super::transport::ServiceUsage::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ServiceUsage> {
+    ) -> Result<impl super::stub::ServiceUsage> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ServiceUsage::new)
@@ -107,8 +137,8 @@ impl ServiceUsage {
     pub fn enable_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::service_usage::EnableService {
-        super::builders::service_usage::EnableService::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::service_usage::EnableService {
+        super::builder::service_usage::EnableService::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Disable a service so that it can no longer be used with a project.
@@ -131,17 +161,16 @@ impl ServiceUsage {
     pub fn disable_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::service_usage::DisableService {
-        super::builders::service_usage::DisableService::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::service_usage::DisableService {
+        super::builder::service_usage::DisableService::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Returns the service configuration and enabled state for a given service.
     pub fn get_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::service_usage::GetService {
-        super::builders::service_usage::GetService::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::service_usage::GetService {
+        super::builder::service_usage::GetService::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List all services available to the specified project, and the current
@@ -160,8 +189,8 @@ impl ServiceUsage {
     pub fn list_services(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::service_usage::ListServices {
-        super::builders::service_usage::ListServices::new(self.inner.clone())
+    ) -> super::builder::service_usage::ListServices {
+        super::builder::service_usage::ListServices::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -181,8 +210,8 @@ impl ServiceUsage {
     pub fn batch_enable_services(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::service_usage::BatchEnableServices {
-        super::builders::service_usage::BatchEnableServices::new(self.inner.clone())
+    ) -> super::builder::service_usage::BatchEnableServices {
+        super::builder::service_usage::BatchEnableServices::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -191,16 +220,16 @@ impl ServiceUsage {
     pub fn batch_get_services(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::service_usage::BatchGetServices {
-        super::builders::service_usage::BatchGetServices::new(self.inner.clone())
+    ) -> super::builder::service_usage::BatchGetServices {
+        super::builder::service_usage::BatchGetServices::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builders::service_usage::ListOperations {
-        super::builders::service_usage::ListOperations::new(self.inner.clone())
+    pub fn list_operations(&self) -> super::builder::service_usage::ListOperations {
+        super::builder::service_usage::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -209,7 +238,7 @@ impl ServiceUsage {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::service_usage::GetOperation {
-        super::builders::service_usage::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::service_usage::GetOperation {
+        super::builder::service_usage::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

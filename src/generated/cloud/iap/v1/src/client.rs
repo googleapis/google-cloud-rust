@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Identity-Aware Proxy API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
+/// let client = IdentityAwareProxyAdminService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// APIs for Identity-Aware Proxy Admin configurations.
 ///
 /// # Configuration
 ///
-/// `IdentityAwareProxyAdminService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `IdentityAwareProxyAdminService` use the `with_*` methods in the type returned
+/// by [builder()][IdentityAwareProxyAdminService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://iap.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::identity_aware_proxy_admin_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::identity_aware_proxy_admin_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,37 +62,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct IdentityAwareProxyAdminService {
-    inner: Arc<dyn super::stubs::dynamic::IdentityAwareProxyAdminService>,
+    inner: Arc<dyn super::stub::dynamic::IdentityAwareProxyAdminService>,
 }
 
 impl IdentityAwareProxyAdminService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [IdentityAwareProxyAdminService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
+    /// let client = IdentityAwareProxyAdminService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::identity_aware_proxy_admin_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::identity_aware_proxy_admin_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::IdentityAwareProxyAdminService + 'static,
+        T: super::stub::IdentityAwareProxyAdminService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::IdentityAwareProxyAdminService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::IdentityAwareProxyAdminService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +109,13 @@ impl IdentityAwareProxyAdminService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::IdentityAwareProxyAdminService> {
+    ) -> Result<impl super::stub::IdentityAwareProxyAdminService> {
         super::transport::IdentityAwareProxyAdminService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::IdentityAwareProxyAdminService> {
+    ) -> Result<impl super::stub::IdentityAwareProxyAdminService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::IdentityAwareProxyAdminService::new)
@@ -96,8 +128,8 @@ impl IdentityAwareProxyAdminService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::identity_aware_proxy_admin_service::SetIamPolicy {
-        super::builders::identity_aware_proxy_admin_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::identity_aware_proxy_admin_service::SetIamPolicy {
+        super::builder::identity_aware_proxy_admin_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -108,8 +140,8 @@ impl IdentityAwareProxyAdminService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::identity_aware_proxy_admin_service::GetIamPolicy {
-        super::builders::identity_aware_proxy_admin_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::identity_aware_proxy_admin_service::GetIamPolicy {
+        super::builder::identity_aware_proxy_admin_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -120,8 +152,8 @@ impl IdentityAwareProxyAdminService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::identity_aware_proxy_admin_service::TestIamPermissions {
-        super::builders::identity_aware_proxy_admin_service::TestIamPermissions::new(
+    ) -> super::builder::identity_aware_proxy_admin_service::TestIamPermissions {
+        super::builder::identity_aware_proxy_admin_service::TestIamPermissions::new(
             self.inner.clone(),
         )
         .set_resource(resource.into())
@@ -131,8 +163,8 @@ impl IdentityAwareProxyAdminService {
     pub fn get_iap_settings(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::identity_aware_proxy_admin_service::GetIapSettings {
-        super::builders::identity_aware_proxy_admin_service::GetIapSettings::new(self.inner.clone())
+    ) -> super::builder::identity_aware_proxy_admin_service::GetIapSettings {
+        super::builder::identity_aware_proxy_admin_service::GetIapSettings::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -141,8 +173,8 @@ impl IdentityAwareProxyAdminService {
     pub fn update_iap_settings(
         &self,
         iap_settings: impl Into<crate::model::IapSettings>,
-    ) -> super::builders::identity_aware_proxy_admin_service::UpdateIapSettings {
-        super::builders::identity_aware_proxy_admin_service::UpdateIapSettings::new(
+    ) -> super::builder::identity_aware_proxy_admin_service::UpdateIapSettings {
+        super::builder::identity_aware_proxy_admin_service::UpdateIapSettings::new(
             self.inner.clone(),
         )
         .set_iap_settings(iap_settings.into())
@@ -154,8 +186,8 @@ impl IdentityAwareProxyAdminService {
     pub fn list_tunnel_dest_groups(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::identity_aware_proxy_admin_service::ListTunnelDestGroups {
-        super::builders::identity_aware_proxy_admin_service::ListTunnelDestGroups::new(
+    ) -> super::builder::identity_aware_proxy_admin_service::ListTunnelDestGroups {
+        super::builder::identity_aware_proxy_admin_service::ListTunnelDestGroups::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -165,8 +197,8 @@ impl IdentityAwareProxyAdminService {
     pub fn create_tunnel_dest_group(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::identity_aware_proxy_admin_service::CreateTunnelDestGroup {
-        super::builders::identity_aware_proxy_admin_service::CreateTunnelDestGroup::new(
+    ) -> super::builder::identity_aware_proxy_admin_service::CreateTunnelDestGroup {
+        super::builder::identity_aware_proxy_admin_service::CreateTunnelDestGroup::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -176,8 +208,8 @@ impl IdentityAwareProxyAdminService {
     pub fn get_tunnel_dest_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::identity_aware_proxy_admin_service::GetTunnelDestGroup {
-        super::builders::identity_aware_proxy_admin_service::GetTunnelDestGroup::new(
+    ) -> super::builder::identity_aware_proxy_admin_service::GetTunnelDestGroup {
+        super::builder::identity_aware_proxy_admin_service::GetTunnelDestGroup::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -187,8 +219,8 @@ impl IdentityAwareProxyAdminService {
     pub fn delete_tunnel_dest_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::identity_aware_proxy_admin_service::DeleteTunnelDestGroup {
-        super::builders::identity_aware_proxy_admin_service::DeleteTunnelDestGroup::new(
+    ) -> super::builder::identity_aware_proxy_admin_service::DeleteTunnelDestGroup {
+        super::builder::identity_aware_proxy_admin_service::DeleteTunnelDestGroup::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -198,8 +230,8 @@ impl IdentityAwareProxyAdminService {
     pub fn update_tunnel_dest_group(
         &self,
         tunnel_dest_group: impl Into<crate::model::TunnelDestGroup>,
-    ) -> super::builders::identity_aware_proxy_admin_service::UpdateTunnelDestGroup {
-        super::builders::identity_aware_proxy_admin_service::UpdateTunnelDestGroup::new(
+    ) -> super::builder::identity_aware_proxy_admin_service::UpdateTunnelDestGroup {
+        super::builder::identity_aware_proxy_admin_service::UpdateTunnelDestGroup::new(
             self.inner.clone(),
         )
         .set_tunnel_dest_group(tunnel_dest_group.into())
@@ -207,6 +239,15 @@ impl IdentityAwareProxyAdminService {
 }
 
 /// Implements a client for the Cloud Identity-Aware Proxy API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_iap_v1::client::IdentityAwareProxyOAuthService;
+/// let client = IdentityAwareProxyOAuthService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -216,8 +257,23 @@ impl IdentityAwareProxyAdminService {
 ///
 /// # Configuration
 ///
-/// `IdentityAwareProxyOAuthService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `IdentityAwareProxyOAuthService` use the `with_*` methods in the type returned
+/// by [builder()][IdentityAwareProxyOAuthService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://iap.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::identity_aware_proxy_o_auth_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::identity_aware_proxy_o_auth_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -227,37 +283,45 @@ impl IdentityAwareProxyAdminService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct IdentityAwareProxyOAuthService {
-    inner: Arc<dyn super::stubs::dynamic::IdentityAwareProxyOAuthService>,
+    inner: Arc<dyn super::stub::dynamic::IdentityAwareProxyOAuthService>,
 }
 
 impl IdentityAwareProxyOAuthService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [IdentityAwareProxyOAuthService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyOAuthService;
+    /// let client = IdentityAwareProxyOAuthService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::identity_aware_proxy_o_auth_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::identity_aware_proxy_o_auth_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::IdentityAwareProxyOAuthService + 'static,
+        T: super::stub::IdentityAwareProxyOAuthService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::IdentityAwareProxyOAuthService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::IdentityAwareProxyOAuthService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -266,13 +330,13 @@ impl IdentityAwareProxyOAuthService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::IdentityAwareProxyOAuthService> {
+    ) -> Result<impl super::stub::IdentityAwareProxyOAuthService> {
         super::transport::IdentityAwareProxyOAuthService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::IdentityAwareProxyOAuthService> {
+    ) -> Result<impl super::stub::IdentityAwareProxyOAuthService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::IdentityAwareProxyOAuthService::new)
@@ -282,8 +346,8 @@ impl IdentityAwareProxyOAuthService {
     pub fn list_brands(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::identity_aware_proxy_o_auth_service::ListBrands {
-        super::builders::identity_aware_proxy_o_auth_service::ListBrands::new(self.inner.clone())
+    ) -> super::builder::identity_aware_proxy_o_auth_service::ListBrands {
+        super::builder::identity_aware_proxy_o_auth_service::ListBrands::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -298,8 +362,8 @@ impl IdentityAwareProxyOAuthService {
     pub fn create_brand(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::identity_aware_proxy_o_auth_service::CreateBrand {
-        super::builders::identity_aware_proxy_o_auth_service::CreateBrand::new(self.inner.clone())
+    ) -> super::builder::identity_aware_proxy_o_auth_service::CreateBrand {
+        super::builder::identity_aware_proxy_o_auth_service::CreateBrand::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -307,8 +371,8 @@ impl IdentityAwareProxyOAuthService {
     pub fn get_brand(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::identity_aware_proxy_o_auth_service::GetBrand {
-        super::builders::identity_aware_proxy_o_auth_service::GetBrand::new(self.inner.clone())
+    ) -> super::builder::identity_aware_proxy_o_auth_service::GetBrand {
+        super::builder::identity_aware_proxy_o_auth_service::GetBrand::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -318,8 +382,8 @@ impl IdentityAwareProxyOAuthService {
     pub fn create_identity_aware_proxy_client(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::identity_aware_proxy_o_auth_service::CreateIdentityAwareProxyClient {
-        super::builders::identity_aware_proxy_o_auth_service::CreateIdentityAwareProxyClient::new(
+    ) -> super::builder::identity_aware_proxy_o_auth_service::CreateIdentityAwareProxyClient {
+        super::builder::identity_aware_proxy_o_auth_service::CreateIdentityAwareProxyClient::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -329,8 +393,8 @@ impl IdentityAwareProxyOAuthService {
     pub fn list_identity_aware_proxy_clients(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::identity_aware_proxy_o_auth_service::ListIdentityAwareProxyClients {
-        super::builders::identity_aware_proxy_o_auth_service::ListIdentityAwareProxyClients::new(
+    ) -> super::builder::identity_aware_proxy_o_auth_service::ListIdentityAwareProxyClients {
+        super::builder::identity_aware_proxy_o_auth_service::ListIdentityAwareProxyClients::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -341,8 +405,8 @@ impl IdentityAwareProxyOAuthService {
     pub fn get_identity_aware_proxy_client(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::identity_aware_proxy_o_auth_service::GetIdentityAwareProxyClient {
-        super::builders::identity_aware_proxy_o_auth_service::GetIdentityAwareProxyClient::new(
+    ) -> super::builder::identity_aware_proxy_o_auth_service::GetIdentityAwareProxyClient {
+        super::builder::identity_aware_proxy_o_auth_service::GetIdentityAwareProxyClient::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -353,9 +417,9 @@ impl IdentityAwareProxyOAuthService {
     pub fn reset_identity_aware_proxy_client_secret(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::identity_aware_proxy_o_auth_service::ResetIdentityAwareProxyClientSecret
+    ) -> super::builder::identity_aware_proxy_o_auth_service::ResetIdentityAwareProxyClientSecret
     {
-        super::builders::identity_aware_proxy_o_auth_service::ResetIdentityAwareProxyClientSecret::new(self.inner.clone())
+        super::builder::identity_aware_proxy_o_auth_service::ResetIdentityAwareProxyClientSecret::new(self.inner.clone())
             .set_name ( name.into() )
     }
 
@@ -365,8 +429,8 @@ impl IdentityAwareProxyOAuthService {
     pub fn delete_identity_aware_proxy_client(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::identity_aware_proxy_o_auth_service::DeleteIdentityAwareProxyClient {
-        super::builders::identity_aware_proxy_o_auth_service::DeleteIdentityAwareProxyClient::new(
+    ) -> super::builder::identity_aware_proxy_o_auth_service::DeleteIdentityAwareProxyClient {
+        super::builder::identity_aware_proxy_o_auth_service::DeleteIdentityAwareProxyClient::new(
             self.inner.clone(),
         )
         .set_name(name.into())

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [OsConfigService](super::stubs::OsConfigService) using a [gaxi::http::ReqwestClient].
+/// Implements [OsConfigService](super::stub::OsConfigService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct OsConfigService {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl OsConfigService {
     }
 }
 
-impl super::stubs::OsConfigService for OsConfigService {
+impl super::stub::OsConfigService for OsConfigService {
     async fn execute_patch_job(
         &self,
         req: crate::model::ExecutePatchJobRequest,
@@ -216,7 +216,7 @@ impl super::stubs::OsConfigService for OsConfigService {
         &self,
         req: crate::model::DeletePatchDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -229,6 +229,7 @@ impl super::stubs::OsConfigService for OsConfigService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn update_patch_deployment(
@@ -326,7 +327,7 @@ impl super::stubs::OsConfigService for OsConfigService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -336,11 +337,14 @@ impl super::stubs::OsConfigService for OsConfigService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 }
 
-/// Implements [OsConfigZonalService](super::stubs::OsConfigZonalService) using a [gaxi::http::ReqwestClient].
+/// Implements [OsConfigZonalService](super::stub::OsConfigZonalService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct OsConfigZonalService {
     inner: gaxi::http::ReqwestClient,
@@ -361,7 +365,7 @@ impl OsConfigZonalService {
     }
 }
 
-impl super::stubs::OsConfigZonalService for OsConfigZonalService {
+impl super::stub::OsConfigZonalService for OsConfigZonalService {
     async fn create_os_policy_assignment(
         &self,
         req: crate::model::CreateOSPolicyAssignmentRequest,
@@ -663,7 +667,7 @@ impl super::stubs::OsConfigZonalService for OsConfigZonalService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -673,7 +677,10 @@ impl super::stubs::OsConfigZonalService for OsConfigZonalService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(

@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Speech-to-Text API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_speech_v2::client::Speech;
+/// let client = Speech::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Enables speech transcription and resource management.
 ///
 /// # Configuration
 ///
-/// `Speech` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Speech` use the `with_*` methods in the type returned
+/// by [builder()][Speech::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://speech.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::speech::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::speech::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,52 +62,56 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Speech {
-    inner: Arc<dyn super::stubs::dynamic::Speech>,
+    inner: Arc<dyn super::stub::dynamic::Speech>,
 }
 
 impl Speech {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Speech].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_speech_v2::client::Speech;
+    /// let client = Speech::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::speech::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::speech::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Speech + 'static,
+        T: super::stub::Speech + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Speech>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Speech>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Speech> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stub::Speech> {
         super::transport::Speech::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Speech> {
+    ) -> Result<impl super::stub::Speech> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Speech::new)
@@ -105,16 +133,16 @@ impl Speech {
     pub fn create_recognizer(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::speech::CreateRecognizer {
-        super::builders::speech::CreateRecognizer::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::speech::CreateRecognizer {
+        super::builder::speech::CreateRecognizer::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Lists Recognizers.
     pub fn list_recognizers(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::speech::ListRecognizers {
-        super::builders::speech::ListRecognizers::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::speech::ListRecognizers {
+        super::builder::speech::ListRecognizers::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Returns the requested
@@ -126,8 +154,8 @@ impl Speech {
     pub fn get_recognizer(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::speech::GetRecognizer {
-        super::builders::speech::GetRecognizer::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::speech::GetRecognizer {
+        super::builder::speech::GetRecognizer::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the [Recognizer][google.cloud.speech.v2.Recognizer].
@@ -146,8 +174,8 @@ impl Speech {
     pub fn update_recognizer(
         &self,
         recognizer: impl Into<crate::model::Recognizer>,
-    ) -> super::builders::speech::UpdateRecognizer {
-        super::builders::speech::UpdateRecognizer::new(self.inner.clone())
+    ) -> super::builder::speech::UpdateRecognizer {
+        super::builder::speech::UpdateRecognizer::new(self.inner.clone())
             .set_recognizer(recognizer.into())
     }
 
@@ -167,8 +195,8 @@ impl Speech {
     pub fn delete_recognizer(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::speech::DeleteRecognizer {
-        super::builders::speech::DeleteRecognizer::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::speech::DeleteRecognizer {
+        super::builder::speech::DeleteRecognizer::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Undeletes the [Recognizer][google.cloud.speech.v2.Recognizer].
@@ -187,8 +215,8 @@ impl Speech {
     pub fn undelete_recognizer(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::speech::UndeleteRecognizer {
-        super::builders::speech::UndeleteRecognizer::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::speech::UndeleteRecognizer {
+        super::builder::speech::UndeleteRecognizer::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Performs synchronous Speech recognition: receive results after all audio
@@ -196,9 +224,8 @@ impl Speech {
     pub fn recognize(
         &self,
         recognizer: impl Into<std::string::String>,
-    ) -> super::builders::speech::Recognize {
-        super::builders::speech::Recognize::new(self.inner.clone())
-            .set_recognizer(recognizer.into())
+    ) -> super::builder::speech::Recognize {
+        super::builder::speech::Recognize::new(self.inner.clone()).set_recognizer(recognizer.into())
     }
 
     /// Performs batch asynchronous speech recognition: send a request with N
@@ -217,8 +244,8 @@ impl Speech {
     pub fn batch_recognize(
         &self,
         recognizer: impl Into<std::string::String>,
-    ) -> super::builders::speech::BatchRecognize {
-        super::builders::speech::BatchRecognize::new(self.inner.clone())
+    ) -> super::builder::speech::BatchRecognize {
+        super::builder::speech::BatchRecognize::new(self.inner.clone())
             .set_recognizer(recognizer.into())
     }
 
@@ -228,8 +255,8 @@ impl Speech {
     pub fn get_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::speech::GetConfig {
-        super::builders::speech::GetConfig::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::speech::GetConfig {
+        super::builder::speech::GetConfig::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the [Config][google.cloud.speech.v2.Config].
@@ -238,8 +265,8 @@ impl Speech {
     pub fn update_config(
         &self,
         config: impl Into<crate::model::Config>,
-    ) -> super::builders::speech::UpdateConfig {
-        super::builders::speech::UpdateConfig::new(self.inner.clone()).set_config(config.into())
+    ) -> super::builder::speech::UpdateConfig {
+        super::builder::speech::UpdateConfig::new(self.inner.clone()).set_config(config.into())
     }
 
     /// Creates a [CustomClass][google.cloud.speech.v2.CustomClass].
@@ -258,18 +285,16 @@ impl Speech {
     pub fn create_custom_class(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::speech::CreateCustomClass {
-        super::builders::speech::CreateCustomClass::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::speech::CreateCustomClass {
+        super::builder::speech::CreateCustomClass::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Lists CustomClasses.
     pub fn list_custom_classes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::speech::ListCustomClasses {
-        super::builders::speech::ListCustomClasses::new(self.inner.clone())
-            .set_parent(parent.into())
+    ) -> super::builder::speech::ListCustomClasses {
+        super::builder::speech::ListCustomClasses::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Returns the requested
@@ -279,8 +304,8 @@ impl Speech {
     pub fn get_custom_class(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::speech::GetCustomClass {
-        super::builders::speech::GetCustomClass::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::speech::GetCustomClass {
+        super::builder::speech::GetCustomClass::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the [CustomClass][google.cloud.speech.v2.CustomClass].
@@ -299,8 +324,8 @@ impl Speech {
     pub fn update_custom_class(
         &self,
         custom_class: impl Into<crate::model::CustomClass>,
-    ) -> super::builders::speech::UpdateCustomClass {
-        super::builders::speech::UpdateCustomClass::new(self.inner.clone())
+    ) -> super::builder::speech::UpdateCustomClass {
+        super::builder::speech::UpdateCustomClass::new(self.inner.clone())
             .set_custom_class(custom_class.into())
     }
 
@@ -320,8 +345,8 @@ impl Speech {
     pub fn delete_custom_class(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::speech::DeleteCustomClass {
-        super::builders::speech::DeleteCustomClass::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::speech::DeleteCustomClass {
+        super::builder::speech::DeleteCustomClass::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Undeletes the [CustomClass][google.cloud.speech.v2.CustomClass].
@@ -340,8 +365,8 @@ impl Speech {
     pub fn undelete_custom_class(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::speech::UndeleteCustomClass {
-        super::builders::speech::UndeleteCustomClass::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::speech::UndeleteCustomClass {
+        super::builder::speech::UndeleteCustomClass::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a [PhraseSet][google.cloud.speech.v2.PhraseSet].
@@ -360,16 +385,16 @@ impl Speech {
     pub fn create_phrase_set(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::speech::CreatePhraseSet {
-        super::builders::speech::CreatePhraseSet::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::speech::CreatePhraseSet {
+        super::builder::speech::CreatePhraseSet::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Lists PhraseSets.
     pub fn list_phrase_sets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::speech::ListPhraseSets {
-        super::builders::speech::ListPhraseSets::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builder::speech::ListPhraseSets {
+        super::builder::speech::ListPhraseSets::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Returns the requested
@@ -379,8 +404,8 @@ impl Speech {
     pub fn get_phrase_set(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::speech::GetPhraseSet {
-        super::builders::speech::GetPhraseSet::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::speech::GetPhraseSet {
+        super::builder::speech::GetPhraseSet::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the [PhraseSet][google.cloud.speech.v2.PhraseSet].
@@ -399,8 +424,8 @@ impl Speech {
     pub fn update_phrase_set(
         &self,
         phrase_set: impl Into<crate::model::PhraseSet>,
-    ) -> super::builders::speech::UpdatePhraseSet {
-        super::builders::speech::UpdatePhraseSet::new(self.inner.clone())
+    ) -> super::builder::speech::UpdatePhraseSet {
+        super::builder::speech::UpdatePhraseSet::new(self.inner.clone())
             .set_phrase_set(phrase_set.into())
     }
 
@@ -420,8 +445,8 @@ impl Speech {
     pub fn delete_phrase_set(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::speech::DeletePhraseSet {
-        super::builders::speech::DeletePhraseSet::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::speech::DeletePhraseSet {
+        super::builder::speech::DeletePhraseSet::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Undeletes the [PhraseSet][google.cloud.speech.v2.PhraseSet].
@@ -440,24 +465,24 @@ impl Speech {
     pub fn undelete_phrase_set(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::speech::UndeletePhraseSet {
-        super::builders::speech::UndeletePhraseSet::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::speech::UndeletePhraseSet {
+        super::builder::speech::UndeletePhraseSet::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::speech::ListLocations {
-        super::builders::speech::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::speech::ListLocations {
+        super::builder::speech::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::speech::GetLocation {
-        super::builders::speech::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::speech::GetLocation {
+        super::builder::speech::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -466,8 +491,8 @@ impl Speech {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::speech::ListOperations {
-        super::builders::speech::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::speech::ListOperations {
+        super::builder::speech::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -476,8 +501,8 @@ impl Speech {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::speech::GetOperation {
-        super::builders::speech::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::speech::GetOperation {
+        super::builder::speech::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -486,8 +511,8 @@ impl Speech {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::speech::DeleteOperation {
-        super::builders::speech::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::speech::DeleteOperation {
+        super::builder::speech::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -496,7 +521,7 @@ impl Speech {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::speech::CancelOperation {
-        super::builders::speech::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::speech::CancelOperation {
+        super::builder::speech::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

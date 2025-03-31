@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Profiler API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_profiler_v2::client::ProfilerService;
+/// let client = ProfilerService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Manage the collection of continuous profiling data provided by profiling
@@ -31,8 +40,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `ProfilerService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ProfilerService` use the `with_*` methods in the type returned
+/// by [builder()][ProfilerService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://cloudprofiler.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::profiler_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::profiler_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -42,37 +66,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ProfilerService {
-    inner: Arc<dyn super::stubs::dynamic::ProfilerService>,
+    inner: Arc<dyn super::stub::dynamic::ProfilerService>,
 }
 
 impl ProfilerService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ProfilerService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_profiler_v2::client::ProfilerService;
+    /// let client = ProfilerService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::profiler_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::profiler_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ProfilerService + 'static,
+        T: super::stub::ProfilerService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ProfilerService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ProfilerService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -81,13 +113,13 @@ impl ProfilerService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ProfilerService> {
+    ) -> Result<impl super::stub::ProfilerService> {
         super::transport::ProfilerService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ProfilerService> {
+    ) -> Result<impl super::stub::ProfilerService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ProfilerService::new)
@@ -114,8 +146,8 @@ impl ProfilerService {
     pub fn create_profile(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::profiler_service::CreateProfile {
-        super::builders::profiler_service::CreateProfile::new(self.inner.clone())
+    ) -> super::builder::profiler_service::CreateProfile {
+        super::builder::profiler_service::CreateProfile::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -130,8 +162,8 @@ impl ProfilerService {
     pub fn create_offline_profile(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::profiler_service::CreateOfflineProfile {
-        super::builders::profiler_service::CreateOfflineProfile::new(self.inner.clone())
+    ) -> super::builder::profiler_service::CreateOfflineProfile {
+        super::builder::profiler_service::CreateOfflineProfile::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -147,13 +179,22 @@ impl ProfilerService {
     pub fn update_profile(
         &self,
         profile: impl Into<crate::model::Profile>,
-    ) -> super::builders::profiler_service::UpdateProfile {
-        super::builders::profiler_service::UpdateProfile::new(self.inner.clone())
+    ) -> super::builder::profiler_service::UpdateProfile {
+        super::builder::profiler_service::UpdateProfile::new(self.inner.clone())
             .set_profile(profile.into())
     }
 }
 
 /// Implements a client for the Cloud Profiler API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_profiler_v2::client::ExportService;
+/// let client = ExportService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -162,8 +203,23 @@ impl ProfilerService {
 ///
 /// # Configuration
 ///
-/// `ExportService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ExportService` use the `with_*` methods in the type returned
+/// by [builder()][ExportService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://cloudprofiler.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::export_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::export_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -173,37 +229,43 @@ impl ProfilerService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ExportService {
-    inner: Arc<dyn super::stubs::dynamic::ExportService>,
+    inner: Arc<dyn super::stub::dynamic::ExportService>,
 }
 
 impl ExportService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ExportService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_profiler_v2::client::ExportService;
+    /// let client = ExportService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::export_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::export_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ExportService + 'static,
+        T: super::stub::ExportService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ExportService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ExportService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -212,13 +274,13 @@ impl ExportService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ExportService> {
+    ) -> Result<impl super::stub::ExportService> {
         super::transport::ExportService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ExportService> {
+    ) -> Result<impl super::stub::ExportService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ExportService::new)
@@ -229,8 +291,8 @@ impl ExportService {
     pub fn list_profiles(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::export_service::ListProfiles {
-        super::builders::export_service::ListProfiles::new(self.inner.clone())
+    ) -> super::builder::export_service::ListProfiles {
+        super::builder::export_service::ListProfiles::new(self.inner.clone())
             .set_parent(parent.into())
     }
 }

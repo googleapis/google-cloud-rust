@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Access Approval API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_accessapproval_v1::client::AccessApproval;
+/// let client = AccessApproval::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// This API allows a customer to manage accesses to cloud resources by
@@ -61,8 +70,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `AccessApproval` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `AccessApproval` use the `with_*` methods in the type returned
+/// by [builder()][AccessApproval::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://accessapproval.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::access_approval::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::access_approval::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -72,37 +96,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AccessApproval {
-    inner: Arc<dyn super::stubs::dynamic::AccessApproval>,
+    inner: Arc<dyn super::stub::dynamic::AccessApproval>,
 }
 
 impl AccessApproval {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [AccessApproval].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_accessapproval_v1::client::AccessApproval;
+    /// let client = AccessApproval::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::access_approval::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::access_approval::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::AccessApproval + 'static,
+        T: super::stub::AccessApproval + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::AccessApproval>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::AccessApproval>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -111,13 +141,13 @@ impl AccessApproval {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AccessApproval> {
+    ) -> Result<impl super::stub::AccessApproval> {
         super::transport::AccessApproval::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AccessApproval> {
+    ) -> Result<impl super::stub::AccessApproval> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AccessApproval::new)
@@ -129,8 +159,8 @@ impl AccessApproval {
     pub fn list_approval_requests(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::access_approval::ListApprovalRequests {
-        super::builders::access_approval::ListApprovalRequests::new(self.inner.clone())
+    ) -> super::builder::access_approval::ListApprovalRequests {
+        super::builder::access_approval::ListApprovalRequests::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -138,8 +168,8 @@ impl AccessApproval {
     pub fn get_approval_request(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_approval::GetApprovalRequest {
-        super::builders::access_approval::GetApprovalRequest::new(self.inner.clone())
+    ) -> super::builder::access_approval::GetApprovalRequest {
+        super::builder::access_approval::GetApprovalRequest::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -150,8 +180,8 @@ impl AccessApproval {
     pub fn approve_approval_request(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_approval::ApproveApprovalRequest {
-        super::builders::access_approval::ApproveApprovalRequest::new(self.inner.clone())
+    ) -> super::builder::access_approval::ApproveApprovalRequest {
+        super::builder::access_approval::ApproveApprovalRequest::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -168,8 +198,8 @@ impl AccessApproval {
     pub fn dismiss_approval_request(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_approval::DismissApprovalRequest {
-        super::builders::access_approval::DismissApprovalRequest::new(self.inner.clone())
+    ) -> super::builder::access_approval::DismissApprovalRequest {
+        super::builder::access_approval::DismissApprovalRequest::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -184,8 +214,8 @@ impl AccessApproval {
     pub fn invalidate_approval_request(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_approval::InvalidateApprovalRequest {
-        super::builders::access_approval::InvalidateApprovalRequest::new(self.inner.clone())
+    ) -> super::builder::access_approval::InvalidateApprovalRequest {
+        super::builder::access_approval::InvalidateApprovalRequest::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -193,8 +223,8 @@ impl AccessApproval {
     pub fn get_access_approval_settings(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_approval::GetAccessApprovalSettings {
-        super::builders::access_approval::GetAccessApprovalSettings::new(self.inner.clone())
+    ) -> super::builder::access_approval::GetAccessApprovalSettings {
+        super::builder::access_approval::GetAccessApprovalSettings::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -203,8 +233,8 @@ impl AccessApproval {
     pub fn update_access_approval_settings(
         &self,
         settings: impl Into<crate::model::AccessApprovalSettings>,
-    ) -> super::builders::access_approval::UpdateAccessApprovalSettings {
-        super::builders::access_approval::UpdateAccessApprovalSettings::new(self.inner.clone())
+    ) -> super::builder::access_approval::UpdateAccessApprovalSettings {
+        super::builder::access_approval::UpdateAccessApprovalSettings::new(self.inner.clone())
             .set_settings(settings.into())
     }
 
@@ -217,8 +247,8 @@ impl AccessApproval {
     pub fn delete_access_approval_settings(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_approval::DeleteAccessApprovalSettings {
-        super::builders::access_approval::DeleteAccessApprovalSettings::new(self.inner.clone())
+    ) -> super::builder::access_approval::DeleteAccessApprovalSettings {
+        super::builder::access_approval::DeleteAccessApprovalSettings::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -227,8 +257,8 @@ impl AccessApproval {
     pub fn get_access_approval_service_account(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::access_approval::GetAccessApprovalServiceAccount {
-        super::builders::access_approval::GetAccessApprovalServiceAccount::new(self.inner.clone())
+    ) -> super::builder::access_approval::GetAccessApprovalServiceAccount {
+        super::builder::access_approval::GetAccessApprovalServiceAccount::new(self.inner.clone())
             .set_name(name.into())
     }
 }

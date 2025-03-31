@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the BigQuery API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_bigquery_v2::client::DatasetService;
+/// let client = DatasetService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// DatasetService provides methods for managing BigQuery datasets.
 ///
 /// # Configuration
 ///
-/// `DatasetService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `DatasetService` use the `with_*` methods in the type returned
+/// by [builder()][DatasetService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://bigquery.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::dataset_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::dataset_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,37 +62,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct DatasetService {
-    inner: Arc<dyn super::stubs::dynamic::DatasetService>,
+    inner: Arc<dyn super::stub::dynamic::DatasetService>,
 }
 
 impl DatasetService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [DatasetService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigquery_v2::client::DatasetService;
+    /// let client = DatasetService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::dataset_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::dataset_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::DatasetService + 'static,
+        T: super::stub::DatasetService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::DatasetService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::DatasetService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +107,13 @@ impl DatasetService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DatasetService> {
+    ) -> Result<impl super::stub::DatasetService> {
         super::transport::DatasetService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DatasetService> {
+    ) -> Result<impl super::stub::DatasetService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DatasetService::new)
@@ -94,8 +124,8 @@ impl DatasetService {
         &self,
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::GetDataset {
-        super::builders::dataset_service::GetDataset::new(self.inner.clone())
+    ) -> super::builder::dataset_service::GetDataset {
+        super::builder::dataset_service::GetDataset::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
     }
@@ -104,8 +134,8 @@ impl DatasetService {
     pub fn insert_dataset(
         &self,
         project_id: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::InsertDataset {
-        super::builders::dataset_service::InsertDataset::new(self.inner.clone())
+    ) -> super::builder::dataset_service::InsertDataset {
+        super::builder::dataset_service::InsertDataset::new(self.inner.clone())
             .set_project_id(project_id.into())
     }
 
@@ -117,8 +147,8 @@ impl DatasetService {
         &self,
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::PatchDataset {
-        super::builders::dataset_service::PatchDataset::new(self.inner.clone())
+    ) -> super::builder::dataset_service::PatchDataset {
+        super::builder::dataset_service::PatchDataset::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
     }
@@ -130,8 +160,8 @@ impl DatasetService {
         &self,
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::UpdateDataset {
-        super::builders::dataset_service::UpdateDataset::new(self.inner.clone())
+    ) -> super::builder::dataset_service::UpdateDataset {
+        super::builder::dataset_service::UpdateDataset::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
     }
@@ -144,8 +174,8 @@ impl DatasetService {
         &self,
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::DeleteDataset {
-        super::builders::dataset_service::DeleteDataset::new(self.inner.clone())
+    ) -> super::builder::dataset_service::DeleteDataset {
+        super::builder::dataset_service::DeleteDataset::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
     }
@@ -155,8 +185,8 @@ impl DatasetService {
     pub fn list_datasets(
         &self,
         project_id: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::ListDatasets {
-        super::builders::dataset_service::ListDatasets::new(self.inner.clone())
+    ) -> super::builder::dataset_service::ListDatasets {
+        super::builder::dataset_service::ListDatasets::new(self.inner.clone())
             .set_project_id(project_id.into())
     }
 
@@ -167,8 +197,8 @@ impl DatasetService {
         &self,
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
-    ) -> super::builders::dataset_service::UndeleteDataset {
-        super::builders::dataset_service::UndeleteDataset::new(self.inner.clone())
+    ) -> super::builder::dataset_service::UndeleteDataset {
+        super::builder::dataset_service::UndeleteDataset::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
     }
@@ -176,14 +206,38 @@ impl DatasetService {
 
 /// Implements a client for the BigQuery API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_bigquery_v2::client::ModelService;
+/// let client = ModelService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Model Service for BigQuery ML
 ///
 /// # Configuration
 ///
-/// `ModelService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ModelService` use the `with_*` methods in the type returned
+/// by [builder()][ModelService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://bigquery.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::model_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::model_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -193,37 +247,43 @@ impl DatasetService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ModelService {
-    inner: Arc<dyn super::stubs::dynamic::ModelService>,
+    inner: Arc<dyn super::stub::dynamic::ModelService>,
 }
 
 impl ModelService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ModelService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigquery_v2::client::ModelService;
+    /// let client = ModelService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::model_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::model_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ModelService + 'static,
+        T: super::stub::ModelService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ModelService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ModelService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -232,13 +292,13 @@ impl ModelService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ModelService> {
+    ) -> Result<impl super::stub::ModelService> {
         super::transport::ModelService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ModelService> {
+    ) -> Result<impl super::stub::ModelService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ModelService::new)
@@ -250,8 +310,8 @@ impl ModelService {
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
         model_id: impl Into<std::string::String>,
-    ) -> super::builders::model_service::GetModel {
-        super::builders::model_service::GetModel::new(self.inner.clone())
+    ) -> super::builder::model_service::GetModel {
+        super::builder::model_service::GetModel::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
             .set_model_id(model_id.into())
@@ -264,8 +324,8 @@ impl ModelService {
         &self,
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
-    ) -> super::builders::model_service::ListModels {
-        super::builders::model_service::ListModels::new(self.inner.clone())
+    ) -> super::builder::model_service::ListModels {
+        super::builder::model_service::ListModels::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
     }
@@ -276,8 +336,8 @@ impl ModelService {
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
         model_id: impl Into<std::string::String>,
-    ) -> super::builders::model_service::PatchModel {
-        super::builders::model_service::PatchModel::new(self.inner.clone())
+    ) -> super::builder::model_service::PatchModel {
+        super::builder::model_service::PatchModel::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
             .set_model_id(model_id.into())
@@ -289,8 +349,8 @@ impl ModelService {
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
         model_id: impl Into<std::string::String>,
-    ) -> super::builders::model_service::DeleteModel {
-        super::builders::model_service::DeleteModel::new(self.inner.clone())
+    ) -> super::builder::model_service::DeleteModel {
+        super::builder::model_service::DeleteModel::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
             .set_model_id(model_id.into())
@@ -299,14 +359,38 @@ impl ModelService {
 
 /// Implements a client for the BigQuery API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_bigquery_v2::client::ProjectService;
+/// let client = ProjectService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// This service provides access to BigQuery functionality related to projects.
 ///
 /// # Configuration
 ///
-/// `ProjectService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ProjectService` use the `with_*` methods in the type returned
+/// by [builder()][ProjectService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://bigquery.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::project_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::project_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -316,37 +400,43 @@ impl ModelService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ProjectService {
-    inner: Arc<dyn super::stubs::dynamic::ProjectService>,
+    inner: Arc<dyn super::stub::dynamic::ProjectService>,
 }
 
 impl ProjectService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ProjectService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigquery_v2::client::ProjectService;
+    /// let client = ProjectService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::project_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::project_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ProjectService + 'static,
+        T: super::stub::ProjectService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ProjectService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ProjectService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -355,13 +445,13 @@ impl ProjectService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ProjectService> {
+    ) -> Result<impl super::stub::ProjectService> {
         super::transport::ProjectService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ProjectService> {
+    ) -> Result<impl super::stub::ProjectService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ProjectService::new)
@@ -372,13 +462,22 @@ impl ProjectService {
     pub fn get_service_account(
         &self,
         project_id: impl Into<std::string::String>,
-    ) -> super::builders::project_service::GetServiceAccount {
-        super::builders::project_service::GetServiceAccount::new(self.inner.clone())
+    ) -> super::builder::project_service::GetServiceAccount {
+        super::builder::project_service::GetServiceAccount::new(self.inner.clone())
             .set_project_id(project_id.into())
     }
 }
 
 /// Implements a client for the BigQuery API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_bigquery_v2::client::RoutineService;
+/// let client = RoutineService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -386,8 +485,23 @@ impl ProjectService {
 ///
 /// # Configuration
 ///
-/// `RoutineService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `RoutineService` use the `with_*` methods in the type returned
+/// by [builder()][RoutineService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://bigquery.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::routine_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::routine_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -397,37 +511,43 @@ impl ProjectService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct RoutineService {
-    inner: Arc<dyn super::stubs::dynamic::RoutineService>,
+    inner: Arc<dyn super::stub::dynamic::RoutineService>,
 }
 
 impl RoutineService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [RoutineService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigquery_v2::client::RoutineService;
+    /// let client = RoutineService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::routine_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::routine_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::RoutineService + 'static,
+        T: super::stub::RoutineService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::RoutineService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::RoutineService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -436,13 +556,13 @@ impl RoutineService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::RoutineService> {
+    ) -> Result<impl super::stub::RoutineService> {
         super::transport::RoutineService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::RoutineService> {
+    ) -> Result<impl super::stub::RoutineService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::RoutineService::new)
@@ -454,8 +574,8 @@ impl RoutineService {
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
         routine_id: impl Into<std::string::String>,
-    ) -> super::builders::routine_service::GetRoutine {
-        super::builders::routine_service::GetRoutine::new(self.inner.clone())
+    ) -> super::builder::routine_service::GetRoutine {
+        super::builder::routine_service::GetRoutine::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
             .set_routine_id(routine_id.into())
@@ -466,8 +586,8 @@ impl RoutineService {
         &self,
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
-    ) -> super::builders::routine_service::InsertRoutine {
-        super::builders::routine_service::InsertRoutine::new(self.inner.clone())
+    ) -> super::builder::routine_service::InsertRoutine {
+        super::builder::routine_service::InsertRoutine::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
     }
@@ -479,8 +599,8 @@ impl RoutineService {
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
         routine_id: impl Into<std::string::String>,
-    ) -> super::builders::routine_service::UpdateRoutine {
-        super::builders::routine_service::UpdateRoutine::new(self.inner.clone())
+    ) -> super::builder::routine_service::UpdateRoutine {
+        super::builder::routine_service::UpdateRoutine::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
             .set_routine_id(routine_id.into())
@@ -492,8 +612,8 @@ impl RoutineService {
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
         routine_id: impl Into<std::string::String>,
-    ) -> super::builders::routine_service::DeleteRoutine {
-        super::builders::routine_service::DeleteRoutine::new(self.inner.clone())
+    ) -> super::builder::routine_service::DeleteRoutine {
+        super::builder::routine_service::DeleteRoutine::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
             .set_routine_id(routine_id.into())
@@ -505,8 +625,8 @@ impl RoutineService {
         &self,
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
-    ) -> super::builders::routine_service::ListRoutines {
-        super::builders::routine_service::ListRoutines::new(self.inner.clone())
+    ) -> super::builder::routine_service::ListRoutines {
+        super::builder::routine_service::ListRoutines::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
     }
@@ -514,14 +634,38 @@ impl RoutineService {
 
 /// Implements a client for the BigQuery API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_bigquery_v2::client::RowAccessPolicyService;
+/// let client = RowAccessPolicyService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for interacting with row access policies.
 ///
 /// # Configuration
 ///
-/// `RowAccessPolicyService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `RowAccessPolicyService` use the `with_*` methods in the type returned
+/// by [builder()][RowAccessPolicyService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://bigquery.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::row_access_policy_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::row_access_policy_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -531,37 +675,45 @@ impl RoutineService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct RowAccessPolicyService {
-    inner: Arc<dyn super::stubs::dynamic::RowAccessPolicyService>,
+    inner: Arc<dyn super::stub::dynamic::RowAccessPolicyService>,
 }
 
 impl RowAccessPolicyService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [RowAccessPolicyService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigquery_v2::client::RowAccessPolicyService;
+    /// let client = RowAccessPolicyService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::row_access_policy_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::row_access_policy_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::RowAccessPolicyService + 'static,
+        T: super::stub::RowAccessPolicyService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::RowAccessPolicyService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::RowAccessPolicyService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -570,13 +722,13 @@ impl RowAccessPolicyService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::RowAccessPolicyService> {
+    ) -> Result<impl super::stub::RowAccessPolicyService> {
         super::transport::RowAccessPolicyService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::RowAccessPolicyService> {
+    ) -> Result<impl super::stub::RowAccessPolicyService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::RowAccessPolicyService::new)
@@ -588,8 +740,8 @@ impl RowAccessPolicyService {
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
         table_id: impl Into<std::string::String>,
-    ) -> super::builders::row_access_policy_service::ListRowAccessPolicies {
-        super::builders::row_access_policy_service::ListRowAccessPolicies::new(self.inner.clone())
+    ) -> super::builder::row_access_policy_service::ListRowAccessPolicies {
+        super::builder::row_access_policy_service::ListRowAccessPolicies::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
             .set_table_id(table_id.into())
@@ -602,8 +754,8 @@ impl RowAccessPolicyService {
         dataset_id: impl Into<std::string::String>,
         table_id: impl Into<std::string::String>,
         policy_id: impl Into<std::string::String>,
-    ) -> super::builders::row_access_policy_service::GetRowAccessPolicy {
-        super::builders::row_access_policy_service::GetRowAccessPolicy::new(self.inner.clone())
+    ) -> super::builder::row_access_policy_service::GetRowAccessPolicy {
+        super::builder::row_access_policy_service::GetRowAccessPolicy::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
             .set_table_id(table_id.into())
@@ -616,8 +768,8 @@ impl RowAccessPolicyService {
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
         table_id: impl Into<std::string::String>,
-    ) -> super::builders::row_access_policy_service::CreateRowAccessPolicy {
-        super::builders::row_access_policy_service::CreateRowAccessPolicy::new(self.inner.clone())
+    ) -> super::builder::row_access_policy_service::CreateRowAccessPolicy {
+        super::builder::row_access_policy_service::CreateRowAccessPolicy::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
             .set_table_id(table_id.into())
@@ -630,8 +782,8 @@ impl RowAccessPolicyService {
         dataset_id: impl Into<std::string::String>,
         table_id: impl Into<std::string::String>,
         policy_id: impl Into<std::string::String>,
-    ) -> super::builders::row_access_policy_service::UpdateRowAccessPolicy {
-        super::builders::row_access_policy_service::UpdateRowAccessPolicy::new(self.inner.clone())
+    ) -> super::builder::row_access_policy_service::UpdateRowAccessPolicy {
+        super::builder::row_access_policy_service::UpdateRowAccessPolicy::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
             .set_table_id(table_id.into())
@@ -645,8 +797,8 @@ impl RowAccessPolicyService {
         dataset_id: impl Into<std::string::String>,
         table_id: impl Into<std::string::String>,
         policy_id: impl Into<std::string::String>,
-    ) -> super::builders::row_access_policy_service::DeleteRowAccessPolicy {
-        super::builders::row_access_policy_service::DeleteRowAccessPolicy::new(self.inner.clone())
+    ) -> super::builder::row_access_policy_service::DeleteRowAccessPolicy {
+        super::builder::row_access_policy_service::DeleteRowAccessPolicy::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
             .set_table_id(table_id.into())
@@ -659,8 +811,8 @@ impl RowAccessPolicyService {
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
         table_id: impl Into<std::string::String>,
-    ) -> super::builders::row_access_policy_service::BatchDeleteRowAccessPolicies {
-        super::builders::row_access_policy_service::BatchDeleteRowAccessPolicies::new(
+    ) -> super::builder::row_access_policy_service::BatchDeleteRowAccessPolicies {
+        super::builder::row_access_policy_service::BatchDeleteRowAccessPolicies::new(
             self.inner.clone(),
         )
         .set_project_id(project_id.into())
@@ -671,6 +823,15 @@ impl RowAccessPolicyService {
 
 /// Implements a client for the BigQuery API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_bigquery_v2::client::TableService;
+/// let client = TableService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// TableService provides methods for managing BigQuery tables and table-like
@@ -678,8 +839,23 @@ impl RowAccessPolicyService {
 ///
 /// # Configuration
 ///
-/// `TableService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `TableService` use the `with_*` methods in the type returned
+/// by [builder()][TableService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://bigquery.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::table_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::table_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -689,37 +865,43 @@ impl RowAccessPolicyService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct TableService {
-    inner: Arc<dyn super::stubs::dynamic::TableService>,
+    inner: Arc<dyn super::stub::dynamic::TableService>,
 }
 
 impl TableService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [TableService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigquery_v2::client::TableService;
+    /// let client = TableService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::table_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::table_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::TableService + 'static,
+        T: super::stub::TableService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::TableService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::TableService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -728,13 +910,13 @@ impl TableService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::TableService> {
+    ) -> Result<impl super::stub::TableService> {
         super::transport::TableService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::TableService> {
+    ) -> Result<impl super::stub::TableService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TableService::new)
@@ -748,8 +930,8 @@ impl TableService {
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
         table_id: impl Into<std::string::String>,
-    ) -> super::builders::table_service::GetTable {
-        super::builders::table_service::GetTable::new(self.inner.clone())
+    ) -> super::builder::table_service::GetTable {
+        super::builder::table_service::GetTable::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
             .set_table_id(table_id.into())
@@ -760,8 +942,8 @@ impl TableService {
         &self,
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
-    ) -> super::builders::table_service::InsertTable {
-        super::builders::table_service::InsertTable::new(self.inner.clone())
+    ) -> super::builder::table_service::InsertTable {
+        super::builder::table_service::InsertTable::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
     }
@@ -775,8 +957,8 @@ impl TableService {
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
         table_id: impl Into<std::string::String>,
-    ) -> super::builders::table_service::PatchTable {
-        super::builders::table_service::PatchTable::new(self.inner.clone())
+    ) -> super::builder::table_service::PatchTable {
+        super::builder::table_service::PatchTable::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
             .set_table_id(table_id.into())
@@ -790,8 +972,8 @@ impl TableService {
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
         table_id: impl Into<std::string::String>,
-    ) -> super::builders::table_service::UpdateTable {
-        super::builders::table_service::UpdateTable::new(self.inner.clone())
+    ) -> super::builder::table_service::UpdateTable {
+        super::builder::table_service::UpdateTable::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
             .set_table_id(table_id.into())
@@ -804,8 +986,8 @@ impl TableService {
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
         table_id: impl Into<std::string::String>,
-    ) -> super::builders::table_service::DeleteTable {
-        super::builders::table_service::DeleteTable::new(self.inner.clone())
+    ) -> super::builder::table_service::DeleteTable {
+        super::builder::table_service::DeleteTable::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
             .set_table_id(table_id.into())
@@ -817,8 +999,8 @@ impl TableService {
         &self,
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
-    ) -> super::builders::table_service::ListTables {
-        super::builders::table_service::ListTables::new(self.inner.clone())
+    ) -> super::builder::table_service::ListTables {
+        super::builder::table_service::ListTables::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
     }

@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Workstations API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_workstations_v1::client::Workstations;
+/// let client = Workstations::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for interacting with Cloud Workstations.
 ///
 /// # Configuration
 ///
-/// `Workstations` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `Workstations` use the `with_*` methods in the type returned
+/// by [builder()][Workstations::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://workstations.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::workstations::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::workstations::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,37 +62,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Workstations {
-    inner: Arc<dyn super::stubs::dynamic::Workstations>,
+    inner: Arc<dyn super::stub::dynamic::Workstations>,
 }
 
 impl Workstations {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [Workstations].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// let client = Workstations::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::workstations::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::workstations::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::Workstations + 'static,
+        T: super::stub::Workstations + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::Workstations>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::Workstations>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +107,13 @@ impl Workstations {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Workstations> {
+    ) -> Result<impl super::stub::Workstations> {
         super::transport::Workstations::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::Workstations> {
+    ) -> Result<impl super::stub::Workstations> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Workstations::new)
@@ -93,8 +123,8 @@ impl Workstations {
     pub fn get_workstation_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workstations::GetWorkstationCluster {
-        super::builders::workstations::GetWorkstationCluster::new(self.inner.clone())
+    ) -> super::builder::workstations::GetWorkstationCluster {
+        super::builder::workstations::GetWorkstationCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -102,8 +132,8 @@ impl Workstations {
     pub fn list_workstation_clusters(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::workstations::ListWorkstationClusters {
-        super::builders::workstations::ListWorkstationClusters::new(self.inner.clone())
+    ) -> super::builder::workstations::ListWorkstationClusters {
+        super::builder::workstations::ListWorkstationClusters::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -121,8 +151,8 @@ impl Workstations {
     pub fn create_workstation_cluster(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::workstations::CreateWorkstationCluster {
-        super::builders::workstations::CreateWorkstationCluster::new(self.inner.clone())
+    ) -> super::builder::workstations::CreateWorkstationCluster {
+        super::builder::workstations::CreateWorkstationCluster::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -140,8 +170,8 @@ impl Workstations {
     pub fn update_workstation_cluster(
         &self,
         workstation_cluster: impl Into<crate::model::WorkstationCluster>,
-    ) -> super::builders::workstations::UpdateWorkstationCluster {
-        super::builders::workstations::UpdateWorkstationCluster::new(self.inner.clone())
+    ) -> super::builder::workstations::UpdateWorkstationCluster {
+        super::builder::workstations::UpdateWorkstationCluster::new(self.inner.clone())
             .set_workstation_cluster(workstation_cluster.into())
     }
 
@@ -159,8 +189,8 @@ impl Workstations {
     pub fn delete_workstation_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workstations::DeleteWorkstationCluster {
-        super::builders::workstations::DeleteWorkstationCluster::new(self.inner.clone())
+    ) -> super::builder::workstations::DeleteWorkstationCluster {
+        super::builder::workstations::DeleteWorkstationCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -168,8 +198,8 @@ impl Workstations {
     pub fn get_workstation_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workstations::GetWorkstationConfig {
-        super::builders::workstations::GetWorkstationConfig::new(self.inner.clone())
+    ) -> super::builder::workstations::GetWorkstationConfig {
+        super::builder::workstations::GetWorkstationConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -177,8 +207,8 @@ impl Workstations {
     pub fn list_workstation_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::workstations::ListWorkstationConfigs {
-        super::builders::workstations::ListWorkstationConfigs::new(self.inner.clone())
+    ) -> super::builder::workstations::ListWorkstationConfigs {
+        super::builder::workstations::ListWorkstationConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -187,8 +217,8 @@ impl Workstations {
     pub fn list_usable_workstation_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::workstations::ListUsableWorkstationConfigs {
-        super::builders::workstations::ListUsableWorkstationConfigs::new(self.inner.clone())
+    ) -> super::builder::workstations::ListUsableWorkstationConfigs {
+        super::builder::workstations::ListUsableWorkstationConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -206,8 +236,8 @@ impl Workstations {
     pub fn create_workstation_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::workstations::CreateWorkstationConfig {
-        super::builders::workstations::CreateWorkstationConfig::new(self.inner.clone())
+    ) -> super::builder::workstations::CreateWorkstationConfig {
+        super::builder::workstations::CreateWorkstationConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -225,8 +255,8 @@ impl Workstations {
     pub fn update_workstation_config(
         &self,
         workstation_config: impl Into<crate::model::WorkstationConfig>,
-    ) -> super::builders::workstations::UpdateWorkstationConfig {
-        super::builders::workstations::UpdateWorkstationConfig::new(self.inner.clone())
+    ) -> super::builder::workstations::UpdateWorkstationConfig {
+        super::builder::workstations::UpdateWorkstationConfig::new(self.inner.clone())
             .set_workstation_config(workstation_config.into())
     }
 
@@ -244,8 +274,8 @@ impl Workstations {
     pub fn delete_workstation_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workstations::DeleteWorkstationConfig {
-        super::builders::workstations::DeleteWorkstationConfig::new(self.inner.clone())
+    ) -> super::builder::workstations::DeleteWorkstationConfig {
+        super::builder::workstations::DeleteWorkstationConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -253,16 +283,16 @@ impl Workstations {
     pub fn get_workstation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workstations::GetWorkstation {
-        super::builders::workstations::GetWorkstation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::workstations::GetWorkstation {
+        super::builder::workstations::GetWorkstation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Returns all Workstations using the specified workstation configuration.
     pub fn list_workstations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::workstations::ListWorkstations {
-        super::builders::workstations::ListWorkstations::new(self.inner.clone())
+    ) -> super::builder::workstations::ListWorkstations {
+        super::builder::workstations::ListWorkstations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -271,8 +301,8 @@ impl Workstations {
     pub fn list_usable_workstations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::workstations::ListUsableWorkstations {
-        super::builders::workstations::ListUsableWorkstations::new(self.inner.clone())
+    ) -> super::builder::workstations::ListUsableWorkstations {
+        super::builder::workstations::ListUsableWorkstations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -290,8 +320,8 @@ impl Workstations {
     pub fn create_workstation(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::workstations::CreateWorkstation {
-        super::builders::workstations::CreateWorkstation::new(self.inner.clone())
+    ) -> super::builder::workstations::CreateWorkstation {
+        super::builder::workstations::CreateWorkstation::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -309,8 +339,8 @@ impl Workstations {
     pub fn update_workstation(
         &self,
         workstation: impl Into<crate::model::Workstation>,
-    ) -> super::builders::workstations::UpdateWorkstation {
-        super::builders::workstations::UpdateWorkstation::new(self.inner.clone())
+    ) -> super::builder::workstations::UpdateWorkstation {
+        super::builder::workstations::UpdateWorkstation::new(self.inner.clone())
             .set_workstation(workstation.into())
     }
 
@@ -328,8 +358,8 @@ impl Workstations {
     pub fn delete_workstation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workstations::DeleteWorkstation {
-        super::builders::workstations::DeleteWorkstation::new(self.inner.clone())
+    ) -> super::builder::workstations::DeleteWorkstation {
+        super::builder::workstations::DeleteWorkstation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -347,8 +377,8 @@ impl Workstations {
     pub fn start_workstation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workstations::StartWorkstation {
-        super::builders::workstations::StartWorkstation::new(self.inner.clone())
+    ) -> super::builder::workstations::StartWorkstation {
+        super::builder::workstations::StartWorkstation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -366,9 +396,8 @@ impl Workstations {
     pub fn stop_workstation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workstations::StopWorkstation {
-        super::builders::workstations::StopWorkstation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::workstations::StopWorkstation {
+        super::builder::workstations::StopWorkstation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Returns a short-lived credential that can be used to send authenticated and
@@ -376,8 +405,8 @@ impl Workstations {
     pub fn generate_access_token(
         &self,
         workstation: impl Into<std::string::String>,
-    ) -> super::builders::workstations::GenerateAccessToken {
-        super::builders::workstations::GenerateAccessToken::new(self.inner.clone())
+    ) -> super::builder::workstations::GenerateAccessToken {
+        super::builder::workstations::GenerateAccessToken::new(self.inner.clone())
             .set_workstation(workstation.into())
     }
 
@@ -389,8 +418,8 @@ impl Workstations {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::workstations::SetIamPolicy {
-        super::builders::workstations::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::workstations::SetIamPolicy {
+        super::builder::workstations::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -399,8 +428,8 @@ impl Workstations {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::workstations::GetIamPolicy {
-        super::builders::workstations::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::workstations::GetIamPolicy {
+        super::builder::workstations::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -414,8 +443,8 @@ impl Workstations {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::workstations::TestIamPermissions {
-        super::builders::workstations::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::workstations::TestIamPermissions {
+        super::builder::workstations::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -425,8 +454,8 @@ impl Workstations {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workstations::ListOperations {
-        super::builders::workstations::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::workstations::ListOperations {
+        super::builder::workstations::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -435,8 +464,8 @@ impl Workstations {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workstations::GetOperation {
-        super::builders::workstations::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::workstations::GetOperation {
+        super::builder::workstations::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -445,9 +474,8 @@ impl Workstations {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workstations::DeleteOperation {
-        super::builders::workstations::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::workstations::DeleteOperation {
+        super::builder::workstations::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -456,8 +484,7 @@ impl Workstations {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::workstations::CancelOperation {
-        super::builders::workstations::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::workstations::CancelOperation {
+        super::builder::workstations::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

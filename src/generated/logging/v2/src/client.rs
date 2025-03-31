@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Logging API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_logging_v2::client::LoggingServiceV2;
+/// let client = LoggingServiceV2::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service for ingesting and querying logs.
 ///
 /// # Configuration
 ///
-/// `LoggingServiceV2` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `LoggingServiceV2` use the `with_*` methods in the type returned
+/// by [builder()][LoggingServiceV2::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://logging.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::logging_service_v_2::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::logging_service_v_2::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,37 +62,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct LoggingServiceV2 {
-    inner: Arc<dyn super::stubs::dynamic::LoggingServiceV2>,
+    inner: Arc<dyn super::stub::dynamic::LoggingServiceV2>,
 }
 
 impl LoggingServiceV2 {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [LoggingServiceV2].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_logging_v2::client::LoggingServiceV2;
+    /// let client = LoggingServiceV2::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::logging_service_v_2::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::logging_service_v_2::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::LoggingServiceV2 + 'static,
+        T: super::stub::LoggingServiceV2 + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::LoggingServiceV2>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::LoggingServiceV2>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +109,13 @@ impl LoggingServiceV2 {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::LoggingServiceV2> {
+    ) -> Result<impl super::stub::LoggingServiceV2> {
         super::transport::LoggingServiceV2::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::LoggingServiceV2> {
+    ) -> Result<impl super::stub::LoggingServiceV2> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::LoggingServiceV2::new)
@@ -96,8 +128,8 @@ impl LoggingServiceV2 {
     pub fn delete_log(
         &self,
         log_name: impl Into<std::string::String>,
-    ) -> super::builders::logging_service_v_2::DeleteLog {
-        super::builders::logging_service_v_2::DeleteLog::new(self.inner.clone())
+    ) -> super::builder::logging_service_v_2::DeleteLog {
+        super::builder::logging_service_v_2::DeleteLog::new(self.inner.clone())
             .set_log_name(log_name.into())
     }
 
@@ -108,23 +140,23 @@ impl LoggingServiceV2 {
     /// A single request may contain log entries for a maximum of 1000
     /// different resources (projects, organizations, billing accounts or
     /// folders)
-    pub fn write_log_entries(&self) -> super::builders::logging_service_v_2::WriteLogEntries {
-        super::builders::logging_service_v_2::WriteLogEntries::new(self.inner.clone())
+    pub fn write_log_entries(&self) -> super::builder::logging_service_v_2::WriteLogEntries {
+        super::builder::logging_service_v_2::WriteLogEntries::new(self.inner.clone())
     }
 
     /// Lists log entries.  Use this method to retrieve log entries that originated
     /// from a project/folder/organization/billing account.  For ways to export log
     /// entries, see [Exporting
     /// Logs](https://cloud.google.com/logging/docs/export).
-    pub fn list_log_entries(&self) -> super::builders::logging_service_v_2::ListLogEntries {
-        super::builders::logging_service_v_2::ListLogEntries::new(self.inner.clone())
+    pub fn list_log_entries(&self) -> super::builder::logging_service_v_2::ListLogEntries {
+        super::builder::logging_service_v_2::ListLogEntries::new(self.inner.clone())
     }
 
     /// Lists the descriptors for monitored resource types used by Logging.
     pub fn list_monitored_resource_descriptors(
         &self,
-    ) -> super::builders::logging_service_v_2::ListMonitoredResourceDescriptors {
-        super::builders::logging_service_v_2::ListMonitoredResourceDescriptors::new(
+    ) -> super::builder::logging_service_v_2::ListMonitoredResourceDescriptors {
+        super::builder::logging_service_v_2::ListMonitoredResourceDescriptors::new(
             self.inner.clone(),
         )
     }
@@ -134,8 +166,8 @@ impl LoggingServiceV2 {
     pub fn list_logs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::logging_service_v_2::ListLogs {
-        super::builders::logging_service_v_2::ListLogs::new(self.inner.clone())
+    ) -> super::builder::logging_service_v_2::ListLogs {
+        super::builder::logging_service_v_2::ListLogs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -145,8 +177,8 @@ impl LoggingServiceV2 {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::logging_service_v_2::ListOperations {
-        super::builders::logging_service_v_2::ListOperations::new(self.inner.clone())
+    ) -> super::builder::logging_service_v_2::ListOperations {
+        super::builder::logging_service_v_2::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -156,8 +188,8 @@ impl LoggingServiceV2 {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::logging_service_v_2::GetOperation {
-        super::builders::logging_service_v_2::GetOperation::new(self.inner.clone())
+    ) -> super::builder::logging_service_v_2::GetOperation {
+        super::builder::logging_service_v_2::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -167,13 +199,22 @@ impl LoggingServiceV2 {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::logging_service_v_2::CancelOperation {
-        super::builders::logging_service_v_2::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::logging_service_v_2::CancelOperation {
+        super::builder::logging_service_v_2::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Cloud Logging API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_logging_v2::client::ConfigServiceV2;
+/// let client = ConfigServiceV2::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -181,8 +222,23 @@ impl LoggingServiceV2 {
 ///
 /// # Configuration
 ///
-/// `ConfigServiceV2` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ConfigServiceV2` use the `with_*` methods in the type returned
+/// by [builder()][ConfigServiceV2::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://logging.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::config_service_v_2::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::config_service_v_2::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -192,37 +248,45 @@ impl LoggingServiceV2 {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ConfigServiceV2 {
-    inner: Arc<dyn super::stubs::dynamic::ConfigServiceV2>,
+    inner: Arc<dyn super::stub::dynamic::ConfigServiceV2>,
 }
 
 impl ConfigServiceV2 {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ConfigServiceV2].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// let client = ConfigServiceV2::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::config_service_v_2::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::config_service_v_2::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ConfigServiceV2 + 'static,
+        T: super::stub::ConfigServiceV2 + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ConfigServiceV2>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ConfigServiceV2>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -231,13 +295,13 @@ impl ConfigServiceV2 {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ConfigServiceV2> {
+    ) -> Result<impl super::stub::ConfigServiceV2> {
         super::transport::ConfigServiceV2::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ConfigServiceV2> {
+    ) -> Result<impl super::stub::ConfigServiceV2> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ConfigServiceV2::new)
@@ -247,8 +311,8 @@ impl ConfigServiceV2 {
     pub fn list_buckets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::ListBuckets {
-        super::builders::config_service_v_2::ListBuckets::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::ListBuckets {
+        super::builder::config_service_v_2::ListBuckets::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -256,9 +320,8 @@ impl ConfigServiceV2 {
     pub fn get_bucket(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::GetBucket {
-        super::builders::config_service_v_2::GetBucket::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::config_service_v_2::GetBucket {
+        super::builder::config_service_v_2::GetBucket::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a log bucket asynchronously that can be used to store log entries.
@@ -277,8 +340,8 @@ impl ConfigServiceV2 {
     pub fn create_bucket_async(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::CreateBucketAsync {
-        super::builders::config_service_v_2::CreateBucketAsync::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::CreateBucketAsync {
+        super::builder::config_service_v_2::CreateBucketAsync::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -301,8 +364,8 @@ impl ConfigServiceV2 {
     pub fn update_bucket_async(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::UpdateBucketAsync {
-        super::builders::config_service_v_2::UpdateBucketAsync::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::UpdateBucketAsync {
+        super::builder::config_service_v_2::UpdateBucketAsync::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -311,8 +374,8 @@ impl ConfigServiceV2 {
     pub fn create_bucket(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::CreateBucket {
-        super::builders::config_service_v_2::CreateBucket::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::CreateBucket {
+        super::builder::config_service_v_2::CreateBucket::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -325,8 +388,8 @@ impl ConfigServiceV2 {
     pub fn update_bucket(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::UpdateBucket {
-        super::builders::config_service_v_2::UpdateBucket::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::UpdateBucket {
+        super::builder::config_service_v_2::UpdateBucket::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -338,8 +401,8 @@ impl ConfigServiceV2 {
     pub fn delete_bucket(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::DeleteBucket {
-        super::builders::config_service_v_2::DeleteBucket::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::DeleteBucket {
+        super::builder::config_service_v_2::DeleteBucket::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -348,8 +411,8 @@ impl ConfigServiceV2 {
     pub fn undelete_bucket(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::UndeleteBucket {
-        super::builders::config_service_v_2::UndeleteBucket::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::UndeleteBucket {
+        super::builder::config_service_v_2::UndeleteBucket::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -357,8 +420,8 @@ impl ConfigServiceV2 {
     pub fn list_views(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::ListViews {
-        super::builders::config_service_v_2::ListViews::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::ListViews {
+        super::builder::config_service_v_2::ListViews::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -366,8 +429,8 @@ impl ConfigServiceV2 {
     pub fn get_view(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::GetView {
-        super::builders::config_service_v_2::GetView::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::config_service_v_2::GetView {
+        super::builder::config_service_v_2::GetView::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a view over log entries in a log bucket. A bucket may contain a
@@ -375,8 +438,8 @@ impl ConfigServiceV2 {
     pub fn create_view(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::CreateView {
-        super::builders::config_service_v_2::CreateView::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::CreateView {
+        super::builder::config_service_v_2::CreateView::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -388,8 +451,8 @@ impl ConfigServiceV2 {
     pub fn update_view(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::UpdateView {
-        super::builders::config_service_v_2::UpdateView::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::UpdateView {
+        super::builder::config_service_v_2::UpdateView::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -400,8 +463,8 @@ impl ConfigServiceV2 {
     pub fn delete_view(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::DeleteView {
-        super::builders::config_service_v_2::DeleteView::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::DeleteView {
+        super::builder::config_service_v_2::DeleteView::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -409,8 +472,8 @@ impl ConfigServiceV2 {
     pub fn list_sinks(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::ListSinks {
-        super::builders::config_service_v_2::ListSinks::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::ListSinks {
+        super::builder::config_service_v_2::ListSinks::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -418,8 +481,8 @@ impl ConfigServiceV2 {
     pub fn get_sink(
         &self,
         sink_name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::GetSink {
-        super::builders::config_service_v_2::GetSink::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::GetSink {
+        super::builder::config_service_v_2::GetSink::new(self.inner.clone())
             .set_sink_name(sink_name.into())
     }
 
@@ -430,8 +493,8 @@ impl ConfigServiceV2 {
     pub fn create_sink(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::CreateSink {
-        super::builders::config_service_v_2::CreateSink::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::CreateSink {
+        super::builder::config_service_v_2::CreateSink::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -443,8 +506,8 @@ impl ConfigServiceV2 {
     pub fn update_sink(
         &self,
         sink_name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::UpdateSink {
-        super::builders::config_service_v_2::UpdateSink::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::UpdateSink {
+        super::builder::config_service_v_2::UpdateSink::new(self.inner.clone())
             .set_sink_name(sink_name.into())
     }
 
@@ -453,8 +516,8 @@ impl ConfigServiceV2 {
     pub fn delete_sink(
         &self,
         sink_name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::DeleteSink {
-        super::builders::config_service_v_2::DeleteSink::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::DeleteSink {
+        super::builder::config_service_v_2::DeleteSink::new(self.inner.clone())
             .set_sink_name(sink_name.into())
     }
 
@@ -474,8 +537,8 @@ impl ConfigServiceV2 {
     pub fn create_link(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::CreateLink {
-        super::builders::config_service_v_2::CreateLink::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::CreateLink {
+        super::builder::config_service_v_2::CreateLink::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -494,8 +557,8 @@ impl ConfigServiceV2 {
     pub fn delete_link(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::DeleteLink {
-        super::builders::config_service_v_2::DeleteLink::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::DeleteLink {
+        super::builder::config_service_v_2::DeleteLink::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -503,8 +566,8 @@ impl ConfigServiceV2 {
     pub fn list_links(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::ListLinks {
-        super::builders::config_service_v_2::ListLinks::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::ListLinks {
+        super::builder::config_service_v_2::ListLinks::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -512,16 +575,16 @@ impl ConfigServiceV2 {
     pub fn get_link(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::GetLink {
-        super::builders::config_service_v_2::GetLink::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::config_service_v_2::GetLink {
+        super::builder::config_service_v_2::GetLink::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists all the exclusions on the _Default sink in a parent resource.
     pub fn list_exclusions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::ListExclusions {
-        super::builders::config_service_v_2::ListExclusions::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::ListExclusions {
+        super::builder::config_service_v_2::ListExclusions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -529,8 +592,8 @@ impl ConfigServiceV2 {
     pub fn get_exclusion(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::GetExclusion {
-        super::builders::config_service_v_2::GetExclusion::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::GetExclusion {
+        super::builder::config_service_v_2::GetExclusion::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -540,8 +603,8 @@ impl ConfigServiceV2 {
     pub fn create_exclusion(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::CreateExclusion {
-        super::builders::config_service_v_2::CreateExclusion::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::CreateExclusion {
+        super::builder::config_service_v_2::CreateExclusion::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -550,8 +613,8 @@ impl ConfigServiceV2 {
     pub fn update_exclusion(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::UpdateExclusion {
-        super::builders::config_service_v_2::UpdateExclusion::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::UpdateExclusion {
+        super::builder::config_service_v_2::UpdateExclusion::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -559,8 +622,8 @@ impl ConfigServiceV2 {
     pub fn delete_exclusion(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::DeleteExclusion {
-        super::builders::config_service_v_2::DeleteExclusion::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::DeleteExclusion {
+        super::builder::config_service_v_2::DeleteExclusion::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -577,8 +640,8 @@ impl ConfigServiceV2 {
     pub fn get_cmek_settings(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::GetCmekSettings {
-        super::builders::config_service_v_2::GetCmekSettings::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::GetCmekSettings {
+        super::builder::config_service_v_2::GetCmekSettings::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -602,8 +665,8 @@ impl ConfigServiceV2 {
     pub fn update_cmek_settings(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::UpdateCmekSettings {
-        super::builders::config_service_v_2::UpdateCmekSettings::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::UpdateCmekSettings {
+        super::builder::config_service_v_2::UpdateCmekSettings::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -620,8 +683,8 @@ impl ConfigServiceV2 {
     pub fn get_settings(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::GetSettings {
-        super::builders::config_service_v_2::GetSettings::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::GetSettings {
+        super::builder::config_service_v_2::GetSettings::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -646,8 +709,8 @@ impl ConfigServiceV2 {
     pub fn update_settings(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::UpdateSettings {
-        super::builders::config_service_v_2::UpdateSettings::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::UpdateSettings {
+        super::builder::config_service_v_2::UpdateSettings::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -662,8 +725,8 @@ impl ConfigServiceV2 {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn copy_log_entries(&self) -> super::builders::config_service_v_2::CopyLogEntries {
-        super::builders::config_service_v_2::CopyLogEntries::new(self.inner.clone())
+    pub fn copy_log_entries(&self) -> super::builder::config_service_v_2::CopyLogEntries {
+        super::builder::config_service_v_2::CopyLogEntries::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -672,8 +735,8 @@ impl ConfigServiceV2 {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::ListOperations {
-        super::builders::config_service_v_2::ListOperations::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::ListOperations {
+        super::builder::config_service_v_2::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -683,8 +746,8 @@ impl ConfigServiceV2 {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::GetOperation {
-        super::builders::config_service_v_2::GetOperation::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::GetOperation {
+        super::builder::config_service_v_2::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -694,13 +757,22 @@ impl ConfigServiceV2 {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::config_service_v_2::CancelOperation {
-        super::builders::config_service_v_2::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::config_service_v_2::CancelOperation {
+        super::builder::config_service_v_2::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
 
 /// Implements a client for the Cloud Logging API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_logging_v2::client::MetricsServiceV2;
+/// let client = MetricsServiceV2::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -708,8 +780,23 @@ impl ConfigServiceV2 {
 ///
 /// # Configuration
 ///
-/// `MetricsServiceV2` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `MetricsServiceV2` use the `with_*` methods in the type returned
+/// by [builder()][MetricsServiceV2::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://logging.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::metrics_service_v_2::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::metrics_service_v_2::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -719,37 +806,45 @@ impl ConfigServiceV2 {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct MetricsServiceV2 {
-    inner: Arc<dyn super::stubs::dynamic::MetricsServiceV2>,
+    inner: Arc<dyn super::stub::dynamic::MetricsServiceV2>,
 }
 
 impl MetricsServiceV2 {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [MetricsServiceV2].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_logging_v2::client::MetricsServiceV2;
+    /// let client = MetricsServiceV2::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::metrics_service_v_2::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::metrics_service_v_2::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::MetricsServiceV2 + 'static,
+        T: super::stub::MetricsServiceV2 + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::MetricsServiceV2>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::MetricsServiceV2>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -758,13 +853,13 @@ impl MetricsServiceV2 {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::MetricsServiceV2> {
+    ) -> Result<impl super::stub::MetricsServiceV2> {
         super::transport::MetricsServiceV2::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::MetricsServiceV2> {
+    ) -> Result<impl super::stub::MetricsServiceV2> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::MetricsServiceV2::new)
@@ -774,8 +869,8 @@ impl MetricsServiceV2 {
     pub fn list_log_metrics(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::metrics_service_v_2::ListLogMetrics {
-        super::builders::metrics_service_v_2::ListLogMetrics::new(self.inner.clone())
+    ) -> super::builder::metrics_service_v_2::ListLogMetrics {
+        super::builder::metrics_service_v_2::ListLogMetrics::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -783,8 +878,8 @@ impl MetricsServiceV2 {
     pub fn get_log_metric(
         &self,
         metric_name: impl Into<std::string::String>,
-    ) -> super::builders::metrics_service_v_2::GetLogMetric {
-        super::builders::metrics_service_v_2::GetLogMetric::new(self.inner.clone())
+    ) -> super::builder::metrics_service_v_2::GetLogMetric {
+        super::builder::metrics_service_v_2::GetLogMetric::new(self.inner.clone())
             .set_metric_name(metric_name.into())
     }
 
@@ -792,8 +887,8 @@ impl MetricsServiceV2 {
     pub fn create_log_metric(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::metrics_service_v_2::CreateLogMetric {
-        super::builders::metrics_service_v_2::CreateLogMetric::new(self.inner.clone())
+    ) -> super::builder::metrics_service_v_2::CreateLogMetric {
+        super::builder::metrics_service_v_2::CreateLogMetric::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -801,8 +896,8 @@ impl MetricsServiceV2 {
     pub fn update_log_metric(
         &self,
         metric_name: impl Into<std::string::String>,
-    ) -> super::builders::metrics_service_v_2::UpdateLogMetric {
-        super::builders::metrics_service_v_2::UpdateLogMetric::new(self.inner.clone())
+    ) -> super::builder::metrics_service_v_2::UpdateLogMetric {
+        super::builder::metrics_service_v_2::UpdateLogMetric::new(self.inner.clone())
             .set_metric_name(metric_name.into())
     }
 
@@ -810,8 +905,8 @@ impl MetricsServiceV2 {
     pub fn delete_log_metric(
         &self,
         metric_name: impl Into<std::string::String>,
-    ) -> super::builders::metrics_service_v_2::DeleteLogMetric {
-        super::builders::metrics_service_v_2::DeleteLogMetric::new(self.inner.clone())
+    ) -> super::builder::metrics_service_v_2::DeleteLogMetric {
+        super::builder::metrics_service_v_2::DeleteLogMetric::new(self.inner.clone())
             .set_metric_name(metric_name.into())
     }
 
@@ -821,8 +916,8 @@ impl MetricsServiceV2 {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metrics_service_v_2::ListOperations {
-        super::builders::metrics_service_v_2::ListOperations::new(self.inner.clone())
+    ) -> super::builder::metrics_service_v_2::ListOperations {
+        super::builder::metrics_service_v_2::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -832,8 +927,8 @@ impl MetricsServiceV2 {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metrics_service_v_2::GetOperation {
-        super::builders::metrics_service_v_2::GetOperation::new(self.inner.clone())
+    ) -> super::builder::metrics_service_v_2::GetOperation {
+        super::builder::metrics_service_v_2::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -843,8 +938,8 @@ impl MetricsServiceV2 {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::metrics_service_v_2::CancelOperation {
-        super::builders::metrics_service_v_2::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::metrics_service_v_2::CancelOperation {
+        super::builder::metrics_service_v_2::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

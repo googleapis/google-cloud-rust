@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the BigQuery Connection API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_bigquery_connection_v1::client::ConnectionService;
+/// let client = ConnectionService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Manages external data source connections and credentials.
 ///
 /// # Configuration
 ///
-/// `ConnectionService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ConnectionService` use the `with_*` methods in the type returned
+/// by [builder()][ConnectionService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://bigqueryconnection.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::connection_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::connection_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,37 +62,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ConnectionService {
-    inner: Arc<dyn super::stubs::dynamic::ConnectionService>,
+    inner: Arc<dyn super::stub::dynamic::ConnectionService>,
 }
 
 impl ConnectionService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ConnectionService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigquery_connection_v1::client::ConnectionService;
+    /// let client = ConnectionService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::connection_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::connection_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ConnectionService + 'static,
+        T: super::stub::ConnectionService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ConnectionService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ConnectionService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +109,13 @@ impl ConnectionService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ConnectionService> {
+    ) -> Result<impl super::stub::ConnectionService> {
         super::transport::ConnectionService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ConnectionService> {
+    ) -> Result<impl super::stub::ConnectionService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ConnectionService::new)
@@ -93,8 +125,8 @@ impl ConnectionService {
     pub fn create_connection(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::connection_service::CreateConnection {
-        super::builders::connection_service::CreateConnection::new(self.inner.clone())
+    ) -> super::builder::connection_service::CreateConnection {
+        super::builder::connection_service::CreateConnection::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,8 +134,8 @@ impl ConnectionService {
     pub fn get_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::connection_service::GetConnection {
-        super::builders::connection_service::GetConnection::new(self.inner.clone())
+    ) -> super::builder::connection_service::GetConnection {
+        super::builder::connection_service::GetConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -111,8 +143,8 @@ impl ConnectionService {
     pub fn list_connections(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::connection_service::ListConnections {
-        super::builders::connection_service::ListConnections::new(self.inner.clone())
+    ) -> super::builder::connection_service::ListConnections {
+        super::builder::connection_service::ListConnections::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -121,8 +153,8 @@ impl ConnectionService {
     pub fn update_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::connection_service::UpdateConnection {
-        super::builders::connection_service::UpdateConnection::new(self.inner.clone())
+    ) -> super::builder::connection_service::UpdateConnection {
+        super::builder::connection_service::UpdateConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -130,8 +162,8 @@ impl ConnectionService {
     pub fn delete_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::connection_service::DeleteConnection {
-        super::builders::connection_service::DeleteConnection::new(self.inner.clone())
+    ) -> super::builder::connection_service::DeleteConnection {
+        super::builder::connection_service::DeleteConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -141,8 +173,8 @@ impl ConnectionService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::connection_service::GetIamPolicy {
-        super::builders::connection_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::connection_service::GetIamPolicy {
+        super::builder::connection_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -153,8 +185,8 @@ impl ConnectionService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::connection_service::SetIamPolicy {
-        super::builders::connection_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::connection_service::SetIamPolicy {
+        super::builder::connection_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -168,8 +200,8 @@ impl ConnectionService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::connection_service::TestIamPermissions {
-        super::builders::connection_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::connection_service::TestIamPermissions {
+        super::builder::connection_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 }

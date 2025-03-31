@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Video Intelligence API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_videointelligence_v1::client::VideoIntelligenceService;
+/// let client = VideoIntelligenceService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service that implements the Video Intelligence API.
 ///
 /// # Configuration
 ///
-/// `VideoIntelligenceService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `VideoIntelligenceService` use the `with_*` methods in the type returned
+/// by [builder()][VideoIntelligenceService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://videointelligence.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::video_intelligence_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::video_intelligence_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,37 +62,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct VideoIntelligenceService {
-    inner: Arc<dyn super::stubs::dynamic::VideoIntelligenceService>,
+    inner: Arc<dyn super::stub::dynamic::VideoIntelligenceService>,
 }
 
 impl VideoIntelligenceService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [VideoIntelligenceService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_videointelligence_v1::client::VideoIntelligenceService;
+    /// let client = VideoIntelligenceService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::video_intelligence_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::video_intelligence_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::VideoIntelligenceService + 'static,
+        T: super::stub::VideoIntelligenceService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::VideoIntelligenceService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::VideoIntelligenceService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +109,13 @@ impl VideoIntelligenceService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::VideoIntelligenceService> {
+    ) -> Result<impl super::stub::VideoIntelligenceService> {
         super::transport::VideoIntelligenceService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::VideoIntelligenceService> {
+    ) -> Result<impl super::stub::VideoIntelligenceService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::VideoIntelligenceService::new)
@@ -103,8 +135,8 @@ impl VideoIntelligenceService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn annotate_video(&self) -> super::builders::video_intelligence_service::AnnotateVideo {
-        super::builders::video_intelligence_service::AnnotateVideo::new(self.inner.clone())
+    pub fn annotate_video(&self) -> super::builder::video_intelligence_service::AnnotateVideo {
+        super::builder::video_intelligence_service::AnnotateVideo::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -113,8 +145,8 @@ impl VideoIntelligenceService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_intelligence_service::ListOperations {
-        super::builders::video_intelligence_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::video_intelligence_service::ListOperations {
+        super::builder::video_intelligence_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -124,8 +156,8 @@ impl VideoIntelligenceService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_intelligence_service::GetOperation {
-        super::builders::video_intelligence_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::video_intelligence_service::GetOperation {
+        super::builder::video_intelligence_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -135,8 +167,8 @@ impl VideoIntelligenceService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_intelligence_service::DeleteOperation {
-        super::builders::video_intelligence_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::video_intelligence_service::DeleteOperation {
+        super::builder::video_intelligence_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -146,8 +178,8 @@ impl VideoIntelligenceService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::video_intelligence_service::CancelOperation {
-        super::builders::video_intelligence_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::video_intelligence_service::CancelOperation {
+        super::builder::video_intelligence_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

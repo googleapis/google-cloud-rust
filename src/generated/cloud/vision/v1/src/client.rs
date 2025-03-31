@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Vision API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_vision_v1::client::ImageAnnotator;
+/// let client = ImageAnnotator::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Service that performs Google Cloud Vision API detection tasks over client
@@ -29,8 +38,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `ImageAnnotator` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ImageAnnotator` use the `with_*` methods in the type returned
+/// by [builder()][ImageAnnotator::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://vision.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::image_annotator::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::image_annotator::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -40,37 +64,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ImageAnnotator {
-    inner: Arc<dyn super::stubs::dynamic::ImageAnnotator>,
+    inner: Arc<dyn super::stub::dynamic::ImageAnnotator>,
 }
 
 impl ImageAnnotator {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ImageAnnotator].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_vision_v1::client::ImageAnnotator;
+    /// let client = ImageAnnotator::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::image_annotator::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::image_annotator::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ImageAnnotator + 'static,
+        T: super::stub::ImageAnnotator + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ImageAnnotator>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ImageAnnotator>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -79,21 +109,21 @@ impl ImageAnnotator {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ImageAnnotator> {
+    ) -> Result<impl super::stub::ImageAnnotator> {
         super::transport::ImageAnnotator::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ImageAnnotator> {
+    ) -> Result<impl super::stub::ImageAnnotator> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ImageAnnotator::new)
     }
 
     /// Run image detection and annotation for a batch of images.
-    pub fn batch_annotate_images(&self) -> super::builders::image_annotator::BatchAnnotateImages {
-        super::builders::image_annotator::BatchAnnotateImages::new(self.inner.clone())
+    pub fn batch_annotate_images(&self) -> super::builder::image_annotator::BatchAnnotateImages {
+        super::builder::image_annotator::BatchAnnotateImages::new(self.inner.clone())
     }
 
     /// Service that performs image detection and annotation for a batch of files.
@@ -103,8 +133,8 @@ impl ImageAnnotator {
     /// AnnotateFileRequest.pages) frames (gif) or pages (pdf or tiff) from each
     /// file provided and perform detection and annotation for each image
     /// extracted.
-    pub fn batch_annotate_files(&self) -> super::builders::image_annotator::BatchAnnotateFiles {
-        super::builders::image_annotator::BatchAnnotateFiles::new(self.inner.clone())
+    pub fn batch_annotate_files(&self) -> super::builder::image_annotator::BatchAnnotateFiles {
+        super::builder::image_annotator::BatchAnnotateFiles::new(self.inner.clone())
     }
 
     /// Run asynchronous image detection and annotation for a list of images.
@@ -128,8 +158,8 @@ impl ImageAnnotator {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn async_batch_annotate_images(
         &self,
-    ) -> super::builders::image_annotator::AsyncBatchAnnotateImages {
-        super::builders::image_annotator::AsyncBatchAnnotateImages::new(self.inner.clone())
+    ) -> super::builder::image_annotator::AsyncBatchAnnotateImages {
+        super::builder::image_annotator::AsyncBatchAnnotateImages::new(self.inner.clone())
     }
 
     /// Run asynchronous image detection and annotation for a list of generic
@@ -150,8 +180,8 @@ impl ImageAnnotator {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn async_batch_annotate_files(
         &self,
-    ) -> super::builders::image_annotator::AsyncBatchAnnotateFiles {
-        super::builders::image_annotator::AsyncBatchAnnotateFiles::new(self.inner.clone())
+    ) -> super::builder::image_annotator::AsyncBatchAnnotateFiles {
+        super::builder::image_annotator::AsyncBatchAnnotateFiles::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -160,13 +190,21 @@ impl ImageAnnotator {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::image_annotator::GetOperation {
-        super::builders::image_annotator::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::image_annotator::GetOperation {
+        super::builder::image_annotator::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
 /// Implements a client for the Cloud Vision API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_vision_v1::client::ProductSearch;
+/// let client = ProductSearch::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 ///
 /// # Service Description
 ///
@@ -194,8 +232,23 @@ impl ImageAnnotator {
 ///
 /// # Configuration
 ///
-/// `ProductSearch` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `ProductSearch` use the `with_*` methods in the type returned
+/// by [builder()][ProductSearch::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://vision.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::product_search::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::product_search::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -205,37 +258,43 @@ impl ImageAnnotator {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ProductSearch {
-    inner: Arc<dyn super::stubs::dynamic::ProductSearch>,
+    inner: Arc<dyn super::stub::dynamic::ProductSearch>,
 }
 
 impl ProductSearch {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [ProductSearch].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_vision_v1::client::ProductSearch;
+    /// let client = ProductSearch::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::product_search::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::product_search::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::ProductSearch + 'static,
+        T: super::stub::ProductSearch + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::ProductSearch>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::ProductSearch>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -244,13 +303,13 @@ impl ProductSearch {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ProductSearch> {
+    ) -> Result<impl super::stub::ProductSearch> {
         super::transport::ProductSearch::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::ProductSearch> {
+    ) -> Result<impl super::stub::ProductSearch> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ProductSearch::new)
@@ -265,8 +324,8 @@ impl ProductSearch {
     pub fn create_product_set(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::product_search::CreateProductSet {
-        super::builders::product_search::CreateProductSet::new(self.inner.clone())
+    ) -> super::builder::product_search::CreateProductSet {
+        super::builder::product_search::CreateProductSet::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -279,8 +338,8 @@ impl ProductSearch {
     pub fn list_product_sets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::product_search::ListProductSets {
-        super::builders::product_search::ListProductSets::new(self.inner.clone())
+    ) -> super::builder::product_search::ListProductSets {
+        super::builder::product_search::ListProductSets::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -292,9 +351,8 @@ impl ProductSearch {
     pub fn get_product_set(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::product_search::GetProductSet {
-        super::builders::product_search::GetProductSet::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::product_search::GetProductSet {
+        super::builder::product_search::GetProductSet::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Makes changes to a ProductSet resource.
@@ -308,8 +366,8 @@ impl ProductSearch {
     pub fn update_product_set(
         &self,
         product_set: impl Into<crate::model::ProductSet>,
-    ) -> super::builders::product_search::UpdateProductSet {
-        super::builders::product_search::UpdateProductSet::new(self.inner.clone())
+    ) -> super::builder::product_search::UpdateProductSet {
+        super::builder::product_search::UpdateProductSet::new(self.inner.clone())
             .set_product_set(product_set.into())
     }
 
@@ -320,8 +378,8 @@ impl ProductSearch {
     pub fn delete_product_set(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::product_search::DeleteProductSet {
-        super::builders::product_search::DeleteProductSet::new(self.inner.clone())
+    ) -> super::builder::product_search::DeleteProductSet {
+        super::builder::product_search::DeleteProductSet::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -336,8 +394,8 @@ impl ProductSearch {
     pub fn create_product(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::product_search::CreateProduct {
-        super::builders::product_search::CreateProduct::new(self.inner.clone())
+    ) -> super::builder::product_search::CreateProduct {
+        super::builder::product_search::CreateProduct::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -349,8 +407,8 @@ impl ProductSearch {
     pub fn list_products(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::product_search::ListProducts {
-        super::builders::product_search::ListProducts::new(self.inner.clone())
+    ) -> super::builder::product_search::ListProducts {
+        super::builder::product_search::ListProducts::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -362,8 +420,8 @@ impl ProductSearch {
     pub fn get_product(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::product_search::GetProduct {
-        super::builders::product_search::GetProduct::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::product_search::GetProduct {
+        super::builder::product_search::GetProduct::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Makes changes to a Product resource.
@@ -384,8 +442,8 @@ impl ProductSearch {
     pub fn update_product(
         &self,
         product: impl Into<crate::model::Product>,
-    ) -> super::builders::product_search::UpdateProduct {
-        super::builders::product_search::UpdateProduct::new(self.inner.clone())
+    ) -> super::builder::product_search::UpdateProduct {
+        super::builder::product_search::UpdateProduct::new(self.inner.clone())
             .set_product(product.into())
     }
 
@@ -397,9 +455,8 @@ impl ProductSearch {
     pub fn delete_product(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::product_search::DeleteProduct {
-        super::builders::product_search::DeleteProduct::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::product_search::DeleteProduct {
+        super::builder::product_search::DeleteProduct::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates and returns a new ReferenceImage resource.
@@ -424,8 +481,8 @@ impl ProductSearch {
     pub fn create_reference_image(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::product_search::CreateReferenceImage {
-        super::builders::product_search::CreateReferenceImage::new(self.inner.clone())
+    ) -> super::builder::product_search::CreateReferenceImage {
+        super::builder::product_search::CreateReferenceImage::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -439,8 +496,8 @@ impl ProductSearch {
     pub fn delete_reference_image(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::product_search::DeleteReferenceImage {
-        super::builders::product_search::DeleteReferenceImage::new(self.inner.clone())
+    ) -> super::builder::product_search::DeleteReferenceImage {
+        super::builder::product_search::DeleteReferenceImage::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -454,8 +511,8 @@ impl ProductSearch {
     pub fn list_reference_images(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::product_search::ListReferenceImages {
-        super::builders::product_search::ListReferenceImages::new(self.inner.clone())
+    ) -> super::builder::product_search::ListReferenceImages {
+        super::builder::product_search::ListReferenceImages::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -467,8 +524,8 @@ impl ProductSearch {
     pub fn get_reference_image(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::product_search::GetReferenceImage {
-        super::builders::product_search::GetReferenceImage::new(self.inner.clone())
+    ) -> super::builder::product_search::GetReferenceImage {
+        super::builder::product_search::GetReferenceImage::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -483,8 +540,8 @@ impl ProductSearch {
     pub fn add_product_to_product_set(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::product_search::AddProductToProductSet {
-        super::builders::product_search::AddProductToProductSet::new(self.inner.clone())
+    ) -> super::builder::product_search::AddProductToProductSet {
+        super::builder::product_search::AddProductToProductSet::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -492,8 +549,8 @@ impl ProductSearch {
     pub fn remove_product_from_product_set(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::product_search::RemoveProductFromProductSet {
-        super::builders::product_search::RemoveProductFromProductSet::new(self.inner.clone())
+    ) -> super::builder::product_search::RemoveProductFromProductSet {
+        super::builder::product_search::RemoveProductFromProductSet::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -507,8 +564,8 @@ impl ProductSearch {
     pub fn list_products_in_product_set(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::product_search::ListProductsInProductSet {
-        super::builders::product_search::ListProductsInProductSet::new(self.inner.clone())
+    ) -> super::builder::product_search::ListProductsInProductSet {
+        super::builder::product_search::ListProductsInProductSet::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -539,8 +596,8 @@ impl ProductSearch {
     pub fn import_product_sets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::product_search::ImportProductSets {
-        super::builders::product_search::ImportProductSets::new(self.inner.clone())
+    ) -> super::builder::product_search::ImportProductSets {
+        super::builder::product_search::ImportProductSets::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -583,8 +640,8 @@ impl ProductSearch {
     pub fn purge_products(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::product_search::PurgeProducts {
-        super::builders::product_search::PurgeProducts::new(self.inner.clone())
+    ) -> super::builder::product_search::PurgeProducts {
+        super::builder::product_search::PurgeProducts::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -594,7 +651,7 @@ impl ProductSearch {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::product_search::GetOperation {
-        super::builders::product_search::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::product_search::GetOperation {
+        super::builder::product_search::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

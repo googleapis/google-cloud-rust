@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Web Risk API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_webrisk_v1::client::WebRiskService;
+/// let client = WebRiskService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Web Risk API defines an interface to detect malicious URLs on your
@@ -28,8 +37,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `WebRiskService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `WebRiskService` use the `with_*` methods in the type returned
+/// by [builder()][WebRiskService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://webrisk.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::web_risk_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::web_risk_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -39,37 +63,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct WebRiskService {
-    inner: Arc<dyn super::stubs::dynamic::WebRiskService>,
+    inner: Arc<dyn super::stub::dynamic::WebRiskService>,
 }
 
 impl WebRiskService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [WebRiskService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_webrisk_v1::client::WebRiskService;
+    /// let client = WebRiskService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::web_risk_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::web_risk_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::WebRiskService + 'static,
+        T: super::stub::WebRiskService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::WebRiskService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::WebRiskService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,13 +110,13 @@ impl WebRiskService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::WebRiskService> {
+    ) -> Result<impl super::stub::WebRiskService> {
         super::transport::WebRiskService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::WebRiskService> {
+    ) -> Result<impl super::stub::WebRiskService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::WebRiskService::new)
@@ -98,8 +130,8 @@ impl WebRiskService {
     /// for each list.
     pub fn compute_threat_list_diff(
         &self,
-    ) -> super::builders::web_risk_service::ComputeThreatListDiff {
-        super::builders::web_risk_service::ComputeThreatListDiff::new(self.inner.clone())
+    ) -> super::builder::web_risk_service::ComputeThreatListDiff {
+        super::builder::web_risk_service::ComputeThreatListDiff::new(self.inner.clone())
     }
 
     /// This method is used to check whether a URI is on a given threatList.
@@ -107,8 +139,8 @@ impl WebRiskService {
     /// The response will list all requested threatLists the URI was found to
     /// match. If the URI is not found on any of the requested ThreatList an
     /// empty response will be returned.
-    pub fn search_uris(&self) -> super::builders::web_risk_service::SearchUris {
-        super::builders::web_risk_service::SearchUris::new(self.inner.clone())
+    pub fn search_uris(&self) -> super::builder::web_risk_service::SearchUris {
+        super::builder::web_risk_service::SearchUris::new(self.inner.clone())
     }
 
     /// Gets the full hashes that match the requested hash prefix.
@@ -116,8 +148,8 @@ impl WebRiskService {
     /// and there is a match. The client side threatList only holds partial hashes
     /// so the client must query this method to determine if there is a full
     /// hash match of a threat.
-    pub fn search_hashes(&self) -> super::builders::web_risk_service::SearchHashes {
-        super::builders::web_risk_service::SearchHashes::new(self.inner.clone())
+    pub fn search_hashes(&self) -> super::builder::web_risk_service::SearchHashes {
+        super::builder::web_risk_service::SearchHashes::new(self.inner.clone())
     }
 
     /// Creates a Submission of a URI suspected of containing phishing content to
@@ -130,8 +162,8 @@ impl WebRiskService {
     pub fn create_submission(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::web_risk_service::CreateSubmission {
-        super::builders::web_risk_service::CreateSubmission::new(self.inner.clone())
+    ) -> super::builder::web_risk_service::CreateSubmission {
+        super::builder::web_risk_service::CreateSubmission::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -158,8 +190,8 @@ impl WebRiskService {
     pub fn submit_uri(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::web_risk_service::SubmitUri {
-        super::builders::web_risk_service::SubmitUri::new(self.inner.clone())
+    ) -> super::builder::web_risk_service::SubmitUri {
+        super::builder::web_risk_service::SubmitUri::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -169,8 +201,8 @@ impl WebRiskService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::web_risk_service::ListOperations {
-        super::builders::web_risk_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::web_risk_service::ListOperations {
+        super::builder::web_risk_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -180,8 +212,8 @@ impl WebRiskService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::web_risk_service::GetOperation {
-        super::builders::web_risk_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::web_risk_service::GetOperation {
+        super::builder::web_risk_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -191,8 +223,8 @@ impl WebRiskService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::web_risk_service::DeleteOperation {
-        super::builders::web_risk_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::web_risk_service::DeleteOperation {
+        super::builder::web_risk_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -202,8 +234,8 @@ impl WebRiskService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::web_risk_service::CancelOperation {
-        super::builders::web_risk_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::web_risk_service::CancelOperation {
+        super::builder::web_risk_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

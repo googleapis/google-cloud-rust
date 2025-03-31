@@ -235,3 +235,6 @@ repository   = "https://github.com/googleapis/google-cloud-rust/tree/main"
 keywords     = ["gcp", "google-cloud", "google-cloud-rust", "sdk"]
 categories   = ["network-programming"]
 rust-version = "1.85.0"
+
+[workspace.dependencies]
+tokio-test = "0.4"

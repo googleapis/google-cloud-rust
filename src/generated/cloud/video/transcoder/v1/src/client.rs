@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Transcoder API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_video_transcoder_v1::client::TranscoderService;
+/// let client = TranscoderService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// Using the Transcoder API, you can queue asynchronous jobs for transcoding
@@ -32,8 +41,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `TranscoderService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `TranscoderService` use the `with_*` methods in the type returned
+/// by [builder()][TranscoderService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://transcoder.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::transcoder_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::transcoder_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -43,37 +67,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct TranscoderService {
-    inner: Arc<dyn super::stubs::dynamic::TranscoderService>,
+    inner: Arc<dyn super::stub::dynamic::TranscoderService>,
 }
 
 impl TranscoderService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [TranscoderService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
+    /// let client = TranscoderService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::transcoder_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::transcoder_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::TranscoderService + 'static,
+        T: super::stub::TranscoderService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::TranscoderService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::TranscoderService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -82,13 +114,13 @@ impl TranscoderService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::TranscoderService> {
+    ) -> Result<impl super::stub::TranscoderService> {
         super::transport::TranscoderService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::TranscoderService> {
+    ) -> Result<impl super::stub::TranscoderService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TranscoderService::new)
@@ -98,8 +130,8 @@ impl TranscoderService {
     pub fn create_job(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::transcoder_service::CreateJob {
-        super::builders::transcoder_service::CreateJob::new(self.inner.clone())
+    ) -> super::builder::transcoder_service::CreateJob {
+        super::builder::transcoder_service::CreateJob::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -107,8 +139,8 @@ impl TranscoderService {
     pub fn list_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::transcoder_service::ListJobs {
-        super::builders::transcoder_service::ListJobs::new(self.inner.clone())
+    ) -> super::builder::transcoder_service::ListJobs {
+        super::builder::transcoder_service::ListJobs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -116,25 +148,24 @@ impl TranscoderService {
     pub fn get_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::transcoder_service::GetJob {
-        super::builders::transcoder_service::GetJob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::transcoder_service::GetJob {
+        super::builder::transcoder_service::GetJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes a job.
     pub fn delete_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::transcoder_service::DeleteJob {
-        super::builders::transcoder_service::DeleteJob::new(self.inner.clone())
-            .set_name(name.into())
+    ) -> super::builder::transcoder_service::DeleteJob {
+        super::builder::transcoder_service::DeleteJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a job template in the specified region.
     pub fn create_job_template(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::transcoder_service::CreateJobTemplate {
-        super::builders::transcoder_service::CreateJobTemplate::new(self.inner.clone())
+    ) -> super::builder::transcoder_service::CreateJobTemplate {
+        super::builder::transcoder_service::CreateJobTemplate::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -142,8 +173,8 @@ impl TranscoderService {
     pub fn list_job_templates(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::transcoder_service::ListJobTemplates {
-        super::builders::transcoder_service::ListJobTemplates::new(self.inner.clone())
+    ) -> super::builder::transcoder_service::ListJobTemplates {
+        super::builder::transcoder_service::ListJobTemplates::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -151,8 +182,8 @@ impl TranscoderService {
     pub fn get_job_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::transcoder_service::GetJobTemplate {
-        super::builders::transcoder_service::GetJobTemplate::new(self.inner.clone())
+    ) -> super::builder::transcoder_service::GetJobTemplate {
+        super::builder::transcoder_service::GetJobTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -160,8 +191,8 @@ impl TranscoderService {
     pub fn delete_job_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::transcoder_service::DeleteJobTemplate {
-        super::builders::transcoder_service::DeleteJobTemplate::new(self.inner.clone())
+    ) -> super::builder::transcoder_service::DeleteJobTemplate {
+        super::builder::transcoder_service::DeleteJobTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 }

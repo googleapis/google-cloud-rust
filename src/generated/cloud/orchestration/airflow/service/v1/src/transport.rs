@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Environments](super::stubs::Environments) using a [gaxi::http::ReqwestClient].
+/// Implements [Environments](super::stub::Environments) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Environments {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl Environments {
     }
 }
 
-impl super::stubs::Environments for Environments {
+impl super::stub::Environments for Environments {
     async fn create_environment(
         &self,
         req: crate::model::CreateEnvironmentRequest,
@@ -355,7 +355,7 @@ impl super::stubs::Environments for Environments {
         &self,
         req: crate::model::DeleteUserWorkloadsSecretRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -368,6 +368,7 @@ impl super::stubs::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn create_user_workloads_config_map(
@@ -467,7 +468,7 @@ impl super::stubs::Environments for Environments {
         &self,
         req: crate::model::DeleteUserWorkloadsConfigMapRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -480,6 +481,7 @@ impl super::stubs::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn save_snapshot(
@@ -609,7 +611,7 @@ impl super::stubs::Environments for Environments {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -622,6 +624,7 @@ impl super::stubs::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     fn get_polling_error_policy(
@@ -639,7 +642,7 @@ impl super::stubs::Environments for Environments {
     }
 }
 
-/// Implements [ImageVersions](super::stubs::ImageVersions) using a [gaxi::http::ReqwestClient].
+/// Implements [ImageVersions](super::stub::ImageVersions) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ImageVersions {
     inner: gaxi::http::ReqwestClient,
@@ -660,7 +663,7 @@ impl ImageVersions {
     }
 }
 
-impl super::stubs::ImageVersions for ImageVersions {
+impl super::stub::ImageVersions for ImageVersions {
     async fn list_image_versions(
         &self,
         req: crate::model::ListImageVersionsRequest,
@@ -731,7 +734,7 @@ impl super::stubs::ImageVersions for ImageVersions {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -744,5 +747,6 @@ impl super::stubs::ImageVersions for ImageVersions {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 }

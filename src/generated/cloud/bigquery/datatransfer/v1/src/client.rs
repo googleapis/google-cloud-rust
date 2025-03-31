@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 /// Implements a client for the BigQuery Data Transfer API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
+/// let client = DataTransferService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// This API allows users to manage their data transfers into BigQuery.
 ///
 /// # Configuration
 ///
-/// `DataTransferService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `DataTransferService` use the `with_*` methods in the type returned
+/// by [builder()][DataTransferService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://bigquerydatatransfer.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::data_transfer_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::data_transfer_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -38,37 +62,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct DataTransferService {
-    inner: Arc<dyn super::stubs::dynamic::DataTransferService>,
+    inner: Arc<dyn super::stub::dynamic::DataTransferService>,
 }
 
 impl DataTransferService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [DataTransferService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
+    /// let client = DataTransferService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::data_transfer_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::data_transfer_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::DataTransferService + 'static,
+        T: super::stub::DataTransferService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::DataTransferService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::DataTransferService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +109,13 @@ impl DataTransferService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DataTransferService> {
+    ) -> Result<impl super::stub::DataTransferService> {
         super::transport::DataTransferService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::DataTransferService> {
+    ) -> Result<impl super::stub::DataTransferService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DataTransferService::new)
@@ -93,8 +125,8 @@ impl DataTransferService {
     pub fn get_data_source(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_transfer_service::GetDataSource {
-        super::builders::data_transfer_service::GetDataSource::new(self.inner.clone())
+    ) -> super::builder::data_transfer_service::GetDataSource {
+        super::builder::data_transfer_service::GetDataSource::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -102,8 +134,8 @@ impl DataTransferService {
     pub fn list_data_sources(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_transfer_service::ListDataSources {
-        super::builders::data_transfer_service::ListDataSources::new(self.inner.clone())
+    ) -> super::builder::data_transfer_service::ListDataSources {
+        super::builder::data_transfer_service::ListDataSources::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -111,8 +143,8 @@ impl DataTransferService {
     pub fn create_transfer_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_transfer_service::CreateTransferConfig {
-        super::builders::data_transfer_service::CreateTransferConfig::new(self.inner.clone())
+    ) -> super::builder::data_transfer_service::CreateTransferConfig {
+        super::builder::data_transfer_service::CreateTransferConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -121,8 +153,8 @@ impl DataTransferService {
     pub fn update_transfer_config(
         &self,
         transfer_config: impl Into<crate::model::TransferConfig>,
-    ) -> super::builders::data_transfer_service::UpdateTransferConfig {
-        super::builders::data_transfer_service::UpdateTransferConfig::new(self.inner.clone())
+    ) -> super::builder::data_transfer_service::UpdateTransferConfig {
+        super::builder::data_transfer_service::UpdateTransferConfig::new(self.inner.clone())
             .set_transfer_config(transfer_config.into())
     }
 
@@ -131,8 +163,8 @@ impl DataTransferService {
     pub fn delete_transfer_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_transfer_service::DeleteTransferConfig {
-        super::builders::data_transfer_service::DeleteTransferConfig::new(self.inner.clone())
+    ) -> super::builder::data_transfer_service::DeleteTransferConfig {
+        super::builder::data_transfer_service::DeleteTransferConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -140,8 +172,8 @@ impl DataTransferService {
     pub fn get_transfer_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_transfer_service::GetTransferConfig {
-        super::builders::data_transfer_service::GetTransferConfig::new(self.inner.clone())
+    ) -> super::builder::data_transfer_service::GetTransferConfig {
+        super::builder::data_transfer_service::GetTransferConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -150,8 +182,8 @@ impl DataTransferService {
     pub fn list_transfer_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_transfer_service::ListTransferConfigs {
-        super::builders::data_transfer_service::ListTransferConfigs::new(self.inner.clone())
+    ) -> super::builder::data_transfer_service::ListTransferConfigs {
+        super::builder::data_transfer_service::ListTransferConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -163,8 +195,8 @@ impl DataTransferService {
     pub fn schedule_transfer_runs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_transfer_service::ScheduleTransferRuns {
-        super::builders::data_transfer_service::ScheduleTransferRuns::new(self.inner.clone())
+    ) -> super::builder::data_transfer_service::ScheduleTransferRuns {
+        super::builder::data_transfer_service::ScheduleTransferRuns::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -175,8 +207,8 @@ impl DataTransferService {
     pub fn start_manual_transfer_runs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_transfer_service::StartManualTransferRuns {
-        super::builders::data_transfer_service::StartManualTransferRuns::new(self.inner.clone())
+    ) -> super::builder::data_transfer_service::StartManualTransferRuns {
+        super::builder::data_transfer_service::StartManualTransferRuns::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -184,8 +216,8 @@ impl DataTransferService {
     pub fn get_transfer_run(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_transfer_service::GetTransferRun {
-        super::builders::data_transfer_service::GetTransferRun::new(self.inner.clone())
+    ) -> super::builder::data_transfer_service::GetTransferRun {
+        super::builder::data_transfer_service::GetTransferRun::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -193,8 +225,8 @@ impl DataTransferService {
     pub fn delete_transfer_run(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_transfer_service::DeleteTransferRun {
-        super::builders::data_transfer_service::DeleteTransferRun::new(self.inner.clone())
+    ) -> super::builder::data_transfer_service::DeleteTransferRun {
+        super::builder::data_transfer_service::DeleteTransferRun::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -202,8 +234,8 @@ impl DataTransferService {
     pub fn list_transfer_runs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_transfer_service::ListTransferRuns {
-        super::builders::data_transfer_service::ListTransferRuns::new(self.inner.clone())
+    ) -> super::builder::data_transfer_service::ListTransferRuns {
+        super::builder::data_transfer_service::ListTransferRuns::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -211,8 +243,8 @@ impl DataTransferService {
     pub fn list_transfer_logs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::data_transfer_service::ListTransferLogs {
-        super::builders::data_transfer_service::ListTransferLogs::new(self.inner.clone())
+    ) -> super::builder::data_transfer_service::ListTransferLogs {
+        super::builder::data_transfer_service::ListTransferLogs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -221,8 +253,8 @@ impl DataTransferService {
     pub fn check_valid_creds(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_transfer_service::CheckValidCreds {
-        super::builders::data_transfer_service::CheckValidCreds::new(self.inner.clone())
+    ) -> super::builder::data_transfer_service::CheckValidCreds {
+        super::builder::data_transfer_service::CheckValidCreds::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -237,8 +269,8 @@ impl DataTransferService {
     pub fn enroll_data_sources(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_transfer_service::EnrollDataSources {
-        super::builders::data_transfer_service::EnrollDataSources::new(self.inner.clone())
+    ) -> super::builder::data_transfer_service::EnrollDataSources {
+        super::builder::data_transfer_service::EnrollDataSources::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -250,8 +282,8 @@ impl DataTransferService {
     pub fn unenroll_data_sources(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_transfer_service::UnenrollDataSources {
-        super::builders::data_transfer_service::UnenrollDataSources::new(self.inner.clone())
+    ) -> super::builder::data_transfer_service::UnenrollDataSources {
+        super::builder::data_transfer_service::UnenrollDataSources::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -259,8 +291,8 @@ impl DataTransferService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_transfer_service::ListLocations {
-        super::builders::data_transfer_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::data_transfer_service::ListLocations {
+        super::builder::data_transfer_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -268,8 +300,8 @@ impl DataTransferService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::data_transfer_service::GetLocation {
-        super::builders::data_transfer_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::data_transfer_service::GetLocation {
+        super::builder::data_transfer_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

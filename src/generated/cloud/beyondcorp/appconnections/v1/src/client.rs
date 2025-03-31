@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the BeyondCorp API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_beyondcorp_appconnections_v1::client::AppConnectionsService;
+/// let client = AppConnectionsService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// API Overview:
@@ -40,8 +49,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `AppConnectionsService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `AppConnectionsService` use the `with_*` methods in the type returned
+/// by [builder()][AppConnectionsService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://beyondcorp.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::app_connections_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::app_connections_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -51,37 +75,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AppConnectionsService {
-    inner: Arc<dyn super::stubs::dynamic::AppConnectionsService>,
+    inner: Arc<dyn super::stub::dynamic::AppConnectionsService>,
 }
 
 impl AppConnectionsService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [AppConnectionsService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_beyondcorp_appconnections_v1::client::AppConnectionsService;
+    /// let client = AppConnectionsService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::app_connections_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::app_connections_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::AppConnectionsService + 'static,
+        T: super::stub::AppConnectionsService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::AppConnectionsService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::AppConnectionsService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -90,13 +122,13 @@ impl AppConnectionsService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AppConnectionsService> {
+    ) -> Result<impl super::stub::AppConnectionsService> {
         super::transport::AppConnectionsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AppConnectionsService> {
+    ) -> Result<impl super::stub::AppConnectionsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AppConnectionsService::new)
@@ -106,8 +138,8 @@ impl AppConnectionsService {
     pub fn list_app_connections(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::app_connections_service::ListAppConnections {
-        super::builders::app_connections_service::ListAppConnections::new(self.inner.clone())
+    ) -> super::builder::app_connections_service::ListAppConnections {
+        super::builder::app_connections_service::ListAppConnections::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -115,8 +147,8 @@ impl AppConnectionsService {
     pub fn get_app_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::app_connections_service::GetAppConnection {
-        super::builders::app_connections_service::GetAppConnection::new(self.inner.clone())
+    ) -> super::builder::app_connections_service::GetAppConnection {
+        super::builder::app_connections_service::GetAppConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -134,8 +166,8 @@ impl AppConnectionsService {
     pub fn create_app_connection(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::app_connections_service::CreateAppConnection {
-        super::builders::app_connections_service::CreateAppConnection::new(self.inner.clone())
+    ) -> super::builder::app_connections_service::CreateAppConnection {
+        super::builder::app_connections_service::CreateAppConnection::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -153,8 +185,8 @@ impl AppConnectionsService {
     pub fn update_app_connection(
         &self,
         app_connection: impl Into<crate::model::AppConnection>,
-    ) -> super::builders::app_connections_service::UpdateAppConnection {
-        super::builders::app_connections_service::UpdateAppConnection::new(self.inner.clone())
+    ) -> super::builder::app_connections_service::UpdateAppConnection {
+        super::builder::app_connections_service::UpdateAppConnection::new(self.inner.clone())
             .set_app_connection(app_connection.into())
     }
 
@@ -172,8 +204,8 @@ impl AppConnectionsService {
     pub fn delete_app_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::app_connections_service::DeleteAppConnection {
-        super::builders::app_connections_service::DeleteAppConnection::new(self.inner.clone())
+    ) -> super::builder::app_connections_service::DeleteAppConnection {
+        super::builder::app_connections_service::DeleteAppConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -183,8 +215,8 @@ impl AppConnectionsService {
     pub fn resolve_app_connections(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::app_connections_service::ResolveAppConnections {
-        super::builders::app_connections_service::ResolveAppConnections::new(self.inner.clone())
+    ) -> super::builder::app_connections_service::ResolveAppConnections {
+        super::builder::app_connections_service::ResolveAppConnections::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -192,8 +224,8 @@ impl AppConnectionsService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::app_connections_service::ListLocations {
-        super::builders::app_connections_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::app_connections_service::ListLocations {
+        super::builder::app_connections_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -201,8 +233,8 @@ impl AppConnectionsService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::app_connections_service::GetLocation {
-        super::builders::app_connections_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::app_connections_service::GetLocation {
+        super::builder::app_connections_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -214,8 +246,8 @@ impl AppConnectionsService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::app_connections_service::SetIamPolicy {
-        super::builders::app_connections_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::app_connections_service::SetIamPolicy {
+        super::builder::app_connections_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -224,8 +256,8 @@ impl AppConnectionsService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::app_connections_service::GetIamPolicy {
-        super::builders::app_connections_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::app_connections_service::GetIamPolicy {
+        super::builder::app_connections_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -239,8 +271,8 @@ impl AppConnectionsService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::app_connections_service::TestIamPermissions {
-        super::builders::app_connections_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::app_connections_service::TestIamPermissions {
+        super::builder::app_connections_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -250,8 +282,8 @@ impl AppConnectionsService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::app_connections_service::ListOperations {
-        super::builders::app_connections_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::app_connections_service::ListOperations {
+        super::builder::app_connections_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -261,8 +293,8 @@ impl AppConnectionsService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::app_connections_service::GetOperation {
-        super::builders::app_connections_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::app_connections_service::GetOperation {
+        super::builder::app_connections_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -272,8 +304,8 @@ impl AppConnectionsService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::app_connections_service::DeleteOperation {
-        super::builders::app_connections_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::app_connections_service::DeleteOperation {
+        super::builder::app_connections_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -283,8 +315,8 @@ impl AppConnectionsService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::app_connections_service::CancelOperation {
-        super::builders::app_connections_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::app_connections_service::CancelOperation {
+        super::builder::app_connections_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

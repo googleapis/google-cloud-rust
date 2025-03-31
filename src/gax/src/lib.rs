@@ -47,6 +47,7 @@ pub mod error;
 pub mod paginator;
 
 pub mod backoff_policy;
+pub mod client_builder;
 pub mod exponential_backoff;
 pub mod loop_state;
 pub mod options;
@@ -54,3 +55,7 @@ pub mod polling_backoff_policy;
 pub mod polling_error_policy;
 pub mod retry_policy;
 pub mod retry_throttler;
+
+#[cfg(feature = "unstable-sdk-client")]
+#[doc(hidden)]
+pub mod retry_loop_internal;

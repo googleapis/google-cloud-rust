@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the Cloud Optimization API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_optimization_v1::client::FleetRouting;
+/// let client = FleetRouting::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// A service for optimizing vehicle tours.
@@ -43,8 +52,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `FleetRouting` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `FleetRouting` use the `with_*` methods in the type returned
+/// by [builder()][FleetRouting::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://cloudoptimization.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::fleet_routing::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::fleet_routing::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -54,37 +78,43 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct FleetRouting {
-    inner: Arc<dyn super::stubs::dynamic::FleetRouting>,
+    inner: Arc<dyn super::stub::dynamic::FleetRouting>,
 }
 
 impl FleetRouting {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [FleetRouting].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_optimization_v1::client::FleetRouting;
+    /// let client = FleetRouting::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::fleet_routing::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::fleet_routing::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::FleetRouting + 'static,
+        T: super::stub::FleetRouting + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::FleetRouting>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::FleetRouting>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -93,13 +123,13 @@ impl FleetRouting {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::FleetRouting> {
+    ) -> Result<impl super::stub::FleetRouting> {
         super::transport::FleetRouting::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::FleetRouting> {
+    ) -> Result<impl super::stub::FleetRouting> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::FleetRouting::new)
@@ -122,8 +152,8 @@ impl FleetRouting {
     pub fn optimize_tours(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::fleet_routing::OptimizeTours {
-        super::builders::fleet_routing::OptimizeTours::new(self.inner.clone())
+    ) -> super::builder::fleet_routing::OptimizeTours {
+        super::builder::fleet_routing::OptimizeTours::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -150,8 +180,8 @@ impl FleetRouting {
     pub fn batch_optimize_tours(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::fleet_routing::BatchOptimizeTours {
-        super::builders::fleet_routing::BatchOptimizeTours::new(self.inner.clone())
+    ) -> super::builder::fleet_routing::BatchOptimizeTours {
+        super::builder::fleet_routing::BatchOptimizeTours::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -161,7 +191,7 @@ impl FleetRouting {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::fleet_routing::GetOperation {
-        super::builders::fleet_routing::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builder::fleet_routing::GetOperation {
+        super::builder::fleet_routing::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

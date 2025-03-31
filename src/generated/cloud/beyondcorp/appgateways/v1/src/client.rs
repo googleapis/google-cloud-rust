@@ -21,6 +21,15 @@ use std::sync::Arc;
 
 /// Implements a client for the BeyondCorp API.
 ///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_beyondcorp_appgateways_v1::client::AppGatewaysService;
+/// let client = AppGatewaysService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
 /// # Service Description
 ///
 /// API Overview:
@@ -40,8 +49,23 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// `AppGatewaysService` has various configuration parameters, the defaults should
-/// work with most applications.
+/// To configure `AppGatewaysService` use the `with_*` methods in the type returned
+/// by [builder()][AppGatewaysService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://beyondcorp.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::app_gateways_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::app_gateways_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
@@ -51,37 +75,45 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AppGatewaysService {
-    inner: Arc<dyn super::stubs::dynamic::AppGatewaysService>,
+    inner: Arc<dyn super::stub::dynamic::AppGatewaysService>,
 }
 
 impl AppGatewaysService {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
+    /// Returns a builder for [AppGatewaysService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_beyondcorp_appgateways_v1::client::AppGatewaysService;
+    /// let client = AppGatewaysService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::app_gateways_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::app_gateways_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stubs::AppGatewaysService + 'static,
+        T: super::stub::AppGatewaysService + 'static,
     {
         Self {
             inner: Arc::new(stub),
         }
     }
 
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stubs::dynamic::AppGatewaysService>> {
+    ) -> Result<Arc<dyn super::stub::dynamic::AppGatewaysService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -90,13 +122,13 @@ impl AppGatewaysService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AppGatewaysService> {
+    ) -> Result<impl super::stub::AppGatewaysService> {
         super::transport::AppGatewaysService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl super::stubs::AppGatewaysService> {
+    ) -> Result<impl super::stub::AppGatewaysService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AppGatewaysService::new)
@@ -106,8 +138,8 @@ impl AppGatewaysService {
     pub fn list_app_gateways(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::app_gateways_service::ListAppGateways {
-        super::builders::app_gateways_service::ListAppGateways::new(self.inner.clone())
+    ) -> super::builder::app_gateways_service::ListAppGateways {
+        super::builder::app_gateways_service::ListAppGateways::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -115,8 +147,8 @@ impl AppGatewaysService {
     pub fn get_app_gateway(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::app_gateways_service::GetAppGateway {
-        super::builders::app_gateways_service::GetAppGateway::new(self.inner.clone())
+    ) -> super::builder::app_gateways_service::GetAppGateway {
+        super::builder::app_gateways_service::GetAppGateway::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -134,8 +166,8 @@ impl AppGatewaysService {
     pub fn create_app_gateway(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> super::builders::app_gateways_service::CreateAppGateway {
-        super::builders::app_gateways_service::CreateAppGateway::new(self.inner.clone())
+    ) -> super::builder::app_gateways_service::CreateAppGateway {
+        super::builder::app_gateways_service::CreateAppGateway::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -153,8 +185,8 @@ impl AppGatewaysService {
     pub fn delete_app_gateway(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::app_gateways_service::DeleteAppGateway {
-        super::builders::app_gateways_service::DeleteAppGateway::new(self.inner.clone())
+    ) -> super::builder::app_gateways_service::DeleteAppGateway {
+        super::builder::app_gateways_service::DeleteAppGateway::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -162,8 +194,8 @@ impl AppGatewaysService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::app_gateways_service::ListLocations {
-        super::builders::app_gateways_service::ListLocations::new(self.inner.clone())
+    ) -> super::builder::app_gateways_service::ListLocations {
+        super::builder::app_gateways_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -171,8 +203,8 @@ impl AppGatewaysService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::app_gateways_service::GetLocation {
-        super::builders::app_gateways_service::GetLocation::new(self.inner.clone())
+    ) -> super::builder::app_gateways_service::GetLocation {
+        super::builder::app_gateways_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -184,8 +216,8 @@ impl AppGatewaysService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::app_gateways_service::SetIamPolicy {
-        super::builders::app_gateways_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::app_gateways_service::SetIamPolicy {
+        super::builder::app_gateways_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -194,8 +226,8 @@ impl AppGatewaysService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::app_gateways_service::GetIamPolicy {
-        super::builders::app_gateways_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builder::app_gateways_service::GetIamPolicy {
+        super::builder::app_gateways_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -209,8 +241,8 @@ impl AppGatewaysService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> super::builders::app_gateways_service::TestIamPermissions {
-        super::builders::app_gateways_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builder::app_gateways_service::TestIamPermissions {
+        super::builder::app_gateways_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -220,8 +252,8 @@ impl AppGatewaysService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::app_gateways_service::ListOperations {
-        super::builders::app_gateways_service::ListOperations::new(self.inner.clone())
+    ) -> super::builder::app_gateways_service::ListOperations {
+        super::builder::app_gateways_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -231,8 +263,8 @@ impl AppGatewaysService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::app_gateways_service::GetOperation {
-        super::builders::app_gateways_service::GetOperation::new(self.inner.clone())
+    ) -> super::builder::app_gateways_service::GetOperation {
+        super::builder::app_gateways_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -242,8 +274,8 @@ impl AppGatewaysService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::app_gateways_service::DeleteOperation {
-        super::builders::app_gateways_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builder::app_gateways_service::DeleteOperation {
+        super::builder::app_gateways_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -253,8 +285,8 @@ impl AppGatewaysService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> super::builders::app_gateways_service::CancelOperation {
-        super::builders::app_gateways_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builder::app_gateways_service::CancelOperation {
+        super::builder::app_gateways_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

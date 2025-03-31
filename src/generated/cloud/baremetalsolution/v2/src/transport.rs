@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [BareMetalSolution](super::stubs::BareMetalSolution) using a [gaxi::http::ReqwestClient].
+/// Implements [BareMetalSolution](super::stub::BareMetalSolution) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct BareMetalSolution {
     inner: gaxi::http::ReqwestClient,
@@ -39,7 +39,7 @@ impl BareMetalSolution {
     }
 }
 
-impl super::stubs::BareMetalSolution for BareMetalSolution {
+impl super::stub::BareMetalSolution for BareMetalSolution {
     async fn list_instances(
         &self,
         req: crate::model::ListInstancesRequest,
@@ -295,7 +295,7 @@ impl super::stubs::BareMetalSolution for BareMetalSolution {
         &self,
         req: crate::model::DeleteSSHKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -308,6 +308,7 @@ impl super::stubs::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn list_volumes(
@@ -585,7 +586,7 @@ impl super::stubs::BareMetalSolution for BareMetalSolution {
         &self,
         req: crate::model::DeleteVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<wkt::Empty> {
+    ) -> Result<()> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -598,6 +599,7 @@ impl super::stubs::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|_: wkt::Empty| ())
     }
 
     async fn get_volume_snapshot(
