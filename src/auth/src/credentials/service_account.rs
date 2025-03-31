@@ -124,7 +124,7 @@ impl Builder {
     /// `aud` is a [JWT] claim specifying intended recipient(s) of the token,
     /// that is, a service(s) or resource(s).
     /// This cannot be used at the same time as the scopes claim.
-    /// The value should be https://{SERVICE}/. (e.g. https://pubsub.googleapis.com/)
+    /// The value should be https://{SERVICE}/. (e.g. `https://pubsub.googleapis.com/`)
     ///
     /// [JWT]: https://google.aip.dev/auth/4111
     pub fn aud<S: Into<String>>(mut self, aud: S) -> Self {
