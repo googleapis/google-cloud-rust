@@ -80,10 +80,10 @@ mod driver {
 
     #[test_case(ta::client::TelcoAutomation::builder().with_tracing(); "with tracing enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_telco_automation(
+    async fn run_error_details(
         builder: ta::builder::telco_automation::ClientBuilder,
     ) -> integration_tests::Result<()> {
-        integration_tests::telco_automation::run(builder)
+        integration_tests::error_details::run(builder)
             .await
             .map_err(report)
     }
