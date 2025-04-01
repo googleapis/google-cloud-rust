@@ -124,7 +124,7 @@ Insepction = "Insepction"
 # src/generated/cloud/networkconnectivity has a typo, it needs to be fixed
 # upstream.
 flexibile = "flexibile"
-throuh = "throuh"
+throuh    = "throuh"
 # src/generated/cloud/networkservices/v1 has a typo, it needs to be fixed
 # upstream.
 forwareded = "forwareded"
