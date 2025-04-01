@@ -71,7 +71,7 @@ pub mod {{Codec.ModuleName}} {
     }
 
     {{#Codec.Methods}}
-    /// The request builder for a {{Codec.ServiceNameToPascal}}::{{Codec.Name}} call.
+    /// The request builder for [{{Codec.ServiceNameToPascal}}::{{Codec.Name}}][super::super::client::{{Codec.ServiceNameToPascal}}::{{Codec.Name}}] calls.
     #[derive(Clone, Debug)]
     pub struct {{Codec.BuilderName}}(RequestBuilder<{{InputType.Codec.QualifiedName}}>);
 
