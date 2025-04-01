@@ -355,10 +355,7 @@ impl TryFrom<&bytes::Bytes> for Status {
     fn try_from(value: &bytes::Bytes) -> Result<Self, Self::Error> {
         serde_json::from_slice::<ErrorWrapper>(value)
             .map(|w| w.error)
-            .map_err(|x| {
-                println!("\n\n\n SERDE {x:?}\n\n");
-                Error::serde(x)
-            })
+            .map_err(Error::serde)
     }
 }
 
