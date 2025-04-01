@@ -50,6 +50,10 @@ path    = "../../src/generated/cloud/secretmanager/v1"
 package = "secretmanager-openapi-v1"
 path    = "../../src/generated/openapi-validation"
 
+[dependencies.ta]
+package = "google-cloud-telcoautomation-v1"
+path    = "../../src/generated/cloud/telcoautomation/v1"
+
 [dependencies.wf]
 package = "google-cloud-workflows-v1"
 path    = "../../src/generated/cloud/workflows/v1"

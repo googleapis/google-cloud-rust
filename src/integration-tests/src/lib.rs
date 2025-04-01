@@ -16,6 +16,7 @@ use gax::error::Error;
 pub type Result<T> = std::result::Result<T, gax::error::Error>;
 pub mod firestore;
 pub mod secret_manager;
+pub mod telco_automation;
 pub mod workflows;
 
 pub const SECRET_ID_LENGTH: usize = 64;
