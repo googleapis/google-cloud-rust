@@ -379,25 +379,25 @@ impl From<rpc::model::Status> for Status {
 #[non_exhaustive]
 #[serde(tag = "@type")]
 pub enum StatusDetails {
-    #[serde(rename = "google.rpc.BadRequest")]
+    #[serde(rename = "type.googleapis.com/google.rpc.BadRequest")]
     BadRequest(rpc::model::BadRequest),
-    #[serde(rename = "google.rpc.DebugInfo")]
+    #[serde(rename = "type.googleapis.com/google.rpc.DebugInfo")]
     DebugInfo(rpc::model::DebugInfo),
-    #[serde(rename = "google.rpc.ErrorInfo")]
+    #[serde(rename = "type.googleapis.com/google.rpc.ErrorInfo")]
     ErrorInfo(rpc::model::ErrorInfo),
-    #[serde(rename = "google.rpc.Help")]
+    #[serde(rename = "type.googleapis.com/google.rpc.Help")]
     Help(rpc::model::Help),
-    #[serde(rename = "google.rpc.LocalizedMessage")]
+    #[serde(rename = "type.googleapis.com/google.rpc.LocalizedMessage")]
     LocalizedMessage(rpc::model::LocalizedMessage),
-    #[serde(rename = "google.rpc.PreconditionFailure")]
+    #[serde(rename = "type.googleapis.com/google.rpc.PreconditionFailure")]
     PreconditionFailure(rpc::model::PreconditionFailure),
-    #[serde(rename = "google.rpc.QuotaFailure")]
+    #[serde(rename = "type.googleapis.com/google.rpc.QuotaFailure")]
     QuotaFailure(rpc::model::QuotaFailure),
-    #[serde(rename = "google.rpc.RequestInfo")]
+    #[serde(rename = "type.googleapis.com/google.rpc.RequestInfo")]
     RequestInfo(rpc::model::RequestInfo),
-    #[serde(rename = "google.rpc.ResourceInfo")]
+    #[serde(rename = "type.googleapis.com/google.rpc.ResourceInfo")]
     ResourceInfo(rpc::model::ResourceInfo),
-    #[serde(rename = "google.rpc.RetryInfo")]
+    #[serde(rename = "type.googleapis.com/google.rpc.RetryInfo")]
     RetryInfo(rpc::model::RetryInfo),
     Other(wkt::Any),
 }
@@ -572,16 +572,16 @@ mod test {
             "message": "test",
             "status": "UNIMPLEMENTED",
             "details": [
-                {"@type": "google.rpc.BadRequest", "fieldViolations": [{"field": "field", "description": "desc"}]},
-                {"@type": "google.rpc.DebugInfo", "stackEntries": ["stack"], "detail": "detail"},
-                {"@type": "google.rpc.ErrorInfo", "reason": "reason", "domain": "domain"},
-                {"@type": "google.rpc.Help", "links": [{"description": "desc", "url": "url"}]},
-                {"@type": "google.rpc.LocalizedMessage", "locale": "locale", "message": "message"},
-                {"@type": "google.rpc.PreconditionFailure", "violations": [{"type": "type", "subject": "subject", "description": "desc"}]},
-                {"@type": "google.rpc.QuotaFailure", "violations": [{"subject": "subject", "description": "desc"}]},
-                {"@type": "google.rpc.RequestInfo", "requestId": "id", "servingData": "data"},
-                {"@type": "google.rpc.ResourceInfo", "resourceType": "type", "resourceName": "name", "owner": "owner", "description": "desc"},
-                {"@type": "google.rpc.RetryInfo", "retryDelay": "1s"},
+                {"@type": "type.googleapis.com/google.rpc.BadRequest", "fieldViolations": [{"field": "field", "description": "desc"}]},
+                {"@type": "type.googleapis.com/google.rpc.DebugInfo", "stackEntries": ["stack"], "detail": "detail"},
+                {"@type": "type.googleapis.com/google.rpc.ErrorInfo", "reason": "reason", "domain": "domain"},
+                {"@type": "type.googleapis.com/google.rpc.Help", "links": [{"description": "desc", "url": "url"}]},
+                {"@type": "type.googleapis.com/google.rpc.LocalizedMessage", "locale": "locale", "message": "message"},
+                {"@type": "type.googleapis.com/google.rpc.PreconditionFailure", "violations": [{"type": "type", "subject": "subject", "description": "desc"}]},
+                {"@type": "type.googleapis.com/google.rpc.QuotaFailure", "violations": [{"subject": "subject", "description": "desc"}]},
+                {"@type": "type.googleapis.com/google.rpc.RequestInfo", "requestId": "id", "servingData": "data"},
+                {"@type": "type.googleapis.com/google.rpc.ResourceInfo", "resourceType": "type", "resourceName": "name", "owner": "owner", "description": "desc"},
+                {"@type": "type.googleapis.com/google.rpc.RetryInfo", "retryDelay": "1s"},
             ]
         });
         assert_eq!(got, want);
@@ -593,16 +593,16 @@ mod test {
             "code": 20,
             "message": "test",
             "details": [
-                {"@type": "google.rpc.BadRequest", "fieldViolations": [{"field": "field", "description": "desc"}]},
-                {"@type": "google.rpc.DebugInfo", "stackEntries": ["stack"], "detail": "detail"},
-                {"@type": "google.rpc.ErrorInfo", "reason": "reason", "domain": "domain", "metadata": {}},
-                {"@type": "google.rpc.Help", "links": [{"description": "desc", "url": "url"}]},
-                {"@type": "google.rpc.LocalizedMessage", "locale": "locale", "message": "message"},
-                {"@type": "google.rpc.PreconditionFailure", "violations": [{"type": "type", "subject": "subject", "description": "desc"}]},
-                {"@type": "google.rpc.QuotaFailure", "violations": [{"subject": "subject", "description": "desc"}]},
-                {"@type": "google.rpc.RequestInfo", "requestId": "id", "servingData": "data"},
-                {"@type": "google.rpc.ResourceInfo", "resourceType": "type", "resourceName": "name", "owner": "owner", "description": "desc"},
-                {"@type": "google.rpc.RetryInfo", "retryDelay": "1s"},
+                {"@type": "type.googleapis.com/google.rpc.BadRequest", "fieldViolations": [{"field": "field", "description": "desc"}]},
+                {"@type": "type.googleapis.com/google.rpc.DebugInfo", "stackEntries": ["stack"], "detail": "detail"},
+                {"@type": "type.googleapis.com/google.rpc.ErrorInfo", "reason": "reason", "domain": "domain", "metadata": {}},
+                {"@type": "type.googleapis.com/google.rpc.Help", "links": [{"description": "desc", "url": "url"}]},
+                {"@type": "type.googleapis.com/google.rpc.LocalizedMessage", "locale": "locale", "message": "message"},
+                {"@type": "type.googleapis.com/google.rpc.PreconditionFailure", "violations": [{"type": "type", "subject": "subject", "description": "desc"}]},
+                {"@type": "type.googleapis.com/google.rpc.QuotaFailure", "violations": [{"subject": "subject", "description": "desc"}]},
+                {"@type": "type.googleapis.com/google.rpc.RequestInfo", "requestId": "id", "servingData": "data"},
+                {"@type": "type.googleapis.com/google.rpc.ResourceInfo", "resourceType": "type", "resourceName": "name", "owner": "owner", "description": "desc"},
+                {"@type": "type.googleapis.com/google.rpc.RetryInfo", "retryDelay": "1s"},
             ]
         });
         let got: Status = serde_json::from_value(json).unwrap();
