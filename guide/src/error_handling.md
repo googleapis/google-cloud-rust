@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Error Handling
+# Error handling
 
 Sometimes applications need to branch based on the type and details of the
 error returned by the client library. This guide will show you how to write
@@ -105,6 +105,8 @@ secret version again, this time just returning an error if anything fails:
 ```rust,ignore
 {{#include ../samples/src/error_handling.rs:update-secret-try-again}}
 ```
+
+______________________________________________________________________
 
 ## Error handling: complete code
 

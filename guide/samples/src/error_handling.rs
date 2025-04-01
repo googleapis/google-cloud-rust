@@ -57,7 +57,7 @@ pub async fn update_secret(
         }
     }
 }
-// ANCHOR_END: client-retry
+// ANCHOR_END: update-secret
 
 // ANCHOR: examine-error
 pub fn is_not_found(error: &gax::error::ServiceError) -> bool {

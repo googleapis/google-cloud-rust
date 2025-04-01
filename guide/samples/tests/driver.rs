@@ -93,7 +93,7 @@ mod driver {
     }
 
     #[tokio::test]
-    async fn error_handling() -> user_guide_samples::Result<()> {
+    async fn error_handling_found() -> user_guide_samples::Result<()> {
         use google_cloud_gax::retry_policy::AlwaysRetry;
         use google_cloud_gax::retry_policy::RetryPolicyExt;
         use google_cloud_secretmanager_v1 as sm;
@@ -125,6 +125,43 @@ mod driver {
             "The quick brown fox jumps over the lazy dog".into(),
         )
         .await?;
+        let _ = client.destroy_secret_version(&version.name).send().await?;
+        let _ = client
+            .delete_secret(format!("projects/{project_id}/secrets/{secret_id}"))
+            .send()
+            .await?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn error_handling_not_found() -> user_guide_samples::Result<()> {
+        use google_cloud_gax::retry_policy::AlwaysRetry;
+        use google_cloud_gax::retry_policy::RetryPolicyExt;
+        use google_cloud_secretmanager_v1 as sm;
+        use std::time::Duration;
+
+        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+        let secret_id: String = rand::rng()
+            .sample_iter(&Alphanumeric)
+            .take(SECRET_ID_LENGTH)
+            .map(char::from)
+            .collect();
+
+        let version = user_guide_samples::error_handling::update_secret(
+            &project_id,
+            &secret_id,
+            "The quick brown fox jumps over the lazy dog".into(),
+        )
+        .await?;
+
+        let client = sm::client::SecretManagerService::builder()
+            .with_retry_policy(
+                AlwaysRetry
+                    .with_attempt_limit(5)
+                    .with_time_limit(Duration::from_secs(15)),
+            )
+            .build()
+            .await?;
         let _ = client.destroy_secret_version(&version.name).send().await?;
         let _ = client
             .delete_secret(format!("projects/{project_id}/secrets/{secret_id}"))
