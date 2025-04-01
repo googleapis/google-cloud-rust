@@ -88,13 +88,12 @@ mod test {
     async fn basic_fail() -> Result<()> {
         let mut mock = MockSpeech::new();
         // ANCHOR: error
-        mock.expect_get_recognizer()
-            .return_once(|_, _| {
-                // This time, return an error.
-                Err(gax::error::Error::other("fail"))
-            });
+        mock.expect_get_recognizer().return_once(|_, _| {
+            // This time, return an error.
+            Err(gax::error::Error::other("fail"))
+        });
         // ANCHOR_END: error
-            
+
         // Create a client, implemented by the mock.
         let client = speech::client::Speech::from_stub(mock);
 
