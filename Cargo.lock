@@ -3905,6 +3905,28 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-storagebatchoperations-v1"
+version = "0.2.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-location",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-rpc",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-storageinsights-v1"
 version = "0.2.0"
 dependencies = [
