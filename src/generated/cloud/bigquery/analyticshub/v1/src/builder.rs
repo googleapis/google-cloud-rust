@@ -819,6 +819,17 @@ pub mod analytics_hub_service {
             self
         }
 
+        /// Sets the value of [destination_dataset][crate::model::SubscribeDataExchangeRequest::destination_dataset].
+        pub fn set_destination_dataset<
+            T: Into<std::option::Option<crate::model::DestinationDataset>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.destination_dataset = v.into();
+            self
+        }
+
         /// Sets the value of [subscription][crate::model::SubscribeDataExchangeRequest::subscription].
         pub fn set_subscription<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.subscription = v.into();

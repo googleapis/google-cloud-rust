@@ -12478,6 +12478,7 @@ impl super::stub::ReasoningEngineService for ReasoningEngineService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+        let builder = builder.query(&[("force", &req.force)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

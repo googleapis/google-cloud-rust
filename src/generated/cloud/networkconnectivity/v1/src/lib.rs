@@ -25,6 +25,7 @@
 //! Most applications will use the structs defined in the [client] module.
 //! More specifically:
 //!
+//! * [CrossNetworkAutomationService](client/struct.CrossNetworkAutomationService.html)
 //! * [HubService](client/struct.HubService.html)
 //! * [PolicyBasedRoutingService](client/struct.PolicyBasedRoutingService.html)
 

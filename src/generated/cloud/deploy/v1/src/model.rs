@@ -1405,8 +1405,8 @@ pub mod kubernetes_config {
             /// Optional. Whether to propagate the Kubernetes Service to the route
             /// destination clusters. The Service will always be deployed to the Target
             /// cluster even if the HTTPRoute is not. This option may be used to
-            /// facilitiate successful DNS lookup in the route destination clusters.
-            /// Can only be set to true if destinations are specified.
+            /// facilitate successful DNS lookup in the route destination clusters. Can
+            /// only be set to true if destinations are specified.
             pub propagate_service: bool,
         }
 
@@ -8448,7 +8448,7 @@ pub mod rollout {
         /// logs.
         pub const EXECUTION_FAILED: FailureCause = FailureCause::new(2);
 
-        /// Deployment did not complete within the alloted time.
+        /// Deployment did not complete within the allotted time.
         pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new(3);
 
         /// Release is in a failed state.
@@ -9764,7 +9764,7 @@ impl wkt::message::Message for ListRolloutsRequest {
     }
 }
 
-/// ListRolloutsResponse is the response object reutrned by `ListRollouts`.
+/// ListRolloutsResponse is the response object returned by `ListRollouts`.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -11039,7 +11039,7 @@ pub mod deploy_job_run {
         /// logs.
         pub const EXECUTION_FAILED: FailureCause = FailureCause::new(2);
 
-        /// The deploy job run did not complete within the alloted time.
+        /// The deploy job run did not complete within the allotted time.
         pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new(3);
 
         /// There were missing resources in the runtime environment required for a
@@ -11213,7 +11213,7 @@ pub mod verify_job_run {
         /// logs.
         pub const EXECUTION_FAILED: FailureCause = FailureCause::new(2);
 
-        /// The verify job run did not complete within the alloted time.
+        /// The verify job run did not complete within the allotted time.
         pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new(3);
 
         /// No Skaffold verify configuration was found.
@@ -11360,7 +11360,7 @@ pub mod predeploy_job_run {
         /// logs.
         pub const EXECUTION_FAILED: FailureCause = FailureCause::new(2);
 
-        /// The predeploy job run did not complete within the alloted time.
+        /// The predeploy job run did not complete within the allotted time.
         pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new(3);
 
         /// Cloud Build failed to fulfill Cloud Deploy's request. See failure_message
@@ -11500,7 +11500,7 @@ pub mod postdeploy_job_run {
         /// logs.
         pub const EXECUTION_FAILED: FailureCause = FailureCause::new(2);
 
-        /// The postdeploy job run did not complete within the alloted time.
+        /// The postdeploy job run did not complete within the allotted time.
         pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new(3);
 
         /// Cloud Build failed to fulfill Cloud Deploy's request. See failure_message

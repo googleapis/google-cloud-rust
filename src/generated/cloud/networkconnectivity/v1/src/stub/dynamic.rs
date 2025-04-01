@@ -16,6 +16,443 @@
 
 use std::sync::Arc;
 
+/// A dyn-compatible, crate-private version of [super::CrossNetworkAutomationService].
+#[async_trait::async_trait]
+pub trait CrossNetworkAutomationService: std::fmt::Debug + Send + Sync {
+    async fn list_service_connection_maps(
+        &self,
+        req: crate::model::ListServiceConnectionMapsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ListServiceConnectionMapsResponse>;
+
+    async fn get_service_connection_map(
+        &self,
+        req: crate::model::GetServiceConnectionMapRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ServiceConnectionMap>;
+
+    async fn create_service_connection_map(
+        &self,
+        req: crate::model::CreateServiceConnectionMapRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation>;
+
+    async fn update_service_connection_map(
+        &self,
+        req: crate::model::UpdateServiceConnectionMapRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation>;
+
+    async fn delete_service_connection_map(
+        &self,
+        req: crate::model::DeleteServiceConnectionMapRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation>;
+
+    async fn list_service_connection_policies(
+        &self,
+        req: crate::model::ListServiceConnectionPoliciesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ListServiceConnectionPoliciesResponse>;
+
+    async fn get_service_connection_policy(
+        &self,
+        req: crate::model::GetServiceConnectionPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ServiceConnectionPolicy>;
+
+    async fn create_service_connection_policy(
+        &self,
+        req: crate::model::CreateServiceConnectionPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation>;
+
+    async fn update_service_connection_policy(
+        &self,
+        req: crate::model::UpdateServiceConnectionPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation>;
+
+    async fn delete_service_connection_policy(
+        &self,
+        req: crate::model::DeleteServiceConnectionPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation>;
+
+    async fn list_service_classes(
+        &self,
+        req: crate::model::ListServiceClassesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ListServiceClassesResponse>;
+
+    async fn get_service_class(
+        &self,
+        req: crate::model::GetServiceClassRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ServiceClass>;
+
+    async fn update_service_class(
+        &self,
+        req: crate::model::UpdateServiceClassRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation>;
+
+    async fn delete_service_class(
+        &self,
+        req: crate::model::DeleteServiceClassRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation>;
+
+    async fn get_service_connection_token(
+        &self,
+        req: crate::model::GetServiceConnectionTokenRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ServiceConnectionToken>;
+
+    async fn list_service_connection_tokens(
+        &self,
+        req: crate::model::ListServiceConnectionTokensRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ListServiceConnectionTokensResponse>;
+
+    async fn create_service_connection_token(
+        &self,
+        req: crate::model::CreateServiceConnectionTokenRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation>;
+
+    async fn delete_service_connection_token(
+        &self,
+        req: crate::model::DeleteServiceConnectionTokenRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation>;
+
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<location::model::ListLocationsResponse>;
+
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<location::model::Location>;
+
+    async fn set_iam_policy(
+        &self,
+        req: iam_v1::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<iam_v1::model::Policy>;
+
+    async fn get_iam_policy(
+        &self,
+        req: iam_v1::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<iam_v1::model::Policy>;
+
+    async fn test_iam_permissions(
+        &self,
+        req: iam_v1::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation>;
+
+    async fn delete_operation(
+        &self,
+        req: longrunning::model::DeleteOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<()>;
+
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<()>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+}
+
+/// All implementations of [super::CrossNetworkAutomationService] also implement [CrossNetworkAutomationService].
+#[async_trait::async_trait]
+impl<T: super::CrossNetworkAutomationService> CrossNetworkAutomationService for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_service_connection_maps(
+        &self,
+        req: crate::model::ListServiceConnectionMapsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ListServiceConnectionMapsResponse> {
+        T::list_service_connection_maps(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_service_connection_map(
+        &self,
+        req: crate::model::GetServiceConnectionMapRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ServiceConnectionMap> {
+        T::get_service_connection_map(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_service_connection_map(
+        &self,
+        req: crate::model::CreateServiceConnectionMapRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation> {
+        T::create_service_connection_map(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_service_connection_map(
+        &self,
+        req: crate::model::UpdateServiceConnectionMapRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation> {
+        T::update_service_connection_map(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_service_connection_map(
+        &self,
+        req: crate::model::DeleteServiceConnectionMapRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation> {
+        T::delete_service_connection_map(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_service_connection_policies(
+        &self,
+        req: crate::model::ListServiceConnectionPoliciesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ListServiceConnectionPoliciesResponse> {
+        T::list_service_connection_policies(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_service_connection_policy(
+        &self,
+        req: crate::model::GetServiceConnectionPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ServiceConnectionPolicy> {
+        T::get_service_connection_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_service_connection_policy(
+        &self,
+        req: crate::model::CreateServiceConnectionPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation> {
+        T::create_service_connection_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_service_connection_policy(
+        &self,
+        req: crate::model::UpdateServiceConnectionPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation> {
+        T::update_service_connection_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_service_connection_policy(
+        &self,
+        req: crate::model::DeleteServiceConnectionPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation> {
+        T::delete_service_connection_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_service_classes(
+        &self,
+        req: crate::model::ListServiceClassesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ListServiceClassesResponse> {
+        T::list_service_classes(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_service_class(
+        &self,
+        req: crate::model::GetServiceClassRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ServiceClass> {
+        T::get_service_class(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_service_class(
+        &self,
+        req: crate::model::UpdateServiceClassRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation> {
+        T::update_service_class(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_service_class(
+        &self,
+        req: crate::model::DeleteServiceClassRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation> {
+        T::delete_service_class(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_service_connection_token(
+        &self,
+        req: crate::model::GetServiceConnectionTokenRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ServiceConnectionToken> {
+        T::get_service_connection_token(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_service_connection_tokens(
+        &self,
+        req: crate::model::ListServiceConnectionTokensRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ListServiceConnectionTokensResponse> {
+        T::list_service_connection_tokens(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_service_connection_token(
+        &self,
+        req: crate::model::CreateServiceConnectionTokenRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation> {
+        T::create_service_connection_token(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_service_connection_token(
+        &self,
+        req: crate::model::DeleteServiceConnectionTokenRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation> {
+        T::delete_service_connection_token(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<location::model::ListLocationsResponse> {
+        T::list_locations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<location::model::Location> {
+        T::get_location(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_iam_policy(
+        &self,
+        req: iam_v1::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<iam_v1::model::Policy> {
+        T::set_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_iam_policy(
+        &self,
+        req: iam_v1::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<iam_v1::model::Policy> {
+        T::get_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn test_iam_permissions(
+        &self,
+        req: iam_v1::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+        T::test_iam_permissions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+        T::list_operations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation> {
+        T::get_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_operation(
+        &self,
+        req: longrunning::model::DeleteOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<()> {
+        T::delete_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<()> {
+        T::cancel_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::HubService].
 #[async_trait::async_trait]
 pub trait HubService: std::fmt::Debug + Send + Sync {
@@ -94,6 +531,18 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
     async fn accept_hub_spoke(
         &self,
         req: crate::model::AcceptHubSpokeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation>;
+
+    async fn accept_spoke_update(
+        &self,
+        req: crate::model::AcceptSpokeUpdateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation>;
+
+    async fn reject_spoke_update(
+        &self,
+        req: crate::model::RejectSpokeUpdateRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<longrunning::model::Operation>;
 
@@ -328,6 +777,24 @@ impl<T: super::HubService> HubService for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<longrunning::model::Operation> {
         T::accept_hub_spoke(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn accept_spoke_update(
+        &self,
+        req: crate::model::AcceptSpokeUpdateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation> {
+        T::accept_spoke_update(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn reject_spoke_update(
+        &self,
+        req: crate::model::RejectSpokeUpdateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation> {
+        T::reject_spoke_update(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

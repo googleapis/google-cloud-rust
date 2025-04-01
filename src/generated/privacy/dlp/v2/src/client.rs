@@ -151,6 +151,9 @@ impl DlpService {
     /// When no InfoTypes or CustomInfoTypes are specified in this request, the
     /// system will automatically choose what detectors to run. By default this may
     /// be all types, but may change over time as detectors are updated.
+    ///
+    /// Only the first frame of each multiframe image is redacted. Metadata and
+    /// other frames are omitted in the response.
     pub fn redact_image(
         &self,
         parent: impl Into<std::string::String>,

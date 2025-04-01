@@ -2136,10 +2136,12 @@ pub struct OperationMetadata {
 
     /// Output only. Identifies whether the user has requested cancellation
     /// of the operation. Operations that have been cancelled successfully
-    /// have [Operation.error][] value with a
-    /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
-    /// `Code.CANCELLED`.
+    /// have
+    /// [google.longrunning.Operation.error][google.longrunning.Operation.error]
+    /// value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
+    /// corresponding to `Code.CANCELLED`.
     ///
+    /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
     pub requested_cancellation: bool,
 
@@ -2208,7 +2210,7 @@ impl wkt::message::Message for OperationMetadata {
     }
 }
 
-/// Application defines the governance boundary for App Hub Entities that
+/// Application defines the governance boundary for App Hub entities that
 /// perform a logical end-to-end business function.
 /// App Hub supports application level IAM permission to align with governance
 /// requirements.
@@ -2218,7 +2220,7 @@ impl wkt::message::Message for OperationMetadata {
 #[non_exhaustive]
 pub struct Application {
     /// Identifier. The resource name of an Application. Format:
-    /// "projects/{host-project-id}/locations/{location}/applications/{application-id}"
+    /// `"projects/{host-project-id}/locations/{location}/applications/{application-id}"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -2452,6 +2454,9 @@ pub mod scope {
         /// Regional type.
         pub const REGIONAL: Type = Type::new(1);
 
+        /// Global type.
+        pub const GLOBAL: Type = Type::new(2);
+
         /// Creates a new Type instance.
         pub(crate) const fn new(value: i32) -> Self {
             Self(value)
@@ -2467,6 +2472,7 @@ pub mod scope {
             match self.0 {
                 0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
                 1 => std::borrow::Cow::Borrowed("REGIONAL"),
+                2 => std::borrow::Cow::Borrowed("GLOBAL"),
                 _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
             }
         }
@@ -2476,6 +2482,7 @@ pub mod scope {
             match name {
                 "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
                 "REGIONAL" => std::option::Option::Some(Self::REGIONAL),
+                "GLOBAL" => std::option::Option::Some(Self::GLOBAL),
                 _ => std::option::Option::None,
             }
         }
@@ -2840,15 +2847,15 @@ impl wkt::message::Message for ContactInfo {
 }
 
 /// Service is an App Hub data model that contains a discovered service, which
-/// represents a network/api interface that exposes some functionality to clients
-/// for consumption over the network.
+/// represents a network or API interface that exposes some functionality to
+/// clients for consumption over the network.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Service {
     /// Identifier. The resource name of a Service. Format:
-    /// "projects/{host-project-id}/locations/{location}/applications/{application-id}/services/{service-id}"
+    /// `"projects/{host-project-id}/locations/{location}/applications/{application-id}/services/{service-id}"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -3076,8 +3083,8 @@ pub mod service {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ServiceReference {
-    /// Output only. The underlying resource URI (For example, URI of Forwarding
-    /// Rule, URL Map, and Backend Service).
+    /// Output only. The underlying resource URI. For example, URI of Forwarding
+    /// Rule, URL Map, and Backend Service.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uri: std::string::String,
 }
@@ -3152,16 +3159,16 @@ impl wkt::message::Message for ServiceProperties {
     }
 }
 
-/// DiscoveredService is a network/api interface that exposes some functionality
-/// to clients for consumption over the network. A discovered service can be
-/// registered to a App Hub service.
+/// DiscoveredService is a network or API interface that exposes some
+/// functionality to clients for consumption over the network. A discovered
+/// service can be registered to a App Hub service.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DiscoveredService {
     /// Identifier. The resource name of the discovered service. Format:
-    /// "projects/{host-project-id}/locations/{location}/discoveredServices/{uuid}""
+    /// `"projects/{host-project-id}/locations/{location}/discoveredServices/{uuid}"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -3227,13 +3234,13 @@ impl wkt::message::Message for DiscoveredService {
 #[non_exhaustive]
 pub struct ServiceProjectAttachment {
     /// Identifier. The resource name of a ServiceProjectAttachment. Format:
-    /// "projects/{host-project-id}/locations/global/serviceProjectAttachments/{service-project-id}."
+    /// `"projects/{host-project-id}/locations/global/serviceProjectAttachments/{service-project-id}."`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
-    /// Required. Immutable. Service project name in the format: "projects/abc" or
-    /// "projects/123". As input, project name with either project id or number are
-    /// accepted. As output, this field will contain project number.
+    /// Required. Immutable. Service project name in the format: `"projects/abc"`
+    /// or `"projects/123"`. As input, project name with either project id or
+    /// number are accepted. As output, this field will contain project number.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub service_project: std::string::String,
 
@@ -3378,7 +3385,7 @@ pub mod service_project_attachment {
 #[non_exhaustive]
 pub struct Workload {
     /// Identifier. The resource name of the Workload. Format:
-    /// "projects/{host-project-id}/locations/{location}/applications/{application-id}/workloads/{workload-id}"
+    /// `"projects/{host-project-id}/locations/{location}/applications/{application-id}/workloads/{workload-id}"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -3636,17 +3643,17 @@ impl wkt::message::Message for WorkloadReference {
 #[non_exhaustive]
 pub struct WorkloadProperties {
     /// Output only. The service project identifier that the underlying cloud
-    /// resource resides in. Empty for non cloud resources.
+    /// resource resides in. Empty for non-cloud resources.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub gcp_project: std::string::String,
 
     /// Output only. The location that the underlying compute resource resides in
-    /// (e.g us-west1).
+    /// (for example, us-west1).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub location: std::string::String,
 
     /// Output only. The location that the underlying compute resource resides in
-    /// if it is zonal (e.g us-west1-a).
+    /// if it is zonal (for example, us-west1-a).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub zone: std::string::String,
 }
@@ -3691,7 +3698,7 @@ impl wkt::message::Message for WorkloadProperties {
 #[non_exhaustive]
 pub struct DiscoveredWorkload {
     /// Identifier. The resource name of the discovered workload. Format:
-    /// "projects/{host-project-id}/locations/{location}/discoveredWorkloads/{uuid}"
+    /// `"projects/{host-project-id}/locations/{location}/discoveredWorkloads/{uuid}"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 

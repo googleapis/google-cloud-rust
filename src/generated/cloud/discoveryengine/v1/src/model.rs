@@ -53,9 +53,18 @@ pub struct Answer {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub answer_text: std::string::String,
 
+    /// A score in the range of [0, 1] describing how grounded the answer is by the
+    /// reference chunks.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub grounding_score: std::option::Option<f64>,
+
     /// Citations.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub citations: std::vec::Vec<crate::model::answer::Citation>,
+
+    /// Optional. Grounding supports.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub grounding_supports: std::vec::Vec<crate::model::answer::GroundingSupport>,
 
     /// References.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -85,6 +94,10 @@ pub struct Answer {
     /// Output only. Answer completed timestamp.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub complete_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Safety ratings.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub safety_ratings: std::vec::Vec<crate::model::SafetyRating>,
 }
 
 impl Answer {
@@ -107,6 +120,15 @@ impl Answer {
     /// Sets the value of [answer_text][crate::model::Answer::answer_text].
     pub fn set_answer_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.answer_text = v.into();
+        self
+    }
+
+    /// Sets the value of [grounding_score][crate::model::Answer::grounding_score].
+    pub fn set_grounding_score<T: std::convert::Into<std::option::Option<f64>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.grounding_score = v.into();
         self
     }
 
@@ -147,6 +169,17 @@ impl Answer {
     {
         use std::iter::Iterator;
         self.citations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [grounding_supports][crate::model::Answer::grounding_supports].
+    pub fn set_grounding_supports<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::answer::GroundingSupport>,
+    {
+        use std::iter::Iterator;
+        self.grounding_supports = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -193,6 +226,17 @@ impl Answer {
         self.answer_skipped_reasons = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [safety_ratings][crate::model::Answer::safety_ratings].
+    pub fn set_safety_ratings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SafetyRating>,
+    {
+        use std::iter::Iterator;
+        self.safety_ratings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for Answer {
@@ -213,11 +257,14 @@ pub mod answer {
     #[non_exhaustive]
     pub struct Citation {
         /// Index indicates the start of the segment, measured in bytes (UTF-8
-        /// unicode).
+        /// unicode). If there are multi-byte characters,such as non-ASCII
+        /// characters, the index measurement is longer than the string length.
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub start_index: i64,
 
-        /// End of the attributed segment, exclusive.
+        /// End of the attributed segment, exclusive. Measured in bytes (UTF-8
+        /// unicode). If there are multi-byte characters,such as non-ASCII
+        /// characters, the index measurement is longer than the string length.
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub end_index: i64,
 
@@ -290,6 +337,94 @@ pub mod answer {
     impl wkt::message::Message for CitationSource {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Answer.CitationSource"
+        }
+    }
+
+    /// Grounding support for a claim in `answer_text`.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct GroundingSupport {
+        /// Required. Index indicates the start of the claim, measured in bytes
+        /// (UTF-8 unicode).
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub start_index: i64,
+
+        /// Required. End of the claim, exclusive.
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub end_index: i64,
+
+        /// A score in the range of [0, 1] describing how grounded is a specific
+        /// claim by the references.
+        /// Higher value means that the claim is better supported by the reference
+        /// chunks.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub grounding_score: std::option::Option<f64>,
+
+        /// Indicates that this claim required grounding check. When the
+        /// system decided this claim didn't require attribution/grounding check,
+        /// this field is set to false. In that case, no grounding check was
+        /// done for the claim and therefore `grounding_score`, `sources` is not
+        /// returned.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub grounding_check_required: std::option::Option<bool>,
+
+        /// Optional. Citation sources for the claim.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub sources: std::vec::Vec<crate::model::answer::CitationSource>,
+    }
+
+    impl GroundingSupport {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [start_index][crate::model::answer::GroundingSupport::start_index].
+        pub fn set_start_index<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.start_index = v.into();
+            self
+        }
+
+        /// Sets the value of [end_index][crate::model::answer::GroundingSupport::end_index].
+        pub fn set_end_index<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.end_index = v.into();
+            self
+        }
+
+        /// Sets the value of [grounding_score][crate::model::answer::GroundingSupport::grounding_score].
+        pub fn set_grounding_score<T: std::convert::Into<std::option::Option<f64>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.grounding_score = v.into();
+            self
+        }
+
+        /// Sets the value of [grounding_check_required][crate::model::answer::GroundingSupport::grounding_check_required].
+        pub fn set_grounding_check_required<T: std::convert::Into<std::option::Option<bool>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.grounding_check_required = v.into();
+            self
+        }
+
+        /// Sets the value of [sources][crate::model::answer::GroundingSupport::sources].
+        pub fn set_sources<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::answer::CitationSource>,
+        {
+            use std::iter::Iterator;
+            self.sources = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for GroundingSupport {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.Answer.GroundingSupport"
         }
     }
 
@@ -767,6 +902,14 @@ pub mod answer {
             /// Structured search data.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub struct_data: std::option::Option<wkt::Struct>,
+
+            /// Output only. The title of the document.
+            #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            pub title: std::string::String,
+
+            /// Output only. The URI of the document.
+            #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            pub uri: std::string::String,
         }
 
         impl StructuredDocumentInfo {
@@ -789,6 +932,18 @@ pub mod answer {
                 v: T,
             ) -> Self {
                 self.struct_data = v.into();
+                self
+            }
+
+            /// Sets the value of [title][crate::model::answer::reference::StructuredDocumentInfo::title].
+            pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.title = v.into();
+                self
+            }
+
+            /// Sets the value of [uri][crate::model::answer::reference::StructuredDocumentInfo::uri].
+            pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.uri = v.into();
                 self
             }
         }
@@ -1539,6 +1694,9 @@ pub mod answer {
         /// Answer generation has succeeded.
         pub const SUCCEEDED: State = State::new(3);
 
+        /// Answer generation is currently in progress.
+        pub const STREAMING: State = State::new(4);
+
         /// Creates a new State instance.
         pub(crate) const fn new(value: i32) -> Self {
             Self(value)
@@ -1556,6 +1714,7 @@ pub mod answer {
                 1 => std::borrow::Cow::Borrowed("IN_PROGRESS"),
                 2 => std::borrow::Cow::Borrowed("FAILED"),
                 3 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                4 => std::borrow::Cow::Borrowed("STREAMING"),
                 _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
             }
         }
@@ -1567,6 +1726,7 @@ pub mod answer {
                 "IN_PROGRESS" => std::option::Option::Some(Self::IN_PROGRESS),
                 "FAILED" => std::option::Option::Some(Self::FAILED),
                 "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                "STREAMING" => std::option::Option::Some(Self::STREAMING),
                 _ => std::option::Option::None,
             }
         }
@@ -1745,7 +1905,10 @@ pub struct Chunk {
     /// Output only. Represents the relevance score based on similarity.
     /// Higher score indicates higher chunk relevance.
     /// The score is in range [-1.0, 1.0].
-    /// Only populated on [SearchService.SearchResponse][].
+    /// Only populated on
+    /// [SearchResponse][google.cloud.discoveryengine.v1.SearchResponse].
+    ///
+    /// [google.cloud.discoveryengine.v1.SearchResponse]: crate::model::SearchResponse
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub relevance_score: std::option::Option<f64>,
 
@@ -2304,6 +2467,10 @@ pub struct UserInfo {
     /// [google.cloud.discoveryengine.v1.UserEventService.CollectUserEvent]: crate::client::UserEventService::collect_user_event
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub user_agent: std::string::String,
+
+    /// Optional. IANA time zone, e.g. Europe/Budapest.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub time_zone: std::string::String,
 }
 
 impl UserInfo {
@@ -2322,11 +2489,126 @@ impl UserInfo {
         self.user_agent = v.into();
         self
     }
+
+    /// Sets the value of [time_zone][crate::model::UserInfo::time_zone].
+    pub fn set_time_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.time_zone = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for UserInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.UserInfo"
+    }
+}
+
+/// Double list.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DoubleList {
+    /// Double values.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub values: std::vec::Vec<f64>,
+}
+
+impl DoubleList {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [values][crate::model::DoubleList::values].
+    pub fn set_values<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<f64>,
+    {
+        use std::iter::Iterator;
+        self.values = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for DoubleList {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.DoubleList"
+    }
+}
+
+/// Promotion proto includes uri and other helping information to display the
+/// promotion.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct SearchLinkPromotion {
+    /// Required. The title of the promotion.
+    /// Maximum length: 160 characters.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub title: std::string::String,
+
+    /// Optional. The URL for the page the user wants to promote. Must be set for
+    /// site search. For other verticals, this is optional.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub uri: std::string::String,
+
+    /// Optional. The promotion thumbnail image url.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub image_uri: std::string::String,
+
+    /// Optional. The Promotion description.
+    /// Maximum length: 200 characters.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub description: std::string::String,
+
+    /// Optional. The enabled promotion will be returned for any serving configs
+    /// associated with the parent of the control this promotion is attached to.
+    ///
+    /// This flag is used for basic site search only.
+    pub enabled: bool,
+}
+
+impl SearchLinkPromotion {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [title][crate::model::SearchLinkPromotion::title].
+    pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.title = v.into();
+        self
+    }
+
+    /// Sets the value of [uri][crate::model::SearchLinkPromotion::uri].
+    pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uri = v.into();
+        self
+    }
+
+    /// Sets the value of [image_uri][crate::model::SearchLinkPromotion::image_uri].
+    pub fn set_image_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.image_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::SearchLinkPromotion::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [enabled][crate::model::SearchLinkPromotion::enabled].
+    pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enabled = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SearchLinkPromotion {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.SearchLinkPromotion"
     }
 }
 
@@ -2993,6 +3275,8 @@ pub mod condition {
 /// Must be attached to a
 /// [ServingConfig][google.cloud.discoveryengine.v1.ServingConfig] to be
 /// considered at serving time. Permitted actions dependent on `SolutionType`.
+///
+/// [google.cloud.discoveryengine.v1.ServingConfig]: crate::model::ServingConfig
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3013,6 +3297,8 @@ pub struct Control {
     /// Output only. List of all
     /// [ServingConfig][google.cloud.discoveryengine.v1.ServingConfig] IDs this
     /// control is attached to. May take up to 10 minutes to update after changes.
+    ///
+    /// [google.cloud.discoveryengine.v1.ServingConfig]: crate::model::ServingConfig
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub associated_serving_config_ids: std::vec::Vec<std::string::String>,
 
@@ -3169,6 +3455,19 @@ impl Control {
         })
     }
 
+    /// The value of [action][crate::model::Control::action]
+    /// if it holds a `PromoteAction`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_promote_action(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::control::PromoteAction>> {
+        #[allow(unreachable_patterns)]
+        self.action.as_ref().and_then(|v| match v {
+            crate::model::control::Action::PromoteAction(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [action][crate::model::Control::action]
     /// to hold a `BoostAction`.
     ///
@@ -3232,6 +3531,22 @@ impl Control {
             std::option::Option::Some(crate::model::control::Action::SynonymsAction(v.into()));
         self
     }
+
+    /// Sets the value of [action][crate::model::Control::action]
+    /// to hold a `PromoteAction`.
+    ///
+    /// Note that all the setters affecting `action` are
+    /// mutually exclusive.
+    pub fn set_promote_action<
+        T: std::convert::Into<std::boxed::Box<crate::model::control::PromoteAction>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.action =
+            std::option::Option::Some(crate::model::control::Action::PromoteAction(v.into()));
+        self
+    }
 }
 
 impl wkt::message::Message for Control {
@@ -3251,7 +3566,7 @@ pub mod control {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct BoostAction {
-        /// Required. Strength of the boost, which should be in [-1, 1]. Negative
+        /// Strength of the boost, which should be in [-1, 1]. Negative
         /// boost means demotion. Default is 0.0 (No-op).
         pub boost: f32,
 
@@ -3270,6 +3585,10 @@ pub mod control {
         /// projects/123/locations/global/collections/default_collection/dataStores/default_data_store
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub data_store: std::string::String,
+
+        /// Constant value boost or custom ranking based boost specifications.
+        #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+        pub boost_spec: std::option::Option<crate::model::control::boost_action::BoostSpec>,
     }
 
     impl BoostAction {
@@ -3294,11 +3613,366 @@ pub mod control {
             self.data_store = v.into();
             self
         }
+
+        /// Sets the value of `boost_spec`.
+        pub fn set_boost_spec<
+            T: std::convert::Into<std::option::Option<crate::model::control::boost_action::BoostSpec>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.boost_spec = v.into();
+            self
+        }
+
+        /// The value of [boost_spec][crate::model::control::BoostAction::boost_spec]
+        /// if it holds a `FixedBoost`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn get_fixed_boost(&self) -> std::option::Option<&f32> {
+            #[allow(unreachable_patterns)]
+            self.boost_spec.as_ref().and_then(|v| match v {
+                crate::model::control::boost_action::BoostSpec::FixedBoost(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// The value of [boost_spec][crate::model::control::BoostAction::boost_spec]
+        /// if it holds a `InterpolationBoostSpec`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn get_interpolation_boost_spec(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::control::boost_action::InterpolationBoostSpec>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.boost_spec.as_ref().and_then(|v| match v {
+                crate::model::control::boost_action::BoostSpec::InterpolationBoostSpec(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [boost_spec][crate::model::control::BoostAction::boost_spec]
+        /// to hold a `FixedBoost`.
+        ///
+        /// Note that all the setters affecting `boost_spec` are
+        /// mutually exclusive.
+        pub fn set_fixed_boost<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+            self.boost_spec = std::option::Option::Some(
+                crate::model::control::boost_action::BoostSpec::FixedBoost(v.into()),
+            );
+            self
+        }
+
+        /// Sets the value of [boost_spec][crate::model::control::BoostAction::boost_spec]
+        /// to hold a `InterpolationBoostSpec`.
+        ///
+        /// Note that all the setters affecting `boost_spec` are
+        /// mutually exclusive.
+        pub fn set_interpolation_boost_spec<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::control::boost_action::InterpolationBoostSpec>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.boost_spec = std::option::Option::Some(
+                crate::model::control::boost_action::BoostSpec::InterpolationBoostSpec(v.into()),
+            );
+            self
+        }
     }
 
     impl wkt::message::Message for BoostAction {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Control.BoostAction"
+        }
+    }
+
+    /// Defines additional types related to [BoostAction].
+    pub mod boost_action {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Specification for custom ranking based on customer specified attribute
+        /// value. It provides more controls for customized ranking than the simple
+        /// (condition, boost) combination above.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct InterpolationBoostSpec {
+            /// Optional. The name of the field whose value will be used to determine
+            /// the boost amount.
+            #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            pub field_name: std::string::String,
+
+            /// Optional. The attribute type to be used to determine the boost amount.
+            /// The attribute value can be derived from the field value of the
+            /// specified field_name. In the case of numerical it is straightforward
+            /// i.e. attribute_value = numerical_field_value. In the case of freshness
+            /// however, attribute_value = (time.now() - datetime_field_value).
+            pub attribute_type:
+                crate::model::control::boost_action::interpolation_boost_spec::AttributeType,
+
+            /// Optional. The interpolation type to be applied to connect the control
+            /// points listed below.
+            pub interpolation_type:
+                crate::model::control::boost_action::interpolation_boost_spec::InterpolationType,
+
+            /// Optional. The control points used to define the curve. The monotonic
+            /// function (defined through the interpolation_type above) passes through
+            /// the control points listed here.
+            #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            pub control_points: std::vec::Vec<
+                crate::model::control::boost_action::interpolation_boost_spec::ControlPoint,
+            >,
+        }
+
+        impl InterpolationBoostSpec {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [field_name][crate::model::control::boost_action::InterpolationBoostSpec::field_name].
+            pub fn set_field_name<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.field_name = v.into();
+                self
+            }
+
+            /// Sets the value of [attribute_type][crate::model::control::boost_action::InterpolationBoostSpec::attribute_type].
+            pub fn set_attribute_type<T: std::convert::Into<crate::model::control::boost_action::interpolation_boost_spec::AttributeType>>(mut self, v: T) -> Self{
+                self.attribute_type = v.into();
+                self
+            }
+
+            /// Sets the value of [interpolation_type][crate::model::control::boost_action::InterpolationBoostSpec::interpolation_type].
+            pub fn set_interpolation_type<T: std::convert::Into<crate::model::control::boost_action::interpolation_boost_spec::InterpolationType>>(mut self, v: T) -> Self{
+                self.interpolation_type = v.into();
+                self
+            }
+
+            /// Sets the value of [control_points][crate::model::control::boost_action::InterpolationBoostSpec::control_points].
+            pub fn set_control_points<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<
+                        crate::model::control::boost_action::interpolation_boost_spec::ControlPoint,
+                    >,
+            {
+                use std::iter::Iterator;
+                self.control_points = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        impl wkt::message::Message for InterpolationBoostSpec {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.discoveryengine.v1.Control.BoostAction.InterpolationBoostSpec"
+            }
+        }
+
+        /// Defines additional types related to [InterpolationBoostSpec].
+        pub mod interpolation_boost_spec {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// The control points used to define the curve. The curve defined
+            /// through these control points can only be monotonically increasing
+            /// or decreasing(constant values are acceptable).
+            #[serde_with::serde_as]
+            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[serde(default, rename_all = "camelCase")]
+            #[non_exhaustive]
+            pub struct ControlPoint {
+                /// Optional. Can be one of:
+                ///
+                /// . The numerical field value.
+                /// . The duration spec for freshness:
+                ///   The value must be formatted as an XSD `dayTimeDuration` value (a
+                ///   restricted subset of an ISO 8601 duration value). The pattern for
+                ///   this is: `[nD][T[nH][nM][nS]]`.
+                #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                pub attribute_value: std::string::String,
+
+                /// Optional. The value between -1 to 1 by which to boost the score if
+                /// the attribute_value evaluates to the value specified above.
+                pub boost_amount: f32,
+            }
+
+            impl ControlPoint {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [attribute_value][crate::model::control::boost_action::interpolation_boost_spec::ControlPoint::attribute_value].
+                pub fn set_attribute_value<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.attribute_value = v.into();
+                    self
+                }
+
+                /// Sets the value of [boost_amount][crate::model::control::boost_action::interpolation_boost_spec::ControlPoint::boost_amount].
+                pub fn set_boost_amount<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+                    self.boost_amount = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for ControlPoint {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.discoveryengine.v1.Control.BoostAction.InterpolationBoostSpec.ControlPoint"
+                }
+            }
+
+            /// The attribute(or function) for which the custom ranking is to be
+            /// applied.
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+            pub struct AttributeType(i32);
+
+            impl AttributeType {
+                /// Unspecified AttributeType.
+                pub const ATTRIBUTE_TYPE_UNSPECIFIED: AttributeType = AttributeType::new(0);
+
+                /// The value of the numerical field will be used to dynamically update
+                /// the boost amount. In this case, the attribute_value (the x value)
+                /// of the control point will be the actual value of the numerical
+                /// field for which the boost_amount is specified.
+                pub const NUMERICAL: AttributeType = AttributeType::new(1);
+
+                /// For the freshness use case the attribute value will be the duration
+                /// between the current time and the date in the datetime field
+                /// specified. The value must be formatted as an XSD `dayTimeDuration`
+                /// value (a restricted subset of an ISO 8601 duration value). The
+                /// pattern for this is: `[nD][T[nH][nM][nS]]`.
+                /// For example, `5D`, `3DT12H30M`, `T24H`.
+                pub const FRESHNESS: AttributeType = AttributeType::new(2);
+
+                /// Creates a new AttributeType instance.
+                pub(crate) const fn new(value: i32) -> Self {
+                    Self(value)
+                }
+
+                /// Gets the enum value.
+                pub fn value(&self) -> i32 {
+                    self.0
+                }
+
+                /// Gets the enum value as a string.
+                pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                    match self.0 {
+                        0 => std::borrow::Cow::Borrowed("ATTRIBUTE_TYPE_UNSPECIFIED"),
+                        1 => std::borrow::Cow::Borrowed("NUMERICAL"),
+                        2 => std::borrow::Cow::Borrowed("FRESHNESS"),
+                        _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                    }
+                }
+
+                /// Creates an enum value from the value name.
+                pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                    match name {
+                        "ATTRIBUTE_TYPE_UNSPECIFIED" => {
+                            std::option::Option::Some(Self::ATTRIBUTE_TYPE_UNSPECIFIED)
+                        }
+                        "NUMERICAL" => std::option::Option::Some(Self::NUMERICAL),
+                        "FRESHNESS" => std::option::Option::Some(Self::FRESHNESS),
+                        _ => std::option::Option::None,
+                    }
+                }
+            }
+
+            impl std::convert::From<i32> for AttributeType {
+                fn from(value: i32) -> Self {
+                    Self::new(value)
+                }
+            }
+
+            impl std::default::Default for AttributeType {
+                fn default() -> Self {
+                    Self::new(0)
+                }
+            }
+
+            /// The interpolation type to be applied. Default will be linear
+            /// (Piecewise Linear).
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+            pub struct InterpolationType(i32);
+
+            impl InterpolationType {
+                /// Interpolation type is unspecified. In this case, it defaults to
+                /// Linear.
+                pub const INTERPOLATION_TYPE_UNSPECIFIED: InterpolationType =
+                    InterpolationType::new(0);
+
+                /// Piecewise linear interpolation will be applied.
+                pub const LINEAR: InterpolationType = InterpolationType::new(1);
+
+                /// Creates a new InterpolationType instance.
+                pub(crate) const fn new(value: i32) -> Self {
+                    Self(value)
+                }
+
+                /// Gets the enum value.
+                pub fn value(&self) -> i32 {
+                    self.0
+                }
+
+                /// Gets the enum value as a string.
+                pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                    match self.0 {
+                        0 => std::borrow::Cow::Borrowed("INTERPOLATION_TYPE_UNSPECIFIED"),
+                        1 => std::borrow::Cow::Borrowed("LINEAR"),
+                        _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                    }
+                }
+
+                /// Creates an enum value from the value name.
+                pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                    match name {
+                        "INTERPOLATION_TYPE_UNSPECIFIED" => {
+                            std::option::Option::Some(Self::INTERPOLATION_TYPE_UNSPECIFIED)
+                        }
+                        "LINEAR" => std::option::Option::Some(Self::LINEAR),
+                        _ => std::option::Option::None,
+                    }
+                }
+            }
+
+            impl std::convert::From<i32> for InterpolationType {
+                fn from(value: i32) -> Self {
+                    Self::new(value)
+                }
+            }
+
+            impl std::default::Default for InterpolationType {
+                fn default() -> Self {
+                    Self::new(0)
+                }
+            }
+        }
+
+        /// Constant value boost or custom ranking based boost specifications.
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub enum BoostSpec {
+            /// Optional. Strength of the boost, which should be in [-1, 1]. Negative
+            /// boost means demotion. Default is 0.0 (No-op).
+            FixedBoost(f32),
+            /// Optional. Complex specification for custom ranking based on customer
+            /// defined attribute value.
+            InterpolationBoostSpec(
+                std::boxed::Box<crate::model::control::boost_action::InterpolationBoostSpec>,
+            ),
         }
     }
 
@@ -3426,6 +4100,53 @@ pub mod control {
         }
     }
 
+    /// Promote certain links based on some trigger queries.
+    ///
+    /// Example: Promote shoe store link when searching for `shoe` keyword.
+    /// The link can be outside of associated data store.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct PromoteAction {
+        /// Required. Data store with which this promotion is attached to.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub data_store: std::string::String,
+
+        /// Required. Promotion attached to this action.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub search_link_promotion: std::option::Option<crate::model::SearchLinkPromotion>,
+    }
+
+    impl PromoteAction {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [data_store][crate::model::control::PromoteAction::data_store].
+        pub fn set_data_store<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.data_store = v.into();
+            self
+        }
+
+        /// Sets the value of [search_link_promotion][crate::model::control::PromoteAction::search_link_promotion].
+        pub fn set_search_link_promotion<
+            T: std::convert::Into<std::option::Option<crate::model::SearchLinkPromotion>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.search_link_promotion = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for PromoteAction {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.Control.PromoteAction"
+        }
+    }
+
     /// Actions are restricted by Vertical and Solution
     ///
     /// Required.
@@ -3442,6 +4163,10 @@ pub mod control {
         RedirectAction(std::boxed::Box<crate::model::control::RedirectAction>),
         /// Treats a group of terms as synonyms of one another.
         SynonymsAction(std::boxed::Box<crate::model::control::SynonymsAction>),
+        /// Promote certain links based on predefined trigger queries.
+        ///
+        /// This now only supports basic site search.
+        PromoteAction(std::boxed::Box<crate::model::control::PromoteAction>),
     }
 }
 
@@ -4736,6 +5461,10 @@ pub struct AnswerQueryRequest {
     pub related_questions_spec:
         std::option::Option<crate::model::answer_query_request::RelatedQuestionsSpec>,
 
+    /// Optional. Grounding specification.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub grounding_spec: std::option::Option<crate::model::answer_query_request::GroundingSpec>,
+
     /// Answer generation specification.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub answer_generation_spec:
@@ -4798,6 +5527,10 @@ pub struct AnswerQueryRequest {
     /// for more details.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub user_labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. End user specification.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub end_user_spec: std::option::Option<crate::model::answer_query_request::EndUserSpec>,
 }
 
 impl AnswerQueryRequest {
@@ -4850,6 +5583,17 @@ impl AnswerQueryRequest {
         self
     }
 
+    /// Sets the value of [grounding_spec][crate::model::AnswerQueryRequest::grounding_spec].
+    pub fn set_grounding_spec<
+        T: std::convert::Into<std::option::Option<crate::model::answer_query_request::GroundingSpec>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.grounding_spec = v.into();
+        self
+    }
+
     /// Sets the value of [answer_generation_spec][crate::model::AnswerQueryRequest::answer_generation_spec].
     pub fn set_answer_generation_spec<
         T: std::convert::Into<
@@ -4899,6 +5643,17 @@ impl AnswerQueryRequest {
         self
     }
 
+    /// Sets the value of [end_user_spec][crate::model::AnswerQueryRequest::end_user_spec].
+    pub fn set_end_user_spec<
+        T: std::convert::Into<std::option::Option<crate::model::answer_query_request::EndUserSpec>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.end_user_spec = v.into();
+        self
+    }
+
     /// Sets the value of [user_labels][crate::model::AnswerQueryRequest::user_labels].
     pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -4924,6 +5679,12 @@ pub mod answer_query_request {
     use super::*;
 
     /// Safety specification.
+    /// There are two use cases:
+    ///
+    /// . when only safety_spec.enable is set, the BLOCK_LOW_AND_ABOVE threshold
+    ///   will be applied for all categories.
+    /// . when safety_spec.enable is set and some safety_settings are set, only
+    ///   specified safety_settings are applied.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -4932,6 +5693,12 @@ pub mod answer_query_request {
         /// Enable the safety filtering on the answer response. It is false by
         /// default.
         pub enable: bool,
+
+        /// Optional. Safety settings.
+        /// This settings are effective only when the safety_spec.enable is true.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub safety_settings:
+            std::vec::Vec<crate::model::answer_query_request::safety_spec::SafetySetting>,
     }
 
     impl SafetySpec {
@@ -4944,11 +5711,154 @@ pub mod answer_query_request {
             self.enable = v.into();
             self
         }
+
+        /// Sets the value of [safety_settings][crate::model::answer_query_request::SafetySpec::safety_settings].
+        pub fn set_safety_settings<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::answer_query_request::safety_spec::SafetySetting>,
+        {
+            use std::iter::Iterator;
+            self.safety_settings = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
     }
 
     impl wkt::message::Message for SafetySpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.SafetySpec"
+        }
+    }
+
+    /// Defines additional types related to [SafetySpec].
+    pub mod safety_spec {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Safety settings.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct SafetySetting {
+            /// Required. Harm category.
+            pub category: crate::model::HarmCategory,
+
+            /// Required. The harm block threshold.
+            pub threshold:
+                crate::model::answer_query_request::safety_spec::safety_setting::HarmBlockThreshold,
+        }
+
+        impl SafetySetting {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [category][crate::model::answer_query_request::safety_spec::SafetySetting::category].
+            pub fn set_category<T: std::convert::Into<crate::model::HarmCategory>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.category = v.into();
+                self
+            }
+
+            /// Sets the value of [threshold][crate::model::answer_query_request::safety_spec::SafetySetting::threshold].
+            pub fn set_threshold<T: std::convert::Into<crate::model::answer_query_request::safety_spec::safety_setting::HarmBlockThreshold>>(mut self, v: T) -> Self{
+                self.threshold = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for SafetySetting {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.SafetySpec.SafetySetting"
+            }
+        }
+
+        /// Defines additional types related to [SafetySetting].
+        pub mod safety_setting {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Probability based thresholds levels for blocking.
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+            pub struct HarmBlockThreshold(i32);
+
+            impl HarmBlockThreshold {
+                /// Unspecified harm block threshold.
+                pub const HARM_BLOCK_THRESHOLD_UNSPECIFIED: HarmBlockThreshold =
+                    HarmBlockThreshold::new(0);
+
+                /// Block low threshold and above (i.e. block more).
+                pub const BLOCK_LOW_AND_ABOVE: HarmBlockThreshold = HarmBlockThreshold::new(1);
+
+                /// Block medium threshold and above.
+                pub const BLOCK_MEDIUM_AND_ABOVE: HarmBlockThreshold = HarmBlockThreshold::new(2);
+
+                /// Block only high threshold (i.e. block less).
+                pub const BLOCK_ONLY_HIGH: HarmBlockThreshold = HarmBlockThreshold::new(3);
+
+                /// Block none.
+                pub const BLOCK_NONE: HarmBlockThreshold = HarmBlockThreshold::new(4);
+
+                /// Turn off the safety filter.
+                pub const OFF: HarmBlockThreshold = HarmBlockThreshold::new(5);
+
+                /// Creates a new HarmBlockThreshold instance.
+                pub(crate) const fn new(value: i32) -> Self {
+                    Self(value)
+                }
+
+                /// Gets the enum value.
+                pub fn value(&self) -> i32 {
+                    self.0
+                }
+
+                /// Gets the enum value as a string.
+                pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                    match self.0 {
+                        0 => std::borrow::Cow::Borrowed("HARM_BLOCK_THRESHOLD_UNSPECIFIED"),
+                        1 => std::borrow::Cow::Borrowed("BLOCK_LOW_AND_ABOVE"),
+                        2 => std::borrow::Cow::Borrowed("BLOCK_MEDIUM_AND_ABOVE"),
+                        3 => std::borrow::Cow::Borrowed("BLOCK_ONLY_HIGH"),
+                        4 => std::borrow::Cow::Borrowed("BLOCK_NONE"),
+                        5 => std::borrow::Cow::Borrowed("OFF"),
+                        _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                    }
+                }
+
+                /// Creates an enum value from the value name.
+                pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                    match name {
+                        "HARM_BLOCK_THRESHOLD_UNSPECIFIED" => {
+                            std::option::Option::Some(Self::HARM_BLOCK_THRESHOLD_UNSPECIFIED)
+                        }
+                        "BLOCK_LOW_AND_ABOVE" => {
+                            std::option::Option::Some(Self::BLOCK_LOW_AND_ABOVE)
+                        }
+                        "BLOCK_MEDIUM_AND_ABOVE" => {
+                            std::option::Option::Some(Self::BLOCK_MEDIUM_AND_ABOVE)
+                        }
+                        "BLOCK_ONLY_HIGH" => std::option::Option::Some(Self::BLOCK_ONLY_HIGH),
+                        "BLOCK_NONE" => std::option::Option::Some(Self::BLOCK_NONE),
+                        "OFF" => std::option::Option::Some(Self::OFF),
+                        _ => std::option::Option::None,
+                    }
+                }
+            }
+
+            impl std::convert::From<i32> for HarmBlockThreshold {
+                fn from(value: i32) -> Self {
+                    Self::new(value)
+                }
+            }
+
+            impl std::default::Default for HarmBlockThreshold {
+                fn default() -> Self {
+                    Self::new(0)
+                }
+            }
         }
     }
 
@@ -4977,6 +5887,118 @@ pub mod answer_query_request {
     impl wkt::message::Message for RelatedQuestionsSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.RelatedQuestionsSpec"
+        }
+    }
+
+    /// Grounding specification.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct GroundingSpec {
+        /// Optional. Specifies whether to include grounding_supports in the answer.
+        /// The default value is `false`.
+        ///
+        /// When this field is set to `true`, returned answer will have
+        /// `grounding_score` and will contain GroundingSupports for each claim.
+        pub include_grounding_supports: bool,
+
+        /// Optional. Specifies whether to enable the filtering based on grounding
+        /// score and at what level.
+        pub filtering_level: crate::model::answer_query_request::grounding_spec::FilteringLevel,
+    }
+
+    impl GroundingSpec {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [include_grounding_supports][crate::model::answer_query_request::GroundingSpec::include_grounding_supports].
+        pub fn set_include_grounding_supports<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.include_grounding_supports = v.into();
+            self
+        }
+
+        /// Sets the value of [filtering_level][crate::model::answer_query_request::GroundingSpec::filtering_level].
+        pub fn set_filtering_level<
+            T: std::convert::Into<crate::model::answer_query_request::grounding_spec::FilteringLevel>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.filtering_level = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for GroundingSpec {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.GroundingSpec"
+        }
+    }
+
+    /// Defines additional types related to [GroundingSpec].
+    pub mod grounding_spec {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Level to filter based on answer grounding.
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct FilteringLevel(i32);
+
+        impl FilteringLevel {
+            /// Default is no filter
+            pub const FILTERING_LEVEL_UNSPECIFIED: FilteringLevel = FilteringLevel::new(0);
+
+            /// Filter answers based on a low threshold.
+            pub const FILTERING_LEVEL_LOW: FilteringLevel = FilteringLevel::new(1);
+
+            /// Filter answers based on a high threshold.
+            pub const FILTERING_LEVEL_HIGH: FilteringLevel = FilteringLevel::new(2);
+
+            /// Creates a new FilteringLevel instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("FILTERING_LEVEL_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("FILTERING_LEVEL_LOW"),
+                    2 => std::borrow::Cow::Borrowed("FILTERING_LEVEL_HIGH"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "FILTERING_LEVEL_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::FILTERING_LEVEL_UNSPECIFIED)
+                    }
+                    "FILTERING_LEVEL_LOW" => std::option::Option::Some(Self::FILTERING_LEVEL_LOW),
+                    "FILTERING_LEVEL_HIGH" => std::option::Option::Some(Self::FILTERING_LEVEL_HIGH),
+                    _ => std::option::Option::None,
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for FilteringLevel {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for FilteringLevel {
+            fn default() -> Self {
+                Self::new(0)
+            }
         }
     }
 
@@ -6005,6 +7027,10 @@ pub mod answer_query_request {
         pub query_rephraser_spec: std::option::Option<
             crate::model::answer_query_request::query_understanding_spec::QueryRephraserSpec,
         >,
+
+        /// Optional. Whether to disable spell correction.
+        /// The default value is `false`.
+        pub disable_spell_correction: bool,
     }
 
     impl QueryUnderstandingSpec {
@@ -6021,6 +7047,12 @@ pub mod answer_query_request {
         /// Sets the value of [query_rephraser_spec][crate::model::answer_query_request::QueryUnderstandingSpec::query_rephraser_spec].
         pub fn set_query_rephraser_spec<T: std::convert::Into<std::option::Option<crate::model::answer_query_request::query_understanding_spec::QueryRephraserSpec>>>(mut self, v: T) -> Self{
             self.query_rephraser_spec = v.into();
+            self
+        }
+
+        /// Sets the value of [disable_spell_correction][crate::model::answer_query_request::QueryUnderstandingSpec::disable_spell_correction].
+        pub fn set_disable_spell_correction<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.disable_spell_correction = v.into();
             self
         }
     }
@@ -6156,6 +7188,7 @@ pub mod answer_query_request {
         #[serde(default, rename_all = "camelCase")]
         #[non_exhaustive]
         pub struct QueryRephraserSpec {
+
             /// Disable query rephraser.
             pub disable: bool,
 
@@ -6163,6 +7196,10 @@ pub mod answer_query_request {
             /// The max number is 5 steps.
             /// If not set or set to < 1, it will be set to 1 by default.
             pub max_rephrase_steps: i32,
+
+            /// Optional. Query Rephraser Model specification.
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub model_spec: std::option::Option<crate::model::answer_query_request::query_understanding_spec::query_rephraser_spec::ModelSpec>,
         }
 
         impl QueryRephraserSpec {
@@ -6181,11 +7218,319 @@ pub mod answer_query_request {
                 self.max_rephrase_steps = v.into();
                 self
             }
+
+            /// Sets the value of [model_spec][crate::model::answer_query_request::query_understanding_spec::QueryRephraserSpec::model_spec].
+            pub fn set_model_spec<T: std::convert::Into<std::option::Option<crate::model::answer_query_request::query_understanding_spec::query_rephraser_spec::ModelSpec>>>(mut self, v: T) -> Self{
+                self.model_spec = v.into();
+                self
+            }
         }
 
         impl wkt::message::Message for QueryRephraserSpec {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.QueryUnderstandingSpec.QueryRephraserSpec"
+            }
+        }
+
+        /// Defines additional types related to [QueryRephraserSpec].
+        pub mod query_rephraser_spec {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Query Rephraser Model specification.
+            #[serde_with::serde_as]
+            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[serde(default, rename_all = "camelCase")]
+            #[non_exhaustive]
+            pub struct ModelSpec {
+
+                /// Optional. Enabled query rephraser model type. If not set, it will use
+                /// LARGE by default.
+                pub model_type: crate::model::answer_query_request::query_understanding_spec::query_rephraser_spec::model_spec::ModelType,
+            }
+
+            impl ModelSpec {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [model_type][crate::model::answer_query_request::query_understanding_spec::query_rephraser_spec::ModelSpec::model_type].
+                pub fn set_model_type<T: std::convert::Into<crate::model::answer_query_request::query_understanding_spec::query_rephraser_spec::model_spec::ModelType>>(mut self, v: T) -> Self{
+                    self.model_type = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for ModelSpec {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.QueryUnderstandingSpec.QueryRephraserSpec.ModelSpec"
+                }
+            }
+
+            /// Defines additional types related to [ModelSpec].
+            pub mod model_spec {
+                #[allow(unused_imports)]
+                use super::*;
+
+                /// Query rephraser types. Currently only supports single-hop
+                /// (max_rephrase_steps = 1) model selections. For multi-hop
+                /// (max_rephrase_steps > 1), there is only one default model.
+                #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+                pub struct ModelType(i32);
+
+                impl ModelType {
+                    /// Unspecified model type.
+                    pub const MODEL_TYPE_UNSPECIFIED: ModelType = ModelType::new(0);
+
+                    /// Small query rephraser model. Gemini 1.0 XS model.
+                    pub const SMALL: ModelType = ModelType::new(1);
+
+                    /// Large query rephraser model. Gemini 1.0 Pro model.
+                    pub const LARGE: ModelType = ModelType::new(2);
+
+                    /// Creates a new ModelType instance.
+                    pub(crate) const fn new(value: i32) -> Self {
+                        Self(value)
+                    }
+
+                    /// Gets the enum value.
+                    pub fn value(&self) -> i32 {
+                        self.0
+                    }
+
+                    /// Gets the enum value as a string.
+                    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                        match self.0 {
+                            0 => std::borrow::Cow::Borrowed("MODEL_TYPE_UNSPECIFIED"),
+                            1 => std::borrow::Cow::Borrowed("SMALL"),
+                            2 => std::borrow::Cow::Borrowed("LARGE"),
+                            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                        }
+                    }
+
+                    /// Creates an enum value from the value name.
+                    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                        match name {
+                            "MODEL_TYPE_UNSPECIFIED" => {
+                                std::option::Option::Some(Self::MODEL_TYPE_UNSPECIFIED)
+                            }
+                            "SMALL" => std::option::Option::Some(Self::SMALL),
+                            "LARGE" => std::option::Option::Some(Self::LARGE),
+                            _ => std::option::Option::None,
+                        }
+                    }
+                }
+
+                impl std::convert::From<i32> for ModelType {
+                    fn from(value: i32) -> Self {
+                        Self::new(value)
+                    }
+                }
+
+                impl std::default::Default for ModelType {
+                    fn default() -> Self {
+                        Self::new(0)
+                    }
+                }
+            }
+        }
+    }
+
+    /// End user specification.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct EndUserSpec {
+        /// Optional. End user metadata.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub end_user_metadata:
+            std::vec::Vec<crate::model::answer_query_request::end_user_spec::EndUserMetaData>,
+    }
+
+    impl EndUserSpec {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [end_user_metadata][crate::model::answer_query_request::EndUserSpec::end_user_metadata].
+        pub fn set_end_user_metadata<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                    crate::model::answer_query_request::end_user_spec::EndUserMetaData,
+                >,
+        {
+            use std::iter::Iterator;
+            self.end_user_metadata = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for EndUserSpec {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.EndUserSpec"
+        }
+    }
+
+    /// Defines additional types related to [EndUserSpec].
+    pub mod end_user_spec {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// End user metadata.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct EndUserMetaData {
+            /// Search result content.
+            #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+            pub content: std::option::Option<
+                crate::model::answer_query_request::end_user_spec::end_user_meta_data::Content,
+            >,
+        }
+
+        impl EndUserMetaData {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of `content`.
+            pub fn set_content<T: std::convert::Into<std::option::Option<crate::model::answer_query_request::end_user_spec::end_user_meta_data::Content>>>(mut self, v: T) -> Self
+            {
+                self.content = v.into();
+                self
+            }
+
+            /// The value of [content][crate::model::answer_query_request::end_user_spec::EndUserMetaData::content]
+            /// if it holds a `ChunkInfo`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn get_chunk_info(&self) -> std::option::Option<&std::boxed::Box<crate::model::answer_query_request::end_user_spec::end_user_meta_data::ChunkInfo>>{
+                #[allow(unreachable_patterns)]
+                self.content.as_ref().and_then(|v| match v {
+                    crate::model::answer_query_request::end_user_spec::end_user_meta_data::Content::ChunkInfo(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [content][crate::model::answer_query_request::end_user_spec::EndUserMetaData::content]
+            /// to hold a `ChunkInfo`.
+            ///
+            /// Note that all the setters affecting `content` are
+            /// mutually exclusive.
+            pub fn set_chunk_info<T: std::convert::Into<std::boxed::Box<crate::model::answer_query_request::end_user_spec::end_user_meta_data::ChunkInfo>>>(mut self, v: T) -> Self{
+                self.content = std::option::Option::Some(
+                    crate::model::answer_query_request::end_user_spec::end_user_meta_data::Content::ChunkInfo(
+                        v.into()
+                    )
+                );
+                self
+            }
+        }
+
+        impl wkt::message::Message for EndUserMetaData {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.EndUserSpec.EndUserMetaData"
+            }
+        }
+
+        /// Defines additional types related to [EndUserMetaData].
+        pub mod end_user_meta_data {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Chunk information.
+            #[serde_with::serde_as]
+            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[serde(default, rename_all = "camelCase")]
+            #[non_exhaustive]
+            pub struct ChunkInfo {
+
+                /// Chunk textual content. It is limited to 8000 characters.
+                #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                pub content: std::string::String,
+
+                /// Metadata of the document from the current chunk.
+                #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                pub document_metadata: std::option::Option<crate::model::answer_query_request::end_user_spec::end_user_meta_data::chunk_info::DocumentMetadata>,
+            }
+
+            impl ChunkInfo {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [content][crate::model::answer_query_request::end_user_spec::end_user_meta_data::ChunkInfo::content].
+                pub fn set_content<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.content = v.into();
+                    self
+                }
+
+                /// Sets the value of [document_metadata][crate::model::answer_query_request::end_user_spec::end_user_meta_data::ChunkInfo::document_metadata].
+                pub fn set_document_metadata<T: std::convert::Into<std::option::Option<crate::model::answer_query_request::end_user_spec::end_user_meta_data::chunk_info::DocumentMetadata>>>(mut self, v: T) -> Self{
+                    self.document_metadata = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for ChunkInfo {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.EndUserSpec.EndUserMetaData.ChunkInfo"
+                }
+            }
+
+            /// Defines additional types related to [ChunkInfo].
+            pub mod chunk_info {
+                #[allow(unused_imports)]
+                use super::*;
+
+                /// Document metadata contains the information of the document of
+                /// the current chunk.
+                #[serde_with::serde_as]
+                #[derive(
+                    Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize,
+                )]
+                #[serde(default, rename_all = "camelCase")]
+                #[non_exhaustive]
+                pub struct DocumentMetadata {
+                    /// Title of the document.
+                    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                    pub title: std::string::String,
+                }
+
+                impl DocumentMetadata {
+                    pub fn new() -> Self {
+                        std::default::Default::default()
+                    }
+
+                    /// Sets the value of [title][crate::model::answer_query_request::end_user_spec::end_user_meta_data::chunk_info::DocumentMetadata::title].
+                    pub fn set_title<T: std::convert::Into<std::string::String>>(
+                        mut self,
+                        v: T,
+                    ) -> Self {
+                        self.title = v.into();
+                        self
+                    }
+                }
+
+                impl wkt::message::Message for DocumentMetadata {
+                    fn typename() -> &'static str {
+                        "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.EndUserSpec.EndUserMetaData.ChunkInfo.DocumentMetadata"
+                    }
+                }
+            }
+
+            /// Search result content.
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[serde(rename_all = "camelCase")]
+            #[non_exhaustive]
+            pub enum Content {
+                /// Chunk information.
+                ChunkInfo(std::boxed::Box<crate::model::answer_query_request::end_user_spec::end_user_meta_data::ChunkInfo>),
             }
         }
     }
@@ -6436,6 +7781,10 @@ pub struct GetSessionRequest {
     /// `projects/{project}/locations/{location}/collections/{collection}/dataStores/{data_store_id}/sessions/{session_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    /// Optional. If set to true, the full session including all answer details
+    /// will be returned.
+    pub include_answer_details: bool,
 }
 
 impl GetSessionRequest {
@@ -6446,6 +7795,12 @@ impl GetSessionRequest {
     /// Sets the value of [name][crate::model::GetSessionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [include_answer_details][crate::model::GetSessionRequest::include_answer_details].
+    pub fn set_include_answer_details<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.include_answer_details = v.into();
         self
     }
 }
@@ -6491,10 +7846,14 @@ pub struct ListSessionsRequest {
     /// * `update_time`
     /// * `create_time`
     /// * `session_name`
+    /// * `is_pinned`
     ///
     /// Example:
-    /// "update_time desc"
-    /// "create_time"
+    ///
+    /// * "update_time desc"
+    /// * "create_time"
+    /// * "is_pinned desc,update_time desc": list sessions by is_pinned first, then
+    ///   by update_time.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
 }
@@ -6847,7 +8206,7 @@ pub struct DataStore {
     pub solution_types: std::vec::Vec<crate::model::SolutionType>,
 
     /// Output only. The id of the default
-    /// [Schema][google.cloud.discoveryengine.v1.Schema] asscociated to this data
+    /// [Schema][google.cloud.discoveryengine.v1.Schema] associated to this data
     /// store.
     ///
     /// [google.cloud.discoveryengine.v1.Schema]: crate::model::Schema
@@ -6867,6 +8226,10 @@ pub struct DataStore {
     /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Configuration for advanced site search.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub advanced_site_search_config: std::option::Option<crate::model::AdvancedSiteSearchConfig>,
 
     /// Output only. Data size estimation for billing.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -6891,9 +8254,12 @@ pub struct DataStore {
     /// [DataStore][google.cloud.discoveryengine.v1.DataStore] when provisioning
     /// it. If unset, a default vertical specialized schema will be used.
     ///
-    /// This field is only used by [CreateDataStore][] API, and will be ignored if
-    /// used in other APIs. This field will be omitted from all API responses
-    /// including [CreateDataStore][] API. To retrieve a schema of a
+    /// This field is only used by
+    /// [CreateDataStore][google.cloud.discoveryengine.v1.DataStoreService.CreateDataStore]
+    /// API, and will be ignored if used in other APIs. This field will be omitted
+    /// from all API responses including
+    /// [CreateDataStore][google.cloud.discoveryengine.v1.DataStoreService.CreateDataStore]
+    /// API. To retrieve a schema of a
     /// [DataStore][google.cloud.discoveryengine.v1.DataStore], use
     /// [SchemaService.GetSchema][google.cloud.discoveryengine.v1.SchemaService.GetSchema]
     /// API instead.
@@ -6903,6 +8269,7 @@ pub struct DataStore {
     /// doc](https://cloud.google.com/generative-ai-app-builder/docs/provide-schema).
     ///
     /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
+    /// [google.cloud.discoveryengine.v1.DataStoreService.CreateDataStore]: crate::client::DataStoreService::create_data_store
     /// [google.cloud.discoveryengine.v1.SchemaService.GetSchema]: crate::client::SchemaService::get_schema
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub starting_schema: std::option::Option<crate::model::Schema>,
@@ -6958,6 +8325,17 @@ impl DataStore {
         v: T,
     ) -> Self {
         self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [advanced_site_search_config][crate::model::DataStore::advanced_site_search_config].
+    pub fn set_advanced_site_search_config<
+        T: std::convert::Into<std::option::Option<crate::model::AdvancedSiteSearchConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.advanced_site_search_config = v.into();
         self
     }
 
@@ -7200,6 +8578,51 @@ pub mod data_store {
     }
 }
 
+/// Configuration data for advance site search.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct AdvancedSiteSearchConfig {
+    /// If set true, initial indexing is disabled for the DataStore.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub disable_initial_index: std::option::Option<bool>,
+
+    /// If set true, automatic refresh is disabled for the DataStore.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub disable_automatic_refresh: std::option::Option<bool>,
+}
+
+impl AdvancedSiteSearchConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [disable_initial_index][crate::model::AdvancedSiteSearchConfig::disable_initial_index].
+    pub fn set_disable_initial_index<T: std::convert::Into<std::option::Option<bool>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.disable_initial_index = v.into();
+        self
+    }
+
+    /// Sets the value of [disable_automatic_refresh][crate::model::AdvancedSiteSearchConfig::disable_automatic_refresh].
+    pub fn set_disable_automatic_refresh<T: std::convert::Into<std::option::Option<bool>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.disable_automatic_refresh = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AdvancedSiteSearchConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.AdvancedSiteSearchConfig"
+    }
+}
+
 /// Config to store data store type configuration for workspace data
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -7309,6 +8732,9 @@ pub mod workspace_config {
         /// Workspace Data Store contains Keep data
         pub const GOOGLE_KEEP: Type = Type::new(7);
 
+        /// Workspace Data Store contains People data
+        pub const GOOGLE_PEOPLE: Type = Type::new(8);
+
         /// Creates a new Type instance.
         pub(crate) const fn new(value: i32) -> Self {
             Self(value)
@@ -7330,6 +8756,7 @@ pub mod workspace_config {
                 5 => std::borrow::Cow::Borrowed("GOOGLE_CHAT"),
                 6 => std::borrow::Cow::Borrowed("GOOGLE_GROUPS"),
                 7 => std::borrow::Cow::Borrowed("GOOGLE_KEEP"),
+                8 => std::borrow::Cow::Borrowed("GOOGLE_PEOPLE"),
                 _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
             }
         }
@@ -7345,6 +8772,7 @@ pub mod workspace_config {
                 "GOOGLE_CHAT" => std::option::Option::Some(Self::GOOGLE_CHAT),
                 "GOOGLE_GROUPS" => std::option::Option::Some(Self::GOOGLE_GROUPS),
                 "GOOGLE_KEEP" => std::option::Option::Some(Self::GOOGLE_KEEP),
+                "GOOGLE_PEOPLE" => std::option::Option::Some(Self::GOOGLE_PEOPLE),
                 _ => std::option::Option::None,
             }
         }
@@ -7893,7 +9321,7 @@ pub struct Document {
     /// Immutable. The identifier of the document.
     ///
     /// Id should conform to [RFC-1034](https://tools.ietf.org/html/rfc1034)
-    /// standard with a length limit of 63 characters.
+    /// standard with a length limit of 128 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub id: std::string::String,
 
@@ -7933,7 +9361,8 @@ pub struct Document {
     /// * If document is indexed successfully, the index_time field is populated.
     /// * Otherwise, if document is not indexed due to errors, the error_samples
     ///   field is populated.
-    /// * Otherwise, index_status is unset.
+    /// * Otherwise, if document's index is in progress, the pending_message field
+    ///   is populated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub index_status: std::option::Option<crate::model::document::IndexStatus>,
 
@@ -8224,6 +9653,11 @@ pub mod document {
         /// If this field is populated, the document is not indexed due to errors.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub error_samples: std::vec::Vec<rpc::model::Status>,
+
+        /// Immutable. The message indicates the document index is in progress.
+        /// If this field is populated, the document index is pending.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub pending_message: std::string::String,
     }
 
     impl IndexStatus {
@@ -8237,6 +9671,15 @@ pub mod document {
             v: T,
         ) -> Self {
             self.index_time = v.into();
+            self
+        }
+
+        /// Sets the value of [pending_message][crate::model::document::IndexStatus::pending_message].
+        pub fn set_pending_message<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.pending_message = v.into();
             self
         }
 
@@ -9006,7 +10449,7 @@ pub struct CreateDocumentRequest {
     /// Otherwise, an `ALREADY_EXISTS` error is returned.
     ///
     /// This field must conform to [RFC-1034](https://tools.ietf.org/html/rfc1034)
-    /// standard with a length limit of 63 characters. Otherwise, an
+    /// standard with a length limit of 128 characters. Otherwise, an
     /// `INVALID_ARGUMENT` error is returned.
     ///
     /// [google.cloud.discoveryengine.v1.CreateDocumentRequest.parent]: crate::model::CreateDocumentRequest::parent
@@ -9846,9 +11289,8 @@ pub struct Engine {
 
     /// The industry vertical that the engine registers.
     /// The restriction of the Engine industry vertical is based on
-    /// [DataStore][google.cloud.discoveryengine.v1.DataStore]: If unspecified,
-    /// default to `GENERIC`. Vertical on Engine has to match vertical of the
-    /// DataStore linked to the engine.
+    /// [DataStore][google.cloud.discoveryengine.v1.DataStore]: Vertical on Engine
+    /// has to match vertical of the DataStore linked to the engine.
     ///
     /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
     pub industry_vertical: crate::model::IndustryVertical,
@@ -10177,6 +11619,24 @@ pub mod engine {
         /// [google.cloud.discoveryengine.v1.EngineService.ListEngines]: crate::client::EngineService::list_engines
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub dialogflow_agent_to_link: std::string::String,
+
+        /// Optional. If the flag set to true, we allow the agent and engine are in
+        /// different locations, otherwise the agent and engine are required to be in
+        /// the same location. The flag is set to false by default.
+        ///
+        /// Note that the `allow_cross_region` are one-time consumed by and
+        /// passed to
+        /// [EngineService.CreateEngine][google.cloud.discoveryengine.v1.EngineService.CreateEngine].
+        /// It means they cannot be retrieved using
+        /// [EngineService.GetEngine][google.cloud.discoveryengine.v1.EngineService.GetEngine]
+        /// or
+        /// [EngineService.ListEngines][google.cloud.discoveryengine.v1.EngineService.ListEngines]
+        /// API after engine creation.
+        ///
+        /// [google.cloud.discoveryengine.v1.EngineService.CreateEngine]: crate::client::EngineService::create_engine
+        /// [google.cloud.discoveryengine.v1.EngineService.GetEngine]: crate::client::EngineService::get_engine
+        /// [google.cloud.discoveryengine.v1.EngineService.ListEngines]: crate::client::EngineService::list_engines
+        pub allow_cross_region: bool,
     }
 
     impl ChatEngineConfig {
@@ -10205,6 +11665,12 @@ pub mod engine {
             v: T,
         ) -> Self {
             self.dialogflow_agent_to_link = v.into();
+            self
+        }
+
+        /// Sets the value of [allow_cross_region][crate::model::engine::ChatEngineConfig::allow_cross_region].
+        pub fn set_allow_cross_region<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.allow_cross_region = v.into();
             self
         }
     }
@@ -11015,8 +12481,6 @@ pub struct GenerateGroundedContentRequest {
     /// For single-turn queries, this is a single instance. For multi-turn queries,
     /// this is a repeated field that contains conversation history + latest
     /// request.
-    ///
-    /// Only a single-turn query is supported currently.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub contents: std::vec::Vec<crate::model::GroundedGenerationContent>,
 
@@ -11167,6 +12631,10 @@ pub mod generate_grounded_content_request {
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub frequency_penalty: std::option::Option<f32>,
 
+        /// If specified, custom value for the seed will be used.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub seed: std::option::Option<i32>,
+
         /// If specified, custom value for presence penalty will be used.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub presence_penalty: std::option::Option<f32>,
@@ -11223,6 +12691,12 @@ pub mod generate_grounded_content_request {
             v: T,
         ) -> Self {
             self.frequency_penalty = v.into();
+            self
+        }
+
+        /// Sets the value of [seed][crate::model::generate_grounded_content_request::GenerationSpec::seed].
+        pub fn set_seed<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
+            self.seed = v.into();
             self
         }
 
@@ -11468,6 +12942,17 @@ pub mod generate_grounded_content_request {
             })
         }
 
+        /// The value of [source][crate::model::generate_grounded_content_request::GroundingSource::source]
+        /// if it holds a `EnterpriseWebRetrievalSource`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn get_enterprise_web_retrieval_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::generate_grounded_content_request::grounding_source::EnterpriseWebRetrievalSource>>{
+            #[allow(unreachable_patterns)]
+            self.source.as_ref().and_then(|v| match v {
+                crate::model::generate_grounded_content_request::grounding_source::Source::EnterpriseWebRetrievalSource(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [source][crate::model::generate_grounded_content_request::GroundingSource::source]
         /// to hold a `InlineSource`.
         ///
@@ -11504,6 +12989,20 @@ pub mod generate_grounded_content_request {
         pub fn set_google_search_source<T: std::convert::Into<std::boxed::Box<crate::model::generate_grounded_content_request::grounding_source::GoogleSearchSource>>>(mut self, v: T) -> Self{
             self.source = std::option::Option::Some(
                 crate::model::generate_grounded_content_request::grounding_source::Source::GoogleSearchSource(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// Sets the value of [source][crate::model::generate_grounded_content_request::GroundingSource::source]
+        /// to hold a `EnterpriseWebRetrievalSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_enterprise_web_retrieval_source<T: std::convert::Into<std::boxed::Box<crate::model::generate_grounded_content_request::grounding_source::EnterpriseWebRetrievalSource>>>(mut self, v: T) -> Self{
+            self.source = std::option::Option::Some(
+                crate::model::generate_grounded_content_request::grounding_source::Source::EnterpriseWebRetrievalSource(
                     v.into()
                 )
             );
@@ -11677,6 +13176,25 @@ pub mod generate_grounded_content_request {
             }
         }
 
+        /// Params for using enterprise web retrieval as grounding source.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct EnterpriseWebRetrievalSource {}
+
+        impl EnterpriseWebRetrievalSource {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+        }
+
+        impl wkt::message::Message for EnterpriseWebRetrievalSource {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentRequest.GroundingSource.EnterpriseWebRetrievalSource"
+            }
+        }
+
         /// Sources.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -11688,6 +13206,8 @@ pub mod generate_grounded_content_request {
             SearchSource(std::boxed::Box<crate::model::generate_grounded_content_request::grounding_source::SearchSource>),
             /// If set, grounding is performed with Google Search.
             GoogleSearchSource(std::boxed::Box<crate::model::generate_grounded_content_request::grounding_source::GoogleSearchSource>),
+            /// If set, grounding is performed with enterprise web retrieval.
+            EnterpriseWebRetrievalSource(std::boxed::Box<crate::model::generate_grounded_content_request::grounding_source::EnterpriseWebRetrievalSource>),
         }
     }
 
@@ -11727,6 +13247,7 @@ pub mod generate_grounded_content_request {
     }
 }
 
+/// Response for the `GenerateGroundedContent` method.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -11870,6 +13391,10 @@ pub mod generate_grounded_content_response {
             /// the fact.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
             pub grounding_support: std::vec::Vec<crate::model::generate_grounded_content_response::candidate::grounding_metadata::GroundingSupport>,
+
+            /// Images from the web search.
+            #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            pub images: std::vec::Vec<crate::model::generate_grounded_content_response::candidate::grounding_metadata::ImageMetadata>,
         }
 
         impl GroundingMetadata {
@@ -11924,6 +13449,17 @@ pub mod generate_grounded_content_response {
             {
                 use std::iter::Iterator;
                 self.grounding_support = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [images][crate::model::generate_grounded_content_response::candidate::GroundingMetadata::images].
+            pub fn set_images<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::generate_grounded_content_response::candidate::grounding_metadata::ImageMetadata>
+            {
+                use std::iter::Iterator;
+                self.images = v.into_iter().map(|i| i.into()).collect();
                 self
             }
         }
@@ -12299,6 +13835,161 @@ pub mod generate_grounded_content_response {
                     "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentResponse.Candidate.GroundingMetadata.GroundingSupport"
                 }
             }
+
+            /// Metadata about an image from the web search.
+            #[serde_with::serde_as]
+            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[serde(default, rename_all = "camelCase")]
+            #[non_exhaustive]
+            pub struct ImageMetadata {
+
+                /// Metadata about the full size image.
+                #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                pub image: std::option::Option<crate::model::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::Image>,
+
+                /// Metadata about the thumbnail.
+                #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                pub thumbnail: std::option::Option<crate::model::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::Image>,
+
+                /// The details about the website that the image is from.
+                #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                pub source: std::option::Option<crate::model::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::WebsiteInfo>,
+            }
+
+            impl ImageMetadata {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [image][crate::model::generate_grounded_content_response::candidate::grounding_metadata::ImageMetadata::image].
+                pub fn set_image<T: std::convert::Into<std::option::Option<crate::model::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::Image>>>(mut self, v: T) -> Self{
+                    self.image = v.into();
+                    self
+                }
+
+                /// Sets the value of [thumbnail][crate::model::generate_grounded_content_response::candidate::grounding_metadata::ImageMetadata::thumbnail].
+                pub fn set_thumbnail<T: std::convert::Into<std::option::Option<crate::model::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::Image>>>(mut self, v: T) -> Self{
+                    self.thumbnail = v.into();
+                    self
+                }
+
+                /// Sets the value of [source][crate::model::generate_grounded_content_response::candidate::grounding_metadata::ImageMetadata::source].
+                pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::WebsiteInfo>>>(mut self, v: T) -> Self{
+                    self.source = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for ImageMetadata {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentResponse.Candidate.GroundingMetadata.ImageMetadata"
+                }
+            }
+
+            /// Defines additional types related to [ImageMetadata].
+            pub mod image_metadata {
+                #[allow(unused_imports)]
+                use super::*;
+
+                /// Metadata about the website that the image is from.
+                #[serde_with::serde_as]
+                #[derive(
+                    Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize,
+                )]
+                #[serde(default, rename_all = "camelCase")]
+                #[non_exhaustive]
+                pub struct WebsiteInfo {
+                    /// The url of the website.
+                    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                    pub uri: std::string::String,
+
+                    /// The title of the website.
+                    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                    pub title: std::string::String,
+                }
+
+                impl WebsiteInfo {
+                    pub fn new() -> Self {
+                        std::default::Default::default()
+                    }
+
+                    /// Sets the value of [uri][crate::model::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::WebsiteInfo::uri].
+                    pub fn set_uri<T: std::convert::Into<std::string::String>>(
+                        mut self,
+                        v: T,
+                    ) -> Self {
+                        self.uri = v.into();
+                        self
+                    }
+
+                    /// Sets the value of [title][crate::model::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::WebsiteInfo::title].
+                    pub fn set_title<T: std::convert::Into<std::string::String>>(
+                        mut self,
+                        v: T,
+                    ) -> Self {
+                        self.title = v.into();
+                        self
+                    }
+                }
+
+                impl wkt::message::Message for WebsiteInfo {
+                    fn typename() -> &'static str {
+                        "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentResponse.Candidate.GroundingMetadata.ImageMetadata.WebsiteInfo"
+                    }
+                }
+
+                /// Metadata about the image.
+                #[serde_with::serde_as]
+                #[derive(
+                    Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize,
+                )]
+                #[serde(default, rename_all = "camelCase")]
+                #[non_exhaustive]
+                pub struct Image {
+                    /// The url of the image.
+                    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                    pub uri: std::string::String,
+
+                    /// The width of the image in pixels.
+                    pub width: i32,
+
+                    /// The height of the image in pixels.
+                    pub height: i32,
+                }
+
+                impl Image {
+                    pub fn new() -> Self {
+                        std::default::Default::default()
+                    }
+
+                    /// Sets the value of [uri][crate::model::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::Image::uri].
+                    pub fn set_uri<T: std::convert::Into<std::string::String>>(
+                        mut self,
+                        v: T,
+                    ) -> Self {
+                        self.uri = v.into();
+                        self
+                    }
+
+                    /// Sets the value of [width][crate::model::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::Image::width].
+                    pub fn set_width<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                        self.width = v.into();
+                        self
+                    }
+
+                    /// Sets the value of [height][crate::model::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::Image::height].
+                    pub fn set_height<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                        self.height = v.into();
+                        self
+                    }
+                }
+
+                impl wkt::message::Message for Image {
+                    fn typename() -> &'static str {
+                        "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentResponse.Candidate.GroundingMetadata.ImageMetadata.Image"
+                    }
+                }
+            }
         }
     }
 }
@@ -12354,7 +14045,7 @@ pub struct CheckGroundingRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub grounding_config: std::string::String,
 
-    /// Answer candidate to check. Can have a maximum length of 1024 characters.
+    /// Answer candidate to check. It can have a maximum length of 4096 tokens.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub answer_candidate: std::string::String,
 
@@ -12473,6 +14164,11 @@ pub struct CheckGroundingResponse {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub cited_chunks: std::vec::Vec<crate::model::FactChunk>,
 
+    /// List of facts cited across all claims in the answer candidate.
+    /// These are derived from the facts supplied in the request.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub cited_facts: std::vec::Vec<crate::model::check_grounding_response::CheckGroundingFactChunk>,
+
     /// Claim texts and citation info across all claims in the answer candidate.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub claims: std::vec::Vec<crate::model::check_grounding_response::Claim>,
@@ -12503,6 +14199,17 @@ impl CheckGroundingResponse {
         self
     }
 
+    /// Sets the value of [cited_facts][crate::model::CheckGroundingResponse::cited_facts].
+    pub fn set_cited_facts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::check_grounding_response::CheckGroundingFactChunk>,
+    {
+        use std::iter::Iterator;
+        self.cited_facts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [claims][crate::model::CheckGroundingResponse::claims].
     pub fn set_claims<T, V>(mut self, v: T) -> Self
     where
@@ -12526,6 +14233,35 @@ pub mod check_grounding_response {
     #[allow(unused_imports)]
     use super::*;
 
+    /// Fact chunk for grounding check.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct CheckGroundingFactChunk {
+        /// Text content of the fact chunk. Can be at most 10K characters long.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub chunk_text: std::string::String,
+    }
+
+    impl CheckGroundingFactChunk {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [chunk_text][crate::model::check_grounding_response::CheckGroundingFactChunk::chunk_text].
+        pub fn set_chunk_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.chunk_text = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for CheckGroundingFactChunk {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.CheckGroundingResponse.CheckGroundingFactChunk"
+        }
+    }
+
     /// Text and citation info for a claim in the answer candidate.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -12533,12 +14269,22 @@ pub mod check_grounding_response {
     #[non_exhaustive]
     pub struct Claim {
         /// Position indicating the start of the claim in the answer candidate,
-        /// measured in bytes.
+        /// measured in bytes. Note that this is not measured in characters and,
+        /// therefore, must be rendered in the user interface keeping in mind that
+        /// some characters may take more than one byte. For example,
+        /// if the claim text contains non-ASCII characters, the start and end
+        /// positions vary when measured in characters
+        /// (programming-language-dependent) and when measured in bytes
+        /// (programming-language-independent).
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub start_pos: std::option::Option<i32>,
 
         /// Position indicating the end of the claim in the answer candidate,
-        /// exclusive.
+        /// exclusive, in bytes. Note that this is not measured in characters and,
+        /// therefore, must be rendered as such. For example, if the claim text
+        /// contains non-ASCII characters, the start and end positions vary when
+        /// measured in characters (programming-language-dependent) and when measured
+        /// in bytes (programming-language-independent).
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub end_pos: std::option::Option<i32>,
 
@@ -12559,10 +14305,7 @@ pub mod check_grounding_response {
         /// decided this claim doesn't require attribution/grounding check, this
         /// field will be set to false. In that case, no grounding check was done for
         /// the claim and therefore
-        /// [citation_indices][google.cloud.discoveryengine.v1.CheckGroundingResponse.Claim.citation_indices],
-        /// [anti_citation_indices][google.cloud.discoveryengine.v1.CheckGroundingResponse.Claim.anti_citation_indices],
-        /// and
-        /// [score][google.cloud.discoveryengine.v1.CheckGroundingResponse.Claim.score]
+        /// [citation_indices][google.cloud.discoveryengine.v1.CheckGroundingResponse.Claim.citation_indices]
         /// should not be returned.
         ///
         /// [google.cloud.discoveryengine.v1.CheckGroundingResponse.Claim.citation_indices]: crate::model::check_grounding_response::Claim::citation_indices
@@ -13271,7 +15014,7 @@ pub mod bigtable_options {
     /// The type of values in a Bigtable column or column family.
     /// The values are expected to be encoded using
     /// [HBase
-    /// Bytes.toBytes](https://hbase.apache.org/apidocs/org/apache/hadoop/hbase/util/Bytes.html)
+    /// Bytes.toBytes](https://hbase.apache.org/1.4/apidocs/org/apache/hadoop/hbase/util/Bytes.html)
     /// function when the encoding value is set to `BINARY`.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(i32);
@@ -13503,6 +15246,17 @@ pub struct FhirStoreSource {
     /// Default to all supported FHIR resource types if empty.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub resource_types: std::vec::Vec<std::string::String>,
+
+    /// Optional. Whether to update the DataStore schema to the latest predefined
+    /// schema.
+    ///
+    /// If true, the DataStore schema will be updated to include any FHIR fields
+    /// or resource types that have been added since the last import and
+    /// corresponding FHIR resources will be imported from the FHIR store.
+    ///
+    /// Note this field cannot be used in conjunction with `resource_types`. It
+    /// should be used after initial import.
+    pub update_from_latest_predefined_schema: bool,
 }
 
 impl FhirStoreSource {
@@ -13519,6 +15273,15 @@ impl FhirStoreSource {
     /// Sets the value of [gcs_staging_dir][crate::model::FhirStoreSource::gcs_staging_dir].
     pub fn set_gcs_staging_dir<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcs_staging_dir = v.into();
+        self
+    }
+
+    /// Sets the value of [update_from_latest_predefined_schema][crate::model::FhirStoreSource::update_from_latest_predefined_schema].
+    pub fn set_update_from_latest_predefined_schema<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_from_latest_predefined_schema = v.into();
         self
     }
 
@@ -14404,6 +16167,13 @@ pub struct ImportDocumentsRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub id_field: std::string::String,
 
+    /// Optional. Whether to force refresh the unstructured content of the
+    /// documents.
+    ///
+    /// If set to `true`, the content part of the documents will be refreshed
+    /// regardless of the update status of the referencing content.
+    pub force_refresh_content: bool,
+
     /// Required. The source of the input.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::import_documents_request::Source>,
@@ -14460,6 +16230,12 @@ impl ImportDocumentsRequest {
     /// Sets the value of [id_field][crate::model::ImportDocumentsRequest::id_field].
     pub fn set_id_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id_field = v.into();
+        self
+    }
+
+    /// Sets the value of [force_refresh_content][crate::model::ImportDocumentsRequest::force_refresh_content].
+    pub fn set_force_refresh_content<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force_refresh_content = v.into();
         self
     }
 
@@ -15946,16 +17722,20 @@ pub struct PurgeUserEventsRequest {
     /// * `userId`: Double quoted string. Specifying this will delete all events
     ///   associated with a user.
     ///
+    /// Note: This API only supports purging a max range of 30 days.
+    ///
     /// Examples:
     ///
     /// * Deleting all events in a time range:
     ///   `eventTime > "2012-04-23T18:25:43.511Z"
     ///   eventTime < "2012-04-23T18:30:43.511Z"`
-    /// * Deleting specific eventType:
-    ///   `eventType = "search"`
-    /// * Deleting all events for a specific visitor:
-    ///   `userPseudoId = "visitor1024"`
-    /// * Deleting all events inside a DataStore:
+    /// * Deleting specific eventType in a time range:
+    ///   `eventTime > "2012-04-23T18:25:43.511Z"
+    ///   eventTime < "2012-04-23T18:30:43.511Z" eventType = "search"`
+    /// * Deleting all events for a specific visitor in a time range:
+    ///   `eventTime > "2012-04-23T18:25:43.511Z"
+    ///   eventTime < "2012-04-23T18:30:43.511Z" userPseudoId = "visitor1024"`
+    /// * Deleting the past 30 days of events inside a DataStore:
     ///   `*`
     ///
     /// The filtering fields are assumed to have an implicit AND.
@@ -16813,6 +18593,8 @@ pub struct RankingRecord {
     pub content: std::string::String,
 
     /// The score of this record based on the given query and selected model.
+    /// The score will be rounded to 2 decimal places. If the score is close to 0,
+    /// it will be rounded to 0.0001 to avoid returning unset.
     pub score: f32,
 }
 
@@ -16868,7 +18650,7 @@ pub struct RankRequest {
 
     /// The identifier of the model to use. It is one of:
     ///
-    /// * `semantic-ranker-512@latest`: Semantic ranking model with maxiumn input
+    /// * `semantic-ranker-512@latest`: Semantic ranking model with maximum input
     ///   token size 512.
     ///
     /// It is set to `semantic-ranker-512@latest` by default if unspecified.
@@ -17038,6 +18820,7 @@ pub struct RecommendRequest {
     /// requests.
     ///
     /// [google.cloud.discoveryengine.v1.RecommendationService.Recommend]: crate::client::RecommendationService::recommend
+    /// [google.cloud.discoveryengine.v1.ServingConfig]: crate::model::ServingConfig
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub serving_config: std::string::String,
 
@@ -17082,9 +18865,9 @@ pub struct RecommendRequest {
     /// attribute-based expressions are expected instead of the above described
     /// tag-based syntax. Examples:
     ///
-    /// * (launguage: ANY("en", "es")) AND NOT (categories: ANY("Movie"))
+    /// * (language: ANY("en", "es")) AND NOT (categories: ANY("Movie"))
     /// * (available: true) AND
-    ///   (launguage: ANY("en", "es")) OR (categories: ANY("Movie"))
+    ///   (language: ANY("en", "es")) OR (categories: ANY("Movie"))
     ///
     /// If your filter blocks all results, the API returns generic
     /// (unfiltered) popular Documents. If you only want results strictly matching
@@ -17385,6 +19168,232 @@ pub mod recommend_response {
     impl wkt::message::Message for RecommendationResult {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.RecommendResponse.RecommendationResult"
+        }
+    }
+}
+
+/// Safety rating corresponding to the generated content.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct SafetyRating {
+    /// Output only. Harm category.
+    pub category: crate::model::HarmCategory,
+
+    /// Output only. Harm probability levels in the content.
+    pub probability: crate::model::safety_rating::HarmProbability,
+
+    /// Output only. Harm probability score.
+    pub probability_score: f32,
+
+    /// Output only. Harm severity levels in the content.
+    pub severity: crate::model::safety_rating::HarmSeverity,
+
+    /// Output only. Harm severity score.
+    pub severity_score: f32,
+
+    /// Output only. Indicates whether the content was filtered out because of this
+    /// rating.
+    pub blocked: bool,
+}
+
+impl SafetyRating {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [category][crate::model::SafetyRating::category].
+    pub fn set_category<T: std::convert::Into<crate::model::HarmCategory>>(mut self, v: T) -> Self {
+        self.category = v.into();
+        self
+    }
+
+    /// Sets the value of [probability][crate::model::SafetyRating::probability].
+    pub fn set_probability<T: std::convert::Into<crate::model::safety_rating::HarmProbability>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.probability = v.into();
+        self
+    }
+
+    /// Sets the value of [probability_score][crate::model::SafetyRating::probability_score].
+    pub fn set_probability_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+        self.probability_score = v.into();
+        self
+    }
+
+    /// Sets the value of [severity][crate::model::SafetyRating::severity].
+    pub fn set_severity<T: std::convert::Into<crate::model::safety_rating::HarmSeverity>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.severity = v.into();
+        self
+    }
+
+    /// Sets the value of [severity_score][crate::model::SafetyRating::severity_score].
+    pub fn set_severity_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+        self.severity_score = v.into();
+        self
+    }
+
+    /// Sets the value of [blocked][crate::model::SafetyRating::blocked].
+    pub fn set_blocked<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.blocked = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SafetyRating {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.SafetyRating"
+    }
+}
+
+/// Defines additional types related to [SafetyRating].
+pub mod safety_rating {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Harm probability levels in the content.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct HarmProbability(i32);
+
+    impl HarmProbability {
+        /// Harm probability unspecified.
+        pub const HARM_PROBABILITY_UNSPECIFIED: HarmProbability = HarmProbability::new(0);
+
+        /// Negligible level of harm.
+        pub const NEGLIGIBLE: HarmProbability = HarmProbability::new(1);
+
+        /// Low level of harm.
+        pub const LOW: HarmProbability = HarmProbability::new(2);
+
+        /// Medium level of harm.
+        pub const MEDIUM: HarmProbability = HarmProbability::new(3);
+
+        /// High level of harm.
+        pub const HIGH: HarmProbability = HarmProbability::new(4);
+
+        /// Creates a new HarmProbability instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("HARM_PROBABILITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NEGLIGIBLE"),
+                2 => std::borrow::Cow::Borrowed("LOW"),
+                3 => std::borrow::Cow::Borrowed("MEDIUM"),
+                4 => std::borrow::Cow::Borrowed("HIGH"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "HARM_PROBABILITY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::HARM_PROBABILITY_UNSPECIFIED)
+                }
+                "NEGLIGIBLE" => std::option::Option::Some(Self::NEGLIGIBLE),
+                "LOW" => std::option::Option::Some(Self::LOW),
+                "MEDIUM" => std::option::Option::Some(Self::MEDIUM),
+                "HIGH" => std::option::Option::Some(Self::HIGH),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for HarmProbability {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for HarmProbability {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+
+    /// Harm severity levels.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct HarmSeverity(i32);
+
+    impl HarmSeverity {
+        /// Harm severity unspecified.
+        pub const HARM_SEVERITY_UNSPECIFIED: HarmSeverity = HarmSeverity::new(0);
+
+        /// Negligible level of harm severity.
+        pub const HARM_SEVERITY_NEGLIGIBLE: HarmSeverity = HarmSeverity::new(1);
+
+        /// Low level of harm severity.
+        pub const HARM_SEVERITY_LOW: HarmSeverity = HarmSeverity::new(2);
+
+        /// Medium level of harm severity.
+        pub const HARM_SEVERITY_MEDIUM: HarmSeverity = HarmSeverity::new(3);
+
+        /// High level of harm severity.
+        pub const HARM_SEVERITY_HIGH: HarmSeverity = HarmSeverity::new(4);
+
+        /// Creates a new HarmSeverity instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("HARM_SEVERITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("HARM_SEVERITY_NEGLIGIBLE"),
+                2 => std::borrow::Cow::Borrowed("HARM_SEVERITY_LOW"),
+                3 => std::borrow::Cow::Borrowed("HARM_SEVERITY_MEDIUM"),
+                4 => std::borrow::Cow::Borrowed("HARM_SEVERITY_HIGH"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "HARM_SEVERITY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::HARM_SEVERITY_UNSPECIFIED)
+                }
+                "HARM_SEVERITY_NEGLIGIBLE" => {
+                    std::option::Option::Some(Self::HARM_SEVERITY_NEGLIGIBLE)
+                }
+                "HARM_SEVERITY_LOW" => std::option::Option::Some(Self::HARM_SEVERITY_LOW),
+                "HARM_SEVERITY_MEDIUM" => std::option::Option::Some(Self::HARM_SEVERITY_MEDIUM),
+                "HARM_SEVERITY_HIGH" => std::option::Option::Some(Self::HARM_SEVERITY_HIGH),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for HarmSeverity {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for HarmSeverity {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -18053,10 +20062,17 @@ pub struct SearchRequest {
     /// Default number is 10.
     pub one_box_page_size: i32,
 
-    /// Specs defining dataStores to filter on in a search call and configurations
-    /// for those dataStores. This is only considered for engines with multiple
-    /// dataStores use case. For single dataStore within an engine, they should
-    /// use the specs at the top level.
+    /// Specifications that define the specific
+    /// [DataStore][google.cloud.discoveryengine.v1.DataStore]s to be searched,
+    /// along with configurations for those data stores. This is only considered
+    /// for [Engine][google.cloud.discoveryengine.v1.Engine]s with multiple data
+    /// stores. For engines with a single data store, the specs directly under
+    /// [SearchRequest][google.cloud.discoveryengine.v1.SearchRequest] should be
+    /// used.
+    ///
+    /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
+    /// [google.cloud.discoveryengine.v1.Engine]: crate::model::Engine
+    /// [google.cloud.discoveryengine.v1.SearchRequest]: crate::model::SearchRequest
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub data_store_specs: std::vec::Vec<crate::model::search_request::DataStoreSpec>,
 
@@ -18113,7 +20129,7 @@ pub struct SearchRequest {
     pub order_by: std::string::String,
 
     /// Information about the end user.
-    /// Highly recommended for analytics.
+    /// Highly recommended for analytics and personalization.
     /// [UserInfo.user_agent][google.cloud.discoveryengine.v1.UserInfo.user_agent]
     /// is used to deduce `device_type` for analytics.
     ///
@@ -18229,6 +20245,11 @@ pub struct SearchRequest {
     pub search_as_you_type_spec:
         std::option::Option<crate::model::search_request::SearchAsYouTypeSpec>,
 
+    /// Optional. Config for display feature, like match highlighting on search
+    /// results.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub display_spec: std::option::Option<crate::model::search_request::DisplaySpec>,
+
     /// The session resource name. Optional.
     ///
     /// Session allows users to do multi-turn /search API calls or coordination
@@ -18265,6 +20286,19 @@ pub struct SearchRequest {
     /// Can be used only when `session` is set.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub session_spec: std::option::Option<crate::model::search_request::SessionSpec>,
+
+    /// The relevance threshold of the search results.
+    ///
+    /// Default to Google defined threshold, leveraging a balance of
+    /// precision and recall to deliver both highly accurate results and
+    /// comprehensive coverage of relevant information.
+    ///
+    /// This feature is not supported for healthcare search.
+    pub relevance_threshold: crate::model::search_request::RelevanceThreshold,
+
+    /// Optional. The specification for returning the relevance score.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub relevance_score_spec: std::option::Option<crate::model::search_request::RelevanceScoreSpec>,
 }
 
 impl SearchRequest {
@@ -18428,6 +20462,17 @@ impl SearchRequest {
         self
     }
 
+    /// Sets the value of [display_spec][crate::model::SearchRequest::display_spec].
+    pub fn set_display_spec<
+        T: std::convert::Into<std::option::Option<crate::model::search_request::DisplaySpec>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.display_spec = v.into();
+        self
+    }
+
     /// Sets the value of [session][crate::model::SearchRequest::session].
     pub fn set_session<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.session = v.into();
@@ -18442,6 +20487,28 @@ impl SearchRequest {
         v: T,
     ) -> Self {
         self.session_spec = v.into();
+        self
+    }
+
+    /// Sets the value of [relevance_threshold][crate::model::SearchRequest::relevance_threshold].
+    pub fn set_relevance_threshold<
+        T: std::convert::Into<crate::model::search_request::RelevanceThreshold>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.relevance_threshold = v.into();
+        self
+    }
+
+    /// Sets the value of [relevance_score_spec][crate::model::SearchRequest::relevance_score_spec].
+    pub fn set_relevance_score_spec<
+        T: std::convert::Into<std::option::Option<crate::model::search_request::RelevanceScoreSpec>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.relevance_score_spec = v.into();
         self
     }
 
@@ -18599,6 +20666,12 @@ pub mod search_request {
         /// [Filtering](https://cloud.google.com/generative-ai-app-builder/docs/filter-search-metadata)
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub filter: std::string::String,
+
+        /// Optional. Boost specification to boost certain documents.
+        /// For more information on boosting, see
+        /// [Boosting](https://cloud.google.com/generative-ai-app-builder/docs/boost-search-results)
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub boost_spec: std::option::Option<crate::model::search_request::BoostSpec>,
     }
 
     impl DataStoreSpec {
@@ -18615,6 +20688,17 @@ pub mod search_request {
         /// Sets the value of [filter][crate::model::search_request::DataStoreSpec::filter].
         pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [boost_spec][crate::model::search_request::DataStoreSpec::boost_spec].
+        pub fn set_boost_spec<
+            T: std::convert::Into<std::option::Option<crate::model::search_request::BoostSpec>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.boost_spec = v.into();
             self
         }
     }
@@ -18922,7 +21006,7 @@ pub mod search_request {
     #[non_exhaustive]
     pub struct BoostSpec {
         /// Condition boost specifications. If a document matches multiple conditions
-        /// in the specifictions, boost scores from these specifications are all
+        /// in the specifications, boost scores from these specifications are all
         /// applied and combined in a non-linear way. Maximum number of
         /// specifications is 20.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -20180,7 +22264,10 @@ pub mod search_request {
             pub const DOCUMENTS: SearchResultMode = SearchResultMode::new(1);
 
             /// Returns chunks in the search result. Only available if the
-            /// [DataStore.DocumentProcessingConfig.chunking_config][] is specified.
+            /// [DocumentProcessingConfig.chunking_config][google.cloud.discoveryengine.v1.DocumentProcessingConfig.chunking_config]
+            /// is specified.
+            ///
+            /// [google.cloud.discoveryengine.v1.DocumentProcessingConfig.chunking_config]: crate::model::DocumentProcessingConfig::chunking_config
             pub const CHUNKS: SearchResultMode = SearchResultMode::new(2);
 
             /// Creates a new SearchResultMode instance.
@@ -20288,6 +22375,10 @@ pub mod search_request {
             /// Enables Search As You Type.
             pub const ENABLED: Condition = Condition::new(2);
 
+            /// Automatic switching between search-as-you-type and standard search
+            /// modes, ideal for single-API implementations (e.g., debouncing).
+            pub const AUTO: Condition = Condition::new(3);
+
             /// Creates a new Condition instance.
             pub(crate) const fn new(value: i32) -> Self {
                 Self(value)
@@ -20304,6 +22395,7 @@ pub mod search_request {
                     0 => std::borrow::Cow::Borrowed("CONDITION_UNSPECIFIED"),
                     1 => std::borrow::Cow::Borrowed("DISABLED"),
                     2 => std::borrow::Cow::Borrowed("ENABLED"),
+                    3 => std::borrow::Cow::Borrowed("AUTO"),
                     _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
                 }
             }
@@ -20316,6 +22408,7 @@ pub mod search_request {
                     }
                     "DISABLED" => std::option::Option::Some(Self::DISABLED),
                     "ENABLED" => std::option::Option::Some(Self::ENABLED),
+                    "AUTO" => std::option::Option::Some(Self::AUTO),
                     _ => std::option::Option::None,
                 }
             }
@@ -20328,6 +22421,114 @@ pub mod search_request {
         }
 
         impl std::default::Default for Condition {
+            fn default() -> Self {
+                Self::new(0)
+            }
+        }
+    }
+
+    /// Specifies features for display, like match highlighting.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct DisplaySpec {
+        /// The condition under which match highlighting should occur.
+        pub match_highlighting_condition:
+            crate::model::search_request::display_spec::MatchHighlightingCondition,
+    }
+
+    impl DisplaySpec {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [match_highlighting_condition][crate::model::search_request::DisplaySpec::match_highlighting_condition].
+        pub fn set_match_highlighting_condition<
+            T: std::convert::Into<
+                    crate::model::search_request::display_spec::MatchHighlightingCondition,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.match_highlighting_condition = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for DisplaySpec {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.DisplaySpec"
+        }
+    }
+
+    /// Defines additional types related to [DisplaySpec].
+    pub mod display_spec {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Enum describing under which condition match highlighting should occur.
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct MatchHighlightingCondition(i32);
+
+        impl MatchHighlightingCondition {
+            /// Server behavior is the same as `MATCH_HIGHLIGHTING_DISABLED`.
+            pub const MATCH_HIGHLIGHTING_CONDITION_UNSPECIFIED: MatchHighlightingCondition =
+                MatchHighlightingCondition::new(0);
+
+            /// Disables match highlighting on all documents.
+            pub const MATCH_HIGHLIGHTING_DISABLED: MatchHighlightingCondition =
+                MatchHighlightingCondition::new(1);
+
+            /// Enables match highlighting on all documents.
+            pub const MATCH_HIGHLIGHTING_ENABLED: MatchHighlightingCondition =
+                MatchHighlightingCondition::new(2);
+
+            /// Creates a new MatchHighlightingCondition instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("MATCH_HIGHLIGHTING_CONDITION_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("MATCH_HIGHLIGHTING_DISABLED"),
+                    2 => std::borrow::Cow::Borrowed("MATCH_HIGHLIGHTING_ENABLED"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "MATCH_HIGHLIGHTING_CONDITION_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::MATCH_HIGHLIGHTING_CONDITION_UNSPECIFIED)
+                    }
+                    "MATCH_HIGHLIGHTING_DISABLED" => {
+                        std::option::Option::Some(Self::MATCH_HIGHLIGHTING_DISABLED)
+                    }
+                    "MATCH_HIGHLIGHTING_ENABLED" => {
+                        std::option::Option::Some(Self::MATCH_HIGHLIGHTING_ENABLED)
+                    }
+                    _ => std::option::Option::None,
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for MatchHighlightingCondition {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for MatchHighlightingCondition {
             fn default() -> Self {
                 Self::new(0)
             }
@@ -20375,7 +22576,7 @@ pub mod search_request {
         /// The number of top search results to persist. The persisted search results
         /// can be used for the subsequent /answer api call.
         ///
-        /// This field is simliar to the `summary_result_count` field in
+        /// This field is similar to the `summary_result_count` field in
         /// [SearchRequest.ContentSearchSpec.SummarySpec.summary_result_count][google.cloud.discoveryengine.v1.SearchRequest.ContentSearchSpec.SummarySpec.summary_result_count].
         ///
         /// At most 10 results for documents mode, or 50 for chunks mode.
@@ -20411,6 +22612,107 @@ pub mod search_request {
     impl wkt::message::Message for SessionSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.SessionSpec"
+        }
+    }
+
+    /// The specification for returning the document relevance score.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct RelevanceScoreSpec {
+        /// Optional. Whether to return the relevance score for search results.
+        /// The higher the score, the more relevant the document is to the query.
+        pub return_relevance_score: bool,
+    }
+
+    impl RelevanceScoreSpec {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [return_relevance_score][crate::model::search_request::RelevanceScoreSpec::return_relevance_score].
+        pub fn set_return_relevance_score<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.return_relevance_score = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for RelevanceScoreSpec {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.RelevanceScoreSpec"
+        }
+    }
+
+    /// The relevance threshold of the search results. The higher relevance
+    /// threshold is, the higher relevant results are shown and the less number of
+    /// results are returned.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct RelevanceThreshold(i32);
+
+    impl RelevanceThreshold {
+        /// Default value. In this case, server behavior defaults to Google defined
+        /// threshold.
+        pub const RELEVANCE_THRESHOLD_UNSPECIFIED: RelevanceThreshold = RelevanceThreshold::new(0);
+
+        /// Lowest relevance threshold.
+        pub const LOWEST: RelevanceThreshold = RelevanceThreshold::new(1);
+
+        /// Low relevance threshold.
+        pub const LOW: RelevanceThreshold = RelevanceThreshold::new(2);
+
+        /// Medium relevance threshold.
+        pub const MEDIUM: RelevanceThreshold = RelevanceThreshold::new(3);
+
+        /// High relevance threshold.
+        pub const HIGH: RelevanceThreshold = RelevanceThreshold::new(4);
+
+        /// Creates a new RelevanceThreshold instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RELEVANCE_THRESHOLD_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("LOWEST"),
+                2 => std::borrow::Cow::Borrowed("LOW"),
+                3 => std::borrow::Cow::Borrowed("MEDIUM"),
+                4 => std::borrow::Cow::Borrowed("HIGH"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RELEVANCE_THRESHOLD_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::RELEVANCE_THRESHOLD_UNSPECIFIED)
+                }
+                "LOWEST" => std::option::Option::Some(Self::LOWEST),
+                "LOW" => std::option::Option::Some(Self::LOW),
+                "MEDIUM" => std::option::Option::Some(Self::MEDIUM),
+                "HIGH" => std::option::Option::Some(Self::HIGH),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for RelevanceThreshold {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for RelevanceThreshold {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -20503,6 +22805,10 @@ pub struct SearchResponse {
     /// [google.cloud.discoveryengine.v1.SearchRequest.session]: crate::model::SearchRequest::session
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub session_info: std::option::Option<crate::model::search_response::SessionInfo>,
+
+    /// Promotions for site search.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub search_link_promotions: std::vec::Vec<crate::model::SearchLinkPromotion>,
 }
 
 impl SearchResponse {
@@ -20597,6 +22903,17 @@ impl SearchResponse {
         self.facets = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [search_link_promotions][crate::model::SearchResponse::search_link_promotions].
+    pub fn set_search_link_promotions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SearchLinkPromotion>,
+    {
+        use std::iter::Iterator;
+        self.search_link_promotions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for SearchResponse {
@@ -20652,6 +22969,10 @@ pub mod search_response {
         /// [google.cloud.discoveryengine.v1.SearchRequest.ContentSearchSpec.search_result_mode]: crate::model::search_request::ContentSearchSpec::search_result_mode
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub chunk: std::option::Option<crate::model::Chunk>,
+
+        /// Output only. Google provided available scores.
+        #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        pub model_scores: std::collections::HashMap<std::string::String, crate::model::DoubleList>,
     }
 
     impl SearchResult {
@@ -20680,6 +23001,18 @@ pub mod search_response {
             v: T,
         ) -> Self {
             self.chunk = v.into();
+            self
+        }
+
+        /// Sets the value of [model_scores][crate::model::search_response::SearchResult::model_scores].
+        pub fn set_model_scores<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<crate::model::DoubleList>,
+        {
+            use std::iter::Iterator;
+            self.model_scores = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -21413,6 +23746,11 @@ pub mod search_response {
             pub const NON_SUMMARY_SEEKING_QUERY_IGNORED_V2: SummarySkippedReason =
                 SummarySkippedReason::new(9);
 
+            /// The time out case.
+            ///
+            /// Google skips the summary if the time out.
+            pub const TIME_OUT: SummarySkippedReason = SummarySkippedReason::new(10);
+
             /// Creates a new SummarySkippedReason instance.
             pub(crate) const fn new(value: i32) -> Self {
                 Self(value)
@@ -21436,6 +23774,7 @@ pub mod search_response {
                     7 => std::borrow::Cow::Borrowed("JAIL_BREAKING_QUERY_IGNORED"),
                     8 => std::borrow::Cow::Borrowed("CUSTOMER_POLICY_VIOLATION"),
                     9 => std::borrow::Cow::Borrowed("NON_SUMMARY_SEEKING_QUERY_IGNORED_V2"),
+                    10 => std::borrow::Cow::Borrowed("TIME_OUT"),
                     _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
                 }
             }
@@ -21471,6 +23810,7 @@ pub mod search_response {
                     "NON_SUMMARY_SEEKING_QUERY_IGNORED_V2" => {
                         std::option::Option::Some(Self::NON_SUMMARY_SEEKING_QUERY_IGNORED_V2)
                     }
+                    "TIME_OUT" => std::option::Option::Some(Self::TIME_OUT),
                     _ => std::option::Option::None,
                 }
             }
@@ -22037,6 +24377,751 @@ impl wkt::message::Message for TrainCustomModelMetadata {
     }
 }
 
+/// Configures metadata that is used to generate serving time results (e.g.
+/// search results or recommendation predictions).
+/// The ServingConfig is passed in the search and predict request and generates
+/// results.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ServingConfig {
+    /// Immutable. Fully qualified name
+    /// `projects/{project}/locations/{location}/collections/{collection_id}/engines/{engine_id}/servingConfigs/{serving_config_id}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Required. The human readable serving config display name. Used in Discovery
+    /// UI.
+    ///
+    /// This field must be a UTF-8 encoded string with a length limit of 128
+    /// characters. Otherwise, an INVALID_ARGUMENT error is returned.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub display_name: std::string::String,
+
+    /// Required. Immutable. Specifies the solution type that a serving config can
+    /// be associated with.
+    pub solution_type: crate::model::SolutionType,
+
+    /// The id of the model to use at serving time.
+    /// Currently only RecommendationModels are supported.
+    /// Can be changed but only to a compatible model (e.g.
+    /// others-you-may-like CTR to others-you-may-like CVR).
+    ///
+    /// Required when [SolutionType][google.cloud.discoveryengine.v1.SolutionType]
+    /// is
+    /// [SOLUTION_TYPE_RECOMMENDATION][google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_RECOMMENDATION].
+    ///
+    /// [google.cloud.discoveryengine.v1.SolutionType]: crate::model::SolutionType
+    /// [google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_RECOMMENDATION]: crate::model::solution_type::SOLUTION_TYPE_RECOMMENDATION
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub model_id: std::string::String,
+
+    /// How much diversity to use in recommendation model results e.g.
+    /// `medium-diversity` or `high-diversity`. Currently supported values:
+    ///
+    /// * `no-diversity`
+    /// * `low-diversity`
+    /// * `medium-diversity`
+    /// * `high-diversity`
+    /// * `auto-diversity`
+    ///
+    /// If not specified, we choose default based on recommendation model
+    /// type. Default value: `no-diversity`.
+    ///
+    /// Can only be set if
+    /// [SolutionType][google.cloud.discoveryengine.v1.SolutionType] is
+    /// [SOLUTION_TYPE_RECOMMENDATION][google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_RECOMMENDATION].
+    ///
+    /// [google.cloud.discoveryengine.v1.SolutionType]: crate::model::SolutionType
+    /// [google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_RECOMMENDATION]: crate::model::solution_type::SOLUTION_TYPE_RECOMMENDATION
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub diversity_level: std::string::String,
+
+    /// The ranking expression controls the customized ranking on retrieval
+    /// documents. To leverage this, document embedding is required. The ranking
+    /// expression setting in ServingConfig applies to all search requests served
+    /// by the serving config. However, if `SearchRequest.ranking_expression` is
+    /// specified, it overrides the ServingConfig ranking expression.
+    ///
+    /// The ranking expression is a single function or multiple functions that are
+    /// joined by "+".
+    ///
+    /// * ranking_expression = function, { " + ", function };
+    ///
+    /// Supported functions:
+    ///
+    /// * double * relevance_score
+    /// * double * dotProduct(embedding_field_path)
+    ///
+    /// Function variables:
+    ///
+    /// * `relevance_score`: pre-defined keywords, used for measure relevance
+    ///   between query and document.
+    /// * `embedding_field_path`: the document embedding field
+    ///   used with query embedding vector.
+    /// * `dotProduct`: embedding function between embedding_field_path and query
+    ///   embedding vector.
+    ///
+    /// Example ranking expression:
+    ///
+    /// If document has an embedding field doc_embedding, the ranking expression
+    /// could be `0.5 * relevance_score + 0.3 * dotProduct(doc_embedding)`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub ranking_expression: std::string::String,
+
+    /// Output only. ServingConfig created timestamp.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. ServingConfig updated timestamp.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Filter controls to use in serving path.
+    /// All triggered filter controls will be applied.
+    /// Filter controls must be in the same data store as the serving config.
+    /// Maximum of 20 filter controls.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub filter_control_ids: std::vec::Vec<std::string::String>,
+
+    /// Boost controls to use in serving path.
+    /// All triggered boost controls will be applied.
+    /// Boost controls must be in the same data store as the serving config.
+    /// Maximum of 20 boost controls.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub boost_control_ids: std::vec::Vec<std::string::String>,
+
+    /// IDs of the redirect controls. Only the first triggered redirect
+    /// action is applied, even if multiple apply. Maximum number of
+    /// specifications is 100.
+    ///
+    /// Can only be set if
+    /// [SolutionType][google.cloud.discoveryengine.v1.SolutionType] is
+    /// [SOLUTION_TYPE_SEARCH][google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_SEARCH].
+    ///
+    /// [google.cloud.discoveryengine.v1.SolutionType]: crate::model::SolutionType
+    /// [google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::solution_type::SOLUTION_TYPE_SEARCH
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub redirect_control_ids: std::vec::Vec<std::string::String>,
+
+    /// Condition synonyms specifications. If multiple synonyms conditions
+    /// match, all matching synonyms controls in the list will execute.
+    /// Maximum number of specifications is 100.
+    ///
+    /// Can only be set if
+    /// [SolutionType][google.cloud.discoveryengine.v1.SolutionType] is
+    /// [SOLUTION_TYPE_SEARCH][google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_SEARCH].
+    ///
+    /// [google.cloud.discoveryengine.v1.SolutionType]: crate::model::SolutionType
+    /// [google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::solution_type::SOLUTION_TYPE_SEARCH
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub synonyms_control_ids: std::vec::Vec<std::string::String>,
+
+    /// Condition oneway synonyms specifications. If multiple oneway synonyms
+    /// conditions match, all matching oneway synonyms controls in the list
+    /// will execute. Maximum number of specifications is 100.
+    ///
+    /// Can only be set if
+    /// [SolutionType][google.cloud.discoveryengine.v1.SolutionType] is
+    /// [SOLUTION_TYPE_SEARCH][google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_SEARCH].
+    ///
+    /// [google.cloud.discoveryengine.v1.SolutionType]: crate::model::SolutionType
+    /// [google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::solution_type::SOLUTION_TYPE_SEARCH
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub oneway_synonyms_control_ids: std::vec::Vec<std::string::String>,
+
+    /// Condition do not associate specifications. If multiple do not
+    /// associate conditions match, all matching do not associate controls in
+    /// the list will execute.
+    /// Order does not matter.
+    /// Maximum number of specifications is 100.
+    ///
+    /// Can only be set if
+    /// [SolutionType][google.cloud.discoveryengine.v1.SolutionType] is
+    /// [SOLUTION_TYPE_SEARCH][google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_SEARCH].
+    ///
+    /// [google.cloud.discoveryengine.v1.SolutionType]: crate::model::SolutionType
+    /// [google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::solution_type::SOLUTION_TYPE_SEARCH
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub dissociate_control_ids: std::vec::Vec<std::string::String>,
+
+    /// Condition replacement specifications.
+    /// Applied according to the order in the list.
+    /// A previously replaced term can not be re-replaced.
+    /// Maximum number of specifications is 100.
+    ///
+    /// Can only be set if
+    /// [SolutionType][google.cloud.discoveryengine.v1.SolutionType] is
+    /// [SOLUTION_TYPE_SEARCH][google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_SEARCH].
+    ///
+    /// [google.cloud.discoveryengine.v1.SolutionType]: crate::model::SolutionType
+    /// [google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::solution_type::SOLUTION_TYPE_SEARCH
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub replacement_control_ids: std::vec::Vec<std::string::String>,
+
+    /// Condition ignore specifications. If multiple ignore
+    /// conditions match, all matching ignore controls in the list will
+    /// execute.
+    /// Order does not matter.
+    /// Maximum number of specifications is 100.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub ignore_control_ids: std::vec::Vec<std::string::String>,
+
+    /// Condition promote specifications.
+    ///
+    /// Maximum number of specifications is 100.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub promote_control_ids: std::vec::Vec<std::string::String>,
+
+    /// Industry vertical specific config.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub vertical_config: std::option::Option<crate::model::serving_config::VerticalConfig>,
+}
+
+impl ServingConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ServingConfig::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::ServingConfig::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [solution_type][crate::model::ServingConfig::solution_type].
+    pub fn set_solution_type<T: std::convert::Into<crate::model::SolutionType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.solution_type = v.into();
+        self
+    }
+
+    /// Sets the value of [model_id][crate::model::ServingConfig::model_id].
+    pub fn set_model_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.model_id = v.into();
+        self
+    }
+
+    /// Sets the value of [diversity_level][crate::model::ServingConfig::diversity_level].
+    pub fn set_diversity_level<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.diversity_level = v.into();
+        self
+    }
+
+    /// Sets the value of [ranking_expression][crate::model::ServingConfig::ranking_expression].
+    pub fn set_ranking_expression<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ranking_expression = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::ServingConfig::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::ServingConfig::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
+        self
+    }
+
+    /// Sets the value of [filter_control_ids][crate::model::ServingConfig::filter_control_ids].
+    pub fn set_filter_control_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.filter_control_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [boost_control_ids][crate::model::ServingConfig::boost_control_ids].
+    pub fn set_boost_control_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.boost_control_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [redirect_control_ids][crate::model::ServingConfig::redirect_control_ids].
+    pub fn set_redirect_control_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.redirect_control_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [synonyms_control_ids][crate::model::ServingConfig::synonyms_control_ids].
+    pub fn set_synonyms_control_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.synonyms_control_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [oneway_synonyms_control_ids][crate::model::ServingConfig::oneway_synonyms_control_ids].
+    pub fn set_oneway_synonyms_control_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.oneway_synonyms_control_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [dissociate_control_ids][crate::model::ServingConfig::dissociate_control_ids].
+    pub fn set_dissociate_control_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.dissociate_control_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [replacement_control_ids][crate::model::ServingConfig::replacement_control_ids].
+    pub fn set_replacement_control_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.replacement_control_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [ignore_control_ids][crate::model::ServingConfig::ignore_control_ids].
+    pub fn set_ignore_control_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.ignore_control_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [promote_control_ids][crate::model::ServingConfig::promote_control_ids].
+    pub fn set_promote_control_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.promote_control_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of `vertical_config`.
+    pub fn set_vertical_config<
+        T: std::convert::Into<std::option::Option<crate::model::serving_config::VerticalConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.vertical_config = v.into();
+        self
+    }
+
+    /// The value of [vertical_config][crate::model::ServingConfig::vertical_config]
+    /// if it holds a `MediaConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_media_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::serving_config::MediaConfig>> {
+        #[allow(unreachable_patterns)]
+        self.vertical_config.as_ref().and_then(|v| match v {
+            crate::model::serving_config::VerticalConfig::MediaConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [vertical_config][crate::model::ServingConfig::vertical_config]
+    /// if it holds a `GenericConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_generic_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::serving_config::GenericConfig>> {
+        #[allow(unreachable_patterns)]
+        self.vertical_config.as_ref().and_then(|v| match v {
+            crate::model::serving_config::VerticalConfig::GenericConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [vertical_config][crate::model::ServingConfig::vertical_config]
+    /// to hold a `MediaConfig`.
+    ///
+    /// Note that all the setters affecting `vertical_config` are
+    /// mutually exclusive.
+    pub fn set_media_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::serving_config::MediaConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.vertical_config = std::option::Option::Some(
+            crate::model::serving_config::VerticalConfig::MediaConfig(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [vertical_config][crate::model::ServingConfig::vertical_config]
+    /// to hold a `GenericConfig`.
+    ///
+    /// Note that all the setters affecting `vertical_config` are
+    /// mutually exclusive.
+    pub fn set_generic_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::serving_config::GenericConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.vertical_config = std::option::Option::Some(
+            crate::model::serving_config::VerticalConfig::GenericConfig(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for ServingConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.ServingConfig"
+    }
+}
+
+/// Defines additional types related to [ServingConfig].
+pub mod serving_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Specifies the configurations needed for Media Discovery. Currently we
+    /// support:
+    ///
+    /// * `demote_content_watched`: Threshold for watched content demotion.
+    ///   Customers can specify if using watched content demotion or use viewed
+    ///   detail page. Using the content watched demotion, customers need to specify
+    ///   the watched minutes or percentage exceeds the threshold, the content will
+    ///   be demoted in the recommendation result.
+    /// * `promote_fresh_content`: cutoff days for fresh content promotion.
+    ///   Customers can specify if using content freshness promotion. If the content
+    ///   was published within the cutoff days, the content will be promoted in the
+    ///   recommendation result.
+    ///   Can only be set if
+    ///   [SolutionType][google.cloud.discoveryengine.v1.SolutionType] is
+    ///   [SOLUTION_TYPE_RECOMMENDATION][google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_RECOMMENDATION].
+    ///
+    /// [google.cloud.discoveryengine.v1.SolutionType]: crate::model::SolutionType
+    /// [google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_RECOMMENDATION]: crate::model::solution_type::SOLUTION_TYPE_RECOMMENDATION
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct MediaConfig {
+        /// Specifies the event type used for demoting recommendation result.
+        /// Currently supported values:
+        ///
+        /// * `view-item`: Item viewed.
+        /// * `media-play`: Start/resume watching a video, playing a song, etc.
+        /// * `media-complete`: Finished or stopped midway through a video, song,
+        ///   etc.
+        ///
+        /// If unset, watch history demotion will not be applied. Content freshness
+        /// demotion will still be applied.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub demotion_event_type: std::string::String,
+
+        /// Optional. Specifies the number of days to look back for demoting watched
+        /// content. If set to zero or unset, defaults to the maximum of 365 days.
+        pub demote_content_watched_past_days: i32,
+
+        /// Specifies the content freshness used for recommendation result.
+        /// Contents will be demoted if contents were published for more than content
+        /// freshness cutoff days.
+        pub content_freshness_cutoff_days: i32,
+
+        /// Specify the threshold for demoting watched content, the threshold can be
+        /// either percentage or minutes value.
+        /// This must be set for `media-complete` event type.
+        #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+        pub demote_content_watched:
+            std::option::Option<crate::model::serving_config::media_config::DemoteContentWatched>,
+    }
+
+    impl MediaConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [demotion_event_type][crate::model::serving_config::MediaConfig::demotion_event_type].
+        pub fn set_demotion_event_type<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.demotion_event_type = v.into();
+            self
+        }
+
+        /// Sets the value of [demote_content_watched_past_days][crate::model::serving_config::MediaConfig::demote_content_watched_past_days].
+        pub fn set_demote_content_watched_past_days<T: std::convert::Into<i32>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.demote_content_watched_past_days = v.into();
+            self
+        }
+
+        /// Sets the value of [content_freshness_cutoff_days][crate::model::serving_config::MediaConfig::content_freshness_cutoff_days].
+        pub fn set_content_freshness_cutoff_days<T: std::convert::Into<i32>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.content_freshness_cutoff_days = v.into();
+            self
+        }
+
+        /// Sets the value of `demote_content_watched`.
+        pub fn set_demote_content_watched<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::serving_config::media_config::DemoteContentWatched,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.demote_content_watched = v.into();
+            self
+        }
+
+        /// The value of [demote_content_watched][crate::model::serving_config::MediaConfig::demote_content_watched]
+        /// if it holds a `ContentWatchedPercentageThreshold`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn get_content_watched_percentage_threshold(&self) -> std::option::Option<&f32> {
+            #[allow(unreachable_patterns)]
+            self.demote_content_watched.as_ref().and_then(|v| match v {
+                crate::model::serving_config::media_config::DemoteContentWatched::ContentWatchedPercentageThreshold(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// The value of [demote_content_watched][crate::model::serving_config::MediaConfig::demote_content_watched]
+        /// if it holds a `ContentWatchedSecondsThreshold`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn get_content_watched_seconds_threshold(&self) -> std::option::Option<&f32> {
+            #[allow(unreachable_patterns)]
+            self.demote_content_watched.as_ref().and_then(|v| match v {
+                crate::model::serving_config::media_config::DemoteContentWatched::ContentWatchedSecondsThreshold(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [demote_content_watched][crate::model::serving_config::MediaConfig::demote_content_watched]
+        /// to hold a `ContentWatchedPercentageThreshold`.
+        ///
+        /// Note that all the setters affecting `demote_content_watched` are
+        /// mutually exclusive.
+        pub fn set_content_watched_percentage_threshold<T: std::convert::Into<f32>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.demote_content_watched = std::option::Option::Some(
+                crate::model::serving_config::media_config::DemoteContentWatched::ContentWatchedPercentageThreshold(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// Sets the value of [demote_content_watched][crate::model::serving_config::MediaConfig::demote_content_watched]
+        /// to hold a `ContentWatchedSecondsThreshold`.
+        ///
+        /// Note that all the setters affecting `demote_content_watched` are
+        /// mutually exclusive.
+        pub fn set_content_watched_seconds_threshold<T: std::convert::Into<f32>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.demote_content_watched = std::option::Option::Some(
+                crate::model::serving_config::media_config::DemoteContentWatched::ContentWatchedSecondsThreshold(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for MediaConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.ServingConfig.MediaConfig"
+        }
+    }
+
+    /// Defines additional types related to [MediaConfig].
+    pub mod media_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Specify the threshold for demoting watched content, the threshold can be
+        /// either percentage or minutes value.
+        /// This must be set for `media-complete` event type.
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub enum DemoteContentWatched {
+            /// Specifies the content watched percentage threshold for demotion.
+            /// Threshold value must be between [0, 1.0] inclusive.
+            ContentWatchedPercentageThreshold(f32),
+            /// Specifies the content watched minutes threshold for demotion.
+            ContentWatchedSecondsThreshold(f32),
+        }
+    }
+
+    /// Specifies the configurations needed for Generic Discovery.Currently we
+    /// support:
+    ///
+    /// * `content_search_spec`: configuration for generic content search.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct GenericConfig {
+        /// Specifies the expected behavior of content search.
+        /// Only valid for content-search enabled data store.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub content_search_spec:
+            std::option::Option<crate::model::search_request::ContentSearchSpec>,
+    }
+
+    impl GenericConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [content_search_spec][crate::model::serving_config::GenericConfig::content_search_spec].
+        pub fn set_content_search_spec<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::search_request::ContentSearchSpec>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.content_search_spec = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for GenericConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.ServingConfig.GenericConfig"
+        }
+    }
+
+    /// Industry vertical specific config.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum VerticalConfig {
+        /// The MediaConfig of the serving configuration.
+        MediaConfig(std::boxed::Box<crate::model::serving_config::MediaConfig>),
+        /// The GenericConfig of the serving configuration.
+        GenericConfig(std::boxed::Box<crate::model::serving_config::GenericConfig>),
+    }
+}
+
+/// Request for UpdateServingConfig method.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateServingConfigRequest {
+    /// Required. The ServingConfig to update.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub serving_config: std::option::Option<crate::model::ServingConfig>,
+
+    /// Indicates which fields in the provided
+    /// [ServingConfig][google.cloud.discoveryengine.v1.ServingConfig] to update.
+    /// The following are NOT supported:
+    ///
+    /// * [ServingConfig.name][google.cloud.discoveryengine.v1.ServingConfig.name]
+    ///
+    /// If not set, all supported fields are updated.
+    ///
+    /// [google.cloud.discoveryengine.v1.ServingConfig]: crate::model::ServingConfig
+    /// [google.cloud.discoveryengine.v1.ServingConfig.name]: crate::model::ServingConfig::name
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+}
+
+impl UpdateServingConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [serving_config][crate::model::UpdateServingConfigRequest::serving_config].
+    pub fn set_serving_config<
+        T: std::convert::Into<std::option::Option<crate::model::ServingConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.serving_config = v.into();
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateServingConfigRequest::update_mask].
+    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_mask = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateServingConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.UpdateServingConfigRequest"
+    }
+}
+
 /// External session proto definition.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -22047,6 +25132,13 @@ pub struct Session {
     /// `projects/{project}/locations/global/collections/{collection}/engines/{engine}/sessions/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    /// Optional. The display name of the session.
+    ///
+    /// This field is used to identify the session in the UI.
+    /// By default, the display name is the first turn query text in the session.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub display_name: std::string::String,
 
     /// The state of the session.
     pub state: crate::model::session::State,
@@ -22066,6 +25158,10 @@ pub struct Session {
     /// Output only. The time the session finished.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Whether the session is pinned, pinned session will be displayed
+    /// on the top of the session list.
+    pub is_pinned: bool,
 }
 
 impl Session {
@@ -22076,6 +25172,12 @@ impl Session {
     /// Sets the value of [name][crate::model::Session::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::Session::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
         self
     }
 
@@ -22106,6 +25208,12 @@ impl Session {
         v: T,
     ) -> Self {
         self.end_time = v.into();
+        self
+    }
+
+    /// Sets the value of [is_pinned][crate::model::Session::is_pinned].
+    pub fn set_is_pinned<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.is_pinned = v.into();
         self
     }
 
@@ -22149,6 +25257,18 @@ pub mod session {
         /// turn.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub answer: std::string::String,
+
+        /// Output only. In
+        /// [ConversationalSearchService.GetSession][google.cloud.discoveryengine.v1.ConversationalSearchService.GetSession]
+        /// API, if
+        /// [GetSessionRequest.include_answer_details][google.cloud.discoveryengine.v1.GetSessionRequest.include_answer_details]
+        /// is set to true, this field will be populated when getting answer query
+        /// session.
+        ///
+        /// [google.cloud.discoveryengine.v1.ConversationalSearchService.GetSession]: crate::client::ConversationalSearchService::get_session
+        /// [google.cloud.discoveryengine.v1.GetSessionRequest.include_answer_details]: crate::model::GetSessionRequest::include_answer_details
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub detailed_answer: std::option::Option<crate::model::Answer>,
     }
 
     impl Turn {
@@ -22168,6 +25288,17 @@ pub mod session {
         /// Sets the value of [answer][crate::model::session::Turn::answer].
         pub fn set_answer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.answer = v.into();
+            self
+        }
+
+        /// Sets the value of [detailed_answer][crate::model::session::Turn::detailed_answer].
+        pub fn set_detailed_answer<
+            T: std::convert::Into<std::option::Option<crate::model::Answer>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.detailed_answer = v.into();
             self
         }
     }
@@ -22362,8 +25493,8 @@ pub struct TargetSite {
     #[serde(rename = "type")]
     pub r#type: crate::model::target_site::Type,
 
-    /// Input only. If set to false, a uri_pattern is generated to include all
-    /// pages whose address contains the provided_uri_pattern. If set to true, an
+    /// Immutable. If set to false, a uri_pattern is generated to include all pages
+    /// whose address contains the provided_uri_pattern. If set to true, an
     /// uri_pattern is generated to try to be an exact match of the
     /// provided_uri_pattern or just the specific page if the provided_uri_pattern
     /// is a specific one. provided_uri_pattern is always normalized to
@@ -22862,6 +25993,99 @@ pub mod site_verification_info {
         fn default() -> Self {
             Self::new(0)
         }
+    }
+}
+
+/// A sitemap for the SiteSearchEngine.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct Sitemap {
+    /// Output only. The fully qualified resource name of the sitemap.
+    /// `projects/*/locations/*/collections/*/dataStores/*/siteSearchEngine/sitemaps/*`
+    /// The `sitemap_id` suffix is system-generated.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Output only. The sitemap's creation time.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Supported feed sources.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub feed: std::option::Option<crate::model::sitemap::Feed>,
+}
+
+impl Sitemap {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Sitemap::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::Sitemap::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of `feed`.
+    pub fn set_feed<T: std::convert::Into<std::option::Option<crate::model::sitemap::Feed>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.feed = v.into();
+        self
+    }
+
+    /// The value of [feed][crate::model::Sitemap::feed]
+    /// if it holds a `Uri`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_uri(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.feed.as_ref().and_then(|v| match v {
+            crate::model::sitemap::Feed::Uri(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [feed][crate::model::Sitemap::feed]
+    /// to hold a `Uri`.
+    ///
+    /// Note that all the setters affecting `feed` are
+    /// mutually exclusive.
+    pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.feed = std::option::Option::Some(crate::model::sitemap::Feed::Uri(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for Sitemap {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.Sitemap"
+    }
+}
+
+/// Defines additional types related to [Sitemap].
+pub mod sitemap {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Supported feed sources.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Feed {
+        /// Public URI for the sitemap, e.g. `www.example.com/sitemap.xml`.
+        Uri(std::string::String),
     }
 }
 
@@ -23528,6 +26752,481 @@ impl wkt::message::Message for BatchCreateTargetSitesResponse {
 }
 
 /// Request message for
+/// [SiteSearchEngineService.CreateSitemap][google.cloud.discoveryengine.v1.SiteSearchEngineService.CreateSitemap]
+/// method.
+///
+/// [google.cloud.discoveryengine.v1.SiteSearchEngineService.CreateSitemap]: crate::client::SiteSearchEngineService::create_sitemap
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateSitemapRequest {
+    /// Required. Parent resource name of the
+    /// [SiteSearchEngine][google.cloud.discoveryengine.v1.SiteSearchEngine], such
+    /// as `projects/*/locations/*/collections/*/dataStores/*/siteSearchEngine`.
+    ///
+    /// [google.cloud.discoveryengine.v1.SiteSearchEngine]: crate::model::SiteSearchEngine
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Required. The [Sitemap][google.cloud.discoveryengine.v1.Sitemap] to create.
+    ///
+    /// [google.cloud.discoveryengine.v1.Sitemap]: crate::model::Sitemap
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub sitemap: std::option::Option<crate::model::Sitemap>,
+}
+
+impl CreateSitemapRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateSitemapRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [sitemap][crate::model::CreateSitemapRequest::sitemap].
+    pub fn set_sitemap<T: std::convert::Into<std::option::Option<crate::model::Sitemap>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.sitemap = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateSitemapRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.CreateSitemapRequest"
+    }
+}
+
+/// Request message for
+/// [SiteSearchEngineService.DeleteSitemap][google.cloud.discoveryengine.v1.SiteSearchEngineService.DeleteSitemap]
+/// method.
+///
+/// [google.cloud.discoveryengine.v1.SiteSearchEngineService.DeleteSitemap]: crate::client::SiteSearchEngineService::delete_sitemap
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteSitemapRequest {
+    /// Required. Full resource name of
+    /// [Sitemap][google.cloud.discoveryengine.v1.Sitemap], such as
+    /// `projects/{project}/locations/{location}/collections/{collection}/dataStores/{data_store}/siteSearchEngine/sitemaps/{sitemap}`.
+    ///
+    /// If the caller does not have permission to access the
+    /// [Sitemap][google.cloud.discoveryengine.v1.Sitemap], regardless of whether
+    /// or not it exists, a PERMISSION_DENIED error is returned.
+    ///
+    /// If the requested [Sitemap][google.cloud.discoveryengine.v1.Sitemap] does
+    /// not exist, a NOT_FOUND error is returned.
+    ///
+    /// [google.cloud.discoveryengine.v1.Sitemap]: crate::model::Sitemap
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+}
+
+impl DeleteSitemapRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteSitemapRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteSitemapRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteSitemapRequest"
+    }
+}
+
+/// Request message for
+/// [SiteSearchEngineService.FetchSitemaps][google.cloud.discoveryengine.v1.SiteSearchEngineService.FetchSitemaps]
+/// method.
+///
+/// [google.cloud.discoveryengine.v1.SiteSearchEngineService.FetchSitemaps]: crate::client::SiteSearchEngineService::fetch_sitemaps
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct FetchSitemapsRequest {
+    /// Required. Parent resource name of the
+    /// [SiteSearchEngine][google.cloud.discoveryengine.v1.SiteSearchEngine], such
+    /// as `projects/*/locations/*/collections/*/dataStores/*/siteSearchEngine`.
+    ///
+    /// [google.cloud.discoveryengine.v1.SiteSearchEngine]: crate::model::SiteSearchEngine
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Optional. If specified, fetches the matching
+    /// [Sitemap][google.cloud.discoveryengine.v1.Sitemap]s. If not specified,
+    /// fetches all [Sitemap][google.cloud.discoveryengine.v1.Sitemap]s in the
+    /// [DataStore][google.cloud.discoveryengine.v1.DataStore].
+    ///
+    /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
+    /// [google.cloud.discoveryengine.v1.Sitemap]: crate::model::Sitemap
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub matcher: std::option::Option<crate::model::fetch_sitemaps_request::Matcher>,
+}
+
+impl FetchSitemapsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::FetchSitemapsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [matcher][crate::model::FetchSitemapsRequest::matcher].
+    pub fn set_matcher<
+        T: std::convert::Into<std::option::Option<crate::model::fetch_sitemaps_request::Matcher>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.matcher = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FetchSitemapsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.FetchSitemapsRequest"
+    }
+}
+
+/// Defines additional types related to [FetchSitemapsRequest].
+pub mod fetch_sitemaps_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Matcher for the [Sitemap][google.cloud.discoveryengine.v1.Sitemap]s by
+    /// their uris.
+    ///
+    /// [google.cloud.discoveryengine.v1.Sitemap]: crate::model::Sitemap
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct UrisMatcher {
+        /// The [Sitemap][google.cloud.discoveryengine.v1.Sitemap] uris.
+        ///
+        /// [google.cloud.discoveryengine.v1.Sitemap]: crate::model::Sitemap
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub uris: std::vec::Vec<std::string::String>,
+    }
+
+    impl UrisMatcher {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [uris][crate::model::fetch_sitemaps_request::UrisMatcher::uris].
+        pub fn set_uris<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.uris = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for UrisMatcher {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.FetchSitemapsRequest.UrisMatcher"
+        }
+    }
+
+    /// Matcher for the [Sitemap][google.cloud.discoveryengine.v1.Sitemap]s.
+    /// Currently only supports uris matcher.
+    ///
+    /// [google.cloud.discoveryengine.v1.Sitemap]: crate::model::Sitemap
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct Matcher {
+        /// Matcher for the [Sitemap][google.cloud.discoveryengine.v1.Sitemap]s.
+        ///
+        /// [google.cloud.discoveryengine.v1.Sitemap]: crate::model::Sitemap
+        #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+        pub matcher: std::option::Option<crate::model::fetch_sitemaps_request::matcher::Matcher>,
+    }
+
+    impl Matcher {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of `matcher`.
+        pub fn set_matcher<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::fetch_sitemaps_request::matcher::Matcher>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.matcher = v.into();
+            self
+        }
+
+        /// The value of [matcher][crate::model::fetch_sitemaps_request::Matcher::matcher]
+        /// if it holds a `UrisMatcher`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn get_uris_matcher(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::fetch_sitemaps_request::UrisMatcher>>
+        {
+            #[allow(unreachable_patterns)]
+            self.matcher.as_ref().and_then(|v| match v {
+                crate::model::fetch_sitemaps_request::matcher::Matcher::UrisMatcher(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [matcher][crate::model::fetch_sitemaps_request::Matcher::matcher]
+        /// to hold a `UrisMatcher`.
+        ///
+        /// Note that all the setters affecting `matcher` are
+        /// mutually exclusive.
+        pub fn set_uris_matcher<
+            T: std::convert::Into<std::boxed::Box<crate::model::fetch_sitemaps_request::UrisMatcher>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.matcher = std::option::Option::Some(
+                crate::model::fetch_sitemaps_request::matcher::Matcher::UrisMatcher(v.into()),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for Matcher {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.FetchSitemapsRequest.Matcher"
+        }
+    }
+
+    /// Defines additional types related to [Matcher].
+    pub mod matcher {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Matcher for the [Sitemap][google.cloud.discoveryengine.v1.Sitemap]s.
+        ///
+        /// [google.cloud.discoveryengine.v1.Sitemap]: crate::model::Sitemap
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub enum Matcher {
+            /// Matcher by sitemap URIs.
+            UrisMatcher(std::boxed::Box<crate::model::fetch_sitemaps_request::UrisMatcher>),
+        }
+    }
+}
+
+/// Metadata related to the progress of the
+/// [SiteSearchEngineService.CreateSitemap][google.cloud.discoveryengine.v1.SiteSearchEngineService.CreateSitemap]
+/// operation. This will be returned by the google.longrunning.Operation.metadata
+/// field.
+///
+/// [google.cloud.discoveryengine.v1.SiteSearchEngineService.CreateSitemap]: crate::client::SiteSearchEngineService::create_sitemap
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateSitemapMetadata {
+    /// Operation create time.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Operation last update time. If the operation is done, this is also the
+    /// finish time.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+}
+
+impl CreateSitemapMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [create_time][crate::model::CreateSitemapMetadata::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::CreateSitemapMetadata::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateSitemapMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.CreateSitemapMetadata"
+    }
+}
+
+/// Metadata related to the progress of the
+/// [SiteSearchEngineService.DeleteSitemap][google.cloud.discoveryengine.v1.SiteSearchEngineService.DeleteSitemap]
+/// operation. This will be returned by the google.longrunning.Operation.metadata
+/// field.
+///
+/// [google.cloud.discoveryengine.v1.SiteSearchEngineService.DeleteSitemap]: crate::client::SiteSearchEngineService::delete_sitemap
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteSitemapMetadata {
+    /// Operation create time.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Operation last update time. If the operation is done, this is also the
+    /// finish time.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+}
+
+impl DeleteSitemapMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [create_time][crate::model::DeleteSitemapMetadata::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::DeleteSitemapMetadata::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteSitemapMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteSitemapMetadata"
+    }
+}
+
+/// Response message for
+/// [SiteSearchEngineService.FetchSitemaps][google.cloud.discoveryengine.v1.SiteSearchEngineService.FetchSitemaps]
+/// method.
+///
+/// [google.cloud.discoveryengine.v1.SiteSearchEngineService.FetchSitemaps]: crate::client::SiteSearchEngineService::fetch_sitemaps
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct FetchSitemapsResponse {
+    /// List of [Sitemap][google.cloud.discoveryengine.v1.Sitemap]s fetched.
+    ///
+    /// [google.cloud.discoveryengine.v1.Sitemap]: crate::model::Sitemap
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub sitemaps_metadata: std::vec::Vec<crate::model::fetch_sitemaps_response::SitemapMetadata>,
+}
+
+impl FetchSitemapsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [sitemaps_metadata][crate::model::FetchSitemapsResponse::sitemaps_metadata].
+    pub fn set_sitemaps_metadata<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::fetch_sitemaps_response::SitemapMetadata>,
+    {
+        use std::iter::Iterator;
+        self.sitemaps_metadata = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for FetchSitemapsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.FetchSitemapsResponse"
+    }
+}
+
+/// Defines additional types related to [FetchSitemapsResponse].
+pub mod fetch_sitemaps_response {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Contains a [Sitemap][google.cloud.discoveryengine.v1.Sitemap] and its
+    /// metadata.
+    ///
+    /// [google.cloud.discoveryengine.v1.Sitemap]: crate::model::Sitemap
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct SitemapMetadata {
+        /// The [Sitemap][google.cloud.discoveryengine.v1.Sitemap].
+        ///
+        /// [google.cloud.discoveryengine.v1.Sitemap]: crate::model::Sitemap
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub sitemap: std::option::Option<crate::model::Sitemap>,
+    }
+
+    impl SitemapMetadata {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [sitemap][crate::model::fetch_sitemaps_response::SitemapMetadata::sitemap].
+        pub fn set_sitemap<T: std::convert::Into<std::option::Option<crate::model::Sitemap>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.sitemap = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for SitemapMetadata {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.FetchSitemapsResponse.SitemapMetadata"
+        }
+    }
+}
+
+/// Request message for
 /// [SiteSearchEngineService.EnableAdvancedSiteSearch][google.cloud.discoveryengine.v1.SiteSearchEngineService.EnableAdvancedSiteSearch]
 /// method.
 ///
@@ -23784,9 +27483,7 @@ pub struct RecrawlUrisRequest {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub uris: std::vec::Vec<std::string::String>,
 
-    /// Optional. Full resource name of the [SiteCredential][], such as
-    /// `projects/*/locations/*/collections/*/dataStores/*/siteSearchEngine/siteCredentials/*`.
-    /// Only set to crawl private URIs.
+    /// Optional. Credential id to use for crawling.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub site_credential: std::string::String,
 }
@@ -24068,11 +27765,29 @@ pub struct RecrawlUrisMetadata {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
 
-    /// Unique URIs in the request that don't match any TargetSite in the
-    /// DataStore, only match TargetSites that haven't been fully indexed, or match
-    /// a TargetSite with type EXCLUDE.
+    /// Unique URIs in the request that have invalid format. Sample limited to
+    /// 1000.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub invalid_uris: std::vec::Vec<std::string::String>,
+
+    /// Total number of unique URIs in the request that have invalid format.
+    pub invalid_uris_count: i32,
+
+    /// URIs that have no index meta tag. Sample limited to 1000.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub noindex_uris: std::vec::Vec<std::string::String>,
+
+    /// Total number of URIs that have no index meta tag.
+    pub noindex_uris_count: i32,
+
+    /// Unique URIs in the request that don't match any TargetSite in the
+    /// DataStore, only match TargetSites that haven't been fully indexed, or match
+    /// a TargetSite with type EXCLUDE. Sample limited to 1000.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub uris_not_matching_target_sites: std::vec::Vec<std::string::String>,
+
+    /// Total number of URIs that don't match any TargetSites.
+    pub uris_not_matching_target_sites_count: i32,
 
     /// Total number of unique URIs in the request that are not in invalid_uris.
     pub valid_uris_count: i32,
@@ -24111,6 +27826,27 @@ impl RecrawlUrisMetadata {
         self
     }
 
+    /// Sets the value of [invalid_uris_count][crate::model::RecrawlUrisMetadata::invalid_uris_count].
+    pub fn set_invalid_uris_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.invalid_uris_count = v.into();
+        self
+    }
+
+    /// Sets the value of [noindex_uris_count][crate::model::RecrawlUrisMetadata::noindex_uris_count].
+    pub fn set_noindex_uris_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.noindex_uris_count = v.into();
+        self
+    }
+
+    /// Sets the value of [uris_not_matching_target_sites_count][crate::model::RecrawlUrisMetadata::uris_not_matching_target_sites_count].
+    pub fn set_uris_not_matching_target_sites_count<T: std::convert::Into<i32>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.uris_not_matching_target_sites_count = v.into();
+        self
+    }
+
     /// Sets the value of [valid_uris_count][crate::model::RecrawlUrisMetadata::valid_uris_count].
     pub fn set_valid_uris_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.valid_uris_count = v.into();
@@ -24143,6 +27879,28 @@ impl RecrawlUrisMetadata {
     {
         use std::iter::Iterator;
         self.invalid_uris = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [noindex_uris][crate::model::RecrawlUrisMetadata::noindex_uris].
+    pub fn set_noindex_uris<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.noindex_uris = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [uris_not_matching_target_sites][crate::model::RecrawlUrisMetadata::uris_not_matching_target_sites].
+    pub fn set_uris_not_matching_target_sites<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.uris_not_matching_target_sites = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -24416,6 +28174,7 @@ pub struct UserEvent {
     /// * `view-item-list`: View of a panel or ordered list of Documents.
     /// * `view-home-page`: View of the home page.
     /// * `view-category-page`: View of a category page, e.g. Home > Men > Jeans
+    /// * `add-feedback`: Add a user feedback.
     ///
     /// Retail-related values:
     ///
@@ -24426,8 +28185,28 @@ pub struct UserEvent {
     ///
     /// * `media-play`: Start/resume watching a video, playing a song, etc.
     /// * `media-complete`: Finished or stopped midway through a video, song, etc.
+    ///
+    /// Custom conversion value:
+    ///
+    /// * `conversion`: Customer defined conversion event.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub event_type: std::string::String,
+
+    /// Optional. Conversion type.
+    ///
+    /// Required if
+    /// [UserEvent.event_type][google.cloud.discoveryengine.v1.UserEvent.event_type]
+    /// is `conversion`. This is a customer-defined conversion name in lowercase
+    /// letters or numbers separated by "-", such as "watch", "good-visit" etc.
+    ///
+    /// Do not set the field if
+    /// [UserEvent.event_type][google.cloud.discoveryengine.v1.UserEvent.event_type]
+    /// is not `conversion`. This mixes the custom conversion event with predefined
+    /// events like `search`, `view-item` etc.
+    ///
+    /// [google.cloud.discoveryengine.v1.UserEvent.event_type]: crate::model::UserEvent::event_type
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub conversion_type: std::string::String,
 
     /// Required. A unique identifier for tracking visitors.
     ///
@@ -24676,6 +28455,11 @@ pub struct UserEvent {
     /// Media-specific info.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub media_info: std::option::Option<crate::model::MediaInfo>,
+
+    /// Optional. List of panels associated with this event.
+    /// Used for page-level impression data.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub panels: std::vec::Vec<crate::model::PanelInfo>,
 }
 
 impl UserEvent {
@@ -24686,6 +28470,12 @@ impl UserEvent {
     /// Sets the value of [event_type][crate::model::UserEvent::event_type].
     pub fn set_event_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.event_type = v.into();
+        self
+    }
+
+    /// Sets the value of [conversion_type][crate::model::UserEvent::conversion_type].
+    pub fn set_conversion_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.conversion_type = v.into();
         self
     }
 
@@ -24840,6 +28630,17 @@ impl UserEvent {
     {
         use std::iter::Iterator;
         self.promotion_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [panels][crate::model::UserEvent::panels].
+    pub fn set_panels<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::PanelInfo>,
+    {
+        use std::iter::Iterator;
+        self.panels = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -25233,6 +29034,18 @@ pub struct DocumentInfo {
     /// store.
     pub joined: bool,
 
+    /// Optional. The conversion value associated with this Document.
+    /// Must be set if
+    /// [UserEvent.event_type][google.cloud.discoveryengine.v1.UserEvent.event_type]
+    /// is "conversion".
+    ///
+    /// For example, a value of 1000 signifies that 1000 seconds were spent viewing
+    /// a Document for the `watch` conversion type.
+    ///
+    /// [google.cloud.discoveryengine.v1.UserEvent.event_type]: crate::model::UserEvent::event_type
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub conversion_value: std::option::Option<f32>,
+
     /// A required descriptor of the associated
     /// [Document][google.cloud.discoveryengine.v1.Document].
     ///
@@ -25268,6 +29081,15 @@ impl DocumentInfo {
     /// Sets the value of [joined][crate::model::DocumentInfo::joined].
     pub fn set_joined<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.joined = v.into();
+        self
+    }
+
+    /// Sets the value of [conversion_value][crate::model::DocumentInfo::conversion_value].
+    pub fn set_conversion_value<T: std::convert::Into<std::option::Option<f32>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.conversion_value = v.into();
         self
     }
 
@@ -25446,6 +29268,10 @@ pub struct PanelInfo {
     /// [google.cloud.discoveryengine.v1.PanelInfo.panel_position]: crate::model::PanelInfo::panel_position
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub total_panels: std::option::Option<i32>,
+
+    /// Optional. The document IDs associated with this panel.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub documents: std::vec::Vec<crate::model::DocumentInfo>,
 }
 
 impl PanelInfo {
@@ -25480,6 +29306,17 @@ impl PanelInfo {
         v: T,
     ) -> Self {
         self.total_panels = v.into();
+        self
+    }
+
+    /// Sets the value of [documents][crate::model::PanelInfo::documents].
+    pub fn set_documents<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DocumentInfo>,
+    {
+        use std::iter::Iterator;
+        self.documents = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -25561,14 +29398,15 @@ pub struct WriteUserEventRequest {
     /// [DataStore][google.cloud.discoveryengine.v1.DataStore] level, the format
     /// is:
     /// `projects/{project}/locations/{location}/collections/{collection}/dataStores/{data_store}`.
-    /// If the write user event action is applied in [Location][] level, for
-    /// example, the event with
-    /// [Document][google.cloud.discoveryengine.v1.Document] across multiple
+    /// If the write user event action is applied in
+    /// [Location][google.cloud.location.Location] level, for example, the event
+    /// with [Document][google.cloud.discoveryengine.v1.Document] across multiple
     /// [DataStore][google.cloud.discoveryengine.v1.DataStore], the format is:
     /// `projects/{project}/locations/{location}`.
     ///
     /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
     /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
+    /// [google.cloud.location.Location]: location::model::Location
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
@@ -25620,8 +29458,20 @@ impl wkt::message::Message for WriteUserEventRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CollectUserEventRequest {
-    /// Required. The parent DataStore resource name, such as
+    /// Required. The parent resource name.
+    /// If the collect user event action is applied in
+    /// [DataStore][google.cloud.discoveryengine.v1.DataStore] level, the format
+    /// is:
     /// `projects/{project}/locations/{location}/collections/{collection}/dataStores/{data_store}`.
+    /// If the collect user event action is applied in
+    /// [Location][google.cloud.location.Location] level, for example, the event
+    /// with [Document][google.cloud.discoveryengine.v1.Document] across multiple
+    /// [DataStore][google.cloud.discoveryengine.v1.DataStore], the format is:
+    /// `projects/{project}/locations/{location}`.
+    ///
+    /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
+    /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
+    /// [google.cloud.location.Location]: location::model::Location
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
@@ -26003,6 +29853,88 @@ impl std::convert::From<i32> for SearchAddOn {
 }
 
 impl std::default::Default for SearchAddOn {
+    fn default() -> Self {
+        Self::new(0)
+    }
+}
+
+/// Harm categories that will block the content.
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct HarmCategory(i32);
+
+impl HarmCategory {
+    /// The harm category is unspecified.
+    pub const HARM_CATEGORY_UNSPECIFIED: HarmCategory = HarmCategory::new(0);
+
+    /// The harm category is hate speech.
+    pub const HARM_CATEGORY_HATE_SPEECH: HarmCategory = HarmCategory::new(1);
+
+    /// The harm category is dangerous content.
+    pub const HARM_CATEGORY_DANGEROUS_CONTENT: HarmCategory = HarmCategory::new(2);
+
+    /// The harm category is harassment.
+    pub const HARM_CATEGORY_HARASSMENT: HarmCategory = HarmCategory::new(3);
+
+    /// The harm category is sexually explicit content.
+    pub const HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmCategory = HarmCategory::new(4);
+
+    /// The harm category is civic integrity.
+    pub const HARM_CATEGORY_CIVIC_INTEGRITY: HarmCategory = HarmCategory::new(5);
+
+    /// Creates a new HarmCategory instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("HARM_CATEGORY_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("HARM_CATEGORY_HATE_SPEECH"),
+            2 => std::borrow::Cow::Borrowed("HARM_CATEGORY_DANGEROUS_CONTENT"),
+            3 => std::borrow::Cow::Borrowed("HARM_CATEGORY_HARASSMENT"),
+            4 => std::borrow::Cow::Borrowed("HARM_CATEGORY_SEXUALLY_EXPLICIT"),
+            5 => std::borrow::Cow::Borrowed("HARM_CATEGORY_CIVIC_INTEGRITY"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "HARM_CATEGORY_UNSPECIFIED" => {
+                std::option::Option::Some(Self::HARM_CATEGORY_UNSPECIFIED)
+            }
+            "HARM_CATEGORY_HATE_SPEECH" => {
+                std::option::Option::Some(Self::HARM_CATEGORY_HATE_SPEECH)
+            }
+            "HARM_CATEGORY_DANGEROUS_CONTENT" => {
+                std::option::Option::Some(Self::HARM_CATEGORY_DANGEROUS_CONTENT)
+            }
+            "HARM_CATEGORY_HARASSMENT" => std::option::Option::Some(Self::HARM_CATEGORY_HARASSMENT),
+            "HARM_CATEGORY_SEXUALLY_EXPLICIT" => {
+                std::option::Option::Some(Self::HARM_CATEGORY_SEXUALLY_EXPLICIT)
+            }
+            "HARM_CATEGORY_CIVIC_INTEGRITY" => {
+                std::option::Option::Some(Self::HARM_CATEGORY_CIVIC_INTEGRITY)
+            }
+            _ => std::option::Option::None,
+        }
+    }
+}
+
+impl std::convert::From<i32> for HarmCategory {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for HarmCategory {
     fn default() -> Self {
         Self::new(0)
     }

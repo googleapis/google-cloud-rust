@@ -75,12 +75,12 @@ pub struct AutonomousDatabase {
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// Required. The name of the VPC network used by the Autonomous Database in
+    /// Optional. The name of the VPC network used by the Autonomous Database in
     /// the following format: projects/{project}/global/networks/{network}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub network: std::string::String,
 
-    /// Required. The subnet CIDR range for the Autonmous Database.
+    /// Optional. The subnet CIDR range for the Autonmous Database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub cidr: std::string::String,
 
