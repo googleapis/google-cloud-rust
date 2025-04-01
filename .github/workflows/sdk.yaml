@@ -126,7 +126,10 @@ jobs:
       - run: cargo doc --workspace
         env:
           RUSTDOCFLAGS: "-D warnings"
-      - run: cargo doc --package google-cloud-gax
+      - run: cargo doc --package google-cloud-kms-v1
+        # Our docs get built if our dependents run `cargo doc`. We want to be
+        # reasonably sure that their command will not error because of us. We do
+        # this by running `cargo doc` on one of our libraries.
         env:
           RUSTDOCFLAGS: "-D warnings"
       - run: mdbook build guide

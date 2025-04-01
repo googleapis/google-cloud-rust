@@ -14,6 +14,7 @@
 
 pub use auth::credentials::Credential as Credentials;
 
+#[allow(rustdoc::broken_intra_doc_links)]
 /// The client configuration for [crate::http::ReqwestClient] and [crate::grpc::Client].
 pub type ClientConfig = gax::client_builder::internal::ClientConfig<Credentials>;
 
