@@ -28,7 +28,8 @@ categories.workspace = true
 name = "getting_started"
 
 [dependencies]
-tokio = { version = "1", features = ["full", "macros"] }
+crc32c = "0.6"
+tokio  = { version = "1", features = ["full", "macros"] }
 # ANCHOR: longrunning
 google-cloud-longrunning = { version = "0.22", path = "../../src/generated/longrunning" }
 # ANCHOR_END: longrunning
