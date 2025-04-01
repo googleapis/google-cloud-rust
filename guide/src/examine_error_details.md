@@ -115,11 +115,11 @@ request failed with error Error {
 }
 ```
 
-### Programatically examining the error details
+### Programmatically examining the error details
 
-Sometimes you may need to examine the error details programatically. In the rest
-of the example we will look into this error details and print the relevant
-sections.
+Sometimes you may need to examine the error details programmatically. In the
+rest of the example we will traverse the data structure and print the most
+relevant fields.
 
 Only errors returned by the service contain detailed information, so we first
 query the error to see if it contains the correct error type. If it does, we
