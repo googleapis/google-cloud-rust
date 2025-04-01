@@ -67,7 +67,7 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for a ApiKeys::create_key call.
+    /// The request builder for [ApiKeys::create_key][super::super::client::ApiKeys::create_key] calls.
     #[derive(Clone, Debug)]
     pub struct CreateKey(RequestBuilder<crate::model::CreateKeyRequest>);
 
@@ -156,7 +156,7 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for a ApiKeys::list_keys call.
+    /// The request builder for [ApiKeys::list_keys][super::super::client::ApiKeys::list_keys] calls.
     #[derive(Clone, Debug)]
     pub struct ListKeys(RequestBuilder<crate::model::ListKeysRequest>);
 
@@ -230,7 +230,7 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for a ApiKeys::get_key call.
+    /// The request builder for [ApiKeys::get_key][super::super::client::ApiKeys::get_key] calls.
     #[derive(Clone, Debug)]
     pub struct GetKey(RequestBuilder<crate::model::GetKeyRequest>);
 
@@ -270,7 +270,7 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for a ApiKeys::get_key_string call.
+    /// The request builder for [ApiKeys::get_key_string][super::super::client::ApiKeys::get_key_string] calls.
     #[derive(Clone, Debug)]
     pub struct GetKeyString(RequestBuilder<crate::model::GetKeyStringRequest>);
 
@@ -312,7 +312,7 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for a ApiKeys::update_key call.
+    /// The request builder for [ApiKeys::update_key][super::super::client::ApiKeys::update_key] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateKey(RequestBuilder<crate::model::UpdateKeyRequest>);
 
@@ -398,7 +398,7 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for a ApiKeys::delete_key call.
+    /// The request builder for [ApiKeys::delete_key][super::super::client::ApiKeys::delete_key] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteKey(RequestBuilder<crate::model::DeleteKeyRequest>);
 
@@ -481,7 +481,7 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for a ApiKeys::undelete_key call.
+    /// The request builder for [ApiKeys::undelete_key][super::super::client::ApiKeys::undelete_key] calls.
     #[derive(Clone, Debug)]
     pub struct UndeleteKey(RequestBuilder<crate::model::UndeleteKeyRequest>);
 
@@ -558,7 +558,7 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for a ApiKeys::lookup_key call.
+    /// The request builder for [ApiKeys::lookup_key][super::super::client::ApiKeys::lookup_key] calls.
     #[derive(Clone, Debug)]
     pub struct LookupKey(RequestBuilder<crate::model::LookupKeyRequest>);
 
@@ -600,7 +600,7 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for a ApiKeys::get_operation call.
+    /// The request builder for [ApiKeys::get_operation][super::super::client::ApiKeys::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

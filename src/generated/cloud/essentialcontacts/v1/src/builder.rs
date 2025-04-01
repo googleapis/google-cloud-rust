@@ -69,7 +69,7 @@ pub mod essential_contacts_service {
         }
     }
 
-    /// The request builder for a EssentialContactsService::create_contact call.
+    /// The request builder for [EssentialContactsService::create_contact][super::super::client::EssentialContactsService::create_contact] calls.
     #[derive(Clone, Debug)]
     pub struct CreateContact(RequestBuilder<crate::model::CreateContactRequest>);
 
@@ -122,7 +122,7 @@ pub mod essential_contacts_service {
         }
     }
 
-    /// The request builder for a EssentialContactsService::update_contact call.
+    /// The request builder for [EssentialContactsService::update_contact][super::super::client::EssentialContactsService::update_contact] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateContact(RequestBuilder<crate::model::UpdateContactRequest>);
 
@@ -178,7 +178,7 @@ pub mod essential_contacts_service {
         }
     }
 
-    /// The request builder for a EssentialContactsService::list_contacts call.
+    /// The request builder for [EssentialContactsService::list_contacts][super::super::client::EssentialContactsService::list_contacts] calls.
     #[derive(Clone, Debug)]
     pub struct ListContacts(RequestBuilder<crate::model::ListContactsRequest>);
 
@@ -249,7 +249,7 @@ pub mod essential_contacts_service {
         }
     }
 
-    /// The request builder for a EssentialContactsService::get_contact call.
+    /// The request builder for [EssentialContactsService::get_contact][super::super::client::EssentialContactsService::get_contact] calls.
     #[derive(Clone, Debug)]
     pub struct GetContact(RequestBuilder<crate::model::GetContactRequest>);
 
@@ -293,7 +293,7 @@ pub mod essential_contacts_service {
         }
     }
 
-    /// The request builder for a EssentialContactsService::delete_contact call.
+    /// The request builder for [EssentialContactsService::delete_contact][super::super::client::EssentialContactsService::delete_contact] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteContact(RequestBuilder<crate::model::DeleteContactRequest>);
 
@@ -337,7 +337,7 @@ pub mod essential_contacts_service {
         }
     }
 
-    /// The request builder for a EssentialContactsService::compute_contacts call.
+    /// The request builder for [EssentialContactsService::compute_contacts][super::super::client::EssentialContactsService::compute_contacts] calls.
     #[derive(Clone, Debug)]
     pub struct ComputeContacts(RequestBuilder<crate::model::ComputeContactsRequest>);
 
@@ -419,7 +419,7 @@ pub mod essential_contacts_service {
         }
     }
 
-    /// The request builder for a EssentialContactsService::send_test_message call.
+    /// The request builder for [EssentialContactsService::send_test_message][super::super::client::EssentialContactsService::send_test_message] calls.
     #[derive(Clone, Debug)]
     pub struct SendTestMessage(RequestBuilder<crate::model::SendTestMessageRequest>);
 

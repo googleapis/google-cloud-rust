@@ -69,7 +69,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for a ManagedIdentitiesService::create_microsoft_ad_domain call.
+    /// The request builder for [ManagedIdentitiesService::create_microsoft_ad_domain][super::super::client::ManagedIdentitiesService::create_microsoft_ad_domain] calls.
     #[derive(Clone, Debug)]
     pub struct CreateMicrosoftAdDomain(
         RequestBuilder<crate::model::CreateMicrosoftAdDomainRequest>,
@@ -168,7 +168,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for a ManagedIdentitiesService::reset_admin_password call.
+    /// The request builder for [ManagedIdentitiesService::reset_admin_password][super::super::client::ManagedIdentitiesService::reset_admin_password] calls.
     #[derive(Clone, Debug)]
     pub struct ResetAdminPassword(RequestBuilder<crate::model::ResetAdminPasswordRequest>);
 
@@ -215,7 +215,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for a ManagedIdentitiesService::list_domains call.
+    /// The request builder for [ManagedIdentitiesService::list_domains][super::super::client::ManagedIdentitiesService::list_domains] calls.
     #[derive(Clone, Debug)]
     pub struct ListDomains(RequestBuilder<crate::model::ListDomainsRequest>);
 
@@ -298,7 +298,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for a ManagedIdentitiesService::get_domain call.
+    /// The request builder for [ManagedIdentitiesService::get_domain][super::super::client::ManagedIdentitiesService::get_domain] calls.
     #[derive(Clone, Debug)]
     pub struct GetDomain(RequestBuilder<crate::model::GetDomainRequest>);
 
@@ -342,7 +342,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for a ManagedIdentitiesService::update_domain call.
+    /// The request builder for [ManagedIdentitiesService::update_domain][super::super::client::ManagedIdentitiesService::update_domain] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateDomain(RequestBuilder<crate::model::UpdateDomainRequest>);
 
@@ -433,7 +433,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for a ManagedIdentitiesService::delete_domain call.
+    /// The request builder for [ManagedIdentitiesService::delete_domain][super::super::client::ManagedIdentitiesService::delete_domain] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteDomain(RequestBuilder<crate::model::DeleteDomainRequest>);
 
@@ -512,7 +512,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for a ManagedIdentitiesService::attach_trust call.
+    /// The request builder for [ManagedIdentitiesService::attach_trust][super::super::client::ManagedIdentitiesService::attach_trust] calls.
     #[derive(Clone, Debug)]
     pub struct AttachTrust(RequestBuilder<crate::model::AttachTrustRequest>);
 
@@ -600,7 +600,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for a ManagedIdentitiesService::reconfigure_trust call.
+    /// The request builder for [ManagedIdentitiesService::reconfigure_trust][super::super::client::ManagedIdentitiesService::reconfigure_trust] calls.
     #[derive(Clone, Debug)]
     pub struct ReconfigureTrust(RequestBuilder<crate::model::ReconfigureTrustRequest>);
 
@@ -699,7 +699,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for a ManagedIdentitiesService::detach_trust call.
+    /// The request builder for [ManagedIdentitiesService::detach_trust][super::super::client::ManagedIdentitiesService::detach_trust] calls.
     #[derive(Clone, Debug)]
     pub struct DetachTrust(RequestBuilder<crate::model::DetachTrustRequest>);
 
@@ -787,7 +787,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for a ManagedIdentitiesService::validate_trust call.
+    /// The request builder for [ManagedIdentitiesService::validate_trust][super::super::client::ManagedIdentitiesService::validate_trust] calls.
     #[derive(Clone, Debug)]
     pub struct ValidateTrust(RequestBuilder<crate::model::ValidateTrustRequest>);
 
@@ -875,7 +875,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for a ManagedIdentitiesService::list_operations call.
+    /// The request builder for [ManagedIdentitiesService::list_operations][super::super::client::ManagedIdentitiesService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -955,7 +955,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for a ManagedIdentitiesService::get_operation call.
+    /// The request builder for [ManagedIdentitiesService::get_operation][super::super::client::ManagedIdentitiesService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1002,7 +1002,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for a ManagedIdentitiesService::delete_operation call.
+    /// The request builder for [ManagedIdentitiesService::delete_operation][super::super::client::ManagedIdentitiesService::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1049,7 +1049,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for a ManagedIdentitiesService::cancel_operation call.
+    /// The request builder for [ManagedIdentitiesService::cancel_operation][super::super::client::ManagedIdentitiesService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

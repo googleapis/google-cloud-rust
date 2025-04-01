@@ -67,7 +67,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::list_certificates call.
+    /// The request builder for [CertificateManager::list_certificates][super::super::client::CertificateManager::list_certificates] calls.
     #[derive(Clone, Debug)]
     pub struct ListCertificates(RequestBuilder<crate::model::ListCertificatesRequest>);
 
@@ -151,7 +151,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::get_certificate call.
+    /// The request builder for [CertificateManager::get_certificate][super::super::client::CertificateManager::get_certificate] calls.
     #[derive(Clone, Debug)]
     pub struct GetCertificate(RequestBuilder<crate::model::GetCertificateRequest>);
 
@@ -193,7 +193,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::create_certificate call.
+    /// The request builder for [CertificateManager::create_certificate][super::super::client::CertificateManager::create_certificate] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCertificate(RequestBuilder<crate::model::CreateCertificateRequest>);
 
@@ -291,7 +291,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::update_certificate call.
+    /// The request builder for [CertificateManager::update_certificate][super::super::client::CertificateManager::update_certificate] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCertificate(RequestBuilder<crate::model::UpdateCertificateRequest>);
 
@@ -386,7 +386,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::delete_certificate call.
+    /// The request builder for [CertificateManager::delete_certificate][super::super::client::CertificateManager::delete_certificate] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCertificate(RequestBuilder<crate::model::DeleteCertificateRequest>);
 
@@ -466,7 +466,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::list_certificate_maps call.
+    /// The request builder for [CertificateManager::list_certificate_maps][super::super::client::CertificateManager::list_certificate_maps] calls.
     #[derive(Clone, Debug)]
     pub struct ListCertificateMaps(RequestBuilder<crate::model::ListCertificateMapsRequest>);
 
@@ -550,7 +550,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::get_certificate_map call.
+    /// The request builder for [CertificateManager::get_certificate_map][super::super::client::CertificateManager::get_certificate_map] calls.
     #[derive(Clone, Debug)]
     pub struct GetCertificateMap(RequestBuilder<crate::model::GetCertificateMapRequest>);
 
@@ -595,7 +595,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::create_certificate_map call.
+    /// The request builder for [CertificateManager::create_certificate_map][super::super::client::CertificateManager::create_certificate_map] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCertificateMap(RequestBuilder<crate::model::CreateCertificateMapRequest>);
 
@@ -694,7 +694,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::update_certificate_map call.
+    /// The request builder for [CertificateManager::update_certificate_map][super::super::client::CertificateManager::update_certificate_map] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCertificateMap(RequestBuilder<crate::model::UpdateCertificateMapRequest>);
 
@@ -790,7 +790,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::delete_certificate_map call.
+    /// The request builder for [CertificateManager::delete_certificate_map][super::super::client::CertificateManager::delete_certificate_map] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCertificateMap(RequestBuilder<crate::model::DeleteCertificateMapRequest>);
 
@@ -870,7 +870,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::list_certificate_map_entries call.
+    /// The request builder for [CertificateManager::list_certificate_map_entries][super::super::client::CertificateManager::list_certificate_map_entries] calls.
     #[derive(Clone, Debug)]
     pub struct ListCertificateMapEntries(
         RequestBuilder<crate::model::ListCertificateMapEntriesRequest>,
@@ -958,7 +958,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::get_certificate_map_entry call.
+    /// The request builder for [CertificateManager::get_certificate_map_entry][super::super::client::CertificateManager::get_certificate_map_entry] calls.
     #[derive(Clone, Debug)]
     pub struct GetCertificateMapEntry(RequestBuilder<crate::model::GetCertificateMapEntryRequest>);
 
@@ -1003,7 +1003,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::create_certificate_map_entry call.
+    /// The request builder for [CertificateManager::create_certificate_map_entry][super::super::client::CertificateManager::create_certificate_map_entry] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCertificateMapEntry(
         RequestBuilder<crate::model::CreateCertificateMapEntryRequest>,
@@ -1106,7 +1106,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::update_certificate_map_entry call.
+    /// The request builder for [CertificateManager::update_certificate_map_entry][super::super::client::CertificateManager::update_certificate_map_entry] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCertificateMapEntry(
         RequestBuilder<crate::model::UpdateCertificateMapEntryRequest>,
@@ -1206,7 +1206,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::delete_certificate_map_entry call.
+    /// The request builder for [CertificateManager::delete_certificate_map_entry][super::super::client::CertificateManager::delete_certificate_map_entry] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCertificateMapEntry(
         RequestBuilder<crate::model::DeleteCertificateMapEntryRequest>,
@@ -1288,7 +1288,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::list_dns_authorizations call.
+    /// The request builder for [CertificateManager::list_dns_authorizations][super::super::client::CertificateManager::list_dns_authorizations] calls.
     #[derive(Clone, Debug)]
     pub struct ListDnsAuthorizations(RequestBuilder<crate::model::ListDnsAuthorizationsRequest>);
 
@@ -1372,7 +1372,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::get_dns_authorization call.
+    /// The request builder for [CertificateManager::get_dns_authorization][super::super::client::CertificateManager::get_dns_authorization] calls.
     #[derive(Clone, Debug)]
     pub struct GetDnsAuthorization(RequestBuilder<crate::model::GetDnsAuthorizationRequest>);
 
@@ -1417,7 +1417,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::create_dns_authorization call.
+    /// The request builder for [CertificateManager::create_dns_authorization][super::super::client::CertificateManager::create_dns_authorization] calls.
     #[derive(Clone, Debug)]
     pub struct CreateDnsAuthorization(RequestBuilder<crate::model::CreateDnsAuthorizationRequest>);
 
@@ -1518,7 +1518,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::update_dns_authorization call.
+    /// The request builder for [CertificateManager::update_dns_authorization][super::super::client::CertificateManager::update_dns_authorization] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateDnsAuthorization(RequestBuilder<crate::model::UpdateDnsAuthorizationRequest>);
 
@@ -1616,7 +1616,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::delete_dns_authorization call.
+    /// The request builder for [CertificateManager::delete_dns_authorization][super::super::client::CertificateManager::delete_dns_authorization] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteDnsAuthorization(RequestBuilder<crate::model::DeleteDnsAuthorizationRequest>);
 
@@ -1696,7 +1696,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::list_certificate_issuance_configs call.
+    /// The request builder for [CertificateManager::list_certificate_issuance_configs][super::super::client::CertificateManager::list_certificate_issuance_configs] calls.
     #[derive(Clone, Debug)]
     pub struct ListCertificateIssuanceConfigs(
         RequestBuilder<crate::model::ListCertificateIssuanceConfigsRequest>,
@@ -1784,7 +1784,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::get_certificate_issuance_config call.
+    /// The request builder for [CertificateManager::get_certificate_issuance_config][super::super::client::CertificateManager::get_certificate_issuance_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetCertificateIssuanceConfig(
         RequestBuilder<crate::model::GetCertificateIssuanceConfigRequest>,
@@ -1831,7 +1831,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::create_certificate_issuance_config call.
+    /// The request builder for [CertificateManager::create_certificate_issuance_config][super::super::client::CertificateManager::create_certificate_issuance_config] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCertificateIssuanceConfig(
         RequestBuilder<crate::model::CreateCertificateIssuanceConfigRequest>,
@@ -1939,7 +1939,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::delete_certificate_issuance_config call.
+    /// The request builder for [CertificateManager::delete_certificate_issuance_config][super::super::client::CertificateManager::delete_certificate_issuance_config] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCertificateIssuanceConfig(
         RequestBuilder<crate::model::DeleteCertificateIssuanceConfigRequest>,
@@ -2021,7 +2021,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::list_trust_configs call.
+    /// The request builder for [CertificateManager::list_trust_configs][super::super::client::CertificateManager::list_trust_configs] calls.
     #[derive(Clone, Debug)]
     pub struct ListTrustConfigs(RequestBuilder<crate::model::ListTrustConfigsRequest>);
 
@@ -2105,7 +2105,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::get_trust_config call.
+    /// The request builder for [CertificateManager::get_trust_config][super::super::client::CertificateManager::get_trust_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetTrustConfig(RequestBuilder<crate::model::GetTrustConfigRequest>);
 
@@ -2147,7 +2147,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::create_trust_config call.
+    /// The request builder for [CertificateManager::create_trust_config][super::super::client::CertificateManager::create_trust_config] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTrustConfig(RequestBuilder<crate::model::CreateTrustConfigRequest>);
 
@@ -2245,7 +2245,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::update_trust_config call.
+    /// The request builder for [CertificateManager::update_trust_config][super::super::client::CertificateManager::update_trust_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateTrustConfig(RequestBuilder<crate::model::UpdateTrustConfigRequest>);
 
@@ -2340,7 +2340,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::delete_trust_config call.
+    /// The request builder for [CertificateManager::delete_trust_config][super::super::client::CertificateManager::delete_trust_config] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTrustConfig(RequestBuilder<crate::model::DeleteTrustConfigRequest>);
 
@@ -2426,7 +2426,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::list_locations call.
+    /// The request builder for [CertificateManager::list_locations][super::super::client::CertificateManager::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -2504,7 +2504,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::get_location call.
+    /// The request builder for [CertificateManager::get_location][super::super::client::CertificateManager::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -2546,7 +2546,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::list_operations call.
+    /// The request builder for [CertificateManager::list_operations][super::super::client::CertificateManager::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2624,7 +2624,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::get_operation call.
+    /// The request builder for [CertificateManager::get_operation][super::super::client::CertificateManager::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2669,7 +2669,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::delete_operation call.
+    /// The request builder for [CertificateManager::delete_operation][super::super::client::CertificateManager::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2714,7 +2714,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for a CertificateManager::cancel_operation call.
+    /// The request builder for [CertificateManager::cancel_operation][super::super::client::CertificateManager::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

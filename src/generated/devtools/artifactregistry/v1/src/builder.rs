@@ -67,7 +67,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::list_docker_images call.
+    /// The request builder for [ArtifactRegistry::list_docker_images][super::super::client::ArtifactRegistry::list_docker_images] calls.
     #[derive(Clone, Debug)]
     pub struct ListDockerImages(RequestBuilder<crate::model::ListDockerImagesRequest>);
 
@@ -145,7 +145,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::get_docker_image call.
+    /// The request builder for [ArtifactRegistry::get_docker_image][super::super::client::ArtifactRegistry::get_docker_image] calls.
     #[derive(Clone, Debug)]
     pub struct GetDockerImage(RequestBuilder<crate::model::GetDockerImageRequest>);
 
@@ -187,7 +187,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::list_maven_artifacts call.
+    /// The request builder for [ArtifactRegistry::list_maven_artifacts][super::super::client::ArtifactRegistry::list_maven_artifacts] calls.
     #[derive(Clone, Debug)]
     pub struct ListMavenArtifacts(RequestBuilder<crate::model::ListMavenArtifactsRequest>);
 
@@ -259,7 +259,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::get_maven_artifact call.
+    /// The request builder for [ArtifactRegistry::get_maven_artifact][super::super::client::ArtifactRegistry::get_maven_artifact] calls.
     #[derive(Clone, Debug)]
     pub struct GetMavenArtifact(RequestBuilder<crate::model::GetMavenArtifactRequest>);
 
@@ -304,7 +304,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::list_npm_packages call.
+    /// The request builder for [ArtifactRegistry::list_npm_packages][super::super::client::ArtifactRegistry::list_npm_packages] calls.
     #[derive(Clone, Debug)]
     pub struct ListNpmPackages(RequestBuilder<crate::model::ListNpmPackagesRequest>);
 
@@ -373,7 +373,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::get_npm_package call.
+    /// The request builder for [ArtifactRegistry::get_npm_package][super::super::client::ArtifactRegistry::get_npm_package] calls.
     #[derive(Clone, Debug)]
     pub struct GetNpmPackage(RequestBuilder<crate::model::GetNpmPackageRequest>);
 
@@ -415,7 +415,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::list_python_packages call.
+    /// The request builder for [ArtifactRegistry::list_python_packages][super::super::client::ArtifactRegistry::list_python_packages] calls.
     #[derive(Clone, Debug)]
     pub struct ListPythonPackages(RequestBuilder<crate::model::ListPythonPackagesRequest>);
 
@@ -487,7 +487,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::get_python_package call.
+    /// The request builder for [ArtifactRegistry::get_python_package][super::super::client::ArtifactRegistry::get_python_package] calls.
     #[derive(Clone, Debug)]
     pub struct GetPythonPackage(RequestBuilder<crate::model::GetPythonPackageRequest>);
 
@@ -532,7 +532,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::import_apt_artifacts call.
+    /// The request builder for [ArtifactRegistry::import_apt_artifacts][super::super::client::ArtifactRegistry::import_apt_artifacts] calls.
     #[derive(Clone, Debug)]
     pub struct ImportAptArtifacts(RequestBuilder<crate::model::ImportAptArtifactsRequest>);
 
@@ -629,7 +629,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::import_yum_artifacts call.
+    /// The request builder for [ArtifactRegistry::import_yum_artifacts][super::super::client::ArtifactRegistry::import_yum_artifacts] calls.
     #[derive(Clone, Debug)]
     pub struct ImportYumArtifacts(RequestBuilder<crate::model::ImportYumArtifactsRequest>);
 
@@ -726,7 +726,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::list_repositories call.
+    /// The request builder for [ArtifactRegistry::list_repositories][super::super::client::ArtifactRegistry::list_repositories] calls.
     #[derive(Clone, Debug)]
     pub struct ListRepositories(RequestBuilder<crate::model::ListRepositoriesRequest>);
 
@@ -810,7 +810,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::get_repository call.
+    /// The request builder for [ArtifactRegistry::get_repository][super::super::client::ArtifactRegistry::get_repository] calls.
     #[derive(Clone, Debug)]
     pub struct GetRepository(RequestBuilder<crate::model::GetRepositoryRequest>);
 
@@ -852,7 +852,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::create_repository call.
+    /// The request builder for [ArtifactRegistry::create_repository][super::super::client::ArtifactRegistry::create_repository] calls.
     #[derive(Clone, Debug)]
     pub struct CreateRepository(RequestBuilder<crate::model::CreateRepositoryRequest>);
 
@@ -950,7 +950,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::update_repository call.
+    /// The request builder for [ArtifactRegistry::update_repository][super::super::client::ArtifactRegistry::update_repository] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateRepository(RequestBuilder<crate::model::UpdateRepositoryRequest>);
 
@@ -1007,7 +1007,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::delete_repository call.
+    /// The request builder for [ArtifactRegistry::delete_repository][super::super::client::ArtifactRegistry::delete_repository] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteRepository(RequestBuilder<crate::model::DeleteRepositoryRequest>);
 
@@ -1087,7 +1087,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::list_packages call.
+    /// The request builder for [ArtifactRegistry::list_packages][super::super::client::ArtifactRegistry::list_packages] calls.
     #[derive(Clone, Debug)]
     pub struct ListPackages(RequestBuilder<crate::model::ListPackagesRequest>);
 
@@ -1168,7 +1168,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::get_package call.
+    /// The request builder for [ArtifactRegistry::get_package][super::super::client::ArtifactRegistry::get_package] calls.
     #[derive(Clone, Debug)]
     pub struct GetPackage(RequestBuilder<crate::model::GetPackageRequest>);
 
@@ -1210,7 +1210,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::delete_package call.
+    /// The request builder for [ArtifactRegistry::delete_package][super::super::client::ArtifactRegistry::delete_package] calls.
     #[derive(Clone, Debug)]
     pub struct DeletePackage(RequestBuilder<crate::model::DeletePackageRequest>);
 
@@ -1287,7 +1287,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::list_versions call.
+    /// The request builder for [ArtifactRegistry::list_versions][super::super::client::ArtifactRegistry::list_versions] calls.
     #[derive(Clone, Debug)]
     pub struct ListVersions(RequestBuilder<crate::model::ListVersionsRequest>);
 
@@ -1374,7 +1374,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::get_version call.
+    /// The request builder for [ArtifactRegistry::get_version][super::super::client::ArtifactRegistry::get_version] calls.
     #[derive(Clone, Debug)]
     pub struct GetVersion(RequestBuilder<crate::model::GetVersionRequest>);
 
@@ -1422,7 +1422,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::delete_version call.
+    /// The request builder for [ArtifactRegistry::delete_version][super::super::client::ArtifactRegistry::delete_version] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteVersion(RequestBuilder<crate::model::DeleteVersionRequest>);
 
@@ -1505,7 +1505,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::batch_delete_versions call.
+    /// The request builder for [ArtifactRegistry::batch_delete_versions][super::super::client::ArtifactRegistry::batch_delete_versions] calls.
     #[derive(Clone, Debug)]
     pub struct BatchDeleteVersions(RequestBuilder<crate::model::BatchDeleteVersionsRequest>);
 
@@ -1604,7 +1604,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::update_version call.
+    /// The request builder for [ArtifactRegistry::update_version][super::super::client::ArtifactRegistry::update_version] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateVersion(RequestBuilder<crate::model::UpdateVersionRequest>);
 
@@ -1658,7 +1658,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::list_files call.
+    /// The request builder for [ArtifactRegistry::list_files][super::super::client::ArtifactRegistry::list_files] calls.
     #[derive(Clone, Debug)]
     pub struct ListFiles(RequestBuilder<crate::model::ListFilesRequest>);
 
@@ -1738,7 +1738,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::get_file call.
+    /// The request builder for [ArtifactRegistry::get_file][super::super::client::ArtifactRegistry::get_file] calls.
     #[derive(Clone, Debug)]
     pub struct GetFile(RequestBuilder<crate::model::GetFileRequest>);
 
@@ -1780,7 +1780,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::delete_file call.
+    /// The request builder for [ArtifactRegistry::delete_file][super::super::client::ArtifactRegistry::delete_file] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteFile(RequestBuilder<crate::model::DeleteFileRequest>);
 
@@ -1857,7 +1857,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::update_file call.
+    /// The request builder for [ArtifactRegistry::update_file][super::super::client::ArtifactRegistry::update_file] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateFile(RequestBuilder<crate::model::UpdateFileRequest>);
 
@@ -1908,7 +1908,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::list_tags call.
+    /// The request builder for [ArtifactRegistry::list_tags][super::super::client::ArtifactRegistry::list_tags] calls.
     #[derive(Clone, Debug)]
     pub struct ListTags(RequestBuilder<crate::model::ListTagsRequest>);
 
@@ -1982,7 +1982,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::get_tag call.
+    /// The request builder for [ArtifactRegistry::get_tag][super::super::client::ArtifactRegistry::get_tag] calls.
     #[derive(Clone, Debug)]
     pub struct GetTag(RequestBuilder<crate::model::GetTagRequest>);
 
@@ -2022,7 +2022,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::create_tag call.
+    /// The request builder for [ArtifactRegistry::create_tag][super::super::client::ArtifactRegistry::create_tag] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTag(RequestBuilder<crate::model::CreateTagRequest>);
 
@@ -2076,7 +2076,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::update_tag call.
+    /// The request builder for [ArtifactRegistry::update_tag][super::super::client::ArtifactRegistry::update_tag] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateTag(RequestBuilder<crate::model::UpdateTagRequest>);
 
@@ -2127,7 +2127,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::delete_tag call.
+    /// The request builder for [ArtifactRegistry::delete_tag][super::super::client::ArtifactRegistry::delete_tag] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTag(RequestBuilder<crate::model::DeleteTagRequest>);
 
@@ -2169,7 +2169,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::create_rule call.
+    /// The request builder for [ArtifactRegistry::create_rule][super::super::client::ArtifactRegistry::create_rule] calls.
     #[derive(Clone, Debug)]
     pub struct CreateRule(RequestBuilder<crate::model::CreateRuleRequest>);
 
@@ -2223,7 +2223,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::list_rules call.
+    /// The request builder for [ArtifactRegistry::list_rules][super::super::client::ArtifactRegistry::list_rules] calls.
     #[derive(Clone, Debug)]
     pub struct ListRules(RequestBuilder<crate::model::ListRulesRequest>);
 
@@ -2291,7 +2291,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::get_rule call.
+    /// The request builder for [ArtifactRegistry::get_rule][super::super::client::ArtifactRegistry::get_rule] calls.
     #[derive(Clone, Debug)]
     pub struct GetRule(RequestBuilder<crate::model::GetRuleRequest>);
 
@@ -2333,7 +2333,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::update_rule call.
+    /// The request builder for [ArtifactRegistry::update_rule][super::super::client::ArtifactRegistry::update_rule] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateRule(RequestBuilder<crate::model::UpdateRuleRequest>);
 
@@ -2384,7 +2384,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::delete_rule call.
+    /// The request builder for [ArtifactRegistry::delete_rule][super::super::client::ArtifactRegistry::delete_rule] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteRule(RequestBuilder<crate::model::DeleteRuleRequest>);
 
@@ -2426,7 +2426,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::set_iam_policy call.
+    /// The request builder for [ArtifactRegistry::set_iam_policy][super::super::client::ArtifactRegistry::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -2486,7 +2486,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::get_iam_policy call.
+    /// The request builder for [ArtifactRegistry::get_iam_policy][super::super::client::ArtifactRegistry::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -2537,7 +2537,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::test_iam_permissions call.
+    /// The request builder for [ArtifactRegistry::test_iam_permissions][super::super::client::ArtifactRegistry::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -2593,7 +2593,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::get_project_settings call.
+    /// The request builder for [ArtifactRegistry::get_project_settings][super::super::client::ArtifactRegistry::get_project_settings] calls.
     #[derive(Clone, Debug)]
     pub struct GetProjectSettings(RequestBuilder<crate::model::GetProjectSettingsRequest>);
 
@@ -2638,7 +2638,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::update_project_settings call.
+    /// The request builder for [ArtifactRegistry::update_project_settings][super::super::client::ArtifactRegistry::update_project_settings] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateProjectSettings(RequestBuilder<crate::model::UpdateProjectSettingsRequest>);
 
@@ -2695,7 +2695,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::get_vpcsc_config call.
+    /// The request builder for [ArtifactRegistry::get_vpcsc_config][super::super::client::ArtifactRegistry::get_vpcsc_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetVPCSCConfig(RequestBuilder<crate::model::GetVPCSCConfigRequest>);
 
@@ -2737,7 +2737,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::update_vpcsc_config call.
+    /// The request builder for [ArtifactRegistry::update_vpcsc_config][super::super::client::ArtifactRegistry::update_vpcsc_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateVPCSCConfig(RequestBuilder<crate::model::UpdateVPCSCConfigRequest>);
 
@@ -2794,7 +2794,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::update_package call.
+    /// The request builder for [ArtifactRegistry::update_package][super::super::client::ArtifactRegistry::update_package] calls.
     #[derive(Clone, Debug)]
     pub struct UpdatePackage(RequestBuilder<crate::model::UpdatePackageRequest>);
 
@@ -2848,7 +2848,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::list_attachments call.
+    /// The request builder for [ArtifactRegistry::list_attachments][super::super::client::ArtifactRegistry::list_attachments] calls.
     #[derive(Clone, Debug)]
     pub struct ListAttachments(RequestBuilder<crate::model::ListAttachmentsRequest>);
 
@@ -2923,7 +2923,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::get_attachment call.
+    /// The request builder for [ArtifactRegistry::get_attachment][super::super::client::ArtifactRegistry::get_attachment] calls.
     #[derive(Clone, Debug)]
     pub struct GetAttachment(RequestBuilder<crate::model::GetAttachmentRequest>);
 
@@ -2965,7 +2965,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::create_attachment call.
+    /// The request builder for [ArtifactRegistry::create_attachment][super::super::client::ArtifactRegistry::create_attachment] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAttachment(RequestBuilder<crate::model::CreateAttachmentRequest>);
 
@@ -3063,7 +3063,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::delete_attachment call.
+    /// The request builder for [ArtifactRegistry::delete_attachment][super::super::client::ArtifactRegistry::delete_attachment] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAttachment(RequestBuilder<crate::model::DeleteAttachmentRequest>);
 
@@ -3143,7 +3143,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::list_locations call.
+    /// The request builder for [ArtifactRegistry::list_locations][super::super::client::ArtifactRegistry::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -3221,7 +3221,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::get_location call.
+    /// The request builder for [ArtifactRegistry::get_location][super::super::client::ArtifactRegistry::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -3263,7 +3263,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for a ArtifactRegistry::get_operation call.
+    /// The request builder for [ArtifactRegistry::get_operation][super::super::client::ArtifactRegistry::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

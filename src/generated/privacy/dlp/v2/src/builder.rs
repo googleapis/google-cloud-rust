@@ -67,7 +67,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::inspect_content call.
+    /// The request builder for [DlpService::inspect_content][super::super::client::DlpService::inspect_content] calls.
     #[derive(Clone, Debug)]
     pub struct InspectContent(RequestBuilder<crate::model::InspectContentRequest>);
 
@@ -139,7 +139,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::redact_image call.
+    /// The request builder for [DlpService::redact_image][super::super::client::DlpService::redact_image] calls.
     #[derive(Clone, Debug)]
     pub struct RedactImage(RequestBuilder<crate::model::RedactImageRequest>);
 
@@ -222,7 +222,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::deidentify_content call.
+    /// The request builder for [DlpService::deidentify_content][super::super::client::DlpService::deidentify_content] calls.
     #[derive(Clone, Debug)]
     pub struct DeidentifyContent(RequestBuilder<crate::model::DeidentifyContentRequest>);
 
@@ -314,7 +314,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::reidentify_content call.
+    /// The request builder for [DlpService::reidentify_content][super::super::client::DlpService::reidentify_content] calls.
     #[derive(Clone, Debug)]
     pub struct ReidentifyContent(RequestBuilder<crate::model::ReidentifyContentRequest>);
 
@@ -406,7 +406,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::list_info_types call.
+    /// The request builder for [DlpService::list_info_types][super::super::client::DlpService::list_info_types] calls.
     #[derive(Clone, Debug)]
     pub struct ListInfoTypes(RequestBuilder<crate::model::ListInfoTypesRequest>);
 
@@ -466,7 +466,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::create_inspect_template call.
+    /// The request builder for [DlpService::create_inspect_template][super::super::client::DlpService::create_inspect_template] calls.
     #[derive(Clone, Debug)]
     pub struct CreateInspectTemplate(RequestBuilder<crate::model::CreateInspectTemplateRequest>);
 
@@ -532,7 +532,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::update_inspect_template call.
+    /// The request builder for [DlpService::update_inspect_template][super::super::client::DlpService::update_inspect_template] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateInspectTemplate(RequestBuilder<crate::model::UpdateInspectTemplateRequest>);
 
@@ -595,7 +595,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::get_inspect_template call.
+    /// The request builder for [DlpService::get_inspect_template][super::super::client::DlpService::get_inspect_template] calls.
     #[derive(Clone, Debug)]
     pub struct GetInspectTemplate(RequestBuilder<crate::model::GetInspectTemplateRequest>);
 
@@ -640,7 +640,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::list_inspect_templates call.
+    /// The request builder for [DlpService::list_inspect_templates][super::super::client::DlpService::list_inspect_templates] calls.
     #[derive(Clone, Debug)]
     pub struct ListInspectTemplates(RequestBuilder<crate::model::ListInspectTemplatesRequest>);
 
@@ -724,7 +724,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::delete_inspect_template call.
+    /// The request builder for [DlpService::delete_inspect_template][super::super::client::DlpService::delete_inspect_template] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteInspectTemplate(RequestBuilder<crate::model::DeleteInspectTemplateRequest>);
 
@@ -769,7 +769,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::create_deidentify_template call.
+    /// The request builder for [DlpService::create_deidentify_template][super::super::client::DlpService::create_deidentify_template] calls.
     #[derive(Clone, Debug)]
     pub struct CreateDeidentifyTemplate(
         RequestBuilder<crate::model::CreateDeidentifyTemplateRequest>,
@@ -839,7 +839,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::update_deidentify_template call.
+    /// The request builder for [DlpService::update_deidentify_template][super::super::client::DlpService::update_deidentify_template] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateDeidentifyTemplate(
         RequestBuilder<crate::model::UpdateDeidentifyTemplateRequest>,
@@ -906,7 +906,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::get_deidentify_template call.
+    /// The request builder for [DlpService::get_deidentify_template][super::super::client::DlpService::get_deidentify_template] calls.
     #[derive(Clone, Debug)]
     pub struct GetDeidentifyTemplate(RequestBuilder<crate::model::GetDeidentifyTemplateRequest>);
 
@@ -951,7 +951,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::list_deidentify_templates call.
+    /// The request builder for [DlpService::list_deidentify_templates][super::super::client::DlpService::list_deidentify_templates] calls.
     #[derive(Clone, Debug)]
     pub struct ListDeidentifyTemplates(
         RequestBuilder<crate::model::ListDeidentifyTemplatesRequest>,
@@ -1039,7 +1039,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::delete_deidentify_template call.
+    /// The request builder for [DlpService::delete_deidentify_template][super::super::client::DlpService::delete_deidentify_template] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteDeidentifyTemplate(
         RequestBuilder<crate::model::DeleteDeidentifyTemplateRequest>,
@@ -1086,7 +1086,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::create_job_trigger call.
+    /// The request builder for [DlpService::create_job_trigger][super::super::client::DlpService::create_job_trigger] calls.
     #[derive(Clone, Debug)]
     pub struct CreateJobTrigger(RequestBuilder<crate::model::CreateJobTriggerRequest>);
 
@@ -1152,7 +1152,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::update_job_trigger call.
+    /// The request builder for [DlpService::update_job_trigger][super::super::client::DlpService::update_job_trigger] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateJobTrigger(RequestBuilder<crate::model::UpdateJobTriggerRequest>);
 
@@ -1215,7 +1215,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::hybrid_inspect_job_trigger call.
+    /// The request builder for [DlpService::hybrid_inspect_job_trigger][super::super::client::DlpService::hybrid_inspect_job_trigger] calls.
     #[derive(Clone, Debug)]
     pub struct HybridInspectJobTrigger(
         RequestBuilder<crate::model::HybridInspectJobTriggerRequest>,
@@ -1271,7 +1271,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::get_job_trigger call.
+    /// The request builder for [DlpService::get_job_trigger][super::super::client::DlpService::get_job_trigger] calls.
     #[derive(Clone, Debug)]
     pub struct GetJobTrigger(RequestBuilder<crate::model::GetJobTriggerRequest>);
 
@@ -1313,7 +1313,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::list_job_triggers call.
+    /// The request builder for [DlpService::list_job_triggers][super::super::client::DlpService::list_job_triggers] calls.
     #[derive(Clone, Debug)]
     pub struct ListJobTriggers(RequestBuilder<crate::model::ListJobTriggersRequest>);
 
@@ -1406,7 +1406,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::delete_job_trigger call.
+    /// The request builder for [DlpService::delete_job_trigger][super::super::client::DlpService::delete_job_trigger] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteJobTrigger(RequestBuilder<crate::model::DeleteJobTriggerRequest>);
 
@@ -1451,7 +1451,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::activate_job_trigger call.
+    /// The request builder for [DlpService::activate_job_trigger][super::super::client::DlpService::activate_job_trigger] calls.
     #[derive(Clone, Debug)]
     pub struct ActivateJobTrigger(RequestBuilder<crate::model::ActivateJobTriggerRequest>);
 
@@ -1496,7 +1496,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::create_discovery_config call.
+    /// The request builder for [DlpService::create_discovery_config][super::super::client::DlpService::create_discovery_config] calls.
     #[derive(Clone, Debug)]
     pub struct CreateDiscoveryConfig(RequestBuilder<crate::model::CreateDiscoveryConfigRequest>);
 
@@ -1556,7 +1556,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::update_discovery_config call.
+    /// The request builder for [DlpService::update_discovery_config][super::super::client::DlpService::update_discovery_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateDiscoveryConfig(RequestBuilder<crate::model::UpdateDiscoveryConfigRequest>);
 
@@ -1619,7 +1619,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::get_discovery_config call.
+    /// The request builder for [DlpService::get_discovery_config][super::super::client::DlpService::get_discovery_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetDiscoveryConfig(RequestBuilder<crate::model::GetDiscoveryConfigRequest>);
 
@@ -1664,7 +1664,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::list_discovery_configs call.
+    /// The request builder for [DlpService::list_discovery_configs][super::super::client::DlpService::list_discovery_configs] calls.
     #[derive(Clone, Debug)]
     pub struct ListDiscoveryConfigs(RequestBuilder<crate::model::ListDiscoveryConfigsRequest>);
 
@@ -1742,7 +1742,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::delete_discovery_config call.
+    /// The request builder for [DlpService::delete_discovery_config][super::super::client::DlpService::delete_discovery_config] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteDiscoveryConfig(RequestBuilder<crate::model::DeleteDiscoveryConfigRequest>);
 
@@ -1787,7 +1787,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::create_dlp_job call.
+    /// The request builder for [DlpService::create_dlp_job][super::super::client::DlpService::create_dlp_job] calls.
     #[derive(Clone, Debug)]
     pub struct CreateDlpJob(RequestBuilder<crate::model::CreateDlpJobRequest>);
 
@@ -1850,7 +1850,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::list_dlp_jobs call.
+    /// The request builder for [DlpService::list_dlp_jobs][super::super::client::DlpService::list_dlp_jobs] calls.
     #[derive(Clone, Debug)]
     pub struct ListDlpJobs(RequestBuilder<crate::model::ListDlpJobsRequest>);
 
@@ -1943,7 +1943,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::get_dlp_job call.
+    /// The request builder for [DlpService::get_dlp_job][super::super::client::DlpService::get_dlp_job] calls.
     #[derive(Clone, Debug)]
     pub struct GetDlpJob(RequestBuilder<crate::model::GetDlpJobRequest>);
 
@@ -1985,7 +1985,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::delete_dlp_job call.
+    /// The request builder for [DlpService::delete_dlp_job][super::super::client::DlpService::delete_dlp_job] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteDlpJob(RequestBuilder<crate::model::DeleteDlpJobRequest>);
 
@@ -2027,7 +2027,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::cancel_dlp_job call.
+    /// The request builder for [DlpService::cancel_dlp_job][super::super::client::DlpService::cancel_dlp_job] calls.
     #[derive(Clone, Debug)]
     pub struct CancelDlpJob(RequestBuilder<crate::model::CancelDlpJobRequest>);
 
@@ -2069,7 +2069,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::create_stored_info_type call.
+    /// The request builder for [DlpService::create_stored_info_type][super::super::client::DlpService::create_stored_info_type] calls.
     #[derive(Clone, Debug)]
     pub struct CreateStoredInfoType(RequestBuilder<crate::model::CreateStoredInfoTypeRequest>);
 
@@ -2135,7 +2135,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::update_stored_info_type call.
+    /// The request builder for [DlpService::update_stored_info_type][super::super::client::DlpService::update_stored_info_type] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateStoredInfoType(RequestBuilder<crate::model::UpdateStoredInfoTypeRequest>);
 
@@ -2198,7 +2198,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::get_stored_info_type call.
+    /// The request builder for [DlpService::get_stored_info_type][super::super::client::DlpService::get_stored_info_type] calls.
     #[derive(Clone, Debug)]
     pub struct GetStoredInfoType(RequestBuilder<crate::model::GetStoredInfoTypeRequest>);
 
@@ -2243,7 +2243,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::list_stored_info_types call.
+    /// The request builder for [DlpService::list_stored_info_types][super::super::client::DlpService::list_stored_info_types] calls.
     #[derive(Clone, Debug)]
     pub struct ListStoredInfoTypes(RequestBuilder<crate::model::ListStoredInfoTypesRequest>);
 
@@ -2327,7 +2327,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::delete_stored_info_type call.
+    /// The request builder for [DlpService::delete_stored_info_type][super::super::client::DlpService::delete_stored_info_type] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteStoredInfoType(RequestBuilder<crate::model::DeleteStoredInfoTypeRequest>);
 
@@ -2372,7 +2372,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::list_project_data_profiles call.
+    /// The request builder for [DlpService::list_project_data_profiles][super::super::client::DlpService::list_project_data_profiles] calls.
     #[derive(Clone, Debug)]
     pub struct ListProjectDataProfiles(
         RequestBuilder<crate::model::ListProjectDataProfilesRequest>,
@@ -2460,7 +2460,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::list_table_data_profiles call.
+    /// The request builder for [DlpService::list_table_data_profiles][super::super::client::DlpService::list_table_data_profiles] calls.
     #[derive(Clone, Debug)]
     pub struct ListTableDataProfiles(RequestBuilder<crate::model::ListTableDataProfilesRequest>);
 
@@ -2544,7 +2544,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::list_column_data_profiles call.
+    /// The request builder for [DlpService::list_column_data_profiles][super::super::client::DlpService::list_column_data_profiles] calls.
     #[derive(Clone, Debug)]
     pub struct ListColumnDataProfiles(RequestBuilder<crate::model::ListColumnDataProfilesRequest>);
 
@@ -2630,7 +2630,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::get_project_data_profile call.
+    /// The request builder for [DlpService::get_project_data_profile][super::super::client::DlpService::get_project_data_profile] calls.
     #[derive(Clone, Debug)]
     pub struct GetProjectDataProfile(RequestBuilder<crate::model::GetProjectDataProfileRequest>);
 
@@ -2675,7 +2675,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::list_file_store_data_profiles call.
+    /// The request builder for [DlpService::list_file_store_data_profiles][super::super::client::DlpService::list_file_store_data_profiles] calls.
     #[derive(Clone, Debug)]
     pub struct ListFileStoreDataProfiles(
         RequestBuilder<crate::model::ListFileStoreDataProfilesRequest>,
@@ -2763,7 +2763,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::get_file_store_data_profile call.
+    /// The request builder for [DlpService::get_file_store_data_profile][super::super::client::DlpService::get_file_store_data_profile] calls.
     #[derive(Clone, Debug)]
     pub struct GetFileStoreDataProfile(
         RequestBuilder<crate::model::GetFileStoreDataProfileRequest>,
@@ -2810,7 +2810,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::delete_file_store_data_profile call.
+    /// The request builder for [DlpService::delete_file_store_data_profile][super::super::client::DlpService::delete_file_store_data_profile] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteFileStoreDataProfile(
         RequestBuilder<crate::model::DeleteFileStoreDataProfileRequest>,
@@ -2857,7 +2857,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::get_table_data_profile call.
+    /// The request builder for [DlpService::get_table_data_profile][super::super::client::DlpService::get_table_data_profile] calls.
     #[derive(Clone, Debug)]
     pub struct GetTableDataProfile(RequestBuilder<crate::model::GetTableDataProfileRequest>);
 
@@ -2902,7 +2902,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::get_column_data_profile call.
+    /// The request builder for [DlpService::get_column_data_profile][super::super::client::DlpService::get_column_data_profile] calls.
     #[derive(Clone, Debug)]
     pub struct GetColumnDataProfile(RequestBuilder<crate::model::GetColumnDataProfileRequest>);
 
@@ -2947,7 +2947,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::delete_table_data_profile call.
+    /// The request builder for [DlpService::delete_table_data_profile][super::super::client::DlpService::delete_table_data_profile] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTableDataProfile(RequestBuilder<crate::model::DeleteTableDataProfileRequest>);
 
@@ -2992,7 +2992,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::hybrid_inspect_dlp_job call.
+    /// The request builder for [DlpService::hybrid_inspect_dlp_job][super::super::client::DlpService::hybrid_inspect_dlp_job] calls.
     #[derive(Clone, Debug)]
     pub struct HybridInspectDlpJob(RequestBuilder<crate::model::HybridInspectDlpJobRequest>);
 
@@ -3046,7 +3046,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::finish_dlp_job call.
+    /// The request builder for [DlpService::finish_dlp_job][super::super::client::DlpService::finish_dlp_job] calls.
     #[derive(Clone, Debug)]
     pub struct FinishDlpJob(RequestBuilder<crate::model::FinishDlpJobRequest>);
 
@@ -3088,7 +3088,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::create_connection call.
+    /// The request builder for [DlpService::create_connection][super::super::client::DlpService::create_connection] calls.
     #[derive(Clone, Debug)]
     pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
 
@@ -3142,7 +3142,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::get_connection call.
+    /// The request builder for [DlpService::get_connection][super::super::client::DlpService::get_connection] calls.
     #[derive(Clone, Debug)]
     pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
 
@@ -3184,7 +3184,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::list_connections call.
+    /// The request builder for [DlpService::list_connections][super::super::client::DlpService::list_connections] calls.
     #[derive(Clone, Debug)]
     pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
 
@@ -3259,7 +3259,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::search_connections call.
+    /// The request builder for [DlpService::search_connections][super::super::client::DlpService::search_connections] calls.
     #[derive(Clone, Debug)]
     pub struct SearchConnections(RequestBuilder<crate::model::SearchConnectionsRequest>);
 
@@ -3337,7 +3337,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::delete_connection call.
+    /// The request builder for [DlpService::delete_connection][super::super::client::DlpService::delete_connection] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
 
@@ -3382,7 +3382,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for a DlpService::update_connection call.
+    /// The request builder for [DlpService::update_connection][super::super::client::DlpService::update_connection] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
 

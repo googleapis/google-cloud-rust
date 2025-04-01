@@ -67,7 +67,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for a RepositoryManager::create_connection call.
+    /// The request builder for [RepositoryManager::create_connection][super::super::client::RepositoryManager::create_connection] calls.
     #[derive(Clone, Debug)]
     pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
 
@@ -165,7 +165,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for a RepositoryManager::get_connection call.
+    /// The request builder for [RepositoryManager::get_connection][super::super::client::RepositoryManager::get_connection] calls.
     #[derive(Clone, Debug)]
     pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
 
@@ -207,7 +207,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for a RepositoryManager::list_connections call.
+    /// The request builder for [RepositoryManager::list_connections][super::super::client::RepositoryManager::list_connections] calls.
     #[derive(Clone, Debug)]
     pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
 
@@ -276,7 +276,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for a RepositoryManager::update_connection call.
+    /// The request builder for [RepositoryManager::update_connection][super::super::client::RepositoryManager::update_connection] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
 
@@ -383,7 +383,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for a RepositoryManager::delete_connection call.
+    /// The request builder for [RepositoryManager::delete_connection][super::super::client::RepositoryManager::delete_connection] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
 
@@ -475,7 +475,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for a RepositoryManager::create_repository call.
+    /// The request builder for [RepositoryManager::create_repository][super::super::client::RepositoryManager::create_repository] calls.
     #[derive(Clone, Debug)]
     pub struct CreateRepository(RequestBuilder<crate::model::CreateRepositoryRequest>);
 
@@ -573,7 +573,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for a RepositoryManager::batch_create_repositories call.
+    /// The request builder for [RepositoryManager::batch_create_repositories][super::super::client::RepositoryManager::batch_create_repositories] calls.
     #[derive(Clone, Debug)]
     pub struct BatchCreateRepositories(
         RequestBuilder<crate::model::BatchCreateRepositoriesRequest>,
@@ -674,7 +674,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for a RepositoryManager::get_repository call.
+    /// The request builder for [RepositoryManager::get_repository][super::super::client::RepositoryManager::get_repository] calls.
     #[derive(Clone, Debug)]
     pub struct GetRepository(RequestBuilder<crate::model::GetRepositoryRequest>);
 
@@ -716,7 +716,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for a RepositoryManager::list_repositories call.
+    /// The request builder for [RepositoryManager::list_repositories][super::super::client::RepositoryManager::list_repositories] calls.
     #[derive(Clone, Debug)]
     pub struct ListRepositories(RequestBuilder<crate::model::ListRepositoriesRequest>);
 
@@ -794,7 +794,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for a RepositoryManager::delete_repository call.
+    /// The request builder for [RepositoryManager::delete_repository][super::super::client::RepositoryManager::delete_repository] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteRepository(RequestBuilder<crate::model::DeleteRepositoryRequest>);
 
@@ -886,7 +886,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for a RepositoryManager::fetch_read_write_token call.
+    /// The request builder for [RepositoryManager::fetch_read_write_token][super::super::client::RepositoryManager::fetch_read_write_token] calls.
     #[derive(Clone, Debug)]
     pub struct FetchReadWriteToken(RequestBuilder<crate::model::FetchReadWriteTokenRequest>);
 
@@ -931,7 +931,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for a RepositoryManager::fetch_read_token call.
+    /// The request builder for [RepositoryManager::fetch_read_token][super::super::client::RepositoryManager::fetch_read_token] calls.
     #[derive(Clone, Debug)]
     pub struct FetchReadToken(RequestBuilder<crate::model::FetchReadTokenRequest>);
 
@@ -973,7 +973,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for a RepositoryManager::fetch_linkable_repositories call.
+    /// The request builder for [RepositoryManager::fetch_linkable_repositories][super::super::client::RepositoryManager::fetch_linkable_repositories] calls.
     #[derive(Clone, Debug)]
     pub struct FetchLinkableRepositories(
         RequestBuilder<crate::model::FetchLinkableRepositoriesRequest>,
@@ -1049,7 +1049,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for a RepositoryManager::fetch_git_refs call.
+    /// The request builder for [RepositoryManager::fetch_git_refs][super::super::client::RepositoryManager::fetch_git_refs] calls.
     #[derive(Clone, Debug)]
     pub struct FetchGitRefs(RequestBuilder<crate::model::FetchGitRefsRequest>);
 
@@ -1100,7 +1100,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for a RepositoryManager::set_iam_policy call.
+    /// The request builder for [RepositoryManager::set_iam_policy][super::super::client::RepositoryManager::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1160,7 +1160,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for a RepositoryManager::get_iam_policy call.
+    /// The request builder for [RepositoryManager::get_iam_policy][super::super::client::RepositoryManager::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1211,7 +1211,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for a RepositoryManager::test_iam_permissions call.
+    /// The request builder for [RepositoryManager::test_iam_permissions][super::super::client::RepositoryManager::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1267,7 +1267,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for a RepositoryManager::get_operation call.
+    /// The request builder for [RepositoryManager::get_operation][super::super::client::RepositoryManager::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1312,7 +1312,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for a RepositoryManager::cancel_operation call.
+    /// The request builder for [RepositoryManager::cancel_operation][super::super::client::RepositoryManager::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

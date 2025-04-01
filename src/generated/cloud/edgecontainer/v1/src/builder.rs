@@ -67,7 +67,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::list_clusters call.
+    /// The request builder for [EdgeContainer::list_clusters][super::super::client::EdgeContainer::list_clusters] calls.
     #[derive(Clone, Debug)]
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
@@ -148,7 +148,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::get_cluster call.
+    /// The request builder for [EdgeContainer::get_cluster][super::super::client::EdgeContainer::get_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
@@ -190,7 +190,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::create_cluster call.
+    /// The request builder for [EdgeContainer::create_cluster][super::super::client::EdgeContainer::create_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
@@ -290,7 +290,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::update_cluster call.
+    /// The request builder for [EdgeContainer::update_cluster][super::super::client::EdgeContainer::update_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
@@ -387,7 +387,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::upgrade_cluster call.
+    /// The request builder for [EdgeContainer::upgrade_cluster][super::super::client::EdgeContainer::upgrade_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct UpgradeCluster(RequestBuilder<crate::model::UpgradeClusterRequest>);
 
@@ -487,7 +487,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::delete_cluster call.
+    /// The request builder for [EdgeContainer::delete_cluster][super::super::client::EdgeContainer::delete_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
@@ -570,7 +570,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::generate_access_token call.
+    /// The request builder for [EdgeContainer::generate_access_token][super::super::client::EdgeContainer::generate_access_token] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateAccessToken(RequestBuilder<crate::model::GenerateAccessTokenRequest>);
 
@@ -615,7 +615,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::generate_offline_credential call.
+    /// The request builder for [EdgeContainer::generate_offline_credential][super::super::client::EdgeContainer::generate_offline_credential] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateOfflineCredential(
         RequestBuilder<crate::model::GenerateOfflineCredentialRequest>,
@@ -662,7 +662,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::list_node_pools call.
+    /// The request builder for [EdgeContainer::list_node_pools][super::super::client::EdgeContainer::list_node_pools] calls.
     #[derive(Clone, Debug)]
     pub struct ListNodePools(RequestBuilder<crate::model::ListNodePoolsRequest>);
 
@@ -743,7 +743,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::get_node_pool call.
+    /// The request builder for [EdgeContainer::get_node_pool][super::super::client::EdgeContainer::get_node_pool] calls.
     #[derive(Clone, Debug)]
     pub struct GetNodePool(RequestBuilder<crate::model::GetNodePoolRequest>);
 
@@ -785,7 +785,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::create_node_pool call.
+    /// The request builder for [EdgeContainer::create_node_pool][super::super::client::EdgeContainer::create_node_pool] calls.
     #[derive(Clone, Debug)]
     pub struct CreateNodePool(RequestBuilder<crate::model::CreateNodePoolRequest>);
 
@@ -886,7 +886,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::update_node_pool call.
+    /// The request builder for [EdgeContainer::update_node_pool][super::super::client::EdgeContainer::update_node_pool] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateNodePool(RequestBuilder<crate::model::UpdateNodePoolRequest>);
 
@@ -984,7 +984,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::delete_node_pool call.
+    /// The request builder for [EdgeContainer::delete_node_pool][super::super::client::EdgeContainer::delete_node_pool] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteNodePool(RequestBuilder<crate::model::DeleteNodePoolRequest>);
 
@@ -1067,7 +1067,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::list_machines call.
+    /// The request builder for [EdgeContainer::list_machines][super::super::client::EdgeContainer::list_machines] calls.
     #[derive(Clone, Debug)]
     pub struct ListMachines(RequestBuilder<crate::model::ListMachinesRequest>);
 
@@ -1148,7 +1148,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::get_machine call.
+    /// The request builder for [EdgeContainer::get_machine][super::super::client::EdgeContainer::get_machine] calls.
     #[derive(Clone, Debug)]
     pub struct GetMachine(RequestBuilder<crate::model::GetMachineRequest>);
 
@@ -1190,7 +1190,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::list_vpn_connections call.
+    /// The request builder for [EdgeContainer::list_vpn_connections][super::super::client::EdgeContainer::list_vpn_connections] calls.
     #[derive(Clone, Debug)]
     pub struct ListVpnConnections(RequestBuilder<crate::model::ListVpnConnectionsRequest>);
 
@@ -1274,7 +1274,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::get_vpn_connection call.
+    /// The request builder for [EdgeContainer::get_vpn_connection][super::super::client::EdgeContainer::get_vpn_connection] calls.
     #[derive(Clone, Debug)]
     pub struct GetVpnConnection(RequestBuilder<crate::model::GetVpnConnectionRequest>);
 
@@ -1319,7 +1319,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::create_vpn_connection call.
+    /// The request builder for [EdgeContainer::create_vpn_connection][super::super::client::EdgeContainer::create_vpn_connection] calls.
     #[derive(Clone, Debug)]
     pub struct CreateVpnConnection(RequestBuilder<crate::model::CreateVpnConnectionRequest>);
 
@@ -1424,7 +1424,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::delete_vpn_connection call.
+    /// The request builder for [EdgeContainer::delete_vpn_connection][super::super::client::EdgeContainer::delete_vpn_connection] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteVpnConnection(RequestBuilder<crate::model::DeleteVpnConnectionRequest>);
 
@@ -1510,7 +1510,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::get_server_config call.
+    /// The request builder for [EdgeContainer::get_server_config][super::super::client::EdgeContainer::get_server_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetServerConfig(RequestBuilder<crate::model::GetServerConfigRequest>);
 
@@ -1552,7 +1552,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::list_locations call.
+    /// The request builder for [EdgeContainer::list_locations][super::super::client::EdgeContainer::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1630,7 +1630,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::get_location call.
+    /// The request builder for [EdgeContainer::get_location][super::super::client::EdgeContainer::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1672,7 +1672,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::list_operations call.
+    /// The request builder for [EdgeContainer::list_operations][super::super::client::EdgeContainer::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1750,7 +1750,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::get_operation call.
+    /// The request builder for [EdgeContainer::get_operation][super::super::client::EdgeContainer::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1795,7 +1795,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::delete_operation call.
+    /// The request builder for [EdgeContainer::delete_operation][super::super::client::EdgeContainer::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1840,7 +1840,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for a EdgeContainer::cancel_operation call.
+    /// The request builder for [EdgeContainer::cancel_operation][super::super::client::EdgeContainer::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

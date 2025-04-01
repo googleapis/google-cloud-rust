@@ -67,7 +67,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::list_clusters call.
+    /// The request builder for [AlloyDBAdmin::list_clusters][super::super::client::AlloyDBAdmin::list_clusters] calls.
     #[derive(Clone, Debug)]
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
@@ -148,7 +148,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::get_cluster call.
+    /// The request builder for [AlloyDBAdmin::get_cluster][super::super::client::AlloyDBAdmin::get_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
@@ -196,7 +196,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::create_cluster call.
+    /// The request builder for [AlloyDBAdmin::create_cluster][super::super::client::AlloyDBAdmin::create_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
@@ -302,7 +302,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::update_cluster call.
+    /// The request builder for [AlloyDBAdmin::update_cluster][super::super::client::AlloyDBAdmin::update_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
@@ -411,7 +411,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::delete_cluster call.
+    /// The request builder for [AlloyDBAdmin::delete_cluster][super::super::client::AlloyDBAdmin::delete_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
@@ -512,7 +512,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::promote_cluster call.
+    /// The request builder for [AlloyDBAdmin::promote_cluster][super::super::client::AlloyDBAdmin::promote_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct PromoteCluster(RequestBuilder<crate::model::PromoteClusterRequest>);
 
@@ -609,7 +609,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::switchover_cluster call.
+    /// The request builder for [AlloyDBAdmin::switchover_cluster][super::super::client::AlloyDBAdmin::switchover_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct SwitchoverCluster(RequestBuilder<crate::model::SwitchoverClusterRequest>);
 
@@ -703,7 +703,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::restore_cluster call.
+    /// The request builder for [AlloyDBAdmin::restore_cluster][super::super::client::AlloyDBAdmin::restore_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct RestoreCluster(RequestBuilder<crate::model::RestoreClusterRequest>);
 
@@ -818,7 +818,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::create_secondary_cluster call.
+    /// The request builder for [AlloyDBAdmin::create_secondary_cluster][super::super::client::AlloyDBAdmin::create_secondary_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct CreateSecondaryCluster(RequestBuilder<crate::model::CreateSecondaryClusterRequest>);
 
@@ -927,7 +927,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::list_instances call.
+    /// The request builder for [AlloyDBAdmin::list_instances][super::super::client::AlloyDBAdmin::list_instances] calls.
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
@@ -1008,7 +1008,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::get_instance call.
+    /// The request builder for [AlloyDBAdmin::get_instance][super::super::client::AlloyDBAdmin::get_instance] calls.
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
@@ -1056,7 +1056,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::create_instance call.
+    /// The request builder for [AlloyDBAdmin::create_instance][super::super::client::AlloyDBAdmin::create_instance] calls.
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
@@ -1163,7 +1163,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::create_secondary_instance call.
+    /// The request builder for [AlloyDBAdmin::create_secondary_instance][super::super::client::AlloyDBAdmin::create_secondary_instance] calls.
     #[derive(Clone, Debug)]
     pub struct CreateSecondaryInstance(
         RequestBuilder<crate::model::CreateSecondaryInstanceRequest>,
@@ -1275,7 +1275,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::batch_create_instances call.
+    /// The request builder for [AlloyDBAdmin::batch_create_instances][super::super::client::AlloyDBAdmin::batch_create_instances] calls.
     #[derive(Clone, Debug)]
     pub struct BatchCreateInstances(RequestBuilder<crate::model::BatchCreateInstancesRequest>);
 
@@ -1376,7 +1376,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::update_instance call.
+    /// The request builder for [AlloyDBAdmin::update_instance][super::super::client::AlloyDBAdmin::update_instance] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
@@ -1486,7 +1486,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::delete_instance call.
+    /// The request builder for [AlloyDBAdmin::delete_instance][super::super::client::AlloyDBAdmin::delete_instance] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
@@ -1581,7 +1581,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::failover_instance call.
+    /// The request builder for [AlloyDBAdmin::failover_instance][super::super::client::AlloyDBAdmin::failover_instance] calls.
     #[derive(Clone, Debug)]
     pub struct FailoverInstance(RequestBuilder<crate::model::FailoverInstanceRequest>);
 
@@ -1676,7 +1676,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::inject_fault call.
+    /// The request builder for [AlloyDBAdmin::inject_fault][super::super::client::AlloyDBAdmin::inject_fault] calls.
     #[derive(Clone, Debug)]
     pub struct InjectFault(RequestBuilder<crate::model::InjectFaultRequest>);
 
@@ -1777,7 +1777,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::restart_instance call.
+    /// The request builder for [AlloyDBAdmin::restart_instance][super::super::client::AlloyDBAdmin::restart_instance] calls.
     #[derive(Clone, Debug)]
     pub struct RestartInstance(RequestBuilder<crate::model::RestartInstanceRequest>);
 
@@ -1880,7 +1880,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::execute_sql call.
+    /// The request builder for [AlloyDBAdmin::execute_sql][super::super::client::AlloyDBAdmin::execute_sql] calls.
     #[derive(Clone, Debug)]
     pub struct ExecuteSql(RequestBuilder<crate::model::ExecuteSqlRequest>);
 
@@ -1951,7 +1951,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::list_backups call.
+    /// The request builder for [AlloyDBAdmin::list_backups][super::super::client::AlloyDBAdmin::list_backups] calls.
     #[derive(Clone, Debug)]
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
@@ -2032,7 +2032,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::get_backup call.
+    /// The request builder for [AlloyDBAdmin::get_backup][super::super::client::AlloyDBAdmin::get_backup] calls.
     #[derive(Clone, Debug)]
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
@@ -2074,7 +2074,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::create_backup call.
+    /// The request builder for [AlloyDBAdmin::create_backup][super::super::client::AlloyDBAdmin::create_backup] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
@@ -2180,7 +2180,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::update_backup call.
+    /// The request builder for [AlloyDBAdmin::update_backup][super::super::client::AlloyDBAdmin::update_backup] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
@@ -2289,7 +2289,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::delete_backup call.
+    /// The request builder for [AlloyDBAdmin::delete_backup][super::super::client::AlloyDBAdmin::delete_backup] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
@@ -2384,7 +2384,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::list_supported_database_flags call.
+    /// The request builder for [AlloyDBAdmin::list_supported_database_flags][super::super::client::AlloyDBAdmin::list_supported_database_flags] calls.
     #[derive(Clone, Debug)]
     pub struct ListSupportedDatabaseFlags(
         RequestBuilder<crate::model::ListSupportedDatabaseFlagsRequest>,
@@ -2460,7 +2460,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::generate_client_certificate call.
+    /// The request builder for [AlloyDBAdmin::generate_client_certificate][super::super::client::AlloyDBAdmin::generate_client_certificate] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateClientCertificate(
         RequestBuilder<crate::model::GenerateClientCertificateRequest>,
@@ -2534,7 +2534,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::get_connection_info call.
+    /// The request builder for [AlloyDBAdmin::get_connection_info][super::super::client::AlloyDBAdmin::get_connection_info] calls.
     #[derive(Clone, Debug)]
     pub struct GetConnectionInfo(RequestBuilder<crate::model::GetConnectionInfoRequest>);
 
@@ -2585,7 +2585,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::list_users call.
+    /// The request builder for [AlloyDBAdmin::list_users][super::super::client::AlloyDBAdmin::list_users] calls.
     #[derive(Clone, Debug)]
     pub struct ListUsers(RequestBuilder<crate::model::ListUsersRequest>);
 
@@ -2665,7 +2665,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::get_user call.
+    /// The request builder for [AlloyDBAdmin::get_user][super::super::client::AlloyDBAdmin::get_user] calls.
     #[derive(Clone, Debug)]
     pub struct GetUser(RequestBuilder<crate::model::GetUserRequest>);
 
@@ -2707,7 +2707,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::create_user call.
+    /// The request builder for [AlloyDBAdmin::create_user][super::super::client::AlloyDBAdmin::create_user] calls.
     #[derive(Clone, Debug)]
     pub struct CreateUser(RequestBuilder<crate::model::CreateUserRequest>);
 
@@ -2773,7 +2773,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::update_user call.
+    /// The request builder for [AlloyDBAdmin::update_user][super::super::client::AlloyDBAdmin::update_user] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateUser(RequestBuilder<crate::model::UpdateUserRequest>);
 
@@ -2842,7 +2842,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::delete_user call.
+    /// The request builder for [AlloyDBAdmin::delete_user][super::super::client::AlloyDBAdmin::delete_user] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteUser(RequestBuilder<crate::model::DeleteUserRequest>);
 
@@ -2896,7 +2896,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::list_databases call.
+    /// The request builder for [AlloyDBAdmin::list_databases][super::super::client::AlloyDBAdmin::list_databases] calls.
     #[derive(Clone, Debug)]
     pub struct ListDatabases(RequestBuilder<crate::model::ListDatabasesRequest>);
 
@@ -2971,7 +2971,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::list_locations call.
+    /// The request builder for [AlloyDBAdmin::list_locations][super::super::client::AlloyDBAdmin::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -3049,7 +3049,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::get_location call.
+    /// The request builder for [AlloyDBAdmin::get_location][super::super::client::AlloyDBAdmin::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -3091,7 +3091,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::list_operations call.
+    /// The request builder for [AlloyDBAdmin::list_operations][super::super::client::AlloyDBAdmin::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -3169,7 +3169,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::get_operation call.
+    /// The request builder for [AlloyDBAdmin::get_operation][super::super::client::AlloyDBAdmin::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -3214,7 +3214,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::delete_operation call.
+    /// The request builder for [AlloyDBAdmin::delete_operation][super::super::client::AlloyDBAdmin::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -3259,7 +3259,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for a AlloyDBAdmin::cancel_operation call.
+    /// The request builder for [AlloyDBAdmin::cancel_operation][super::super::client::AlloyDBAdmin::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

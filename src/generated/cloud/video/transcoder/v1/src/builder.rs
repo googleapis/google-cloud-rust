@@ -67,7 +67,7 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for a TranscoderService::create_job call.
+    /// The request builder for [TranscoderService::create_job][super::super::client::TranscoderService::create_job] calls.
     #[derive(Clone, Debug)]
     pub struct CreateJob(RequestBuilder<crate::model::CreateJobRequest>);
 
@@ -115,7 +115,7 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for a TranscoderService::list_jobs call.
+    /// The request builder for [TranscoderService::list_jobs][super::super::client::TranscoderService::list_jobs] calls.
     #[derive(Clone, Debug)]
     pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
 
@@ -195,7 +195,7 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for a TranscoderService::get_job call.
+    /// The request builder for [TranscoderService::get_job][super::super::client::TranscoderService::get_job] calls.
     #[derive(Clone, Debug)]
     pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
 
@@ -235,7 +235,7 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for a TranscoderService::delete_job call.
+    /// The request builder for [TranscoderService::delete_job][super::super::client::TranscoderService::delete_job] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
 
@@ -283,7 +283,7 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for a TranscoderService::create_job_template call.
+    /// The request builder for [TranscoderService::create_job_template][super::super::client::TranscoderService::create_job_template] calls.
     #[derive(Clone, Debug)]
     pub struct CreateJobTemplate(RequestBuilder<crate::model::CreateJobTemplateRequest>);
 
@@ -343,7 +343,7 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for a TranscoderService::list_job_templates call.
+    /// The request builder for [TranscoderService::list_job_templates][super::super::client::TranscoderService::list_job_templates] calls.
     #[derive(Clone, Debug)]
     pub struct ListJobTemplates(RequestBuilder<crate::model::ListJobTemplatesRequest>);
 
@@ -427,7 +427,7 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for a TranscoderService::get_job_template call.
+    /// The request builder for [TranscoderService::get_job_template][super::super::client::TranscoderService::get_job_template] calls.
     #[derive(Clone, Debug)]
     pub struct GetJobTemplate(RequestBuilder<crate::model::GetJobTemplateRequest>);
 
@@ -469,7 +469,7 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for a TranscoderService::delete_job_template call.
+    /// The request builder for [TranscoderService::delete_job_template][super::super::client::TranscoderService::delete_job_template] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteJobTemplate(RequestBuilder<crate::model::DeleteJobTemplateRequest>);
 

@@ -67,7 +67,7 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for a Firestore::get_document call.
+    /// The request builder for [Firestore::get_document][super::super::client::Firestore::get_document] calls.
     #[derive(Clone, Debug)]
     pub struct GetDocument(RequestBuilder<crate::model::GetDocumentRequest>);
 
@@ -129,7 +129,7 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for a Firestore::list_documents call.
+    /// The request builder for [Firestore::list_documents][super::super::client::Firestore::list_documents] calls.
     #[derive(Clone, Debug)]
     pub struct ListDocuments(RequestBuilder<crate::model::ListDocumentsRequest>);
 
@@ -236,7 +236,7 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for a Firestore::update_document call.
+    /// The request builder for [Firestore::update_document][super::super::client::Firestore::update_document] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateDocument(RequestBuilder<crate::model::UpdateDocumentRequest>);
 
@@ -308,7 +308,7 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for a Firestore::delete_document call.
+    /// The request builder for [Firestore::delete_document][super::super::client::Firestore::delete_document] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteDocument(RequestBuilder<crate::model::DeleteDocumentRequest>);
 
@@ -359,7 +359,7 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for a Firestore::begin_transaction call.
+    /// The request builder for [Firestore::begin_transaction][super::super::client::Firestore::begin_transaction] calls.
     #[derive(Clone, Debug)]
     pub struct BeginTransaction(RequestBuilder<crate::model::BeginTransactionRequest>);
 
@@ -413,7 +413,7 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for a Firestore::commit call.
+    /// The request builder for [Firestore::commit][super::super::client::Firestore::commit] calls.
     #[derive(Clone, Debug)]
     pub struct Commit(RequestBuilder<crate::model::CommitRequest>);
 
@@ -470,7 +470,7 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for a Firestore::rollback call.
+    /// The request builder for [Firestore::rollback][super::super::client::Firestore::rollback] calls.
     #[derive(Clone, Debug)]
     pub struct Rollback(RequestBuilder<crate::model::RollbackRequest>);
 
@@ -518,7 +518,7 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for a Firestore::partition_query call.
+    /// The request builder for [Firestore::partition_query][super::super::client::Firestore::partition_query] calls.
     #[derive(Clone, Debug)]
     pub struct PartitionQuery(RequestBuilder<crate::model::PartitionQueryRequest>);
 
@@ -613,7 +613,7 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for a Firestore::list_collection_ids call.
+    /// The request builder for [Firestore::list_collection_ids][super::super::client::Firestore::list_collection_ids] calls.
     #[derive(Clone, Debug)]
     pub struct ListCollectionIds(RequestBuilder<crate::model::ListCollectionIdsRequest>);
 
@@ -681,7 +681,7 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for a Firestore::batch_write call.
+    /// The request builder for [Firestore::batch_write][super::super::client::Firestore::batch_write] calls.
     #[derive(Clone, Debug)]
     pub struct BatchWrite(RequestBuilder<crate::model::BatchWriteRequest>);
 
@@ -745,7 +745,7 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for a Firestore::create_document call.
+    /// The request builder for [Firestore::create_document][super::super::client::Firestore::create_document] calls.
     #[derive(Clone, Debug)]
     pub struct CreateDocument(RequestBuilder<crate::model::CreateDocumentRequest>);
 

@@ -67,7 +67,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for a CloudTasks::list_queues call.
+    /// The request builder for [CloudTasks::list_queues][super::super::client::CloudTasks::list_queues] calls.
     #[derive(Clone, Debug)]
     pub struct ListQueues(RequestBuilder<crate::model::ListQueuesRequest>);
 
@@ -142,7 +142,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for a CloudTasks::get_queue call.
+    /// The request builder for [CloudTasks::get_queue][super::super::client::CloudTasks::get_queue] calls.
     #[derive(Clone, Debug)]
     pub struct GetQueue(RequestBuilder<crate::model::GetQueueRequest>);
 
@@ -184,7 +184,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for a CloudTasks::create_queue call.
+    /// The request builder for [CloudTasks::create_queue][super::super::client::CloudTasks::create_queue] calls.
     #[derive(Clone, Debug)]
     pub struct CreateQueue(RequestBuilder<crate::model::CreateQueueRequest>);
 
@@ -235,7 +235,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for a CloudTasks::update_queue call.
+    /// The request builder for [CloudTasks::update_queue][super::super::client::CloudTasks::update_queue] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateQueue(RequestBuilder<crate::model::UpdateQueueRequest>);
 
@@ -289,7 +289,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for a CloudTasks::delete_queue call.
+    /// The request builder for [CloudTasks::delete_queue][super::super::client::CloudTasks::delete_queue] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteQueue(RequestBuilder<crate::model::DeleteQueueRequest>);
 
@@ -331,7 +331,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for a CloudTasks::purge_queue call.
+    /// The request builder for [CloudTasks::purge_queue][super::super::client::CloudTasks::purge_queue] calls.
     #[derive(Clone, Debug)]
     pub struct PurgeQueue(RequestBuilder<crate::model::PurgeQueueRequest>);
 
@@ -373,7 +373,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for a CloudTasks::pause_queue call.
+    /// The request builder for [CloudTasks::pause_queue][super::super::client::CloudTasks::pause_queue] calls.
     #[derive(Clone, Debug)]
     pub struct PauseQueue(RequestBuilder<crate::model::PauseQueueRequest>);
 
@@ -415,7 +415,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for a CloudTasks::resume_queue call.
+    /// The request builder for [CloudTasks::resume_queue][super::super::client::CloudTasks::resume_queue] calls.
     #[derive(Clone, Debug)]
     pub struct ResumeQueue(RequestBuilder<crate::model::ResumeQueueRequest>);
 
@@ -457,7 +457,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for a CloudTasks::get_iam_policy call.
+    /// The request builder for [CloudTasks::get_iam_policy][super::super::client::CloudTasks::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -508,7 +508,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for a CloudTasks::set_iam_policy call.
+    /// The request builder for [CloudTasks::set_iam_policy][super::super::client::CloudTasks::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -568,7 +568,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for a CloudTasks::test_iam_permissions call.
+    /// The request builder for [CloudTasks::test_iam_permissions][super::super::client::CloudTasks::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -624,7 +624,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for a CloudTasks::list_tasks call.
+    /// The request builder for [CloudTasks::list_tasks][super::super::client::CloudTasks::list_tasks] calls.
     #[derive(Clone, Debug)]
     pub struct ListTasks(RequestBuilder<crate::model::ListTasksRequest>);
 
@@ -698,7 +698,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for a CloudTasks::get_task call.
+    /// The request builder for [CloudTasks::get_task][super::super::client::CloudTasks::get_task] calls.
     #[derive(Clone, Debug)]
     pub struct GetTask(RequestBuilder<crate::model::GetTaskRequest>);
 
@@ -746,7 +746,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for a CloudTasks::create_task call.
+    /// The request builder for [CloudTasks::create_task][super::super::client::CloudTasks::create_task] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTask(RequestBuilder<crate::model::CreateTaskRequest>);
 
@@ -800,7 +800,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for a CloudTasks::delete_task call.
+    /// The request builder for [CloudTasks::delete_task][super::super::client::CloudTasks::delete_task] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTask(RequestBuilder<crate::model::DeleteTaskRequest>);
 
@@ -842,7 +842,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for a CloudTasks::run_task call.
+    /// The request builder for [CloudTasks::run_task][super::super::client::CloudTasks::run_task] calls.
     #[derive(Clone, Debug)]
     pub struct RunTask(RequestBuilder<crate::model::RunTaskRequest>);
 
@@ -890,7 +890,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for a CloudTasks::list_locations call.
+    /// The request builder for [CloudTasks::list_locations][super::super::client::CloudTasks::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -968,7 +968,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for a CloudTasks::get_location call.
+    /// The request builder for [CloudTasks::get_location][super::super::client::CloudTasks::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 

@@ -67,7 +67,7 @@ pub mod dataset_service {
         }
     }
 
-    /// The request builder for a DatasetService::get_dataset call.
+    /// The request builder for [DatasetService::get_dataset][super::super::client::DatasetService::get_dataset] calls.
     #[derive(Clone, Debug)]
     pub struct GetDataset(RequestBuilder<crate::model::GetDatasetRequest>);
 
@@ -130,7 +130,7 @@ pub mod dataset_service {
         }
     }
 
-    /// The request builder for a DatasetService::insert_dataset call.
+    /// The request builder for [DatasetService::insert_dataset][super::super::client::DatasetService::insert_dataset] calls.
     #[derive(Clone, Debug)]
     pub struct InsertDataset(RequestBuilder<crate::model::InsertDatasetRequest>);
 
@@ -187,7 +187,7 @@ pub mod dataset_service {
         }
     }
 
-    /// The request builder for a DatasetService::patch_dataset call.
+    /// The request builder for [DatasetService::patch_dataset][super::super::client::DatasetService::patch_dataset] calls.
     #[derive(Clone, Debug)]
     pub struct PatchDataset(RequestBuilder<crate::model::UpdateOrPatchDatasetRequest>);
 
@@ -253,7 +253,7 @@ pub mod dataset_service {
         }
     }
 
-    /// The request builder for a DatasetService::update_dataset call.
+    /// The request builder for [DatasetService::update_dataset][super::super::client::DatasetService::update_dataset] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateDataset(RequestBuilder<crate::model::UpdateOrPatchDatasetRequest>);
 
@@ -319,7 +319,7 @@ pub mod dataset_service {
         }
     }
 
-    /// The request builder for a DatasetService::delete_dataset call.
+    /// The request builder for [DatasetService::delete_dataset][super::super::client::DatasetService::delete_dataset] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteDataset(RequestBuilder<crate::model::DeleteDatasetRequest>);
 
@@ -373,7 +373,7 @@ pub mod dataset_service {
         }
     }
 
-    /// The request builder for a DatasetService::list_datasets call.
+    /// The request builder for [DatasetService::list_datasets][super::super::client::DatasetService::list_datasets] calls.
     #[derive(Clone, Debug)]
     pub struct ListDatasets(RequestBuilder<crate::model::ListDatasetsRequest>);
 
@@ -442,7 +442,7 @@ pub mod dataset_service {
         }
     }
 
-    /// The request builder for a DatasetService::undelete_dataset call.
+    /// The request builder for [DatasetService::undelete_dataset][super::super::client::DatasetService::undelete_dataset] calls.
     #[derive(Clone, Debug)]
     pub struct UndeleteDataset(RequestBuilder<crate::model::UndeleteDatasetRequest>);
 
@@ -553,7 +553,7 @@ pub mod model_service {
         }
     }
 
-    /// The request builder for a ModelService::get_model call.
+    /// The request builder for [ModelService::get_model][super::super::client::ModelService::get_model] calls.
     #[derive(Clone, Debug)]
     pub struct GetModel(RequestBuilder<crate::model::GetModelRequest>);
 
@@ -607,7 +607,7 @@ pub mod model_service {
         }
     }
 
-    /// The request builder for a ModelService::list_models call.
+    /// The request builder for [ModelService::list_models][super::super::client::ModelService::list_models] calls.
     #[derive(Clone, Debug)]
     pub struct ListModels(RequestBuilder<crate::model::ListModelsRequest>);
 
@@ -670,7 +670,7 @@ pub mod model_service {
         }
     }
 
-    /// The request builder for a ModelService::patch_model call.
+    /// The request builder for [ModelService::patch_model][super::super::client::ModelService::patch_model] calls.
     #[derive(Clone, Debug)]
     pub struct PatchModel(RequestBuilder<crate::model::PatchModelRequest>);
 
@@ -733,7 +733,7 @@ pub mod model_service {
         }
     }
 
-    /// The request builder for a ModelService::delete_model call.
+    /// The request builder for [ModelService::delete_model][super::super::client::ModelService::delete_model] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteModel(RequestBuilder<crate::model::DeleteModelRequest>);
 
@@ -841,7 +841,7 @@ pub mod project_service {
         }
     }
 
-    /// The request builder for a ProjectService::get_service_account call.
+    /// The request builder for [ProjectService::get_service_account][super::super::client::ProjectService::get_service_account] calls.
     #[derive(Clone, Debug)]
     pub struct GetServiceAccount(RequestBuilder<crate::model::GetServiceAccountRequest>);
 
@@ -940,7 +940,7 @@ pub mod routine_service {
         }
     }
 
-    /// The request builder for a RoutineService::get_routine call.
+    /// The request builder for [RoutineService::get_routine][super::super::client::RoutineService::get_routine] calls.
     #[derive(Clone, Debug)]
     pub struct GetRoutine(RequestBuilder<crate::model::GetRoutineRequest>);
 
@@ -994,7 +994,7 @@ pub mod routine_service {
         }
     }
 
-    /// The request builder for a RoutineService::insert_routine call.
+    /// The request builder for [RoutineService::insert_routine][super::super::client::RoutineService::insert_routine] calls.
     #[derive(Clone, Debug)]
     pub struct InsertRoutine(RequestBuilder<crate::model::InsertRoutineRequest>);
 
@@ -1051,7 +1051,7 @@ pub mod routine_service {
         }
     }
 
-    /// The request builder for a RoutineService::update_routine call.
+    /// The request builder for [RoutineService::update_routine][super::super::client::RoutineService::update_routine] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateRoutine(RequestBuilder<crate::model::UpdateRoutineRequest>);
 
@@ -1114,7 +1114,7 @@ pub mod routine_service {
         }
     }
 
-    /// The request builder for a RoutineService::delete_routine call.
+    /// The request builder for [RoutineService::delete_routine][super::super::client::RoutineService::delete_routine] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteRoutine(RequestBuilder<crate::model::DeleteRoutineRequest>);
 
@@ -1168,7 +1168,7 @@ pub mod routine_service {
         }
     }
 
-    /// The request builder for a RoutineService::list_routines call.
+    /// The request builder for [RoutineService::list_routines][super::super::client::RoutineService::list_routines] calls.
     #[derive(Clone, Debug)]
     pub struct ListRoutines(RequestBuilder<crate::model::ListRoutinesRequest>);
 
@@ -1293,7 +1293,7 @@ pub mod row_access_policy_service {
         }
     }
 
-    /// The request builder for a RowAccessPolicyService::list_row_access_policies call.
+    /// The request builder for [RowAccessPolicyService::list_row_access_policies][super::super::client::RowAccessPolicyService::list_row_access_policies] calls.
     #[derive(Clone, Debug)]
     pub struct ListRowAccessPolicies(RequestBuilder<crate::model::ListRowAccessPoliciesRequest>);
 
@@ -1379,7 +1379,7 @@ pub mod row_access_policy_service {
         }
     }
 
-    /// The request builder for a RowAccessPolicyService::get_row_access_policy call.
+    /// The request builder for [RowAccessPolicyService::get_row_access_policy][super::super::client::RowAccessPolicyService::get_row_access_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetRowAccessPolicy(RequestBuilder<crate::model::GetRowAccessPolicyRequest>);
 
@@ -1444,7 +1444,7 @@ pub mod row_access_policy_service {
         }
     }
 
-    /// The request builder for a RowAccessPolicyService::create_row_access_policy call.
+    /// The request builder for [RowAccessPolicyService::create_row_access_policy][super::super::client::RowAccessPolicyService::create_row_access_policy] calls.
     #[derive(Clone, Debug)]
     pub struct CreateRowAccessPolicy(RequestBuilder<crate::model::CreateRowAccessPolicyRequest>);
 
@@ -1514,7 +1514,7 @@ pub mod row_access_policy_service {
         }
     }
 
-    /// The request builder for a RowAccessPolicyService::update_row_access_policy call.
+    /// The request builder for [RowAccessPolicyService::update_row_access_policy][super::super::client::RowAccessPolicyService::update_row_access_policy] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateRowAccessPolicy(RequestBuilder<crate::model::UpdateRowAccessPolicyRequest>);
 
@@ -1590,7 +1590,7 @@ pub mod row_access_policy_service {
         }
     }
 
-    /// The request builder for a RowAccessPolicyService::delete_row_access_policy call.
+    /// The request builder for [RowAccessPolicyService::delete_row_access_policy][super::super::client::RowAccessPolicyService::delete_row_access_policy] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteRowAccessPolicy(RequestBuilder<crate::model::DeleteRowAccessPolicyRequest>);
 
@@ -1661,7 +1661,7 @@ pub mod row_access_policy_service {
         }
     }
 
-    /// The request builder for a RowAccessPolicyService::batch_delete_row_access_policies call.
+    /// The request builder for [RowAccessPolicyService::batch_delete_row_access_policies][super::super::client::RowAccessPolicyService::batch_delete_row_access_policies] calls.
     #[derive(Clone, Debug)]
     pub struct BatchDeleteRowAccessPolicies(
         RequestBuilder<crate::model::BatchDeleteRowAccessPoliciesRequest>,
@@ -1793,7 +1793,7 @@ pub mod table_service {
         }
     }
 
-    /// The request builder for a TableService::get_table call.
+    /// The request builder for [TableService::get_table][super::super::client::TableService::get_table] calls.
     #[derive(Clone, Debug)]
     pub struct GetTable(RequestBuilder<crate::model::GetTableRequest>);
 
@@ -1862,7 +1862,7 @@ pub mod table_service {
         }
     }
 
-    /// The request builder for a TableService::insert_table call.
+    /// The request builder for [TableService::insert_table][super::super::client::TableService::insert_table] calls.
     #[derive(Clone, Debug)]
     pub struct InsertTable(RequestBuilder<crate::model::InsertTableRequest>);
 
@@ -1919,7 +1919,7 @@ pub mod table_service {
         }
     }
 
-    /// The request builder for a TableService::patch_table call.
+    /// The request builder for [TableService::patch_table][super::super::client::TableService::patch_table] calls.
     #[derive(Clone, Debug)]
     pub struct PatchTable(RequestBuilder<crate::model::UpdateOrPatchTableRequest>);
 
@@ -1991,7 +1991,7 @@ pub mod table_service {
         }
     }
 
-    /// The request builder for a TableService::update_table call.
+    /// The request builder for [TableService::update_table][super::super::client::TableService::update_table] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateTable(RequestBuilder<crate::model::UpdateOrPatchTableRequest>);
 
@@ -2063,7 +2063,7 @@ pub mod table_service {
         }
     }
 
-    /// The request builder for a TableService::delete_table call.
+    /// The request builder for [TableService::delete_table][super::super::client::TableService::delete_table] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTable(RequestBuilder<crate::model::DeleteTableRequest>);
 
@@ -2117,7 +2117,7 @@ pub mod table_service {
         }
     }
 
-    /// The request builder for a TableService::list_tables call.
+    /// The request builder for [TableService::list_tables][super::super::client::TableService::list_tables] calls.
     #[derive(Clone, Debug)]
     pub struct ListTables(RequestBuilder<crate::model::ListTablesRequest>);
 

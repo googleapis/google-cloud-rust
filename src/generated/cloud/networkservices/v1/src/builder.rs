@@ -67,7 +67,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for a DepService::list_lb_traffic_extensions call.
+    /// The request builder for [DepService::list_lb_traffic_extensions][super::super::client::DepService::list_lb_traffic_extensions] calls.
     #[derive(Clone, Debug)]
     pub struct ListLbTrafficExtensions(
         RequestBuilder<crate::model::ListLbTrafficExtensionsRequest>,
@@ -155,7 +155,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for a DepService::get_lb_traffic_extension call.
+    /// The request builder for [DepService::get_lb_traffic_extension][super::super::client::DepService::get_lb_traffic_extension] calls.
     #[derive(Clone, Debug)]
     pub struct GetLbTrafficExtension(RequestBuilder<crate::model::GetLbTrafficExtensionRequest>);
 
@@ -200,7 +200,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for a DepService::create_lb_traffic_extension call.
+    /// The request builder for [DepService::create_lb_traffic_extension][super::super::client::DepService::create_lb_traffic_extension] calls.
     #[derive(Clone, Debug)]
     pub struct CreateLbTrafficExtension(
         RequestBuilder<crate::model::CreateLbTrafficExtensionRequest>,
@@ -309,7 +309,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for a DepService::update_lb_traffic_extension call.
+    /// The request builder for [DepService::update_lb_traffic_extension][super::super::client::DepService::update_lb_traffic_extension] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateLbTrafficExtension(
         RequestBuilder<crate::model::UpdateLbTrafficExtensionRequest>,
@@ -415,7 +415,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for a DepService::delete_lb_traffic_extension call.
+    /// The request builder for [DepService::delete_lb_traffic_extension][super::super::client::DepService::delete_lb_traffic_extension] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteLbTrafficExtension(
         RequestBuilder<crate::model::DeleteLbTrafficExtensionRequest>,
@@ -503,7 +503,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for a DepService::list_lb_route_extensions call.
+    /// The request builder for [DepService::list_lb_route_extensions][super::super::client::DepService::list_lb_route_extensions] calls.
     #[derive(Clone, Debug)]
     pub struct ListLbRouteExtensions(RequestBuilder<crate::model::ListLbRouteExtensionsRequest>);
 
@@ -587,7 +587,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for a DepService::get_lb_route_extension call.
+    /// The request builder for [DepService::get_lb_route_extension][super::super::client::DepService::get_lb_route_extension] calls.
     #[derive(Clone, Debug)]
     pub struct GetLbRouteExtension(RequestBuilder<crate::model::GetLbRouteExtensionRequest>);
 
@@ -632,7 +632,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for a DepService::create_lb_route_extension call.
+    /// The request builder for [DepService::create_lb_route_extension][super::super::client::DepService::create_lb_route_extension] calls.
     #[derive(Clone, Debug)]
     pub struct CreateLbRouteExtension(RequestBuilder<crate::model::CreateLbRouteExtensionRequest>);
 
@@ -739,7 +739,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for a DepService::update_lb_route_extension call.
+    /// The request builder for [DepService::update_lb_route_extension][super::super::client::DepService::update_lb_route_extension] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateLbRouteExtension(RequestBuilder<crate::model::UpdateLbRouteExtensionRequest>);
 
@@ -843,7 +843,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for a DepService::delete_lb_route_extension call.
+    /// The request builder for [DepService::delete_lb_route_extension][super::super::client::DepService::delete_lb_route_extension] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteLbRouteExtension(RequestBuilder<crate::model::DeleteLbRouteExtensionRequest>);
 
@@ -929,7 +929,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for a DepService::list_locations call.
+    /// The request builder for [DepService::list_locations][super::super::client::DepService::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1007,7 +1007,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for a DepService::get_location call.
+    /// The request builder for [DepService::get_location][super::super::client::DepService::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1049,7 +1049,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for a DepService::set_iam_policy call.
+    /// The request builder for [DepService::set_iam_policy][super::super::client::DepService::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1109,7 +1109,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for a DepService::get_iam_policy call.
+    /// The request builder for [DepService::get_iam_policy][super::super::client::DepService::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1160,7 +1160,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for a DepService::test_iam_permissions call.
+    /// The request builder for [DepService::test_iam_permissions][super::super::client::DepService::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1216,7 +1216,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for a DepService::list_operations call.
+    /// The request builder for [DepService::list_operations][super::super::client::DepService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1294,7 +1294,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for a DepService::get_operation call.
+    /// The request builder for [DepService::get_operation][super::super::client::DepService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1339,7 +1339,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for a DepService::delete_operation call.
+    /// The request builder for [DepService::delete_operation][super::super::client::DepService::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1384,7 +1384,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for a DepService::cancel_operation call.
+    /// The request builder for [DepService::cancel_operation][super::super::client::DepService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -1483,7 +1483,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::list_endpoint_policies call.
+    /// The request builder for [NetworkServices::list_endpoint_policies][super::super::client::NetworkServices::list_endpoint_policies] calls.
     #[derive(Clone, Debug)]
     pub struct ListEndpointPolicies(RequestBuilder<crate::model::ListEndpointPoliciesRequest>);
 
@@ -1555,7 +1555,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::get_endpoint_policy call.
+    /// The request builder for [NetworkServices::get_endpoint_policy][super::super::client::NetworkServices::get_endpoint_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetEndpointPolicy(RequestBuilder<crate::model::GetEndpointPolicyRequest>);
 
@@ -1600,7 +1600,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::create_endpoint_policy call.
+    /// The request builder for [NetworkServices::create_endpoint_policy][super::super::client::NetworkServices::create_endpoint_policy] calls.
     #[derive(Clone, Debug)]
     pub struct CreateEndpointPolicy(RequestBuilder<crate::model::CreateEndpointPolicyRequest>);
 
@@ -1699,7 +1699,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::update_endpoint_policy call.
+    /// The request builder for [NetworkServices::update_endpoint_policy][super::super::client::NetworkServices::update_endpoint_policy] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateEndpointPolicy(RequestBuilder<crate::model::UpdateEndpointPolicyRequest>);
 
@@ -1795,7 +1795,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::delete_endpoint_policy call.
+    /// The request builder for [NetworkServices::delete_endpoint_policy][super::super::client::NetworkServices::delete_endpoint_policy] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteEndpointPolicy(RequestBuilder<crate::model::DeleteEndpointPolicyRequest>);
 
@@ -1875,7 +1875,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::list_gateways call.
+    /// The request builder for [NetworkServices::list_gateways][super::super::client::NetworkServices::list_gateways] calls.
     #[derive(Clone, Debug)]
     pub struct ListGateways(RequestBuilder<crate::model::ListGatewaysRequest>);
 
@@ -1944,7 +1944,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::get_gateway call.
+    /// The request builder for [NetworkServices::get_gateway][super::super::client::NetworkServices::get_gateway] calls.
     #[derive(Clone, Debug)]
     pub struct GetGateway(RequestBuilder<crate::model::GetGatewayRequest>);
 
@@ -1986,7 +1986,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::create_gateway call.
+    /// The request builder for [NetworkServices::create_gateway][super::super::client::NetworkServices::create_gateway] calls.
     #[derive(Clone, Debug)]
     pub struct CreateGateway(RequestBuilder<crate::model::CreateGatewayRequest>);
 
@@ -2080,7 +2080,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::update_gateway call.
+    /// The request builder for [NetworkServices::update_gateway][super::super::client::NetworkServices::update_gateway] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateGateway(RequestBuilder<crate::model::UpdateGatewayRequest>);
 
@@ -2171,7 +2171,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::delete_gateway call.
+    /// The request builder for [NetworkServices::delete_gateway][super::super::client::NetworkServices::delete_gateway] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteGateway(RequestBuilder<crate::model::DeleteGatewayRequest>);
 
@@ -2248,7 +2248,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::list_grpc_routes call.
+    /// The request builder for [NetworkServices::list_grpc_routes][super::super::client::NetworkServices::list_grpc_routes] calls.
     #[derive(Clone, Debug)]
     pub struct ListGrpcRoutes(RequestBuilder<crate::model::ListGrpcRoutesRequest>);
 
@@ -2317,7 +2317,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::get_grpc_route call.
+    /// The request builder for [NetworkServices::get_grpc_route][super::super::client::NetworkServices::get_grpc_route] calls.
     #[derive(Clone, Debug)]
     pub struct GetGrpcRoute(RequestBuilder<crate::model::GetGrpcRouteRequest>);
 
@@ -2359,7 +2359,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::create_grpc_route call.
+    /// The request builder for [NetworkServices::create_grpc_route][super::super::client::NetworkServices::create_grpc_route] calls.
     #[derive(Clone, Debug)]
     pub struct CreateGrpcRoute(RequestBuilder<crate::model::CreateGrpcRouteRequest>);
 
@@ -2454,7 +2454,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::update_grpc_route call.
+    /// The request builder for [NetworkServices::update_grpc_route][super::super::client::NetworkServices::update_grpc_route] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateGrpcRoute(RequestBuilder<crate::model::UpdateGrpcRouteRequest>);
 
@@ -2546,7 +2546,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::delete_grpc_route call.
+    /// The request builder for [NetworkServices::delete_grpc_route][super::super::client::NetworkServices::delete_grpc_route] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteGrpcRoute(RequestBuilder<crate::model::DeleteGrpcRouteRequest>);
 
@@ -2623,7 +2623,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::list_http_routes call.
+    /// The request builder for [NetworkServices::list_http_routes][super::super::client::NetworkServices::list_http_routes] calls.
     #[derive(Clone, Debug)]
     pub struct ListHttpRoutes(RequestBuilder<crate::model::ListHttpRoutesRequest>);
 
@@ -2692,7 +2692,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::get_http_route call.
+    /// The request builder for [NetworkServices::get_http_route][super::super::client::NetworkServices::get_http_route] calls.
     #[derive(Clone, Debug)]
     pub struct GetHttpRoute(RequestBuilder<crate::model::GetHttpRouteRequest>);
 
@@ -2734,7 +2734,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::create_http_route call.
+    /// The request builder for [NetworkServices::create_http_route][super::super::client::NetworkServices::create_http_route] calls.
     #[derive(Clone, Debug)]
     pub struct CreateHttpRoute(RequestBuilder<crate::model::CreateHttpRouteRequest>);
 
@@ -2829,7 +2829,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::update_http_route call.
+    /// The request builder for [NetworkServices::update_http_route][super::super::client::NetworkServices::update_http_route] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateHttpRoute(RequestBuilder<crate::model::UpdateHttpRouteRequest>);
 
@@ -2921,7 +2921,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::delete_http_route call.
+    /// The request builder for [NetworkServices::delete_http_route][super::super::client::NetworkServices::delete_http_route] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteHttpRoute(RequestBuilder<crate::model::DeleteHttpRouteRequest>);
 
@@ -2998,7 +2998,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::list_tcp_routes call.
+    /// The request builder for [NetworkServices::list_tcp_routes][super::super::client::NetworkServices::list_tcp_routes] calls.
     #[derive(Clone, Debug)]
     pub struct ListTcpRoutes(RequestBuilder<crate::model::ListTcpRoutesRequest>);
 
@@ -3067,7 +3067,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::get_tcp_route call.
+    /// The request builder for [NetworkServices::get_tcp_route][super::super::client::NetworkServices::get_tcp_route] calls.
     #[derive(Clone, Debug)]
     pub struct GetTcpRoute(RequestBuilder<crate::model::GetTcpRouteRequest>);
 
@@ -3109,7 +3109,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::create_tcp_route call.
+    /// The request builder for [NetworkServices::create_tcp_route][super::super::client::NetworkServices::create_tcp_route] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTcpRoute(RequestBuilder<crate::model::CreateTcpRouteRequest>);
 
@@ -3204,7 +3204,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::update_tcp_route call.
+    /// The request builder for [NetworkServices::update_tcp_route][super::super::client::NetworkServices::update_tcp_route] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateTcpRoute(RequestBuilder<crate::model::UpdateTcpRouteRequest>);
 
@@ -3296,7 +3296,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::delete_tcp_route call.
+    /// The request builder for [NetworkServices::delete_tcp_route][super::super::client::NetworkServices::delete_tcp_route] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTcpRoute(RequestBuilder<crate::model::DeleteTcpRouteRequest>);
 
@@ -3373,7 +3373,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::list_tls_routes call.
+    /// The request builder for [NetworkServices::list_tls_routes][super::super::client::NetworkServices::list_tls_routes] calls.
     #[derive(Clone, Debug)]
     pub struct ListTlsRoutes(RequestBuilder<crate::model::ListTlsRoutesRequest>);
 
@@ -3442,7 +3442,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::get_tls_route call.
+    /// The request builder for [NetworkServices::get_tls_route][super::super::client::NetworkServices::get_tls_route] calls.
     #[derive(Clone, Debug)]
     pub struct GetTlsRoute(RequestBuilder<crate::model::GetTlsRouteRequest>);
 
@@ -3484,7 +3484,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::create_tls_route call.
+    /// The request builder for [NetworkServices::create_tls_route][super::super::client::NetworkServices::create_tls_route] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTlsRoute(RequestBuilder<crate::model::CreateTlsRouteRequest>);
 
@@ -3579,7 +3579,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::update_tls_route call.
+    /// The request builder for [NetworkServices::update_tls_route][super::super::client::NetworkServices::update_tls_route] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateTlsRoute(RequestBuilder<crate::model::UpdateTlsRouteRequest>);
 
@@ -3671,7 +3671,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::delete_tls_route call.
+    /// The request builder for [NetworkServices::delete_tls_route][super::super::client::NetworkServices::delete_tls_route] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTlsRoute(RequestBuilder<crate::model::DeleteTlsRouteRequest>);
 
@@ -3748,7 +3748,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::list_service_bindings call.
+    /// The request builder for [NetworkServices::list_service_bindings][super::super::client::NetworkServices::list_service_bindings] calls.
     #[derive(Clone, Debug)]
     pub struct ListServiceBindings(RequestBuilder<crate::model::ListServiceBindingsRequest>);
 
@@ -3820,7 +3820,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::get_service_binding call.
+    /// The request builder for [NetworkServices::get_service_binding][super::super::client::NetworkServices::get_service_binding] calls.
     #[derive(Clone, Debug)]
     pub struct GetServiceBinding(RequestBuilder<crate::model::GetServiceBindingRequest>);
 
@@ -3865,7 +3865,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::create_service_binding call.
+    /// The request builder for [NetworkServices::create_service_binding][super::super::client::NetworkServices::create_service_binding] calls.
     #[derive(Clone, Debug)]
     pub struct CreateServiceBinding(RequestBuilder<crate::model::CreateServiceBindingRequest>);
 
@@ -3964,7 +3964,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::delete_service_binding call.
+    /// The request builder for [NetworkServices::delete_service_binding][super::super::client::NetworkServices::delete_service_binding] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteServiceBinding(RequestBuilder<crate::model::DeleteServiceBindingRequest>);
 
@@ -4044,7 +4044,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::list_meshes call.
+    /// The request builder for [NetworkServices::list_meshes][super::super::client::NetworkServices::list_meshes] calls.
     #[derive(Clone, Debug)]
     pub struct ListMeshes(RequestBuilder<crate::model::ListMeshesRequest>);
 
@@ -4113,7 +4113,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::get_mesh call.
+    /// The request builder for [NetworkServices::get_mesh][super::super::client::NetworkServices::get_mesh] calls.
     #[derive(Clone, Debug)]
     pub struct GetMesh(RequestBuilder<crate::model::GetMeshRequest>);
 
@@ -4155,7 +4155,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::create_mesh call.
+    /// The request builder for [NetworkServices::create_mesh][super::super::client::NetworkServices::create_mesh] calls.
     #[derive(Clone, Debug)]
     pub struct CreateMesh(RequestBuilder<crate::model::CreateMeshRequest>);
 
@@ -4246,7 +4246,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::update_mesh call.
+    /// The request builder for [NetworkServices::update_mesh][super::super::client::NetworkServices::update_mesh] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateMesh(RequestBuilder<crate::model::UpdateMeshRequest>);
 
@@ -4334,7 +4334,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::delete_mesh call.
+    /// The request builder for [NetworkServices::delete_mesh][super::super::client::NetworkServices::delete_mesh] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteMesh(RequestBuilder<crate::model::DeleteMeshRequest>);
 
@@ -4411,7 +4411,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::list_locations call.
+    /// The request builder for [NetworkServices::list_locations][super::super::client::NetworkServices::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -4489,7 +4489,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::get_location call.
+    /// The request builder for [NetworkServices::get_location][super::super::client::NetworkServices::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -4531,7 +4531,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::set_iam_policy call.
+    /// The request builder for [NetworkServices::set_iam_policy][super::super::client::NetworkServices::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -4591,7 +4591,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::get_iam_policy call.
+    /// The request builder for [NetworkServices::get_iam_policy][super::super::client::NetworkServices::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -4642,7 +4642,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::test_iam_permissions call.
+    /// The request builder for [NetworkServices::test_iam_permissions][super::super::client::NetworkServices::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -4698,7 +4698,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::list_operations call.
+    /// The request builder for [NetworkServices::list_operations][super::super::client::NetworkServices::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -4776,7 +4776,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::get_operation call.
+    /// The request builder for [NetworkServices::get_operation][super::super::client::NetworkServices::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -4821,7 +4821,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::delete_operation call.
+    /// The request builder for [NetworkServices::delete_operation][super::super::client::NetworkServices::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -4866,7 +4866,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for a NetworkServices::cancel_operation call.
+    /// The request builder for [NetworkServices::cancel_operation][super::super::client::NetworkServices::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

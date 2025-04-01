@@ -67,7 +67,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for a AppGatewaysService::list_app_gateways call.
+    /// The request builder for [AppGatewaysService::list_app_gateways][super::super::client::AppGatewaysService::list_app_gateways] calls.
     #[derive(Clone, Debug)]
     pub struct ListAppGateways(RequestBuilder<crate::model::ListAppGatewaysRequest>);
 
@@ -148,7 +148,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for a AppGatewaysService::get_app_gateway call.
+    /// The request builder for [AppGatewaysService::get_app_gateway][super::super::client::AppGatewaysService::get_app_gateway] calls.
     #[derive(Clone, Debug)]
     pub struct GetAppGateway(RequestBuilder<crate::model::GetAppGatewayRequest>);
 
@@ -190,7 +190,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for a AppGatewaysService::create_app_gateway call.
+    /// The request builder for [AppGatewaysService::create_app_gateway][super::super::client::AppGatewaysService::create_app_gateway] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAppGateway(RequestBuilder<crate::model::CreateAppGatewayRequest>);
 
@@ -301,7 +301,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for a AppGatewaysService::delete_app_gateway call.
+    /// The request builder for [AppGatewaysService::delete_app_gateway][super::super::client::AppGatewaysService::delete_app_gateway] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAppGateway(RequestBuilder<crate::model::DeleteAppGatewayRequest>);
 
@@ -395,7 +395,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for a AppGatewaysService::list_locations call.
+    /// The request builder for [AppGatewaysService::list_locations][super::super::client::AppGatewaysService::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -473,7 +473,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for a AppGatewaysService::get_location call.
+    /// The request builder for [AppGatewaysService::get_location][super::super::client::AppGatewaysService::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -515,7 +515,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for a AppGatewaysService::set_iam_policy call.
+    /// The request builder for [AppGatewaysService::set_iam_policy][super::super::client::AppGatewaysService::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -575,7 +575,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for a AppGatewaysService::get_iam_policy call.
+    /// The request builder for [AppGatewaysService::get_iam_policy][super::super::client::AppGatewaysService::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -626,7 +626,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for a AppGatewaysService::test_iam_permissions call.
+    /// The request builder for [AppGatewaysService::test_iam_permissions][super::super::client::AppGatewaysService::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -682,7 +682,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for a AppGatewaysService::list_operations call.
+    /// The request builder for [AppGatewaysService::list_operations][super::super::client::AppGatewaysService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -760,7 +760,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for a AppGatewaysService::get_operation call.
+    /// The request builder for [AppGatewaysService::get_operation][super::super::client::AppGatewaysService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -805,7 +805,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for a AppGatewaysService::delete_operation call.
+    /// The request builder for [AppGatewaysService::delete_operation][super::super::client::AppGatewaysService::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -850,7 +850,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for a AppGatewaysService::cancel_operation call.
+    /// The request builder for [AppGatewaysService::cancel_operation][super::super::client::AppGatewaysService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

@@ -67,7 +67,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for a Grafeas::get_occurrence call.
+    /// The request builder for [Grafeas::get_occurrence][super::super::client::Grafeas::get_occurrence] calls.
     #[derive(Clone, Debug)]
     pub struct GetOccurrence(RequestBuilder<crate::model::GetOccurrenceRequest>);
 
@@ -109,7 +109,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for a Grafeas::list_occurrences call.
+    /// The request builder for [Grafeas::list_occurrences][super::super::client::Grafeas::list_occurrences] calls.
     #[derive(Clone, Debug)]
     pub struct ListOccurrences(RequestBuilder<crate::model::ListOccurrencesRequest>);
 
@@ -184,7 +184,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for a Grafeas::delete_occurrence call.
+    /// The request builder for [Grafeas::delete_occurrence][super::super::client::Grafeas::delete_occurrence] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOccurrence(RequestBuilder<crate::model::DeleteOccurrenceRequest>);
 
@@ -229,7 +229,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for a Grafeas::create_occurrence call.
+    /// The request builder for [Grafeas::create_occurrence][super::super::client::Grafeas::create_occurrence] calls.
     #[derive(Clone, Debug)]
     pub struct CreateOccurrence(RequestBuilder<crate::model::CreateOccurrenceRequest>);
 
@@ -283,7 +283,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for a Grafeas::batch_create_occurrences call.
+    /// The request builder for [Grafeas::batch_create_occurrences][super::super::client::Grafeas::batch_create_occurrences] calls.
     #[derive(Clone, Debug)]
     pub struct BatchCreateOccurrences(RequestBuilder<crate::model::BatchCreateOccurrencesRequest>);
 
@@ -339,7 +339,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for a Grafeas::update_occurrence call.
+    /// The request builder for [Grafeas::update_occurrence][super::super::client::Grafeas::update_occurrence] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateOccurrence(RequestBuilder<crate::model::UpdateOccurrenceRequest>);
 
@@ -402,7 +402,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for a Grafeas::get_occurrence_note call.
+    /// The request builder for [Grafeas::get_occurrence_note][super::super::client::Grafeas::get_occurrence_note] calls.
     #[derive(Clone, Debug)]
     pub struct GetOccurrenceNote(RequestBuilder<crate::model::GetOccurrenceNoteRequest>);
 
@@ -447,7 +447,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for a Grafeas::get_note call.
+    /// The request builder for [Grafeas::get_note][super::super::client::Grafeas::get_note] calls.
     #[derive(Clone, Debug)]
     pub struct GetNote(RequestBuilder<crate::model::GetNoteRequest>);
 
@@ -489,7 +489,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for a Grafeas::list_notes call.
+    /// The request builder for [Grafeas::list_notes][super::super::client::Grafeas::list_notes] calls.
     #[derive(Clone, Debug)]
     pub struct ListNotes(RequestBuilder<crate::model::ListNotesRequest>);
 
@@ -563,7 +563,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for a Grafeas::delete_note call.
+    /// The request builder for [Grafeas::delete_note][super::super::client::Grafeas::delete_note] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteNote(RequestBuilder<crate::model::DeleteNoteRequest>);
 
@@ -605,7 +605,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for a Grafeas::create_note call.
+    /// The request builder for [Grafeas::create_note][super::super::client::Grafeas::create_note] calls.
     #[derive(Clone, Debug)]
     pub struct CreateNote(RequestBuilder<crate::model::CreateNoteRequest>);
 
@@ -659,7 +659,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for a Grafeas::batch_create_notes call.
+    /// The request builder for [Grafeas::batch_create_notes][super::super::client::Grafeas::batch_create_notes] calls.
     #[derive(Clone, Debug)]
     pub struct BatchCreateNotes(RequestBuilder<crate::model::BatchCreateNotesRequest>);
 
@@ -715,7 +715,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for a Grafeas::update_note call.
+    /// The request builder for [Grafeas::update_note][super::super::client::Grafeas::update_note] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateNote(RequestBuilder<crate::model::UpdateNoteRequest>);
 
@@ -772,7 +772,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for a Grafeas::list_note_occurrences call.
+    /// The request builder for [Grafeas::list_note_occurrences][super::super::client::Grafeas::list_note_occurrences] calls.
     #[derive(Clone, Debug)]
     pub struct ListNoteOccurrences(RequestBuilder<crate::model::ListNoteOccurrencesRequest>);
 

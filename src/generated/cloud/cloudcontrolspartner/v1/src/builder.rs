@@ -69,7 +69,7 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for a CloudControlsPartnerCore::get_workload call.
+    /// The request builder for [CloudControlsPartnerCore::get_workload][super::super::client::CloudControlsPartnerCore::get_workload] calls.
     #[derive(Clone, Debug)]
     pub struct GetWorkload(RequestBuilder<crate::model::GetWorkloadRequest>);
 
@@ -113,7 +113,7 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for a CloudControlsPartnerCore::list_workloads call.
+    /// The request builder for [CloudControlsPartnerCore::list_workloads][super::super::client::CloudControlsPartnerCore::list_workloads] calls.
     #[derive(Clone, Debug)]
     pub struct ListWorkloads(RequestBuilder<crate::model::ListWorkloadsRequest>);
 
@@ -196,7 +196,7 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for a CloudControlsPartnerCore::get_customer call.
+    /// The request builder for [CloudControlsPartnerCore::get_customer][super::super::client::CloudControlsPartnerCore::get_customer] calls.
     #[derive(Clone, Debug)]
     pub struct GetCustomer(RequestBuilder<crate::model::GetCustomerRequest>);
 
@@ -240,7 +240,7 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for a CloudControlsPartnerCore::list_customers call.
+    /// The request builder for [CloudControlsPartnerCore::list_customers][super::super::client::CloudControlsPartnerCore::list_customers] calls.
     #[derive(Clone, Debug)]
     pub struct ListCustomers(RequestBuilder<crate::model::ListCustomersRequest>);
 
@@ -323,7 +323,7 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for a CloudControlsPartnerCore::get_ekm_connections call.
+    /// The request builder for [CloudControlsPartnerCore::get_ekm_connections][super::super::client::CloudControlsPartnerCore::get_ekm_connections] calls.
     #[derive(Clone, Debug)]
     pub struct GetEkmConnections(RequestBuilder<crate::model::GetEkmConnectionsRequest>);
 
@@ -370,7 +370,7 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for a CloudControlsPartnerCore::get_partner_permissions call.
+    /// The request builder for [CloudControlsPartnerCore::get_partner_permissions][super::super::client::CloudControlsPartnerCore::get_partner_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct GetPartnerPermissions(RequestBuilder<crate::model::GetPartnerPermissionsRequest>);
 
@@ -417,7 +417,7 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for a CloudControlsPartnerCore::list_access_approval_requests call.
+    /// The request builder for [CloudControlsPartnerCore::list_access_approval_requests][super::super::client::CloudControlsPartnerCore::list_access_approval_requests] calls.
     #[derive(Clone, Debug)]
     pub struct ListAccessApprovalRequests(
         RequestBuilder<crate::model::ListAccessApprovalRequestsRequest>,
@@ -507,7 +507,7 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for a CloudControlsPartnerCore::get_partner call.
+    /// The request builder for [CloudControlsPartnerCore::get_partner][super::super::client::CloudControlsPartnerCore::get_partner] calls.
     #[derive(Clone, Debug)]
     pub struct GetPartner(RequestBuilder<crate::model::GetPartnerRequest>);
 
@@ -607,7 +607,7 @@ pub mod cloud_controls_partner_monitoring {
         }
     }
 
-    /// The request builder for a CloudControlsPartnerMonitoring::list_violations call.
+    /// The request builder for [CloudControlsPartnerMonitoring::list_violations][super::super::client::CloudControlsPartnerMonitoring::list_violations] calls.
     #[derive(Clone, Debug)]
     pub struct ListViolations(RequestBuilder<crate::model::ListViolationsRequest>);
 
@@ -699,7 +699,7 @@ pub mod cloud_controls_partner_monitoring {
         }
     }
 
-    /// The request builder for a CloudControlsPartnerMonitoring::get_violation call.
+    /// The request builder for [CloudControlsPartnerMonitoring::get_violation][super::super::client::CloudControlsPartnerMonitoring::get_violation] calls.
     #[derive(Clone, Debug)]
     pub struct GetViolation(RequestBuilder<crate::model::GetViolationRequest>);
 

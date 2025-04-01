@@ -67,7 +67,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for a StorageInsights::list_report_configs call.
+    /// The request builder for [StorageInsights::list_report_configs][super::super::client::StorageInsights::list_report_configs] calls.
     #[derive(Clone, Debug)]
     pub struct ListReportConfigs(RequestBuilder<crate::model::ListReportConfigsRequest>);
 
@@ -151,7 +151,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for a StorageInsights::get_report_config call.
+    /// The request builder for [StorageInsights::get_report_config][super::super::client::StorageInsights::get_report_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetReportConfig(RequestBuilder<crate::model::GetReportConfigRequest>);
 
@@ -193,7 +193,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for a StorageInsights::create_report_config call.
+    /// The request builder for [StorageInsights::create_report_config][super::super::client::StorageInsights::create_report_config] calls.
     #[derive(Clone, Debug)]
     pub struct CreateReportConfig(RequestBuilder<crate::model::CreateReportConfigRequest>);
 
@@ -253,7 +253,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for a StorageInsights::update_report_config call.
+    /// The request builder for [StorageInsights::update_report_config][super::super::client::StorageInsights::update_report_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateReportConfig(RequestBuilder<crate::model::UpdateReportConfigRequest>);
 
@@ -316,7 +316,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for a StorageInsights::delete_report_config call.
+    /// The request builder for [StorageInsights::delete_report_config][super::super::client::StorageInsights::delete_report_config] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteReportConfig(RequestBuilder<crate::model::DeleteReportConfigRequest>);
 
@@ -373,7 +373,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for a StorageInsights::list_report_details call.
+    /// The request builder for [StorageInsights::list_report_details][super::super::client::StorageInsights::list_report_details] calls.
     #[derive(Clone, Debug)]
     pub struct ListReportDetails(RequestBuilder<crate::model::ListReportDetailsRequest>);
 
@@ -457,7 +457,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for a StorageInsights::get_report_detail call.
+    /// The request builder for [StorageInsights::get_report_detail][super::super::client::StorageInsights::get_report_detail] calls.
     #[derive(Clone, Debug)]
     pub struct GetReportDetail(RequestBuilder<crate::model::GetReportDetailRequest>);
 
@@ -499,7 +499,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for a StorageInsights::list_locations call.
+    /// The request builder for [StorageInsights::list_locations][super::super::client::StorageInsights::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -577,7 +577,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for a StorageInsights::get_location call.
+    /// The request builder for [StorageInsights::get_location][super::super::client::StorageInsights::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -619,7 +619,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for a StorageInsights::list_operations call.
+    /// The request builder for [StorageInsights::list_operations][super::super::client::StorageInsights::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -697,7 +697,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for a StorageInsights::get_operation call.
+    /// The request builder for [StorageInsights::get_operation][super::super::client::StorageInsights::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -742,7 +742,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for a StorageInsights::delete_operation call.
+    /// The request builder for [StorageInsights::delete_operation][super::super::client::StorageInsights::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -787,7 +787,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for a StorageInsights::cancel_operation call.
+    /// The request builder for [StorageInsights::cancel_operation][super::super::client::StorageInsights::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

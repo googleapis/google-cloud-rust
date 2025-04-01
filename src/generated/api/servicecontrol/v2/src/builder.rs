@@ -67,7 +67,7 @@ pub mod service_controller {
         }
     }
 
-    /// The request builder for a ServiceController::check call.
+    /// The request builder for [ServiceController::check][super::super::client::ServiceController::check] calls.
     #[derive(Clone, Debug)]
     pub struct Check(RequestBuilder<crate::model::CheckRequest>);
 
@@ -141,7 +141,7 @@ pub mod service_controller {
         }
     }
 
-    /// The request builder for a ServiceController::report call.
+    /// The request builder for [ServiceController::report][super::super::client::ServiceController::report] calls.
     #[derive(Clone, Debug)]
     pub struct Report(RequestBuilder<crate::model::ReportRequest>);
 

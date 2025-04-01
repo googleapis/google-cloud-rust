@@ -67,7 +67,7 @@ pub mod gateway_control {
         }
     }
 
-    /// The request builder for a GatewayControl::generate_credentials call.
+    /// The request builder for [GatewayControl::generate_credentials][super::super::client::GatewayControl::generate_credentials] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateCredentials(RequestBuilder<crate::model::GenerateCredentialsRequest>);
 

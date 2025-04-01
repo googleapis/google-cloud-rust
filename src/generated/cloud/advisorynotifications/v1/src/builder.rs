@@ -69,7 +69,7 @@ pub mod advisory_notifications_service {
         }
     }
 
-    /// The request builder for a AdvisoryNotificationsService::list_notifications call.
+    /// The request builder for [AdvisoryNotificationsService::list_notifications][super::super::client::AdvisoryNotificationsService::list_notifications] calls.
     #[derive(Clone, Debug)]
     pub struct ListNotifications(RequestBuilder<crate::model::ListNotificationsRequest>);
 
@@ -155,7 +155,7 @@ pub mod advisory_notifications_service {
         }
     }
 
-    /// The request builder for a AdvisoryNotificationsService::get_notification call.
+    /// The request builder for [AdvisoryNotificationsService::get_notification][super::super::client::AdvisoryNotificationsService::get_notification] calls.
     #[derive(Clone, Debug)]
     pub struct GetNotification(RequestBuilder<crate::model::GetNotificationRequest>);
 
@@ -205,7 +205,7 @@ pub mod advisory_notifications_service {
         }
     }
 
-    /// The request builder for a AdvisoryNotificationsService::get_settings call.
+    /// The request builder for [AdvisoryNotificationsService::get_settings][super::super::client::AdvisoryNotificationsService::get_settings] calls.
     #[derive(Clone, Debug)]
     pub struct GetSettings(RequestBuilder<crate::model::GetSettingsRequest>);
 
@@ -249,7 +249,7 @@ pub mod advisory_notifications_service {
         }
     }
 
-    /// The request builder for a AdvisoryNotificationsService::update_settings call.
+    /// The request builder for [AdvisoryNotificationsService::update_settings][super::super::client::AdvisoryNotificationsService::update_settings] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateSettings(RequestBuilder<crate::model::UpdateSettingsRequest>);
 

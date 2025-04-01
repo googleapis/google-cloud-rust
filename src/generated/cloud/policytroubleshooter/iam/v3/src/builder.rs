@@ -69,7 +69,7 @@ pub mod policy_troubleshooter {
         }
     }
 
-    /// The request builder for a PolicyTroubleshooter::troubleshoot_iam_policy call.
+    /// The request builder for [PolicyTroubleshooter::troubleshoot_iam_policy][super::super::client::PolicyTroubleshooter::troubleshoot_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct TroubleshootIamPolicy(RequestBuilder<crate::model::TroubleshootIamPolicyRequest>);
 

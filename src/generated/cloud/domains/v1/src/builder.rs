@@ -67,7 +67,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for a Domains::search_domains call.
+    /// The request builder for [Domains::search_domains][super::super::client::Domains::search_domains] calls.
     #[derive(Clone, Debug)]
     pub struct SearchDomains(RequestBuilder<crate::model::SearchDomainsRequest>);
 
@@ -115,7 +115,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for a Domains::retrieve_register_parameters call.
+    /// The request builder for [Domains::retrieve_register_parameters][super::super::client::Domains::retrieve_register_parameters] calls.
     #[derive(Clone, Debug)]
     pub struct RetrieveRegisterParameters(
         RequestBuilder<crate::model::RetrieveRegisterParametersRequest>,
@@ -168,7 +168,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for a Domains::register_domain call.
+    /// The request builder for [Domains::register_domain][super::super::client::Domains::register_domain] calls.
     #[derive(Clone, Debug)]
     pub struct RegisterDomain(RequestBuilder<crate::model::RegisterDomainRequest>);
 
@@ -294,7 +294,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for a Domains::retrieve_transfer_parameters call.
+    /// The request builder for [Domains::retrieve_transfer_parameters][super::super::client::Domains::retrieve_transfer_parameters] calls.
     #[derive(Clone, Debug)]
     pub struct RetrieveTransferParameters(
         RequestBuilder<crate::model::RetrieveTransferParametersRequest>,
@@ -347,7 +347,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for a Domains::transfer_domain call.
+    /// The request builder for [Domains::transfer_domain][super::super::client::Domains::transfer_domain] calls.
     #[derive(Clone, Debug)]
     pub struct TransferDomain(RequestBuilder<crate::model::TransferDomainRequest>);
 
@@ -473,7 +473,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for a Domains::list_registrations call.
+    /// The request builder for [Domains::list_registrations][super::super::client::Domains::list_registrations] calls.
     #[derive(Clone, Debug)]
     pub struct ListRegistrations(RequestBuilder<crate::model::ListRegistrationsRequest>);
 
@@ -551,7 +551,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for a Domains::get_registration call.
+    /// The request builder for [Domains::get_registration][super::super::client::Domains::get_registration] calls.
     #[derive(Clone, Debug)]
     pub struct GetRegistration(RequestBuilder<crate::model::GetRegistrationRequest>);
 
@@ -593,7 +593,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for a Domains::update_registration call.
+    /// The request builder for [Domains::update_registration][super::super::client::Domains::update_registration] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateRegistration(RequestBuilder<crate::model::UpdateRegistrationRequest>);
 
@@ -688,7 +688,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for a Domains::configure_management_settings call.
+    /// The request builder for [Domains::configure_management_settings][super::super::client::Domains::configure_management_settings] calls.
     #[derive(Clone, Debug)]
     pub struct ConfigureManagementSettings(
         RequestBuilder<crate::model::ConfigureManagementSettingsRequest>,
@@ -793,7 +793,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for a Domains::configure_dns_settings call.
+    /// The request builder for [Domains::configure_dns_settings][super::super::client::Domains::configure_dns_settings] calls.
     #[derive(Clone, Debug)]
     pub struct ConfigureDnsSettings(RequestBuilder<crate::model::ConfigureDnsSettingsRequest>);
 
@@ -900,7 +900,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for a Domains::configure_contact_settings call.
+    /// The request builder for [Domains::configure_contact_settings][super::super::client::Domains::configure_contact_settings] calls.
     #[derive(Clone, Debug)]
     pub struct ConfigureContactSettings(
         RequestBuilder<crate::model::ConfigureContactSettingsRequest>,
@@ -1020,7 +1020,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for a Domains::export_registration call.
+    /// The request builder for [Domains::export_registration][super::super::client::Domains::export_registration] calls.
     #[derive(Clone, Debug)]
     pub struct ExportRegistration(RequestBuilder<crate::model::ExportRegistrationRequest>);
 
@@ -1103,7 +1103,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for a Domains::delete_registration call.
+    /// The request builder for [Domains::delete_registration][super::super::client::Domains::delete_registration] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteRegistration(RequestBuilder<crate::model::DeleteRegistrationRequest>);
 
@@ -1183,7 +1183,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for a Domains::retrieve_authorization_code call.
+    /// The request builder for [Domains::retrieve_authorization_code][super::super::client::Domains::retrieve_authorization_code] calls.
     #[derive(Clone, Debug)]
     pub struct RetrieveAuthorizationCode(
         RequestBuilder<crate::model::RetrieveAuthorizationCodeRequest>,
@@ -1230,7 +1230,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for a Domains::reset_authorization_code call.
+    /// The request builder for [Domains::reset_authorization_code][super::super::client::Domains::reset_authorization_code] calls.
     #[derive(Clone, Debug)]
     pub struct ResetAuthorizationCode(RequestBuilder<crate::model::ResetAuthorizationCodeRequest>);
 
@@ -1275,7 +1275,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for a Domains::list_operations call.
+    /// The request builder for [Domains::list_operations][super::super::client::Domains::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1353,7 +1353,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for a Domains::get_operation call.
+    /// The request builder for [Domains::get_operation][super::super::client::Domains::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

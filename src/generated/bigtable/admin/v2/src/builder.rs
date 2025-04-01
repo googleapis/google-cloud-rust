@@ -69,7 +69,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::create_instance call.
+    /// The request builder for [BigtableInstanceAdmin::create_instance][super::super::client::BigtableInstanceAdmin::create_instance] calls.
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
@@ -178,7 +178,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::get_instance call.
+    /// The request builder for [BigtableInstanceAdmin::get_instance][super::super::client::BigtableInstanceAdmin::get_instance] calls.
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
@@ -222,7 +222,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::list_instances call.
+    /// The request builder for [BigtableInstanceAdmin::list_instances][super::super::client::BigtableInstanceAdmin::list_instances] calls.
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
@@ -272,7 +272,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::update_instance call.
+    /// The request builder for [BigtableInstanceAdmin::update_instance][super::super::client::BigtableInstanceAdmin::update_instance] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::Instance>);
 
@@ -366,7 +366,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::partial_update_instance call.
+    /// The request builder for [BigtableInstanceAdmin::partial_update_instance][super::super::client::BigtableInstanceAdmin::partial_update_instance] calls.
     #[derive(Clone, Debug)]
     pub struct PartialUpdateInstance(RequestBuilder<crate::model::PartialUpdateInstanceRequest>);
 
@@ -464,7 +464,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::delete_instance call.
+    /// The request builder for [BigtableInstanceAdmin::delete_instance][super::super::client::BigtableInstanceAdmin::delete_instance] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
@@ -508,7 +508,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::create_cluster call.
+    /// The request builder for [BigtableInstanceAdmin::create_cluster][super::super::client::BigtableInstanceAdmin::create_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
@@ -605,7 +605,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::get_cluster call.
+    /// The request builder for [BigtableInstanceAdmin::get_cluster][super::super::client::BigtableInstanceAdmin::get_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
@@ -649,7 +649,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::list_clusters call.
+    /// The request builder for [BigtableInstanceAdmin::list_clusters][super::super::client::BigtableInstanceAdmin::list_clusters] calls.
     #[derive(Clone, Debug)]
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
@@ -699,7 +699,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::update_cluster call.
+    /// The request builder for [BigtableInstanceAdmin::update_cluster][super::super::client::BigtableInstanceAdmin::update_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCluster(RequestBuilder<crate::model::Cluster>);
 
@@ -834,7 +834,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::partial_update_cluster call.
+    /// The request builder for [BigtableInstanceAdmin::partial_update_cluster][super::super::client::BigtableInstanceAdmin::partial_update_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct PartialUpdateCluster(RequestBuilder<crate::model::PartialUpdateClusterRequest>);
 
@@ -932,7 +932,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::delete_cluster call.
+    /// The request builder for [BigtableInstanceAdmin::delete_cluster][super::super::client::BigtableInstanceAdmin::delete_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
@@ -976,7 +976,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::create_app_profile call.
+    /// The request builder for [BigtableInstanceAdmin::create_app_profile][super::super::client::BigtableInstanceAdmin::create_app_profile] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAppProfile(RequestBuilder<crate::model::CreateAppProfileRequest>);
 
@@ -1044,7 +1044,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::get_app_profile call.
+    /// The request builder for [BigtableInstanceAdmin::get_app_profile][super::super::client::BigtableInstanceAdmin::get_app_profile] calls.
     #[derive(Clone, Debug)]
     pub struct GetAppProfile(RequestBuilder<crate::model::GetAppProfileRequest>);
 
@@ -1088,7 +1088,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::list_app_profiles call.
+    /// The request builder for [BigtableInstanceAdmin::list_app_profiles][super::super::client::BigtableInstanceAdmin::list_app_profiles] calls.
     #[derive(Clone, Debug)]
     pub struct ListAppProfiles(RequestBuilder<crate::model::ListAppProfilesRequest>);
 
@@ -1159,7 +1159,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::update_app_profile call.
+    /// The request builder for [BigtableInstanceAdmin::update_app_profile][super::super::client::BigtableInstanceAdmin::update_app_profile] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateAppProfile(RequestBuilder<crate::model::UpdateAppProfileRequest>);
 
@@ -1263,7 +1263,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::delete_app_profile call.
+    /// The request builder for [BigtableInstanceAdmin::delete_app_profile][super::super::client::BigtableInstanceAdmin::delete_app_profile] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAppProfile(RequestBuilder<crate::model::DeleteAppProfileRequest>);
 
@@ -1316,7 +1316,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::get_iam_policy call.
+    /// The request builder for [BigtableInstanceAdmin::get_iam_policy][super::super::client::BigtableInstanceAdmin::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1369,7 +1369,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::set_iam_policy call.
+    /// The request builder for [BigtableInstanceAdmin::set_iam_policy][super::super::client::BigtableInstanceAdmin::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1431,7 +1431,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::test_iam_permissions call.
+    /// The request builder for [BigtableInstanceAdmin::test_iam_permissions][super::super::client::BigtableInstanceAdmin::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1489,7 +1489,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::list_hot_tablets call.
+    /// The request builder for [BigtableInstanceAdmin::list_hot_tablets][super::super::client::BigtableInstanceAdmin::list_hot_tablets] calls.
     #[derive(Clone, Debug)]
     pub struct ListHotTablets(RequestBuilder<crate::model::ListHotTabletsRequest>);
 
@@ -1575,7 +1575,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::create_logical_view call.
+    /// The request builder for [BigtableInstanceAdmin::create_logical_view][super::super::client::BigtableInstanceAdmin::create_logical_view] calls.
     #[derive(Clone, Debug)]
     pub struct CreateLogicalView(RequestBuilder<crate::model::CreateLogicalViewRequest>);
 
@@ -1676,7 +1676,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::get_logical_view call.
+    /// The request builder for [BigtableInstanceAdmin::get_logical_view][super::super::client::BigtableInstanceAdmin::get_logical_view] calls.
     #[derive(Clone, Debug)]
     pub struct GetLogicalView(RequestBuilder<crate::model::GetLogicalViewRequest>);
 
@@ -1720,7 +1720,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::list_logical_views call.
+    /// The request builder for [BigtableInstanceAdmin::list_logical_views][super::super::client::BigtableInstanceAdmin::list_logical_views] calls.
     #[derive(Clone, Debug)]
     pub struct ListLogicalViews(RequestBuilder<crate::model::ListLogicalViewsRequest>);
 
@@ -1794,7 +1794,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::update_logical_view call.
+    /// The request builder for [BigtableInstanceAdmin::update_logical_view][super::super::client::BigtableInstanceAdmin::update_logical_view] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateLogicalView(RequestBuilder<crate::model::UpdateLogicalViewRequest>);
 
@@ -1892,7 +1892,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::delete_logical_view call.
+    /// The request builder for [BigtableInstanceAdmin::delete_logical_view][super::super::client::BigtableInstanceAdmin::delete_logical_view] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteLogicalView(RequestBuilder<crate::model::DeleteLogicalViewRequest>);
 
@@ -1945,7 +1945,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::create_materialized_view call.
+    /// The request builder for [BigtableInstanceAdmin::create_materialized_view][super::super::client::BigtableInstanceAdmin::create_materialized_view] calls.
     #[derive(Clone, Debug)]
     pub struct CreateMaterializedView(RequestBuilder<crate::model::CreateMaterializedViewRequest>);
 
@@ -2050,7 +2050,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::get_materialized_view call.
+    /// The request builder for [BigtableInstanceAdmin::get_materialized_view][super::super::client::BigtableInstanceAdmin::get_materialized_view] calls.
     #[derive(Clone, Debug)]
     pub struct GetMaterializedView(RequestBuilder<crate::model::GetMaterializedViewRequest>);
 
@@ -2097,7 +2097,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::list_materialized_views call.
+    /// The request builder for [BigtableInstanceAdmin::list_materialized_views][super::super::client::BigtableInstanceAdmin::list_materialized_views] calls.
     #[derive(Clone, Debug)]
     pub struct ListMaterializedViews(RequestBuilder<crate::model::ListMaterializedViewsRequest>);
 
@@ -2171,7 +2171,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::update_materialized_view call.
+    /// The request builder for [BigtableInstanceAdmin::update_materialized_view][super::super::client::BigtableInstanceAdmin::update_materialized_view] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateMaterializedView(RequestBuilder<crate::model::UpdateMaterializedViewRequest>);
 
@@ -2273,7 +2273,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::delete_materialized_view call.
+    /// The request builder for [BigtableInstanceAdmin::delete_materialized_view][super::super::client::BigtableInstanceAdmin::delete_materialized_view] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteMaterializedView(RequestBuilder<crate::model::DeleteMaterializedViewRequest>);
 
@@ -2326,7 +2326,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::list_operations call.
+    /// The request builder for [BigtableInstanceAdmin::list_operations][super::super::client::BigtableInstanceAdmin::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2406,7 +2406,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::get_operation call.
+    /// The request builder for [BigtableInstanceAdmin::get_operation][super::super::client::BigtableInstanceAdmin::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2453,7 +2453,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::delete_operation call.
+    /// The request builder for [BigtableInstanceAdmin::delete_operation][super::super::client::BigtableInstanceAdmin::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2500,7 +2500,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for a BigtableInstanceAdmin::cancel_operation call.
+    /// The request builder for [BigtableInstanceAdmin::cancel_operation][super::super::client::BigtableInstanceAdmin::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -2601,7 +2601,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::create_table call.
+    /// The request builder for [BigtableTableAdmin::create_table][super::super::client::BigtableTableAdmin::create_table] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTable(RequestBuilder<crate::model::CreateTableRequest>);
 
@@ -2669,7 +2669,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::create_table_from_snapshot call.
+    /// The request builder for [BigtableTableAdmin::create_table_from_snapshot][super::super::client::BigtableTableAdmin::create_table_from_snapshot] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTableFromSnapshot(
         RequestBuilder<crate::model::CreateTableFromSnapshotRequest>,
@@ -2767,7 +2767,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::list_tables call.
+    /// The request builder for [BigtableTableAdmin::list_tables][super::super::client::BigtableTableAdmin::list_tables] calls.
     #[derive(Clone, Debug)]
     pub struct ListTables(RequestBuilder<crate::model::ListTablesRequest>);
 
@@ -2842,7 +2842,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::get_table call.
+    /// The request builder for [BigtableTableAdmin::get_table][super::super::client::BigtableTableAdmin::get_table] calls.
     #[derive(Clone, Debug)]
     pub struct GetTable(RequestBuilder<crate::model::GetTableRequest>);
 
@@ -2890,7 +2890,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::update_table call.
+    /// The request builder for [BigtableTableAdmin::update_table][super::super::client::BigtableTableAdmin::update_table] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateTable(RequestBuilder<crate::model::UpdateTableRequest>);
 
@@ -2987,7 +2987,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::delete_table call.
+    /// The request builder for [BigtableTableAdmin::delete_table][super::super::client::BigtableTableAdmin::delete_table] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTable(RequestBuilder<crate::model::DeleteTableRequest>);
 
@@ -3029,7 +3029,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::undelete_table call.
+    /// The request builder for [BigtableTableAdmin::undelete_table][super::super::client::BigtableTableAdmin::undelete_table] calls.
     #[derive(Clone, Debug)]
     pub struct UndeleteTable(RequestBuilder<crate::model::UndeleteTableRequest>);
 
@@ -3109,7 +3109,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::create_authorized_view call.
+    /// The request builder for [BigtableTableAdmin::create_authorized_view][super::super::client::BigtableTableAdmin::create_authorized_view] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAuthorizedView(RequestBuilder<crate::model::CreateAuthorizedViewRequest>);
 
@@ -3210,7 +3210,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::list_authorized_views call.
+    /// The request builder for [BigtableTableAdmin::list_authorized_views][super::super::client::BigtableTableAdmin::list_authorized_views] calls.
     #[derive(Clone, Debug)]
     pub struct ListAuthorizedViews(RequestBuilder<crate::model::ListAuthorizedViewsRequest>);
 
@@ -3291,7 +3291,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::get_authorized_view call.
+    /// The request builder for [BigtableTableAdmin::get_authorized_view][super::super::client::BigtableTableAdmin::get_authorized_view] calls.
     #[derive(Clone, Debug)]
     pub struct GetAuthorizedView(RequestBuilder<crate::model::GetAuthorizedViewRequest>);
 
@@ -3345,7 +3345,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::update_authorized_view call.
+    /// The request builder for [BigtableTableAdmin::update_authorized_view][super::super::client::BigtableTableAdmin::update_authorized_view] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateAuthorizedView(RequestBuilder<crate::model::UpdateAuthorizedViewRequest>);
 
@@ -3449,7 +3449,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::delete_authorized_view call.
+    /// The request builder for [BigtableTableAdmin::delete_authorized_view][super::super::client::BigtableTableAdmin::delete_authorized_view] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAuthorizedView(RequestBuilder<crate::model::DeleteAuthorizedViewRequest>);
 
@@ -3500,7 +3500,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::modify_column_families call.
+    /// The request builder for [BigtableTableAdmin::modify_column_families][super::super::client::BigtableTableAdmin::modify_column_families] calls.
     #[derive(Clone, Debug)]
     pub struct ModifyColumnFamilies(RequestBuilder<crate::model::ModifyColumnFamiliesRequest>);
 
@@ -3562,7 +3562,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::drop_row_range call.
+    /// The request builder for [BigtableTableAdmin::drop_row_range][super::super::client::BigtableTableAdmin::drop_row_range] calls.
     #[derive(Clone, Debug)]
     pub struct DropRowRange(RequestBuilder<crate::model::DropRowRangeRequest>);
 
@@ -3613,7 +3613,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::generate_consistency_token call.
+    /// The request builder for [BigtableTableAdmin::generate_consistency_token][super::super::client::BigtableTableAdmin::generate_consistency_token] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateConsistencyToken(
         RequestBuilder<crate::model::GenerateConsistencyTokenRequest>,
@@ -3660,7 +3660,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::check_consistency call.
+    /// The request builder for [BigtableTableAdmin::check_consistency][super::super::client::BigtableTableAdmin::check_consistency] calls.
     #[derive(Clone, Debug)]
     pub struct CheckConsistency(RequestBuilder<crate::model::CheckConsistencyRequest>);
 
@@ -3720,7 +3720,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::snapshot_table call.
+    /// The request builder for [BigtableTableAdmin::snapshot_table][super::super::client::BigtableTableAdmin::snapshot_table] calls.
     #[derive(Clone, Debug)]
     pub struct SnapshotTable(RequestBuilder<crate::model::SnapshotTableRequest>);
 
@@ -3824,7 +3824,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::get_snapshot call.
+    /// The request builder for [BigtableTableAdmin::get_snapshot][super::super::client::BigtableTableAdmin::get_snapshot] calls.
     #[derive(Clone, Debug)]
     pub struct GetSnapshot(RequestBuilder<crate::model::GetSnapshotRequest>);
 
@@ -3866,7 +3866,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::list_snapshots call.
+    /// The request builder for [BigtableTableAdmin::list_snapshots][super::super::client::BigtableTableAdmin::list_snapshots] calls.
     #[derive(Clone, Debug)]
     pub struct ListSnapshots(RequestBuilder<crate::model::ListSnapshotsRequest>);
 
@@ -3935,7 +3935,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::delete_snapshot call.
+    /// The request builder for [BigtableTableAdmin::delete_snapshot][super::super::client::BigtableTableAdmin::delete_snapshot] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteSnapshot(RequestBuilder<crate::model::DeleteSnapshotRequest>);
 
@@ -3977,7 +3977,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::create_backup call.
+    /// The request builder for [BigtableTableAdmin::create_backup][super::super::client::BigtableTableAdmin::create_backup] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
@@ -4072,7 +4072,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::get_backup call.
+    /// The request builder for [BigtableTableAdmin::get_backup][super::super::client::BigtableTableAdmin::get_backup] calls.
     #[derive(Clone, Debug)]
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
@@ -4114,7 +4114,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::update_backup call.
+    /// The request builder for [BigtableTableAdmin::update_backup][super::super::client::BigtableTableAdmin::update_backup] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
@@ -4168,7 +4168,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::delete_backup call.
+    /// The request builder for [BigtableTableAdmin::delete_backup][super::super::client::BigtableTableAdmin::delete_backup] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
@@ -4210,7 +4210,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::list_backups call.
+    /// The request builder for [BigtableTableAdmin::list_backups][super::super::client::BigtableTableAdmin::list_backups] calls.
     #[derive(Clone, Debug)]
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
@@ -4291,7 +4291,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::restore_table call.
+    /// The request builder for [BigtableTableAdmin::restore_table][super::super::client::BigtableTableAdmin::restore_table] calls.
     #[derive(Clone, Debug)]
     pub struct RestoreTable(RequestBuilder<crate::model::RestoreTableRequest>);
 
@@ -4386,7 +4386,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::copy_backup call.
+    /// The request builder for [BigtableTableAdmin::copy_backup][super::super::client::BigtableTableAdmin::copy_backup] calls.
     #[derive(Clone, Debug)]
     pub struct CopyBackup(RequestBuilder<crate::model::CopyBackupRequest>);
 
@@ -4486,7 +4486,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::get_iam_policy call.
+    /// The request builder for [BigtableTableAdmin::get_iam_policy][super::super::client::BigtableTableAdmin::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -4537,7 +4537,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::set_iam_policy call.
+    /// The request builder for [BigtableTableAdmin::set_iam_policy][super::super::client::BigtableTableAdmin::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -4597,7 +4597,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::test_iam_permissions call.
+    /// The request builder for [BigtableTableAdmin::test_iam_permissions][super::super::client::BigtableTableAdmin::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -4653,7 +4653,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::list_operations call.
+    /// The request builder for [BigtableTableAdmin::list_operations][super::super::client::BigtableTableAdmin::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -4731,7 +4731,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::get_operation call.
+    /// The request builder for [BigtableTableAdmin::get_operation][super::super::client::BigtableTableAdmin::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -4776,7 +4776,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::delete_operation call.
+    /// The request builder for [BigtableTableAdmin::delete_operation][super::super::client::BigtableTableAdmin::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -4821,7 +4821,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for a BigtableTableAdmin::cancel_operation call.
+    /// The request builder for [BigtableTableAdmin::cancel_operation][super::super::client::BigtableTableAdmin::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

@@ -67,7 +67,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::batch_create_resource_value_configs call.
+    /// The request builder for [SecurityCenter::batch_create_resource_value_configs][super::super::client::SecurityCenter::batch_create_resource_value_configs] calls.
     #[derive(Clone, Debug)]
     pub struct BatchCreateResourceValueConfigs(
         RequestBuilder<crate::model::BatchCreateResourceValueConfigsRequest>,
@@ -125,7 +125,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::bulk_mute_findings call.
+    /// The request builder for [SecurityCenter::bulk_mute_findings][super::super::client::SecurityCenter::bulk_mute_findings] calls.
     #[derive(Clone, Debug)]
     pub struct BulkMuteFindings(RequestBuilder<crate::model::BulkMuteFindingsRequest>);
 
@@ -222,7 +222,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::create_big_query_export call.
+    /// The request builder for [SecurityCenter::create_big_query_export][super::super::client::SecurityCenter::create_big_query_export] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBigQueryExport(RequestBuilder<crate::model::CreateBigQueryExportRequest>);
 
@@ -282,7 +282,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::create_finding call.
+    /// The request builder for [SecurityCenter::create_finding][super::super::client::SecurityCenter::create_finding] calls.
     #[derive(Clone, Debug)]
     pub struct CreateFinding(RequestBuilder<crate::model::CreateFindingRequest>);
 
@@ -339,7 +339,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::create_mute_config call.
+    /// The request builder for [SecurityCenter::create_mute_config][super::super::client::SecurityCenter::create_mute_config] calls.
     #[derive(Clone, Debug)]
     pub struct CreateMuteConfig(RequestBuilder<crate::model::CreateMuteConfigRequest>);
 
@@ -399,7 +399,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::create_notification_config call.
+    /// The request builder for [SecurityCenter::create_notification_config][super::super::client::SecurityCenter::create_notification_config] calls.
     #[derive(Clone, Debug)]
     pub struct CreateNotificationConfig(
         RequestBuilder<crate::model::CreateNotificationConfigRequest>,
@@ -463,7 +463,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::create_source call.
+    /// The request builder for [SecurityCenter::create_source][super::super::client::SecurityCenter::create_source] calls.
     #[derive(Clone, Debug)]
     pub struct CreateSource(RequestBuilder<crate::model::CreateSourceRequest>);
 
@@ -514,7 +514,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::delete_big_query_export call.
+    /// The request builder for [SecurityCenter::delete_big_query_export][super::super::client::SecurityCenter::delete_big_query_export] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBigQueryExport(RequestBuilder<crate::model::DeleteBigQueryExportRequest>);
 
@@ -559,7 +559,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::delete_mute_config call.
+    /// The request builder for [SecurityCenter::delete_mute_config][super::super::client::SecurityCenter::delete_mute_config] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteMuteConfig(RequestBuilder<crate::model::DeleteMuteConfigRequest>);
 
@@ -604,7 +604,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::delete_notification_config call.
+    /// The request builder for [SecurityCenter::delete_notification_config][super::super::client::SecurityCenter::delete_notification_config] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteNotificationConfig(
         RequestBuilder<crate::model::DeleteNotificationConfigRequest>,
@@ -651,7 +651,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::delete_resource_value_config call.
+    /// The request builder for [SecurityCenter::delete_resource_value_config][super::super::client::SecurityCenter::delete_resource_value_config] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteResourceValueConfig(
         RequestBuilder<crate::model::DeleteResourceValueConfigRequest>,
@@ -698,7 +698,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::get_big_query_export call.
+    /// The request builder for [SecurityCenter::get_big_query_export][super::super::client::SecurityCenter::get_big_query_export] calls.
     #[derive(Clone, Debug)]
     pub struct GetBigQueryExport(RequestBuilder<crate::model::GetBigQueryExportRequest>);
 
@@ -743,7 +743,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::get_simulation call.
+    /// The request builder for [SecurityCenter::get_simulation][super::super::client::SecurityCenter::get_simulation] calls.
     #[derive(Clone, Debug)]
     pub struct GetSimulation(RequestBuilder<crate::model::GetSimulationRequest>);
 
@@ -785,7 +785,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::get_valued_resource call.
+    /// The request builder for [SecurityCenter::get_valued_resource][super::super::client::SecurityCenter::get_valued_resource] calls.
     #[derive(Clone, Debug)]
     pub struct GetValuedResource(RequestBuilder<crate::model::GetValuedResourceRequest>);
 
@@ -830,7 +830,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::get_iam_policy call.
+    /// The request builder for [SecurityCenter::get_iam_policy][super::super::client::SecurityCenter::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -881,7 +881,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::get_mute_config call.
+    /// The request builder for [SecurityCenter::get_mute_config][super::super::client::SecurityCenter::get_mute_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetMuteConfig(RequestBuilder<crate::model::GetMuteConfigRequest>);
 
@@ -923,7 +923,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::get_notification_config call.
+    /// The request builder for [SecurityCenter::get_notification_config][super::super::client::SecurityCenter::get_notification_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetNotificationConfig(RequestBuilder<crate::model::GetNotificationConfigRequest>);
 
@@ -968,7 +968,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::get_resource_value_config call.
+    /// The request builder for [SecurityCenter::get_resource_value_config][super::super::client::SecurityCenter::get_resource_value_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetResourceValueConfig(RequestBuilder<crate::model::GetResourceValueConfigRequest>);
 
@@ -1013,7 +1013,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::get_source call.
+    /// The request builder for [SecurityCenter::get_source][super::super::client::SecurityCenter::get_source] calls.
     #[derive(Clone, Debug)]
     pub struct GetSource(RequestBuilder<crate::model::GetSourceRequest>);
 
@@ -1055,7 +1055,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::group_findings call.
+    /// The request builder for [SecurityCenter::group_findings][super::super::client::SecurityCenter::group_findings] calls.
     #[derive(Clone, Debug)]
     pub struct GroupFindings(RequestBuilder<crate::model::GroupFindingsRequest>);
 
@@ -1136,7 +1136,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::list_attack_paths call.
+    /// The request builder for [SecurityCenter::list_attack_paths][super::super::client::SecurityCenter::list_attack_paths] calls.
     #[derive(Clone, Debug)]
     pub struct ListAttackPaths(RequestBuilder<crate::model::ListAttackPathsRequest>);
 
@@ -1211,7 +1211,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::list_big_query_exports call.
+    /// The request builder for [SecurityCenter::list_big_query_exports][super::super::client::SecurityCenter::list_big_query_exports] calls.
     #[derive(Clone, Debug)]
     pub struct ListBigQueryExports(RequestBuilder<crate::model::ListBigQueryExportsRequest>);
 
@@ -1283,7 +1283,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::list_findings call.
+    /// The request builder for [SecurityCenter::list_findings][super::super::client::SecurityCenter::list_findings] calls.
     #[derive(Clone, Debug)]
     pub struct ListFindings(RequestBuilder<crate::model::ListFindingsRequest>);
 
@@ -1373,7 +1373,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::list_mute_configs call.
+    /// The request builder for [SecurityCenter::list_mute_configs][super::super::client::SecurityCenter::list_mute_configs] calls.
     #[derive(Clone, Debug)]
     pub struct ListMuteConfigs(RequestBuilder<crate::model::ListMuteConfigsRequest>);
 
@@ -1442,7 +1442,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::list_notification_configs call.
+    /// The request builder for [SecurityCenter::list_notification_configs][super::super::client::SecurityCenter::list_notification_configs] calls.
     #[derive(Clone, Debug)]
     pub struct ListNotificationConfigs(
         RequestBuilder<crate::model::ListNotificationConfigsRequest>,
@@ -1518,7 +1518,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::list_resource_value_configs call.
+    /// The request builder for [SecurityCenter::list_resource_value_configs][super::super::client::SecurityCenter::list_resource_value_configs] calls.
     #[derive(Clone, Debug)]
     pub struct ListResourceValueConfigs(
         RequestBuilder<crate::model::ListResourceValueConfigsRequest>,
@@ -1594,7 +1594,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::list_sources call.
+    /// The request builder for [SecurityCenter::list_sources][super::super::client::SecurityCenter::list_sources] calls.
     #[derive(Clone, Debug)]
     pub struct ListSources(RequestBuilder<crate::model::ListSourcesRequest>);
 
@@ -1663,7 +1663,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::list_valued_resources call.
+    /// The request builder for [SecurityCenter::list_valued_resources][super::super::client::SecurityCenter::list_valued_resources] calls.
     #[derive(Clone, Debug)]
     pub struct ListValuedResources(RequestBuilder<crate::model::ListValuedResourcesRequest>);
 
@@ -1747,7 +1747,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::set_finding_state call.
+    /// The request builder for [SecurityCenter::set_finding_state][super::super::client::SecurityCenter::set_finding_state] calls.
     #[derive(Clone, Debug)]
     pub struct SetFindingState(RequestBuilder<crate::model::SetFindingStateRequest>);
 
@@ -1795,7 +1795,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::set_iam_policy call.
+    /// The request builder for [SecurityCenter::set_iam_policy][super::super::client::SecurityCenter::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1855,7 +1855,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::set_mute call.
+    /// The request builder for [SecurityCenter::set_mute][super::super::client::SecurityCenter::set_mute] calls.
     #[derive(Clone, Debug)]
     pub struct SetMute(RequestBuilder<crate::model::SetMuteRequest>);
 
@@ -1903,7 +1903,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::test_iam_permissions call.
+    /// The request builder for [SecurityCenter::test_iam_permissions][super::super::client::SecurityCenter::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1959,7 +1959,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::update_big_query_export call.
+    /// The request builder for [SecurityCenter::update_big_query_export][super::super::client::SecurityCenter::update_big_query_export] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBigQueryExport(RequestBuilder<crate::model::UpdateBigQueryExportRequest>);
 
@@ -2016,7 +2016,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::update_external_system call.
+    /// The request builder for [SecurityCenter::update_external_system][super::super::client::SecurityCenter::update_external_system] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateExternalSystem(RequestBuilder<crate::model::UpdateExternalSystemRequest>);
 
@@ -2073,7 +2073,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::update_finding call.
+    /// The request builder for [SecurityCenter::update_finding][super::super::client::SecurityCenter::update_finding] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateFinding(RequestBuilder<crate::model::UpdateFindingRequest>);
 
@@ -2127,7 +2127,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::update_mute_config call.
+    /// The request builder for [SecurityCenter::update_mute_config][super::super::client::SecurityCenter::update_mute_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateMuteConfig(RequestBuilder<crate::model::UpdateMuteConfigRequest>);
 
@@ -2184,7 +2184,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::update_notification_config call.
+    /// The request builder for [SecurityCenter::update_notification_config][super::super::client::SecurityCenter::update_notification_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateNotificationConfig(
         RequestBuilder<crate::model::UpdateNotificationConfigRequest>,
@@ -2245,7 +2245,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::update_resource_value_config call.
+    /// The request builder for [SecurityCenter::update_resource_value_config][super::super::client::SecurityCenter::update_resource_value_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateResourceValueConfig(
         RequestBuilder<crate::model::UpdateResourceValueConfigRequest>,
@@ -2306,7 +2306,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::update_security_marks call.
+    /// The request builder for [SecurityCenter::update_security_marks][super::super::client::SecurityCenter::update_security_marks] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateSecurityMarks(RequestBuilder<crate::model::UpdateSecurityMarksRequest>);
 
@@ -2363,7 +2363,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::update_source call.
+    /// The request builder for [SecurityCenter::update_source][super::super::client::SecurityCenter::update_source] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateSource(RequestBuilder<crate::model::UpdateSourceRequest>);
 
@@ -2417,7 +2417,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::list_operations call.
+    /// The request builder for [SecurityCenter::list_operations][super::super::client::SecurityCenter::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2495,7 +2495,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::get_operation call.
+    /// The request builder for [SecurityCenter::get_operation][super::super::client::SecurityCenter::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2540,7 +2540,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::delete_operation call.
+    /// The request builder for [SecurityCenter::delete_operation][super::super::client::SecurityCenter::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2585,7 +2585,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for a SecurityCenter::cancel_operation call.
+    /// The request builder for [SecurityCenter::cancel_operation][super::super::client::SecurityCenter::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

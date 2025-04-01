@@ -67,7 +67,7 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for a Workflows::list_workflows call.
+    /// The request builder for [Workflows::list_workflows][super::super::client::Workflows::list_workflows] calls.
     #[derive(Clone, Debug)]
     pub struct ListWorkflows(RequestBuilder<crate::model::ListWorkflowsRequest>);
 
@@ -148,7 +148,7 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for a Workflows::get_workflow call.
+    /// The request builder for [Workflows::get_workflow][super::super::client::Workflows::get_workflow] calls.
     #[derive(Clone, Debug)]
     pub struct GetWorkflow(RequestBuilder<crate::model::GetWorkflowRequest>);
 
@@ -196,7 +196,7 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for a Workflows::create_workflow call.
+    /// The request builder for [Workflows::create_workflow][super::super::client::Workflows::create_workflow] calls.
     #[derive(Clone, Debug)]
     pub struct CreateWorkflow(RequestBuilder<crate::model::CreateWorkflowRequest>);
 
@@ -291,7 +291,7 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for a Workflows::delete_workflow call.
+    /// The request builder for [Workflows::delete_workflow][super::super::client::Workflows::delete_workflow] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteWorkflow(RequestBuilder<crate::model::DeleteWorkflowRequest>);
 
@@ -368,7 +368,7 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for a Workflows::update_workflow call.
+    /// The request builder for [Workflows::update_workflow][super::super::client::Workflows::update_workflow] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateWorkflow(RequestBuilder<crate::model::UpdateWorkflowRequest>);
 
@@ -460,7 +460,7 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for a Workflows::list_workflow_revisions call.
+    /// The request builder for [Workflows::list_workflow_revisions][super::super::client::Workflows::list_workflow_revisions] calls.
     #[derive(Clone, Debug)]
     pub struct ListWorkflowRevisions(RequestBuilder<crate::model::ListWorkflowRevisionsRequest>);
 
@@ -532,7 +532,7 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for a Workflows::list_locations call.
+    /// The request builder for [Workflows::list_locations][super::super::client::Workflows::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -610,7 +610,7 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for a Workflows::get_location call.
+    /// The request builder for [Workflows::get_location][super::super::client::Workflows::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -652,7 +652,7 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for a Workflows::list_operations call.
+    /// The request builder for [Workflows::list_operations][super::super::client::Workflows::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -730,7 +730,7 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for a Workflows::get_operation call.
+    /// The request builder for [Workflows::get_operation][super::super::client::Workflows::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -775,7 +775,7 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for a Workflows::delete_operation call.
+    /// The request builder for [Workflows::delete_operation][super::super::client::Workflows::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 

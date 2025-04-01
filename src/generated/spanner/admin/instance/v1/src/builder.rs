@@ -67,7 +67,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::list_instance_configs call.
+    /// The request builder for [InstanceAdmin::list_instance_configs][super::super::client::InstanceAdmin::list_instance_configs] calls.
     #[derive(Clone, Debug)]
     pub struct ListInstanceConfigs(RequestBuilder<crate::model::ListInstanceConfigsRequest>);
 
@@ -139,7 +139,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::get_instance_config call.
+    /// The request builder for [InstanceAdmin::get_instance_config][super::super::client::InstanceAdmin::get_instance_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetInstanceConfig(RequestBuilder<crate::model::GetInstanceConfigRequest>);
 
@@ -184,7 +184,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::create_instance_config call.
+    /// The request builder for [InstanceAdmin::create_instance_config][super::super::client::InstanceAdmin::create_instance_config] calls.
     #[derive(Clone, Debug)]
     pub struct CreateInstanceConfig(RequestBuilder<crate::model::CreateInstanceConfigRequest>);
 
@@ -291,7 +291,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::update_instance_config call.
+    /// The request builder for [InstanceAdmin::update_instance_config][super::super::client::InstanceAdmin::update_instance_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateInstanceConfig(RequestBuilder<crate::model::UpdateInstanceConfigRequest>);
 
@@ -395,7 +395,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::delete_instance_config call.
+    /// The request builder for [InstanceAdmin::delete_instance_config][super::super::client::InstanceAdmin::delete_instance_config] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteInstanceConfig(RequestBuilder<crate::model::DeleteInstanceConfigRequest>);
 
@@ -452,7 +452,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::list_instance_config_operations call.
+    /// The request builder for [InstanceAdmin::list_instance_config_operations][super::super::client::InstanceAdmin::list_instance_config_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListInstanceConfigOperations(
         RequestBuilder<crate::model::ListInstanceConfigOperationsRequest>,
@@ -534,7 +534,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::list_instances call.
+    /// The request builder for [InstanceAdmin::list_instances][super::super::client::InstanceAdmin::list_instances] calls.
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
@@ -618,7 +618,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::list_instance_partitions call.
+    /// The request builder for [InstanceAdmin::list_instance_partitions][super::super::client::InstanceAdmin::list_instance_partitions] calls.
     #[derive(Clone, Debug)]
     pub struct ListInstancePartitions(RequestBuilder<crate::model::ListInstancePartitionsRequest>);
 
@@ -701,7 +701,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::get_instance call.
+    /// The request builder for [InstanceAdmin::get_instance][super::super::client::InstanceAdmin::get_instance] calls.
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
@@ -752,7 +752,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::create_instance call.
+    /// The request builder for [InstanceAdmin::create_instance][super::super::client::InstanceAdmin::create_instance] calls.
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
@@ -848,7 +848,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::update_instance call.
+    /// The request builder for [InstanceAdmin::update_instance][super::super::client::InstanceAdmin::update_instance] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
@@ -941,7 +941,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::delete_instance call.
+    /// The request builder for [InstanceAdmin::delete_instance][super::super::client::InstanceAdmin::delete_instance] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
@@ -983,7 +983,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::set_iam_policy call.
+    /// The request builder for [InstanceAdmin::set_iam_policy][super::super::client::InstanceAdmin::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1043,7 +1043,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::get_iam_policy call.
+    /// The request builder for [InstanceAdmin::get_iam_policy][super::super::client::InstanceAdmin::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1094,7 +1094,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::test_iam_permissions call.
+    /// The request builder for [InstanceAdmin::test_iam_permissions][super::super::client::InstanceAdmin::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1150,7 +1150,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::get_instance_partition call.
+    /// The request builder for [InstanceAdmin::get_instance_partition][super::super::client::InstanceAdmin::get_instance_partition] calls.
     #[derive(Clone, Debug)]
     pub struct GetInstancePartition(RequestBuilder<crate::model::GetInstancePartitionRequest>);
 
@@ -1195,7 +1195,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::create_instance_partition call.
+    /// The request builder for [InstanceAdmin::create_instance_partition][super::super::client::InstanceAdmin::create_instance_partition] calls.
     #[derive(Clone, Debug)]
     pub struct CreateInstancePartition(
         RequestBuilder<crate::model::CreateInstancePartitionRequest>,
@@ -1302,7 +1302,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::delete_instance_partition call.
+    /// The request builder for [InstanceAdmin::delete_instance_partition][super::super::client::InstanceAdmin::delete_instance_partition] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteInstancePartition(
         RequestBuilder<crate::model::DeleteInstancePartitionRequest>,
@@ -1355,7 +1355,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::update_instance_partition call.
+    /// The request builder for [InstanceAdmin::update_instance_partition][super::super::client::InstanceAdmin::update_instance_partition] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateInstancePartition(
         RequestBuilder<crate::model::UpdateInstancePartitionRequest>,
@@ -1459,7 +1459,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::list_instance_partition_operations call.
+    /// The request builder for [InstanceAdmin::list_instance_partition_operations][super::super::client::InstanceAdmin::list_instance_partition_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListInstancePartitionOperations(
         RequestBuilder<crate::model::ListInstancePartitionOperationsRequest>,
@@ -1550,7 +1550,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::move_instance call.
+    /// The request builder for [InstanceAdmin::move_instance][super::super::client::InstanceAdmin::move_instance] calls.
     #[derive(Clone, Debug)]
     pub struct MoveInstance(RequestBuilder<crate::model::MoveInstanceRequest>);
 
@@ -1639,7 +1639,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::list_operations call.
+    /// The request builder for [InstanceAdmin::list_operations][super::super::client::InstanceAdmin::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1717,7 +1717,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::get_operation call.
+    /// The request builder for [InstanceAdmin::get_operation][super::super::client::InstanceAdmin::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1762,7 +1762,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::delete_operation call.
+    /// The request builder for [InstanceAdmin::delete_operation][super::super::client::InstanceAdmin::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1807,7 +1807,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for a InstanceAdmin::cancel_operation call.
+    /// The request builder for [InstanceAdmin::cancel_operation][super::super::client::InstanceAdmin::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

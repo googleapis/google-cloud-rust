@@ -67,7 +67,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::list_storage_pools call.
+    /// The request builder for [NetApp::list_storage_pools][super::super::client::NetApp::list_storage_pools] calls.
     #[derive(Clone, Debug)]
     pub struct ListStoragePools(RequestBuilder<crate::model::ListStoragePoolsRequest>);
 
@@ -151,7 +151,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::create_storage_pool call.
+    /// The request builder for [NetApp::create_storage_pool][super::super::client::NetApp::create_storage_pool] calls.
     #[derive(Clone, Debug)]
     pub struct CreateStoragePool(RequestBuilder<crate::model::CreateStoragePoolRequest>);
 
@@ -249,7 +249,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::get_storage_pool call.
+    /// The request builder for [NetApp::get_storage_pool][super::super::client::NetApp::get_storage_pool] calls.
     #[derive(Clone, Debug)]
     pub struct GetStoragePool(RequestBuilder<crate::model::GetStoragePoolRequest>);
 
@@ -291,7 +291,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::update_storage_pool call.
+    /// The request builder for [NetApp::update_storage_pool][super::super::client::NetApp::update_storage_pool] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateStoragePool(RequestBuilder<crate::model::UpdateStoragePoolRequest>);
 
@@ -386,7 +386,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::delete_storage_pool call.
+    /// The request builder for [NetApp::delete_storage_pool][super::super::client::NetApp::delete_storage_pool] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteStoragePool(RequestBuilder<crate::model::DeleteStoragePoolRequest>);
 
@@ -466,7 +466,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::validate_directory_service call.
+    /// The request builder for [NetApp::validate_directory_service][super::super::client::NetApp::validate_directory_service] calls.
     #[derive(Clone, Debug)]
     pub struct ValidateDirectoryService(
         RequestBuilder<crate::model::ValidateDirectoryServiceRequest>,
@@ -557,7 +557,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::switch_active_replica_zone call.
+    /// The request builder for [NetApp::switch_active_replica_zone][super::super::client::NetApp::switch_active_replica_zone] calls.
     #[derive(Clone, Debug)]
     pub struct SwitchActiveReplicaZone(
         RequestBuilder<crate::model::SwitchActiveReplicaZoneRequest>,
@@ -642,7 +642,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::list_volumes call.
+    /// The request builder for [NetApp::list_volumes][super::super::client::NetApp::list_volumes] calls.
     #[derive(Clone, Debug)]
     pub struct ListVolumes(RequestBuilder<crate::model::ListVolumesRequest>);
 
@@ -723,7 +723,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::get_volume call.
+    /// The request builder for [NetApp::get_volume][super::super::client::NetApp::get_volume] calls.
     #[derive(Clone, Debug)]
     pub struct GetVolume(RequestBuilder<crate::model::GetVolumeRequest>);
 
@@ -765,7 +765,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::create_volume call.
+    /// The request builder for [NetApp::create_volume][super::super::client::NetApp::create_volume] calls.
     #[derive(Clone, Debug)]
     pub struct CreateVolume(RequestBuilder<crate::model::CreateVolumeRequest>);
 
@@ -859,7 +859,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::update_volume call.
+    /// The request builder for [NetApp::update_volume][super::super::client::NetApp::update_volume] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateVolume(RequestBuilder<crate::model::UpdateVolumeRequest>);
 
@@ -950,7 +950,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::delete_volume call.
+    /// The request builder for [NetApp::delete_volume][super::super::client::NetApp::delete_volume] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteVolume(RequestBuilder<crate::model::DeleteVolumeRequest>);
 
@@ -1033,7 +1033,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::revert_volume call.
+    /// The request builder for [NetApp::revert_volume][super::super::client::NetApp::revert_volume] calls.
     #[derive(Clone, Debug)]
     pub struct RevertVolume(RequestBuilder<crate::model::RevertVolumeRequest>);
 
@@ -1118,7 +1118,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::list_snapshots call.
+    /// The request builder for [NetApp::list_snapshots][super::super::client::NetApp::list_snapshots] calls.
     #[derive(Clone, Debug)]
     pub struct ListSnapshots(RequestBuilder<crate::model::ListSnapshotsRequest>);
 
@@ -1199,7 +1199,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::get_snapshot call.
+    /// The request builder for [NetApp::get_snapshot][super::super::client::NetApp::get_snapshot] calls.
     #[derive(Clone, Debug)]
     pub struct GetSnapshot(RequestBuilder<crate::model::GetSnapshotRequest>);
 
@@ -1241,7 +1241,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::create_snapshot call.
+    /// The request builder for [NetApp::create_snapshot][super::super::client::NetApp::create_snapshot] calls.
     #[derive(Clone, Debug)]
     pub struct CreateSnapshot(RequestBuilder<crate::model::CreateSnapshotRequest>);
 
@@ -1336,7 +1336,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::delete_snapshot call.
+    /// The request builder for [NetApp::delete_snapshot][super::super::client::NetApp::delete_snapshot] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteSnapshot(RequestBuilder<crate::model::DeleteSnapshotRequest>);
 
@@ -1413,7 +1413,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::update_snapshot call.
+    /// The request builder for [NetApp::update_snapshot][super::super::client::NetApp::update_snapshot] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateSnapshot(RequestBuilder<crate::model::UpdateSnapshotRequest>);
 
@@ -1505,7 +1505,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::list_active_directories call.
+    /// The request builder for [NetApp::list_active_directories][super::super::client::NetApp::list_active_directories] calls.
     #[derive(Clone, Debug)]
     pub struct ListActiveDirectories(RequestBuilder<crate::model::ListActiveDirectoriesRequest>);
 
@@ -1589,7 +1589,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::get_active_directory call.
+    /// The request builder for [NetApp::get_active_directory][super::super::client::NetApp::get_active_directory] calls.
     #[derive(Clone, Debug)]
     pub struct GetActiveDirectory(RequestBuilder<crate::model::GetActiveDirectoryRequest>);
 
@@ -1634,7 +1634,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::create_active_directory call.
+    /// The request builder for [NetApp::create_active_directory][super::super::client::NetApp::create_active_directory] calls.
     #[derive(Clone, Debug)]
     pub struct CreateActiveDirectory(RequestBuilder<crate::model::CreateActiveDirectoryRequest>);
 
@@ -1733,7 +1733,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::update_active_directory call.
+    /// The request builder for [NetApp::update_active_directory][super::super::client::NetApp::update_active_directory] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateActiveDirectory(RequestBuilder<crate::model::UpdateActiveDirectoryRequest>);
 
@@ -1829,7 +1829,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::delete_active_directory call.
+    /// The request builder for [NetApp::delete_active_directory][super::super::client::NetApp::delete_active_directory] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteActiveDirectory(RequestBuilder<crate::model::DeleteActiveDirectoryRequest>);
 
@@ -1909,7 +1909,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::list_kms_configs call.
+    /// The request builder for [NetApp::list_kms_configs][super::super::client::NetApp::list_kms_configs] calls.
     #[derive(Clone, Debug)]
     pub struct ListKmsConfigs(RequestBuilder<crate::model::ListKmsConfigsRequest>);
 
@@ -1990,7 +1990,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::create_kms_config call.
+    /// The request builder for [NetApp::create_kms_config][super::super::client::NetApp::create_kms_config] calls.
     #[derive(Clone, Debug)]
     pub struct CreateKmsConfig(RequestBuilder<crate::model::CreateKmsConfigRequest>);
 
@@ -2085,7 +2085,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::get_kms_config call.
+    /// The request builder for [NetApp::get_kms_config][super::super::client::NetApp::get_kms_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetKmsConfig(RequestBuilder<crate::model::GetKmsConfigRequest>);
 
@@ -2127,7 +2127,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::update_kms_config call.
+    /// The request builder for [NetApp::update_kms_config][super::super::client::NetApp::update_kms_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateKmsConfig(RequestBuilder<crate::model::UpdateKmsConfigRequest>);
 
@@ -2219,7 +2219,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::encrypt_volumes call.
+    /// The request builder for [NetApp::encrypt_volumes][super::super::client::NetApp::encrypt_volumes] calls.
     #[derive(Clone, Debug)]
     pub struct EncryptVolumes(RequestBuilder<crate::model::EncryptVolumesRequest>);
 
@@ -2299,7 +2299,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::verify_kms_config call.
+    /// The request builder for [NetApp::verify_kms_config][super::super::client::NetApp::verify_kms_config] calls.
     #[derive(Clone, Debug)]
     pub struct VerifyKmsConfig(RequestBuilder<crate::model::VerifyKmsConfigRequest>);
 
@@ -2341,7 +2341,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::delete_kms_config call.
+    /// The request builder for [NetApp::delete_kms_config][super::super::client::NetApp::delete_kms_config] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteKmsConfig(RequestBuilder<crate::model::DeleteKmsConfigRequest>);
 
@@ -2418,7 +2418,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::list_replications call.
+    /// The request builder for [NetApp::list_replications][super::super::client::NetApp::list_replications] calls.
     #[derive(Clone, Debug)]
     pub struct ListReplications(RequestBuilder<crate::model::ListReplicationsRequest>);
 
@@ -2502,7 +2502,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::get_replication call.
+    /// The request builder for [NetApp::get_replication][super::super::client::NetApp::get_replication] calls.
     #[derive(Clone, Debug)]
     pub struct GetReplication(RequestBuilder<crate::model::GetReplicationRequest>);
 
@@ -2544,7 +2544,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::create_replication call.
+    /// The request builder for [NetApp::create_replication][super::super::client::NetApp::create_replication] calls.
     #[derive(Clone, Debug)]
     pub struct CreateReplication(RequestBuilder<crate::model::CreateReplicationRequest>);
 
@@ -2642,7 +2642,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::delete_replication call.
+    /// The request builder for [NetApp::delete_replication][super::super::client::NetApp::delete_replication] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteReplication(RequestBuilder<crate::model::DeleteReplicationRequest>);
 
@@ -2722,7 +2722,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::update_replication call.
+    /// The request builder for [NetApp::update_replication][super::super::client::NetApp::update_replication] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateReplication(RequestBuilder<crate::model::UpdateReplicationRequest>);
 
@@ -2817,7 +2817,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::stop_replication call.
+    /// The request builder for [NetApp::stop_replication][super::super::client::NetApp::stop_replication] calls.
     #[derive(Clone, Debug)]
     pub struct StopReplication(RequestBuilder<crate::model::StopReplicationRequest>);
 
@@ -2903,7 +2903,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::resume_replication call.
+    /// The request builder for [NetApp::resume_replication][super::super::client::NetApp::resume_replication] calls.
     #[derive(Clone, Debug)]
     pub struct ResumeReplication(RequestBuilder<crate::model::ResumeReplicationRequest>);
 
@@ -2986,7 +2986,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::reverse_replication_direction call.
+    /// The request builder for [NetApp::reverse_replication_direction][super::super::client::NetApp::reverse_replication_direction] calls.
     #[derive(Clone, Debug)]
     pub struct ReverseReplicationDirection(
         RequestBuilder<crate::model::ReverseReplicationDirectionRequest>,
@@ -3071,7 +3071,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::establish_peering call.
+    /// The request builder for [NetApp::establish_peering][super::super::client::NetApp::establish_peering] calls.
     #[derive(Clone, Debug)]
     pub struct EstablishPeering(RequestBuilder<crate::model::EstablishPeeringRequest>);
 
@@ -3183,7 +3183,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::sync_replication call.
+    /// The request builder for [NetApp::sync_replication][super::super::client::NetApp::sync_replication] calls.
     #[derive(Clone, Debug)]
     pub struct SyncReplication(RequestBuilder<crate::model::SyncReplicationRequest>);
 
@@ -3263,7 +3263,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::create_backup_vault call.
+    /// The request builder for [NetApp::create_backup_vault][super::super::client::NetApp::create_backup_vault] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBackupVault(RequestBuilder<crate::model::CreateBackupVaultRequest>);
 
@@ -3361,7 +3361,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::get_backup_vault call.
+    /// The request builder for [NetApp::get_backup_vault][super::super::client::NetApp::get_backup_vault] calls.
     #[derive(Clone, Debug)]
     pub struct GetBackupVault(RequestBuilder<crate::model::GetBackupVaultRequest>);
 
@@ -3403,7 +3403,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::list_backup_vaults call.
+    /// The request builder for [NetApp::list_backup_vaults][super::super::client::NetApp::list_backup_vaults] calls.
     #[derive(Clone, Debug)]
     pub struct ListBackupVaults(RequestBuilder<crate::model::ListBackupVaultsRequest>);
 
@@ -3487,7 +3487,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::update_backup_vault call.
+    /// The request builder for [NetApp::update_backup_vault][super::super::client::NetApp::update_backup_vault] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBackupVault(RequestBuilder<crate::model::UpdateBackupVaultRequest>);
 
@@ -3582,7 +3582,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::delete_backup_vault call.
+    /// The request builder for [NetApp::delete_backup_vault][super::super::client::NetApp::delete_backup_vault] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBackupVault(RequestBuilder<crate::model::DeleteBackupVaultRequest>);
 
@@ -3662,7 +3662,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::create_backup call.
+    /// The request builder for [NetApp::create_backup][super::super::client::NetApp::create_backup] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
@@ -3756,7 +3756,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::get_backup call.
+    /// The request builder for [NetApp::get_backup][super::super::client::NetApp::get_backup] calls.
     #[derive(Clone, Debug)]
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
@@ -3798,7 +3798,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::list_backups call.
+    /// The request builder for [NetApp::list_backups][super::super::client::NetApp::list_backups] calls.
     #[derive(Clone, Debug)]
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
@@ -3879,7 +3879,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::delete_backup call.
+    /// The request builder for [NetApp::delete_backup][super::super::client::NetApp::delete_backup] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
@@ -3956,7 +3956,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::update_backup call.
+    /// The request builder for [NetApp::update_backup][super::super::client::NetApp::update_backup] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
@@ -4047,7 +4047,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::create_backup_policy call.
+    /// The request builder for [NetApp::create_backup_policy][super::super::client::NetApp::create_backup_policy] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBackupPolicy(RequestBuilder<crate::model::CreateBackupPolicyRequest>);
 
@@ -4145,7 +4145,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::get_backup_policy call.
+    /// The request builder for [NetApp::get_backup_policy][super::super::client::NetApp::get_backup_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetBackupPolicy(RequestBuilder<crate::model::GetBackupPolicyRequest>);
 
@@ -4187,7 +4187,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::list_backup_policies call.
+    /// The request builder for [NetApp::list_backup_policies][super::super::client::NetApp::list_backup_policies] calls.
     #[derive(Clone, Debug)]
     pub struct ListBackupPolicies(RequestBuilder<crate::model::ListBackupPoliciesRequest>);
 
@@ -4271,7 +4271,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::update_backup_policy call.
+    /// The request builder for [NetApp::update_backup_policy][super::super::client::NetApp::update_backup_policy] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBackupPolicy(RequestBuilder<crate::model::UpdateBackupPolicyRequest>);
 
@@ -4366,7 +4366,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::delete_backup_policy call.
+    /// The request builder for [NetApp::delete_backup_policy][super::super::client::NetApp::delete_backup_policy] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBackupPolicy(RequestBuilder<crate::model::DeleteBackupPolicyRequest>);
 
@@ -4446,7 +4446,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::list_quota_rules call.
+    /// The request builder for [NetApp::list_quota_rules][super::super::client::NetApp::list_quota_rules] calls.
     #[derive(Clone, Debug)]
     pub struct ListQuotaRules(RequestBuilder<crate::model::ListQuotaRulesRequest>);
 
@@ -4527,7 +4527,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::get_quota_rule call.
+    /// The request builder for [NetApp::get_quota_rule][super::super::client::NetApp::get_quota_rule] calls.
     #[derive(Clone, Debug)]
     pub struct GetQuotaRule(RequestBuilder<crate::model::GetQuotaRuleRequest>);
 
@@ -4569,7 +4569,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::create_quota_rule call.
+    /// The request builder for [NetApp::create_quota_rule][super::super::client::NetApp::create_quota_rule] calls.
     #[derive(Clone, Debug)]
     pub struct CreateQuotaRule(RequestBuilder<crate::model::CreateQuotaRuleRequest>);
 
@@ -4664,7 +4664,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::update_quota_rule call.
+    /// The request builder for [NetApp::update_quota_rule][super::super::client::NetApp::update_quota_rule] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateQuotaRule(RequestBuilder<crate::model::UpdateQuotaRuleRequest>);
 
@@ -4756,7 +4756,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::delete_quota_rule call.
+    /// The request builder for [NetApp::delete_quota_rule][super::super::client::NetApp::delete_quota_rule] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteQuotaRule(RequestBuilder<crate::model::DeleteQuotaRuleRequest>);
 
@@ -4833,7 +4833,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::list_locations call.
+    /// The request builder for [NetApp::list_locations][super::super::client::NetApp::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -4911,7 +4911,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::get_location call.
+    /// The request builder for [NetApp::get_location][super::super::client::NetApp::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -4953,7 +4953,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::list_operations call.
+    /// The request builder for [NetApp::list_operations][super::super::client::NetApp::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -5031,7 +5031,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::get_operation call.
+    /// The request builder for [NetApp::get_operation][super::super::client::NetApp::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -5076,7 +5076,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::delete_operation call.
+    /// The request builder for [NetApp::delete_operation][super::super::client::NetApp::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -5121,7 +5121,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for a NetApp::cancel_operation call.
+    /// The request builder for [NetApp::cancel_operation][super::super::client::NetApp::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

@@ -69,7 +69,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for a ClientGatewaysService::list_client_gateways call.
+    /// The request builder for [ClientGatewaysService::list_client_gateways][super::super::client::ClientGatewaysService::list_client_gateways] calls.
     #[derive(Clone, Debug)]
     pub struct ListClientGateways(RequestBuilder<crate::model::ListClientGatewaysRequest>);
 
@@ -155,7 +155,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for a ClientGatewaysService::get_client_gateway call.
+    /// The request builder for [ClientGatewaysService::get_client_gateway][super::super::client::ClientGatewaysService::get_client_gateway] calls.
     #[derive(Clone, Debug)]
     pub struct GetClientGateway(RequestBuilder<crate::model::GetClientGatewayRequest>);
 
@@ -202,7 +202,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for a ClientGatewaysService::create_client_gateway call.
+    /// The request builder for [ClientGatewaysService::create_client_gateway][super::super::client::ClientGatewaysService::create_client_gateway] calls.
     #[derive(Clone, Debug)]
     pub struct CreateClientGateway(RequestBuilder<crate::model::CreateClientGatewayRequest>);
 
@@ -317,7 +317,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for a ClientGatewaysService::delete_client_gateway call.
+    /// The request builder for [ClientGatewaysService::delete_client_gateway][super::super::client::ClientGatewaysService::delete_client_gateway] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteClientGateway(RequestBuilder<crate::model::DeleteClientGatewayRequest>);
 
@@ -414,7 +414,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for a ClientGatewaysService::list_locations call.
+    /// The request builder for [ClientGatewaysService::list_locations][super::super::client::ClientGatewaysService::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -494,7 +494,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for a ClientGatewaysService::get_location call.
+    /// The request builder for [ClientGatewaysService::get_location][super::super::client::ClientGatewaysService::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -538,7 +538,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for a ClientGatewaysService::set_iam_policy call.
+    /// The request builder for [ClientGatewaysService::set_iam_policy][super::super::client::ClientGatewaysService::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -600,7 +600,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for a ClientGatewaysService::get_iam_policy call.
+    /// The request builder for [ClientGatewaysService::get_iam_policy][super::super::client::ClientGatewaysService::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -653,7 +653,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for a ClientGatewaysService::test_iam_permissions call.
+    /// The request builder for [ClientGatewaysService::test_iam_permissions][super::super::client::ClientGatewaysService::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -711,7 +711,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for a ClientGatewaysService::list_operations call.
+    /// The request builder for [ClientGatewaysService::list_operations][super::super::client::ClientGatewaysService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -791,7 +791,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for a ClientGatewaysService::get_operation call.
+    /// The request builder for [ClientGatewaysService::get_operation][super::super::client::ClientGatewaysService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -838,7 +838,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for a ClientGatewaysService::delete_operation call.
+    /// The request builder for [ClientGatewaysService::delete_operation][super::super::client::ClientGatewaysService::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -885,7 +885,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for a ClientGatewaysService::cancel_operation call.
+    /// The request builder for [ClientGatewaysService::cancel_operation][super::super::client::ClientGatewaysService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

@@ -67,7 +67,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::list_sources call.
+    /// The request builder for [VmMigration::list_sources][super::super::client::VmMigration::list_sources] calls.
     #[derive(Clone, Debug)]
     pub struct ListSources(RequestBuilder<crate::model::ListSourcesRequest>);
 
@@ -148,7 +148,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::get_source call.
+    /// The request builder for [VmMigration::get_source][super::super::client::VmMigration::get_source] calls.
     #[derive(Clone, Debug)]
     pub struct GetSource(RequestBuilder<crate::model::GetSourceRequest>);
 
@@ -190,7 +190,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::create_source call.
+    /// The request builder for [VmMigration::create_source][super::super::client::VmMigration::create_source] calls.
     #[derive(Clone, Debug)]
     pub struct CreateSource(RequestBuilder<crate::model::CreateSourceRequest>);
 
@@ -290,7 +290,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::update_source call.
+    /// The request builder for [VmMigration::update_source][super::super::client::VmMigration::update_source] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateSource(RequestBuilder<crate::model::UpdateSourceRequest>);
 
@@ -387,7 +387,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::delete_source call.
+    /// The request builder for [VmMigration::delete_source][super::super::client::VmMigration::delete_source] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteSource(RequestBuilder<crate::model::DeleteSourceRequest>);
 
@@ -470,7 +470,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::fetch_inventory call.
+    /// The request builder for [VmMigration::fetch_inventory][super::super::client::VmMigration::fetch_inventory] calls.
     #[derive(Clone, Debug)]
     pub struct FetchInventory(RequestBuilder<crate::model::FetchInventoryRequest>);
 
@@ -518,7 +518,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::list_utilization_reports call.
+    /// The request builder for [VmMigration::list_utilization_reports][super::super::client::VmMigration::list_utilization_reports] calls.
     #[derive(Clone, Debug)]
     pub struct ListUtilizationReports(RequestBuilder<crate::model::ListUtilizationReportsRequest>);
 
@@ -610,7 +610,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::get_utilization_report call.
+    /// The request builder for [VmMigration::get_utilization_report][super::super::client::VmMigration::get_utilization_report] calls.
     #[derive(Clone, Debug)]
     pub struct GetUtilizationReport(RequestBuilder<crate::model::GetUtilizationReportRequest>);
 
@@ -661,7 +661,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::create_utilization_report call.
+    /// The request builder for [VmMigration::create_utilization_report][super::super::client::VmMigration::create_utilization_report] calls.
     #[derive(Clone, Debug)]
     pub struct CreateUtilizationReport(
         RequestBuilder<crate::model::CreateUtilizationReportRequest>,
@@ -770,7 +770,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::delete_utilization_report call.
+    /// The request builder for [VmMigration::delete_utilization_report][super::super::client::VmMigration::delete_utilization_report] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteUtilizationReport(
         RequestBuilder<crate::model::DeleteUtilizationReportRequest>,
@@ -858,7 +858,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::list_datacenter_connectors call.
+    /// The request builder for [VmMigration::list_datacenter_connectors][super::super::client::VmMigration::list_datacenter_connectors] calls.
     #[derive(Clone, Debug)]
     pub struct ListDatacenterConnectors(
         RequestBuilder<crate::model::ListDatacenterConnectorsRequest>,
@@ -946,7 +946,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::get_datacenter_connector call.
+    /// The request builder for [VmMigration::get_datacenter_connector][super::super::client::VmMigration::get_datacenter_connector] calls.
     #[derive(Clone, Debug)]
     pub struct GetDatacenterConnector(RequestBuilder<crate::model::GetDatacenterConnectorRequest>);
 
@@ -991,7 +991,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::create_datacenter_connector call.
+    /// The request builder for [VmMigration::create_datacenter_connector][super::super::client::VmMigration::create_datacenter_connector] calls.
     #[derive(Clone, Debug)]
     pub struct CreateDatacenterConnector(
         RequestBuilder<crate::model::CreateDatacenterConnectorRequest>,
@@ -1100,7 +1100,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::delete_datacenter_connector call.
+    /// The request builder for [VmMigration::delete_datacenter_connector][super::super::client::VmMigration::delete_datacenter_connector] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteDatacenterConnector(
         RequestBuilder<crate::model::DeleteDatacenterConnectorRequest>,
@@ -1188,7 +1188,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::upgrade_appliance call.
+    /// The request builder for [VmMigration::upgrade_appliance][super::super::client::VmMigration::upgrade_appliance] calls.
     #[derive(Clone, Debug)]
     pub struct UpgradeAppliance(RequestBuilder<crate::model::UpgradeApplianceRequest>);
 
@@ -1280,7 +1280,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::create_migrating_vm call.
+    /// The request builder for [VmMigration::create_migrating_vm][super::super::client::VmMigration::create_migrating_vm] calls.
     #[derive(Clone, Debug)]
     pub struct CreateMigratingVm(RequestBuilder<crate::model::CreateMigratingVmRequest>);
 
@@ -1384,7 +1384,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::list_migrating_vms call.
+    /// The request builder for [VmMigration::list_migrating_vms][super::super::client::VmMigration::list_migrating_vms] calls.
     #[derive(Clone, Debug)]
     pub struct ListMigratingVms(RequestBuilder<crate::model::ListMigratingVmsRequest>);
 
@@ -1474,7 +1474,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::get_migrating_vm call.
+    /// The request builder for [VmMigration::get_migrating_vm][super::super::client::VmMigration::get_migrating_vm] calls.
     #[derive(Clone, Debug)]
     pub struct GetMigratingVm(RequestBuilder<crate::model::GetMigratingVmRequest>);
 
@@ -1522,7 +1522,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::update_migrating_vm call.
+    /// The request builder for [VmMigration::update_migrating_vm][super::super::client::VmMigration::update_migrating_vm] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateMigratingVm(RequestBuilder<crate::model::UpdateMigratingVmRequest>);
 
@@ -1623,7 +1623,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::delete_migrating_vm call.
+    /// The request builder for [VmMigration::delete_migrating_vm][super::super::client::VmMigration::delete_migrating_vm] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteMigratingVm(RequestBuilder<crate::model::DeleteMigratingVmRequest>);
 
@@ -1703,7 +1703,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::start_migration call.
+    /// The request builder for [VmMigration::start_migration][super::super::client::VmMigration::start_migration] calls.
     #[derive(Clone, Debug)]
     pub struct StartMigration(RequestBuilder<crate::model::StartMigrationRequest>);
 
@@ -1786,7 +1786,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::resume_migration call.
+    /// The request builder for [VmMigration::resume_migration][super::super::client::VmMigration::resume_migration] calls.
     #[derive(Clone, Debug)]
     pub struct ResumeMigration(RequestBuilder<crate::model::ResumeMigrationRequest>);
 
@@ -1869,7 +1869,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::pause_migration call.
+    /// The request builder for [VmMigration::pause_migration][super::super::client::VmMigration::pause_migration] calls.
     #[derive(Clone, Debug)]
     pub struct PauseMigration(RequestBuilder<crate::model::PauseMigrationRequest>);
 
@@ -1952,7 +1952,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::finalize_migration call.
+    /// The request builder for [VmMigration::finalize_migration][super::super::client::VmMigration::finalize_migration] calls.
     #[derive(Clone, Debug)]
     pub struct FinalizeMigration(RequestBuilder<crate::model::FinalizeMigrationRequest>);
 
@@ -2038,7 +2038,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::create_clone_job call.
+    /// The request builder for [VmMigration::create_clone_job][super::super::client::VmMigration::create_clone_job] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCloneJob(RequestBuilder<crate::model::CreateCloneJobRequest>);
 
@@ -2139,7 +2139,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::cancel_clone_job call.
+    /// The request builder for [VmMigration::cancel_clone_job][super::super::client::VmMigration::cancel_clone_job] calls.
     #[derive(Clone, Debug)]
     pub struct CancelCloneJob(RequestBuilder<crate::model::CancelCloneJobRequest>);
 
@@ -2222,7 +2222,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::list_clone_jobs call.
+    /// The request builder for [VmMigration::list_clone_jobs][super::super::client::VmMigration::list_clone_jobs] calls.
     #[derive(Clone, Debug)]
     pub struct ListCloneJobs(RequestBuilder<crate::model::ListCloneJobsRequest>);
 
@@ -2303,7 +2303,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::get_clone_job call.
+    /// The request builder for [VmMigration::get_clone_job][super::super::client::VmMigration::get_clone_job] calls.
     #[derive(Clone, Debug)]
     pub struct GetCloneJob(RequestBuilder<crate::model::GetCloneJobRequest>);
 
@@ -2345,7 +2345,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::create_cutover_job call.
+    /// The request builder for [VmMigration::create_cutover_job][super::super::client::VmMigration::create_cutover_job] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCutoverJob(RequestBuilder<crate::model::CreateCutoverJobRequest>);
 
@@ -2449,7 +2449,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::cancel_cutover_job call.
+    /// The request builder for [VmMigration::cancel_cutover_job][super::super::client::VmMigration::cancel_cutover_job] calls.
     #[derive(Clone, Debug)]
     pub struct CancelCutoverJob(RequestBuilder<crate::model::CancelCutoverJobRequest>);
 
@@ -2535,7 +2535,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::list_cutover_jobs call.
+    /// The request builder for [VmMigration::list_cutover_jobs][super::super::client::VmMigration::list_cutover_jobs] calls.
     #[derive(Clone, Debug)]
     pub struct ListCutoverJobs(RequestBuilder<crate::model::ListCutoverJobsRequest>);
 
@@ -2616,7 +2616,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::get_cutover_job call.
+    /// The request builder for [VmMigration::get_cutover_job][super::super::client::VmMigration::get_cutover_job] calls.
     #[derive(Clone, Debug)]
     pub struct GetCutoverJob(RequestBuilder<crate::model::GetCutoverJobRequest>);
 
@@ -2658,7 +2658,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::list_groups call.
+    /// The request builder for [VmMigration::list_groups][super::super::client::VmMigration::list_groups] calls.
     #[derive(Clone, Debug)]
     pub struct ListGroups(RequestBuilder<crate::model::ListGroupsRequest>);
 
@@ -2739,7 +2739,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::get_group call.
+    /// The request builder for [VmMigration::get_group][super::super::client::VmMigration::get_group] calls.
     #[derive(Clone, Debug)]
     pub struct GetGroup(RequestBuilder<crate::model::GetGroupRequest>);
 
@@ -2781,7 +2781,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::create_group call.
+    /// The request builder for [VmMigration::create_group][super::super::client::VmMigration::create_group] calls.
     #[derive(Clone, Debug)]
     pub struct CreateGroup(RequestBuilder<crate::model::CreateGroupRequest>);
 
@@ -2881,7 +2881,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::update_group call.
+    /// The request builder for [VmMigration::update_group][super::super::client::VmMigration::update_group] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateGroup(RequestBuilder<crate::model::UpdateGroupRequest>);
 
@@ -2978,7 +2978,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::delete_group call.
+    /// The request builder for [VmMigration::delete_group][super::super::client::VmMigration::delete_group] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteGroup(RequestBuilder<crate::model::DeleteGroupRequest>);
 
@@ -3061,7 +3061,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::add_group_migration call.
+    /// The request builder for [VmMigration::add_group_migration][super::super::client::VmMigration::add_group_migration] calls.
     #[derive(Clone, Debug)]
     pub struct AddGroupMigration(RequestBuilder<crate::model::AddGroupMigrationRequest>);
 
@@ -3153,7 +3153,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::remove_group_migration call.
+    /// The request builder for [VmMigration::remove_group_migration][super::super::client::VmMigration::remove_group_migration] calls.
     #[derive(Clone, Debug)]
     pub struct RemoveGroupMigration(RequestBuilder<crate::model::RemoveGroupMigrationRequest>);
 
@@ -3245,7 +3245,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::list_target_projects call.
+    /// The request builder for [VmMigration::list_target_projects][super::super::client::VmMigration::list_target_projects] calls.
     #[derive(Clone, Debug)]
     pub struct ListTargetProjects(RequestBuilder<crate::model::ListTargetProjectsRequest>);
 
@@ -3329,7 +3329,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::get_target_project call.
+    /// The request builder for [VmMigration::get_target_project][super::super::client::VmMigration::get_target_project] calls.
     #[derive(Clone, Debug)]
     pub struct GetTargetProject(RequestBuilder<crate::model::GetTargetProjectRequest>);
 
@@ -3374,7 +3374,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::create_target_project call.
+    /// The request builder for [VmMigration::create_target_project][super::super::client::VmMigration::create_target_project] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTargetProject(RequestBuilder<crate::model::CreateTargetProjectRequest>);
 
@@ -3479,7 +3479,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::update_target_project call.
+    /// The request builder for [VmMigration::update_target_project][super::super::client::VmMigration::update_target_project] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateTargetProject(RequestBuilder<crate::model::UpdateTargetProjectRequest>);
 
@@ -3581,7 +3581,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::delete_target_project call.
+    /// The request builder for [VmMigration::delete_target_project][super::super::client::VmMigration::delete_target_project] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTargetProject(RequestBuilder<crate::model::DeleteTargetProjectRequest>);
 
@@ -3667,7 +3667,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::list_replication_cycles call.
+    /// The request builder for [VmMigration::list_replication_cycles][super::super::client::VmMigration::list_replication_cycles] calls.
     #[derive(Clone, Debug)]
     pub struct ListReplicationCycles(RequestBuilder<crate::model::ListReplicationCyclesRequest>);
 
@@ -3751,7 +3751,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::get_replication_cycle call.
+    /// The request builder for [VmMigration::get_replication_cycle][super::super::client::VmMigration::get_replication_cycle] calls.
     #[derive(Clone, Debug)]
     pub struct GetReplicationCycle(RequestBuilder<crate::model::GetReplicationCycleRequest>);
 
@@ -3796,7 +3796,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::list_locations call.
+    /// The request builder for [VmMigration::list_locations][super::super::client::VmMigration::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -3874,7 +3874,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::get_location call.
+    /// The request builder for [VmMigration::get_location][super::super::client::VmMigration::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -3916,7 +3916,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::list_operations call.
+    /// The request builder for [VmMigration::list_operations][super::super::client::VmMigration::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -3994,7 +3994,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::get_operation call.
+    /// The request builder for [VmMigration::get_operation][super::super::client::VmMigration::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -4039,7 +4039,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::delete_operation call.
+    /// The request builder for [VmMigration::delete_operation][super::super::client::VmMigration::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -4084,7 +4084,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for a VmMigration::cancel_operation call.
+    /// The request builder for [VmMigration::cancel_operation][super::super::client::VmMigration::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

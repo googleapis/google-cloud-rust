@@ -67,7 +67,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for a OrgPolicy::list_constraints call.
+    /// The request builder for [OrgPolicy::list_constraints][super::super::client::OrgPolicy::list_constraints] calls.
     #[derive(Clone, Debug)]
     pub struct ListConstraints(RequestBuilder<crate::model::ListConstraintsRequest>);
 
@@ -136,7 +136,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for a OrgPolicy::list_policies call.
+    /// The request builder for [OrgPolicy::list_policies][super::super::client::OrgPolicy::list_policies] calls.
     #[derive(Clone, Debug)]
     pub struct ListPolicies(RequestBuilder<crate::model::ListPoliciesRequest>);
 
@@ -205,7 +205,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for a OrgPolicy::get_policy call.
+    /// The request builder for [OrgPolicy::get_policy][super::super::client::OrgPolicy::get_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetPolicy(RequestBuilder<crate::model::GetPolicyRequest>);
 
@@ -247,7 +247,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for a OrgPolicy::get_effective_policy call.
+    /// The request builder for [OrgPolicy::get_effective_policy][super::super::client::OrgPolicy::get_effective_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetEffectivePolicy(RequestBuilder<crate::model::GetEffectivePolicyRequest>);
 
@@ -292,7 +292,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for a OrgPolicy::create_policy call.
+    /// The request builder for [OrgPolicy::create_policy][super::super::client::OrgPolicy::create_policy] calls.
     #[derive(Clone, Debug)]
     pub struct CreatePolicy(RequestBuilder<crate::model::CreatePolicyRequest>);
 
@@ -343,7 +343,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for a OrgPolicy::update_policy call.
+    /// The request builder for [OrgPolicy::update_policy][super::super::client::OrgPolicy::update_policy] calls.
     #[derive(Clone, Debug)]
     pub struct UpdatePolicy(RequestBuilder<crate::model::UpdatePolicyRequest>);
 
@@ -397,7 +397,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for a OrgPolicy::delete_policy call.
+    /// The request builder for [OrgPolicy::delete_policy][super::super::client::OrgPolicy::delete_policy] calls.
     #[derive(Clone, Debug)]
     pub struct DeletePolicy(RequestBuilder<crate::model::DeletePolicyRequest>);
 
@@ -445,7 +445,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for a OrgPolicy::create_custom_constraint call.
+    /// The request builder for [OrgPolicy::create_custom_constraint][super::super::client::OrgPolicy::create_custom_constraint] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCustomConstraint(RequestBuilder<crate::model::CreateCustomConstraintRequest>);
 
@@ -501,7 +501,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for a OrgPolicy::update_custom_constraint call.
+    /// The request builder for [OrgPolicy::update_custom_constraint][super::super::client::OrgPolicy::update_custom_constraint] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCustomConstraint(RequestBuilder<crate::model::UpdateCustomConstraintRequest>);
 
@@ -551,7 +551,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for a OrgPolicy::get_custom_constraint call.
+    /// The request builder for [OrgPolicy::get_custom_constraint][super::super::client::OrgPolicy::get_custom_constraint] calls.
     #[derive(Clone, Debug)]
     pub struct GetCustomConstraint(RequestBuilder<crate::model::GetCustomConstraintRequest>);
 
@@ -596,7 +596,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for a OrgPolicy::list_custom_constraints call.
+    /// The request builder for [OrgPolicy::list_custom_constraints][super::super::client::OrgPolicy::list_custom_constraints] calls.
     #[derive(Clone, Debug)]
     pub struct ListCustomConstraints(RequestBuilder<crate::model::ListCustomConstraintsRequest>);
 
@@ -668,7 +668,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for a OrgPolicy::delete_custom_constraint call.
+    /// The request builder for [OrgPolicy::delete_custom_constraint][super::super::client::OrgPolicy::delete_custom_constraint] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCustomConstraint(RequestBuilder<crate::model::DeleteCustomConstraintRequest>);
 

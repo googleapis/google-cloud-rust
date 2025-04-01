@@ -67,7 +67,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for a AttachedClusters::create_attached_cluster call.
+    /// The request builder for [AttachedClusters::create_attached_cluster][super::super::client::AttachedClusters::create_attached_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAttachedCluster(RequestBuilder<crate::model::CreateAttachedClusterRequest>);
 
@@ -172,7 +172,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for a AttachedClusters::update_attached_cluster call.
+    /// The request builder for [AttachedClusters::update_attached_cluster][super::super::client::AttachedClusters::update_attached_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateAttachedCluster(RequestBuilder<crate::model::UpdateAttachedClusterRequest>);
 
@@ -274,7 +274,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for a AttachedClusters::import_attached_cluster call.
+    /// The request builder for [AttachedClusters::import_attached_cluster][super::super::client::AttachedClusters::import_attached_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct ImportAttachedCluster(RequestBuilder<crate::model::ImportAttachedClusterRequest>);
 
@@ -391,7 +391,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for a AttachedClusters::get_attached_cluster call.
+    /// The request builder for [AttachedClusters::get_attached_cluster][super::super::client::AttachedClusters::get_attached_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct GetAttachedCluster(RequestBuilder<crate::model::GetAttachedClusterRequest>);
 
@@ -436,7 +436,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for a AttachedClusters::list_attached_clusters call.
+    /// The request builder for [AttachedClusters::list_attached_clusters][super::super::client::AttachedClusters::list_attached_clusters] calls.
     #[derive(Clone, Debug)]
     pub struct ListAttachedClusters(RequestBuilder<crate::model::ListAttachedClustersRequest>);
 
@@ -508,7 +508,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for a AttachedClusters::delete_attached_cluster call.
+    /// The request builder for [AttachedClusters::delete_attached_cluster][super::super::client::AttachedClusters::delete_attached_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAttachedCluster(RequestBuilder<crate::model::DeleteAttachedClusterRequest>);
 
@@ -612,7 +612,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for a AttachedClusters::get_attached_server_config call.
+    /// The request builder for [AttachedClusters::get_attached_server_config][super::super::client::AttachedClusters::get_attached_server_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetAttachedServerConfig(
         RequestBuilder<crate::model::GetAttachedServerConfigRequest>,
@@ -659,7 +659,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for a AttachedClusters::generate_attached_cluster_install_manifest call.
+    /// The request builder for [AttachedClusters::generate_attached_cluster_install_manifest][super::super::client::AttachedClusters::generate_attached_cluster_install_manifest] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateAttachedClusterInstallManifest(
         RequestBuilder<crate::model::GenerateAttachedClusterInstallManifestRequest>,
@@ -731,7 +731,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for a AttachedClusters::generate_attached_cluster_agent_token call.
+    /// The request builder for [AttachedClusters::generate_attached_cluster_agent_token][super::super::client::AttachedClusters::generate_attached_cluster_agent_token] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateAttachedClusterAgentToken(
         RequestBuilder<crate::model::GenerateAttachedClusterAgentTokenRequest>,
@@ -826,7 +826,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for a AttachedClusters::list_operations call.
+    /// The request builder for [AttachedClusters::list_operations][super::super::client::AttachedClusters::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -904,7 +904,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for a AttachedClusters::get_operation call.
+    /// The request builder for [AttachedClusters::get_operation][super::super::client::AttachedClusters::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -949,7 +949,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for a AttachedClusters::delete_operation call.
+    /// The request builder for [AttachedClusters::delete_operation][super::super::client::AttachedClusters::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -994,7 +994,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for a AttachedClusters::cancel_operation call.
+    /// The request builder for [AttachedClusters::cancel_operation][super::super::client::AttachedClusters::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -1093,7 +1093,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for a AwsClusters::create_aws_cluster call.
+    /// The request builder for [AwsClusters::create_aws_cluster][super::super::client::AwsClusters::create_aws_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAwsCluster(RequestBuilder<crate::model::CreateAwsClusterRequest>);
 
@@ -1197,7 +1197,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for a AwsClusters::update_aws_cluster call.
+    /// The request builder for [AwsClusters::update_aws_cluster][super::super::client::AwsClusters::update_aws_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateAwsCluster(RequestBuilder<crate::model::UpdateAwsClusterRequest>);
 
@@ -1298,7 +1298,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for a AwsClusters::get_aws_cluster call.
+    /// The request builder for [AwsClusters::get_aws_cluster][super::super::client::AwsClusters::get_aws_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct GetAwsCluster(RequestBuilder<crate::model::GetAwsClusterRequest>);
 
@@ -1340,7 +1340,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for a AwsClusters::list_aws_clusters call.
+    /// The request builder for [AwsClusters::list_aws_clusters][super::super::client::AwsClusters::list_aws_clusters] calls.
     #[derive(Clone, Debug)]
     pub struct ListAwsClusters(RequestBuilder<crate::model::ListAwsClustersRequest>);
 
@@ -1409,7 +1409,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for a AwsClusters::delete_aws_cluster call.
+    /// The request builder for [AwsClusters::delete_aws_cluster][super::super::client::AwsClusters::delete_aws_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAwsCluster(RequestBuilder<crate::model::DeleteAwsClusterRequest>);
 
@@ -1513,7 +1513,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for a AwsClusters::generate_aws_cluster_agent_token call.
+    /// The request builder for [AwsClusters::generate_aws_cluster_agent_token][super::super::client::AwsClusters::generate_aws_cluster_agent_token] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateAwsClusterAgentToken(
         RequestBuilder<crate::model::GenerateAwsClusterAgentTokenRequest>,
@@ -1614,7 +1614,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for a AwsClusters::generate_aws_access_token call.
+    /// The request builder for [AwsClusters::generate_aws_access_token][super::super::client::AwsClusters::generate_aws_access_token] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateAwsAccessToken(RequestBuilder<crate::model::GenerateAwsAccessTokenRequest>);
 
@@ -1659,7 +1659,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for a AwsClusters::create_aws_node_pool call.
+    /// The request builder for [AwsClusters::create_aws_node_pool][super::super::client::AwsClusters::create_aws_node_pool] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAwsNodePool(RequestBuilder<crate::model::CreateAwsNodePoolRequest>);
 
@@ -1763,7 +1763,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for a AwsClusters::update_aws_node_pool call.
+    /// The request builder for [AwsClusters::update_aws_node_pool][super::super::client::AwsClusters::update_aws_node_pool] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateAwsNodePool(RequestBuilder<crate::model::UpdateAwsNodePoolRequest>);
 
@@ -1864,7 +1864,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for a AwsClusters::rollback_aws_node_pool_update call.
+    /// The request builder for [AwsClusters::rollback_aws_node_pool_update][super::super::client::AwsClusters::rollback_aws_node_pool_update] calls.
     #[derive(Clone, Debug)]
     pub struct RollbackAwsNodePoolUpdate(
         RequestBuilder<crate::model::RollbackAwsNodePoolUpdateRequest>,
@@ -1955,7 +1955,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for a AwsClusters::get_aws_node_pool call.
+    /// The request builder for [AwsClusters::get_aws_node_pool][super::super::client::AwsClusters::get_aws_node_pool] calls.
     #[derive(Clone, Debug)]
     pub struct GetAwsNodePool(RequestBuilder<crate::model::GetAwsNodePoolRequest>);
 
@@ -1997,7 +1997,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for a AwsClusters::list_aws_node_pools call.
+    /// The request builder for [AwsClusters::list_aws_node_pools][super::super::client::AwsClusters::list_aws_node_pools] calls.
     #[derive(Clone, Debug)]
     pub struct ListAwsNodePools(RequestBuilder<crate::model::ListAwsNodePoolsRequest>);
 
@@ -2069,7 +2069,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for a AwsClusters::delete_aws_node_pool call.
+    /// The request builder for [AwsClusters::delete_aws_node_pool][super::super::client::AwsClusters::delete_aws_node_pool] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAwsNodePool(RequestBuilder<crate::model::DeleteAwsNodePoolRequest>);
 
@@ -2173,7 +2173,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for a AwsClusters::get_aws_open_id_config call.
+    /// The request builder for [AwsClusters::get_aws_open_id_config][super::super::client::AwsClusters::get_aws_open_id_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetAwsOpenIdConfig(RequestBuilder<crate::model::GetAwsOpenIdConfigRequest>);
 
@@ -2218,7 +2218,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for a AwsClusters::get_aws_json_web_keys call.
+    /// The request builder for [AwsClusters::get_aws_json_web_keys][super::super::client::AwsClusters::get_aws_json_web_keys] calls.
     #[derive(Clone, Debug)]
     pub struct GetAwsJsonWebKeys(RequestBuilder<crate::model::GetAwsJsonWebKeysRequest>);
 
@@ -2263,7 +2263,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for a AwsClusters::get_aws_server_config call.
+    /// The request builder for [AwsClusters::get_aws_server_config][super::super::client::AwsClusters::get_aws_server_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetAwsServerConfig(RequestBuilder<crate::model::GetAwsServerConfigRequest>);
 
@@ -2308,7 +2308,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for a AwsClusters::list_operations call.
+    /// The request builder for [AwsClusters::list_operations][super::super::client::AwsClusters::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2386,7 +2386,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for a AwsClusters::get_operation call.
+    /// The request builder for [AwsClusters::get_operation][super::super::client::AwsClusters::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2431,7 +2431,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for a AwsClusters::delete_operation call.
+    /// The request builder for [AwsClusters::delete_operation][super::super::client::AwsClusters::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2476,7 +2476,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for a AwsClusters::cancel_operation call.
+    /// The request builder for [AwsClusters::cancel_operation][super::super::client::AwsClusters::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -2575,7 +2575,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::create_azure_client call.
+    /// The request builder for [AzureClusters::create_azure_client][super::super::client::AzureClusters::create_azure_client] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAzureClient(RequestBuilder<crate::model::CreateAzureClientRequest>);
 
@@ -2679,7 +2679,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::get_azure_client call.
+    /// The request builder for [AzureClusters::get_azure_client][super::super::client::AzureClusters::get_azure_client] calls.
     #[derive(Clone, Debug)]
     pub struct GetAzureClient(RequestBuilder<crate::model::GetAzureClientRequest>);
 
@@ -2721,7 +2721,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::list_azure_clients call.
+    /// The request builder for [AzureClusters::list_azure_clients][super::super::client::AzureClusters::list_azure_clients] calls.
     #[derive(Clone, Debug)]
     pub struct ListAzureClients(RequestBuilder<crate::model::ListAzureClientsRequest>);
 
@@ -2793,7 +2793,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::delete_azure_client call.
+    /// The request builder for [AzureClusters::delete_azure_client][super::super::client::AzureClusters::delete_azure_client] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAzureClient(RequestBuilder<crate::model::DeleteAzureClientRequest>);
 
@@ -2885,7 +2885,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::create_azure_cluster call.
+    /// The request builder for [AzureClusters::create_azure_cluster][super::super::client::AzureClusters::create_azure_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAzureCluster(RequestBuilder<crate::model::CreateAzureClusterRequest>);
 
@@ -2989,7 +2989,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::update_azure_cluster call.
+    /// The request builder for [AzureClusters::update_azure_cluster][super::super::client::AzureClusters::update_azure_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateAzureCluster(RequestBuilder<crate::model::UpdateAzureClusterRequest>);
 
@@ -3090,7 +3090,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::get_azure_cluster call.
+    /// The request builder for [AzureClusters::get_azure_cluster][super::super::client::AzureClusters::get_azure_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct GetAzureCluster(RequestBuilder<crate::model::GetAzureClusterRequest>);
 
@@ -3132,7 +3132,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::list_azure_clusters call.
+    /// The request builder for [AzureClusters::list_azure_clusters][super::super::client::AzureClusters::list_azure_clusters] calls.
     #[derive(Clone, Debug)]
     pub struct ListAzureClusters(RequestBuilder<crate::model::ListAzureClustersRequest>);
 
@@ -3204,7 +3204,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::delete_azure_cluster call.
+    /// The request builder for [AzureClusters::delete_azure_cluster][super::super::client::AzureClusters::delete_azure_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAzureCluster(RequestBuilder<crate::model::DeleteAzureClusterRequest>);
 
@@ -3308,7 +3308,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::generate_azure_cluster_agent_token call.
+    /// The request builder for [AzureClusters::generate_azure_cluster_agent_token][super::super::client::AzureClusters::generate_azure_cluster_agent_token] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateAzureClusterAgentToken(
         RequestBuilder<crate::model::GenerateAzureClusterAgentTokenRequest>,
@@ -3409,7 +3409,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::generate_azure_access_token call.
+    /// The request builder for [AzureClusters::generate_azure_access_token][super::super::client::AzureClusters::generate_azure_access_token] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateAzureAccessToken(
         RequestBuilder<crate::model::GenerateAzureAccessTokenRequest>,
@@ -3456,7 +3456,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::create_azure_node_pool call.
+    /// The request builder for [AzureClusters::create_azure_node_pool][super::super::client::AzureClusters::create_azure_node_pool] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAzureNodePool(RequestBuilder<crate::model::CreateAzureNodePoolRequest>);
 
@@ -3561,7 +3561,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::update_azure_node_pool call.
+    /// The request builder for [AzureClusters::update_azure_node_pool][super::super::client::AzureClusters::update_azure_node_pool] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateAzureNodePool(RequestBuilder<crate::model::UpdateAzureNodePoolRequest>);
 
@@ -3663,7 +3663,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::get_azure_node_pool call.
+    /// The request builder for [AzureClusters::get_azure_node_pool][super::super::client::AzureClusters::get_azure_node_pool] calls.
     #[derive(Clone, Debug)]
     pub struct GetAzureNodePool(RequestBuilder<crate::model::GetAzureNodePoolRequest>);
 
@@ -3708,7 +3708,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::list_azure_node_pools call.
+    /// The request builder for [AzureClusters::list_azure_node_pools][super::super::client::AzureClusters::list_azure_node_pools] calls.
     #[derive(Clone, Debug)]
     pub struct ListAzureNodePools(RequestBuilder<crate::model::ListAzureNodePoolsRequest>);
 
@@ -3780,7 +3780,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::delete_azure_node_pool call.
+    /// The request builder for [AzureClusters::delete_azure_node_pool][super::super::client::AzureClusters::delete_azure_node_pool] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAzureNodePool(RequestBuilder<crate::model::DeleteAzureNodePoolRequest>);
 
@@ -3884,7 +3884,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::get_azure_open_id_config call.
+    /// The request builder for [AzureClusters::get_azure_open_id_config][super::super::client::AzureClusters::get_azure_open_id_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetAzureOpenIdConfig(RequestBuilder<crate::model::GetAzureOpenIdConfigRequest>);
 
@@ -3929,7 +3929,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::get_azure_json_web_keys call.
+    /// The request builder for [AzureClusters::get_azure_json_web_keys][super::super::client::AzureClusters::get_azure_json_web_keys] calls.
     #[derive(Clone, Debug)]
     pub struct GetAzureJsonWebKeys(RequestBuilder<crate::model::GetAzureJsonWebKeysRequest>);
 
@@ -3974,7 +3974,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::get_azure_server_config call.
+    /// The request builder for [AzureClusters::get_azure_server_config][super::super::client::AzureClusters::get_azure_server_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetAzureServerConfig(RequestBuilder<crate::model::GetAzureServerConfigRequest>);
 
@@ -4019,7 +4019,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::list_operations call.
+    /// The request builder for [AzureClusters::list_operations][super::super::client::AzureClusters::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -4097,7 +4097,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::get_operation call.
+    /// The request builder for [AzureClusters::get_operation][super::super::client::AzureClusters::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -4142,7 +4142,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::delete_operation call.
+    /// The request builder for [AzureClusters::delete_operation][super::super::client::AzureClusters::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -4187,7 +4187,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for a AzureClusters::cancel_operation call.
+    /// The request builder for [AzureClusters::cancel_operation][super::super::client::AzureClusters::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

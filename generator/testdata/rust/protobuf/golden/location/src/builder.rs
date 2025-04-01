@@ -65,7 +65,7 @@ pub mod locations {
         }
     }
 
-    /// The request builder for a Locations::list_locations call.
+    /// The request builder for [Locations::list_locations][super::super::client::Locations::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<crate::model::ListLocationsRequest>);
 
@@ -137,7 +137,7 @@ pub mod locations {
         }
     }
 
-    /// The request builder for a Locations::get_location call.
+    /// The request builder for [Locations::get_location][super::super::client::Locations::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<crate::model::GetLocationRequest>);
 

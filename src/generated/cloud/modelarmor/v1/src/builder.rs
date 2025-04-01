@@ -67,7 +67,7 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for a ModelArmor::list_templates call.
+    /// The request builder for [ModelArmor::list_templates][super::super::client::ModelArmor::list_templates] calls.
     #[derive(Clone, Debug)]
     pub struct ListTemplates(RequestBuilder<crate::model::ListTemplatesRequest>);
 
@@ -148,7 +148,7 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for a ModelArmor::get_template call.
+    /// The request builder for [ModelArmor::get_template][super::super::client::ModelArmor::get_template] calls.
     #[derive(Clone, Debug)]
     pub struct GetTemplate(RequestBuilder<crate::model::GetTemplateRequest>);
 
@@ -190,7 +190,7 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for a ModelArmor::create_template call.
+    /// The request builder for [ModelArmor::create_template][super::super::client::ModelArmor::create_template] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTemplate(RequestBuilder<crate::model::CreateTemplateRequest>);
 
@@ -253,7 +253,7 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for a ModelArmor::update_template call.
+    /// The request builder for [ModelArmor::update_template][super::super::client::ModelArmor::update_template] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateTemplate(RequestBuilder<crate::model::UpdateTemplateRequest>);
 
@@ -313,7 +313,7 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for a ModelArmor::delete_template call.
+    /// The request builder for [ModelArmor::delete_template][super::super::client::ModelArmor::delete_template] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTemplate(RequestBuilder<crate::model::DeleteTemplateRequest>);
 
@@ -361,7 +361,7 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for a ModelArmor::get_floor_setting call.
+    /// The request builder for [ModelArmor::get_floor_setting][super::super::client::ModelArmor::get_floor_setting] calls.
     #[derive(Clone, Debug)]
     pub struct GetFloorSetting(RequestBuilder<crate::model::GetFloorSettingRequest>);
 
@@ -403,7 +403,7 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for a ModelArmor::update_floor_setting call.
+    /// The request builder for [ModelArmor::update_floor_setting][super::super::client::ModelArmor::update_floor_setting] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateFloorSetting(RequestBuilder<crate::model::UpdateFloorSettingRequest>);
 
@@ -460,7 +460,7 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for a ModelArmor::sanitize_user_prompt call.
+    /// The request builder for [ModelArmor::sanitize_user_prompt][super::super::client::ModelArmor::sanitize_user_prompt] calls.
     #[derive(Clone, Debug)]
     pub struct SanitizeUserPrompt(RequestBuilder<crate::model::SanitizeUserPromptRequest>);
 
@@ -514,7 +514,7 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for a ModelArmor::sanitize_model_response call.
+    /// The request builder for [ModelArmor::sanitize_model_response][super::super::client::ModelArmor::sanitize_model_response] calls.
     #[derive(Clone, Debug)]
     pub struct SanitizeModelResponse(RequestBuilder<crate::model::SanitizeModelResponseRequest>);
 
@@ -574,7 +574,7 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for a ModelArmor::list_locations call.
+    /// The request builder for [ModelArmor::list_locations][super::super::client::ModelArmor::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -652,7 +652,7 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for a ModelArmor::get_location call.
+    /// The request builder for [ModelArmor::get_location][super::super::client::ModelArmor::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 

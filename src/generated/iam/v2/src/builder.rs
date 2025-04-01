@@ -67,7 +67,7 @@ pub mod policies {
         }
     }
 
-    /// The request builder for a Policies::list_policies call.
+    /// The request builder for [Policies::list_policies][super::super::client::Policies::list_policies] calls.
     #[derive(Clone, Debug)]
     pub struct ListPolicies(RequestBuilder<crate::model::ListPoliciesRequest>);
 
@@ -136,7 +136,7 @@ pub mod policies {
         }
     }
 
-    /// The request builder for a Policies::get_policy call.
+    /// The request builder for [Policies::get_policy][super::super::client::Policies::get_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetPolicy(RequestBuilder<crate::model::GetPolicyRequest>);
 
@@ -178,7 +178,7 @@ pub mod policies {
         }
     }
 
-    /// The request builder for a Policies::create_policy call.
+    /// The request builder for [Policies::create_policy][super::super::client::Policies::create_policy] calls.
     #[derive(Clone, Debug)]
     pub struct CreatePolicy(RequestBuilder<crate::model::CreatePolicyRequest>);
 
@@ -273,7 +273,7 @@ pub mod policies {
         }
     }
 
-    /// The request builder for a Policies::update_policy call.
+    /// The request builder for [Policies::update_policy][super::super::client::Policies::update_policy] calls.
     #[derive(Clone, Debug)]
     pub struct UpdatePolicy(RequestBuilder<crate::model::UpdatePolicyRequest>);
 
@@ -356,7 +356,7 @@ pub mod policies {
         }
     }
 
-    /// The request builder for a Policies::delete_policy call.
+    /// The request builder for [Policies::delete_policy][super::super::client::Policies::delete_policy] calls.
     #[derive(Clone, Debug)]
     pub struct DeletePolicy(RequestBuilder<crate::model::DeletePolicyRequest>);
 
@@ -442,7 +442,7 @@ pub mod policies {
         }
     }
 
-    /// The request builder for a Policies::get_operation call.
+    /// The request builder for [Policies::get_operation][super::super::client::Policies::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

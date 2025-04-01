@@ -67,7 +67,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::create_channel call.
+    /// The request builder for [LivestreamService::create_channel][super::super::client::LivestreamService::create_channel] calls.
     #[derive(Clone, Debug)]
     pub struct CreateChannel(RequestBuilder<crate::model::CreateChannelRequest>);
 
@@ -167,7 +167,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::list_channels call.
+    /// The request builder for [LivestreamService::list_channels][super::super::client::LivestreamService::list_channels] calls.
     #[derive(Clone, Debug)]
     pub struct ListChannels(RequestBuilder<crate::model::ListChannelsRequest>);
 
@@ -248,7 +248,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::get_channel call.
+    /// The request builder for [LivestreamService::get_channel][super::super::client::LivestreamService::get_channel] calls.
     #[derive(Clone, Debug)]
     pub struct GetChannel(RequestBuilder<crate::model::GetChannelRequest>);
 
@@ -290,7 +290,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::delete_channel call.
+    /// The request builder for [LivestreamService::delete_channel][super::super::client::LivestreamService::delete_channel] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteChannel(RequestBuilder<crate::model::DeleteChannelRequest>);
 
@@ -379,7 +379,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::update_channel call.
+    /// The request builder for [LivestreamService::update_channel][super::super::client::LivestreamService::update_channel] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateChannel(RequestBuilder<crate::model::UpdateChannelRequest>);
 
@@ -476,7 +476,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::start_channel call.
+    /// The request builder for [LivestreamService::start_channel][super::super::client::LivestreamService::start_channel] calls.
     #[derive(Clone, Debug)]
     pub struct StartChannel(RequestBuilder<crate::model::StartChannelRequest>);
 
@@ -565,7 +565,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::stop_channel call.
+    /// The request builder for [LivestreamService::stop_channel][super::super::client::LivestreamService::stop_channel] calls.
     #[derive(Clone, Debug)]
     pub struct StopChannel(RequestBuilder<crate::model::StopChannelRequest>);
 
@@ -654,7 +654,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::create_input call.
+    /// The request builder for [LivestreamService::create_input][super::super::client::LivestreamService::create_input] calls.
     #[derive(Clone, Debug)]
     pub struct CreateInput(RequestBuilder<crate::model::CreateInputRequest>);
 
@@ -754,7 +754,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::list_inputs call.
+    /// The request builder for [LivestreamService::list_inputs][super::super::client::LivestreamService::list_inputs] calls.
     #[derive(Clone, Debug)]
     pub struct ListInputs(RequestBuilder<crate::model::ListInputsRequest>);
 
@@ -835,7 +835,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::get_input call.
+    /// The request builder for [LivestreamService::get_input][super::super::client::LivestreamService::get_input] calls.
     #[derive(Clone, Debug)]
     pub struct GetInput(RequestBuilder<crate::model::GetInputRequest>);
 
@@ -877,7 +877,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::delete_input call.
+    /// The request builder for [LivestreamService::delete_input][super::super::client::LivestreamService::delete_input] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteInput(RequestBuilder<crate::model::DeleteInputRequest>);
 
@@ -960,7 +960,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::update_input call.
+    /// The request builder for [LivestreamService::update_input][super::super::client::LivestreamService::update_input] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateInput(RequestBuilder<crate::model::UpdateInputRequest>);
 
@@ -1057,7 +1057,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::create_event call.
+    /// The request builder for [LivestreamService::create_event][super::super::client::LivestreamService::create_event] calls.
     #[derive(Clone, Debug)]
     pub struct CreateEvent(RequestBuilder<crate::model::CreateEventRequest>);
 
@@ -1120,7 +1120,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::list_events call.
+    /// The request builder for [LivestreamService::list_events][super::super::client::LivestreamService::list_events] calls.
     #[derive(Clone, Debug)]
     pub struct ListEvents(RequestBuilder<crate::model::ListEventsRequest>);
 
@@ -1201,7 +1201,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::get_event call.
+    /// The request builder for [LivestreamService::get_event][super::super::client::LivestreamService::get_event] calls.
     #[derive(Clone, Debug)]
     pub struct GetEvent(RequestBuilder<crate::model::GetEventRequest>);
 
@@ -1243,7 +1243,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::delete_event call.
+    /// The request builder for [LivestreamService::delete_event][super::super::client::LivestreamService::delete_event] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteEvent(RequestBuilder<crate::model::DeleteEventRequest>);
 
@@ -1291,7 +1291,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::list_clips call.
+    /// The request builder for [LivestreamService::list_clips][super::super::client::LivestreamService::list_clips] calls.
     #[derive(Clone, Debug)]
     pub struct ListClips(RequestBuilder<crate::model::ListClipsRequest>);
 
@@ -1371,7 +1371,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::get_clip call.
+    /// The request builder for [LivestreamService::get_clip][super::super::client::LivestreamService::get_clip] calls.
     #[derive(Clone, Debug)]
     pub struct GetClip(RequestBuilder<crate::model::GetClipRequest>);
 
@@ -1413,7 +1413,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::create_clip call.
+    /// The request builder for [LivestreamService::create_clip][super::super::client::LivestreamService::create_clip] calls.
     #[derive(Clone, Debug)]
     pub struct CreateClip(RequestBuilder<crate::model::CreateClipRequest>);
 
@@ -1510,7 +1510,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::delete_clip call.
+    /// The request builder for [LivestreamService::delete_clip][super::super::client::LivestreamService::delete_clip] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteClip(RequestBuilder<crate::model::DeleteClipRequest>);
 
@@ -1593,7 +1593,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::create_asset call.
+    /// The request builder for [LivestreamService::create_asset][super::super::client::LivestreamService::create_asset] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAsset(RequestBuilder<crate::model::CreateAssetRequest>);
 
@@ -1693,7 +1693,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::delete_asset call.
+    /// The request builder for [LivestreamService::delete_asset][super::super::client::LivestreamService::delete_asset] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAsset(RequestBuilder<crate::model::DeleteAssetRequest>);
 
@@ -1776,7 +1776,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::get_asset call.
+    /// The request builder for [LivestreamService::get_asset][super::super::client::LivestreamService::get_asset] calls.
     #[derive(Clone, Debug)]
     pub struct GetAsset(RequestBuilder<crate::model::GetAssetRequest>);
 
@@ -1818,7 +1818,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::list_assets call.
+    /// The request builder for [LivestreamService::list_assets][super::super::client::LivestreamService::list_assets] calls.
     #[derive(Clone, Debug)]
     pub struct ListAssets(RequestBuilder<crate::model::ListAssetsRequest>);
 
@@ -1899,7 +1899,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::get_pool call.
+    /// The request builder for [LivestreamService::get_pool][super::super::client::LivestreamService::get_pool] calls.
     #[derive(Clone, Debug)]
     pub struct GetPool(RequestBuilder<crate::model::GetPoolRequest>);
 
@@ -1941,7 +1941,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::update_pool call.
+    /// The request builder for [LivestreamService::update_pool][super::super::client::LivestreamService::update_pool] calls.
     #[derive(Clone, Debug)]
     pub struct UpdatePool(RequestBuilder<crate::model::UpdatePoolRequest>);
 
@@ -2035,7 +2035,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::list_locations call.
+    /// The request builder for [LivestreamService::list_locations][super::super::client::LivestreamService::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -2113,7 +2113,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::get_location call.
+    /// The request builder for [LivestreamService::get_location][super::super::client::LivestreamService::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -2155,7 +2155,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::list_operations call.
+    /// The request builder for [LivestreamService::list_operations][super::super::client::LivestreamService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2233,7 +2233,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::get_operation call.
+    /// The request builder for [LivestreamService::get_operation][super::super::client::LivestreamService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2278,7 +2278,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::delete_operation call.
+    /// The request builder for [LivestreamService::delete_operation][super::super::client::LivestreamService::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2323,7 +2323,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for a LivestreamService::cancel_operation call.
+    /// The request builder for [LivestreamService::cancel_operation][super::super::client::LivestreamService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

@@ -67,7 +67,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for a ApiGatewayService::list_gateways call.
+    /// The request builder for [ApiGatewayService::list_gateways][super::super::client::ApiGatewayService::list_gateways] calls.
     #[derive(Clone, Debug)]
     pub struct ListGateways(RequestBuilder<crate::model::ListGatewaysRequest>);
 
@@ -148,7 +148,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for a ApiGatewayService::get_gateway call.
+    /// The request builder for [ApiGatewayService::get_gateway][super::super::client::ApiGatewayService::get_gateway] calls.
     #[derive(Clone, Debug)]
     pub struct GetGateway(RequestBuilder<crate::model::GetGatewayRequest>);
 
@@ -190,7 +190,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for a ApiGatewayService::create_gateway call.
+    /// The request builder for [ApiGatewayService::create_gateway][super::super::client::ApiGatewayService::create_gateway] calls.
     #[derive(Clone, Debug)]
     pub struct CreateGateway(RequestBuilder<crate::model::CreateGatewayRequest>);
 
@@ -284,7 +284,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for a ApiGatewayService::update_gateway call.
+    /// The request builder for [ApiGatewayService::update_gateway][super::super::client::ApiGatewayService::update_gateway] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateGateway(RequestBuilder<crate::model::UpdateGatewayRequest>);
 
@@ -375,7 +375,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for a ApiGatewayService::delete_gateway call.
+    /// The request builder for [ApiGatewayService::delete_gateway][super::super::client::ApiGatewayService::delete_gateway] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteGateway(RequestBuilder<crate::model::DeleteGatewayRequest>);
 
@@ -452,7 +452,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for a ApiGatewayService::list_apis call.
+    /// The request builder for [ApiGatewayService::list_apis][super::super::client::ApiGatewayService::list_apis] calls.
     #[derive(Clone, Debug)]
     pub struct ListApis(RequestBuilder<crate::model::ListApisRequest>);
 
@@ -532,7 +532,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for a ApiGatewayService::get_api call.
+    /// The request builder for [ApiGatewayService::get_api][super::super::client::ApiGatewayService::get_api] calls.
     #[derive(Clone, Debug)]
     pub struct GetApi(RequestBuilder<crate::model::GetApiRequest>);
 
@@ -572,7 +572,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for a ApiGatewayService::create_api call.
+    /// The request builder for [ApiGatewayService::create_api][super::super::client::ApiGatewayService::create_api] calls.
     #[derive(Clone, Debug)]
     pub struct CreateApi(RequestBuilder<crate::model::CreateApiRequest>);
 
@@ -663,7 +663,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for a ApiGatewayService::update_api call.
+    /// The request builder for [ApiGatewayService::update_api][super::super::client::ApiGatewayService::update_api] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateApi(RequestBuilder<crate::model::UpdateApiRequest>);
 
@@ -751,7 +751,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for a ApiGatewayService::delete_api call.
+    /// The request builder for [ApiGatewayService::delete_api][super::super::client::ApiGatewayService::delete_api] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteApi(RequestBuilder<crate::model::DeleteApiRequest>);
 
@@ -828,7 +828,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for a ApiGatewayService::list_api_configs call.
+    /// The request builder for [ApiGatewayService::list_api_configs][super::super::client::ApiGatewayService::list_api_configs] calls.
     #[derive(Clone, Debug)]
     pub struct ListApiConfigs(RequestBuilder<crate::model::ListApiConfigsRequest>);
 
@@ -909,7 +909,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for a ApiGatewayService::get_api_config call.
+    /// The request builder for [ApiGatewayService::get_api_config][super::super::client::ApiGatewayService::get_api_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetApiConfig(RequestBuilder<crate::model::GetApiConfigRequest>);
 
@@ -960,7 +960,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for a ApiGatewayService::create_api_config call.
+    /// The request builder for [ApiGatewayService::create_api_config][super::super::client::ApiGatewayService::create_api_config] calls.
     #[derive(Clone, Debug)]
     pub struct CreateApiConfig(RequestBuilder<crate::model::CreateApiConfigRequest>);
 
@@ -1055,7 +1055,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for a ApiGatewayService::update_api_config call.
+    /// The request builder for [ApiGatewayService::update_api_config][super::super::client::ApiGatewayService::update_api_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateApiConfig(RequestBuilder<crate::model::UpdateApiConfigRequest>);
 
@@ -1147,7 +1147,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for a ApiGatewayService::delete_api_config call.
+    /// The request builder for [ApiGatewayService::delete_api_config][super::super::client::ApiGatewayService::delete_api_config] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteApiConfig(RequestBuilder<crate::model::DeleteApiConfigRequest>);
 
@@ -1224,7 +1224,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for a ApiGatewayService::list_operations call.
+    /// The request builder for [ApiGatewayService::list_operations][super::super::client::ApiGatewayService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1302,7 +1302,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for a ApiGatewayService::get_operation call.
+    /// The request builder for [ApiGatewayService::get_operation][super::super::client::ApiGatewayService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1347,7 +1347,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for a ApiGatewayService::delete_operation call.
+    /// The request builder for [ApiGatewayService::delete_operation][super::super::client::ApiGatewayService::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1392,7 +1392,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for a ApiGatewayService::cancel_operation call.
+    /// The request builder for [ApiGatewayService::cancel_operation][super::super::client::ApiGatewayService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

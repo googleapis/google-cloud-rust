@@ -67,7 +67,7 @@ pub mod metrics_scopes {
         }
     }
 
-    /// The request builder for a MetricsScopes::get_metrics_scope call.
+    /// The request builder for [MetricsScopes::get_metrics_scope][super::super::client::MetricsScopes::get_metrics_scope] calls.
     #[derive(Clone, Debug)]
     pub struct GetMetricsScope(RequestBuilder<crate::model::GetMetricsScopeRequest>);
 
@@ -109,7 +109,7 @@ pub mod metrics_scopes {
         }
     }
 
-    /// The request builder for a MetricsScopes::list_metrics_scopes_by_monitored_project call.
+    /// The request builder for [MetricsScopes::list_metrics_scopes_by_monitored_project][super::super::client::MetricsScopes::list_metrics_scopes_by_monitored_project] calls.
     #[derive(Clone, Debug)]
     pub struct ListMetricsScopesByMonitoredProject(
         RequestBuilder<crate::model::ListMetricsScopesByMonitoredProjectRequest>,
@@ -161,7 +161,7 @@ pub mod metrics_scopes {
         }
     }
 
-    /// The request builder for a MetricsScopes::create_monitored_project call.
+    /// The request builder for [MetricsScopes::create_monitored_project][super::super::client::MetricsScopes::create_monitored_project] calls.
     #[derive(Clone, Debug)]
     pub struct CreateMonitoredProject(RequestBuilder<crate::model::CreateMonitoredProjectRequest>);
 
@@ -256,7 +256,7 @@ pub mod metrics_scopes {
         }
     }
 
-    /// The request builder for a MetricsScopes::delete_monitored_project call.
+    /// The request builder for [MetricsScopes::delete_monitored_project][super::super::client::MetricsScopes::delete_monitored_project] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteMonitoredProject(RequestBuilder<crate::model::DeleteMonitoredProjectRequest>);
 
@@ -336,7 +336,7 @@ pub mod metrics_scopes {
         }
     }
 
-    /// The request builder for a MetricsScopes::get_operation call.
+    /// The request builder for [MetricsScopes::get_operation][super::super::client::MetricsScopes::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

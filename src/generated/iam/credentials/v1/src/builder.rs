@@ -67,7 +67,7 @@ pub mod iam_credentials {
         }
     }
 
-    /// The request builder for a IAMCredentials::generate_access_token call.
+    /// The request builder for [IAMCredentials::generate_access_token][super::super::client::IAMCredentials::generate_access_token] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateAccessToken(RequestBuilder<crate::model::GenerateAccessTokenRequest>);
 
@@ -140,7 +140,7 @@ pub mod iam_credentials {
         }
     }
 
-    /// The request builder for a IAMCredentials::generate_id_token call.
+    /// The request builder for [IAMCredentials::generate_id_token][super::super::client::IAMCredentials::generate_id_token] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateIdToken(RequestBuilder<crate::model::GenerateIdTokenRequest>);
 
@@ -205,7 +205,7 @@ pub mod iam_credentials {
         }
     }
 
-    /// The request builder for a IAMCredentials::sign_blob call.
+    /// The request builder for [IAMCredentials::sign_blob][super::super::client::IAMCredentials::sign_blob] calls.
     #[derive(Clone, Debug)]
     pub struct SignBlob(RequestBuilder<crate::model::SignBlobRequest>);
 
@@ -264,7 +264,7 @@ pub mod iam_credentials {
         }
     }
 
-    /// The request builder for a IAMCredentials::sign_jwt call.
+    /// The request builder for [IAMCredentials::sign_jwt][super::super::client::IAMCredentials::sign_jwt] calls.
     #[derive(Clone, Debug)]
     pub struct SignJwt(RequestBuilder<crate::model::SignJwtRequest>);
 

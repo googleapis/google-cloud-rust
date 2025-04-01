@@ -67,7 +67,7 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for a Autokey::create_key_handle call.
+    /// The request builder for [Autokey::create_key_handle][super::super::client::Autokey::create_key_handle] calls.
     #[derive(Clone, Debug)]
     pub struct CreateKeyHandle(RequestBuilder<crate::model::CreateKeyHandleRequest>);
 
@@ -163,7 +163,7 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for a Autokey::get_key_handle call.
+    /// The request builder for [Autokey::get_key_handle][super::super::client::Autokey::get_key_handle] calls.
     #[derive(Clone, Debug)]
     pub struct GetKeyHandle(RequestBuilder<crate::model::GetKeyHandleRequest>);
 
@@ -205,7 +205,7 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for a Autokey::list_key_handles call.
+    /// The request builder for [Autokey::list_key_handles][super::super::client::Autokey::list_key_handles] calls.
     #[derive(Clone, Debug)]
     pub struct ListKeyHandles(RequestBuilder<crate::model::ListKeyHandlesRequest>);
 
@@ -280,7 +280,7 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for a Autokey::list_locations call.
+    /// The request builder for [Autokey::list_locations][super::super::client::Autokey::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -358,7 +358,7 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for a Autokey::get_location call.
+    /// The request builder for [Autokey::get_location][super::super::client::Autokey::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -400,7 +400,7 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for a Autokey::set_iam_policy call.
+    /// The request builder for [Autokey::set_iam_policy][super::super::client::Autokey::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -460,7 +460,7 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for a Autokey::get_iam_policy call.
+    /// The request builder for [Autokey::get_iam_policy][super::super::client::Autokey::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -511,7 +511,7 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for a Autokey::test_iam_permissions call.
+    /// The request builder for [Autokey::test_iam_permissions][super::super::client::Autokey::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -567,7 +567,7 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for a Autokey::get_operation call.
+    /// The request builder for [Autokey::get_operation][super::super::client::Autokey::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -666,7 +666,7 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for a AutokeyAdmin::update_autokey_config call.
+    /// The request builder for [AutokeyAdmin::update_autokey_config][super::super::client::AutokeyAdmin::update_autokey_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateAutokeyConfig(RequestBuilder<crate::model::UpdateAutokeyConfigRequest>);
 
@@ -723,7 +723,7 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for a AutokeyAdmin::get_autokey_config call.
+    /// The request builder for [AutokeyAdmin::get_autokey_config][super::super::client::AutokeyAdmin::get_autokey_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetAutokeyConfig(RequestBuilder<crate::model::GetAutokeyConfigRequest>);
 
@@ -768,7 +768,7 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for a AutokeyAdmin::show_effective_autokey_config call.
+    /// The request builder for [AutokeyAdmin::show_effective_autokey_config][super::super::client::AutokeyAdmin::show_effective_autokey_config] calls.
     #[derive(Clone, Debug)]
     pub struct ShowEffectiveAutokeyConfig(
         RequestBuilder<crate::model::ShowEffectiveAutokeyConfigRequest>,
@@ -815,7 +815,7 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for a AutokeyAdmin::list_locations call.
+    /// The request builder for [AutokeyAdmin::list_locations][super::super::client::AutokeyAdmin::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -893,7 +893,7 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for a AutokeyAdmin::get_location call.
+    /// The request builder for [AutokeyAdmin::get_location][super::super::client::AutokeyAdmin::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -935,7 +935,7 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for a AutokeyAdmin::set_iam_policy call.
+    /// The request builder for [AutokeyAdmin::set_iam_policy][super::super::client::AutokeyAdmin::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -995,7 +995,7 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for a AutokeyAdmin::get_iam_policy call.
+    /// The request builder for [AutokeyAdmin::get_iam_policy][super::super::client::AutokeyAdmin::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1046,7 +1046,7 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for a AutokeyAdmin::test_iam_permissions call.
+    /// The request builder for [AutokeyAdmin::test_iam_permissions][super::super::client::AutokeyAdmin::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1102,7 +1102,7 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for a AutokeyAdmin::get_operation call.
+    /// The request builder for [AutokeyAdmin::get_operation][super::super::client::AutokeyAdmin::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1201,7 +1201,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for a EkmService::list_ekm_connections call.
+    /// The request builder for [EkmService::list_ekm_connections][super::super::client::EkmService::list_ekm_connections] calls.
     #[derive(Clone, Debug)]
     pub struct ListEkmConnections(RequestBuilder<crate::model::ListEkmConnectionsRequest>);
 
@@ -1285,7 +1285,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for a EkmService::get_ekm_connection call.
+    /// The request builder for [EkmService::get_ekm_connection][super::super::client::EkmService::get_ekm_connection] calls.
     #[derive(Clone, Debug)]
     pub struct GetEkmConnection(RequestBuilder<crate::model::GetEkmConnectionRequest>);
 
@@ -1330,7 +1330,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for a EkmService::create_ekm_connection call.
+    /// The request builder for [EkmService::create_ekm_connection][super::super::client::EkmService::create_ekm_connection] calls.
     #[derive(Clone, Debug)]
     pub struct CreateEkmConnection(RequestBuilder<crate::model::CreateEkmConnectionRequest>);
 
@@ -1390,7 +1390,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for a EkmService::update_ekm_connection call.
+    /// The request builder for [EkmService::update_ekm_connection][super::super::client::EkmService::update_ekm_connection] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateEkmConnection(RequestBuilder<crate::model::UpdateEkmConnectionRequest>);
 
@@ -1447,7 +1447,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for a EkmService::get_ekm_config call.
+    /// The request builder for [EkmService::get_ekm_config][super::super::client::EkmService::get_ekm_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetEkmConfig(RequestBuilder<crate::model::GetEkmConfigRequest>);
 
@@ -1489,7 +1489,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for a EkmService::update_ekm_config call.
+    /// The request builder for [EkmService::update_ekm_config][super::super::client::EkmService::update_ekm_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateEkmConfig(RequestBuilder<crate::model::UpdateEkmConfigRequest>);
 
@@ -1543,7 +1543,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for a EkmService::verify_connectivity call.
+    /// The request builder for [EkmService::verify_connectivity][super::super::client::EkmService::verify_connectivity] calls.
     #[derive(Clone, Debug)]
     pub struct VerifyConnectivity(RequestBuilder<crate::model::VerifyConnectivityRequest>);
 
@@ -1588,7 +1588,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for a EkmService::list_locations call.
+    /// The request builder for [EkmService::list_locations][super::super::client::EkmService::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1666,7 +1666,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for a EkmService::get_location call.
+    /// The request builder for [EkmService::get_location][super::super::client::EkmService::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1708,7 +1708,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for a EkmService::set_iam_policy call.
+    /// The request builder for [EkmService::set_iam_policy][super::super::client::EkmService::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1768,7 +1768,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for a EkmService::get_iam_policy call.
+    /// The request builder for [EkmService::get_iam_policy][super::super::client::EkmService::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1819,7 +1819,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for a EkmService::test_iam_permissions call.
+    /// The request builder for [EkmService::test_iam_permissions][super::super::client::EkmService::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1875,7 +1875,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for a EkmService::get_operation call.
+    /// The request builder for [EkmService::get_operation][super::super::client::EkmService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1976,7 +1976,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::list_key_rings call.
+    /// The request builder for [KeyManagementService::list_key_rings][super::super::client::KeyManagementService::list_key_rings] calls.
     #[derive(Clone, Debug)]
     pub struct ListKeyRings(RequestBuilder<crate::model::ListKeyRingsRequest>);
 
@@ -2059,7 +2059,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::list_crypto_keys call.
+    /// The request builder for [KeyManagementService::list_crypto_keys][super::super::client::KeyManagementService::list_crypto_keys] calls.
     #[derive(Clone, Debug)]
     pub struct ListCryptoKeys(RequestBuilder<crate::model::ListCryptoKeysRequest>);
 
@@ -2151,7 +2151,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::list_crypto_key_versions call.
+    /// The request builder for [KeyManagementService::list_crypto_key_versions][super::super::client::KeyManagementService::list_crypto_key_versions] calls.
     #[derive(Clone, Debug)]
     pub struct ListCryptoKeyVersions(RequestBuilder<crate::model::ListCryptoKeyVersionsRequest>);
 
@@ -2246,7 +2246,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::list_import_jobs call.
+    /// The request builder for [KeyManagementService::list_import_jobs][super::super::client::KeyManagementService::list_import_jobs] calls.
     #[derive(Clone, Debug)]
     pub struct ListImportJobs(RequestBuilder<crate::model::ListImportJobsRequest>);
 
@@ -2329,7 +2329,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::get_key_ring call.
+    /// The request builder for [KeyManagementService::get_key_ring][super::super::client::KeyManagementService::get_key_ring] calls.
     #[derive(Clone, Debug)]
     pub struct GetKeyRing(RequestBuilder<crate::model::GetKeyRingRequest>);
 
@@ -2373,7 +2373,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::get_crypto_key call.
+    /// The request builder for [KeyManagementService::get_crypto_key][super::super::client::KeyManagementService::get_crypto_key] calls.
     #[derive(Clone, Debug)]
     pub struct GetCryptoKey(RequestBuilder<crate::model::GetCryptoKeyRequest>);
 
@@ -2417,7 +2417,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::get_crypto_key_version call.
+    /// The request builder for [KeyManagementService::get_crypto_key_version][super::super::client::KeyManagementService::get_crypto_key_version] calls.
     #[derive(Clone, Debug)]
     pub struct GetCryptoKeyVersion(RequestBuilder<crate::model::GetCryptoKeyVersionRequest>);
 
@@ -2464,7 +2464,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::get_public_key call.
+    /// The request builder for [KeyManagementService::get_public_key][super::super::client::KeyManagementService::get_public_key] calls.
     #[derive(Clone, Debug)]
     pub struct GetPublicKey(RequestBuilder<crate::model::GetPublicKeyRequest>);
 
@@ -2517,7 +2517,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::get_import_job call.
+    /// The request builder for [KeyManagementService::get_import_job][super::super::client::KeyManagementService::get_import_job] calls.
     #[derive(Clone, Debug)]
     pub struct GetImportJob(RequestBuilder<crate::model::GetImportJobRequest>);
 
@@ -2561,7 +2561,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::create_key_ring call.
+    /// The request builder for [KeyManagementService::create_key_ring][super::super::client::KeyManagementService::create_key_ring] calls.
     #[derive(Clone, Debug)]
     pub struct CreateKeyRing(RequestBuilder<crate::model::CreateKeyRingRequest>);
 
@@ -2620,7 +2620,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::create_crypto_key call.
+    /// The request builder for [KeyManagementService::create_crypto_key][super::super::client::KeyManagementService::create_crypto_key] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCryptoKey(RequestBuilder<crate::model::CreateCryptoKeyRequest>);
 
@@ -2685,7 +2685,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::create_crypto_key_version call.
+    /// The request builder for [KeyManagementService::create_crypto_key_version][super::super::client::KeyManagementService::create_crypto_key_version] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCryptoKeyVersion(RequestBuilder<crate::model::CreateCryptoKeyVersionRequest>);
 
@@ -2743,7 +2743,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::import_crypto_key_version call.
+    /// The request builder for [KeyManagementService::import_crypto_key_version][super::super::client::KeyManagementService::import_crypto_key_version] calls.
     #[derive(Clone, Debug)]
     pub struct ImportCryptoKeyVersion(RequestBuilder<crate::model::ImportCryptoKeyVersionRequest>);
 
@@ -2830,7 +2830,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::create_import_job call.
+    /// The request builder for [KeyManagementService::create_import_job][super::super::client::KeyManagementService::create_import_job] calls.
     #[derive(Clone, Debug)]
     pub struct CreateImportJob(RequestBuilder<crate::model::CreateImportJobRequest>);
 
@@ -2889,7 +2889,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::update_crypto_key call.
+    /// The request builder for [KeyManagementService::update_crypto_key][super::super::client::KeyManagementService::update_crypto_key] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCryptoKey(RequestBuilder<crate::model::UpdateCryptoKeyRequest>);
 
@@ -2945,7 +2945,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::update_crypto_key_version call.
+    /// The request builder for [KeyManagementService::update_crypto_key_version][super::super::client::KeyManagementService::update_crypto_key_version] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCryptoKeyVersion(RequestBuilder<crate::model::UpdateCryptoKeyVersionRequest>);
 
@@ -3006,7 +3006,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::update_crypto_key_primary_version call.
+    /// The request builder for [KeyManagementService::update_crypto_key_primary_version][super::super::client::KeyManagementService::update_crypto_key_primary_version] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCryptoKeyPrimaryVersion(
         RequestBuilder<crate::model::UpdateCryptoKeyPrimaryVersionRequest>,
@@ -3061,7 +3061,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::destroy_crypto_key_version call.
+    /// The request builder for [KeyManagementService::destroy_crypto_key_version][super::super::client::KeyManagementService::destroy_crypto_key_version] calls.
     #[derive(Clone, Debug)]
     pub struct DestroyCryptoKeyVersion(
         RequestBuilder<crate::model::DestroyCryptoKeyVersionRequest>,
@@ -3110,7 +3110,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::restore_crypto_key_version call.
+    /// The request builder for [KeyManagementService::restore_crypto_key_version][super::super::client::KeyManagementService::restore_crypto_key_version] calls.
     #[derive(Clone, Debug)]
     pub struct RestoreCryptoKeyVersion(
         RequestBuilder<crate::model::RestoreCryptoKeyVersionRequest>,
@@ -3159,7 +3159,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::encrypt call.
+    /// The request builder for [KeyManagementService::encrypt][super::super::client::KeyManagementService::encrypt] calls.
     #[derive(Clone, Debug)]
     pub struct Encrypt(RequestBuilder<crate::model::EncryptRequest>);
 
@@ -3233,7 +3233,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::decrypt call.
+    /// The request builder for [KeyManagementService::decrypt][super::super::client::KeyManagementService::decrypt] calls.
     #[derive(Clone, Debug)]
     pub struct Decrypt(RequestBuilder<crate::model::DecryptRequest>);
 
@@ -3307,7 +3307,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::raw_encrypt call.
+    /// The request builder for [KeyManagementService::raw_encrypt][super::super::client::KeyManagementService::raw_encrypt] calls.
     #[derive(Clone, Debug)]
     pub struct RawEncrypt(RequestBuilder<crate::model::RawEncryptRequest>);
 
@@ -3398,7 +3398,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::raw_decrypt call.
+    /// The request builder for [KeyManagementService::raw_decrypt][super::super::client::KeyManagementService::raw_decrypt] calls.
     #[derive(Clone, Debug)]
     pub struct RawDecrypt(RequestBuilder<crate::model::RawDecryptRequest>);
 
@@ -3495,7 +3495,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::asymmetric_sign call.
+    /// The request builder for [KeyManagementService::asymmetric_sign][super::super::client::KeyManagementService::asymmetric_sign] calls.
     #[derive(Clone, Debug)]
     pub struct AsymmetricSign(RequestBuilder<crate::model::AsymmetricSignRequest>);
 
@@ -3572,7 +3572,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::asymmetric_decrypt call.
+    /// The request builder for [KeyManagementService::asymmetric_decrypt][super::super::client::KeyManagementService::asymmetric_decrypt] calls.
     #[derive(Clone, Debug)]
     pub struct AsymmetricDecrypt(RequestBuilder<crate::model::AsymmetricDecryptRequest>);
 
@@ -3634,7 +3634,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::mac_sign call.
+    /// The request builder for [KeyManagementService::mac_sign][super::super::client::KeyManagementService::mac_sign] calls.
     #[derive(Clone, Debug)]
     pub struct MacSign(RequestBuilder<crate::model::MacSignRequest>);
 
@@ -3693,7 +3693,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::mac_verify call.
+    /// The request builder for [KeyManagementService::mac_verify][super::super::client::KeyManagementService::mac_verify] calls.
     #[derive(Clone, Debug)]
     pub struct MacVerify(RequestBuilder<crate::model::MacVerifyRequest>);
 
@@ -3767,7 +3767,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::generate_random_bytes call.
+    /// The request builder for [KeyManagementService::generate_random_bytes][super::super::client::KeyManagementService::generate_random_bytes] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateRandomBytes(RequestBuilder<crate::model::GenerateRandomBytesRequest>);
 
@@ -3829,7 +3829,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::list_locations call.
+    /// The request builder for [KeyManagementService::list_locations][super::super::client::KeyManagementService::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -3909,7 +3909,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::get_location call.
+    /// The request builder for [KeyManagementService::get_location][super::super::client::KeyManagementService::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -3953,7 +3953,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::set_iam_policy call.
+    /// The request builder for [KeyManagementService::set_iam_policy][super::super::client::KeyManagementService::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -4015,7 +4015,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::get_iam_policy call.
+    /// The request builder for [KeyManagementService::get_iam_policy][super::super::client::KeyManagementService::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -4068,7 +4068,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::test_iam_permissions call.
+    /// The request builder for [KeyManagementService::test_iam_permissions][super::super::client::KeyManagementService::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -4126,7 +4126,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for a KeyManagementService::get_operation call.
+    /// The request builder for [KeyManagementService::get_operation][super::super::client::KeyManagementService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

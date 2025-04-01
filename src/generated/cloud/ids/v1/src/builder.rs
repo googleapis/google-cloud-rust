@@ -67,7 +67,7 @@ pub mod ids {
         }
     }
 
-    /// The request builder for a Ids::list_endpoints call.
+    /// The request builder for [Ids::list_endpoints][super::super::client::Ids::list_endpoints] calls.
     #[derive(Clone, Debug)]
     pub struct ListEndpoints(RequestBuilder<crate::model::ListEndpointsRequest>);
 
@@ -148,7 +148,7 @@ pub mod ids {
         }
     }
 
-    /// The request builder for a Ids::get_endpoint call.
+    /// The request builder for [Ids::get_endpoint][super::super::client::Ids::get_endpoint] calls.
     #[derive(Clone, Debug)]
     pub struct GetEndpoint(RequestBuilder<crate::model::GetEndpointRequest>);
 
@@ -190,7 +190,7 @@ pub mod ids {
         }
     }
 
-    /// The request builder for a Ids::create_endpoint call.
+    /// The request builder for [Ids::create_endpoint][super::super::client::Ids::create_endpoint] calls.
     #[derive(Clone, Debug)]
     pub struct CreateEndpoint(RequestBuilder<crate::model::CreateEndpointRequest>);
 
@@ -291,7 +291,7 @@ pub mod ids {
         }
     }
 
-    /// The request builder for a Ids::delete_endpoint call.
+    /// The request builder for [Ids::delete_endpoint][super::super::client::Ids::delete_endpoint] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteEndpoint(RequestBuilder<crate::model::DeleteEndpointRequest>);
 
@@ -374,7 +374,7 @@ pub mod ids {
         }
     }
 
-    /// The request builder for a Ids::list_operations call.
+    /// The request builder for [Ids::list_operations][super::super::client::Ids::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -452,7 +452,7 @@ pub mod ids {
         }
     }
 
-    /// The request builder for a Ids::get_operation call.
+    /// The request builder for [Ids::get_operation][super::super::client::Ids::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -497,7 +497,7 @@ pub mod ids {
         }
     }
 
-    /// The request builder for a Ids::delete_operation call.
+    /// The request builder for [Ids::delete_operation][super::super::client::Ids::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -542,7 +542,7 @@ pub mod ids {
         }
     }
 
-    /// The request builder for a Ids::cancel_operation call.
+    /// The request builder for [Ids::cancel_operation][super::super::client::Ids::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

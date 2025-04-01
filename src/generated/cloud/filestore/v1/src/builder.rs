@@ -69,7 +69,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::list_instances call.
+    /// The request builder for [CloudFilestoreManager::list_instances][super::super::client::CloudFilestoreManager::list_instances] calls.
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
@@ -152,7 +152,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::get_instance call.
+    /// The request builder for [CloudFilestoreManager::get_instance][super::super::client::CloudFilestoreManager::get_instance] calls.
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
@@ -196,7 +196,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::create_instance call.
+    /// The request builder for [CloudFilestoreManager::create_instance][super::super::client::CloudFilestoreManager::create_instance] calls.
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
@@ -294,7 +294,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::update_instance call.
+    /// The request builder for [CloudFilestoreManager::update_instance][super::super::client::CloudFilestoreManager::update_instance] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
@@ -389,7 +389,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::restore_instance call.
+    /// The request builder for [CloudFilestoreManager::restore_instance][super::super::client::CloudFilestoreManager::restore_instance] calls.
     #[derive(Clone, Debug)]
     pub struct RestoreInstance(RequestBuilder<crate::model::RestoreInstanceRequest>);
 
@@ -487,7 +487,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::revert_instance call.
+    /// The request builder for [CloudFilestoreManager::revert_instance][super::super::client::CloudFilestoreManager::revert_instance] calls.
     #[derive(Clone, Debug)]
     pub struct RevertInstance(RequestBuilder<crate::model::RevertInstanceRequest>);
 
@@ -576,7 +576,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::delete_instance call.
+    /// The request builder for [CloudFilestoreManager::delete_instance][super::super::client::CloudFilestoreManager::delete_instance] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
@@ -663,7 +663,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::list_snapshots call.
+    /// The request builder for [CloudFilestoreManager::list_snapshots][super::super::client::CloudFilestoreManager::list_snapshots] calls.
     #[derive(Clone, Debug)]
     pub struct ListSnapshots(RequestBuilder<crate::model::ListSnapshotsRequest>);
 
@@ -752,7 +752,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::get_snapshot call.
+    /// The request builder for [CloudFilestoreManager::get_snapshot][super::super::client::CloudFilestoreManager::get_snapshot] calls.
     #[derive(Clone, Debug)]
     pub struct GetSnapshot(RequestBuilder<crate::model::GetSnapshotRequest>);
 
@@ -796,7 +796,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::create_snapshot call.
+    /// The request builder for [CloudFilestoreManager::create_snapshot][super::super::client::CloudFilestoreManager::create_snapshot] calls.
     #[derive(Clone, Debug)]
     pub struct CreateSnapshot(RequestBuilder<crate::model::CreateSnapshotRequest>);
 
@@ -894,7 +894,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::delete_snapshot call.
+    /// The request builder for [CloudFilestoreManager::delete_snapshot][super::super::client::CloudFilestoreManager::delete_snapshot] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteSnapshot(RequestBuilder<crate::model::DeleteSnapshotRequest>);
 
@@ -975,7 +975,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::update_snapshot call.
+    /// The request builder for [CloudFilestoreManager::update_snapshot][super::super::client::CloudFilestoreManager::update_snapshot] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateSnapshot(RequestBuilder<crate::model::UpdateSnapshotRequest>);
 
@@ -1070,7 +1070,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::list_backups call.
+    /// The request builder for [CloudFilestoreManager::list_backups][super::super::client::CloudFilestoreManager::list_backups] calls.
     #[derive(Clone, Debug)]
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
@@ -1153,7 +1153,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::get_backup call.
+    /// The request builder for [CloudFilestoreManager::get_backup][super::super::client::CloudFilestoreManager::get_backup] calls.
     #[derive(Clone, Debug)]
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
@@ -1197,7 +1197,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::create_backup call.
+    /// The request builder for [CloudFilestoreManager::create_backup][super::super::client::CloudFilestoreManager::create_backup] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
@@ -1295,7 +1295,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::delete_backup call.
+    /// The request builder for [CloudFilestoreManager::delete_backup][super::super::client::CloudFilestoreManager::delete_backup] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
@@ -1376,7 +1376,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::update_backup call.
+    /// The request builder for [CloudFilestoreManager::update_backup][super::super::client::CloudFilestoreManager::update_backup] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
@@ -1471,7 +1471,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::promote_replica call.
+    /// The request builder for [CloudFilestoreManager::promote_replica][super::super::client::CloudFilestoreManager::promote_replica] calls.
     #[derive(Clone, Debug)]
     pub struct PromoteReplica(RequestBuilder<crate::model::PromoteReplicaRequest>);
 
@@ -1560,7 +1560,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::list_locations call.
+    /// The request builder for [CloudFilestoreManager::list_locations][super::super::client::CloudFilestoreManager::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1640,7 +1640,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::get_location call.
+    /// The request builder for [CloudFilestoreManager::get_location][super::super::client::CloudFilestoreManager::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1684,7 +1684,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::list_operations call.
+    /// The request builder for [CloudFilestoreManager::list_operations][super::super::client::CloudFilestoreManager::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1764,7 +1764,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::get_operation call.
+    /// The request builder for [CloudFilestoreManager::get_operation][super::super::client::CloudFilestoreManager::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1811,7 +1811,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::delete_operation call.
+    /// The request builder for [CloudFilestoreManager::delete_operation][super::super::client::CloudFilestoreManager::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1858,7 +1858,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for a CloudFilestoreManager::cancel_operation call.
+    /// The request builder for [CloudFilestoreManager::cancel_operation][super::super::client::CloudFilestoreManager::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

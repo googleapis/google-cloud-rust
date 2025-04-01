@@ -67,7 +67,7 @@ pub mod profiler_service {
         }
     }
 
-    /// The request builder for a ProfilerService::create_profile call.
+    /// The request builder for [ProfilerService::create_profile][super::super::client::ProfilerService::create_profile] calls.
     #[derive(Clone, Debug)]
     pub struct CreateProfile(RequestBuilder<crate::model::CreateProfileRequest>);
 
@@ -129,7 +129,7 @@ pub mod profiler_service {
         }
     }
 
-    /// The request builder for a ProfilerService::create_offline_profile call.
+    /// The request builder for [ProfilerService::create_offline_profile][super::super::client::ProfilerService::create_offline_profile] calls.
     #[derive(Clone, Debug)]
     pub struct CreateOfflineProfile(RequestBuilder<crate::model::CreateOfflineProfileRequest>);
 
@@ -183,7 +183,7 @@ pub mod profiler_service {
         }
     }
 
-    /// The request builder for a ProfilerService::update_profile call.
+    /// The request builder for [ProfilerService::update_profile][super::super::client::ProfilerService::update_profile] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateProfile(RequestBuilder<crate::model::UpdateProfileRequest>);
 
@@ -291,7 +291,7 @@ pub mod export_service {
         }
     }
 
-    /// The request builder for a ExportService::list_profiles call.
+    /// The request builder for [ExportService::list_profiles][super::super::client::ExportService::list_profiles] calls.
     #[derive(Clone, Debug)]
     pub struct ListProfiles(RequestBuilder<crate::model::ListProfilesRequest>);
 
