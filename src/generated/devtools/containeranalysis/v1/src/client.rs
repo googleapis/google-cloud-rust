@@ -190,4 +190,13 @@ impl ContainerAnalysis {
         )
         .set_parent(parent.into())
     }
+
+    /// Generates an SBOM for the given resource.
+    pub fn export_sbom(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::container_analysis::ExportSBOM {
+        super::builder::container_analysis::ExportSBOM::new(self.inner.clone())
+            .set_name(name.into())
+    }
 }

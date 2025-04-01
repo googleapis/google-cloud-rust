@@ -3846,7 +3846,7 @@ impl wkt::message::Message for PrivateClusterConfig {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct NetworkingConfig {
-    /// Optional. Indicates the user requested specifc connection type between
+    /// Optional. Indicates the user requested specific connection type between
     /// Tenant and Customer projects. You cannot set networking connection type in
     /// public IP environment.
     pub connection_type: crate::model::networking_config::ConnectionType,

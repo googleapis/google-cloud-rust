@@ -1262,6 +1262,65 @@ where
     }
 }
 
+/// Implements a [ServingConfigService](super::stub::ServingConfigService) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct ServingConfigService<T>
+where
+    T: super::stub::ServingConfigService + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+impl<T> ServingConfigService<T>
+where
+    T: super::stub::ServingConfigService + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+impl<T> super::stub::ServingConfigService for ServingConfigService<T>
+where
+    T: super::stub::ServingConfigService + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn update_serving_config(
+        &self,
+        req: crate::model::UpdateServingConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::ServingConfig> {
+        self.inner.update_serving_config(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<longrunning::model::ListOperationsResponse> {
+        self.inner.list_operations(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<longrunning::model::Operation> {
+        self.inner.get_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<()> {
+        self.inner.cancel_operation(req, options).await
+    }
+}
+
 /// Implements a [SiteSearchEngineService](super::stub::SiteSearchEngineService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SiteSearchEngineService<T>
@@ -1345,6 +1404,33 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::ListTargetSitesResponse> {
         self.inner.list_target_sites(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_sitemap(
+        &self,
+        req: crate::model::CreateSitemapRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<longrunning::model::Operation> {
+        self.inner.create_sitemap(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_sitemap(
+        &self,
+        req: crate::model::DeleteSitemapRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<longrunning::model::Operation> {
+        self.inner.delete_sitemap(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn fetch_sitemaps(
+        &self,
+        req: crate::model::FetchSitemapsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::FetchSitemapsResponse> {
+        self.inner.fetch_sitemaps(req, options).await
     }
 
     #[tracing::instrument(ret)]

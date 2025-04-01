@@ -4305,6 +4305,11 @@ pub mod grounding_chunk {
         /// Text of the attribution.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub text: std::option::Option<std::string::String>,
+
+        /// Tool-specific details about the retrieved context.
+        #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+        pub context_details:
+            std::option::Option<crate::model::grounding_chunk::retrieved_context::ContextDetails>,
     }
 
     impl RetrievedContext {
@@ -4338,11 +4343,74 @@ pub mod grounding_chunk {
             self.text = v.into();
             self
         }
+
+        /// Sets the value of `context_details`.
+        pub fn set_context_details<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::grounding_chunk::retrieved_context::ContextDetails,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.context_details = v.into();
+            self
+        }
+
+        /// The value of [context_details][crate::model::grounding_chunk::RetrievedContext::context_details]
+        /// if it holds a `RagChunk`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn get_rag_chunk(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::RagChunk>> {
+            #[allow(unreachable_patterns)]
+            self.context_details.as_ref().and_then(|v| match v {
+                crate::model::grounding_chunk::retrieved_context::ContextDetails::RagChunk(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [context_details][crate::model::grounding_chunk::RetrievedContext::context_details]
+        /// to hold a `RagChunk`.
+        ///
+        /// Note that all the setters affecting `context_details` are
+        /// mutually exclusive.
+        pub fn set_rag_chunk<T: std::convert::Into<std::boxed::Box<crate::model::RagChunk>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.context_details = std::option::Option::Some(
+                crate::model::grounding_chunk::retrieved_context::ContextDetails::RagChunk(
+                    v.into(),
+                ),
+            );
+            self
+        }
     }
 
     impl wkt::message::Message for RetrievedContext {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.aiplatform.v1.GroundingChunk.RetrievedContext"
+        }
+    }
+
+    /// Defines additional types related to [RetrievedContext].
+    pub mod retrieved_context {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Tool-specific details about the retrieved context.
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub enum ContextDetails {
+            /// Additional context for the RAG retrieval result. This is only populated
+            /// when using the RAG retrieval tool.
+            RagChunk(std::boxed::Box<crate::model::RagChunk>),
         }
     }
 
@@ -68687,6 +68755,11 @@ pub struct DeleteReasoningEngineRequest {
     /// `projects/{project}/locations/{location}/reasoningEngines/{reasoning_engine}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    /// Optional. If set to true, child resources of this reasoning engine will
+    /// also be deleted. Otherwise, the request will fail with FAILED_PRECONDITION
+    /// error when the reasoning engine has undeleted child resources.
+    pub force: bool,
 }
 
 impl DeleteReasoningEngineRequest {
@@ -68697,6 +68770,12 @@ impl DeleteReasoningEngineRequest {
     /// Sets the value of [name][crate::model::DeleteReasoningEngineRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::DeleteReasoningEngineRequest::force].
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
         self
     }
 }
@@ -81871,6 +81950,38 @@ pub mod file_status {
     }
 }
 
+/// Config for the Vertex AI Search.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct VertexAiSearchConfig {
+    /// Vertex AI Search Serving Config resource full name. For example,
+    /// `projects/{project}/locations/{location}/collections/{collection}/engines/{engine}/servingConfigs/{serving_config}`
+    /// or
+    /// `projects/{project}/locations/{location}/collections/{collection}/dataStores/{data_store}/servingConfigs/{serving_config}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub serving_config: std::string::String,
+}
+
+impl VertexAiSearchConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [serving_config][crate::model::VertexAiSearchConfig::serving_config].
+    pub fn set_serving_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.serving_config = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for VertexAiSearchConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.aiplatform.v1.VertexAiSearchConfig"
+    }
+}
+
 /// RagCorpus status.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -82098,6 +82209,21 @@ impl RagCorpus {
         })
     }
 
+    /// The value of [backend_config][crate::model::RagCorpus::backend_config]
+    /// if it holds a `VertexAiSearchConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_vertex_ai_search_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::VertexAiSearchConfig>> {
+        #[allow(unreachable_patterns)]
+        self.backend_config.as_ref().and_then(|v| match v {
+            crate::model::rag_corpus::BackendConfig::VertexAiSearchConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [backend_config][crate::model::RagCorpus::backend_config]
     /// to hold a `VectorDbConfig`.
     ///
@@ -82111,6 +82237,23 @@ impl RagCorpus {
     ) -> Self {
         self.backend_config = std::option::Option::Some(
             crate::model::rag_corpus::BackendConfig::VectorDbConfig(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [backend_config][crate::model::RagCorpus::backend_config]
+    /// to hold a `VertexAiSearchConfig`.
+    ///
+    /// Note that all the setters affecting `backend_config` are
+    /// mutually exclusive.
+    pub fn set_vertex_ai_search_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::VertexAiSearchConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backend_config = std::option::Option::Some(
+            crate::model::rag_corpus::BackendConfig::VertexAiSearchConfig(v.into()),
         );
         self
     }
@@ -82135,6 +82278,8 @@ pub mod rag_corpus {
     pub enum BackendConfig {
         /// Optional. Immutable. The config for the Vector DBs.
         VectorDbConfig(std::boxed::Box<crate::model::RagVectorDbConfig>),
+        /// Optional. Immutable. The config for the Vertex AI Search.
+        VertexAiSearchConfig(std::boxed::Box<crate::model::VertexAiSearchConfig>),
     }
 }
 
@@ -82445,6 +82590,94 @@ pub mod rag_file {
         JiraSource(std::boxed::Box<crate::model::JiraSource>),
         /// The RagFile is imported from a SharePoint source.
         SharePointSources(std::boxed::Box<crate::model::SharePointSources>),
+    }
+}
+
+/// A RagChunk includes the content of a chunk of a RagFile, and associated
+/// metadata.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct RagChunk {
+    /// The content of the chunk.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub text: std::string::String,
+
+    /// If populated, represents where the chunk starts and ends in the document.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub page_span: std::option::Option<crate::model::rag_chunk::PageSpan>,
+}
+
+impl RagChunk {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [text][crate::model::RagChunk::text].
+    pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.text = v.into();
+        self
+    }
+
+    /// Sets the value of [page_span][crate::model::RagChunk::page_span].
+    pub fn set_page_span<
+        T: std::convert::Into<std::option::Option<crate::model::rag_chunk::PageSpan>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.page_span = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RagChunk {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.aiplatform.v1.RagChunk"
+    }
+}
+
+/// Defines additional types related to [RagChunk].
+pub mod rag_chunk {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents where the chunk starts and ends in the document.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct PageSpan {
+        /// Page where chunk starts in the document. Inclusive. 1-indexed.
+        pub first_page: i32,
+
+        /// Page where chunk ends in the document. Inclusive. 1-indexed.
+        pub last_page: i32,
+    }
+
+    impl PageSpan {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [first_page][crate::model::rag_chunk::PageSpan::first_page].
+        pub fn set_first_page<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.first_page = v.into();
+            self
+        }
+
+        /// Sets the value of [last_page][crate::model::rag_chunk::PageSpan::last_page].
+        pub fn set_last_page<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.last_page = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for PageSpan {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.aiplatform.v1.RagChunk.PageSpan"
+        }
     }
 }
 
@@ -82812,6 +83045,12 @@ pub struct ImportRagFilesConfig {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub partial_failure_sink:
         std::option::Option<crate::model::import_rag_files_config::PartialFailureSink>,
+
+    /// Optional. If provided, all successfully imported files and all partial
+    /// failures are written to the sink.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub import_result_sink:
+        std::option::Option<crate::model::import_rag_files_config::ImportResultSink>,
 }
 
 impl ImportRagFilesConfig {
@@ -83090,6 +83329,85 @@ impl ImportRagFilesConfig {
         );
         self
     }
+
+    /// Sets the value of `import_result_sink`.
+    pub fn set_import_result_sink<
+        T: std::convert::Into<
+                std::option::Option<crate::model::import_rag_files_config::ImportResultSink>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.import_result_sink = v.into();
+        self
+    }
+
+    /// The value of [import_result_sink][crate::model::ImportRagFilesConfig::import_result_sink]
+    /// if it holds a `ImportResultGcsSink`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_import_result_gcs_sink(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
+        #[allow(unreachable_patterns)]
+        self.import_result_sink.as_ref().and_then(|v| match v {
+            crate::model::import_rag_files_config::ImportResultSink::ImportResultGcsSink(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [import_result_sink][crate::model::ImportRagFilesConfig::import_result_sink]
+    /// if it holds a `ImportResultBigquerySink`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_import_result_bigquery_sink(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryDestination>> {
+        #[allow(unreachable_patterns)]
+        self.import_result_sink.as_ref().and_then(|v| match v {
+            crate::model::import_rag_files_config::ImportResultSink::ImportResultBigquerySink(
+                v,
+            ) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [import_result_sink][crate::model::ImportRagFilesConfig::import_result_sink]
+    /// to hold a `ImportResultGcsSink`.
+    ///
+    /// Note that all the setters affecting `import_result_sink` are
+    /// mutually exclusive.
+    pub fn set_import_result_gcs_sink<
+        T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.import_result_sink = std::option::Option::Some(
+            crate::model::import_rag_files_config::ImportResultSink::ImportResultGcsSink(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [import_result_sink][crate::model::ImportRagFilesConfig::import_result_sink]
+    /// to hold a `ImportResultBigquerySink`.
+    ///
+    /// Note that all the setters affecting `import_result_sink` are
+    /// mutually exclusive.
+    pub fn set_import_result_bigquery_sink<
+        T: std::convert::Into<std::boxed::Box<crate::model::BigQueryDestination>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.import_result_sink = std::option::Option::Some(
+            crate::model::import_rag_files_config::ImportResultSink::ImportResultBigquerySink(
+                v.into(),
+            ),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for ImportRagFilesConfig {
@@ -83142,6 +83460,23 @@ pub mod import_rag_files_config {
         /// existing table.
         /// Deprecated. Prefer to use `import_result_bq_sink`.
         PartialFailureBigquerySink(std::boxed::Box<crate::model::BigQueryDestination>),
+    }
+
+    /// Optional. If provided, all successfully imported files and all partial
+    /// failures are written to the sink.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum ImportResultSink {
+        /// The Cloud Storage path to write import result to.
+        ImportResultGcsSink(std::boxed::Box<crate::model::GcsDestination>),
+        /// The BigQuery destination to write import result to. It should be a
+        /// bigquery table resource name (e.g.
+        /// "bq://projectId.bqDatasetId.bqTableId"). The dataset must exist. If the
+        /// table does not exist, it will be created with the expected schema. If the
+        /// table exists, the schema will be validated and data will be added to this
+        /// existing table.
+        ImportResultBigquerySink(std::boxed::Box<crate::model::BigQueryDestination>),
     }
 }
 
@@ -84527,6 +84862,10 @@ pub mod rag_contexts {
         /// means the most relevant and 2 means the least relevant.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub score: std::option::Option<f64>,
+
+        /// Context of the retrieved chunk.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub chunk: std::option::Option<crate::model::RagChunk>,
     }
 
     impl Context {
@@ -84558,6 +84897,15 @@ pub mod rag_contexts {
         /// Sets the value of [score][crate::model::rag_contexts::Context::score].
         pub fn set_score<T: std::convert::Into<std::option::Option<f64>>>(mut self, v: T) -> Self {
             self.score = v.into();
+            self
+        }
+
+        /// Sets the value of [chunk][crate::model::rag_contexts::Context::chunk].
+        pub fn set_chunk<T: std::convert::Into<std::option::Option<crate::model::RagChunk>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.chunk = v.into();
             self
         }
     }
@@ -85020,6 +85368,10 @@ pub struct Fact {
     /// most relevant and 2 means the least relevant.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub score: std::option::Option<f64>,
+
+    /// If present, chunk properties.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub chunk: std::option::Option<crate::model::RagChunk>,
 }
 
 impl Fact {
@@ -85075,6 +85427,15 @@ impl Fact {
     /// Sets the value of [score][crate::model::Fact::score].
     pub fn set_score<T: std::convert::Into<std::option::Option<f64>>>(mut self, v: T) -> Self {
         self.score = v.into();
+        self
+    }
+
+    /// Sets the value of [chunk][crate::model::Fact::chunk].
+    pub fn set_chunk<T: std::convert::Into<std::option::Option<crate::model::RagChunk>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.chunk = v.into();
         self
     }
 }

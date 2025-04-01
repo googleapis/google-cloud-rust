@@ -29,6 +29,358 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
+/// Defines the trait used to implement [super::client::CrossNetworkAutomationService].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::CrossNetworkAutomationService`.  In other use-cases, application developers only
+/// use `client::CrossNetworkAutomationService` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait CrossNetworkAutomationService: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::CrossNetworkAutomationService::list_service_connection_maps].
+    fn list_service_connection_maps(
+        &self,
+        _req: crate::model::ListServiceConnectionMapsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListServiceConnectionMapsResponse>,
+    > + Send {
+        std::future::ready::<crate::Result<crate::model::ListServiceConnectionMapsResponse>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::get_service_connection_map].
+    fn get_service_connection_map(
+        &self,
+        _req: crate::model::GetServiceConnectionMapRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::ServiceConnectionMap>> + Send
+    {
+        std::future::ready::<crate::Result<crate::model::ServiceConnectionMap>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::create_service_connection_map].
+    fn create_service_connection_map(
+        &self,
+        _req: crate::model::CreateServiceConnectionMapRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
+    {
+        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::update_service_connection_map].
+    fn update_service_connection_map(
+        &self,
+        _req: crate::model::UpdateServiceConnectionMapRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
+    {
+        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::delete_service_connection_map].
+    fn delete_service_connection_map(
+        &self,
+        _req: crate::model::DeleteServiceConnectionMapRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
+    {
+        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::list_service_connection_policies].
+    fn list_service_connection_policies(
+        &self,
+        _req: crate::model::ListServiceConnectionPoliciesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListServiceConnectionPoliciesResponse>,
+    > + Send {
+        std::future::ready::<crate::Result<crate::model::ListServiceConnectionPoliciesResponse>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::get_service_connection_policy].
+    fn get_service_connection_policy(
+        &self,
+        _req: crate::model::GetServiceConnectionPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::ServiceConnectionPolicy>> + Send
+    {
+        std::future::ready::<crate::Result<crate::model::ServiceConnectionPolicy>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::create_service_connection_policy].
+    fn create_service_connection_policy(
+        &self,
+        _req: crate::model::CreateServiceConnectionPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
+    {
+        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::update_service_connection_policy].
+    fn update_service_connection_policy(
+        &self,
+        _req: crate::model::UpdateServiceConnectionPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
+    {
+        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::delete_service_connection_policy].
+    fn delete_service_connection_policy(
+        &self,
+        _req: crate::model::DeleteServiceConnectionPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
+    {
+        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::list_service_classes].
+    fn list_service_classes(
+        &self,
+        _req: crate::model::ListServiceClassesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListServiceClassesResponse>> + Send
+    {
+        std::future::ready::<crate::Result<crate::model::ListServiceClassesResponse>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::get_service_class].
+    fn get_service_class(
+        &self,
+        _req: crate::model::GetServiceClassRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::ServiceClass>> + Send {
+        std::future::ready::<crate::Result<crate::model::ServiceClass>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::update_service_class].
+    fn update_service_class(
+        &self,
+        _req: crate::model::UpdateServiceClassRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
+    {
+        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::delete_service_class].
+    fn delete_service_class(
+        &self,
+        _req: crate::model::DeleteServiceClassRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
+    {
+        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::get_service_connection_token].
+    fn get_service_connection_token(
+        &self,
+        _req: crate::model::GetServiceConnectionTokenRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::ServiceConnectionToken>> + Send
+    {
+        std::future::ready::<crate::Result<crate::model::ServiceConnectionToken>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::list_service_connection_tokens].
+    fn list_service_connection_tokens(
+        &self,
+        _req: crate::model::ListServiceConnectionTokensRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::ListServiceConnectionTokensResponse>,
+    > + Send {
+        std::future::ready::<crate::Result<crate::model::ListServiceConnectionTokensResponse>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::create_service_connection_token].
+    fn create_service_connection_token(
+        &self,
+        _req: crate::model::CreateServiceConnectionTokenRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
+    {
+        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::delete_service_connection_token].
+    fn delete_service_connection_token(
+        &self,
+        _req: crate::model::DeleteServiceConnectionTokenRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
+    {
+        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::list_locations].
+    fn list_locations(
+        &self,
+        _req: location::model::ListLocationsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<location::model::ListLocationsResponse>> + Send
+    {
+        std::future::ready::<crate::Result<location::model::ListLocationsResponse>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::get_location].
+    fn get_location(
+        &self,
+        _req: location::model::GetLocationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<location::model::Location>> + Send {
+        std::future::ready::<crate::Result<location::model::Location>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::set_iam_policy].
+    fn set_iam_policy(
+        &self,
+        _req: iam_v1::model::SetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
+        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::get_iam_policy].
+    fn get_iam_policy(
+        &self,
+        _req: iam_v1::model::GetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
+        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: iam_v1::model::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::TestIamPermissionsResponse>> + Send
+    {
+        std::future::ready::<crate::Result<iam_v1::model::TestIamPermissionsResponse>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::list_operations].
+    fn list_operations(
+        &self,
+        _req: longrunning::model::ListOperationsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
+    + Send {
+        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::get_operation].
+    fn get_operation(
+        &self,
+        _req: longrunning::model::GetOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
+    {
+        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::delete_operation].
+    fn delete_operation(
+        &self,
+        _req: longrunning::model::DeleteOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    }
+
+    /// Implements [super::client::CrossNetworkAutomationService::cancel_operation].
+    fn cancel_operation(
+        &self,
+        _req: longrunning::model::CancelOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        Arc::new(gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
+}
+
 /// Defines the trait used to implement [super::client::HubService].
 ///
 /// Application developers may need to implement this trait to mock
@@ -183,6 +535,30 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
     fn accept_hub_spoke(
         &self,
         _req: crate::model::AcceptHubSpokeRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
+    {
+        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::HubService::accept_spoke_update].
+    fn accept_spoke_update(
+        &self,
+        _req: crate::model::AcceptSpokeUpdateRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
+    {
+        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::HubService::reject_spoke_update].
+    fn reject_spoke_update(
+        &self,
+        _req: crate::model::RejectSpokeUpdateRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
     {

@@ -240,8 +240,8 @@ impl AnalyticsHubService {
             .set_name(name.into())
     }
 
-    /// Creates a Subscription to a Data Exchange. This is a long-running operation
-    /// as it will create one or more linked datasets.
+    /// Creates a Subscription to a Data Clean Room. This is a long-running
+    /// operation as it will create one or more linked datasets.
     ///
     /// # Long running operations
     ///

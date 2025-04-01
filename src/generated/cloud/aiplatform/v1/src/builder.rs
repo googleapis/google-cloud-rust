@@ -33966,6 +33966,12 @@ pub mod reasoning_engine_service {
             self.0.request.name = v.into();
             self
         }
+
+        /// Sets the value of [force][crate::model::DeleteReasoningEngineRequest::force].
+        pub fn set_force<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.force = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]

@@ -1723,6 +1723,17 @@ pub mod conversational_search_service {
             self
         }
 
+        /// Sets the value of [grounding_spec][crate::model::AnswerQueryRequest::grounding_spec].
+        pub fn set_grounding_spec<
+            T: Into<std::option::Option<crate::model::answer_query_request::GroundingSpec>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.grounding_spec = v.into();
+            self
+        }
+
         /// Sets the value of [answer_generation_spec][crate::model::AnswerQueryRequest::answer_generation_spec].
         pub fn set_answer_generation_spec<
             T: Into<std::option::Option<crate::model::answer_query_request::AnswerGenerationSpec>>,
@@ -1765,6 +1776,17 @@ pub mod conversational_search_service {
         /// Sets the value of [user_pseudo_id][crate::model::AnswerQueryRequest::user_pseudo_id].
         pub fn set_user_pseudo_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.user_pseudo_id = v.into();
+            self
+        }
+
+        /// Sets the value of [end_user_spec][crate::model::AnswerQueryRequest::end_user_spec].
+        pub fn set_end_user_spec<
+            T: Into<std::option::Option<crate::model::answer_query_request::EndUserSpec>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.end_user_spec = v.into();
             self
         }
 
@@ -2017,6 +2039,12 @@ pub mod conversational_search_service {
         /// Sets the value of [name][crate::model::GetSessionRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [include_answer_details][crate::model::GetSessionRequest::include_answer_details].
+        pub fn set_include_answer_details<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.include_answer_details = v.into();
             self
         }
     }
@@ -3300,6 +3328,12 @@ pub mod document_service {
         /// Sets the value of [id_field][crate::model::ImportDocumentsRequest::id_field].
         pub fn set_id_field<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.id_field = v.into();
+            self
+        }
+
+        /// Sets the value of [force_refresh_content][crate::model::ImportDocumentsRequest::force_refresh_content].
+        pub fn set_force_refresh_content<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.force_refresh_content = v.into();
             self
         }
 
@@ -6437,6 +6471,17 @@ pub mod search_service {
             self
         }
 
+        /// Sets the value of [display_spec][crate::model::SearchRequest::display_spec].
+        pub fn set_display_spec<
+            T: Into<std::option::Option<crate::model::search_request::DisplaySpec>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.display_spec = v.into();
+            self
+        }
+
         /// Sets the value of [session][crate::model::SearchRequest::session].
         pub fn set_session<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.session = v.into();
@@ -6451,6 +6496,28 @@ pub mod search_service {
             v: T,
         ) -> Self {
             self.0.request.session_spec = v.into();
+            self
+        }
+
+        /// Sets the value of [relevance_threshold][crate::model::SearchRequest::relevance_threshold].
+        pub fn set_relevance_threshold<
+            T: Into<crate::model::search_request::RelevanceThreshold>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.relevance_threshold = v.into();
+            self
+        }
+
+        /// Sets the value of [relevance_score_spec][crate::model::SearchRequest::relevance_score_spec].
+        pub fn set_relevance_score_spec<
+            T: Into<std::option::Option<crate::model::search_request::RelevanceScoreSpec>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.relevance_score_spec = v.into();
             self
         }
 
@@ -6701,6 +6768,17 @@ pub mod search_service {
             self
         }
 
+        /// Sets the value of [display_spec][crate::model::SearchRequest::display_spec].
+        pub fn set_display_spec<
+            T: Into<std::option::Option<crate::model::search_request::DisplaySpec>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.display_spec = v.into();
+            self
+        }
+
         /// Sets the value of [session][crate::model::SearchRequest::session].
         pub fn set_session<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.session = v.into();
@@ -6715,6 +6793,28 @@ pub mod search_service {
             v: T,
         ) -> Self {
             self.0.request.session_spec = v.into();
+            self
+        }
+
+        /// Sets the value of [relevance_threshold][crate::model::SearchRequest::relevance_threshold].
+        pub fn set_relevance_threshold<
+            T: Into<crate::model::search_request::RelevanceThreshold>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.relevance_threshold = v.into();
+            self
+        }
+
+        /// Sets the value of [relevance_score_spec][crate::model::SearchRequest::relevance_score_spec].
+        pub fn set_relevance_score_spec<
+            T: Into<std::option::Option<crate::model::search_request::RelevanceScoreSpec>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.relevance_score_spec = v.into();
             self
         }
 
@@ -7286,6 +7386,295 @@ pub mod search_tuning_service {
 
     impl CancelOperation {
         pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SearchTuningService>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
+pub mod serving_config_service {
+    use crate::Result;
+    use std::sync::Arc;
+
+    /// A builder for [ServingConfigService][super::super::client::ServingConfigService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_discoveryengine_v1::*;
+    /// # use builder::serving_config_service::ClientBuilder;
+    /// # use client::ServingConfigService;
+    /// let builder : ClientBuilder = ServingConfigService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://discoveryengine.googleapis.com")
+    ///     .build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ServingConfigService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = ServingConfigService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [super::super::client::ServingConfigService] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: Arc<dyn super::super::stub::dynamic::ServingConfigService>,
+        request: R,
+        options: gax::options::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stub::dynamic::ServingConfigService>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: gax::options::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for a ServingConfigService::update_serving_config call.
+    #[derive(Clone, Debug)]
+    pub struct UpdateServingConfig(RequestBuilder<crate::model::UpdateServingConfigRequest>);
+
+    impl UpdateServingConfig {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stub::dynamic::ServingConfigService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateServingConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ServingConfig> {
+            (*self.0.stub)
+                .update_serving_config(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [serving_config][crate::model::UpdateServingConfigRequest::serving_config].
+        pub fn set_serving_config<T: Into<std::option::Option<crate::model::ServingConfig>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.serving_config = v.into();
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateServingConfigRequest::update_mask].
+        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.update_mask = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateServingConfig {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a ServingConfigService::list_operations call.
+    #[derive(Clone, Debug)]
+    pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
+
+    impl ListOperations {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stub::dynamic::ServingConfigService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Streams the responses back.
+        pub async fn paginator(
+            self,
+        ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::Paginator::new(token, execute)
+        }
+
+        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a ServingConfigService::get_operation call.
+    #[derive(Clone, Debug)]
+    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+
+    impl GetOperation {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stub::dynamic::ServingConfigService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a ServingConfigService::cancel_operation call.
+    #[derive(Clone, Debug)]
+    pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
+
+    impl CancelOperation {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stub::dynamic::ServingConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7907,6 +8296,231 @@ pub mod site_search_engine_service {
 
     #[doc(hidden)]
     impl gax::options::internal::RequestBuilder for ListTargetSites {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a SiteSearchEngineService::create_sitemap call.
+    #[derive(Clone, Debug)]
+    pub struct CreateSitemap(RequestBuilder<crate::model::CreateSitemapRequest>);
+
+    impl CreateSitemap {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stub::dynamic::SiteSearchEngineService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateSitemapRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_sitemap][super::super::client::SiteSearchEngineService::create_sitemap].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_sitemap(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `create_sitemap`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::Sitemap, crate::model::CreateSitemapMetadata> {
+            type Operation =
+                lro::Operation<crate::model::Sitemap, crate::model::CreateSitemapMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateSitemapRequest::parent].
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [sitemap][crate::model::CreateSitemapRequest::sitemap].
+        pub fn set_sitemap<T: Into<std::option::Option<crate::model::Sitemap>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.sitemap = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateSitemap {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a SiteSearchEngineService::delete_sitemap call.
+    #[derive(Clone, Debug)]
+    pub struct DeleteSitemap(RequestBuilder<crate::model::DeleteSitemapRequest>);
+
+    impl DeleteSitemap {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stub::dynamic::SiteSearchEngineService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteSitemapRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_sitemap][super::super::client::SiteSearchEngineService::delete_sitemap].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_sitemap(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `delete_sitemap`.
+        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteSitemapMetadata> {
+            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteSitemapMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [name][crate::model::DeleteSitemapRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteSitemap {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a SiteSearchEngineService::fetch_sitemaps call.
+    #[derive(Clone, Debug)]
+    pub struct FetchSitemaps(RequestBuilder<crate::model::FetchSitemapsRequest>);
+
+    impl FetchSitemaps {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stub::dynamic::SiteSearchEngineService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::FetchSitemapsRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::FetchSitemapsResponse> {
+            (*self.0.stub)
+                .fetch_sitemaps(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [parent][crate::model::FetchSitemapsRequest::parent].
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [matcher][crate::model::FetchSitemapsRequest::matcher].
+        pub fn set_matcher<
+            T: Into<std::option::Option<crate::model::fetch_sitemaps_request::Matcher>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.matcher = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FetchSitemaps {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

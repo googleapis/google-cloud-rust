@@ -32,14 +32,168 @@ extern crate std;
 extern crate tracing;
 extern crate wkt;
 
+/// The request to generate and export SBOM. Target must be specified for the
+/// request.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ExportSBOMRequest {
+    /// Required. The name of the resource in the form of
+    /// `projects/[PROJECT_ID]/resources/[RESOURCE_URL]`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// The location of the SBOM export.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub target: std::option::Option<crate::model::export_sbom_request::Target>,
+}
+
+impl ExportSBOMRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ExportSBOMRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of `target`.
+    pub fn set_target<
+        T: std::convert::Into<std::option::Option<crate::model::export_sbom_request::Target>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.target = v.into();
+        self
+    }
+
+    /// The value of [target][crate::model::ExportSBOMRequest::target]
+    /// if it holds a `CloudStorageLocation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_cloud_storage_location(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::export_sbom_request::CloudStorageLocation>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.target.as_ref().and_then(|v| match v {
+            crate::model::export_sbom_request::Target::CloudStorageLocation(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [target][crate::model::ExportSBOMRequest::target]
+    /// to hold a `CloudStorageLocation`.
+    ///
+    /// Note that all the setters affecting `target` are
+    /// mutually exclusive.
+    pub fn set_cloud_storage_location<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::export_sbom_request::CloudStorageLocation>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.target = std::option::Option::Some(
+            crate::model::export_sbom_request::Target::CloudStorageLocation(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for ExportSBOMRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.devtools.containeranalysis.v1.ExportSBOMRequest"
+    }
+}
+
+/// Defines additional types related to [ExportSBOMRequest].
+pub mod export_sbom_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Empty placeholder to denote that this is a Google Cloud Storage
+    /// export request.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct CloudStorageLocation {}
+
+    impl CloudStorageLocation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for CloudStorageLocation {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.devtools.containeranalysis.v1.ExportSBOMRequest.CloudStorageLocation"
+        }
+    }
+
+    /// The location of the SBOM export.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Target {
+        /// Optional. Empty placeholder to denote that this is a Google Cloud Storage
+        /// export request.
+        CloudStorageLocation(
+            std::boxed::Box<crate::model::export_sbom_request::CloudStorageLocation>,
+        ),
+    }
+}
+
+/// The response from a call to ExportSBOM.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ExportSBOMResponse {
+    /// The name of the discovery occurrence in the form
+    /// "projects/{project_id}/occurrences/{OCCURRENCE_ID}
+    /// It can be used to track the progress of the SBOM export.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub discovery_occurrence: std::string::String,
+}
+
+impl ExportSBOMResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [discovery_occurrence][crate::model::ExportSBOMResponse::discovery_occurrence].
+    pub fn set_discovery_occurrence<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.discovery_occurrence = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ExportSBOMResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.devtools.containeranalysis.v1.ExportSBOMResponse"
+    }
+}
+
 /// Request to get a vulnerability summary for some set of occurrences.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetVulnerabilityOccurrencesSummaryRequest {
-    /// Required. The name of the project to get a vulnerability summary for in the form of
-    /// `projects/[PROJECT_ID]`.
+    /// Required. The name of the project to get a vulnerability summary for in the
+    /// form of `projects/[PROJECT_ID]`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 

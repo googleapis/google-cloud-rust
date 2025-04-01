@@ -24,6 +24,507 @@ use std::sync::Arc;
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
+/// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+/// let client = CrossNetworkAutomationService::builder().build().await?;
+/// // use `client` to make requests to the {Codec.APITitle}}.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// The service for CrossNetworkAutomation resources.
+///
+/// # Configuration
+///
+/// To configure `CrossNetworkAutomationService` use the `with_*` methods in the type returned
+/// by [builder()][CrossNetworkAutomationService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://networkconnectivity.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::cross_network_automation_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::cross_network_automation_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `CrossNetworkAutomationService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `CrossNetworkAutomationService` in
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
+#[derive(Clone, Debug)]
+pub struct CrossNetworkAutomationService {
+    inner: Arc<dyn super::stub::dynamic::CrossNetworkAutomationService>,
+}
+
+impl CrossNetworkAutomationService {
+    /// Returns a builder for [CrossNetworkAutomationService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// let client = CrossNetworkAutomationService::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::cross_network_automation_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::cross_network_automation_service::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::CrossNetworkAutomationService + 'static,
+    {
+        Self {
+            inner: Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> Result<Arc<dyn super::stub::dynamic::CrossNetworkAutomationService>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> Result<impl super::stub::CrossNetworkAutomationService> {
+        super::transport::CrossNetworkAutomationService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> Result<impl super::stub::CrossNetworkAutomationService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::CrossNetworkAutomationService::new)
+    }
+
+    /// Lists ServiceConnectionMaps in a given project and location.
+    pub fn list_service_connection_maps(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::ListServiceConnectionMaps {
+        super::builder::cross_network_automation_service::ListServiceConnectionMaps::new(
+            self.inner.clone(),
+        )
+        .set_parent(parent.into())
+    }
+
+    /// Gets details of a single ServiceConnectionMap.
+    pub fn get_service_connection_map(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::GetServiceConnectionMap {
+        super::builder::cross_network_automation_service::GetServiceConnectionMap::new(
+            self.inner.clone(),
+        )
+        .set_name(name.into())
+    }
+
+    /// Creates a new ServiceConnectionMap in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_service_connection_map(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::CreateServiceConnectionMap {
+        super::builder::cross_network_automation_service::CreateServiceConnectionMap::new(
+            self.inner.clone(),
+        )
+        .set_parent(parent.into())
+    }
+
+    /// Updates the parameters of a single ServiceConnectionMap.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_service_connection_map(
+        &self,
+        service_connection_map: impl Into<crate::model::ServiceConnectionMap>,
+    ) -> super::builder::cross_network_automation_service::UpdateServiceConnectionMap {
+        super::builder::cross_network_automation_service::UpdateServiceConnectionMap::new(
+            self.inner.clone(),
+        )
+        .set_service_connection_map(service_connection_map.into())
+    }
+
+    /// Deletes a single ServiceConnectionMap.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_service_connection_map(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::DeleteServiceConnectionMap {
+        super::builder::cross_network_automation_service::DeleteServiceConnectionMap::new(
+            self.inner.clone(),
+        )
+        .set_name(name.into())
+    }
+
+    /// Lists ServiceConnectionPolicies in a given project and location.
+    pub fn list_service_connection_policies(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::ListServiceConnectionPolicies {
+        super::builder::cross_network_automation_service::ListServiceConnectionPolicies::new(
+            self.inner.clone(),
+        )
+        .set_parent(parent.into())
+    }
+
+    /// Gets details of a single ServiceConnectionPolicy.
+    pub fn get_service_connection_policy(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::GetServiceConnectionPolicy {
+        super::builder::cross_network_automation_service::GetServiceConnectionPolicy::new(
+            self.inner.clone(),
+        )
+        .set_name(name.into())
+    }
+
+    /// Creates a new ServiceConnectionPolicy in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_service_connection_policy(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::CreateServiceConnectionPolicy {
+        super::builder::cross_network_automation_service::CreateServiceConnectionPolicy::new(
+            self.inner.clone(),
+        )
+        .set_parent(parent.into())
+    }
+
+    /// Updates the parameters of a single ServiceConnectionPolicy.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_service_connection_policy(
+        &self,
+        service_connection_policy: impl Into<crate::model::ServiceConnectionPolicy>,
+    ) -> super::builder::cross_network_automation_service::UpdateServiceConnectionPolicy {
+        super::builder::cross_network_automation_service::UpdateServiceConnectionPolicy::new(
+            self.inner.clone(),
+        )
+        .set_service_connection_policy(service_connection_policy.into())
+    }
+
+    /// Deletes a single ServiceConnectionPolicy.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_service_connection_policy(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::DeleteServiceConnectionPolicy {
+        super::builder::cross_network_automation_service::DeleteServiceConnectionPolicy::new(
+            self.inner.clone(),
+        )
+        .set_name(name.into())
+    }
+
+    /// Lists ServiceClasses in a given project and location.
+    pub fn list_service_classes(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::ListServiceClasses {
+        super::builder::cross_network_automation_service::ListServiceClasses::new(
+            self.inner.clone(),
+        )
+        .set_parent(parent.into())
+    }
+
+    /// Gets details of a single ServiceClass.
+    pub fn get_service_class(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::GetServiceClass {
+        super::builder::cross_network_automation_service::GetServiceClass::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
+    /// Updates the parameters of a single ServiceClass.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_service_class(
+        &self,
+        service_class: impl Into<crate::model::ServiceClass>,
+    ) -> super::builder::cross_network_automation_service::UpdateServiceClass {
+        super::builder::cross_network_automation_service::UpdateServiceClass::new(
+            self.inner.clone(),
+        )
+        .set_service_class(service_class.into())
+    }
+
+    /// Deletes a single ServiceClass.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_service_class(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::DeleteServiceClass {
+        super::builder::cross_network_automation_service::DeleteServiceClass::new(
+            self.inner.clone(),
+        )
+        .set_name(name.into())
+    }
+
+    /// Gets details of a single ServiceConnectionToken.
+    pub fn get_service_connection_token(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::GetServiceConnectionToken {
+        super::builder::cross_network_automation_service::GetServiceConnectionToken::new(
+            self.inner.clone(),
+        )
+        .set_name(name.into())
+    }
+
+    /// Lists ServiceConnectionTokens in a given project and location.
+    pub fn list_service_connection_tokens(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::ListServiceConnectionTokens {
+        super::builder::cross_network_automation_service::ListServiceConnectionTokens::new(
+            self.inner.clone(),
+        )
+        .set_parent(parent.into())
+    }
+
+    /// Creates a new ServiceConnectionToken in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_service_connection_token(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::CreateServiceConnectionToken {
+        super::builder::cross_network_automation_service::CreateServiceConnectionToken::new(
+            self.inner.clone(),
+        )
+        .set_parent(parent.into())
+    }
+
+    /// Deletes a single ServiceConnectionToken.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_service_connection_token(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::DeleteServiceConnectionToken {
+        super::builder::cross_network_automation_service::DeleteServiceConnectionToken::new(
+            self.inner.clone(),
+        )
+        .set_name(name.into())
+    }
+
+    /// Lists information about the supported locations for this service.
+    pub fn list_locations(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::ListLocations {
+        super::builder::cross_network_automation_service::ListLocations::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
+    /// Gets information about a location.
+    pub fn get_location(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::GetLocation {
+        super::builder::cross_network_automation_service::GetLocation::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    pub fn set_iam_policy(
+        &self,
+        resource: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::SetIamPolicy {
+        super::builder::cross_network_automation_service::SetIamPolicy::new(self.inner.clone())
+            .set_resource(resource.into())
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    pub fn get_iam_policy(
+        &self,
+        resource: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::GetIamPolicy {
+        super::builder::cross_network_automation_service::GetIamPolicy::new(self.inner.clone())
+            .set_resource(resource.into())
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    pub fn test_iam_permissions(
+        &self,
+        resource: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::TestIamPermissions {
+        super::builder::cross_network_automation_service::TestIamPermissions::new(
+            self.inner.clone(),
+        )
+        .set_resource(resource.into())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::ListOperations {
+        super::builder::cross_network_automation_service::ListOperations::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::GetOperation {
+        super::builder::cross_network_automation_service::GetOperation::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn delete_operation(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::DeleteOperation {
+        super::builder::cross_network_automation_service::DeleteOperation::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::cross_network_automation_service::CancelOperation {
+        super::builder::cross_network_automation_service::CancelOperation::new(self.inner.clone())
+            .set_name(name.into())
+    }
+}
+
+/// Implements a client for the Network Connectivity API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
 /// # use google_cloud_networkconnectivity_v1::client::HubService;
 /// let client = HubService::builder().build().await?;
 /// // use `client` to make requests to the {Codec.APITitle}}.
@@ -302,6 +803,44 @@ impl HubService {
         name: impl Into<std::string::String>,
     ) -> super::builder::hub_service::AcceptHubSpoke {
         super::builder::hub_service::AcceptHubSpoke::new(self.inner.clone()).set_name(name.into())
+    }
+
+    /// Accepts a proposal to update a Network Connectivity Center spoke in a hub.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn accept_spoke_update(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::hub_service::AcceptSpokeUpdate {
+        super::builder::hub_service::AcceptSpokeUpdate::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
+    /// Rejects a proposal to update a Network Connectivity Center spoke in a hub.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn reject_spoke_update(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::hub_service::RejectSpokeUpdate {
+        super::builder::hub_service::RejectSpokeUpdate::new(self.inner.clone())
+            .set_name(name.into())
     }
 
     /// Deletes a Network Connectivity Center spoke.
@@ -587,7 +1126,7 @@ impl PolicyBasedRoutingService {
             .map(super::tracing::PolicyBasedRoutingService::new)
     }
 
-    /// Lists PolicyBasedRoutes in a given project and location.
+    /// Lists policy-based routes in a given project and location.
     pub fn list_policy_based_routes(
         &self,
         parent: impl Into<std::string::String>,
@@ -596,7 +1135,7 @@ impl PolicyBasedRoutingService {
             .set_parent(parent.into())
     }
 
-    /// Gets details of a single PolicyBasedRoute.
+    /// Gets details of a single policy-based route.
     pub fn get_policy_based_route(
         &self,
         name: impl Into<std::string::String>,
@@ -605,7 +1144,7 @@ impl PolicyBasedRoutingService {
             .set_name(name.into())
     }
 
-    /// Creates a new PolicyBasedRoute in a given project and location.
+    /// Creates a new policy-based route in a given project and location.
     ///
     /// # Long running operations
     ///
@@ -626,7 +1165,7 @@ impl PolicyBasedRoutingService {
         .set_parent(parent.into())
     }
 
-    /// Deletes a single PolicyBasedRoute.
+    /// Deletes a single policy-based route.
     ///
     /// # Long running operations
     ///

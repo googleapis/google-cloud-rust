@@ -38,6 +38,7 @@
 //! * [SchemaService](client/struct.SchemaService.html)
 //! * [SearchService](client/struct.SearchService.html)
 //! * [SearchTuningService](client/struct.SearchTuningService.html)
+//! * [ServingConfigService](client/struct.ServingConfigService.html)
 //! * [SiteSearchEngineService](client/struct.SiteSearchEngineService.html)
 //! * [UserEventService](client/struct.UserEventService.html)
 

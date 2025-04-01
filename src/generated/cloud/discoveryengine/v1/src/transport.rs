@@ -725,6 +725,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+        let builder = builder.query(&[("includeAnswerDetails", &req.include_answer_details)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -2463,6 +2464,128 @@ impl super::stub::SearchTuningService for SearchTuningService {
     }
 }
 
+/// Implements [ServingConfigService](super::stub::ServingConfigService) using a [gaxi::http::ReqwestClient].
+#[derive(Clone)]
+pub struct ServingConfigService {
+    inner: gaxi::http::ReqwestClient,
+}
+
+impl std::fmt::Debug for ServingConfigService {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        f.debug_struct("ServingConfigService")
+            .field("inner", &self.inner)
+            .finish()
+    }
+}
+
+impl ServingConfigService {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        Ok(Self { inner })
+    }
+}
+
+impl super::stub::ServingConfigService for ServingConfigService {
+    async fn update_serving_config(
+        &self,
+        req: crate::model::UpdateServingConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::ServingConfig> {
+        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::PATCH,
+                format!(
+                    "/v1/{}",
+                    req.serving_config
+                        .as_ref()
+                        .ok_or_else(|| gaxi::path_parameter::missing("serving_config"))?
+                        .name
+                ),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = req
+            .update_mask
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
+        self.inner
+            .execute(builder, Some(req.serving_config), options)
+            .await
+    }
+
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<longrunning::model::ListOperationsResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let builder = self
+            .inner
+            .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("filter", &req.filter)]);
+        let builder = builder.query(&[("pageSize", &req.page_size)]);
+        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<longrunning::model::Operation> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let builder = self
+            .inner
+            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<()> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let builder = self
+            .inner
+            .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|_: wkt::Empty| ())
+    }
+}
+
 /// Implements [SiteSearchEngineService](super::stub::SiteSearchEngineService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct SiteSearchEngineService {
@@ -2631,6 +2754,79 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn create_sitemap(
+        &self,
+        req: crate::model::CreateSitemapRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<longrunning::model::Operation> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                format!("/v1/{}/sitemaps", req.parent),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, Some(req.sitemap), options)
+            .await
+    }
+
+    async fn delete_sitemap(
+        &self,
+        req: crate::model::DeleteSitemapRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<longrunning::model::Operation> {
+        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let builder = self
+            .inner
+            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn fetch_sitemaps(
+        &self,
+        req: crate::model::FetchSitemapsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::FetchSitemapsResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::GET,
+                format!("/v1/{}/sitemaps:fetch", req.parent),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = req
+            .matcher
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "matcher")
+            });
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

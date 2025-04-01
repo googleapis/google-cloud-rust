@@ -122,4 +122,24 @@ impl super::stub::ContainerAnalysis for ContainerAnalysis {
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
+
+    async fn export_sbom(
+        &self,
+        req: crate::model::ExportSBOMRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::ExportSBOMResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                format!("/v1/{}:exportSBOM", req.name),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req), options).await
+    }
 }

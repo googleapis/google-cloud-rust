@@ -1698,6 +1698,74 @@ impl<T: super::SearchTuningService> SearchTuningService for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::ServingConfigService].
+#[async_trait::async_trait]
+pub trait ServingConfigService: std::fmt::Debug + Send + Sync {
+    async fn update_serving_config(
+        &self,
+        req: crate::model::UpdateServingConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ServingConfig>;
+
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation>;
+
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<()>;
+}
+
+/// All implementations of [super::ServingConfigService] also implement [ServingConfigService].
+#[async_trait::async_trait]
+impl<T: super::ServingConfigService> ServingConfigService for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_serving_config(
+        &self,
+        req: crate::model::UpdateServingConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ServingConfig> {
+        T::update_serving_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+        T::list_operations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation> {
+        T::get_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<()> {
+        T::cancel_operation(self, req, options).await
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::SiteSearchEngineService].
 #[async_trait::async_trait]
 pub trait SiteSearchEngineService: std::fmt::Debug + Send + Sync {
@@ -1742,6 +1810,24 @@ pub trait SiteSearchEngineService: std::fmt::Debug + Send + Sync {
         req: crate::model::ListTargetSitesRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::ListTargetSitesResponse>;
+
+    async fn create_sitemap(
+        &self,
+        req: crate::model::CreateSitemapRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation>;
+
+    async fn delete_sitemap(
+        &self,
+        req: crate::model::DeleteSitemapRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation>;
+
+    async fn fetch_sitemaps(
+        &self,
+        req: crate::model::FetchSitemapsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::FetchSitemapsResponse>;
 
     async fn enable_advanced_site_search(
         &self,
@@ -1866,6 +1952,33 @@ impl<T: super::SiteSearchEngineService> SiteSearchEngineService for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::ListTargetSitesResponse> {
         T::list_target_sites(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_sitemap(
+        &self,
+        req: crate::model::CreateSitemapRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation> {
+        T::create_sitemap(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_sitemap(
+        &self,
+        req: crate::model::DeleteSitemapRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation> {
+        T::delete_sitemap(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn fetch_sitemaps(
+        &self,
+        req: crate::model::FetchSitemapsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::FetchSitemapsResponse> {
+        T::fetch_sitemaps(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

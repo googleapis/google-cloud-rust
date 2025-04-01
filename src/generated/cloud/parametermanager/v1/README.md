@@ -7,10 +7,10 @@ changes in the upcoming releases. Testing is also incomplete, we do **not**
 recommend that you use this crate in production. We welcome feedback about the
 APIs, documentation, missing features, bugs, etc.
 
-(Public Preview) Parameter Manager is a single source of truth to store,
-access and manage the lifecycle of your workload parameters. Parameter
-Manager aims to make management of sensitive application parameters
-effortless for customers without diminishing focus on security.
+Parameter Manager is a single source of truth to store, access and manage
+the lifecycle of your workload parameters. Parameter Manager aims to make
+management of sensitive application parameters effortless for customers
+without diminishing focus on security.
 
 ## Quickstart
 

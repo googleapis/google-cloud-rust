@@ -2625,7 +2625,6 @@ impl wkt::message::Message for GetRouteRequest {
 }
 
 /// Oracle database profile.
-/// Next ID: 10.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2758,7 +2757,6 @@ impl wkt::message::Message for OracleProfile {
 }
 
 /// Configuration for Oracle Automatic Storage Management (ASM) connection.
-/// .
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2775,7 +2773,8 @@ pub struct OracleAsmConfig {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub username: std::string::String,
 
-    /// Optional. Password for the Oracle ASM connection.
+    /// Optional. Password for the Oracle ASM connection. Mutually exclusive with
+    /// the `secret_manager_stored_password` field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub password: std::string::String,
 
@@ -2790,6 +2789,11 @@ pub struct OracleAsmConfig {
     /// Optional. SSL configuration for the Oracle connection.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub oracle_ssl_config: std::option::Option<crate::model::OracleSslConfig>,
+
+    /// Optional. A reference to a Secret Manager resource name storing the Oracle
+    /// ASM connection password. Mutually exclusive with the `password` field.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub secret_manager_stored_password: std::string::String,
 }
 
 impl OracleAsmConfig {
@@ -2838,6 +2842,15 @@ impl OracleAsmConfig {
         self
     }
 
+    /// Sets the value of [secret_manager_stored_password][crate::model::OracleAsmConfig::secret_manager_stored_password].
+    pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.secret_manager_stored_password = v.into();
+        self
+    }
+
     /// Sets the value of [connection_attributes][crate::model::OracleAsmConfig::connection_attributes].
     pub fn set_connection_attributes<T, K, V>(mut self, v: T) -> Self
     where
@@ -2858,7 +2871,6 @@ impl wkt::message::Message for OracleAsmConfig {
 }
 
 /// MySQL database profile.
-/// Next ID: 7.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2883,6 +2895,11 @@ pub struct MysqlProfile {
     /// SSL configuration for the MySQL connection.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub ssl_config: std::option::Option<crate::model::MysqlSslConfig>,
+
+    /// Optional. A reference to a Secret Manager resource name storing the MySQL
+    /// connection password. Mutually exclusive with the `password` field.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub secret_manager_stored_password: std::string::String,
 }
 
 impl MysqlProfile {
@@ -2924,6 +2941,15 @@ impl MysqlProfile {
         self.ssl_config = v.into();
         self
     }
+
+    /// Sets the value of [secret_manager_stored_password][crate::model::MysqlProfile::secret_manager_stored_password].
+    pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.secret_manager_stored_password = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for MysqlProfile {
@@ -2957,6 +2983,12 @@ pub struct PostgresqlProfile {
     /// Required. Database for the PostgreSQL connection.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub database: std::string::String,
+
+    /// Optional. A reference to a Secret Manager resource name storing the
+    /// PostgreSQL connection password. Mutually exclusive with the `password`
+    /// field.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub secret_manager_stored_password: std::string::String,
 
     /// Optional. SSL configuration for the PostgreSQL connection.
     /// In case PostgresqlSslConfig is not set, the connection will use the default
@@ -3001,6 +3033,15 @@ impl PostgresqlProfile {
         self
     }
 
+    /// Sets the value of [secret_manager_stored_password][crate::model::PostgresqlProfile::secret_manager_stored_password].
+    pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.secret_manager_stored_password = v.into();
+        self
+    }
+
     /// Sets the value of [ssl_config][crate::model::PostgresqlProfile::ssl_config].
     pub fn set_ssl_config<
         T: std::convert::Into<std::option::Option<crate::model::PostgresqlSslConfig>>,
@@ -3020,7 +3061,6 @@ impl wkt::message::Message for PostgresqlProfile {
 }
 
 /// SQLServer database profile.
-/// Next ID: 8.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3045,6 +3085,12 @@ pub struct SqlServerProfile {
     /// Required. Database for the SQLServer connection.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub database: std::string::String,
+
+    /// Optional. A reference to a Secret Manager resource name storing the
+    /// SQLServer connection password. Mutually exclusive with the `password`
+    /// field.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub secret_manager_stored_password: std::string::String,
 }
 
 impl SqlServerProfile {
@@ -3081,11 +3127,298 @@ impl SqlServerProfile {
         self.database = v.into();
         self
     }
+
+    /// Sets the value of [secret_manager_stored_password][crate::model::SqlServerProfile::secret_manager_stored_password].
+    pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.secret_manager_stored_password = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlServerProfile {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.datastream.v1.SqlServerProfile"
+    }
+}
+
+/// Salesforce profile
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct SalesforceProfile {
+    /// Required. Domain endpoint for the Salesforce connection.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub domain: std::string::String,
+
+    /// Credentials for Salesforce connection.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub credentials: std::option::Option<crate::model::salesforce_profile::Credentials>,
+}
+
+impl SalesforceProfile {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [domain][crate::model::SalesforceProfile::domain].
+    pub fn set_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.domain = v.into();
+        self
+    }
+
+    /// Sets the value of `credentials`.
+    pub fn set_credentials<
+        T: std::convert::Into<std::option::Option<crate::model::salesforce_profile::Credentials>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.credentials = v.into();
+        self
+    }
+
+    /// The value of [credentials][crate::model::SalesforceProfile::credentials]
+    /// if it holds a `UserCredentials`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_user_credentials(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::salesforce_profile::UserCredentials>>
+    {
+        #[allow(unreachable_patterns)]
+        self.credentials.as_ref().and_then(|v| match v {
+            crate::model::salesforce_profile::Credentials::UserCredentials(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [credentials][crate::model::SalesforceProfile::credentials]
+    /// if it holds a `Oauth2ClientCredentials`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_oauth2_client_credentials(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::salesforce_profile::Oauth2ClientCredentials>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.credentials.as_ref().and_then(|v| match v {
+            crate::model::salesforce_profile::Credentials::Oauth2ClientCredentials(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [credentials][crate::model::SalesforceProfile::credentials]
+    /// to hold a `UserCredentials`.
+    ///
+    /// Note that all the setters affecting `credentials` are
+    /// mutually exclusive.
+    pub fn set_user_credentials<
+        T: std::convert::Into<std::boxed::Box<crate::model::salesforce_profile::UserCredentials>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.credentials = std::option::Option::Some(
+            crate::model::salesforce_profile::Credentials::UserCredentials(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [credentials][crate::model::SalesforceProfile::credentials]
+    /// to hold a `Oauth2ClientCredentials`.
+    ///
+    /// Note that all the setters affecting `credentials` are
+    /// mutually exclusive.
+    pub fn set_oauth2_client_credentials<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::salesforce_profile::Oauth2ClientCredentials>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.credentials = std::option::Option::Some(
+            crate::model::salesforce_profile::Credentials::Oauth2ClientCredentials(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for SalesforceProfile {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.SalesforceProfile"
+    }
+}
+
+/// Defines additional types related to [SalesforceProfile].
+pub mod salesforce_profile {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Username-password credentials.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct UserCredentials {
+        /// Required. Username for the Salesforce connection.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub username: std::string::String,
+
+        /// Optional. Password for the Salesforce connection.
+        /// Mutually exclusive with the `secret_manager_stored_password` field.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub password: std::string::String,
+
+        /// Optional. Security token for the Salesforce connection.
+        /// Mutually exclusive with the `secret_manager_stored_security_token` field.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub security_token: std::string::String,
+
+        /// Optional. A reference to a Secret Manager resource name storing the
+        /// Salesforce connection's password. Mutually exclusive with the `password`
+        /// field.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub secret_manager_stored_password: std::string::String,
+
+        /// Optional. A reference to a Secret Manager resource name storing the
+        /// Salesforce connection's security token. Mutually exclusive with the
+        /// `security_token` field.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub secret_manager_stored_security_token: std::string::String,
+    }
+
+    impl UserCredentials {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [username][crate::model::salesforce_profile::UserCredentials::username].
+        pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.username = v.into();
+            self
+        }
+
+        /// Sets the value of [password][crate::model::salesforce_profile::UserCredentials::password].
+        pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.password = v.into();
+            self
+        }
+
+        /// Sets the value of [security_token][crate::model::salesforce_profile::UserCredentials::security_token].
+        pub fn set_security_token<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.security_token = v.into();
+            self
+        }
+
+        /// Sets the value of [secret_manager_stored_password][crate::model::salesforce_profile::UserCredentials::secret_manager_stored_password].
+        pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.secret_manager_stored_password = v.into();
+            self
+        }
+
+        /// Sets the value of [secret_manager_stored_security_token][crate::model::salesforce_profile::UserCredentials::secret_manager_stored_security_token].
+        pub fn set_secret_manager_stored_security_token<
+            T: std::convert::Into<std::string::String>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.secret_manager_stored_security_token = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for UserCredentials {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.datastream.v1.SalesforceProfile.UserCredentials"
+        }
+    }
+
+    /// OAuth2 Client Credentials.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct Oauth2ClientCredentials {
+        /// Required. Client ID for Salesforce OAuth2 Client Credentials.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub client_id: std::string::String,
+
+        /// Optional. Client secret for Salesforce OAuth2 Client Credentials.
+        /// Mutually exclusive with the `secret_manager_stored_client_secret` field.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub client_secret: std::string::String,
+
+        /// Optional. A reference to a Secret Manager resource name storing the
+        /// Salesforce OAuth2 client_secret. Mutually exclusive with the
+        /// `client_secret` field.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub secret_manager_stored_client_secret: std::string::String,
+    }
+
+    impl Oauth2ClientCredentials {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [client_id][crate::model::salesforce_profile::Oauth2ClientCredentials::client_id].
+        pub fn set_client_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.client_id = v.into();
+            self
+        }
+
+        /// Sets the value of [client_secret][crate::model::salesforce_profile::Oauth2ClientCredentials::client_secret].
+        pub fn set_client_secret<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.client_secret = v.into();
+            self
+        }
+
+        /// Sets the value of [secret_manager_stored_client_secret][crate::model::salesforce_profile::Oauth2ClientCredentials::secret_manager_stored_client_secret].
+        pub fn set_secret_manager_stored_client_secret<
+            T: std::convert::Into<std::string::String>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.secret_manager_stored_client_secret = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Oauth2ClientCredentials {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.datastream.v1.SalesforceProfile.Oauth2ClientCredentials"
+        }
+    }
+
+    /// Credentials for Salesforce connection.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Credentials {
+        /// User-password authentication.
+        UserCredentials(std::boxed::Box<crate::model::salesforce_profile::UserCredentials>),
+        /// Connected app authentication.
+        Oauth2ClientCredentials(
+            std::boxed::Box<crate::model::salesforce_profile::Oauth2ClientCredentials>,
+        ),
     }
 }
 
@@ -3379,6 +3712,14 @@ pub struct PrivateConnection {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub error: std::option::Option<crate::model::Error>,
 
+    /// Output only. Reserved for future use.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub satisfies_pzs: std::option::Option<bool>,
+
+    /// Output only. Reserved for future use.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub satisfies_pzi: std::option::Option<bool>,
+
     /// VPC Peering Config.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub vpc_peering_config: std::option::Option<crate::model::VpcPeeringConfig>,
@@ -3434,6 +3775,24 @@ impl PrivateConnection {
         v: T,
     ) -> Self {
         self.error = v.into();
+        self
+    }
+
+    /// Sets the value of [satisfies_pzs][crate::model::PrivateConnection::satisfies_pzs].
+    pub fn set_satisfies_pzs<T: std::convert::Into<std::option::Option<bool>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.satisfies_pzs = v.into();
+        self
+    }
+
+    /// Sets the value of [satisfies_pzi][crate::model::PrivateConnection::satisfies_pzi].
+    pub fn set_satisfies_pzi<T: std::convert::Into<std::option::Option<bool>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.satisfies_pzi = v.into();
         self
     }
 
@@ -3688,8 +4047,8 @@ impl wkt::message::Message for Route {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct MysqlSslConfig {
-    /// Input only. PEM-encoded private key associated with the Client Certificate.
-    /// If this field is used then the 'client_certificate' and the
+    /// Optional. Input only. PEM-encoded private key associated with the Client
+    /// Certificate. If this field is used then the 'client_certificate' and the
     /// 'ca_certificate' fields are mandatory.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub client_key: std::string::String,
@@ -3697,9 +4056,10 @@ pub struct MysqlSslConfig {
     /// Output only. Indicates whether the client_key field is set.
     pub client_key_set: bool,
 
-    /// Input only. PEM-encoded certificate that will be used by the replica to
-    /// authenticate against the source database server. If this field is used
-    /// then the 'client_key' and the 'ca_certificate' fields are mandatory.
+    /// Optional. Input only. PEM-encoded certificate that will be used by the
+    /// replica to authenticate against the source database server. If this field
+    /// is used then the 'client_key' and the 'ca_certificate' fields are
+    /// mandatory.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub client_certificate: std::string::String,
 
@@ -3977,7 +4337,7 @@ pub mod postgresql_ssl_config {
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub client_certificate: std::string::String,
 
-        /// Required. Input only. PEM-encoded private key associated with the client
+        /// Optional. Input only. PEM-encoded private key associated with the client
         /// certificate. This value will be used during the SSL/TLS handshake,
         /// allowing the PostgreSQL server to authenticate the client's identity,
         /// i.e. identity of the Datastream.
@@ -4074,6 +4434,14 @@ pub struct ConnectionProfile {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub display_name: std::string::String,
 
+    /// Output only. Reserved for future use.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub satisfies_pzs: std::option::Option<bool>,
+
+    /// Output only. Reserved for future use.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub satisfies_pzi: std::option::Option<bool>,
+
     /// Connection configuration for the ConnectionProfile.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub profile: std::option::Option<crate::model::connection_profile::Profile>,
@@ -4115,6 +4483,24 @@ impl ConnectionProfile {
     /// Sets the value of [display_name][crate::model::ConnectionProfile::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [satisfies_pzs][crate::model::ConnectionProfile::satisfies_pzs].
+    pub fn set_satisfies_pzs<T: std::convert::Into<std::option::Option<bool>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.satisfies_pzs = v.into();
+        self
+    }
+
+    /// Sets the value of [satisfies_pzi][crate::model::ConnectionProfile::satisfies_pzi].
+    pub fn set_satisfies_pzi<T: std::convert::Into<std::option::Option<bool>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.satisfies_pzi = v.into();
         self
     }
 
@@ -4231,6 +4617,21 @@ impl ConnectionProfile {
         })
     }
 
+    /// The value of [profile][crate::model::ConnectionProfile::profile]
+    /// if it holds a `SalesforceProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_salesforce_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Profile::SalesforceProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
     /// to hold a `OracleProfile`.
     ///
@@ -4325,6 +4726,23 @@ impl ConnectionProfile {
     ) -> Self {
         self.profile = std::option::Option::Some(
             crate::model::connection_profile::Profile::SqlServerProfile(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
+    /// to hold a `SalesforceProfile`.
+    ///
+    /// Note that all the setters affecting `profile` are
+    /// mutually exclusive.
+    pub fn set_salesforce_profile<
+        T: std::convert::Into<std::boxed::Box<crate::model::SalesforceProfile>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.profile = std::option::Option::Some(
+            crate::model::connection_profile::Profile::SalesforceProfile(v.into()),
         );
         self
     }
@@ -4465,6 +4883,8 @@ pub mod connection_profile {
         PostgresqlProfile(std::boxed::Box<crate::model::PostgresqlProfile>),
         /// SQLServer Connection Profile configuration.
         SqlServerProfile(std::boxed::Box<crate::model::SqlServerProfile>),
+        /// Salesforce Connection Profile configuration.
+        SalesforceProfile(std::boxed::Box<crate::model::SalesforceProfile>),
     }
 
     /// Connectivity options used to establish a connection to the profile.
@@ -6376,13 +6796,206 @@ pub mod mysql_source_config {
     }
 }
 
+/// Salesforce source configuration
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct SalesforceSourceConfig {
+    /// Salesforce objects to retrieve from the source.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub include_objects: std::option::Option<crate::model::SalesforceOrg>,
+
+    /// Salesforce objects to exclude from the stream.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub exclude_objects: std::option::Option<crate::model::SalesforceOrg>,
+
+    /// Required. Salesforce objects polling interval. The interval at which new
+    /// changes will be polled for each object. The duration must be between 5
+    /// minutes and 24 hours.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub polling_interval: std::option::Option<wkt::Duration>,
+}
+
+impl SalesforceSourceConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [include_objects][crate::model::SalesforceSourceConfig::include_objects].
+    pub fn set_include_objects<
+        T: std::convert::Into<std::option::Option<crate::model::SalesforceOrg>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.include_objects = v.into();
+        self
+    }
+
+    /// Sets the value of [exclude_objects][crate::model::SalesforceSourceConfig::exclude_objects].
+    pub fn set_exclude_objects<
+        T: std::convert::Into<std::option::Option<crate::model::SalesforceOrg>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.exclude_objects = v.into();
+        self
+    }
+
+    /// Sets the value of [polling_interval][crate::model::SalesforceSourceConfig::polling_interval].
+    pub fn set_polling_interval<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.polling_interval = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SalesforceSourceConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.SalesforceSourceConfig"
+    }
+}
+
+/// Salesforce organization structure.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct SalesforceOrg {
+    /// Salesforce objects in the database server.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub objects: std::vec::Vec<crate::model::SalesforceObject>,
+}
+
+impl SalesforceOrg {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [objects][crate::model::SalesforceOrg::objects].
+    pub fn set_objects<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SalesforceObject>,
+    {
+        use std::iter::Iterator;
+        self.objects = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for SalesforceOrg {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.SalesforceOrg"
+    }
+}
+
+/// Salesforce object.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct SalesforceObject {
+    /// Object name.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub object_name: std::string::String,
+
+    /// Salesforce fields.
+    /// When unspecified as part of include objects,
+    /// includes everything, when unspecified as part of exclude objects,
+    /// excludes nothing.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub fields: std::vec::Vec<crate::model::SalesforceField>,
+}
+
+impl SalesforceObject {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [object_name][crate::model::SalesforceObject::object_name].
+    pub fn set_object_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.object_name = v.into();
+        self
+    }
+
+    /// Sets the value of [fields][crate::model::SalesforceObject::fields].
+    pub fn set_fields<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SalesforceField>,
+    {
+        use std::iter::Iterator;
+        self.fields = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for SalesforceObject {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.SalesforceObject"
+    }
+}
+
+/// Salesforce field.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct SalesforceField {
+    /// Field name.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// The data type.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub data_type: std::string::String,
+
+    /// Indicates whether the field can accept nil values.
+    pub nillable: bool,
+}
+
+impl SalesforceField {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::SalesforceField::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [data_type][crate::model::SalesforceField::data_type].
+    pub fn set_data_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.data_type = v.into();
+        self
+    }
+
+    /// Sets the value of [nillable][crate::model::SalesforceField::nillable].
+    pub fn set_nillable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.nillable = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SalesforceField {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.SalesforceField"
+    }
+}
+
 /// The configuration of the stream source.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SourceConfig {
-    /// Required. Source connection profile resoource.
+    /// Required. Source connection profile resource.
     /// Format: `projects/{project}/locations/{location}/connectionProfiles/{name}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub source_connection_profile: std::string::String,
@@ -6477,6 +7090,21 @@ impl SourceConfig {
         })
     }
 
+    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
+    /// if it holds a `SalesforceSourceConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_salesforce_source_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceSourceConfig>> {
+        #[allow(unreachable_patterns)]
+        self.source_stream_config.as_ref().and_then(|v| match v {
+            crate::model::source_config::SourceStreamConfig::SalesforceSourceConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
     /// to hold a `OracleSourceConfig`.
     ///
@@ -6544,6 +7172,23 @@ impl SourceConfig {
         );
         self
     }
+
+    /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
+    /// to hold a `SalesforceSourceConfig`.
+    ///
+    /// Note that all the setters affecting `source_stream_config` are
+    /// mutually exclusive.
+    pub fn set_salesforce_source_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::SalesforceSourceConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_stream_config = std::option::Option::Some(
+            crate::model::source_config::SourceStreamConfig::SalesforceSourceConfig(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for SourceConfig {
@@ -6570,6 +7215,8 @@ pub mod source_config {
         PostgresqlSourceConfig(std::boxed::Box<crate::model::PostgresqlSourceConfig>),
         /// SQLServer data source configuration.
         SqlServerSourceConfig(std::boxed::Box<crate::model::SqlServerSourceConfig>),
+        /// Salesforce data source configuration.
+        SalesforceSourceConfig(std::boxed::Box<crate::model::SalesforceSourceConfig>),
     }
 }
 
@@ -6925,6 +7572,10 @@ pub struct BigQueryDestinationConfig {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub data_freshness: std::option::Option<wkt::Duration>,
 
+    /// Optional. Big Lake Managed Tables (BLMT) configuration.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub blmt_config: std::option::Option<crate::model::big_query_destination_config::BlmtConfig>,
+
     /// Target dataset(s) configuration.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub dataset_config:
@@ -6945,6 +7596,19 @@ impl BigQueryDestinationConfig {
         v: T,
     ) -> Self {
         self.data_freshness = v.into();
+        self
+    }
+
+    /// Sets the value of [blmt_config][crate::model::BigQueryDestinationConfig::blmt_config].
+    pub fn set_blmt_config<
+        T: std::convert::Into<
+                std::option::Option<crate::model::big_query_destination_config::BlmtConfig>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.blmt_config = v.into();
         self
     }
 
@@ -7267,6 +7931,203 @@ pub mod big_query_destination_config {
         }
     }
 
+    /// The configuration for BLMT.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct BlmtConfig {
+        /// Required. The Cloud Storage bucket name.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub bucket: std::string::String,
+
+        /// The root path inside the Cloud Storage bucket.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub root_path: std::string::String,
+
+        /// Required. The bigquery connection.
+        /// Format: `{project}.{location}.{name}`
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub connection_name: std::string::String,
+
+        /// Required. The file format.
+        pub file_format: crate::model::big_query_destination_config::blmt_config::FileFormat,
+
+        /// Required. The table format.
+        pub table_format: crate::model::big_query_destination_config::blmt_config::TableFormat,
+    }
+
+    impl BlmtConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [bucket][crate::model::big_query_destination_config::BlmtConfig::bucket].
+        pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.bucket = v.into();
+            self
+        }
+
+        /// Sets the value of [root_path][crate::model::big_query_destination_config::BlmtConfig::root_path].
+        pub fn set_root_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.root_path = v.into();
+            self
+        }
+
+        /// Sets the value of [connection_name][crate::model::big_query_destination_config::BlmtConfig::connection_name].
+        pub fn set_connection_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.connection_name = v.into();
+            self
+        }
+
+        /// Sets the value of [file_format][crate::model::big_query_destination_config::BlmtConfig::file_format].
+        pub fn set_file_format<
+            T: std::convert::Into<crate::model::big_query_destination_config::blmt_config::FileFormat>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.file_format = v.into();
+            self
+        }
+
+        /// Sets the value of [table_format][crate::model::big_query_destination_config::BlmtConfig::table_format].
+        pub fn set_table_format<
+            T: std::convert::Into<
+                    crate::model::big_query_destination_config::blmt_config::TableFormat,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.table_format = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for BlmtConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.datastream.v1.BigQueryDestinationConfig.BlmtConfig"
+        }
+    }
+
+    /// Defines additional types related to [BlmtConfig].
+    pub mod blmt_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Supported file formats for BigLake managed tables.
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct FileFormat(i32);
+
+        impl FileFormat {
+            /// Default value.
+            pub const FILE_FORMAT_UNSPECIFIED: FileFormat = FileFormat::new(0);
+
+            /// Parquet file format.
+            pub const PARQUET: FileFormat = FileFormat::new(1);
+
+            /// Creates a new FileFormat instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("FILE_FORMAT_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("PARQUET"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "FILE_FORMAT_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::FILE_FORMAT_UNSPECIFIED)
+                    }
+                    "PARQUET" => std::option::Option::Some(Self::PARQUET),
+                    _ => std::option::Option::None,
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for FileFormat {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for FileFormat {
+            fn default() -> Self {
+                Self::new(0)
+            }
+        }
+
+        /// Supported table formats for BigLake managed tables.
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct TableFormat(i32);
+
+        impl TableFormat {
+            /// Default value.
+            pub const TABLE_FORMAT_UNSPECIFIED: TableFormat = TableFormat::new(0);
+
+            /// Iceberg table format.
+            pub const ICEBERG: TableFormat = TableFormat::new(1);
+
+            /// Creates a new TableFormat instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("TABLE_FORMAT_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("ICEBERG"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "TABLE_FORMAT_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::TABLE_FORMAT_UNSPECIFIED)
+                    }
+                    "ICEBERG" => std::option::Option::Some(Self::ICEBERG),
+                    _ => std::option::Option::None,
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for TableFormat {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for TableFormat {
+            fn default() -> Self {
+                Self::new(0)
+            }
+        }
+    }
+
     /// AppendOnly mode defines that all changes to a table will be written to the
     /// destination table.
     #[serde_with::serde_as]
@@ -7522,6 +8383,14 @@ pub struct Stream {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub last_recovery_time: std::option::Option<wkt::Timestamp>,
 
+    /// Output only. Reserved for future use.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub satisfies_pzs: std::option::Option<bool>,
+
+    /// Output only. Reserved for future use.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub satisfies_pzi: std::option::Option<bool>,
+
     /// Stream backfill strategy.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub backfill_strategy: std::option::Option<crate::model::stream::BackfillStrategy>,
@@ -7607,6 +8476,24 @@ impl Stream {
         v: T,
     ) -> Self {
         self.last_recovery_time = v.into();
+        self
+    }
+
+    /// Sets the value of [satisfies_pzs][crate::model::Stream::satisfies_pzs].
+    pub fn set_satisfies_pzs<T: std::convert::Into<std::option::Option<bool>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.satisfies_pzs = v.into();
+        self
+    }
+
+    /// Sets the value of [satisfies_pzi][crate::model::Stream::satisfies_pzi].
+    pub fn set_satisfies_pzi<T: std::convert::Into<std::option::Option<bool>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.satisfies_pzi = v.into();
         self
     }
 
@@ -7801,6 +8688,19 @@ pub mod stream {
             })
         }
 
+        /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
+        /// if it holds a `SalesforceExcludedObjects`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn get_salesforce_excluded_objects(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceOrg>> {
+            #[allow(unreachable_patterns)]
+            self.excluded_objects.as_ref().and_then(|v| match v {
+                crate::model::stream::backfill_all_strategy::ExcludedObjects::SalesforceExcludedObjects(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
         /// to hold a `OracleExcludedObjects`.
         ///
@@ -7876,6 +8776,25 @@ pub mod stream {
             );
             self
         }
+
+        /// Sets the value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
+        /// to hold a `SalesforceExcludedObjects`.
+        ///
+        /// Note that all the setters affecting `excluded_objects` are
+        /// mutually exclusive.
+        pub fn set_salesforce_excluded_objects<
+            T: std::convert::Into<std::boxed::Box<crate::model::SalesforceOrg>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.excluded_objects = std::option::Option::Some(
+                crate::model::stream::backfill_all_strategy::ExcludedObjects::SalesforceExcludedObjects(
+                    v.into()
+                )
+            );
+            self
+        }
     }
 
     impl wkt::message::Message for BackfillAllStrategy {
@@ -7902,6 +8821,8 @@ pub mod stream {
             PostgresqlExcludedObjects(std::boxed::Box<crate::model::PostgresqlRdbms>),
             /// SQLServer data source objects to avoid backfilling
             SqlServerExcludedObjects(std::boxed::Box<crate::model::SqlServerRdbms>),
+            /// Salesforce data source objects to avoid backfilling
+            SalesforceExcludedObjects(std::boxed::Box<crate::model::SalesforceOrg>),
         }
     }
 
@@ -8236,6 +9157,23 @@ impl SourceObjectIdentifier {
         })
     }
 
+    /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
+    /// if it holds a `SalesforceIdentifier`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_salesforce_identifier(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::source_object_identifier::SalesforceObjectIdentifier>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.source_identifier.as_ref().and_then(|v| match v {
+            crate::model::source_object_identifier::SourceIdentifier::SalesforceIdentifier(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
     /// to hold a `OracleIdentifier`.
     ///
@@ -8310,6 +9248,27 @@ impl SourceObjectIdentifier {
     ) -> Self {
         self.source_identifier = std::option::Option::Some(
             crate::model::source_object_identifier::SourceIdentifier::SqlServerIdentifier(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
+    /// to hold a `SalesforceIdentifier`.
+    ///
+    /// Note that all the setters affecting `source_identifier` are
+    /// mutually exclusive.
+    pub fn set_salesforce_identifier<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::source_object_identifier::SalesforceObjectIdentifier>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_identifier = std::option::Option::Some(
+            crate::model::source_object_identifier::SourceIdentifier::SalesforceIdentifier(
+                v.into(),
+            ),
         );
         self
     }
@@ -8482,6 +9441,35 @@ pub mod source_object_identifier {
         }
     }
 
+    /// Salesforce data source object identifier.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct SalesforceObjectIdentifier {
+        /// Required. The object name.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub object_name: std::string::String,
+    }
+
+    impl SalesforceObjectIdentifier {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [object_name][crate::model::source_object_identifier::SalesforceObjectIdentifier::object_name].
+        pub fn set_object_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.object_name = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for SalesforceObjectIdentifier {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.datastream.v1.SourceObjectIdentifier.SalesforceObjectIdentifier"
+        }
+    }
+
     /// The identifier for an object in the data source.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -8502,6 +9490,10 @@ pub mod source_object_identifier {
         /// SQLServer data source object identifier.
         SqlServerIdentifier(
             std::boxed::Box<crate::model::source_object_identifier::SqlServerObjectIdentifier>,
+        ),
+        /// Salesforce data source object identifier.
+        SalesforceIdentifier(
+            std::boxed::Box<crate::model::source_object_identifier::SalesforceObjectIdentifier>,
         ),
     }
 }
@@ -9374,6 +10366,19 @@ pub mod cdc_strategy {
             })
         }
 
+        /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
+        /// if it holds a `MysqlGtidPosition`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn get_mysql_gtid_position(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlGtidPosition>> {
+            #[allow(unreachable_patterns)]
+            self.position.as_ref().and_then(|v| match v {
+                crate::model::cdc_strategy::specific_start_position::Position::MysqlGtidPosition(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
         /// to hold a `MysqlLogPosition`.
         ///
@@ -9430,6 +10435,25 @@ pub mod cdc_strategy {
             );
             self
         }
+
+        /// Sets the value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
+        /// to hold a `MysqlGtidPosition`.
+        ///
+        /// Note that all the setters affecting `position` are
+        /// mutually exclusive.
+        pub fn set_mysql_gtid_position<
+            T: std::convert::Into<std::boxed::Box<crate::model::MysqlGtidPosition>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.position = std::option::Option::Some(
+                crate::model::cdc_strategy::specific_start_position::Position::MysqlGtidPosition(
+                    v.into(),
+                ),
+            );
+            self
+        }
     }
 
     impl wkt::message::Message for SpecificStartPosition {
@@ -9453,6 +10477,8 @@ pub mod cdc_strategy {
             OracleScnPosition(std::boxed::Box<crate::model::OracleScnPosition>),
             /// SqlServer LSN to start replicating from.
             SqlServerLsnPosition(std::boxed::Box<crate::model::SqlServerLsnPosition>),
+            /// MySQL GTID set to start replicating from.
+            MysqlGtidPosition(std::boxed::Box<crate::model::MysqlGtidPosition>),
         }
     }
 
@@ -9574,5 +10600,34 @@ impl MysqlLogPosition {
 impl wkt::message::Message for MysqlLogPosition {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.datastream.v1.MysqlLogPosition"
+    }
+}
+
+/// MySQL GTID position
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MysqlGtidPosition {
+    /// Required. The gtid set to start replication from.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub gtid_set: std::string::String,
+}
+
+impl MysqlGtidPosition {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [gtid_set][crate::model::MysqlGtidPosition::gtid_set].
+    pub fn set_gtid_set<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.gtid_set = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MysqlGtidPosition {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.MysqlGtidPosition"
     }
 }
