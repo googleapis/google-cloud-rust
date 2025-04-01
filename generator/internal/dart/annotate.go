@@ -645,6 +645,7 @@ func (annotate *annotateModel) fieldType(f *api.Field) string {
 			slog.Error("unable to lookup type", "id", f.TypezID)
 			return ""
 		}
+		annotate.updateUsedPackages(e.Package)
 		out = enumName(e)
 	default:
 		slog.Error("unhandled fieldType", "type", f.Typez, "id", f.TypezID)
@@ -667,13 +668,22 @@ func (annotate *annotateModel) resolveTypeName(message *api.Message) string {
 		return "void"
 	}
 
-	// Use the packageMapping info to add any necessary import.
-	dartImport, ok := annotate.packageMapping[message.Package]
-	if ok {
-		annotate.imports[message.Package] = dartImport
-	}
+	annotate.updateUsedPackages(message.Package)
 
 	return messageName(message)
+}
+
+func (annotate *annotateModel) updateUsedPackages(packageName string) {
+	selfReference := annotate.model.PackageName == packageName
+	if !selfReference {
+		// Use the packageMapping info to add any necessary import.
+		dartImport, ok := annotate.packageMapping[packageName]
+		if ok {
+			annotate.imports[packageName] = dartImport
+		} else {
+			println("missing proto package mapping: " + packageName)
+		}
+	}
 }
 
 func registerMissingWkt(state *api.APIState) {
