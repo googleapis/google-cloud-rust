@@ -74,11 +74,6 @@ partitoned   = "partitoned"
 identifiy = "identifiy"
 # src/generated/cloud/dataproc/v1, has some typos, they need to be fixed upstream.
 andd = "andd"
-# src/generated/cloud/datastream/v1, has some typos, they need to be fixed upstream.
-resoource = "resoource"
-# src/generated/cloud/deploy/v1, has some typos, they need to be fixed upstream.
-alloted     = "alloted"
-facilitiate = "facilitiate"
 # src/generated/functions/v1 has some typos, they need to be fixed upstream.
 oder     = "oder"
 Regsitry = "Regsitry"
@@ -103,13 +98,8 @@ abolute  = "abolute"
 # src/generated/cloud/dialogflow/cx/v3 has typos, they need to be fixed
 # upstream.
 verion = "verion"
-# src/generated/cloud/discoveryengine/v1 has typos, they need to be fixed
-# upstream.
-asscociated = "asscociated"
-launguage   = "launguage"
-simliar     = "simliar"
-inputed     = "inputed"     # probably mean input-ed
-maxiumn     = "maxiumn"
+# src/generated/cloud/discoveryengine/v1 has a borderline word.
+inputed = "inputed"
 # src/generated/cloud/edgenetwork/v1 has a typo, it needs to be fixed upstream.
 diagnositcs = "diagnositcs"
 # src/generated/cloud/eventarc/v1 has a typo, it needs to be fixed upstream.
@@ -134,6 +124,7 @@ Insepction = "Insepction"
 # src/generated/cloud/networkconnectivity has a typo, it needs to be fixed
 # upstream.
 flexibile = "flexibile"
+throuh = "throuh"
 # src/generated/cloud/networkservices/v1 has a typo, it needs to be fixed
 # upstream.
 forwareded = "forwareded"
@@ -147,15 +138,9 @@ preemptable = "preemptable"
 # src/generated/cloud/orgpolicy/v1 has typos, they need to be fixed upstream.
 settting   = "settting"
 supercedes = "supercedes"
-# src/generated/cloud/orchestration/airflow/service/v1 has a typo, it needs to
-# be fixed upstream.
-specifc = "specifc"
 # src/generated/cloud/parametermanager/v1 has a typo, it needs to be fixed
 # upstream.
 substituion = "substituion"
-# src/generated/cloud/rapidmigrationassessment/v1 has a typo, it needs to be
-# fixed upstream
-thorugh = "thorugh"
 # src/generated/cloud/redis/cluster/v1 has some typos, they need to be fixed
 # upstream.
 enpoints   = "enpoints"
