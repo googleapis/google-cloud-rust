@@ -38,8 +38,7 @@ pub async fn run(builder: ta::builder::telco_automation::ClientBuilder) -> Resul
         .send()
         .await;
     let err = response
-        .err()
-        .expect("expect an error, the service should be disabled in integration test projects");
+        .expect_err("expect an error, the service should be disabled in integration test projects");
     let svcerror = err.as_inner::<gax::error::ServiceError>().expect(
         "expect a service error, Google Cloud returns service errors for disabled services",
     );
