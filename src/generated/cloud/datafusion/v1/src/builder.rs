@@ -67,7 +67,7 @@ pub mod data_fusion {
         }
     }
 
-    /// The request builder for a DataFusion::list_available_versions call.
+    /// The request builder for [DataFusion::list_available_versions][super::super::client::DataFusion::list_available_versions] calls.
     #[derive(Clone, Debug)]
     pub struct ListAvailableVersions(RequestBuilder<crate::model::ListAvailableVersionsRequest>);
 
@@ -145,7 +145,7 @@ pub mod data_fusion {
         }
     }
 
-    /// The request builder for a DataFusion::list_instances call.
+    /// The request builder for [DataFusion::list_instances][super::super::client::DataFusion::list_instances] calls.
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
@@ -226,7 +226,7 @@ pub mod data_fusion {
         }
     }
 
-    /// The request builder for a DataFusion::get_instance call.
+    /// The request builder for [DataFusion::get_instance][super::super::client::DataFusion::get_instance] calls.
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
@@ -268,7 +268,7 @@ pub mod data_fusion {
         }
     }
 
-    /// The request builder for a DataFusion::create_instance call.
+    /// The request builder for [DataFusion::create_instance][super::super::client::DataFusion::create_instance] calls.
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
@@ -363,7 +363,7 @@ pub mod data_fusion {
         }
     }
 
-    /// The request builder for a DataFusion::delete_instance call.
+    /// The request builder for [DataFusion::delete_instance][super::super::client::DataFusion::delete_instance] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
@@ -440,7 +440,7 @@ pub mod data_fusion {
         }
     }
 
-    /// The request builder for a DataFusion::update_instance call.
+    /// The request builder for [DataFusion::update_instance][super::super::client::DataFusion::update_instance] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
@@ -532,7 +532,7 @@ pub mod data_fusion {
         }
     }
 
-    /// The request builder for a DataFusion::restart_instance call.
+    /// The request builder for [DataFusion::restart_instance][super::super::client::DataFusion::restart_instance] calls.
     #[derive(Clone, Debug)]
     pub struct RestartInstance(RequestBuilder<crate::model::RestartInstanceRequest>);
 
@@ -612,7 +612,7 @@ pub mod data_fusion {
         }
     }
 
-    /// The request builder for a DataFusion::list_operations call.
+    /// The request builder for [DataFusion::list_operations][super::super::client::DataFusion::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -690,7 +690,7 @@ pub mod data_fusion {
         }
     }
 
-    /// The request builder for a DataFusion::get_operation call.
+    /// The request builder for [DataFusion::get_operation][super::super::client::DataFusion::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -735,7 +735,7 @@ pub mod data_fusion {
         }
     }
 
-    /// The request builder for a DataFusion::delete_operation call.
+    /// The request builder for [DataFusion::delete_operation][super::super::client::DataFusion::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -780,7 +780,7 @@ pub mod data_fusion {
         }
     }
 
-    /// The request builder for a DataFusion::cancel_operation call.
+    /// The request builder for [DataFusion::cancel_operation][super::super::client::DataFusion::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

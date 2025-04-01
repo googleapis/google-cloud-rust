@@ -67,7 +67,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for a FunctionService::get_function call.
+    /// The request builder for [FunctionService::get_function][super::super::client::FunctionService::get_function] calls.
     #[derive(Clone, Debug)]
     pub struct GetFunction(RequestBuilder<crate::model::GetFunctionRequest>);
 
@@ -115,7 +115,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for a FunctionService::list_functions call.
+    /// The request builder for [FunctionService::list_functions][super::super::client::FunctionService::list_functions] calls.
     #[derive(Clone, Debug)]
     pub struct ListFunctions(RequestBuilder<crate::model::ListFunctionsRequest>);
 
@@ -196,7 +196,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for a FunctionService::create_function call.
+    /// The request builder for [FunctionService::create_function][super::super::client::FunctionService::create_function] calls.
     #[derive(Clone, Debug)]
     pub struct CreateFunction(RequestBuilder<crate::model::CreateFunctionRequest>);
 
@@ -291,7 +291,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for a FunctionService::update_function call.
+    /// The request builder for [FunctionService::update_function][super::super::client::FunctionService::update_function] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateFunction(RequestBuilder<crate::model::UpdateFunctionRequest>);
 
@@ -383,7 +383,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for a FunctionService::delete_function call.
+    /// The request builder for [FunctionService::delete_function][super::super::client::FunctionService::delete_function] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteFunction(RequestBuilder<crate::model::DeleteFunctionRequest>);
 
@@ -460,7 +460,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for a FunctionService::generate_upload_url call.
+    /// The request builder for [FunctionService::generate_upload_url][super::super::client::FunctionService::generate_upload_url] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateUploadUrl(RequestBuilder<crate::model::GenerateUploadUrlRequest>);
 
@@ -517,7 +517,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for a FunctionService::generate_download_url call.
+    /// The request builder for [FunctionService::generate_download_url][super::super::client::FunctionService::generate_download_url] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateDownloadUrl(RequestBuilder<crate::model::GenerateDownloadUrlRequest>);
 
@@ -562,7 +562,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for a FunctionService::list_runtimes call.
+    /// The request builder for [FunctionService::list_runtimes][super::super::client::FunctionService::list_runtimes] calls.
     #[derive(Clone, Debug)]
     pub struct ListRuntimes(RequestBuilder<crate::model::ListRuntimesRequest>);
 
@@ -610,7 +610,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for a FunctionService::list_locations call.
+    /// The request builder for [FunctionService::list_locations][super::super::client::FunctionService::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -688,7 +688,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for a FunctionService::set_iam_policy call.
+    /// The request builder for [FunctionService::set_iam_policy][super::super::client::FunctionService::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -748,7 +748,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for a FunctionService::get_iam_policy call.
+    /// The request builder for [FunctionService::get_iam_policy][super::super::client::FunctionService::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -799,7 +799,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for a FunctionService::test_iam_permissions call.
+    /// The request builder for [FunctionService::test_iam_permissions][super::super::client::FunctionService::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -855,7 +855,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for a FunctionService::list_operations call.
+    /// The request builder for [FunctionService::list_operations][super::super::client::FunctionService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -933,7 +933,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for a FunctionService::get_operation call.
+    /// The request builder for [FunctionService::get_operation][super::super::client::FunctionService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

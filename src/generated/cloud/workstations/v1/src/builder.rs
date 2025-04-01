@@ -67,7 +67,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::get_workstation_cluster call.
+    /// The request builder for [Workstations::get_workstation_cluster][super::super::client::Workstations::get_workstation_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct GetWorkstationCluster(RequestBuilder<crate::model::GetWorkstationClusterRequest>);
 
@@ -112,7 +112,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::list_workstation_clusters call.
+    /// The request builder for [Workstations::list_workstation_clusters][super::super::client::Workstations::list_workstation_clusters] calls.
     #[derive(Clone, Debug)]
     pub struct ListWorkstationClusters(
         RequestBuilder<crate::model::ListWorkstationClustersRequest>,
@@ -188,7 +188,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::create_workstation_cluster call.
+    /// The request builder for [Workstations::create_workstation_cluster][super::super::client::Workstations::create_workstation_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct CreateWorkstationCluster(
         RequestBuilder<crate::model::CreateWorkstationClusterRequest>,
@@ -297,7 +297,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::update_workstation_cluster call.
+    /// The request builder for [Workstations::update_workstation_cluster][super::super::client::Workstations::update_workstation_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateWorkstationCluster(
         RequestBuilder<crate::model::UpdateWorkstationClusterRequest>,
@@ -409,7 +409,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::delete_workstation_cluster call.
+    /// The request builder for [Workstations::delete_workstation_cluster][super::super::client::Workstations::delete_workstation_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteWorkstationCluster(
         RequestBuilder<crate::model::DeleteWorkstationClusterRequest>,
@@ -513,7 +513,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::get_workstation_config call.
+    /// The request builder for [Workstations::get_workstation_config][super::super::client::Workstations::get_workstation_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetWorkstationConfig(RequestBuilder<crate::model::GetWorkstationConfigRequest>);
 
@@ -558,7 +558,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::list_workstation_configs call.
+    /// The request builder for [Workstations::list_workstation_configs][super::super::client::Workstations::list_workstation_configs] calls.
     #[derive(Clone, Debug)]
     pub struct ListWorkstationConfigs(RequestBuilder<crate::model::ListWorkstationConfigsRequest>);
 
@@ -632,7 +632,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::list_usable_workstation_configs call.
+    /// The request builder for [Workstations::list_usable_workstation_configs][super::super::client::Workstations::list_usable_workstation_configs] calls.
     #[derive(Clone, Debug)]
     pub struct ListUsableWorkstationConfigs(
         RequestBuilder<crate::model::ListUsableWorkstationConfigsRequest>,
@@ -708,7 +708,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::create_workstation_config call.
+    /// The request builder for [Workstations::create_workstation_config][super::super::client::Workstations::create_workstation_config] calls.
     #[derive(Clone, Debug)]
     pub struct CreateWorkstationConfig(
         RequestBuilder<crate::model::CreateWorkstationConfigRequest>,
@@ -817,7 +817,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::update_workstation_config call.
+    /// The request builder for [Workstations::update_workstation_config][super::super::client::Workstations::update_workstation_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateWorkstationConfig(
         RequestBuilder<crate::model::UpdateWorkstationConfigRequest>,
@@ -929,7 +929,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::delete_workstation_config call.
+    /// The request builder for [Workstations::delete_workstation_config][super::super::client::Workstations::delete_workstation_config] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteWorkstationConfig(
         RequestBuilder<crate::model::DeleteWorkstationConfigRequest>,
@@ -1033,7 +1033,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::get_workstation call.
+    /// The request builder for [Workstations::get_workstation][super::super::client::Workstations::get_workstation] calls.
     #[derive(Clone, Debug)]
     pub struct GetWorkstation(RequestBuilder<crate::model::GetWorkstationRequest>);
 
@@ -1075,7 +1075,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::list_workstations call.
+    /// The request builder for [Workstations::list_workstations][super::super::client::Workstations::list_workstations] calls.
     #[derive(Clone, Debug)]
     pub struct ListWorkstations(RequestBuilder<crate::model::ListWorkstationsRequest>);
 
@@ -1147,7 +1147,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::list_usable_workstations call.
+    /// The request builder for [Workstations::list_usable_workstations][super::super::client::Workstations::list_usable_workstations] calls.
     #[derive(Clone, Debug)]
     pub struct ListUsableWorkstations(RequestBuilder<crate::model::ListUsableWorkstationsRequest>);
 
@@ -1221,7 +1221,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::create_workstation call.
+    /// The request builder for [Workstations::create_workstation][super::super::client::Workstations::create_workstation] calls.
     #[derive(Clone, Debug)]
     pub struct CreateWorkstation(RequestBuilder<crate::model::CreateWorkstationRequest>);
 
@@ -1325,7 +1325,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::update_workstation call.
+    /// The request builder for [Workstations::update_workstation][super::super::client::Workstations::update_workstation] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateWorkstation(RequestBuilder<crate::model::UpdateWorkstationRequest>);
 
@@ -1432,7 +1432,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::delete_workstation call.
+    /// The request builder for [Workstations::delete_workstation][super::super::client::Workstations::delete_workstation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteWorkstation(RequestBuilder<crate::model::DeleteWorkstationRequest>);
 
@@ -1527,7 +1527,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::start_workstation call.
+    /// The request builder for [Workstations::start_workstation][super::super::client::Workstations::start_workstation] calls.
     #[derive(Clone, Debug)]
     pub struct StartWorkstation(RequestBuilder<crate::model::StartWorkstationRequest>);
 
@@ -1622,7 +1622,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::stop_workstation call.
+    /// The request builder for [Workstations::stop_workstation][super::super::client::Workstations::stop_workstation] calls.
     #[derive(Clone, Debug)]
     pub struct StopWorkstation(RequestBuilder<crate::model::StopWorkstationRequest>);
 
@@ -1714,7 +1714,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::generate_access_token call.
+    /// The request builder for [Workstations::generate_access_token][super::super::client::Workstations::generate_access_token] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateAccessToken(RequestBuilder<crate::model::GenerateAccessTokenRequest>);
 
@@ -1770,7 +1770,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::set_iam_policy call.
+    /// The request builder for [Workstations::set_iam_policy][super::super::client::Workstations::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1830,7 +1830,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::get_iam_policy call.
+    /// The request builder for [Workstations::get_iam_policy][super::super::client::Workstations::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1881,7 +1881,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::test_iam_permissions call.
+    /// The request builder for [Workstations::test_iam_permissions][super::super::client::Workstations::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1937,7 +1937,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::list_operations call.
+    /// The request builder for [Workstations::list_operations][super::super::client::Workstations::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2015,7 +2015,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::get_operation call.
+    /// The request builder for [Workstations::get_operation][super::super::client::Workstations::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2060,7 +2060,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::delete_operation call.
+    /// The request builder for [Workstations::delete_operation][super::super::client::Workstations::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2105,7 +2105,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for a Workstations::cancel_operation call.
+    /// The request builder for [Workstations::cancel_operation][super::super::client::Workstations::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

@@ -67,7 +67,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for a DataTransferService::get_data_source call.
+    /// The request builder for [DataTransferService::get_data_source][super::super::client::DataTransferService::get_data_source] calls.
     #[derive(Clone, Debug)]
     pub struct GetDataSource(RequestBuilder<crate::model::GetDataSourceRequest>);
 
@@ -109,7 +109,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for a DataTransferService::list_data_sources call.
+    /// The request builder for [DataTransferService::list_data_sources][super::super::client::DataTransferService::list_data_sources] calls.
     #[derive(Clone, Debug)]
     pub struct ListDataSources(RequestBuilder<crate::model::ListDataSourcesRequest>);
 
@@ -178,7 +178,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for a DataTransferService::create_transfer_config call.
+    /// The request builder for [DataTransferService::create_transfer_config][super::super::client::DataTransferService::create_transfer_config] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTransferConfig(RequestBuilder<crate::model::CreateTransferConfigRequest>);
 
@@ -250,7 +250,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for a DataTransferService::update_transfer_config call.
+    /// The request builder for [DataTransferService::update_transfer_config][super::super::client::DataTransferService::update_transfer_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateTransferConfig(RequestBuilder<crate::model::UpdateTransferConfigRequest>);
 
@@ -325,7 +325,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for a DataTransferService::delete_transfer_config call.
+    /// The request builder for [DataTransferService::delete_transfer_config][super::super::client::DataTransferService::delete_transfer_config] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTransferConfig(RequestBuilder<crate::model::DeleteTransferConfigRequest>);
 
@@ -370,7 +370,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for a DataTransferService::get_transfer_config call.
+    /// The request builder for [DataTransferService::get_transfer_config][super::super::client::DataTransferService::get_transfer_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetTransferConfig(RequestBuilder<crate::model::GetTransferConfigRequest>);
 
@@ -415,7 +415,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for a DataTransferService::list_transfer_configs call.
+    /// The request builder for [DataTransferService::list_transfer_configs][super::super::client::DataTransferService::list_transfer_configs] calls.
     #[derive(Clone, Debug)]
     pub struct ListTransferConfigs(RequestBuilder<crate::model::ListTransferConfigsRequest>);
 
@@ -498,7 +498,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for a DataTransferService::schedule_transfer_runs call.
+    /// The request builder for [DataTransferService::schedule_transfer_runs][super::super::client::DataTransferService::schedule_transfer_runs] calls.
     #[derive(Clone, Debug)]
     pub struct ScheduleTransferRuns(RequestBuilder<crate::model::ScheduleTransferRunsRequest>);
 
@@ -558,7 +558,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for a DataTransferService::start_manual_transfer_runs call.
+    /// The request builder for [DataTransferService::start_manual_transfer_runs][super::super::client::DataTransferService::start_manual_transfer_runs] calls.
     #[derive(Clone, Debug)]
     pub struct StartManualTransferRuns(
         RequestBuilder<crate::model::StartManualTransferRunsRequest>,
@@ -614,7 +614,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for a DataTransferService::get_transfer_run call.
+    /// The request builder for [DataTransferService::get_transfer_run][super::super::client::DataTransferService::get_transfer_run] calls.
     #[derive(Clone, Debug)]
     pub struct GetTransferRun(RequestBuilder<crate::model::GetTransferRunRequest>);
 
@@ -656,7 +656,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for a DataTransferService::delete_transfer_run call.
+    /// The request builder for [DataTransferService::delete_transfer_run][super::super::client::DataTransferService::delete_transfer_run] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTransferRun(RequestBuilder<crate::model::DeleteTransferRunRequest>);
 
@@ -701,7 +701,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for a DataTransferService::list_transfer_runs call.
+    /// The request builder for [DataTransferService::list_transfer_runs][super::super::client::DataTransferService::list_transfer_runs] calls.
     #[derive(Clone, Debug)]
     pub struct ListTransferRuns(RequestBuilder<crate::model::ListTransferRunsRequest>);
 
@@ -793,7 +793,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for a DataTransferService::list_transfer_logs call.
+    /// The request builder for [DataTransferService::list_transfer_logs][super::super::client::DataTransferService::list_transfer_logs] calls.
     #[derive(Clone, Debug)]
     pub struct ListTransferLogs(RequestBuilder<crate::model::ListTransferLogsRequest>);
 
@@ -876,7 +876,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for a DataTransferService::check_valid_creds call.
+    /// The request builder for [DataTransferService::check_valid_creds][super::super::client::DataTransferService::check_valid_creds] calls.
     #[derive(Clone, Debug)]
     pub struct CheckValidCreds(RequestBuilder<crate::model::CheckValidCredsRequest>);
 
@@ -918,7 +918,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for a DataTransferService::enroll_data_sources call.
+    /// The request builder for [DataTransferService::enroll_data_sources][super::super::client::DataTransferService::enroll_data_sources] calls.
     #[derive(Clone, Debug)]
     pub struct EnrollDataSources(RequestBuilder<crate::model::EnrollDataSourcesRequest>);
 
@@ -974,7 +974,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for a DataTransferService::unenroll_data_sources call.
+    /// The request builder for [DataTransferService::unenroll_data_sources][super::super::client::DataTransferService::unenroll_data_sources] calls.
     #[derive(Clone, Debug)]
     pub struct UnenrollDataSources(RequestBuilder<crate::model::UnenrollDataSourcesRequest>);
 
@@ -1030,7 +1030,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for a DataTransferService::list_locations call.
+    /// The request builder for [DataTransferService::list_locations][super::super::client::DataTransferService::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1108,7 +1108,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for a DataTransferService::get_location call.
+    /// The request builder for [DataTransferService::get_location][super::super::client::DataTransferService::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 

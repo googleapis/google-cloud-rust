@@ -67,7 +67,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::list_clusters call.
+    /// The request builder for [ClusterManager::list_clusters][super::super::client::ClusterManager::list_clusters] calls.
     #[derive(Clone, Debug)]
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
@@ -121,7 +121,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::get_cluster call.
+    /// The request builder for [ClusterManager::get_cluster][super::super::client::ClusterManager::get_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
@@ -181,7 +181,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::create_cluster call.
+    /// The request builder for [ClusterManager::create_cluster][super::super::client::ClusterManager::create_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
@@ -244,7 +244,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::update_cluster call.
+    /// The request builder for [ClusterManager::update_cluster][super::super::client::ClusterManager::update_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
@@ -313,7 +313,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::update_node_pool call.
+    /// The request builder for [ClusterManager::update_node_pool][super::super::client::ClusterManager::update_node_pool] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateNodePool(RequestBuilder<crate::model::UpdateNodePoolRequest>);
 
@@ -630,7 +630,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::set_node_pool_autoscaling call.
+    /// The request builder for [ClusterManager::set_node_pool_autoscaling][super::super::client::ClusterManager::set_node_pool_autoscaling] calls.
     #[derive(Clone, Debug)]
     pub struct SetNodePoolAutoscaling(RequestBuilder<crate::model::SetNodePoolAutoscalingRequest>);
 
@@ -708,7 +708,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::set_logging_service call.
+    /// The request builder for [ClusterManager::set_logging_service][super::super::client::ClusterManager::set_logging_service] calls.
     #[derive(Clone, Debug)]
     pub struct SetLoggingService(RequestBuilder<crate::model::SetLoggingServiceRequest>);
 
@@ -777,7 +777,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::set_monitoring_service call.
+    /// The request builder for [ClusterManager::set_monitoring_service][super::super::client::ClusterManager::set_monitoring_service] calls.
     #[derive(Clone, Debug)]
     pub struct SetMonitoringService(RequestBuilder<crate::model::SetMonitoringServiceRequest>);
 
@@ -846,7 +846,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::set_addons_config call.
+    /// The request builder for [ClusterManager::set_addons_config][super::super::client::ClusterManager::set_addons_config] calls.
     #[derive(Clone, Debug)]
     pub struct SetAddonsConfig(RequestBuilder<crate::model::SetAddonsConfigRequest>);
 
@@ -915,7 +915,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::set_locations call.
+    /// The request builder for [ClusterManager::set_locations][super::super::client::ClusterManager::set_locations] calls.
     #[derive(Clone, Debug)]
     pub struct SetLocations(RequestBuilder<crate::model::SetLocationsRequest>);
 
@@ -986,7 +986,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::update_master call.
+    /// The request builder for [ClusterManager::update_master][super::super::client::ClusterManager::update_master] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateMaster(RequestBuilder<crate::model::UpdateMasterRequest>);
 
@@ -1052,7 +1052,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::set_master_auth call.
+    /// The request builder for [ClusterManager::set_master_auth][super::super::client::ClusterManager::set_master_auth] calls.
     #[derive(Clone, Debug)]
     pub struct SetMasterAuth(RequestBuilder<crate::model::SetMasterAuthRequest>);
 
@@ -1130,7 +1130,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::delete_cluster call.
+    /// The request builder for [ClusterManager::delete_cluster][super::super::client::ClusterManager::delete_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
@@ -1190,7 +1190,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::list_operations call.
+    /// The request builder for [ClusterManager::list_operations][super::super::client::ClusterManager::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<crate::model::ListOperationsRequest>);
 
@@ -1244,7 +1244,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::get_operation call.
+    /// The request builder for [ClusterManager::get_operation][super::super::client::ClusterManager::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<crate::model::GetOperationRequest>);
 
@@ -1304,7 +1304,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::cancel_operation call.
+    /// The request builder for [ClusterManager::cancel_operation][super::super::client::ClusterManager::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<crate::model::CancelOperationRequest>);
 
@@ -1364,7 +1364,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::get_server_config call.
+    /// The request builder for [ClusterManager::get_server_config][super::super::client::ClusterManager::get_server_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetServerConfig(RequestBuilder<crate::model::GetServerConfigRequest>);
 
@@ -1418,7 +1418,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::get_json_web_keys call.
+    /// The request builder for [ClusterManager::get_json_web_keys][super::super::client::ClusterManager::get_json_web_keys] calls.
     #[derive(Clone, Debug)]
     pub struct GetJSONWebKeys(RequestBuilder<crate::model::GetJSONWebKeysRequest>);
 
@@ -1460,7 +1460,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::list_node_pools call.
+    /// The request builder for [ClusterManager::list_node_pools][super::super::client::ClusterManager::list_node_pools] calls.
     #[derive(Clone, Debug)]
     pub struct ListNodePools(RequestBuilder<crate::model::ListNodePoolsRequest>);
 
@@ -1520,7 +1520,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::get_node_pool call.
+    /// The request builder for [ClusterManager::get_node_pool][super::super::client::ClusterManager::get_node_pool] calls.
     #[derive(Clone, Debug)]
     pub struct GetNodePool(RequestBuilder<crate::model::GetNodePoolRequest>);
 
@@ -1586,7 +1586,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::create_node_pool call.
+    /// The request builder for [ClusterManager::create_node_pool][super::super::client::ClusterManager::create_node_pool] calls.
     #[derive(Clone, Debug)]
     pub struct CreateNodePool(RequestBuilder<crate::model::CreateNodePoolRequest>);
 
@@ -1655,7 +1655,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::delete_node_pool call.
+    /// The request builder for [ClusterManager::delete_node_pool][super::super::client::ClusterManager::delete_node_pool] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteNodePool(RequestBuilder<crate::model::DeleteNodePoolRequest>);
 
@@ -1721,7 +1721,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::complete_node_pool_upgrade call.
+    /// The request builder for [ClusterManager::complete_node_pool_upgrade][super::super::client::ClusterManager::complete_node_pool_upgrade] calls.
     #[derive(Clone, Debug)]
     pub struct CompleteNodePoolUpgrade(
         RequestBuilder<crate::model::CompleteNodePoolUpgradeRequest>,
@@ -1768,7 +1768,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::rollback_node_pool_upgrade call.
+    /// The request builder for [ClusterManager::rollback_node_pool_upgrade][super::super::client::ClusterManager::rollback_node_pool_upgrade] calls.
     #[derive(Clone, Debug)]
     pub struct RollbackNodePoolUpgrade(
         RequestBuilder<crate::model::RollbackNodePoolUpgradeRequest>,
@@ -1845,7 +1845,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::set_node_pool_management call.
+    /// The request builder for [ClusterManager::set_node_pool_management][super::super::client::ClusterManager::set_node_pool_management] calls.
     #[derive(Clone, Debug)]
     pub struct SetNodePoolManagement(RequestBuilder<crate::model::SetNodePoolManagementRequest>);
 
@@ -1923,7 +1923,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::set_labels call.
+    /// The request builder for [ClusterManager::set_labels][super::super::client::ClusterManager::set_labels] calls.
     #[derive(Clone, Debug)]
     pub struct SetLabels(RequestBuilder<crate::model::SetLabelsRequest>);
 
@@ -2001,7 +2001,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::set_legacy_abac call.
+    /// The request builder for [ClusterManager::set_legacy_abac][super::super::client::ClusterManager::set_legacy_abac] calls.
     #[derive(Clone, Debug)]
     pub struct SetLegacyAbac(RequestBuilder<crate::model::SetLegacyAbacRequest>);
 
@@ -2067,7 +2067,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::start_ip_rotation call.
+    /// The request builder for [ClusterManager::start_ip_rotation][super::super::client::ClusterManager::start_ip_rotation] calls.
     #[derive(Clone, Debug)]
     pub struct StartIPRotation(RequestBuilder<crate::model::StartIPRotationRequest>);
 
@@ -2133,7 +2133,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::complete_ip_rotation call.
+    /// The request builder for [ClusterManager::complete_ip_rotation][super::super::client::ClusterManager::complete_ip_rotation] calls.
     #[derive(Clone, Debug)]
     pub struct CompleteIPRotation(RequestBuilder<crate::model::CompleteIPRotationRequest>);
 
@@ -2196,7 +2196,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::set_node_pool_size call.
+    /// The request builder for [ClusterManager::set_node_pool_size][super::super::client::ClusterManager::set_node_pool_size] calls.
     #[derive(Clone, Debug)]
     pub struct SetNodePoolSize(RequestBuilder<crate::model::SetNodePoolSizeRequest>);
 
@@ -2268,7 +2268,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::set_network_policy call.
+    /// The request builder for [ClusterManager::set_network_policy][super::super::client::ClusterManager::set_network_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetNetworkPolicy(RequestBuilder<crate::model::SetNetworkPolicyRequest>);
 
@@ -2340,7 +2340,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::set_maintenance_policy call.
+    /// The request builder for [ClusterManager::set_maintenance_policy][super::super::client::ClusterManager::set_maintenance_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetMaintenancePolicy(RequestBuilder<crate::model::SetMaintenancePolicyRequest>);
 
@@ -2414,7 +2414,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::list_usable_subnetworks call.
+    /// The request builder for [ClusterManager::list_usable_subnetworks][super::super::client::ClusterManager::list_usable_subnetworks] calls.
     #[derive(Clone, Debug)]
     pub struct ListUsableSubnetworks(RequestBuilder<crate::model::ListUsableSubnetworksRequest>);
 
@@ -2492,7 +2492,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for a ClusterManager::check_autopilot_compatibility call.
+    /// The request builder for [ClusterManager::check_autopilot_compatibility][super::super::client::ClusterManager::check_autopilot_compatibility] calls.
     #[derive(Clone, Debug)]
     pub struct CheckAutopilotCompatibility(
         RequestBuilder<crate::model::CheckAutopilotCompatibilityRequest>,

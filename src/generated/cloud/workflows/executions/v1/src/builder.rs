@@ -67,7 +67,7 @@ pub mod executions {
         }
     }
 
-    /// The request builder for a Executions::list_executions call.
+    /// The request builder for [Executions::list_executions][super::super::client::Executions::list_executions] calls.
     #[derive(Clone, Debug)]
     pub struct ListExecutions(RequestBuilder<crate::model::ListExecutionsRequest>);
 
@@ -154,7 +154,7 @@ pub mod executions {
         }
     }
 
-    /// The request builder for a Executions::create_execution call.
+    /// The request builder for [Executions::create_execution][super::super::client::Executions::create_execution] calls.
     #[derive(Clone, Debug)]
     pub struct CreateExecution(RequestBuilder<crate::model::CreateExecutionRequest>);
 
@@ -205,7 +205,7 @@ pub mod executions {
         }
     }
 
-    /// The request builder for a Executions::get_execution call.
+    /// The request builder for [Executions::get_execution][super::super::client::Executions::get_execution] calls.
     #[derive(Clone, Debug)]
     pub struct GetExecution(RequestBuilder<crate::model::GetExecutionRequest>);
 
@@ -253,7 +253,7 @@ pub mod executions {
         }
     }
 
-    /// The request builder for a Executions::cancel_execution call.
+    /// The request builder for [Executions::cancel_execution][super::super::client::Executions::cancel_execution] calls.
     #[derive(Clone, Debug)]
     pub struct CancelExecution(RequestBuilder<crate::model::CancelExecutionRequest>);
 

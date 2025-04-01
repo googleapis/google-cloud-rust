@@ -67,7 +67,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::list_nodes call.
+    /// The request builder for [Tpu::list_nodes][super::super::client::Tpu::list_nodes] calls.
     #[derive(Clone, Debug)]
     pub struct ListNodes(RequestBuilder<crate::model::ListNodesRequest>);
 
@@ -135,7 +135,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::get_node call.
+    /// The request builder for [Tpu::get_node][super::super::client::Tpu::get_node] calls.
     #[derive(Clone, Debug)]
     pub struct GetNode(RequestBuilder<crate::model::GetNodeRequest>);
 
@@ -177,7 +177,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::create_node call.
+    /// The request builder for [Tpu::create_node][super::super::client::Tpu::create_node] calls.
     #[derive(Clone, Debug)]
     pub struct CreateNode(RequestBuilder<crate::model::CreateNodeRequest>);
 
@@ -268,7 +268,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::delete_node call.
+    /// The request builder for [Tpu::delete_node][super::super::client::Tpu::delete_node] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteNode(RequestBuilder<crate::model::DeleteNodeRequest>);
 
@@ -345,7 +345,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::stop_node call.
+    /// The request builder for [Tpu::stop_node][super::super::client::Tpu::stop_node] calls.
     #[derive(Clone, Debug)]
     pub struct StopNode(RequestBuilder<crate::model::StopNodeRequest>);
 
@@ -424,7 +424,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::start_node call.
+    /// The request builder for [Tpu::start_node][super::super::client::Tpu::start_node] calls.
     #[derive(Clone, Debug)]
     pub struct StartNode(RequestBuilder<crate::model::StartNodeRequest>);
 
@@ -503,7 +503,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::update_node call.
+    /// The request builder for [Tpu::update_node][super::super::client::Tpu::update_node] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateNode(RequestBuilder<crate::model::UpdateNodeRequest>);
 
@@ -591,7 +591,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::list_queued_resources call.
+    /// The request builder for [Tpu::list_queued_resources][super::super::client::Tpu::list_queued_resources] calls.
     #[derive(Clone, Debug)]
     pub struct ListQueuedResources(RequestBuilder<crate::model::ListQueuedResourcesRequest>);
 
@@ -663,7 +663,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::get_queued_resource call.
+    /// The request builder for [Tpu::get_queued_resource][super::super::client::Tpu::get_queued_resource] calls.
     #[derive(Clone, Debug)]
     pub struct GetQueuedResource(RequestBuilder<crate::model::GetQueuedResourceRequest>);
 
@@ -708,7 +708,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::create_queued_resource call.
+    /// The request builder for [Tpu::create_queued_resource][super::super::client::Tpu::create_queued_resource] calls.
     #[derive(Clone, Debug)]
     pub struct CreateQueuedResource(RequestBuilder<crate::model::CreateQueuedResourceRequest>);
 
@@ -813,7 +813,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::delete_queued_resource call.
+    /// The request builder for [Tpu::delete_queued_resource][super::super::client::Tpu::delete_queued_resource] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteQueuedResource(RequestBuilder<crate::model::DeleteQueuedResourceRequest>);
 
@@ -905,7 +905,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::reset_queued_resource call.
+    /// The request builder for [Tpu::reset_queued_resource][super::super::client::Tpu::reset_queued_resource] calls.
     #[derive(Clone, Debug)]
     pub struct ResetQueuedResource(RequestBuilder<crate::model::ResetQueuedResourceRequest>);
 
@@ -989,7 +989,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::generate_service_identity call.
+    /// The request builder for [Tpu::generate_service_identity][super::super::client::Tpu::generate_service_identity] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateServiceIdentity(
         RequestBuilder<crate::model::GenerateServiceIdentityRequest>,
@@ -1036,7 +1036,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::list_accelerator_types call.
+    /// The request builder for [Tpu::list_accelerator_types][super::super::client::Tpu::list_accelerator_types] calls.
     #[derive(Clone, Debug)]
     pub struct ListAcceleratorTypes(RequestBuilder<crate::model::ListAcceleratorTypesRequest>);
 
@@ -1120,7 +1120,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::get_accelerator_type call.
+    /// The request builder for [Tpu::get_accelerator_type][super::super::client::Tpu::get_accelerator_type] calls.
     #[derive(Clone, Debug)]
     pub struct GetAcceleratorType(RequestBuilder<crate::model::GetAcceleratorTypeRequest>);
 
@@ -1165,7 +1165,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::list_runtime_versions call.
+    /// The request builder for [Tpu::list_runtime_versions][super::super::client::Tpu::list_runtime_versions] calls.
     #[derive(Clone, Debug)]
     pub struct ListRuntimeVersions(RequestBuilder<crate::model::ListRuntimeVersionsRequest>);
 
@@ -1249,7 +1249,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::get_runtime_version call.
+    /// The request builder for [Tpu::get_runtime_version][super::super::client::Tpu::get_runtime_version] calls.
     #[derive(Clone, Debug)]
     pub struct GetRuntimeVersion(RequestBuilder<crate::model::GetRuntimeVersionRequest>);
 
@@ -1294,7 +1294,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::get_guest_attributes call.
+    /// The request builder for [Tpu::get_guest_attributes][super::super::client::Tpu::get_guest_attributes] calls.
     #[derive(Clone, Debug)]
     pub struct GetGuestAttributes(RequestBuilder<crate::model::GetGuestAttributesRequest>);
 
@@ -1356,7 +1356,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::list_locations call.
+    /// The request builder for [Tpu::list_locations][super::super::client::Tpu::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1434,7 +1434,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::get_location call.
+    /// The request builder for [Tpu::get_location][super::super::client::Tpu::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1476,7 +1476,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::list_operations call.
+    /// The request builder for [Tpu::list_operations][super::super::client::Tpu::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1554,7 +1554,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::get_operation call.
+    /// The request builder for [Tpu::get_operation][super::super::client::Tpu::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1599,7 +1599,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::delete_operation call.
+    /// The request builder for [Tpu::delete_operation][super::super::client::Tpu::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1644,7 +1644,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for a Tpu::cancel_operation call.
+    /// The request builder for [Tpu::cancel_operation][super::super::client::Tpu::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

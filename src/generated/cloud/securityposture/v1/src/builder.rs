@@ -67,7 +67,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for a SecurityPosture::list_postures call.
+    /// The request builder for [SecurityPosture::list_postures][super::super::client::SecurityPosture::list_postures] calls.
     #[derive(Clone, Debug)]
     pub struct ListPostures(RequestBuilder<crate::model::ListPosturesRequest>);
 
@@ -136,7 +136,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for a SecurityPosture::list_posture_revisions call.
+    /// The request builder for [SecurityPosture::list_posture_revisions][super::super::client::SecurityPosture::list_posture_revisions] calls.
     #[derive(Clone, Debug)]
     pub struct ListPostureRevisions(RequestBuilder<crate::model::ListPostureRevisionsRequest>);
 
@@ -208,7 +208,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for a SecurityPosture::get_posture call.
+    /// The request builder for [SecurityPosture::get_posture][super::super::client::SecurityPosture::get_posture] calls.
     #[derive(Clone, Debug)]
     pub struct GetPosture(RequestBuilder<crate::model::GetPostureRequest>);
 
@@ -256,7 +256,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for a SecurityPosture::create_posture call.
+    /// The request builder for [SecurityPosture::create_posture][super::super::client::SecurityPosture::create_posture] calls.
     #[derive(Clone, Debug)]
     pub struct CreatePosture(RequestBuilder<crate::model::CreatePostureRequest>);
 
@@ -350,7 +350,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for a SecurityPosture::update_posture call.
+    /// The request builder for [SecurityPosture::update_posture][super::super::client::SecurityPosture::update_posture] calls.
     #[derive(Clone, Debug)]
     pub struct UpdatePosture(RequestBuilder<crate::model::UpdatePostureRequest>);
 
@@ -447,7 +447,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for a SecurityPosture::delete_posture call.
+    /// The request builder for [SecurityPosture::delete_posture][super::super::client::SecurityPosture::delete_posture] calls.
     #[derive(Clone, Debug)]
     pub struct DeletePosture(RequestBuilder<crate::model::DeletePostureRequest>);
 
@@ -530,7 +530,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for a SecurityPosture::extract_posture call.
+    /// The request builder for [SecurityPosture::extract_posture][super::super::client::SecurityPosture::extract_posture] calls.
     #[derive(Clone, Debug)]
     pub struct ExtractPosture(RequestBuilder<crate::model::ExtractPostureRequest>);
 
@@ -621,7 +621,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for a SecurityPosture::list_posture_deployments call.
+    /// The request builder for [SecurityPosture::list_posture_deployments][super::super::client::SecurityPosture::list_posture_deployments] calls.
     #[derive(Clone, Debug)]
     pub struct ListPostureDeployments(RequestBuilder<crate::model::ListPostureDeploymentsRequest>);
 
@@ -701,7 +701,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for a SecurityPosture::get_posture_deployment call.
+    /// The request builder for [SecurityPosture::get_posture_deployment][super::super::client::SecurityPosture::get_posture_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct GetPostureDeployment(RequestBuilder<crate::model::GetPostureDeploymentRequest>);
 
@@ -746,7 +746,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for a SecurityPosture::create_posture_deployment call.
+    /// The request builder for [SecurityPosture::create_posture_deployment][super::super::client::SecurityPosture::create_posture_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct CreatePostureDeployment(
         RequestBuilder<crate::model::CreatePostureDeploymentRequest>,
@@ -849,7 +849,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for a SecurityPosture::update_posture_deployment call.
+    /// The request builder for [SecurityPosture::update_posture_deployment][super::super::client::SecurityPosture::update_posture_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct UpdatePostureDeployment(
         RequestBuilder<crate::model::UpdatePostureDeploymentRequest>,
@@ -949,7 +949,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for a SecurityPosture::delete_posture_deployment call.
+    /// The request builder for [SecurityPosture::delete_posture_deployment][super::super::client::SecurityPosture::delete_posture_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct DeletePostureDeployment(
         RequestBuilder<crate::model::DeletePostureDeploymentRequest>,
@@ -1037,7 +1037,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for a SecurityPosture::list_posture_templates call.
+    /// The request builder for [SecurityPosture::list_posture_templates][super::super::client::SecurityPosture::list_posture_templates] calls.
     #[derive(Clone, Debug)]
     pub struct ListPostureTemplates(RequestBuilder<crate::model::ListPostureTemplatesRequest>);
 
@@ -1115,7 +1115,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for a SecurityPosture::get_posture_template call.
+    /// The request builder for [SecurityPosture::get_posture_template][super::super::client::SecurityPosture::get_posture_template] calls.
     #[derive(Clone, Debug)]
     pub struct GetPostureTemplate(RequestBuilder<crate::model::GetPostureTemplateRequest>);
 
@@ -1166,7 +1166,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for a SecurityPosture::list_locations call.
+    /// The request builder for [SecurityPosture::list_locations][super::super::client::SecurityPosture::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1244,7 +1244,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for a SecurityPosture::get_location call.
+    /// The request builder for [SecurityPosture::get_location][super::super::client::SecurityPosture::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1286,7 +1286,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for a SecurityPosture::list_operations call.
+    /// The request builder for [SecurityPosture::list_operations][super::super::client::SecurityPosture::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1364,7 +1364,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for a SecurityPosture::get_operation call.
+    /// The request builder for [SecurityPosture::get_operation][super::super::client::SecurityPosture::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1409,7 +1409,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for a SecurityPosture::delete_operation call.
+    /// The request builder for [SecurityPosture::delete_operation][super::super::client::SecurityPosture::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1454,7 +1454,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for a SecurityPosture::cancel_operation call.
+    /// The request builder for [SecurityPosture::cancel_operation][super::super::client::SecurityPosture::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

@@ -67,7 +67,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::create_recognizer call.
+    /// The request builder for [Speech::create_recognizer][super::super::client::Speech::create_recognizer] calls.
     #[derive(Clone, Debug)]
     pub struct CreateRecognizer(RequestBuilder<crate::model::CreateRecognizerRequest>);
 
@@ -171,7 +171,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::list_recognizers call.
+    /// The request builder for [Speech::list_recognizers][super::super::client::Speech::list_recognizers] calls.
     #[derive(Clone, Debug)]
     pub struct ListRecognizers(RequestBuilder<crate::model::ListRecognizersRequest>);
 
@@ -246,7 +246,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::get_recognizer call.
+    /// The request builder for [Speech::get_recognizer][super::super::client::Speech::get_recognizer] calls.
     #[derive(Clone, Debug)]
     pub struct GetRecognizer(RequestBuilder<crate::model::GetRecognizerRequest>);
 
@@ -288,7 +288,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::update_recognizer call.
+    /// The request builder for [Speech::update_recognizer][super::super::client::Speech::update_recognizer] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateRecognizer(RequestBuilder<crate::model::UpdateRecognizerRequest>);
 
@@ -389,7 +389,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::delete_recognizer call.
+    /// The request builder for [Speech::delete_recognizer][super::super::client::Speech::delete_recognizer] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteRecognizer(RequestBuilder<crate::model::DeleteRecognizerRequest>);
 
@@ -490,7 +490,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::undelete_recognizer call.
+    /// The request builder for [Speech::undelete_recognizer][super::super::client::Speech::undelete_recognizer] calls.
     #[derive(Clone, Debug)]
     pub struct UndeleteRecognizer(RequestBuilder<crate::model::UndeleteRecognizerRequest>);
 
@@ -585,7 +585,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::recognize call.
+    /// The request builder for [Speech::recognize][super::super::client::Speech::recognize] calls.
     #[derive(Clone, Debug)]
     pub struct Recognize(RequestBuilder<crate::model::RecognizeRequest>);
 
@@ -654,7 +654,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::batch_recognize call.
+    /// The request builder for [Speech::batch_recognize][super::super::client::Speech::batch_recognize] calls.
     #[derive(Clone, Debug)]
     pub struct BatchRecognize(RequestBuilder<crate::model::BatchRecognizeRequest>);
 
@@ -788,7 +788,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::get_config call.
+    /// The request builder for [Speech::get_config][super::super::client::Speech::get_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetConfig(RequestBuilder<crate::model::GetConfigRequest>);
 
@@ -830,7 +830,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::update_config call.
+    /// The request builder for [Speech::update_config][super::super::client::Speech::update_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateConfig(RequestBuilder<crate::model::UpdateConfigRequest>);
 
@@ -884,7 +884,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::create_custom_class call.
+    /// The request builder for [Speech::create_custom_class][super::super::client::Speech::create_custom_class] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCustomClass(RequestBuilder<crate::model::CreateCustomClassRequest>);
 
@@ -988,7 +988,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::list_custom_classes call.
+    /// The request builder for [Speech::list_custom_classes][super::super::client::Speech::list_custom_classes] calls.
     #[derive(Clone, Debug)]
     pub struct ListCustomClasses(RequestBuilder<crate::model::ListCustomClassesRequest>);
 
@@ -1066,7 +1066,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::get_custom_class call.
+    /// The request builder for [Speech::get_custom_class][super::super::client::Speech::get_custom_class] calls.
     #[derive(Clone, Debug)]
     pub struct GetCustomClass(RequestBuilder<crate::model::GetCustomClassRequest>);
 
@@ -1108,7 +1108,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::update_custom_class call.
+    /// The request builder for [Speech::update_custom_class][super::super::client::Speech::update_custom_class] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCustomClass(RequestBuilder<crate::model::UpdateCustomClassRequest>);
 
@@ -1209,7 +1209,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::delete_custom_class call.
+    /// The request builder for [Speech::delete_custom_class][super::super::client::Speech::delete_custom_class] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCustomClass(RequestBuilder<crate::model::DeleteCustomClassRequest>);
 
@@ -1310,7 +1310,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::undelete_custom_class call.
+    /// The request builder for [Speech::undelete_custom_class][super::super::client::Speech::undelete_custom_class] calls.
     #[derive(Clone, Debug)]
     pub struct UndeleteCustomClass(RequestBuilder<crate::model::UndeleteCustomClassRequest>);
 
@@ -1405,7 +1405,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::create_phrase_set call.
+    /// The request builder for [Speech::create_phrase_set][super::super::client::Speech::create_phrase_set] calls.
     #[derive(Clone, Debug)]
     pub struct CreatePhraseSet(RequestBuilder<crate::model::CreatePhraseSetRequest>);
 
@@ -1506,7 +1506,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::list_phrase_sets call.
+    /// The request builder for [Speech::list_phrase_sets][super::super::client::Speech::list_phrase_sets] calls.
     #[derive(Clone, Debug)]
     pub struct ListPhraseSets(RequestBuilder<crate::model::ListPhraseSetsRequest>);
 
@@ -1581,7 +1581,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::get_phrase_set call.
+    /// The request builder for [Speech::get_phrase_set][super::super::client::Speech::get_phrase_set] calls.
     #[derive(Clone, Debug)]
     pub struct GetPhraseSet(RequestBuilder<crate::model::GetPhraseSetRequest>);
 
@@ -1623,7 +1623,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::update_phrase_set call.
+    /// The request builder for [Speech::update_phrase_set][super::super::client::Speech::update_phrase_set] calls.
     #[derive(Clone, Debug)]
     pub struct UpdatePhraseSet(RequestBuilder<crate::model::UpdatePhraseSetRequest>);
 
@@ -1721,7 +1721,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::delete_phrase_set call.
+    /// The request builder for [Speech::delete_phrase_set][super::super::client::Speech::delete_phrase_set] calls.
     #[derive(Clone, Debug)]
     pub struct DeletePhraseSet(RequestBuilder<crate::model::DeletePhraseSetRequest>);
 
@@ -1819,7 +1819,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::undelete_phrase_set call.
+    /// The request builder for [Speech::undelete_phrase_set][super::super::client::Speech::undelete_phrase_set] calls.
     #[derive(Clone, Debug)]
     pub struct UndeletePhraseSet(RequestBuilder<crate::model::UndeletePhraseSetRequest>);
 
@@ -1914,7 +1914,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::list_locations call.
+    /// The request builder for [Speech::list_locations][super::super::client::Speech::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1992,7 +1992,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::get_location call.
+    /// The request builder for [Speech::get_location][super::super::client::Speech::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -2034,7 +2034,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::list_operations call.
+    /// The request builder for [Speech::list_operations][super::super::client::Speech::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2112,7 +2112,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::get_operation call.
+    /// The request builder for [Speech::get_operation][super::super::client::Speech::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2157,7 +2157,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::delete_operation call.
+    /// The request builder for [Speech::delete_operation][super::super::client::Speech::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2202,7 +2202,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for a Speech::cancel_operation call.
+    /// The request builder for [Speech::cancel_operation][super::super::client::Speech::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

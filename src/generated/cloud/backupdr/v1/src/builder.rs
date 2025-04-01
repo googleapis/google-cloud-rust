@@ -67,7 +67,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::list_management_servers call.
+    /// The request builder for [BackupDR::list_management_servers][super::super::client::BackupDR::list_management_servers] calls.
     #[derive(Clone, Debug)]
     pub struct ListManagementServers(RequestBuilder<crate::model::ListManagementServersRequest>);
 
@@ -157,7 +157,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::get_management_server call.
+    /// The request builder for [BackupDR::get_management_server][super::super::client::BackupDR::get_management_server] calls.
     #[derive(Clone, Debug)]
     pub struct GetManagementServer(RequestBuilder<crate::model::GetManagementServerRequest>);
 
@@ -202,7 +202,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::create_management_server call.
+    /// The request builder for [BackupDR::create_management_server][super::super::client::BackupDR::create_management_server] calls.
     #[derive(Clone, Debug)]
     pub struct CreateManagementServer(RequestBuilder<crate::model::CreateManagementServerRequest>);
 
@@ -309,7 +309,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::delete_management_server call.
+    /// The request builder for [BackupDR::delete_management_server][super::super::client::BackupDR::delete_management_server] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteManagementServer(RequestBuilder<crate::model::DeleteManagementServerRequest>);
 
@@ -395,7 +395,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::create_backup_vault call.
+    /// The request builder for [BackupDR::create_backup_vault][super::super::client::BackupDR::create_backup_vault] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBackupVault(RequestBuilder<crate::model::CreateBackupVaultRequest>);
 
@@ -505,7 +505,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::list_backup_vaults call.
+    /// The request builder for [BackupDR::list_backup_vaults][super::super::client::BackupDR::list_backup_vaults] calls.
     #[derive(Clone, Debug)]
     pub struct ListBackupVaults(RequestBuilder<crate::model::ListBackupVaultsRequest>);
 
@@ -595,7 +595,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::fetch_usable_backup_vaults call.
+    /// The request builder for [BackupDR::fetch_usable_backup_vaults][super::super::client::BackupDR::fetch_usable_backup_vaults] calls.
     #[derive(Clone, Debug)]
     pub struct FetchUsableBackupVaults(
         RequestBuilder<crate::model::FetchUsableBackupVaultsRequest>,
@@ -683,7 +683,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::get_backup_vault call.
+    /// The request builder for [BackupDR::get_backup_vault][super::super::client::BackupDR::get_backup_vault] calls.
     #[derive(Clone, Debug)]
     pub struct GetBackupVault(RequestBuilder<crate::model::GetBackupVaultRequest>);
 
@@ -731,7 +731,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::update_backup_vault call.
+    /// The request builder for [BackupDR::update_backup_vault][super::super::client::BackupDR::update_backup_vault] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBackupVault(RequestBuilder<crate::model::UpdateBackupVaultRequest>);
 
@@ -844,7 +844,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::delete_backup_vault call.
+    /// The request builder for [BackupDR::delete_backup_vault][super::super::client::BackupDR::delete_backup_vault] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBackupVault(RequestBuilder<crate::model::DeleteBackupVaultRequest>);
 
@@ -960,7 +960,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::list_data_sources call.
+    /// The request builder for [BackupDR::list_data_sources][super::super::client::BackupDR::list_data_sources] calls.
     #[derive(Clone, Debug)]
     pub struct ListDataSources(RequestBuilder<crate::model::ListDataSourcesRequest>);
 
@@ -1041,7 +1041,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::get_data_source call.
+    /// The request builder for [BackupDR::get_data_source][super::super::client::BackupDR::get_data_source] calls.
     #[derive(Clone, Debug)]
     pub struct GetDataSource(RequestBuilder<crate::model::GetDataSourceRequest>);
 
@@ -1083,7 +1083,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::update_data_source call.
+    /// The request builder for [BackupDR::update_data_source][super::super::client::BackupDR::update_data_source] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateDataSource(RequestBuilder<crate::model::UpdateDataSourceRequest>);
 
@@ -1190,7 +1190,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::list_backups call.
+    /// The request builder for [BackupDR::list_backups][super::super::client::BackupDR::list_backups] calls.
     #[derive(Clone, Debug)]
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
@@ -1277,7 +1277,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::get_backup call.
+    /// The request builder for [BackupDR::get_backup][super::super::client::BackupDR::get_backup] calls.
     #[derive(Clone, Debug)]
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
@@ -1325,7 +1325,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::update_backup call.
+    /// The request builder for [BackupDR::update_backup][super::super::client::BackupDR::update_backup] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
@@ -1422,7 +1422,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::delete_backup call.
+    /// The request builder for [BackupDR::delete_backup][super::super::client::BackupDR::delete_backup] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
@@ -1507,7 +1507,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::restore_backup call.
+    /// The request builder for [BackupDR::restore_backup][super::super::client::BackupDR::restore_backup] calls.
     #[derive(Clone, Debug)]
     pub struct RestoreBackup(RequestBuilder<crate::model::RestoreBackupRequest>);
 
@@ -1618,7 +1618,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::create_backup_plan call.
+    /// The request builder for [BackupDR::create_backup_plan][super::super::client::BackupDR::create_backup_plan] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBackupPlan(RequestBuilder<crate::model::CreateBackupPlanRequest>);
 
@@ -1722,7 +1722,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::get_backup_plan call.
+    /// The request builder for [BackupDR::get_backup_plan][super::super::client::BackupDR::get_backup_plan] calls.
     #[derive(Clone, Debug)]
     pub struct GetBackupPlan(RequestBuilder<crate::model::GetBackupPlanRequest>);
 
@@ -1764,7 +1764,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::list_backup_plans call.
+    /// The request builder for [BackupDR::list_backup_plans][super::super::client::BackupDR::list_backup_plans] calls.
     #[derive(Clone, Debug)]
     pub struct ListBackupPlans(RequestBuilder<crate::model::ListBackupPlansRequest>);
 
@@ -1845,7 +1845,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::delete_backup_plan call.
+    /// The request builder for [BackupDR::delete_backup_plan][super::super::client::BackupDR::delete_backup_plan] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBackupPlan(RequestBuilder<crate::model::DeleteBackupPlanRequest>);
 
@@ -1931,7 +1931,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::create_backup_plan_association call.
+    /// The request builder for [BackupDR::create_backup_plan_association][super::super::client::BackupDR::create_backup_plan_association] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBackupPlanAssociation(
         RequestBuilder<crate::model::CreateBackupPlanAssociationRequest>,
@@ -2045,7 +2045,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::get_backup_plan_association call.
+    /// The request builder for [BackupDR::get_backup_plan_association][super::super::client::BackupDR::get_backup_plan_association] calls.
     #[derive(Clone, Debug)]
     pub struct GetBackupPlanAssociation(
         RequestBuilder<crate::model::GetBackupPlanAssociationRequest>,
@@ -2092,7 +2092,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::list_backup_plan_associations call.
+    /// The request builder for [BackupDR::list_backup_plan_associations][super::super::client::BackupDR::list_backup_plan_associations] calls.
     #[derive(Clone, Debug)]
     pub struct ListBackupPlanAssociations(
         RequestBuilder<crate::model::ListBackupPlanAssociationsRequest>,
@@ -2174,7 +2174,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::delete_backup_plan_association call.
+    /// The request builder for [BackupDR::delete_backup_plan_association][super::super::client::BackupDR::delete_backup_plan_association] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBackupPlanAssociation(
         RequestBuilder<crate::model::DeleteBackupPlanAssociationRequest>,
@@ -2262,7 +2262,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::trigger_backup call.
+    /// The request builder for [BackupDR::trigger_backup][super::super::client::BackupDR::trigger_backup] calls.
     #[derive(Clone, Debug)]
     pub struct TriggerBackup(RequestBuilder<crate::model::TriggerBackupRequest>);
 
@@ -2357,7 +2357,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::initialize_service call.
+    /// The request builder for [BackupDR::initialize_service][super::super::client::BackupDR::initialize_service] calls.
     #[derive(Clone, Debug)]
     pub struct InitializeService(RequestBuilder<crate::model::InitializeServiceRequest>);
 
@@ -2455,7 +2455,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::list_locations call.
+    /// The request builder for [BackupDR::list_locations][super::super::client::BackupDR::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -2533,7 +2533,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::get_location call.
+    /// The request builder for [BackupDR::get_location][super::super::client::BackupDR::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -2575,7 +2575,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::set_iam_policy call.
+    /// The request builder for [BackupDR::set_iam_policy][super::super::client::BackupDR::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -2635,7 +2635,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::get_iam_policy call.
+    /// The request builder for [BackupDR::get_iam_policy][super::super::client::BackupDR::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -2686,7 +2686,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::test_iam_permissions call.
+    /// The request builder for [BackupDR::test_iam_permissions][super::super::client::BackupDR::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -2742,7 +2742,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::list_operations call.
+    /// The request builder for [BackupDR::list_operations][super::super::client::BackupDR::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2820,7 +2820,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::get_operation call.
+    /// The request builder for [BackupDR::get_operation][super::super::client::BackupDR::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2865,7 +2865,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::delete_operation call.
+    /// The request builder for [BackupDR::delete_operation][super::super::client::BackupDR::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2910,7 +2910,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for a BackupDR::cancel_operation call.
+    /// The request builder for [BackupDR::cancel_operation][super::super::client::BackupDR::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

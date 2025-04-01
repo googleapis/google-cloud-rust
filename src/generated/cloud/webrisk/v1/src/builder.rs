@@ -67,7 +67,7 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for a WebRiskService::compute_threat_list_diff call.
+    /// The request builder for [WebRiskService::compute_threat_list_diff][super::super::client::WebRiskService::compute_threat_list_diff] calls.
     #[derive(Clone, Debug)]
     pub struct ComputeThreatListDiff(RequestBuilder<crate::model::ComputeThreatListDiffRequest>);
 
@@ -129,7 +129,7 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for a WebRiskService::search_uris call.
+    /// The request builder for [WebRiskService::search_uris][super::super::client::WebRiskService::search_uris] calls.
     #[derive(Clone, Debug)]
     pub struct SearchUris(RequestBuilder<crate::model::SearchUrisRequest>);
 
@@ -182,7 +182,7 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for a WebRiskService::search_hashes call.
+    /// The request builder for [WebRiskService::search_hashes][super::super::client::WebRiskService::search_hashes] calls.
     #[derive(Clone, Debug)]
     pub struct SearchHashes(RequestBuilder<crate::model::SearchHashesRequest>);
 
@@ -235,7 +235,7 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for a WebRiskService::create_submission call.
+    /// The request builder for [WebRiskService::create_submission][super::super::client::WebRiskService::create_submission] calls.
     #[derive(Clone, Debug)]
     pub struct CreateSubmission(RequestBuilder<crate::model::CreateSubmissionRequest>);
 
@@ -289,7 +289,7 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for a WebRiskService::submit_uri call.
+    /// The request builder for [WebRiskService::submit_uri][super::super::client::WebRiskService::submit_uri] calls.
     #[derive(Clone, Debug)]
     pub struct SubmitUri(RequestBuilder<crate::model::SubmitUriRequest>);
 
@@ -396,7 +396,7 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for a WebRiskService::list_operations call.
+    /// The request builder for [WebRiskService::list_operations][super::super::client::WebRiskService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -474,7 +474,7 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for a WebRiskService::get_operation call.
+    /// The request builder for [WebRiskService::get_operation][super::super::client::WebRiskService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -519,7 +519,7 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for a WebRiskService::delete_operation call.
+    /// The request builder for [WebRiskService::delete_operation][super::super::client::WebRiskService::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -564,7 +564,7 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for a WebRiskService::cancel_operation call.
+    /// The request builder for [WebRiskService::cancel_operation][super::super::client::WebRiskService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

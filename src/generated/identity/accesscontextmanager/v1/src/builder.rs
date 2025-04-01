@@ -69,7 +69,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::list_access_policies call.
+    /// The request builder for [AccessContextManager::list_access_policies][super::super::client::AccessContextManager::list_access_policies] calls.
     #[derive(Clone, Debug)]
     pub struct ListAccessPolicies(RequestBuilder<crate::model::ListAccessPoliciesRequest>);
 
@@ -143,7 +143,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::get_access_policy call.
+    /// The request builder for [AccessContextManager::get_access_policy][super::super::client::AccessContextManager::get_access_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetAccessPolicy(RequestBuilder<crate::model::GetAccessPolicyRequest>);
 
@@ -187,7 +187,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::create_access_policy call.
+    /// The request builder for [AccessContextManager::create_access_policy][super::super::client::AccessContextManager::create_access_policy] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAccessPolicy(RequestBuilder<crate::model::AccessPolicy>);
 
@@ -321,7 +321,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::update_access_policy call.
+    /// The request builder for [AccessContextManager::update_access_policy][super::super::client::AccessContextManager::update_access_policy] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateAccessPolicy(RequestBuilder<crate::model::UpdateAccessPolicyRequest>);
 
@@ -423,7 +423,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::delete_access_policy call.
+    /// The request builder for [AccessContextManager::delete_access_policy][super::super::client::AccessContextManager::delete_access_policy] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAccessPolicy(RequestBuilder<crate::model::DeleteAccessPolicyRequest>);
 
@@ -509,7 +509,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::list_access_levels call.
+    /// The request builder for [AccessContextManager::list_access_levels][super::super::client::AccessContextManager::list_access_levels] calls.
     #[derive(Clone, Debug)]
     pub struct ListAccessLevels(RequestBuilder<crate::model::ListAccessLevelsRequest>);
 
@@ -589,7 +589,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::get_access_level call.
+    /// The request builder for [AccessContextManager::get_access_level][super::super::client::AccessContextManager::get_access_level] calls.
     #[derive(Clone, Debug)]
     pub struct GetAccessLevel(RequestBuilder<crate::model::GetAccessLevelRequest>);
 
@@ -639,7 +639,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::create_access_level call.
+    /// The request builder for [AccessContextManager::create_access_level][super::super::client::AccessContextManager::create_access_level] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAccessLevel(RequestBuilder<crate::model::CreateAccessLevelRequest>);
 
@@ -738,7 +738,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::update_access_level call.
+    /// The request builder for [AccessContextManager::update_access_level][super::super::client::AccessContextManager::update_access_level] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateAccessLevel(RequestBuilder<crate::model::UpdateAccessLevelRequest>);
 
@@ -840,7 +840,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::delete_access_level call.
+    /// The request builder for [AccessContextManager::delete_access_level][super::super::client::AccessContextManager::delete_access_level] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAccessLevel(RequestBuilder<crate::model::DeleteAccessLevelRequest>);
 
@@ -926,7 +926,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::replace_access_levels call.
+    /// The request builder for [AccessContextManager::replace_access_levels][super::super::client::AccessContextManager::replace_access_levels] calls.
     #[derive(Clone, Debug)]
     pub struct ReplaceAccessLevels(RequestBuilder<crate::model::ReplaceAccessLevelsRequest>);
 
@@ -1033,7 +1033,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::list_service_perimeters call.
+    /// The request builder for [AccessContextManager::list_service_perimeters][super::super::client::AccessContextManager::list_service_perimeters] calls.
     #[derive(Clone, Debug)]
     pub struct ListServicePerimeters(RequestBuilder<crate::model::ListServicePerimetersRequest>);
 
@@ -1107,7 +1107,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::get_service_perimeter call.
+    /// The request builder for [AccessContextManager::get_service_perimeter][super::super::client::AccessContextManager::get_service_perimeter] calls.
     #[derive(Clone, Debug)]
     pub struct GetServicePerimeter(RequestBuilder<crate::model::GetServicePerimeterRequest>);
 
@@ -1154,7 +1154,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::create_service_perimeter call.
+    /// The request builder for [AccessContextManager::create_service_perimeter][super::super::client::AccessContextManager::create_service_perimeter] calls.
     #[derive(Clone, Debug)]
     pub struct CreateServicePerimeter(RequestBuilder<crate::model::CreateServicePerimeterRequest>);
 
@@ -1255,7 +1255,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::update_service_perimeter call.
+    /// The request builder for [AccessContextManager::update_service_perimeter][super::super::client::AccessContextManager::update_service_perimeter] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateServicePerimeter(RequestBuilder<crate::model::UpdateServicePerimeterRequest>);
 
@@ -1359,7 +1359,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::delete_service_perimeter call.
+    /// The request builder for [AccessContextManager::delete_service_perimeter][super::super::client::AccessContextManager::delete_service_perimeter] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteServicePerimeter(RequestBuilder<crate::model::DeleteServicePerimeterRequest>);
 
@@ -1445,7 +1445,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::replace_service_perimeters call.
+    /// The request builder for [AccessContextManager::replace_service_perimeters][super::super::client::AccessContextManager::replace_service_perimeters] calls.
     #[derive(Clone, Debug)]
     pub struct ReplaceServicePerimeters(
         RequestBuilder<crate::model::ReplaceServicePerimetersRequest>,
@@ -1554,7 +1554,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::commit_service_perimeters call.
+    /// The request builder for [AccessContextManager::commit_service_perimeters][super::super::client::AccessContextManager::commit_service_perimeters] calls.
     #[derive(Clone, Debug)]
     pub struct CommitServicePerimeters(
         RequestBuilder<crate::model::CommitServicePerimetersRequest>,
@@ -1652,7 +1652,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::list_gcp_user_access_bindings call.
+    /// The request builder for [AccessContextManager::list_gcp_user_access_bindings][super::super::client::AccessContextManager::list_gcp_user_access_bindings] calls.
     #[derive(Clone, Debug)]
     pub struct ListGcpUserAccessBindings(
         RequestBuilder<crate::model::ListGcpUserAccessBindingsRequest>,
@@ -1730,7 +1730,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::get_gcp_user_access_binding call.
+    /// The request builder for [AccessContextManager::get_gcp_user_access_binding][super::super::client::AccessContextManager::get_gcp_user_access_binding] calls.
     #[derive(Clone, Debug)]
     pub struct GetGcpUserAccessBinding(
         RequestBuilder<crate::model::GetGcpUserAccessBindingRequest>,
@@ -1779,7 +1779,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::create_gcp_user_access_binding call.
+    /// The request builder for [AccessContextManager::create_gcp_user_access_binding][super::super::client::AccessContextManager::create_gcp_user_access_binding] calls.
     #[derive(Clone, Debug)]
     pub struct CreateGcpUserAccessBinding(
         RequestBuilder<crate::model::CreateGcpUserAccessBindingRequest>,
@@ -1882,7 +1882,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::update_gcp_user_access_binding call.
+    /// The request builder for [AccessContextManager::update_gcp_user_access_binding][super::super::client::AccessContextManager::update_gcp_user_access_binding] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateGcpUserAccessBinding(
         RequestBuilder<crate::model::UpdateGcpUserAccessBindingRequest>,
@@ -1988,7 +1988,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::delete_gcp_user_access_binding call.
+    /// The request builder for [AccessContextManager::delete_gcp_user_access_binding][super::super::client::AccessContextManager::delete_gcp_user_access_binding] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteGcpUserAccessBinding(
         RequestBuilder<crate::model::DeleteGcpUserAccessBindingRequest>,
@@ -2076,7 +2076,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::set_iam_policy call.
+    /// The request builder for [AccessContextManager::set_iam_policy][super::super::client::AccessContextManager::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -2138,7 +2138,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::get_iam_policy call.
+    /// The request builder for [AccessContextManager::get_iam_policy][super::super::client::AccessContextManager::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -2191,7 +2191,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::test_iam_permissions call.
+    /// The request builder for [AccessContextManager::test_iam_permissions][super::super::client::AccessContextManager::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -2249,7 +2249,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for a AccessContextManager::get_operation call.
+    /// The request builder for [AccessContextManager::get_operation][super::super::client::AccessContextManager::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

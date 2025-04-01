@@ -67,7 +67,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::lookup_service_project_attachment call.
+    /// The request builder for [AppHub::lookup_service_project_attachment][super::super::client::AppHub::lookup_service_project_attachment] calls.
     #[derive(Clone, Debug)]
     pub struct LookupServiceProjectAttachment(
         RequestBuilder<crate::model::LookupServiceProjectAttachmentRequest>,
@@ -114,7 +114,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::list_service_project_attachments call.
+    /// The request builder for [AppHub::list_service_project_attachments][super::super::client::AppHub::list_service_project_attachments] calls.
     #[derive(Clone, Debug)]
     pub struct ListServiceProjectAttachments(
         RequestBuilder<crate::model::ListServiceProjectAttachmentsRequest>,
@@ -202,7 +202,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::create_service_project_attachment call.
+    /// The request builder for [AppHub::create_service_project_attachment][super::super::client::AppHub::create_service_project_attachment] calls.
     #[derive(Clone, Debug)]
     pub struct CreateServiceProjectAttachment(
         RequestBuilder<crate::model::CreateServiceProjectAttachmentRequest>,
@@ -316,7 +316,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::get_service_project_attachment call.
+    /// The request builder for [AppHub::get_service_project_attachment][super::super::client::AppHub::get_service_project_attachment] calls.
     #[derive(Clone, Debug)]
     pub struct GetServiceProjectAttachment(
         RequestBuilder<crate::model::GetServiceProjectAttachmentRequest>,
@@ -363,7 +363,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::delete_service_project_attachment call.
+    /// The request builder for [AppHub::delete_service_project_attachment][super::super::client::AppHub::delete_service_project_attachment] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteServiceProjectAttachment(
         RequestBuilder<crate::model::DeleteServiceProjectAttachmentRequest>,
@@ -451,7 +451,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::detach_service_project_attachment call.
+    /// The request builder for [AppHub::detach_service_project_attachment][super::super::client::AppHub::detach_service_project_attachment] calls.
     #[derive(Clone, Debug)]
     pub struct DetachServiceProjectAttachment(
         RequestBuilder<crate::model::DetachServiceProjectAttachmentRequest>,
@@ -498,7 +498,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::list_discovered_services call.
+    /// The request builder for [AppHub::list_discovered_services][super::super::client::AppHub::list_discovered_services] calls.
     #[derive(Clone, Debug)]
     pub struct ListDiscoveredServices(RequestBuilder<crate::model::ListDiscoveredServicesRequest>);
 
@@ -584,7 +584,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::get_discovered_service call.
+    /// The request builder for [AppHub::get_discovered_service][super::super::client::AppHub::get_discovered_service] calls.
     #[derive(Clone, Debug)]
     pub struct GetDiscoveredService(RequestBuilder<crate::model::GetDiscoveredServiceRequest>);
 
@@ -629,7 +629,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::lookup_discovered_service call.
+    /// The request builder for [AppHub::lookup_discovered_service][super::super::client::AppHub::lookup_discovered_service] calls.
     #[derive(Clone, Debug)]
     pub struct LookupDiscoveredService(
         RequestBuilder<crate::model::LookupDiscoveredServiceRequest>,
@@ -682,7 +682,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::list_services call.
+    /// The request builder for [AppHub::list_services][super::super::client::AppHub::list_services] calls.
     #[derive(Clone, Debug)]
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
@@ -763,7 +763,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::create_service call.
+    /// The request builder for [AppHub::create_service][super::super::client::AppHub::create_service] calls.
     #[derive(Clone, Debug)]
     pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
 
@@ -863,7 +863,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::get_service call.
+    /// The request builder for [AppHub::get_service][super::super::client::AppHub::get_service] calls.
     #[derive(Clone, Debug)]
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
@@ -905,7 +905,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::update_service call.
+    /// The request builder for [AppHub::update_service][super::super::client::AppHub::update_service] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
 
@@ -1002,7 +1002,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::delete_service call.
+    /// The request builder for [AppHub::delete_service][super::super::client::AppHub::delete_service] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
 
@@ -1085,7 +1085,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::list_discovered_workloads call.
+    /// The request builder for [AppHub::list_discovered_workloads][super::super::client::AppHub::list_discovered_workloads] calls.
     #[derive(Clone, Debug)]
     pub struct ListDiscoveredWorkloads(
         RequestBuilder<crate::model::ListDiscoveredWorkloadsRequest>,
@@ -1173,7 +1173,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::get_discovered_workload call.
+    /// The request builder for [AppHub::get_discovered_workload][super::super::client::AppHub::get_discovered_workload] calls.
     #[derive(Clone, Debug)]
     pub struct GetDiscoveredWorkload(RequestBuilder<crate::model::GetDiscoveredWorkloadRequest>);
 
@@ -1218,7 +1218,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::lookup_discovered_workload call.
+    /// The request builder for [AppHub::lookup_discovered_workload][super::super::client::AppHub::lookup_discovered_workload] calls.
     #[derive(Clone, Debug)]
     pub struct LookupDiscoveredWorkload(
         RequestBuilder<crate::model::LookupDiscoveredWorkloadRequest>,
@@ -1271,7 +1271,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::list_workloads call.
+    /// The request builder for [AppHub::list_workloads][super::super::client::AppHub::list_workloads] calls.
     #[derive(Clone, Debug)]
     pub struct ListWorkloads(RequestBuilder<crate::model::ListWorkloadsRequest>);
 
@@ -1352,7 +1352,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::create_workload call.
+    /// The request builder for [AppHub::create_workload][super::super::client::AppHub::create_workload] calls.
     #[derive(Clone, Debug)]
     pub struct CreateWorkload(RequestBuilder<crate::model::CreateWorkloadRequest>);
 
@@ -1453,7 +1453,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::get_workload call.
+    /// The request builder for [AppHub::get_workload][super::super::client::AppHub::get_workload] calls.
     #[derive(Clone, Debug)]
     pub struct GetWorkload(RequestBuilder<crate::model::GetWorkloadRequest>);
 
@@ -1495,7 +1495,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::update_workload call.
+    /// The request builder for [AppHub::update_workload][super::super::client::AppHub::update_workload] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateWorkload(RequestBuilder<crate::model::UpdateWorkloadRequest>);
 
@@ -1593,7 +1593,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::delete_workload call.
+    /// The request builder for [AppHub::delete_workload][super::super::client::AppHub::delete_workload] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteWorkload(RequestBuilder<crate::model::DeleteWorkloadRequest>);
 
@@ -1676,7 +1676,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::list_applications call.
+    /// The request builder for [AppHub::list_applications][super::super::client::AppHub::list_applications] calls.
     #[derive(Clone, Debug)]
     pub struct ListApplications(RequestBuilder<crate::model::ListApplicationsRequest>);
 
@@ -1760,7 +1760,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::create_application call.
+    /// The request builder for [AppHub::create_application][super::super::client::AppHub::create_application] calls.
     #[derive(Clone, Debug)]
     pub struct CreateApplication(RequestBuilder<crate::model::CreateApplicationRequest>);
 
@@ -1864,7 +1864,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::get_application call.
+    /// The request builder for [AppHub::get_application][super::super::client::AppHub::get_application] calls.
     #[derive(Clone, Debug)]
     pub struct GetApplication(RequestBuilder<crate::model::GetApplicationRequest>);
 
@@ -1906,7 +1906,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::update_application call.
+    /// The request builder for [AppHub::update_application][super::super::client::AppHub::update_application] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateApplication(RequestBuilder<crate::model::UpdateApplicationRequest>);
 
@@ -2007,7 +2007,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::delete_application call.
+    /// The request builder for [AppHub::delete_application][super::super::client::AppHub::delete_application] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteApplication(RequestBuilder<crate::model::DeleteApplicationRequest>);
 
@@ -2093,7 +2093,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::list_locations call.
+    /// The request builder for [AppHub::list_locations][super::super::client::AppHub::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -2171,7 +2171,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::get_location call.
+    /// The request builder for [AppHub::get_location][super::super::client::AppHub::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -2213,7 +2213,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::set_iam_policy call.
+    /// The request builder for [AppHub::set_iam_policy][super::super::client::AppHub::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -2273,7 +2273,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::get_iam_policy call.
+    /// The request builder for [AppHub::get_iam_policy][super::super::client::AppHub::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -2324,7 +2324,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::test_iam_permissions call.
+    /// The request builder for [AppHub::test_iam_permissions][super::super::client::AppHub::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -2380,7 +2380,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::list_operations call.
+    /// The request builder for [AppHub::list_operations][super::super::client::AppHub::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2458,7 +2458,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::get_operation call.
+    /// The request builder for [AppHub::get_operation][super::super::client::AppHub::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2503,7 +2503,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::delete_operation call.
+    /// The request builder for [AppHub::delete_operation][super::super::client::AppHub::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2548,7 +2548,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for a AppHub::cancel_operation call.
+    /// The request builder for [AppHub::cancel_operation][super::super::client::AppHub::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

@@ -67,7 +67,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for a ServiceManager::list_services call.
+    /// The request builder for [ServiceManager::list_services][super::super::client::ServiceManager::list_services] calls.
     #[derive(Clone, Debug)]
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
@@ -142,7 +142,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for a ServiceManager::get_service call.
+    /// The request builder for [ServiceManager::get_service][super::super::client::ServiceManager::get_service] calls.
     #[derive(Clone, Debug)]
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
@@ -184,7 +184,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for a ServiceManager::create_service call.
+    /// The request builder for [ServiceManager::create_service][super::super::client::ServiceManager::create_service] calls.
     #[derive(Clone, Debug)]
     pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
 
@@ -268,7 +268,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for a ServiceManager::delete_service call.
+    /// The request builder for [ServiceManager::delete_service][super::super::client::ServiceManager::delete_service] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
 
@@ -345,7 +345,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for a ServiceManager::undelete_service call.
+    /// The request builder for [ServiceManager::undelete_service][super::super::client::ServiceManager::undelete_service] calls.
     #[derive(Clone, Debug)]
     pub struct UndeleteService(RequestBuilder<crate::model::UndeleteServiceRequest>);
 
@@ -428,7 +428,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for a ServiceManager::list_service_configs call.
+    /// The request builder for [ServiceManager::list_service_configs][super::super::client::ServiceManager::list_service_configs] calls.
     #[derive(Clone, Debug)]
     pub struct ListServiceConfigs(RequestBuilder<crate::model::ListServiceConfigsRequest>);
 
@@ -500,7 +500,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for a ServiceManager::get_service_config call.
+    /// The request builder for [ServiceManager::get_service_config][super::super::client::ServiceManager::get_service_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetServiceConfig(RequestBuilder<crate::model::GetServiceConfigRequest>);
 
@@ -560,7 +560,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for a ServiceManager::create_service_config call.
+    /// The request builder for [ServiceManager::create_service_config][super::super::client::ServiceManager::create_service_config] calls.
     #[derive(Clone, Debug)]
     pub struct CreateServiceConfig(RequestBuilder<crate::model::CreateServiceConfigRequest>);
 
@@ -614,7 +614,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for a ServiceManager::submit_config_source call.
+    /// The request builder for [ServiceManager::submit_config_source][super::super::client::ServiceManager::submit_config_source] calls.
     #[derive(Clone, Debug)]
     pub struct SubmitConfigSource(RequestBuilder<crate::model::SubmitConfigSourceRequest>);
 
@@ -715,7 +715,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for a ServiceManager::list_service_rollouts call.
+    /// The request builder for [ServiceManager::list_service_rollouts][super::super::client::ServiceManager::list_service_rollouts] calls.
     #[derive(Clone, Debug)]
     pub struct ListServiceRollouts(RequestBuilder<crate::model::ListServiceRolloutsRequest>);
 
@@ -793,7 +793,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for a ServiceManager::get_service_rollout call.
+    /// The request builder for [ServiceManager::get_service_rollout][super::super::client::ServiceManager::get_service_rollout] calls.
     #[derive(Clone, Debug)]
     pub struct GetServiceRollout(RequestBuilder<crate::model::GetServiceRolloutRequest>);
 
@@ -844,7 +844,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for a ServiceManager::create_service_rollout call.
+    /// The request builder for [ServiceManager::create_service_rollout][super::super::client::ServiceManager::create_service_rollout] calls.
     #[derive(Clone, Debug)]
     pub struct CreateServiceRollout(RequestBuilder<crate::model::CreateServiceRolloutRequest>);
 
@@ -935,7 +935,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for a ServiceManager::generate_config_report call.
+    /// The request builder for [ServiceManager::generate_config_report][super::super::client::ServiceManager::generate_config_report] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateConfigReport(RequestBuilder<crate::model::GenerateConfigReportRequest>);
 
@@ -986,7 +986,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for a ServiceManager::set_iam_policy call.
+    /// The request builder for [ServiceManager::set_iam_policy][super::super::client::ServiceManager::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1046,7 +1046,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for a ServiceManager::get_iam_policy call.
+    /// The request builder for [ServiceManager::get_iam_policy][super::super::client::ServiceManager::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1097,7 +1097,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for a ServiceManager::test_iam_permissions call.
+    /// The request builder for [ServiceManager::test_iam_permissions][super::super::client::ServiceManager::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1153,7 +1153,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for a ServiceManager::list_operations call.
+    /// The request builder for [ServiceManager::list_operations][super::super::client::ServiceManager::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1231,7 +1231,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for a ServiceManager::get_operation call.
+    /// The request builder for [ServiceManager::get_operation][super::super::client::ServiceManager::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

@@ -67,7 +67,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for a CloudRedisCluster::list_clusters call.
+    /// The request builder for [CloudRedisCluster::list_clusters][super::super::client::CloudRedisCluster::list_clusters] calls.
     #[derive(Clone, Debug)]
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
@@ -136,7 +136,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for a CloudRedisCluster::get_cluster call.
+    /// The request builder for [CloudRedisCluster::get_cluster][super::super::client::CloudRedisCluster::get_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
@@ -178,7 +178,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for a CloudRedisCluster::update_cluster call.
+    /// The request builder for [CloudRedisCluster::update_cluster][super::super::client::CloudRedisCluster::update_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
@@ -273,7 +273,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for a CloudRedisCluster::delete_cluster call.
+    /// The request builder for [CloudRedisCluster::delete_cluster][super::super::client::CloudRedisCluster::delete_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
@@ -356,7 +356,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for a CloudRedisCluster::create_cluster call.
+    /// The request builder for [CloudRedisCluster::create_cluster][super::super::client::CloudRedisCluster::create_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
@@ -454,7 +454,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for a CloudRedisCluster::get_cluster_certificate_authority call.
+    /// The request builder for [CloudRedisCluster::get_cluster_certificate_authority][super::super::client::CloudRedisCluster::get_cluster_certificate_authority] calls.
     #[derive(Clone, Debug)]
     pub struct GetClusterCertificateAuthority(
         RequestBuilder<crate::model::GetClusterCertificateAuthorityRequest>,
@@ -501,7 +501,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for a CloudRedisCluster::reschedule_cluster_maintenance call.
+    /// The request builder for [CloudRedisCluster::reschedule_cluster_maintenance][super::super::client::CloudRedisCluster::reschedule_cluster_maintenance] calls.
     #[derive(Clone, Debug)]
     pub struct RescheduleClusterMaintenance(
         RequestBuilder<crate::model::RescheduleClusterMaintenanceRequest>,
@@ -603,7 +603,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for a CloudRedisCluster::list_backup_collections call.
+    /// The request builder for [CloudRedisCluster::list_backup_collections][super::super::client::CloudRedisCluster::list_backup_collections] calls.
     #[derive(Clone, Debug)]
     pub struct ListBackupCollections(RequestBuilder<crate::model::ListBackupCollectionsRequest>);
 
@@ -675,7 +675,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for a CloudRedisCluster::get_backup_collection call.
+    /// The request builder for [CloudRedisCluster::get_backup_collection][super::super::client::CloudRedisCluster::get_backup_collection] calls.
     #[derive(Clone, Debug)]
     pub struct GetBackupCollection(RequestBuilder<crate::model::GetBackupCollectionRequest>);
 
@@ -720,7 +720,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for a CloudRedisCluster::list_backups call.
+    /// The request builder for [CloudRedisCluster::list_backups][super::super::client::CloudRedisCluster::list_backups] calls.
     #[derive(Clone, Debug)]
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
@@ -789,7 +789,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for a CloudRedisCluster::get_backup call.
+    /// The request builder for [CloudRedisCluster::get_backup][super::super::client::CloudRedisCluster::get_backup] calls.
     #[derive(Clone, Debug)]
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
@@ -831,7 +831,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for a CloudRedisCluster::delete_backup call.
+    /// The request builder for [CloudRedisCluster::delete_backup][super::super::client::CloudRedisCluster::delete_backup] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
@@ -914,7 +914,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for a CloudRedisCluster::export_backup call.
+    /// The request builder for [CloudRedisCluster::export_backup][super::super::client::CloudRedisCluster::export_backup] calls.
     #[derive(Clone, Debug)]
     pub struct ExportBackup(RequestBuilder<crate::model::ExportBackupRequest>);
 
@@ -1002,7 +1002,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for a CloudRedisCluster::backup_cluster call.
+    /// The request builder for [CloudRedisCluster::backup_cluster][super::super::client::CloudRedisCluster::backup_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct BackupCluster(RequestBuilder<crate::model::BackupClusterRequest>);
 
@@ -1094,7 +1094,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for a CloudRedisCluster::list_locations call.
+    /// The request builder for [CloudRedisCluster::list_locations][super::super::client::CloudRedisCluster::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1172,7 +1172,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for a CloudRedisCluster::get_location call.
+    /// The request builder for [CloudRedisCluster::get_location][super::super::client::CloudRedisCluster::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1214,7 +1214,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for a CloudRedisCluster::list_operations call.
+    /// The request builder for [CloudRedisCluster::list_operations][super::super::client::CloudRedisCluster::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1292,7 +1292,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for a CloudRedisCluster::get_operation call.
+    /// The request builder for [CloudRedisCluster::get_operation][super::super::client::CloudRedisCluster::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1337,7 +1337,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for a CloudRedisCluster::delete_operation call.
+    /// The request builder for [CloudRedisCluster::delete_operation][super::super::client::CloudRedisCluster::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1382,7 +1382,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for a CloudRedisCluster::cancel_operation call.
+    /// The request builder for [CloudRedisCluster::cancel_operation][super::super::client::CloudRedisCluster::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

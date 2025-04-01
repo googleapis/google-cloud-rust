@@ -67,7 +67,7 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for a ServiceUsage::enable_service call.
+    /// The request builder for [ServiceUsage::enable_service][super::super::client::ServiceUsage::enable_service] calls.
     #[derive(Clone, Debug)]
     pub struct EnableService(RequestBuilder<crate::model::EnableServiceRequest>);
 
@@ -150,7 +150,7 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for a ServiceUsage::disable_service call.
+    /// The request builder for [ServiceUsage::disable_service][super::super::client::ServiceUsage::disable_service] calls.
     #[derive(Clone, Debug)]
     pub struct DisableService(RequestBuilder<crate::model::DisableServiceRequest>);
 
@@ -250,7 +250,7 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for a ServiceUsage::get_service call.
+    /// The request builder for [ServiceUsage::get_service][super::super::client::ServiceUsage::get_service] calls.
     #[derive(Clone, Debug)]
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
@@ -292,7 +292,7 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for a ServiceUsage::list_services call.
+    /// The request builder for [ServiceUsage::list_services][super::super::client::ServiceUsage::list_services] calls.
     #[derive(Clone, Debug)]
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
@@ -367,7 +367,7 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for a ServiceUsage::batch_enable_services call.
+    /// The request builder for [ServiceUsage::batch_enable_services][super::super::client::ServiceUsage::batch_enable_services] calls.
     #[derive(Clone, Debug)]
     pub struct BatchEnableServices(RequestBuilder<crate::model::BatchEnableServicesRequest>);
 
@@ -464,7 +464,7 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for a ServiceUsage::batch_get_services call.
+    /// The request builder for [ServiceUsage::batch_get_services][super::super::client::ServiceUsage::batch_get_services] calls.
     #[derive(Clone, Debug)]
     pub struct BatchGetServices(RequestBuilder<crate::model::BatchGetServicesRequest>);
 
@@ -520,7 +520,7 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for a ServiceUsage::list_operations call.
+    /// The request builder for [ServiceUsage::list_operations][super::super::client::ServiceUsage::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -598,7 +598,7 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for a ServiceUsage::get_operation call.
+    /// The request builder for [ServiceUsage::get_operation][super::super::client::ServiceUsage::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

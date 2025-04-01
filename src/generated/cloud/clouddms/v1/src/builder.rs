@@ -69,7 +69,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::list_migration_jobs call.
+    /// The request builder for [DataMigrationService::list_migration_jobs][super::super::client::DataMigrationService::list_migration_jobs] calls.
     #[derive(Clone, Debug)]
     pub struct ListMigrationJobs(RequestBuilder<crate::model::ListMigrationJobsRequest>);
 
@@ -155,7 +155,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::get_migration_job call.
+    /// The request builder for [DataMigrationService::get_migration_job][super::super::client::DataMigrationService::get_migration_job] calls.
     #[derive(Clone, Debug)]
     pub struct GetMigrationJob(RequestBuilder<crate::model::GetMigrationJobRequest>);
 
@@ -199,7 +199,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::create_migration_job call.
+    /// The request builder for [DataMigrationService::create_migration_job][super::super::client::DataMigrationService::create_migration_job] calls.
     #[derive(Clone, Debug)]
     pub struct CreateMigrationJob(RequestBuilder<crate::model::CreateMigrationJobRequest>);
 
@@ -305,7 +305,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::update_migration_job call.
+    /// The request builder for [DataMigrationService::update_migration_job][super::super::client::DataMigrationService::update_migration_job] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateMigrationJob(RequestBuilder<crate::model::UpdateMigrationJobRequest>);
 
@@ -408,7 +408,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::delete_migration_job call.
+    /// The request builder for [DataMigrationService::delete_migration_job][super::super::client::DataMigrationService::delete_migration_job] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteMigrationJob(RequestBuilder<crate::model::DeleteMigrationJobRequest>);
 
@@ -502,7 +502,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::start_migration_job call.
+    /// The request builder for [DataMigrationService::start_migration_job][super::super::client::DataMigrationService::start_migration_job] calls.
     #[derive(Clone, Debug)]
     pub struct StartMigrationJob(RequestBuilder<crate::model::StartMigrationJobRequest>);
 
@@ -593,7 +593,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::stop_migration_job call.
+    /// The request builder for [DataMigrationService::stop_migration_job][super::super::client::DataMigrationService::stop_migration_job] calls.
     #[derive(Clone, Debug)]
     pub struct StopMigrationJob(RequestBuilder<crate::model::StopMigrationJobRequest>);
 
@@ -678,7 +678,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::resume_migration_job call.
+    /// The request builder for [DataMigrationService::resume_migration_job][super::super::client::DataMigrationService::resume_migration_job] calls.
     #[derive(Clone, Debug)]
     pub struct ResumeMigrationJob(RequestBuilder<crate::model::ResumeMigrationJobRequest>);
 
@@ -763,7 +763,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::promote_migration_job call.
+    /// The request builder for [DataMigrationService::promote_migration_job][super::super::client::DataMigrationService::promote_migration_job] calls.
     #[derive(Clone, Debug)]
     pub struct PromoteMigrationJob(RequestBuilder<crate::model::PromoteMigrationJobRequest>);
 
@@ -848,7 +848,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::verify_migration_job call.
+    /// The request builder for [DataMigrationService::verify_migration_job][super::super::client::DataMigrationService::verify_migration_job] calls.
     #[derive(Clone, Debug)]
     pub struct VerifyMigrationJob(RequestBuilder<crate::model::VerifyMigrationJobRequest>);
 
@@ -951,7 +951,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::restart_migration_job call.
+    /// The request builder for [DataMigrationService::restart_migration_job][super::super::client::DataMigrationService::restart_migration_job] calls.
     #[derive(Clone, Debug)]
     pub struct RestartMigrationJob(RequestBuilder<crate::model::RestartMigrationJobRequest>);
 
@@ -1042,7 +1042,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::generate_ssh_script call.
+    /// The request builder for [DataMigrationService::generate_ssh_script][super::super::client::DataMigrationService::generate_ssh_script] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateSshScript(RequestBuilder<crate::model::GenerateSshScriptRequest>);
 
@@ -1112,7 +1112,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::generate_tcp_proxy_script call.
+    /// The request builder for [DataMigrationService::generate_tcp_proxy_script][super::super::client::DataMigrationService::generate_tcp_proxy_script] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateTcpProxyScript(RequestBuilder<crate::model::GenerateTcpProxyScriptRequest>);
 
@@ -1183,7 +1183,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::list_connection_profiles call.
+    /// The request builder for [DataMigrationService::list_connection_profiles][super::super::client::DataMigrationService::list_connection_profiles] calls.
     #[derive(Clone, Debug)]
     pub struct ListConnectionProfiles(RequestBuilder<crate::model::ListConnectionProfilesRequest>);
 
@@ -1271,7 +1271,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::get_connection_profile call.
+    /// The request builder for [DataMigrationService::get_connection_profile][super::super::client::DataMigrationService::get_connection_profile] calls.
     #[derive(Clone, Debug)]
     pub struct GetConnectionProfile(RequestBuilder<crate::model::GetConnectionProfileRequest>);
 
@@ -1318,7 +1318,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::create_connection_profile call.
+    /// The request builder for [DataMigrationService::create_connection_profile][super::super::client::DataMigrationService::create_connection_profile] calls.
     #[derive(Clone, Debug)]
     pub struct CreateConnectionProfile(
         RequestBuilder<crate::model::CreateConnectionProfileRequest>,
@@ -1441,7 +1441,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::update_connection_profile call.
+    /// The request builder for [DataMigrationService::update_connection_profile][super::super::client::DataMigrationService::update_connection_profile] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateConnectionProfile(
         RequestBuilder<crate::model::UpdateConnectionProfileRequest>,
@@ -1561,7 +1561,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::delete_connection_profile call.
+    /// The request builder for [DataMigrationService::delete_connection_profile][super::super::client::DataMigrationService::delete_connection_profile] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteConnectionProfile(
         RequestBuilder<crate::model::DeleteConnectionProfileRequest>,
@@ -1657,7 +1657,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::create_private_connection call.
+    /// The request builder for [DataMigrationService::create_private_connection][super::super::client::DataMigrationService::create_private_connection] calls.
     #[derive(Clone, Debug)]
     pub struct CreatePrivateConnection(
         RequestBuilder<crate::model::CreatePrivateConnectionRequest>,
@@ -1774,7 +1774,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::get_private_connection call.
+    /// The request builder for [DataMigrationService::get_private_connection][super::super::client::DataMigrationService::get_private_connection] calls.
     #[derive(Clone, Debug)]
     pub struct GetPrivateConnection(RequestBuilder<crate::model::GetPrivateConnectionRequest>);
 
@@ -1821,7 +1821,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::list_private_connections call.
+    /// The request builder for [DataMigrationService::list_private_connections][super::super::client::DataMigrationService::list_private_connections] calls.
     #[derive(Clone, Debug)]
     pub struct ListPrivateConnections(RequestBuilder<crate::model::ListPrivateConnectionsRequest>);
 
@@ -1909,7 +1909,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::delete_private_connection call.
+    /// The request builder for [DataMigrationService::delete_private_connection][super::super::client::DataMigrationService::delete_private_connection] calls.
     #[derive(Clone, Debug)]
     pub struct DeletePrivateConnection(
         RequestBuilder<crate::model::DeletePrivateConnectionRequest>,
@@ -1999,7 +1999,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::get_conversion_workspace call.
+    /// The request builder for [DataMigrationService::get_conversion_workspace][super::super::client::DataMigrationService::get_conversion_workspace] calls.
     #[derive(Clone, Debug)]
     pub struct GetConversionWorkspace(RequestBuilder<crate::model::GetConversionWorkspaceRequest>);
 
@@ -2046,7 +2046,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::list_conversion_workspaces call.
+    /// The request builder for [DataMigrationService::list_conversion_workspaces][super::super::client::DataMigrationService::list_conversion_workspaces] calls.
     #[derive(Clone, Debug)]
     pub struct ListConversionWorkspaces(
         RequestBuilder<crate::model::ListConversionWorkspacesRequest>,
@@ -2130,7 +2130,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::create_conversion_workspace call.
+    /// The request builder for [DataMigrationService::create_conversion_workspace][super::super::client::DataMigrationService::create_conversion_workspace] calls.
     #[derive(Clone, Debug)]
     pub struct CreateConversionWorkspace(
         RequestBuilder<crate::model::CreateConversionWorkspaceRequest>,
@@ -2241,7 +2241,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::update_conversion_workspace call.
+    /// The request builder for [DataMigrationService::update_conversion_workspace][super::super::client::DataMigrationService::update_conversion_workspace] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateConversionWorkspace(
         RequestBuilder<crate::model::UpdateConversionWorkspaceRequest>,
@@ -2349,7 +2349,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::delete_conversion_workspace call.
+    /// The request builder for [DataMigrationService::delete_conversion_workspace][super::super::client::DataMigrationService::delete_conversion_workspace] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteConversionWorkspace(
         RequestBuilder<crate::model::DeleteConversionWorkspaceRequest>,
@@ -2445,7 +2445,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::create_mapping_rule call.
+    /// The request builder for [DataMigrationService::create_mapping_rule][super::super::client::DataMigrationService::create_mapping_rule] calls.
     #[derive(Clone, Debug)]
     pub struct CreateMappingRule(RequestBuilder<crate::model::CreateMappingRuleRequest>);
 
@@ -2513,7 +2513,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::delete_mapping_rule call.
+    /// The request builder for [DataMigrationService::delete_mapping_rule][super::super::client::DataMigrationService::delete_mapping_rule] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteMappingRule(RequestBuilder<crate::model::DeleteMappingRuleRequest>);
 
@@ -2566,7 +2566,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::list_mapping_rules call.
+    /// The request builder for [DataMigrationService::list_mapping_rules][super::super::client::DataMigrationService::list_mapping_rules] calls.
     #[derive(Clone, Debug)]
     pub struct ListMappingRules(RequestBuilder<crate::model::ListMappingRulesRequest>);
 
@@ -2640,7 +2640,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::get_mapping_rule call.
+    /// The request builder for [DataMigrationService::get_mapping_rule][super::super::client::DataMigrationService::get_mapping_rule] calls.
     #[derive(Clone, Debug)]
     pub struct GetMappingRule(RequestBuilder<crate::model::GetMappingRuleRequest>);
 
@@ -2684,7 +2684,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::seed_conversion_workspace call.
+    /// The request builder for [DataMigrationService::seed_conversion_workspace][super::super::client::DataMigrationService::seed_conversion_workspace] calls.
     #[derive(Clone, Debug)]
     pub struct SeedConversionWorkspace(
         RequestBuilder<crate::model::SeedConversionWorkspaceRequest>,
@@ -2789,7 +2789,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::import_mapping_rules call.
+    /// The request builder for [DataMigrationService::import_mapping_rules][super::super::client::DataMigrationService::import_mapping_rules] calls.
     #[derive(Clone, Debug)]
     pub struct ImportMappingRules(RequestBuilder<crate::model::ImportMappingRulesRequest>);
 
@@ -2901,7 +2901,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::convert_conversion_workspace call.
+    /// The request builder for [DataMigrationService::convert_conversion_workspace][super::super::client::DataMigrationService::convert_conversion_workspace] calls.
     #[derive(Clone, Debug)]
     pub struct ConvertConversionWorkspace(
         RequestBuilder<crate::model::ConvertConversionWorkspaceRequest>,
@@ -3007,7 +3007,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::commit_conversion_workspace call.
+    /// The request builder for [DataMigrationService::commit_conversion_workspace][super::super::client::DataMigrationService::commit_conversion_workspace] calls.
     #[derive(Clone, Debug)]
     pub struct CommitConversionWorkspace(
         RequestBuilder<crate::model::CommitConversionWorkspaceRequest>,
@@ -3101,7 +3101,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::rollback_conversion_workspace call.
+    /// The request builder for [DataMigrationService::rollback_conversion_workspace][super::super::client::DataMigrationService::rollback_conversion_workspace] calls.
     #[derive(Clone, Debug)]
     pub struct RollbackConversionWorkspace(
         RequestBuilder<crate::model::RollbackConversionWorkspaceRequest>,
@@ -3189,7 +3189,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::apply_conversion_workspace call.
+    /// The request builder for [DataMigrationService::apply_conversion_workspace][super::super::client::DataMigrationService::apply_conversion_workspace] calls.
     #[derive(Clone, Debug)]
     pub struct ApplyConversionWorkspace(
         RequestBuilder<crate::model::ApplyConversionWorkspaceRequest>,
@@ -3306,7 +3306,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::describe_database_entities call.
+    /// The request builder for [DataMigrationService::describe_database_entities][super::super::client::DataMigrationService::describe_database_entities] calls.
     #[derive(Clone, Debug)]
     pub struct DescribeDatabaseEntities(
         RequestBuilder<crate::model::DescribeDatabaseEntitiesRequest>,
@@ -3417,7 +3417,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::search_background_jobs call.
+    /// The request builder for [DataMigrationService::search_background_jobs][super::super::client::DataMigrationService::search_background_jobs] calls.
     #[derive(Clone, Debug)]
     pub struct SearchBackgroundJobs(RequestBuilder<crate::model::SearchBackgroundJobsRequest>);
 
@@ -3485,7 +3485,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::describe_conversion_workspace_revisions call.
+    /// The request builder for [DataMigrationService::describe_conversion_workspace_revisions][super::super::client::DataMigrationService::describe_conversion_workspace_revisions] calls.
     #[derive(Clone, Debug)]
     pub struct DescribeConversionWorkspaceRevisions(
         RequestBuilder<crate::model::DescribeConversionWorkspaceRevisionsRequest>,
@@ -3542,7 +3542,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::fetch_static_ips call.
+    /// The request builder for [DataMigrationService::fetch_static_ips][super::super::client::DataMigrationService::fetch_static_ips] calls.
     #[derive(Clone, Debug)]
     pub struct FetchStaticIps(RequestBuilder<crate::model::FetchStaticIpsRequest>);
 
@@ -3598,7 +3598,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::list_locations call.
+    /// The request builder for [DataMigrationService::list_locations][super::super::client::DataMigrationService::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -3678,7 +3678,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::get_location call.
+    /// The request builder for [DataMigrationService::get_location][super::super::client::DataMigrationService::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -3722,7 +3722,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::set_iam_policy call.
+    /// The request builder for [DataMigrationService::set_iam_policy][super::super::client::DataMigrationService::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -3784,7 +3784,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::get_iam_policy call.
+    /// The request builder for [DataMigrationService::get_iam_policy][super::super::client::DataMigrationService::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -3837,7 +3837,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::test_iam_permissions call.
+    /// The request builder for [DataMigrationService::test_iam_permissions][super::super::client::DataMigrationService::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -3895,7 +3895,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::list_operations call.
+    /// The request builder for [DataMigrationService::list_operations][super::super::client::DataMigrationService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -3975,7 +3975,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::get_operation call.
+    /// The request builder for [DataMigrationService::get_operation][super::super::client::DataMigrationService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -4022,7 +4022,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::delete_operation call.
+    /// The request builder for [DataMigrationService::delete_operation][super::super::client::DataMigrationService::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -4069,7 +4069,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for a DataMigrationService::cancel_operation call.
+    /// The request builder for [DataMigrationService::cancel_operation][super::super::client::DataMigrationService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

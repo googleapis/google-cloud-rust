@@ -69,7 +69,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for a AutoscalingPolicyService::create_autoscaling_policy call.
+    /// The request builder for [AutoscalingPolicyService::create_autoscaling_policy][super::super::client::AutoscalingPolicyService::create_autoscaling_policy] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAutoscalingPolicy(
         RequestBuilder<crate::model::CreateAutoscalingPolicyRequest>,
@@ -127,7 +127,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for a AutoscalingPolicyService::update_autoscaling_policy call.
+    /// The request builder for [AutoscalingPolicyService::update_autoscaling_policy][super::super::client::AutoscalingPolicyService::update_autoscaling_policy] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateAutoscalingPolicy(
         RequestBuilder<crate::model::UpdateAutoscalingPolicyRequest>,
@@ -179,7 +179,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for a AutoscalingPolicyService::get_autoscaling_policy call.
+    /// The request builder for [AutoscalingPolicyService::get_autoscaling_policy][super::super::client::AutoscalingPolicyService::get_autoscaling_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetAutoscalingPolicy(RequestBuilder<crate::model::GetAutoscalingPolicyRequest>);
 
@@ -226,7 +226,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for a AutoscalingPolicyService::list_autoscaling_policies call.
+    /// The request builder for [AutoscalingPolicyService::list_autoscaling_policies][super::super::client::AutoscalingPolicyService::list_autoscaling_policies] calls.
     #[derive(Clone, Debug)]
     pub struct ListAutoscalingPolicies(
         RequestBuilder<crate::model::ListAutoscalingPoliciesRequest>,
@@ -304,7 +304,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for a AutoscalingPolicyService::delete_autoscaling_policy call.
+    /// The request builder for [AutoscalingPolicyService::delete_autoscaling_policy][super::super::client::AutoscalingPolicyService::delete_autoscaling_policy] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAutoscalingPolicy(
         RequestBuilder<crate::model::DeleteAutoscalingPolicyRequest>,
@@ -353,7 +353,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for a AutoscalingPolicyService::set_iam_policy call.
+    /// The request builder for [AutoscalingPolicyService::set_iam_policy][super::super::client::AutoscalingPolicyService::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -415,7 +415,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for a AutoscalingPolicyService::get_iam_policy call.
+    /// The request builder for [AutoscalingPolicyService::get_iam_policy][super::super::client::AutoscalingPolicyService::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -468,7 +468,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for a AutoscalingPolicyService::test_iam_permissions call.
+    /// The request builder for [AutoscalingPolicyService::test_iam_permissions][super::super::client::AutoscalingPolicyService::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -526,7 +526,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for a AutoscalingPolicyService::list_operations call.
+    /// The request builder for [AutoscalingPolicyService::list_operations][super::super::client::AutoscalingPolicyService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -606,7 +606,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for a AutoscalingPolicyService::get_operation call.
+    /// The request builder for [AutoscalingPolicyService::get_operation][super::super::client::AutoscalingPolicyService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -653,7 +653,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for a AutoscalingPolicyService::delete_operation call.
+    /// The request builder for [AutoscalingPolicyService::delete_operation][super::super::client::AutoscalingPolicyService::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -700,7 +700,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for a AutoscalingPolicyService::cancel_operation call.
+    /// The request builder for [AutoscalingPolicyService::cancel_operation][super::super::client::AutoscalingPolicyService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -801,7 +801,7 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for a BatchController::create_batch call.
+    /// The request builder for [BatchController::create_batch][super::super::client::BatchController::create_batch] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBatch(RequestBuilder<crate::model::CreateBatchRequest>);
 
@@ -902,7 +902,7 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for a BatchController::get_batch call.
+    /// The request builder for [BatchController::get_batch][super::super::client::BatchController::get_batch] calls.
     #[derive(Clone, Debug)]
     pub struct GetBatch(RequestBuilder<crate::model::GetBatchRequest>);
 
@@ -944,7 +944,7 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for a BatchController::list_batches call.
+    /// The request builder for [BatchController::list_batches][super::super::client::BatchController::list_batches] calls.
     #[derive(Clone, Debug)]
     pub struct ListBatches(RequestBuilder<crate::model::ListBatchesRequest>);
 
@@ -1025,7 +1025,7 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for a BatchController::delete_batch call.
+    /// The request builder for [BatchController::delete_batch][super::super::client::BatchController::delete_batch] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBatch(RequestBuilder<crate::model::DeleteBatchRequest>);
 
@@ -1067,7 +1067,7 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for a BatchController::set_iam_policy call.
+    /// The request builder for [BatchController::set_iam_policy][super::super::client::BatchController::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1127,7 +1127,7 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for a BatchController::get_iam_policy call.
+    /// The request builder for [BatchController::get_iam_policy][super::super::client::BatchController::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1178,7 +1178,7 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for a BatchController::test_iam_permissions call.
+    /// The request builder for [BatchController::test_iam_permissions][super::super::client::BatchController::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1234,7 +1234,7 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for a BatchController::list_operations call.
+    /// The request builder for [BatchController::list_operations][super::super::client::BatchController::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1312,7 +1312,7 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for a BatchController::get_operation call.
+    /// The request builder for [BatchController::get_operation][super::super::client::BatchController::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1357,7 +1357,7 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for a BatchController::delete_operation call.
+    /// The request builder for [BatchController::delete_operation][super::super::client::BatchController::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1402,7 +1402,7 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for a BatchController::cancel_operation call.
+    /// The request builder for [BatchController::cancel_operation][super::super::client::BatchController::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -1501,7 +1501,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for a ClusterController::create_cluster call.
+    /// The request builder for [ClusterController::create_cluster][super::super::client::ClusterController::create_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
@@ -1612,7 +1612,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for a ClusterController::update_cluster call.
+    /// The request builder for [ClusterController::update_cluster][super::super::client::ClusterController::update_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
@@ -1738,7 +1738,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for a ClusterController::stop_cluster call.
+    /// The request builder for [ClusterController::stop_cluster][super::super::client::ClusterController::stop_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct StopCluster(RequestBuilder<crate::model::StopClusterRequest>);
 
@@ -1843,7 +1843,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for a ClusterController::start_cluster call.
+    /// The request builder for [ClusterController::start_cluster][super::super::client::ClusterController::start_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct StartCluster(RequestBuilder<crate::model::StartClusterRequest>);
 
@@ -1948,7 +1948,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for a ClusterController::delete_cluster call.
+    /// The request builder for [ClusterController::delete_cluster][super::super::client::ClusterController::delete_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
@@ -2051,7 +2051,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for a ClusterController::get_cluster call.
+    /// The request builder for [ClusterController::get_cluster][super::super::client::ClusterController::get_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
@@ -2105,7 +2105,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for a ClusterController::list_clusters call.
+    /// The request builder for [ClusterController::list_clusters][super::super::client::ClusterController::list_clusters] calls.
     #[derive(Clone, Debug)]
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
@@ -2186,7 +2186,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for a ClusterController::diagnose_cluster call.
+    /// The request builder for [ClusterController::diagnose_cluster][super::super::client::ClusterController::diagnose_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct DiagnoseCluster(RequestBuilder<crate::model::DiagnoseClusterRequest>);
 
@@ -2329,7 +2329,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for a ClusterController::set_iam_policy call.
+    /// The request builder for [ClusterController::set_iam_policy][super::super::client::ClusterController::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -2389,7 +2389,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for a ClusterController::get_iam_policy call.
+    /// The request builder for [ClusterController::get_iam_policy][super::super::client::ClusterController::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -2440,7 +2440,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for a ClusterController::test_iam_permissions call.
+    /// The request builder for [ClusterController::test_iam_permissions][super::super::client::ClusterController::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -2496,7 +2496,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for a ClusterController::list_operations call.
+    /// The request builder for [ClusterController::list_operations][super::super::client::ClusterController::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2574,7 +2574,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for a ClusterController::get_operation call.
+    /// The request builder for [ClusterController::get_operation][super::super::client::ClusterController::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2619,7 +2619,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for a ClusterController::delete_operation call.
+    /// The request builder for [ClusterController::delete_operation][super::super::client::ClusterController::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2664,7 +2664,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for a ClusterController::cancel_operation call.
+    /// The request builder for [ClusterController::cancel_operation][super::super::client::ClusterController::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -2763,7 +2763,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for a JobController::submit_job call.
+    /// The request builder for [JobController::submit_job][super::super::client::JobController::submit_job] calls.
     #[derive(Clone, Debug)]
     pub struct SubmitJob(RequestBuilder<crate::model::SubmitJobRequest>);
 
@@ -2823,7 +2823,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for a JobController::submit_job_as_operation call.
+    /// The request builder for [JobController::submit_job_as_operation][super::super::client::JobController::submit_job_as_operation] calls.
     #[derive(Clone, Debug)]
     pub struct SubmitJobAsOperation(RequestBuilder<crate::model::SubmitJobRequest>);
 
@@ -2918,7 +2918,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for a JobController::get_job call.
+    /// The request builder for [JobController::get_job][super::super::client::JobController::get_job] calls.
     #[derive(Clone, Debug)]
     pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
 
@@ -2970,7 +2970,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for a JobController::list_jobs call.
+    /// The request builder for [JobController::list_jobs][super::super::client::JobController::list_jobs] calls.
     #[derive(Clone, Debug)]
     pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
 
@@ -3065,7 +3065,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for a JobController::update_job call.
+    /// The request builder for [JobController::update_job][super::super::client::JobController::update_job] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateJob(RequestBuilder<crate::model::UpdateJobRequest>);
 
@@ -3134,7 +3134,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for a JobController::cancel_job call.
+    /// The request builder for [JobController::cancel_job][super::super::client::JobController::cancel_job] calls.
     #[derive(Clone, Debug)]
     pub struct CancelJob(RequestBuilder<crate::model::CancelJobRequest>);
 
@@ -3188,7 +3188,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for a JobController::delete_job call.
+    /// The request builder for [JobController::delete_job][super::super::client::JobController::delete_job] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
 
@@ -3242,7 +3242,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for a JobController::set_iam_policy call.
+    /// The request builder for [JobController::set_iam_policy][super::super::client::JobController::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -3302,7 +3302,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for a JobController::get_iam_policy call.
+    /// The request builder for [JobController::get_iam_policy][super::super::client::JobController::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -3353,7 +3353,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for a JobController::test_iam_permissions call.
+    /// The request builder for [JobController::test_iam_permissions][super::super::client::JobController::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -3409,7 +3409,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for a JobController::list_operations call.
+    /// The request builder for [JobController::list_operations][super::super::client::JobController::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -3487,7 +3487,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for a JobController::get_operation call.
+    /// The request builder for [JobController::get_operation][super::super::client::JobController::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -3532,7 +3532,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for a JobController::delete_operation call.
+    /// The request builder for [JobController::delete_operation][super::super::client::JobController::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -3577,7 +3577,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for a JobController::cancel_operation call.
+    /// The request builder for [JobController::cancel_operation][super::super::client::JobController::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -3676,7 +3676,7 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for a NodeGroupController::create_node_group call.
+    /// The request builder for [NodeGroupController::create_node_group][super::super::client::NodeGroupController::create_node_group] calls.
     #[derive(Clone, Debug)]
     pub struct CreateNodeGroup(RequestBuilder<crate::model::CreateNodeGroupRequest>);
 
@@ -3778,7 +3778,7 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for a NodeGroupController::resize_node_group call.
+    /// The request builder for [NodeGroupController::resize_node_group][super::super::client::NodeGroupController::resize_node_group] calls.
     #[derive(Clone, Debug)]
     pub struct ResizeNodeGroup(RequestBuilder<crate::model::ResizeNodeGroupRequest>);
 
@@ -3880,7 +3880,7 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for a NodeGroupController::get_node_group call.
+    /// The request builder for [NodeGroupController::get_node_group][super::super::client::NodeGroupController::get_node_group] calls.
     #[derive(Clone, Debug)]
     pub struct GetNodeGroup(RequestBuilder<crate::model::GetNodeGroupRequest>);
 
@@ -3922,7 +3922,7 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for a NodeGroupController::set_iam_policy call.
+    /// The request builder for [NodeGroupController::set_iam_policy][super::super::client::NodeGroupController::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -3982,7 +3982,7 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for a NodeGroupController::get_iam_policy call.
+    /// The request builder for [NodeGroupController::get_iam_policy][super::super::client::NodeGroupController::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -4033,7 +4033,7 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for a NodeGroupController::test_iam_permissions call.
+    /// The request builder for [NodeGroupController::test_iam_permissions][super::super::client::NodeGroupController::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -4089,7 +4089,7 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for a NodeGroupController::list_operations call.
+    /// The request builder for [NodeGroupController::list_operations][super::super::client::NodeGroupController::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -4167,7 +4167,7 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for a NodeGroupController::get_operation call.
+    /// The request builder for [NodeGroupController::get_operation][super::super::client::NodeGroupController::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -4212,7 +4212,7 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for a NodeGroupController::delete_operation call.
+    /// The request builder for [NodeGroupController::delete_operation][super::super::client::NodeGroupController::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -4257,7 +4257,7 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for a NodeGroupController::cancel_operation call.
+    /// The request builder for [NodeGroupController::cancel_operation][super::super::client::NodeGroupController::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -4358,7 +4358,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for a SessionTemplateController::create_session_template call.
+    /// The request builder for [SessionTemplateController::create_session_template][super::super::client::SessionTemplateController::create_session_template] calls.
     #[derive(Clone, Debug)]
     pub struct CreateSessionTemplate(RequestBuilder<crate::model::CreateSessionTemplateRequest>);
 
@@ -4414,7 +4414,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for a SessionTemplateController::update_session_template call.
+    /// The request builder for [SessionTemplateController::update_session_template][super::super::client::SessionTemplateController::update_session_template] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateSessionTemplate(RequestBuilder<crate::model::UpdateSessionTemplateRequest>);
 
@@ -4464,7 +4464,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for a SessionTemplateController::get_session_template call.
+    /// The request builder for [SessionTemplateController::get_session_template][super::super::client::SessionTemplateController::get_session_template] calls.
     #[derive(Clone, Debug)]
     pub struct GetSessionTemplate(RequestBuilder<crate::model::GetSessionTemplateRequest>);
 
@@ -4511,7 +4511,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for a SessionTemplateController::list_session_templates call.
+    /// The request builder for [SessionTemplateController::list_session_templates][super::super::client::SessionTemplateController::list_session_templates] calls.
     #[derive(Clone, Debug)]
     pub struct ListSessionTemplates(RequestBuilder<crate::model::ListSessionTemplatesRequest>);
 
@@ -4591,7 +4591,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for a SessionTemplateController::delete_session_template call.
+    /// The request builder for [SessionTemplateController::delete_session_template][super::super::client::SessionTemplateController::delete_session_template] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteSessionTemplate(RequestBuilder<crate::model::DeleteSessionTemplateRequest>);
 
@@ -4638,7 +4638,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for a SessionTemplateController::set_iam_policy call.
+    /// The request builder for [SessionTemplateController::set_iam_policy][super::super::client::SessionTemplateController::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -4700,7 +4700,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for a SessionTemplateController::get_iam_policy call.
+    /// The request builder for [SessionTemplateController::get_iam_policy][super::super::client::SessionTemplateController::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -4753,7 +4753,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for a SessionTemplateController::test_iam_permissions call.
+    /// The request builder for [SessionTemplateController::test_iam_permissions][super::super::client::SessionTemplateController::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -4811,7 +4811,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for a SessionTemplateController::list_operations call.
+    /// The request builder for [SessionTemplateController::list_operations][super::super::client::SessionTemplateController::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -4891,7 +4891,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for a SessionTemplateController::get_operation call.
+    /// The request builder for [SessionTemplateController::get_operation][super::super::client::SessionTemplateController::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -4938,7 +4938,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for a SessionTemplateController::delete_operation call.
+    /// The request builder for [SessionTemplateController::delete_operation][super::super::client::SessionTemplateController::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -4985,7 +4985,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for a SessionTemplateController::cancel_operation call.
+    /// The request builder for [SessionTemplateController::cancel_operation][super::super::client::SessionTemplateController::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -5086,7 +5086,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for a SessionController::create_session call.
+    /// The request builder for [SessionController::create_session][super::super::client::SessionController::create_session] calls.
     #[derive(Clone, Debug)]
     pub struct CreateSession(RequestBuilder<crate::model::CreateSessionRequest>);
 
@@ -5188,7 +5188,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for a SessionController::get_session call.
+    /// The request builder for [SessionController::get_session][super::super::client::SessionController::get_session] calls.
     #[derive(Clone, Debug)]
     pub struct GetSession(RequestBuilder<crate::model::GetSessionRequest>);
 
@@ -5230,7 +5230,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for a SessionController::list_sessions call.
+    /// The request builder for [SessionController::list_sessions][super::super::client::SessionController::list_sessions] calls.
     #[derive(Clone, Debug)]
     pub struct ListSessions(RequestBuilder<crate::model::ListSessionsRequest>);
 
@@ -5305,7 +5305,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for a SessionController::terminate_session call.
+    /// The request builder for [SessionController::terminate_session][super::super::client::SessionController::terminate_session] calls.
     #[derive(Clone, Debug)]
     pub struct TerminateSession(RequestBuilder<crate::model::TerminateSessionRequest>);
 
@@ -5395,7 +5395,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for a SessionController::delete_session call.
+    /// The request builder for [SessionController::delete_session][super::super::client::SessionController::delete_session] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteSession(RequestBuilder<crate::model::DeleteSessionRequest>);
 
@@ -5482,7 +5482,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for a SessionController::set_iam_policy call.
+    /// The request builder for [SessionController::set_iam_policy][super::super::client::SessionController::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -5542,7 +5542,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for a SessionController::get_iam_policy call.
+    /// The request builder for [SessionController::get_iam_policy][super::super::client::SessionController::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -5593,7 +5593,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for a SessionController::test_iam_permissions call.
+    /// The request builder for [SessionController::test_iam_permissions][super::super::client::SessionController::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -5649,7 +5649,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for a SessionController::list_operations call.
+    /// The request builder for [SessionController::list_operations][super::super::client::SessionController::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -5727,7 +5727,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for a SessionController::get_operation call.
+    /// The request builder for [SessionController::get_operation][super::super::client::SessionController::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -5772,7 +5772,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for a SessionController::delete_operation call.
+    /// The request builder for [SessionController::delete_operation][super::super::client::SessionController::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -5817,7 +5817,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for a SessionController::cancel_operation call.
+    /// The request builder for [SessionController::cancel_operation][super::super::client::SessionController::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -5918,7 +5918,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for a WorkflowTemplateService::create_workflow_template call.
+    /// The request builder for [WorkflowTemplateService::create_workflow_template][super::super::client::WorkflowTemplateService::create_workflow_template] calls.
     #[derive(Clone, Debug)]
     pub struct CreateWorkflowTemplate(RequestBuilder<crate::model::CreateWorkflowTemplateRequest>);
 
@@ -5974,7 +5974,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for a WorkflowTemplateService::get_workflow_template call.
+    /// The request builder for [WorkflowTemplateService::get_workflow_template][super::super::client::WorkflowTemplateService::get_workflow_template] calls.
     #[derive(Clone, Debug)]
     pub struct GetWorkflowTemplate(RequestBuilder<crate::model::GetWorkflowTemplateRequest>);
 
@@ -6027,7 +6027,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for a WorkflowTemplateService::instantiate_workflow_template call.
+    /// The request builder for [WorkflowTemplateService::instantiate_workflow_template][super::super::client::WorkflowTemplateService::instantiate_workflow_template] calls.
     #[derive(Clone, Debug)]
     pub struct InstantiateWorkflowTemplate(
         RequestBuilder<crate::model::InstantiateWorkflowTemplateRequest>,
@@ -6134,7 +6134,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for a WorkflowTemplateService::instantiate_inline_workflow_template call.
+    /// The request builder for [WorkflowTemplateService::instantiate_inline_workflow_template][super::super::client::WorkflowTemplateService::instantiate_inline_workflow_template] calls.
     #[derive(Clone, Debug)]
     pub struct InstantiateInlineWorkflowTemplate(
         RequestBuilder<crate::model::InstantiateInlineWorkflowTemplateRequest>,
@@ -6233,7 +6233,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for a WorkflowTemplateService::update_workflow_template call.
+    /// The request builder for [WorkflowTemplateService::update_workflow_template][super::super::client::WorkflowTemplateService::update_workflow_template] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateWorkflowTemplate(RequestBuilder<crate::model::UpdateWorkflowTemplateRequest>);
 
@@ -6283,7 +6283,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for a WorkflowTemplateService::list_workflow_templates call.
+    /// The request builder for [WorkflowTemplateService::list_workflow_templates][super::super::client::WorkflowTemplateService::list_workflow_templates] calls.
     #[derive(Clone, Debug)]
     pub struct ListWorkflowTemplates(RequestBuilder<crate::model::ListWorkflowTemplatesRequest>);
 
@@ -6357,7 +6357,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for a WorkflowTemplateService::delete_workflow_template call.
+    /// The request builder for [WorkflowTemplateService::delete_workflow_template][super::super::client::WorkflowTemplateService::delete_workflow_template] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteWorkflowTemplate(RequestBuilder<crate::model::DeleteWorkflowTemplateRequest>);
 
@@ -6410,7 +6410,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for a WorkflowTemplateService::set_iam_policy call.
+    /// The request builder for [WorkflowTemplateService::set_iam_policy][super::super::client::WorkflowTemplateService::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -6472,7 +6472,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for a WorkflowTemplateService::get_iam_policy call.
+    /// The request builder for [WorkflowTemplateService::get_iam_policy][super::super::client::WorkflowTemplateService::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -6525,7 +6525,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for a WorkflowTemplateService::test_iam_permissions call.
+    /// The request builder for [WorkflowTemplateService::test_iam_permissions][super::super::client::WorkflowTemplateService::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -6583,7 +6583,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for a WorkflowTemplateService::list_operations call.
+    /// The request builder for [WorkflowTemplateService::list_operations][super::super::client::WorkflowTemplateService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -6663,7 +6663,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for a WorkflowTemplateService::get_operation call.
+    /// The request builder for [WorkflowTemplateService::get_operation][super::super::client::WorkflowTemplateService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -6710,7 +6710,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for a WorkflowTemplateService::delete_operation call.
+    /// The request builder for [WorkflowTemplateService::delete_operation][super::super::client::WorkflowTemplateService::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -6757,7 +6757,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for a WorkflowTemplateService::cancel_operation call.
+    /// The request builder for [WorkflowTemplateService::cancel_operation][super::super::client::WorkflowTemplateService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

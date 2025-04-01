@@ -67,7 +67,7 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for a CloudScheduler::list_jobs call.
+    /// The request builder for [CloudScheduler::list_jobs][super::super::client::CloudScheduler::list_jobs] calls.
     #[derive(Clone, Debug)]
     pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
 
@@ -135,7 +135,7 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for a CloudScheduler::get_job call.
+    /// The request builder for [CloudScheduler::get_job][super::super::client::CloudScheduler::get_job] calls.
     #[derive(Clone, Debug)]
     pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
 
@@ -175,7 +175,7 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for a CloudScheduler::create_job call.
+    /// The request builder for [CloudScheduler::create_job][super::super::client::CloudScheduler::create_job] calls.
     #[derive(Clone, Debug)]
     pub struct CreateJob(RequestBuilder<crate::model::CreateJobRequest>);
 
@@ -223,7 +223,7 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for a CloudScheduler::update_job call.
+    /// The request builder for [CloudScheduler::update_job][super::super::client::CloudScheduler::update_job] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateJob(RequestBuilder<crate::model::UpdateJobRequest>);
 
@@ -274,7 +274,7 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for a CloudScheduler::delete_job call.
+    /// The request builder for [CloudScheduler::delete_job][super::super::client::CloudScheduler::delete_job] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
 
@@ -316,7 +316,7 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for a CloudScheduler::pause_job call.
+    /// The request builder for [CloudScheduler::pause_job][super::super::client::CloudScheduler::pause_job] calls.
     #[derive(Clone, Debug)]
     pub struct PauseJob(RequestBuilder<crate::model::PauseJobRequest>);
 
@@ -358,7 +358,7 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for a CloudScheduler::resume_job call.
+    /// The request builder for [CloudScheduler::resume_job][super::super::client::CloudScheduler::resume_job] calls.
     #[derive(Clone, Debug)]
     pub struct ResumeJob(RequestBuilder<crate::model::ResumeJobRequest>);
 
@@ -400,7 +400,7 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for a CloudScheduler::run_job call.
+    /// The request builder for [CloudScheduler::run_job][super::super::client::CloudScheduler::run_job] calls.
     #[derive(Clone, Debug)]
     pub struct RunJob(RequestBuilder<crate::model::RunJobRequest>);
 
@@ -440,7 +440,7 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for a CloudScheduler::list_locations call.
+    /// The request builder for [CloudScheduler::list_locations][super::super::client::CloudScheduler::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -518,7 +518,7 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for a CloudScheduler::get_location call.
+    /// The request builder for [CloudScheduler::get_location][super::super::client::CloudScheduler::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 

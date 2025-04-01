@@ -69,7 +69,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for a StorageBatchOperations::list_jobs call.
+    /// The request builder for [StorageBatchOperations::list_jobs][super::super::client::StorageBatchOperations::list_jobs] calls.
     #[derive(Clone, Debug)]
     pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
 
@@ -151,7 +151,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for a StorageBatchOperations::get_job call.
+    /// The request builder for [StorageBatchOperations::get_job][super::super::client::StorageBatchOperations::get_job] calls.
     #[derive(Clone, Debug)]
     pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
 
@@ -193,7 +193,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for a StorageBatchOperations::create_job call.
+    /// The request builder for [StorageBatchOperations::create_job][super::super::client::StorageBatchOperations::create_job] calls.
     #[derive(Clone, Debug)]
     pub struct CreateJob(RequestBuilder<crate::model::CreateJobRequest>);
 
@@ -292,7 +292,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for a StorageBatchOperations::delete_job call.
+    /// The request builder for [StorageBatchOperations::delete_job][super::super::client::StorageBatchOperations::delete_job] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
 
@@ -342,7 +342,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for a StorageBatchOperations::cancel_job call.
+    /// The request builder for [StorageBatchOperations::cancel_job][super::super::client::StorageBatchOperations::cancel_job] calls.
     #[derive(Clone, Debug)]
     pub struct CancelJob(RequestBuilder<crate::model::CancelJobRequest>);
 
@@ -392,7 +392,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for a StorageBatchOperations::list_locations call.
+    /// The request builder for [StorageBatchOperations::list_locations][super::super::client::StorageBatchOperations::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -472,7 +472,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for a StorageBatchOperations::get_location call.
+    /// The request builder for [StorageBatchOperations::get_location][super::super::client::StorageBatchOperations::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -516,7 +516,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for a StorageBatchOperations::list_operations call.
+    /// The request builder for [StorageBatchOperations::list_operations][super::super::client::StorageBatchOperations::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -596,7 +596,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for a StorageBatchOperations::get_operation call.
+    /// The request builder for [StorageBatchOperations::get_operation][super::super::client::StorageBatchOperations::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -643,7 +643,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for a StorageBatchOperations::delete_operation call.
+    /// The request builder for [StorageBatchOperations::delete_operation][super::super::client::StorageBatchOperations::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -690,7 +690,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for a StorageBatchOperations::cancel_operation call.
+    /// The request builder for [StorageBatchOperations::cancel_operation][super::super::client::StorageBatchOperations::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

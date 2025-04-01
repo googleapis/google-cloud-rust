@@ -67,7 +67,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for a NotebookService::list_instances call.
+    /// The request builder for [NotebookService::list_instances][super::super::client::NotebookService::list_instances] calls.
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
@@ -148,7 +148,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for a NotebookService::get_instance call.
+    /// The request builder for [NotebookService::get_instance][super::super::client::NotebookService::get_instance] calls.
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
@@ -190,7 +190,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for a NotebookService::create_instance call.
+    /// The request builder for [NotebookService::create_instance][super::super::client::NotebookService::create_instance] calls.
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
@@ -291,7 +291,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for a NotebookService::update_instance call.
+    /// The request builder for [NotebookService::update_instance][super::super::client::NotebookService::update_instance] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
@@ -389,7 +389,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for a NotebookService::delete_instance call.
+    /// The request builder for [NotebookService::delete_instance][super::super::client::NotebookService::delete_instance] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
@@ -472,7 +472,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for a NotebookService::start_instance call.
+    /// The request builder for [NotebookService::start_instance][super::super::client::NotebookService::start_instance] calls.
     #[derive(Clone, Debug)]
     pub struct StartInstance(RequestBuilder<crate::model::StartInstanceRequest>);
 
@@ -552,7 +552,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for a NotebookService::stop_instance call.
+    /// The request builder for [NotebookService::stop_instance][super::super::client::NotebookService::stop_instance] calls.
     #[derive(Clone, Debug)]
     pub struct StopInstance(RequestBuilder<crate::model::StopInstanceRequest>);
 
@@ -632,7 +632,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for a NotebookService::reset_instance call.
+    /// The request builder for [NotebookService::reset_instance][super::super::client::NotebookService::reset_instance] calls.
     #[derive(Clone, Debug)]
     pub struct ResetInstance(RequestBuilder<crate::model::ResetInstanceRequest>);
 
@@ -712,7 +712,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for a NotebookService::check_instance_upgradability call.
+    /// The request builder for [NotebookService::check_instance_upgradability][super::super::client::NotebookService::check_instance_upgradability] calls.
     #[derive(Clone, Debug)]
     pub struct CheckInstanceUpgradability(
         RequestBuilder<crate::model::CheckInstanceUpgradabilityRequest>,
@@ -759,7 +759,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for a NotebookService::upgrade_instance call.
+    /// The request builder for [NotebookService::upgrade_instance][super::super::client::NotebookService::upgrade_instance] calls.
     #[derive(Clone, Debug)]
     pub struct UpgradeInstance(RequestBuilder<crate::model::UpgradeInstanceRequest>);
 
@@ -839,7 +839,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for a NotebookService::rollback_instance call.
+    /// The request builder for [NotebookService::rollback_instance][super::super::client::NotebookService::rollback_instance] calls.
     #[derive(Clone, Debug)]
     pub struct RollbackInstance(RequestBuilder<crate::model::RollbackInstanceRequest>);
 
@@ -934,7 +934,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for a NotebookService::diagnose_instance call.
+    /// The request builder for [NotebookService::diagnose_instance][super::super::client::NotebookService::diagnose_instance] calls.
     #[derive(Clone, Debug)]
     pub struct DiagnoseInstance(RequestBuilder<crate::model::DiagnoseInstanceRequest>);
 
@@ -1034,7 +1034,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for a NotebookService::list_locations call.
+    /// The request builder for [NotebookService::list_locations][super::super::client::NotebookService::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1112,7 +1112,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for a NotebookService::get_location call.
+    /// The request builder for [NotebookService::get_location][super::super::client::NotebookService::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1154,7 +1154,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for a NotebookService::set_iam_policy call.
+    /// The request builder for [NotebookService::set_iam_policy][super::super::client::NotebookService::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1214,7 +1214,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for a NotebookService::get_iam_policy call.
+    /// The request builder for [NotebookService::get_iam_policy][super::super::client::NotebookService::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1265,7 +1265,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for a NotebookService::test_iam_permissions call.
+    /// The request builder for [NotebookService::test_iam_permissions][super::super::client::NotebookService::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1321,7 +1321,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for a NotebookService::list_operations call.
+    /// The request builder for [NotebookService::list_operations][super::super::client::NotebookService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1399,7 +1399,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for a NotebookService::get_operation call.
+    /// The request builder for [NotebookService::get_operation][super::super::client::NotebookService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1444,7 +1444,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for a NotebookService::delete_operation call.
+    /// The request builder for [NotebookService::delete_operation][super::super::client::NotebookService::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1489,7 +1489,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for a NotebookService::cancel_operation call.
+    /// The request builder for [NotebookService::cancel_operation][super::super::client::NotebookService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

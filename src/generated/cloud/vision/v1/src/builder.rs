@@ -67,7 +67,7 @@ pub mod image_annotator {
         }
     }
 
-    /// The request builder for a ImageAnnotator::batch_annotate_images call.
+    /// The request builder for [ImageAnnotator::batch_annotate_images][super::super::client::ImageAnnotator::batch_annotate_images] calls.
     #[derive(Clone, Debug)]
     pub struct BatchAnnotateImages(RequestBuilder<crate::model::BatchAnnotateImagesRequest>);
 
@@ -134,7 +134,7 @@ pub mod image_annotator {
         }
     }
 
-    /// The request builder for a ImageAnnotator::batch_annotate_files call.
+    /// The request builder for [ImageAnnotator::batch_annotate_files][super::super::client::ImageAnnotator::batch_annotate_files] calls.
     #[derive(Clone, Debug)]
     pub struct BatchAnnotateFiles(RequestBuilder<crate::model::BatchAnnotateFilesRequest>);
 
@@ -201,7 +201,7 @@ pub mod image_annotator {
         }
     }
 
-    /// The request builder for a ImageAnnotator::async_batch_annotate_images call.
+    /// The request builder for [ImageAnnotator::async_batch_annotate_images][super::super::client::ImageAnnotator::async_batch_annotate_images] calls.
     #[derive(Clone, Debug)]
     pub struct AsyncBatchAnnotateImages(
         RequestBuilder<crate::model::AsyncBatchAnnotateImagesRequest>,
@@ -322,7 +322,7 @@ pub mod image_annotator {
         }
     }
 
-    /// The request builder for a ImageAnnotator::async_batch_annotate_files call.
+    /// The request builder for [ImageAnnotator::async_batch_annotate_files][super::super::client::ImageAnnotator::async_batch_annotate_files] calls.
     #[derive(Clone, Debug)]
     pub struct AsyncBatchAnnotateFiles(
         RequestBuilder<crate::model::AsyncBatchAnnotateFilesRequest>,
@@ -434,7 +434,7 @@ pub mod image_annotator {
         }
     }
 
-    /// The request builder for a ImageAnnotator::get_operation call.
+    /// The request builder for [ImageAnnotator::get_operation][super::super::client::ImageAnnotator::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -533,7 +533,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for a ProductSearch::create_product_set call.
+    /// The request builder for [ProductSearch::create_product_set][super::super::client::ProductSearch::create_product_set] calls.
     #[derive(Clone, Debug)]
     pub struct CreateProductSet(RequestBuilder<crate::model::CreateProductSetRequest>);
 
@@ -593,7 +593,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for a ProductSearch::list_product_sets call.
+    /// The request builder for [ProductSearch::list_product_sets][super::super::client::ProductSearch::list_product_sets] calls.
     #[derive(Clone, Debug)]
     pub struct ListProductSets(RequestBuilder<crate::model::ListProductSetsRequest>);
 
@@ -662,7 +662,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for a ProductSearch::get_product_set call.
+    /// The request builder for [ProductSearch::get_product_set][super::super::client::ProductSearch::get_product_set] calls.
     #[derive(Clone, Debug)]
     pub struct GetProductSet(RequestBuilder<crate::model::GetProductSetRequest>);
 
@@ -704,7 +704,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for a ProductSearch::update_product_set call.
+    /// The request builder for [ProductSearch::update_product_set][super::super::client::ProductSearch::update_product_set] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateProductSet(RequestBuilder<crate::model::UpdateProductSetRequest>);
 
@@ -761,7 +761,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for a ProductSearch::delete_product_set call.
+    /// The request builder for [ProductSearch::delete_product_set][super::super::client::ProductSearch::delete_product_set] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteProductSet(RequestBuilder<crate::model::DeleteProductSetRequest>);
 
@@ -806,7 +806,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for a ProductSearch::create_product call.
+    /// The request builder for [ProductSearch::create_product][super::super::client::ProductSearch::create_product] calls.
     #[derive(Clone, Debug)]
     pub struct CreateProduct(RequestBuilder<crate::model::CreateProductRequest>);
 
@@ -863,7 +863,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for a ProductSearch::list_products call.
+    /// The request builder for [ProductSearch::list_products][super::super::client::ProductSearch::list_products] calls.
     #[derive(Clone, Debug)]
     pub struct ListProducts(RequestBuilder<crate::model::ListProductsRequest>);
 
@@ -932,7 +932,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for a ProductSearch::get_product call.
+    /// The request builder for [ProductSearch::get_product][super::super::client::ProductSearch::get_product] calls.
     #[derive(Clone, Debug)]
     pub struct GetProduct(RequestBuilder<crate::model::GetProductRequest>);
 
@@ -974,7 +974,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for a ProductSearch::update_product call.
+    /// The request builder for [ProductSearch::update_product][super::super::client::ProductSearch::update_product] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateProduct(RequestBuilder<crate::model::UpdateProductRequest>);
 
@@ -1028,7 +1028,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for a ProductSearch::delete_product call.
+    /// The request builder for [ProductSearch::delete_product][super::super::client::ProductSearch::delete_product] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteProduct(RequestBuilder<crate::model::DeleteProductRequest>);
 
@@ -1070,7 +1070,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for a ProductSearch::create_reference_image call.
+    /// The request builder for [ProductSearch::create_reference_image][super::super::client::ProductSearch::create_reference_image] calls.
     #[derive(Clone, Debug)]
     pub struct CreateReferenceImage(RequestBuilder<crate::model::CreateReferenceImageRequest>);
 
@@ -1130,7 +1130,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for a ProductSearch::delete_reference_image call.
+    /// The request builder for [ProductSearch::delete_reference_image][super::super::client::ProductSearch::delete_reference_image] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteReferenceImage(RequestBuilder<crate::model::DeleteReferenceImageRequest>);
 
@@ -1175,7 +1175,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for a ProductSearch::list_reference_images call.
+    /// The request builder for [ProductSearch::list_reference_images][super::super::client::ProductSearch::list_reference_images] calls.
     #[derive(Clone, Debug)]
     pub struct ListReferenceImages(RequestBuilder<crate::model::ListReferenceImagesRequest>);
 
@@ -1247,7 +1247,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for a ProductSearch::get_reference_image call.
+    /// The request builder for [ProductSearch::get_reference_image][super::super::client::ProductSearch::get_reference_image] calls.
     #[derive(Clone, Debug)]
     pub struct GetReferenceImage(RequestBuilder<crate::model::GetReferenceImageRequest>);
 
@@ -1292,7 +1292,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for a ProductSearch::add_product_to_product_set call.
+    /// The request builder for [ProductSearch::add_product_to_product_set][super::super::client::ProductSearch::add_product_to_product_set] calls.
     #[derive(Clone, Debug)]
     pub struct AddProductToProductSet(RequestBuilder<crate::model::AddProductToProductSetRequest>);
 
@@ -1343,7 +1343,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for a ProductSearch::remove_product_from_product_set call.
+    /// The request builder for [ProductSearch::remove_product_from_product_set][super::super::client::ProductSearch::remove_product_from_product_set] calls.
     #[derive(Clone, Debug)]
     pub struct RemoveProductFromProductSet(
         RequestBuilder<crate::model::RemoveProductFromProductSetRequest>,
@@ -1396,7 +1396,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for a ProductSearch::list_products_in_product_set call.
+    /// The request builder for [ProductSearch::list_products_in_product_set][super::super::client::ProductSearch::list_products_in_product_set] calls.
     #[derive(Clone, Debug)]
     pub struct ListProductsInProductSet(
         RequestBuilder<crate::model::ListProductsInProductSetRequest>,
@@ -1472,7 +1472,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for a ProductSearch::import_product_sets call.
+    /// The request builder for [ProductSearch::import_product_sets][super::super::client::ProductSearch::import_product_sets] calls.
     #[derive(Clone, Debug)]
     pub struct ImportProductSets(RequestBuilder<crate::model::ImportProductSetsRequest>);
 
@@ -1571,7 +1571,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for a ProductSearch::purge_products call.
+    /// The request builder for [ProductSearch::purge_products][super::super::client::ProductSearch::purge_products] calls.
     #[derive(Clone, Debug)]
     pub struct PurgeProducts(RequestBuilder<crate::model::PurgeProductsRequest>);
 
@@ -1663,7 +1663,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for a ProductSearch::get_operation call.
+    /// The request builder for [ProductSearch::get_operation][super::super::client::ProductSearch::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

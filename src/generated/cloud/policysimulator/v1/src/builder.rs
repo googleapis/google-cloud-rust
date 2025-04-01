@@ -67,7 +67,7 @@ pub mod simulator {
         }
     }
 
-    /// The request builder for a Simulator::get_replay call.
+    /// The request builder for [Simulator::get_replay][super::super::client::Simulator::get_replay] calls.
     #[derive(Clone, Debug)]
     pub struct GetReplay(RequestBuilder<crate::model::GetReplayRequest>);
 
@@ -109,7 +109,7 @@ pub mod simulator {
         }
     }
 
-    /// The request builder for a Simulator::create_replay call.
+    /// The request builder for [Simulator::create_replay][super::super::client::Simulator::create_replay] calls.
     #[derive(Clone, Debug)]
     pub struct CreateReplay(RequestBuilder<crate::model::CreateReplayRequest>);
 
@@ -198,7 +198,7 @@ pub mod simulator {
         }
     }
 
-    /// The request builder for a Simulator::list_replay_results call.
+    /// The request builder for [Simulator::list_replay_results][super::super::client::Simulator::list_replay_results] calls.
     #[derive(Clone, Debug)]
     pub struct ListReplayResults(RequestBuilder<crate::model::ListReplayResultsRequest>);
 
@@ -270,7 +270,7 @@ pub mod simulator {
         }
     }
 
-    /// The request builder for a Simulator::list_operations call.
+    /// The request builder for [Simulator::list_operations][super::super::client::Simulator::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -348,7 +348,7 @@ pub mod simulator {
         }
     }
 
-    /// The request builder for a Simulator::get_operation call.
+    /// The request builder for [Simulator::get_operation][super::super::client::Simulator::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

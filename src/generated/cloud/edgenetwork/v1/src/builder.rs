@@ -67,7 +67,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::initialize_zone call.
+    /// The request builder for [EdgeNetwork::initialize_zone][super::super::client::EdgeNetwork::initialize_zone] calls.
     #[derive(Clone, Debug)]
     pub struct InitializeZone(RequestBuilder<crate::model::InitializeZoneRequest>);
 
@@ -109,7 +109,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::list_zones call.
+    /// The request builder for [EdgeNetwork::list_zones][super::super::client::EdgeNetwork::list_zones] calls.
     #[derive(Clone, Debug)]
     pub struct ListZones(RequestBuilder<crate::model::ListZonesRequest>);
 
@@ -189,7 +189,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::get_zone call.
+    /// The request builder for [EdgeNetwork::get_zone][super::super::client::EdgeNetwork::get_zone] calls.
     #[derive(Clone, Debug)]
     pub struct GetZone(RequestBuilder<crate::model::GetZoneRequest>);
 
@@ -231,7 +231,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::list_networks call.
+    /// The request builder for [EdgeNetwork::list_networks][super::super::client::EdgeNetwork::list_networks] calls.
     #[derive(Clone, Debug)]
     pub struct ListNetworks(RequestBuilder<crate::model::ListNetworksRequest>);
 
@@ -312,7 +312,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::get_network call.
+    /// The request builder for [EdgeNetwork::get_network][super::super::client::EdgeNetwork::get_network] calls.
     #[derive(Clone, Debug)]
     pub struct GetNetwork(RequestBuilder<crate::model::GetNetworkRequest>);
 
@@ -354,7 +354,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::diagnose_network call.
+    /// The request builder for [EdgeNetwork::diagnose_network][super::super::client::EdgeNetwork::diagnose_network] calls.
     #[derive(Clone, Debug)]
     pub struct DiagnoseNetwork(RequestBuilder<crate::model::DiagnoseNetworkRequest>);
 
@@ -396,7 +396,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::create_network call.
+    /// The request builder for [EdgeNetwork::create_network][super::super::client::EdgeNetwork::create_network] calls.
     #[derive(Clone, Debug)]
     pub struct CreateNetwork(RequestBuilder<crate::model::CreateNetworkRequest>);
 
@@ -496,7 +496,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::delete_network call.
+    /// The request builder for [EdgeNetwork::delete_network][super::super::client::EdgeNetwork::delete_network] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteNetwork(RequestBuilder<crate::model::DeleteNetworkRequest>);
 
@@ -579,7 +579,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::list_subnets call.
+    /// The request builder for [EdgeNetwork::list_subnets][super::super::client::EdgeNetwork::list_subnets] calls.
     #[derive(Clone, Debug)]
     pub struct ListSubnets(RequestBuilder<crate::model::ListSubnetsRequest>);
 
@@ -660,7 +660,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::get_subnet call.
+    /// The request builder for [EdgeNetwork::get_subnet][super::super::client::EdgeNetwork::get_subnet] calls.
     #[derive(Clone, Debug)]
     pub struct GetSubnet(RequestBuilder<crate::model::GetSubnetRequest>);
 
@@ -702,7 +702,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::create_subnet call.
+    /// The request builder for [EdgeNetwork::create_subnet][super::super::client::EdgeNetwork::create_subnet] calls.
     #[derive(Clone, Debug)]
     pub struct CreateSubnet(RequestBuilder<crate::model::CreateSubnetRequest>);
 
@@ -802,7 +802,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::update_subnet call.
+    /// The request builder for [EdgeNetwork::update_subnet][super::super::client::EdgeNetwork::update_subnet] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateSubnet(RequestBuilder<crate::model::UpdateSubnetRequest>);
 
@@ -899,7 +899,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::delete_subnet call.
+    /// The request builder for [EdgeNetwork::delete_subnet][super::super::client::EdgeNetwork::delete_subnet] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteSubnet(RequestBuilder<crate::model::DeleteSubnetRequest>);
 
@@ -982,7 +982,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::list_interconnects call.
+    /// The request builder for [EdgeNetwork::list_interconnects][super::super::client::EdgeNetwork::list_interconnects] calls.
     #[derive(Clone, Debug)]
     pub struct ListInterconnects(RequestBuilder<crate::model::ListInterconnectsRequest>);
 
@@ -1066,7 +1066,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::get_interconnect call.
+    /// The request builder for [EdgeNetwork::get_interconnect][super::super::client::EdgeNetwork::get_interconnect] calls.
     #[derive(Clone, Debug)]
     pub struct GetInterconnect(RequestBuilder<crate::model::GetInterconnectRequest>);
 
@@ -1108,7 +1108,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::diagnose_interconnect call.
+    /// The request builder for [EdgeNetwork::diagnose_interconnect][super::super::client::EdgeNetwork::diagnose_interconnect] calls.
     #[derive(Clone, Debug)]
     pub struct DiagnoseInterconnect(RequestBuilder<crate::model::DiagnoseInterconnectRequest>);
 
@@ -1153,7 +1153,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::list_interconnect_attachments call.
+    /// The request builder for [EdgeNetwork::list_interconnect_attachments][super::super::client::EdgeNetwork::list_interconnect_attachments] calls.
     #[derive(Clone, Debug)]
     pub struct ListInterconnectAttachments(
         RequestBuilder<crate::model::ListInterconnectAttachmentsRequest>,
@@ -1241,7 +1241,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::get_interconnect_attachment call.
+    /// The request builder for [EdgeNetwork::get_interconnect_attachment][super::super::client::EdgeNetwork::get_interconnect_attachment] calls.
     #[derive(Clone, Debug)]
     pub struct GetInterconnectAttachment(
         RequestBuilder<crate::model::GetInterconnectAttachmentRequest>,
@@ -1288,7 +1288,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::create_interconnect_attachment call.
+    /// The request builder for [EdgeNetwork::create_interconnect_attachment][super::super::client::EdgeNetwork::create_interconnect_attachment] calls.
     #[derive(Clone, Debug)]
     pub struct CreateInterconnectAttachment(
         RequestBuilder<crate::model::CreateInterconnectAttachmentRequest>,
@@ -1402,7 +1402,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::delete_interconnect_attachment call.
+    /// The request builder for [EdgeNetwork::delete_interconnect_attachment][super::super::client::EdgeNetwork::delete_interconnect_attachment] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteInterconnectAttachment(
         RequestBuilder<crate::model::DeleteInterconnectAttachmentRequest>,
@@ -1490,7 +1490,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::list_routers call.
+    /// The request builder for [EdgeNetwork::list_routers][super::super::client::EdgeNetwork::list_routers] calls.
     #[derive(Clone, Debug)]
     pub struct ListRouters(RequestBuilder<crate::model::ListRoutersRequest>);
 
@@ -1571,7 +1571,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::get_router call.
+    /// The request builder for [EdgeNetwork::get_router][super::super::client::EdgeNetwork::get_router] calls.
     #[derive(Clone, Debug)]
     pub struct GetRouter(RequestBuilder<crate::model::GetRouterRequest>);
 
@@ -1613,7 +1613,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::diagnose_router call.
+    /// The request builder for [EdgeNetwork::diagnose_router][super::super::client::EdgeNetwork::diagnose_router] calls.
     #[derive(Clone, Debug)]
     pub struct DiagnoseRouter(RequestBuilder<crate::model::DiagnoseRouterRequest>);
 
@@ -1655,7 +1655,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::create_router call.
+    /// The request builder for [EdgeNetwork::create_router][super::super::client::EdgeNetwork::create_router] calls.
     #[derive(Clone, Debug)]
     pub struct CreateRouter(RequestBuilder<crate::model::CreateRouterRequest>);
 
@@ -1755,7 +1755,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::update_router call.
+    /// The request builder for [EdgeNetwork::update_router][super::super::client::EdgeNetwork::update_router] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateRouter(RequestBuilder<crate::model::UpdateRouterRequest>);
 
@@ -1852,7 +1852,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::delete_router call.
+    /// The request builder for [EdgeNetwork::delete_router][super::super::client::EdgeNetwork::delete_router] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteRouter(RequestBuilder<crate::model::DeleteRouterRequest>);
 
@@ -1935,7 +1935,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::list_locations call.
+    /// The request builder for [EdgeNetwork::list_locations][super::super::client::EdgeNetwork::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -2013,7 +2013,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::get_location call.
+    /// The request builder for [EdgeNetwork::get_location][super::super::client::EdgeNetwork::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -2055,7 +2055,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::list_operations call.
+    /// The request builder for [EdgeNetwork::list_operations][super::super::client::EdgeNetwork::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2133,7 +2133,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::get_operation call.
+    /// The request builder for [EdgeNetwork::get_operation][super::super::client::EdgeNetwork::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2178,7 +2178,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::delete_operation call.
+    /// The request builder for [EdgeNetwork::delete_operation][super::super::client::EdgeNetwork::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2223,7 +2223,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for a EdgeNetwork::cancel_operation call.
+    /// The request builder for [EdgeNetwork::cancel_operation][super::super::client::EdgeNetwork::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

@@ -69,7 +69,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for a PrivilegedAccessManager::check_onboarding_status call.
+    /// The request builder for [PrivilegedAccessManager::check_onboarding_status][super::super::client::PrivilegedAccessManager::check_onboarding_status] calls.
     #[derive(Clone, Debug)]
     pub struct CheckOnboardingStatus(RequestBuilder<crate::model::CheckOnboardingStatusRequest>);
 
@@ -116,7 +116,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for a PrivilegedAccessManager::list_entitlements call.
+    /// The request builder for [PrivilegedAccessManager::list_entitlements][super::super::client::PrivilegedAccessManager::list_entitlements] calls.
     #[derive(Clone, Debug)]
     pub struct ListEntitlements(RequestBuilder<crate::model::ListEntitlementsRequest>);
 
@@ -202,7 +202,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for a PrivilegedAccessManager::search_entitlements call.
+    /// The request builder for [PrivilegedAccessManager::search_entitlements][super::super::client::PrivilegedAccessManager::search_entitlements] calls.
     #[derive(Clone, Debug)]
     pub struct SearchEntitlements(RequestBuilder<crate::model::SearchEntitlementsRequest>);
 
@@ -293,7 +293,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for a PrivilegedAccessManager::get_entitlement call.
+    /// The request builder for [PrivilegedAccessManager::get_entitlement][super::super::client::PrivilegedAccessManager::get_entitlement] calls.
     #[derive(Clone, Debug)]
     pub struct GetEntitlement(RequestBuilder<crate::model::GetEntitlementRequest>);
 
@@ -337,7 +337,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for a PrivilegedAccessManager::create_entitlement call.
+    /// The request builder for [PrivilegedAccessManager::create_entitlement][super::super::client::PrivilegedAccessManager::create_entitlement] calls.
     #[derive(Clone, Debug)]
     pub struct CreateEntitlement(RequestBuilder<crate::model::CreateEntitlementRequest>);
 
@@ -443,7 +443,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for a PrivilegedAccessManager::delete_entitlement call.
+    /// The request builder for [PrivilegedAccessManager::delete_entitlement][super::super::client::PrivilegedAccessManager::delete_entitlement] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteEntitlement(RequestBuilder<crate::model::DeleteEntitlementRequest>);
 
@@ -540,7 +540,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for a PrivilegedAccessManager::update_entitlement call.
+    /// The request builder for [PrivilegedAccessManager::update_entitlement][super::super::client::PrivilegedAccessManager::update_entitlement] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateEntitlement(RequestBuilder<crate::model::UpdateEntitlementRequest>);
 
@@ -637,7 +637,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for a PrivilegedAccessManager::list_grants call.
+    /// The request builder for [PrivilegedAccessManager::list_grants][super::super::client::PrivilegedAccessManager::list_grants] calls.
     #[derive(Clone, Debug)]
     pub struct ListGrants(RequestBuilder<crate::model::ListGrantsRequest>);
 
@@ -720,7 +720,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for a PrivilegedAccessManager::search_grants call.
+    /// The request builder for [PrivilegedAccessManager::search_grants][super::super::client::PrivilegedAccessManager::search_grants] calls.
     #[derive(Clone, Debug)]
     pub struct SearchGrants(RequestBuilder<crate::model::SearchGrantsRequest>);
 
@@ -808,7 +808,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for a PrivilegedAccessManager::get_grant call.
+    /// The request builder for [PrivilegedAccessManager::get_grant][super::super::client::PrivilegedAccessManager::get_grant] calls.
     #[derive(Clone, Debug)]
     pub struct GetGrant(RequestBuilder<crate::model::GetGrantRequest>);
 
@@ -852,7 +852,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for a PrivilegedAccessManager::create_grant call.
+    /// The request builder for [PrivilegedAccessManager::create_grant][super::super::client::PrivilegedAccessManager::create_grant] calls.
     #[derive(Clone, Debug)]
     pub struct CreateGrant(RequestBuilder<crate::model::CreateGrantRequest>);
 
@@ -911,7 +911,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for a PrivilegedAccessManager::approve_grant call.
+    /// The request builder for [PrivilegedAccessManager::approve_grant][super::super::client::PrivilegedAccessManager::approve_grant] calls.
     #[derive(Clone, Debug)]
     pub struct ApproveGrant(RequestBuilder<crate::model::ApproveGrantRequest>);
 
@@ -961,7 +961,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for a PrivilegedAccessManager::deny_grant call.
+    /// The request builder for [PrivilegedAccessManager::deny_grant][super::super::client::PrivilegedAccessManager::deny_grant] calls.
     #[derive(Clone, Debug)]
     pub struct DenyGrant(RequestBuilder<crate::model::DenyGrantRequest>);
 
@@ -1011,7 +1011,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for a PrivilegedAccessManager::revoke_grant call.
+    /// The request builder for [PrivilegedAccessManager::revoke_grant][super::super::client::PrivilegedAccessManager::revoke_grant] calls.
     #[derive(Clone, Debug)]
     pub struct RevokeGrant(RequestBuilder<crate::model::RevokeGrantRequest>);
 
@@ -1098,7 +1098,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for a PrivilegedAccessManager::list_locations call.
+    /// The request builder for [PrivilegedAccessManager::list_locations][super::super::client::PrivilegedAccessManager::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1178,7 +1178,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for a PrivilegedAccessManager::get_location call.
+    /// The request builder for [PrivilegedAccessManager::get_location][super::super::client::PrivilegedAccessManager::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1222,7 +1222,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for a PrivilegedAccessManager::list_operations call.
+    /// The request builder for [PrivilegedAccessManager::list_operations][super::super::client::PrivilegedAccessManager::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1302,7 +1302,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for a PrivilegedAccessManager::get_operation call.
+    /// The request builder for [PrivilegedAccessManager::get_operation][super::super::client::PrivilegedAccessManager::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1349,7 +1349,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for a PrivilegedAccessManager::delete_operation call.
+    /// The request builder for [PrivilegedAccessManager::delete_operation][super::super::client::PrivilegedAccessManager::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 

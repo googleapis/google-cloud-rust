@@ -69,7 +69,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for a ClientConnectorServicesService::list_client_connector_services call.
+    /// The request builder for [ClientConnectorServicesService::list_client_connector_services][super::super::client::ClientConnectorServicesService::list_client_connector_services] calls.
     #[derive(Clone, Debug)]
     pub struct ListClientConnectorServices(
         RequestBuilder<crate::model::ListClientConnectorServicesRequest>,
@@ -159,7 +159,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for a ClientConnectorServicesService::get_client_connector_service call.
+    /// The request builder for [ClientConnectorServicesService::get_client_connector_service][super::super::client::ClientConnectorServicesService::get_client_connector_service] calls.
     #[derive(Clone, Debug)]
     pub struct GetClientConnectorService(
         RequestBuilder<crate::model::GetClientConnectorServiceRequest>,
@@ -208,7 +208,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for a ClientConnectorServicesService::create_client_connector_service call.
+    /// The request builder for [ClientConnectorServicesService::create_client_connector_service][super::super::client::ClientConnectorServicesService::create_client_connector_service] calls.
     #[derive(Clone, Debug)]
     pub struct CreateClientConnectorService(
         RequestBuilder<crate::model::CreateClientConnectorServiceRequest>,
@@ -332,7 +332,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for a ClientConnectorServicesService::update_client_connector_service call.
+    /// The request builder for [ClientConnectorServicesService::update_client_connector_service][super::super::client::ClientConnectorServicesService::update_client_connector_service] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateClientConnectorService(
         RequestBuilder<crate::model::UpdateClientConnectorServiceRequest>,
@@ -456,7 +456,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for a ClientConnectorServicesService::delete_client_connector_service call.
+    /// The request builder for [ClientConnectorServicesService::delete_client_connector_service][super::super::client::ClientConnectorServicesService::delete_client_connector_service] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteClientConnectorService(
         RequestBuilder<crate::model::DeleteClientConnectorServiceRequest>,
@@ -556,7 +556,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for a ClientConnectorServicesService::list_locations call.
+    /// The request builder for [ClientConnectorServicesService::list_locations][super::super::client::ClientConnectorServicesService::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -636,7 +636,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for a ClientConnectorServicesService::get_location call.
+    /// The request builder for [ClientConnectorServicesService::get_location][super::super::client::ClientConnectorServicesService::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -680,7 +680,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for a ClientConnectorServicesService::set_iam_policy call.
+    /// The request builder for [ClientConnectorServicesService::set_iam_policy][super::super::client::ClientConnectorServicesService::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -742,7 +742,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for a ClientConnectorServicesService::get_iam_policy call.
+    /// The request builder for [ClientConnectorServicesService::get_iam_policy][super::super::client::ClientConnectorServicesService::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -795,7 +795,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for a ClientConnectorServicesService::test_iam_permissions call.
+    /// The request builder for [ClientConnectorServicesService::test_iam_permissions][super::super::client::ClientConnectorServicesService::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -853,7 +853,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for a ClientConnectorServicesService::list_operations call.
+    /// The request builder for [ClientConnectorServicesService::list_operations][super::super::client::ClientConnectorServicesService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -933,7 +933,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for a ClientConnectorServicesService::get_operation call.
+    /// The request builder for [ClientConnectorServicesService::get_operation][super::super::client::ClientConnectorServicesService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -980,7 +980,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for a ClientConnectorServicesService::delete_operation call.
+    /// The request builder for [ClientConnectorServicesService::delete_operation][super::super::client::ClientConnectorServicesService::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1027,7 +1027,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for a ClientConnectorServicesService::cancel_operation call.
+    /// The request builder for [ClientConnectorServicesService::cancel_operation][super::super::client::ClientConnectorServicesService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

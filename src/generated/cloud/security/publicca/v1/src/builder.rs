@@ -69,7 +69,7 @@ pub mod public_certificate_authority_service {
         }
     }
 
-    /// The request builder for a PublicCertificateAuthorityService::create_external_account_key call.
+    /// The request builder for [PublicCertificateAuthorityService::create_external_account_key][super::super::client::PublicCertificateAuthorityService::create_external_account_key] calls.
     #[derive(Clone, Debug)]
     pub struct CreateExternalAccountKey(
         RequestBuilder<crate::model::CreateExternalAccountKeyRequest>,

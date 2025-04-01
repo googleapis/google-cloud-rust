@@ -67,7 +67,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::get_trigger call.
+    /// The request builder for [Eventarc::get_trigger][super::super::client::Eventarc::get_trigger] calls.
     #[derive(Clone, Debug)]
     pub struct GetTrigger(RequestBuilder<crate::model::GetTriggerRequest>);
 
@@ -109,7 +109,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::list_triggers call.
+    /// The request builder for [Eventarc::list_triggers][super::super::client::Eventarc::list_triggers] calls.
     #[derive(Clone, Debug)]
     pub struct ListTriggers(RequestBuilder<crate::model::ListTriggersRequest>);
 
@@ -190,7 +190,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::create_trigger call.
+    /// The request builder for [Eventarc::create_trigger][super::super::client::Eventarc::create_trigger] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTrigger(RequestBuilder<crate::model::CreateTriggerRequest>);
 
@@ -290,7 +290,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::update_trigger call.
+    /// The request builder for [Eventarc::update_trigger][super::super::client::Eventarc::update_trigger] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateTrigger(RequestBuilder<crate::model::UpdateTriggerRequest>);
 
@@ -393,7 +393,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::delete_trigger call.
+    /// The request builder for [Eventarc::delete_trigger][super::super::client::Eventarc::delete_trigger] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTrigger(RequestBuilder<crate::model::DeleteTriggerRequest>);
 
@@ -490,7 +490,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::get_channel call.
+    /// The request builder for [Eventarc::get_channel][super::super::client::Eventarc::get_channel] calls.
     #[derive(Clone, Debug)]
     pub struct GetChannel(RequestBuilder<crate::model::GetChannelRequest>);
 
@@ -532,7 +532,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::list_channels call.
+    /// The request builder for [Eventarc::list_channels][super::super::client::Eventarc::list_channels] calls.
     #[derive(Clone, Debug)]
     pub struct ListChannels(RequestBuilder<crate::model::ListChannelsRequest>);
 
@@ -607,7 +607,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::create_channel call.
+    /// The request builder for [Eventarc::create_channel][super::super::client::Eventarc::create_channel] calls.
     #[derive(Clone, Debug)]
     pub struct CreateChannel(RequestBuilder<crate::model::CreateChannelRequest>);
 
@@ -707,7 +707,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::update_channel call.
+    /// The request builder for [Eventarc::update_channel][super::super::client::Eventarc::update_channel] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateChannel(RequestBuilder<crate::model::UpdateChannelRequest>);
 
@@ -804,7 +804,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::delete_channel call.
+    /// The request builder for [Eventarc::delete_channel][super::super::client::Eventarc::delete_channel] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteChannel(RequestBuilder<crate::model::DeleteChannelRequest>);
 
@@ -889,7 +889,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::get_provider call.
+    /// The request builder for [Eventarc::get_provider][super::super::client::Eventarc::get_provider] calls.
     #[derive(Clone, Debug)]
     pub struct GetProvider(RequestBuilder<crate::model::GetProviderRequest>);
 
@@ -931,7 +931,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::list_providers call.
+    /// The request builder for [Eventarc::list_providers][super::super::client::Eventarc::list_providers] calls.
     #[derive(Clone, Debug)]
     pub struct ListProviders(RequestBuilder<crate::model::ListProvidersRequest>);
 
@@ -1012,7 +1012,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::get_channel_connection call.
+    /// The request builder for [Eventarc::get_channel_connection][super::super::client::Eventarc::get_channel_connection] calls.
     #[derive(Clone, Debug)]
     pub struct GetChannelConnection(RequestBuilder<crate::model::GetChannelConnectionRequest>);
 
@@ -1057,7 +1057,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::list_channel_connections call.
+    /// The request builder for [Eventarc::list_channel_connections][super::super::client::Eventarc::list_channel_connections] calls.
     #[derive(Clone, Debug)]
     pub struct ListChannelConnections(RequestBuilder<crate::model::ListChannelConnectionsRequest>);
 
@@ -1131,7 +1131,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::create_channel_connection call.
+    /// The request builder for [Eventarc::create_channel_connection][super::super::client::Eventarc::create_channel_connection] calls.
     #[derive(Clone, Debug)]
     pub struct CreateChannelConnection(
         RequestBuilder<crate::model::CreateChannelConnectionRequest>,
@@ -1234,7 +1234,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::delete_channel_connection call.
+    /// The request builder for [Eventarc::delete_channel_connection][super::super::client::Eventarc::delete_channel_connection] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteChannelConnection(
         RequestBuilder<crate::model::DeleteChannelConnectionRequest>,
@@ -1320,7 +1320,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::get_google_channel_config call.
+    /// The request builder for [Eventarc::get_google_channel_config][super::super::client::Eventarc::get_google_channel_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetGoogleChannelConfig(RequestBuilder<crate::model::GetGoogleChannelConfigRequest>);
 
@@ -1365,7 +1365,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::update_google_channel_config call.
+    /// The request builder for [Eventarc::update_google_channel_config][super::super::client::Eventarc::update_google_channel_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateGoogleChannelConfig(
         RequestBuilder<crate::model::UpdateGoogleChannelConfigRequest>,
@@ -1426,7 +1426,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::get_message_bus call.
+    /// The request builder for [Eventarc::get_message_bus][super::super::client::Eventarc::get_message_bus] calls.
     #[derive(Clone, Debug)]
     pub struct GetMessageBus(RequestBuilder<crate::model::GetMessageBusRequest>);
 
@@ -1468,7 +1468,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::list_message_buses call.
+    /// The request builder for [Eventarc::list_message_buses][super::super::client::Eventarc::list_message_buses] calls.
     #[derive(Clone, Debug)]
     pub struct ListMessageBuses(RequestBuilder<crate::model::ListMessageBusesRequest>);
 
@@ -1552,7 +1552,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::list_message_bus_enrollments call.
+    /// The request builder for [Eventarc::list_message_bus_enrollments][super::super::client::Eventarc::list_message_bus_enrollments] calls.
     #[derive(Clone, Debug)]
     pub struct ListMessageBusEnrollments(
         RequestBuilder<crate::model::ListMessageBusEnrollmentsRequest>,
@@ -1611,7 +1611,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::create_message_bus call.
+    /// The request builder for [Eventarc::create_message_bus][super::super::client::Eventarc::create_message_bus] calls.
     #[derive(Clone, Debug)]
     pub struct CreateMessageBus(RequestBuilder<crate::model::CreateMessageBusRequest>);
 
@@ -1715,7 +1715,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::update_message_bus call.
+    /// The request builder for [Eventarc::update_message_bus][super::super::client::Eventarc::update_message_bus] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateMessageBus(RequestBuilder<crate::model::UpdateMessageBusRequest>);
 
@@ -1822,7 +1822,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::delete_message_bus call.
+    /// The request builder for [Eventarc::delete_message_bus][super::super::client::Eventarc::delete_message_bus] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteMessageBus(RequestBuilder<crate::model::DeleteMessageBusRequest>);
 
@@ -1923,7 +1923,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::get_enrollment call.
+    /// The request builder for [Eventarc::get_enrollment][super::super::client::Eventarc::get_enrollment] calls.
     #[derive(Clone, Debug)]
     pub struct GetEnrollment(RequestBuilder<crate::model::GetEnrollmentRequest>);
 
@@ -1965,7 +1965,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::list_enrollments call.
+    /// The request builder for [Eventarc::list_enrollments][super::super::client::Eventarc::list_enrollments] calls.
     #[derive(Clone, Debug)]
     pub struct ListEnrollments(RequestBuilder<crate::model::ListEnrollmentsRequest>);
 
@@ -2046,7 +2046,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::create_enrollment call.
+    /// The request builder for [Eventarc::create_enrollment][super::super::client::Eventarc::create_enrollment] calls.
     #[derive(Clone, Debug)]
     pub struct CreateEnrollment(RequestBuilder<crate::model::CreateEnrollmentRequest>);
 
@@ -2150,7 +2150,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::update_enrollment call.
+    /// The request builder for [Eventarc::update_enrollment][super::super::client::Eventarc::update_enrollment] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateEnrollment(RequestBuilder<crate::model::UpdateEnrollmentRequest>);
 
@@ -2257,7 +2257,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::delete_enrollment call.
+    /// The request builder for [Eventarc::delete_enrollment][super::super::client::Eventarc::delete_enrollment] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteEnrollment(RequestBuilder<crate::model::DeleteEnrollmentRequest>);
 
@@ -2358,7 +2358,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::get_pipeline call.
+    /// The request builder for [Eventarc::get_pipeline][super::super::client::Eventarc::get_pipeline] calls.
     #[derive(Clone, Debug)]
     pub struct GetPipeline(RequestBuilder<crate::model::GetPipelineRequest>);
 
@@ -2400,7 +2400,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::list_pipelines call.
+    /// The request builder for [Eventarc::list_pipelines][super::super::client::Eventarc::list_pipelines] calls.
     #[derive(Clone, Debug)]
     pub struct ListPipelines(RequestBuilder<crate::model::ListPipelinesRequest>);
 
@@ -2481,7 +2481,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::create_pipeline call.
+    /// The request builder for [Eventarc::create_pipeline][super::super::client::Eventarc::create_pipeline] calls.
     #[derive(Clone, Debug)]
     pub struct CreatePipeline(RequestBuilder<crate::model::CreatePipelineRequest>);
 
@@ -2582,7 +2582,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::update_pipeline call.
+    /// The request builder for [Eventarc::update_pipeline][super::super::client::Eventarc::update_pipeline] calls.
     #[derive(Clone, Debug)]
     pub struct UpdatePipeline(RequestBuilder<crate::model::UpdatePipelineRequest>);
 
@@ -2686,7 +2686,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::delete_pipeline call.
+    /// The request builder for [Eventarc::delete_pipeline][super::super::client::Eventarc::delete_pipeline] calls.
     #[derive(Clone, Debug)]
     pub struct DeletePipeline(RequestBuilder<crate::model::DeletePipelineRequest>);
 
@@ -2784,7 +2784,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::get_google_api_source call.
+    /// The request builder for [Eventarc::get_google_api_source][super::super::client::Eventarc::get_google_api_source] calls.
     #[derive(Clone, Debug)]
     pub struct GetGoogleApiSource(RequestBuilder<crate::model::GetGoogleApiSourceRequest>);
 
@@ -2829,7 +2829,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::list_google_api_sources call.
+    /// The request builder for [Eventarc::list_google_api_sources][super::super::client::Eventarc::list_google_api_sources] calls.
     #[derive(Clone, Debug)]
     pub struct ListGoogleApiSources(RequestBuilder<crate::model::ListGoogleApiSourcesRequest>);
 
@@ -2913,7 +2913,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::create_google_api_source call.
+    /// The request builder for [Eventarc::create_google_api_source][super::super::client::Eventarc::create_google_api_source] calls.
     #[derive(Clone, Debug)]
     pub struct CreateGoogleApiSource(RequestBuilder<crate::model::CreateGoogleApiSourceRequest>);
 
@@ -3020,7 +3020,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::update_google_api_source call.
+    /// The request builder for [Eventarc::update_google_api_source][super::super::client::Eventarc::update_google_api_source] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateGoogleApiSource(RequestBuilder<crate::model::UpdateGoogleApiSourceRequest>);
 
@@ -3130,7 +3130,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::delete_google_api_source call.
+    /// The request builder for [Eventarc::delete_google_api_source][super::super::client::Eventarc::delete_google_api_source] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteGoogleApiSource(RequestBuilder<crate::model::DeleteGoogleApiSourceRequest>);
 
@@ -3232,7 +3232,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::list_locations call.
+    /// The request builder for [Eventarc::list_locations][super::super::client::Eventarc::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -3310,7 +3310,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::get_location call.
+    /// The request builder for [Eventarc::get_location][super::super::client::Eventarc::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -3352,7 +3352,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::set_iam_policy call.
+    /// The request builder for [Eventarc::set_iam_policy][super::super::client::Eventarc::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -3412,7 +3412,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::get_iam_policy call.
+    /// The request builder for [Eventarc::get_iam_policy][super::super::client::Eventarc::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -3463,7 +3463,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::test_iam_permissions call.
+    /// The request builder for [Eventarc::test_iam_permissions][super::super::client::Eventarc::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -3519,7 +3519,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::list_operations call.
+    /// The request builder for [Eventarc::list_operations][super::super::client::Eventarc::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -3597,7 +3597,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::get_operation call.
+    /// The request builder for [Eventarc::get_operation][super::super::client::Eventarc::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -3642,7 +3642,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::delete_operation call.
+    /// The request builder for [Eventarc::delete_operation][super::super::client::Eventarc::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -3687,7 +3687,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for a Eventarc::cancel_operation call.
+    /// The request builder for [Eventarc::cancel_operation][super::super::client::Eventarc::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

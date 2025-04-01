@@ -67,7 +67,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::list_instances call.
+    /// The request builder for [Aml::list_instances][super::super::client::Aml::list_instances] calls.
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
@@ -148,7 +148,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::get_instance call.
+    /// The request builder for [Aml::get_instance][super::super::client::Aml::get_instance] calls.
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
@@ -190,7 +190,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::create_instance call.
+    /// The request builder for [Aml::create_instance][super::super::client::Aml::create_instance] calls.
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
@@ -291,7 +291,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::update_instance call.
+    /// The request builder for [Aml::update_instance][super::super::client::Aml::update_instance] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
@@ -389,7 +389,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::delete_instance call.
+    /// The request builder for [Aml::delete_instance][super::super::client::Aml::delete_instance] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
@@ -472,7 +472,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::import_registered_parties call.
+    /// The request builder for [Aml::import_registered_parties][super::super::client::Aml::import_registered_parties] calls.
     #[derive(Clone, Debug)]
     pub struct ImportRegisteredParties(
         RequestBuilder<crate::model::ImportRegisteredPartiesRequest>,
@@ -594,7 +594,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::export_registered_parties call.
+    /// The request builder for [Aml::export_registered_parties][super::super::client::Aml::export_registered_parties] calls.
     #[derive(Clone, Debug)]
     pub struct ExportRegisteredParties(
         RequestBuilder<crate::model::ExportRegisteredPartiesRequest>,
@@ -699,7 +699,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::list_datasets call.
+    /// The request builder for [Aml::list_datasets][super::super::client::Aml::list_datasets] calls.
     #[derive(Clone, Debug)]
     pub struct ListDatasets(RequestBuilder<crate::model::ListDatasetsRequest>);
 
@@ -780,7 +780,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::get_dataset call.
+    /// The request builder for [Aml::get_dataset][super::super::client::Aml::get_dataset] calls.
     #[derive(Clone, Debug)]
     pub struct GetDataset(RequestBuilder<crate::model::GetDatasetRequest>);
 
@@ -822,7 +822,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::create_dataset call.
+    /// The request builder for [Aml::create_dataset][super::super::client::Aml::create_dataset] calls.
     #[derive(Clone, Debug)]
     pub struct CreateDataset(RequestBuilder<crate::model::CreateDatasetRequest>);
 
@@ -922,7 +922,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::update_dataset call.
+    /// The request builder for [Aml::update_dataset][super::super::client::Aml::update_dataset] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateDataset(RequestBuilder<crate::model::UpdateDatasetRequest>);
 
@@ -1019,7 +1019,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::delete_dataset call.
+    /// The request builder for [Aml::delete_dataset][super::super::client::Aml::delete_dataset] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteDataset(RequestBuilder<crate::model::DeleteDatasetRequest>);
 
@@ -1102,7 +1102,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::list_models call.
+    /// The request builder for [Aml::list_models][super::super::client::Aml::list_models] calls.
     #[derive(Clone, Debug)]
     pub struct ListModels(RequestBuilder<crate::model::ListModelsRequest>);
 
@@ -1183,7 +1183,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::get_model call.
+    /// The request builder for [Aml::get_model][super::super::client::Aml::get_model] calls.
     #[derive(Clone, Debug)]
     pub struct GetModel(RequestBuilder<crate::model::GetModelRequest>);
 
@@ -1225,7 +1225,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::create_model call.
+    /// The request builder for [Aml::create_model][super::super::client::Aml::create_model] calls.
     #[derive(Clone, Debug)]
     pub struct CreateModel(RequestBuilder<crate::model::CreateModelRequest>);
 
@@ -1325,7 +1325,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::update_model call.
+    /// The request builder for [Aml::update_model][super::super::client::Aml::update_model] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateModel(RequestBuilder<crate::model::UpdateModelRequest>);
 
@@ -1422,7 +1422,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::export_model_metadata call.
+    /// The request builder for [Aml::export_model_metadata][super::super::client::Aml::export_model_metadata] calls.
     #[derive(Clone, Debug)]
     pub struct ExportModelMetadata(RequestBuilder<crate::model::ExportModelMetadataRequest>);
 
@@ -1519,7 +1519,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::delete_model call.
+    /// The request builder for [Aml::delete_model][super::super::client::Aml::delete_model] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteModel(RequestBuilder<crate::model::DeleteModelRequest>);
 
@@ -1602,7 +1602,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::list_engine_configs call.
+    /// The request builder for [Aml::list_engine_configs][super::super::client::Aml::list_engine_configs] calls.
     #[derive(Clone, Debug)]
     pub struct ListEngineConfigs(RequestBuilder<crate::model::ListEngineConfigsRequest>);
 
@@ -1686,7 +1686,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::get_engine_config call.
+    /// The request builder for [Aml::get_engine_config][super::super::client::Aml::get_engine_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetEngineConfig(RequestBuilder<crate::model::GetEngineConfigRequest>);
 
@@ -1728,7 +1728,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::create_engine_config call.
+    /// The request builder for [Aml::create_engine_config][super::super::client::Aml::create_engine_config] calls.
     #[derive(Clone, Debug)]
     pub struct CreateEngineConfig(RequestBuilder<crate::model::CreateEngineConfigRequest>);
 
@@ -1832,7 +1832,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::update_engine_config call.
+    /// The request builder for [Aml::update_engine_config][super::super::client::Aml::update_engine_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateEngineConfig(RequestBuilder<crate::model::UpdateEngineConfigRequest>);
 
@@ -1933,7 +1933,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::export_engine_config_metadata call.
+    /// The request builder for [Aml::export_engine_config_metadata][super::super::client::Aml::export_engine_config_metadata] calls.
     #[derive(Clone, Debug)]
     pub struct ExportEngineConfigMetadata(
         RequestBuilder<crate::model::ExportEngineConfigMetadataRequest>,
@@ -2034,7 +2034,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::delete_engine_config call.
+    /// The request builder for [Aml::delete_engine_config][super::super::client::Aml::delete_engine_config] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteEngineConfig(RequestBuilder<crate::model::DeleteEngineConfigRequest>);
 
@@ -2120,7 +2120,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::get_engine_version call.
+    /// The request builder for [Aml::get_engine_version][super::super::client::Aml::get_engine_version] calls.
     #[derive(Clone, Debug)]
     pub struct GetEngineVersion(RequestBuilder<crate::model::GetEngineVersionRequest>);
 
@@ -2165,7 +2165,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::list_engine_versions call.
+    /// The request builder for [Aml::list_engine_versions][super::super::client::Aml::list_engine_versions] calls.
     #[derive(Clone, Debug)]
     pub struct ListEngineVersions(RequestBuilder<crate::model::ListEngineVersionsRequest>);
 
@@ -2249,7 +2249,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::list_prediction_results call.
+    /// The request builder for [Aml::list_prediction_results][super::super::client::Aml::list_prediction_results] calls.
     #[derive(Clone, Debug)]
     pub struct ListPredictionResults(RequestBuilder<crate::model::ListPredictionResultsRequest>);
 
@@ -2333,7 +2333,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::get_prediction_result call.
+    /// The request builder for [Aml::get_prediction_result][super::super::client::Aml::get_prediction_result] calls.
     #[derive(Clone, Debug)]
     pub struct GetPredictionResult(RequestBuilder<crate::model::GetPredictionResultRequest>);
 
@@ -2378,7 +2378,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::create_prediction_result call.
+    /// The request builder for [Aml::create_prediction_result][super::super::client::Aml::create_prediction_result] calls.
     #[derive(Clone, Debug)]
     pub struct CreatePredictionResult(RequestBuilder<crate::model::CreatePredictionResultRequest>);
 
@@ -2485,7 +2485,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::update_prediction_result call.
+    /// The request builder for [Aml::update_prediction_result][super::super::client::Aml::update_prediction_result] calls.
     #[derive(Clone, Debug)]
     pub struct UpdatePredictionResult(RequestBuilder<crate::model::UpdatePredictionResultRequest>);
 
@@ -2589,7 +2589,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::export_prediction_result_metadata call.
+    /// The request builder for [Aml::export_prediction_result_metadata][super::super::client::Aml::export_prediction_result_metadata] calls.
     #[derive(Clone, Debug)]
     pub struct ExportPredictionResultMetadata(
         RequestBuilder<crate::model::ExportPredictionResultMetadataRequest>,
@@ -2690,7 +2690,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::delete_prediction_result call.
+    /// The request builder for [Aml::delete_prediction_result][super::super::client::Aml::delete_prediction_result] calls.
     #[derive(Clone, Debug)]
     pub struct DeletePredictionResult(RequestBuilder<crate::model::DeletePredictionResultRequest>);
 
@@ -2776,7 +2776,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::list_backtest_results call.
+    /// The request builder for [Aml::list_backtest_results][super::super::client::Aml::list_backtest_results] calls.
     #[derive(Clone, Debug)]
     pub struct ListBacktestResults(RequestBuilder<crate::model::ListBacktestResultsRequest>);
 
@@ -2860,7 +2860,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::get_backtest_result call.
+    /// The request builder for [Aml::get_backtest_result][super::super::client::Aml::get_backtest_result] calls.
     #[derive(Clone, Debug)]
     pub struct GetBacktestResult(RequestBuilder<crate::model::GetBacktestResultRequest>);
 
@@ -2905,7 +2905,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::create_backtest_result call.
+    /// The request builder for [Aml::create_backtest_result][super::super::client::Aml::create_backtest_result] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBacktestResult(RequestBuilder<crate::model::CreateBacktestResultRequest>);
 
@@ -3010,7 +3010,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::update_backtest_result call.
+    /// The request builder for [Aml::update_backtest_result][super::super::client::Aml::update_backtest_result] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBacktestResult(RequestBuilder<crate::model::UpdateBacktestResultRequest>);
 
@@ -3112,7 +3112,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::export_backtest_result_metadata call.
+    /// The request builder for [Aml::export_backtest_result_metadata][super::super::client::Aml::export_backtest_result_metadata] calls.
     #[derive(Clone, Debug)]
     pub struct ExportBacktestResultMetadata(
         RequestBuilder<crate::model::ExportBacktestResultMetadataRequest>,
@@ -3213,7 +3213,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::delete_backtest_result call.
+    /// The request builder for [Aml::delete_backtest_result][super::super::client::Aml::delete_backtest_result] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBacktestResult(RequestBuilder<crate::model::DeleteBacktestResultRequest>);
 
@@ -3299,7 +3299,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::list_locations call.
+    /// The request builder for [Aml::list_locations][super::super::client::Aml::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -3377,7 +3377,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::get_location call.
+    /// The request builder for [Aml::get_location][super::super::client::Aml::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -3419,7 +3419,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::list_operations call.
+    /// The request builder for [Aml::list_operations][super::super::client::Aml::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -3497,7 +3497,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::get_operation call.
+    /// The request builder for [Aml::get_operation][super::super::client::Aml::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -3542,7 +3542,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::delete_operation call.
+    /// The request builder for [Aml::delete_operation][super::super::client::Aml::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -3587,7 +3587,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for a Aml::cancel_operation call.
+    /// The request builder for [Aml::cancel_operation][super::super::client::Aml::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

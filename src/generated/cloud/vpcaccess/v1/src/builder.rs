@@ -67,7 +67,7 @@ pub mod vpc_access_service {
         }
     }
 
-    /// The request builder for a VpcAccessService::create_connector call.
+    /// The request builder for [VpcAccessService::create_connector][super::super::client::VpcAccessService::create_connector] calls.
     #[derive(Clone, Debug)]
     pub struct CreateConnector(RequestBuilder<crate::model::CreateConnectorRequest>);
 
@@ -162,7 +162,7 @@ pub mod vpc_access_service {
         }
     }
 
-    /// The request builder for a VpcAccessService::get_connector call.
+    /// The request builder for [VpcAccessService::get_connector][super::super::client::VpcAccessService::get_connector] calls.
     #[derive(Clone, Debug)]
     pub struct GetConnector(RequestBuilder<crate::model::GetConnectorRequest>);
 
@@ -204,7 +204,7 @@ pub mod vpc_access_service {
         }
     }
 
-    /// The request builder for a VpcAccessService::list_connectors call.
+    /// The request builder for [VpcAccessService::list_connectors][super::super::client::VpcAccessService::list_connectors] calls.
     #[derive(Clone, Debug)]
     pub struct ListConnectors(RequestBuilder<crate::model::ListConnectorsRequest>);
 
@@ -273,7 +273,7 @@ pub mod vpc_access_service {
         }
     }
 
-    /// The request builder for a VpcAccessService::delete_connector call.
+    /// The request builder for [VpcAccessService::delete_connector][super::super::client::VpcAccessService::delete_connector] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteConnector(RequestBuilder<crate::model::DeleteConnectorRequest>);
 
@@ -350,7 +350,7 @@ pub mod vpc_access_service {
         }
     }
 
-    /// The request builder for a VpcAccessService::list_locations call.
+    /// The request builder for [VpcAccessService::list_locations][super::super::client::VpcAccessService::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -428,7 +428,7 @@ pub mod vpc_access_service {
         }
     }
 
-    /// The request builder for a VpcAccessService::list_operations call.
+    /// The request builder for [VpcAccessService::list_operations][super::super::client::VpcAccessService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -506,7 +506,7 @@ pub mod vpc_access_service {
         }
     }
 
-    /// The request builder for a VpcAccessService::get_operation call.
+    /// The request builder for [VpcAccessService::get_operation][super::super::client::VpcAccessService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

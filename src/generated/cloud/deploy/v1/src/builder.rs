@@ -67,7 +67,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::list_delivery_pipelines call.
+    /// The request builder for [CloudDeploy::list_delivery_pipelines][super::super::client::CloudDeploy::list_delivery_pipelines] calls.
     #[derive(Clone, Debug)]
     pub struct ListDeliveryPipelines(RequestBuilder<crate::model::ListDeliveryPipelinesRequest>);
 
@@ -151,7 +151,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::get_delivery_pipeline call.
+    /// The request builder for [CloudDeploy::get_delivery_pipeline][super::super::client::CloudDeploy::get_delivery_pipeline] calls.
     #[derive(Clone, Debug)]
     pub struct GetDeliveryPipeline(RequestBuilder<crate::model::GetDeliveryPipelineRequest>);
 
@@ -196,7 +196,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::create_delivery_pipeline call.
+    /// The request builder for [CloudDeploy::create_delivery_pipeline][super::super::client::CloudDeploy::create_delivery_pipeline] calls.
     #[derive(Clone, Debug)]
     pub struct CreateDeliveryPipeline(RequestBuilder<crate::model::CreateDeliveryPipelineRequest>);
 
@@ -309,7 +309,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::update_delivery_pipeline call.
+    /// The request builder for [CloudDeploy::update_delivery_pipeline][super::super::client::CloudDeploy::update_delivery_pipeline] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateDeliveryPipeline(RequestBuilder<crate::model::UpdateDeliveryPipelineRequest>);
 
@@ -425,7 +425,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::delete_delivery_pipeline call.
+    /// The request builder for [CloudDeploy::delete_delivery_pipeline][super::super::client::CloudDeploy::delete_delivery_pipeline] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteDeliveryPipeline(RequestBuilder<crate::model::DeleteDeliveryPipelineRequest>);
 
@@ -535,7 +535,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::list_targets call.
+    /// The request builder for [CloudDeploy::list_targets][super::super::client::CloudDeploy::list_targets] calls.
     #[derive(Clone, Debug)]
     pub struct ListTargets(RequestBuilder<crate::model::ListTargetsRequest>);
 
@@ -616,7 +616,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::rollback_target call.
+    /// The request builder for [CloudDeploy::rollback_target][super::super::client::CloudDeploy::rollback_target] calls.
     #[derive(Clone, Debug)]
     pub struct RollbackTarget(RequestBuilder<crate::model::RollbackTargetRequest>);
 
@@ -710,7 +710,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::get_target call.
+    /// The request builder for [CloudDeploy::get_target][super::super::client::CloudDeploy::get_target] calls.
     #[derive(Clone, Debug)]
     pub struct GetTarget(RequestBuilder<crate::model::GetTargetRequest>);
 
@@ -752,7 +752,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::create_target call.
+    /// The request builder for [CloudDeploy::create_target][super::super::client::CloudDeploy::create_target] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTarget(RequestBuilder<crate::model::CreateTargetRequest>);
 
@@ -858,7 +858,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::update_target call.
+    /// The request builder for [CloudDeploy::update_target][super::super::client::CloudDeploy::update_target] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateTarget(RequestBuilder<crate::model::UpdateTargetRequest>);
 
@@ -967,7 +967,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::delete_target call.
+    /// The request builder for [CloudDeploy::delete_target][super::super::client::CloudDeploy::delete_target] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTarget(RequestBuilder<crate::model::DeleteTargetRequest>);
 
@@ -1068,7 +1068,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::list_custom_target_types call.
+    /// The request builder for [CloudDeploy::list_custom_target_types][super::super::client::CloudDeploy::list_custom_target_types] calls.
     #[derive(Clone, Debug)]
     pub struct ListCustomTargetTypes(RequestBuilder<crate::model::ListCustomTargetTypesRequest>);
 
@@ -1152,7 +1152,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::get_custom_target_type call.
+    /// The request builder for [CloudDeploy::get_custom_target_type][super::super::client::CloudDeploy::get_custom_target_type] calls.
     #[derive(Clone, Debug)]
     pub struct GetCustomTargetType(RequestBuilder<crate::model::GetCustomTargetTypeRequest>);
 
@@ -1197,7 +1197,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::create_custom_target_type call.
+    /// The request builder for [CloudDeploy::create_custom_target_type][super::super::client::CloudDeploy::create_custom_target_type] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCustomTargetType(RequestBuilder<crate::model::CreateCustomTargetTypeRequest>);
 
@@ -1310,7 +1310,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::update_custom_target_type call.
+    /// The request builder for [CloudDeploy::update_custom_target_type][super::super::client::CloudDeploy::update_custom_target_type] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCustomTargetType(RequestBuilder<crate::model::UpdateCustomTargetTypeRequest>);
 
@@ -1426,7 +1426,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::delete_custom_target_type call.
+    /// The request builder for [CloudDeploy::delete_custom_target_type][super::super::client::CloudDeploy::delete_custom_target_type] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCustomTargetType(RequestBuilder<crate::model::DeleteCustomTargetTypeRequest>);
 
@@ -1530,7 +1530,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::list_releases call.
+    /// The request builder for [CloudDeploy::list_releases][super::super::client::CloudDeploy::list_releases] calls.
     #[derive(Clone, Debug)]
     pub struct ListReleases(RequestBuilder<crate::model::ListReleasesRequest>);
 
@@ -1611,7 +1611,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::get_release call.
+    /// The request builder for [CloudDeploy::get_release][super::super::client::CloudDeploy::get_release] calls.
     #[derive(Clone, Debug)]
     pub struct GetRelease(RequestBuilder<crate::model::GetReleaseRequest>);
 
@@ -1653,7 +1653,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::create_release call.
+    /// The request builder for [CloudDeploy::create_release][super::super::client::CloudDeploy::create_release] calls.
     #[derive(Clone, Debug)]
     pub struct CreateRelease(RequestBuilder<crate::model::CreateReleaseRequest>);
 
@@ -1770,7 +1770,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::abandon_release call.
+    /// The request builder for [CloudDeploy::abandon_release][super::super::client::CloudDeploy::abandon_release] calls.
     #[derive(Clone, Debug)]
     pub struct AbandonRelease(RequestBuilder<crate::model::AbandonReleaseRequest>);
 
@@ -1812,7 +1812,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::create_deploy_policy call.
+    /// The request builder for [CloudDeploy::create_deploy_policy][super::super::client::CloudDeploy::create_deploy_policy] calls.
     #[derive(Clone, Debug)]
     pub struct CreateDeployPolicy(RequestBuilder<crate::model::CreateDeployPolicyRequest>);
 
@@ -1922,7 +1922,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::update_deploy_policy call.
+    /// The request builder for [CloudDeploy::update_deploy_policy][super::super::client::CloudDeploy::update_deploy_policy] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateDeployPolicy(RequestBuilder<crate::model::UpdateDeployPolicyRequest>);
 
@@ -2035,7 +2035,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::delete_deploy_policy call.
+    /// The request builder for [CloudDeploy::delete_deploy_policy][super::super::client::CloudDeploy::delete_deploy_policy] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteDeployPolicy(RequestBuilder<crate::model::DeleteDeployPolicyRequest>);
 
@@ -2139,7 +2139,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::list_deploy_policies call.
+    /// The request builder for [CloudDeploy::list_deploy_policies][super::super::client::CloudDeploy::list_deploy_policies] calls.
     #[derive(Clone, Debug)]
     pub struct ListDeployPolicies(RequestBuilder<crate::model::ListDeployPoliciesRequest>);
 
@@ -2223,7 +2223,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::get_deploy_policy call.
+    /// The request builder for [CloudDeploy::get_deploy_policy][super::super::client::CloudDeploy::get_deploy_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetDeployPolicy(RequestBuilder<crate::model::GetDeployPolicyRequest>);
 
@@ -2265,7 +2265,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::approve_rollout call.
+    /// The request builder for [CloudDeploy::approve_rollout][super::super::client::CloudDeploy::approve_rollout] calls.
     #[derive(Clone, Debug)]
     pub struct ApproveRollout(RequestBuilder<crate::model::ApproveRolloutRequest>);
 
@@ -2324,7 +2324,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::advance_rollout call.
+    /// The request builder for [CloudDeploy::advance_rollout][super::super::client::CloudDeploy::advance_rollout] calls.
     #[derive(Clone, Debug)]
     pub struct AdvanceRollout(RequestBuilder<crate::model::AdvanceRolloutRequest>);
 
@@ -2383,7 +2383,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::cancel_rollout call.
+    /// The request builder for [CloudDeploy::cancel_rollout][super::super::client::CloudDeploy::cancel_rollout] calls.
     #[derive(Clone, Debug)]
     pub struct CancelRollout(RequestBuilder<crate::model::CancelRolloutRequest>);
 
@@ -2436,7 +2436,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::list_rollouts call.
+    /// The request builder for [CloudDeploy::list_rollouts][super::super::client::CloudDeploy::list_rollouts] calls.
     #[derive(Clone, Debug)]
     pub struct ListRollouts(RequestBuilder<crate::model::ListRolloutsRequest>);
 
@@ -2517,7 +2517,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::get_rollout call.
+    /// The request builder for [CloudDeploy::get_rollout][super::super::client::CloudDeploy::get_rollout] calls.
     #[derive(Clone, Debug)]
     pub struct GetRollout(RequestBuilder<crate::model::GetRolloutRequest>);
 
@@ -2559,7 +2559,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::create_rollout call.
+    /// The request builder for [CloudDeploy::create_rollout][super::super::client::CloudDeploy::create_rollout] calls.
     #[derive(Clone, Debug)]
     pub struct CreateRollout(RequestBuilder<crate::model::CreateRolloutRequest>);
 
@@ -2682,7 +2682,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::ignore_job call.
+    /// The request builder for [CloudDeploy::ignore_job][super::super::client::CloudDeploy::ignore_job] calls.
     #[derive(Clone, Debug)]
     pub struct IgnoreJob(RequestBuilder<crate::model::IgnoreJobRequest>);
 
@@ -2747,7 +2747,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::retry_job call.
+    /// The request builder for [CloudDeploy::retry_job][super::super::client::CloudDeploy::retry_job] calls.
     #[derive(Clone, Debug)]
     pub struct RetryJob(RequestBuilder<crate::model::RetryJobRequest>);
 
@@ -2812,7 +2812,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::list_job_runs call.
+    /// The request builder for [CloudDeploy::list_job_runs][super::super::client::CloudDeploy::list_job_runs] calls.
     #[derive(Clone, Debug)]
     pub struct ListJobRuns(RequestBuilder<crate::model::ListJobRunsRequest>);
 
@@ -2893,7 +2893,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::get_job_run call.
+    /// The request builder for [CloudDeploy::get_job_run][super::super::client::CloudDeploy::get_job_run] calls.
     #[derive(Clone, Debug)]
     pub struct GetJobRun(RequestBuilder<crate::model::GetJobRunRequest>);
 
@@ -2935,7 +2935,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::terminate_job_run call.
+    /// The request builder for [CloudDeploy::terminate_job_run][super::super::client::CloudDeploy::terminate_job_run] calls.
     #[derive(Clone, Debug)]
     pub struct TerminateJobRun(RequestBuilder<crate::model::TerminateJobRunRequest>);
 
@@ -2988,7 +2988,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::get_config call.
+    /// The request builder for [CloudDeploy::get_config][super::super::client::CloudDeploy::get_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetConfig(RequestBuilder<crate::model::GetConfigRequest>);
 
@@ -3030,7 +3030,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::create_automation call.
+    /// The request builder for [CloudDeploy::create_automation][super::super::client::CloudDeploy::create_automation] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAutomation(RequestBuilder<crate::model::CreateAutomationRequest>);
 
@@ -3140,7 +3140,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::update_automation call.
+    /// The request builder for [CloudDeploy::update_automation][super::super::client::CloudDeploy::update_automation] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateAutomation(RequestBuilder<crate::model::UpdateAutomationRequest>);
 
@@ -3253,7 +3253,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::delete_automation call.
+    /// The request builder for [CloudDeploy::delete_automation][super::super::client::CloudDeploy::delete_automation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAutomation(RequestBuilder<crate::model::DeleteAutomationRequest>);
 
@@ -3357,7 +3357,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::get_automation call.
+    /// The request builder for [CloudDeploy::get_automation][super::super::client::CloudDeploy::get_automation] calls.
     #[derive(Clone, Debug)]
     pub struct GetAutomation(RequestBuilder<crate::model::GetAutomationRequest>);
 
@@ -3399,7 +3399,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::list_automations call.
+    /// The request builder for [CloudDeploy::list_automations][super::super::client::CloudDeploy::list_automations] calls.
     #[derive(Clone, Debug)]
     pub struct ListAutomations(RequestBuilder<crate::model::ListAutomationsRequest>);
 
@@ -3480,7 +3480,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::get_automation_run call.
+    /// The request builder for [CloudDeploy::get_automation_run][super::super::client::CloudDeploy::get_automation_run] calls.
     #[derive(Clone, Debug)]
     pub struct GetAutomationRun(RequestBuilder<crate::model::GetAutomationRunRequest>);
 
@@ -3525,7 +3525,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::list_automation_runs call.
+    /// The request builder for [CloudDeploy::list_automation_runs][super::super::client::CloudDeploy::list_automation_runs] calls.
     #[derive(Clone, Debug)]
     pub struct ListAutomationRuns(RequestBuilder<crate::model::ListAutomationRunsRequest>);
 
@@ -3609,7 +3609,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::cancel_automation_run call.
+    /// The request builder for [CloudDeploy::cancel_automation_run][super::super::client::CloudDeploy::cancel_automation_run] calls.
     #[derive(Clone, Debug)]
     pub struct CancelAutomationRun(RequestBuilder<crate::model::CancelAutomationRunRequest>);
 
@@ -3654,7 +3654,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::list_locations call.
+    /// The request builder for [CloudDeploy::list_locations][super::super::client::CloudDeploy::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -3732,7 +3732,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::get_location call.
+    /// The request builder for [CloudDeploy::get_location][super::super::client::CloudDeploy::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -3774,7 +3774,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::set_iam_policy call.
+    /// The request builder for [CloudDeploy::set_iam_policy][super::super::client::CloudDeploy::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -3834,7 +3834,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::get_iam_policy call.
+    /// The request builder for [CloudDeploy::get_iam_policy][super::super::client::CloudDeploy::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -3885,7 +3885,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::test_iam_permissions call.
+    /// The request builder for [CloudDeploy::test_iam_permissions][super::super::client::CloudDeploy::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -3941,7 +3941,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::list_operations call.
+    /// The request builder for [CloudDeploy::list_operations][super::super::client::CloudDeploy::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -4019,7 +4019,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::get_operation call.
+    /// The request builder for [CloudDeploy::get_operation][super::super::client::CloudDeploy::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -4064,7 +4064,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::delete_operation call.
+    /// The request builder for [CloudDeploy::delete_operation][super::super::client::CloudDeploy::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -4109,7 +4109,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for a CloudDeploy::cancel_operation call.
+    /// The request builder for [CloudDeploy::cancel_operation][super::super::client::CloudDeploy::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

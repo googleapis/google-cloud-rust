@@ -67,7 +67,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::list_instances call.
+    /// The request builder for [BareMetalSolution::list_instances][super::super::client::BareMetalSolution::list_instances] calls.
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
@@ -142,7 +142,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::get_instance call.
+    /// The request builder for [BareMetalSolution::get_instance][super::super::client::BareMetalSolution::get_instance] calls.
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
@@ -184,7 +184,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::update_instance call.
+    /// The request builder for [BareMetalSolution::update_instance][super::super::client::BareMetalSolution::update_instance] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
@@ -276,7 +276,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::rename_instance call.
+    /// The request builder for [BareMetalSolution::rename_instance][super::super::client::BareMetalSolution::rename_instance] calls.
     #[derive(Clone, Debug)]
     pub struct RenameInstance(RequestBuilder<crate::model::RenameInstanceRequest>);
 
@@ -324,7 +324,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::reset_instance call.
+    /// The request builder for [BareMetalSolution::reset_instance][super::super::client::BareMetalSolution::reset_instance] calls.
     #[derive(Clone, Debug)]
     pub struct ResetInstance(RequestBuilder<crate::model::ResetInstanceRequest>);
 
@@ -407,7 +407,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::start_instance call.
+    /// The request builder for [BareMetalSolution::start_instance][super::super::client::BareMetalSolution::start_instance] calls.
     #[derive(Clone, Debug)]
     pub struct StartInstance(RequestBuilder<crate::model::StartInstanceRequest>);
 
@@ -490,7 +490,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::stop_instance call.
+    /// The request builder for [BareMetalSolution::stop_instance][super::super::client::BareMetalSolution::stop_instance] calls.
     #[derive(Clone, Debug)]
     pub struct StopInstance(RequestBuilder<crate::model::StopInstanceRequest>);
 
@@ -571,7 +571,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::enable_interactive_serial_console call.
+    /// The request builder for [BareMetalSolution::enable_interactive_serial_console][super::super::client::BareMetalSolution::enable_interactive_serial_console] calls.
     #[derive(Clone, Debug)]
     pub struct EnableInteractiveSerialConsole(
         RequestBuilder<crate::model::EnableInteractiveSerialConsoleRequest>,
@@ -661,7 +661,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::disable_interactive_serial_console call.
+    /// The request builder for [BareMetalSolution::disable_interactive_serial_console][super::super::client::BareMetalSolution::disable_interactive_serial_console] calls.
     #[derive(Clone, Debug)]
     pub struct DisableInteractiveSerialConsole(
         RequestBuilder<crate::model::DisableInteractiveSerialConsoleRequest>,
@@ -751,7 +751,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::detach_lun call.
+    /// The request builder for [BareMetalSolution::detach_lun][super::super::client::BareMetalSolution::detach_lun] calls.
     #[derive(Clone, Debug)]
     pub struct DetachLun(RequestBuilder<crate::model::DetachLunRequest>);
 
@@ -843,7 +843,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::list_ssh_keys call.
+    /// The request builder for [BareMetalSolution::list_ssh_keys][super::super::client::BareMetalSolution::list_ssh_keys] calls.
     #[derive(Clone, Debug)]
     pub struct ListSSHKeys(RequestBuilder<crate::model::ListSSHKeysRequest>);
 
@@ -912,7 +912,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::create_ssh_key call.
+    /// The request builder for [BareMetalSolution::create_ssh_key][super::super::client::BareMetalSolution::create_ssh_key] calls.
     #[derive(Clone, Debug)]
     pub struct CreateSSHKey(RequestBuilder<crate::model::CreateSSHKeyRequest>);
 
@@ -969,7 +969,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::delete_ssh_key call.
+    /// The request builder for [BareMetalSolution::delete_ssh_key][super::super::client::BareMetalSolution::delete_ssh_key] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteSSHKey(RequestBuilder<crate::model::DeleteSSHKeyRequest>);
 
@@ -1011,7 +1011,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::list_volumes call.
+    /// The request builder for [BareMetalSolution::list_volumes][super::super::client::BareMetalSolution::list_volumes] calls.
     #[derive(Clone, Debug)]
     pub struct ListVolumes(RequestBuilder<crate::model::ListVolumesRequest>);
 
@@ -1086,7 +1086,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::get_volume call.
+    /// The request builder for [BareMetalSolution::get_volume][super::super::client::BareMetalSolution::get_volume] calls.
     #[derive(Clone, Debug)]
     pub struct GetVolume(RequestBuilder<crate::model::GetVolumeRequest>);
 
@@ -1128,7 +1128,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::update_volume call.
+    /// The request builder for [BareMetalSolution::update_volume][super::super::client::BareMetalSolution::update_volume] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateVolume(RequestBuilder<crate::model::UpdateVolumeRequest>);
 
@@ -1219,7 +1219,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::rename_volume call.
+    /// The request builder for [BareMetalSolution::rename_volume][super::super::client::BareMetalSolution::rename_volume] calls.
     #[derive(Clone, Debug)]
     pub struct RenameVolume(RequestBuilder<crate::model::RenameVolumeRequest>);
 
@@ -1267,7 +1267,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::evict_volume call.
+    /// The request builder for [BareMetalSolution::evict_volume][super::super::client::BareMetalSolution::evict_volume] calls.
     #[derive(Clone, Debug)]
     pub struct EvictVolume(RequestBuilder<crate::model::EvictVolumeRequest>);
 
@@ -1344,7 +1344,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::resize_volume call.
+    /// The request builder for [BareMetalSolution::resize_volume][super::super::client::BareMetalSolution::resize_volume] calls.
     #[derive(Clone, Debug)]
     pub struct ResizeVolume(RequestBuilder<crate::model::ResizeVolumeRequest>);
 
@@ -1429,7 +1429,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::list_networks call.
+    /// The request builder for [BareMetalSolution::list_networks][super::super::client::BareMetalSolution::list_networks] calls.
     #[derive(Clone, Debug)]
     pub struct ListNetworks(RequestBuilder<crate::model::ListNetworksRequest>);
 
@@ -1504,7 +1504,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::list_network_usage call.
+    /// The request builder for [BareMetalSolution::list_network_usage][super::super::client::BareMetalSolution::list_network_usage] calls.
     #[derive(Clone, Debug)]
     pub struct ListNetworkUsage(RequestBuilder<crate::model::ListNetworkUsageRequest>);
 
@@ -1549,7 +1549,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::get_network call.
+    /// The request builder for [BareMetalSolution::get_network][super::super::client::BareMetalSolution::get_network] calls.
     #[derive(Clone, Debug)]
     pub struct GetNetwork(RequestBuilder<crate::model::GetNetworkRequest>);
 
@@ -1591,7 +1591,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::update_network call.
+    /// The request builder for [BareMetalSolution::update_network][super::super::client::BareMetalSolution::update_network] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateNetwork(RequestBuilder<crate::model::UpdateNetworkRequest>);
 
@@ -1682,7 +1682,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::create_volume_snapshot call.
+    /// The request builder for [BareMetalSolution::create_volume_snapshot][super::super::client::BareMetalSolution::create_volume_snapshot] calls.
     #[derive(Clone, Debug)]
     pub struct CreateVolumeSnapshot(RequestBuilder<crate::model::CreateVolumeSnapshotRequest>);
 
@@ -1736,7 +1736,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::restore_volume_snapshot call.
+    /// The request builder for [BareMetalSolution::restore_volume_snapshot][super::super::client::BareMetalSolution::restore_volume_snapshot] calls.
     #[derive(Clone, Debug)]
     pub struct RestoreVolumeSnapshot(RequestBuilder<crate::model::RestoreVolumeSnapshotRequest>);
 
@@ -1820,7 +1820,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::delete_volume_snapshot call.
+    /// The request builder for [BareMetalSolution::delete_volume_snapshot][super::super::client::BareMetalSolution::delete_volume_snapshot] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteVolumeSnapshot(RequestBuilder<crate::model::DeleteVolumeSnapshotRequest>);
 
@@ -1865,7 +1865,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::get_volume_snapshot call.
+    /// The request builder for [BareMetalSolution::get_volume_snapshot][super::super::client::BareMetalSolution::get_volume_snapshot] calls.
     #[derive(Clone, Debug)]
     pub struct GetVolumeSnapshot(RequestBuilder<crate::model::GetVolumeSnapshotRequest>);
 
@@ -1910,7 +1910,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::list_volume_snapshots call.
+    /// The request builder for [BareMetalSolution::list_volume_snapshots][super::super::client::BareMetalSolution::list_volume_snapshots] calls.
     #[derive(Clone, Debug)]
     pub struct ListVolumeSnapshots(RequestBuilder<crate::model::ListVolumeSnapshotsRequest>);
 
@@ -1982,7 +1982,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::get_lun call.
+    /// The request builder for [BareMetalSolution::get_lun][super::super::client::BareMetalSolution::get_lun] calls.
     #[derive(Clone, Debug)]
     pub struct GetLun(RequestBuilder<crate::model::GetLunRequest>);
 
@@ -2022,7 +2022,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::list_luns call.
+    /// The request builder for [BareMetalSolution::list_luns][super::super::client::BareMetalSolution::list_luns] calls.
     #[derive(Clone, Debug)]
     pub struct ListLuns(RequestBuilder<crate::model::ListLunsRequest>);
 
@@ -2090,7 +2090,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::evict_lun call.
+    /// The request builder for [BareMetalSolution::evict_lun][super::super::client::BareMetalSolution::evict_lun] calls.
     #[derive(Clone, Debug)]
     pub struct EvictLun(RequestBuilder<crate::model::EvictLunRequest>);
 
@@ -2167,7 +2167,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::get_nfs_share call.
+    /// The request builder for [BareMetalSolution::get_nfs_share][super::super::client::BareMetalSolution::get_nfs_share] calls.
     #[derive(Clone, Debug)]
     pub struct GetNfsShare(RequestBuilder<crate::model::GetNfsShareRequest>);
 
@@ -2209,7 +2209,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::list_nfs_shares call.
+    /// The request builder for [BareMetalSolution::list_nfs_shares][super::super::client::BareMetalSolution::list_nfs_shares] calls.
     #[derive(Clone, Debug)]
     pub struct ListNfsShares(RequestBuilder<crate::model::ListNfsSharesRequest>);
 
@@ -2284,7 +2284,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::update_nfs_share call.
+    /// The request builder for [BareMetalSolution::update_nfs_share][super::super::client::BareMetalSolution::update_nfs_share] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateNfsShare(RequestBuilder<crate::model::UpdateNfsShareRequest>);
 
@@ -2376,7 +2376,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::create_nfs_share call.
+    /// The request builder for [BareMetalSolution::create_nfs_share][super::super::client::BareMetalSolution::create_nfs_share] calls.
     #[derive(Clone, Debug)]
     pub struct CreateNfsShare(RequestBuilder<crate::model::CreateNfsShareRequest>);
 
@@ -2465,7 +2465,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::rename_nfs_share call.
+    /// The request builder for [BareMetalSolution::rename_nfs_share][super::super::client::BareMetalSolution::rename_nfs_share] calls.
     #[derive(Clone, Debug)]
     pub struct RenameNfsShare(RequestBuilder<crate::model::RenameNfsShareRequest>);
 
@@ -2513,7 +2513,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::delete_nfs_share call.
+    /// The request builder for [BareMetalSolution::delete_nfs_share][super::super::client::BareMetalSolution::delete_nfs_share] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteNfsShare(RequestBuilder<crate::model::DeleteNfsShareRequest>);
 
@@ -2590,7 +2590,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::list_provisioning_quotas call.
+    /// The request builder for [BareMetalSolution::list_provisioning_quotas][super::super::client::BareMetalSolution::list_provisioning_quotas] calls.
     #[derive(Clone, Debug)]
     pub struct ListProvisioningQuotas(RequestBuilder<crate::model::ListProvisioningQuotasRequest>);
 
@@ -2664,7 +2664,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::submit_provisioning_config call.
+    /// The request builder for [BareMetalSolution::submit_provisioning_config][super::super::client::BareMetalSolution::submit_provisioning_config] calls.
     #[derive(Clone, Debug)]
     pub struct SubmitProvisioningConfig(
         RequestBuilder<crate::model::SubmitProvisioningConfigRequest>,
@@ -2728,7 +2728,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::get_provisioning_config call.
+    /// The request builder for [BareMetalSolution::get_provisioning_config][super::super::client::BareMetalSolution::get_provisioning_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetProvisioningConfig(RequestBuilder<crate::model::GetProvisioningConfigRequest>);
 
@@ -2773,7 +2773,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::create_provisioning_config call.
+    /// The request builder for [BareMetalSolution::create_provisioning_config][super::super::client::BareMetalSolution::create_provisioning_config] calls.
     #[derive(Clone, Debug)]
     pub struct CreateProvisioningConfig(
         RequestBuilder<crate::model::CreateProvisioningConfigRequest>,
@@ -2837,7 +2837,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::update_provisioning_config call.
+    /// The request builder for [BareMetalSolution::update_provisioning_config][super::super::client::BareMetalSolution::update_provisioning_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateProvisioningConfig(
         RequestBuilder<crate::model::UpdateProvisioningConfigRequest>,
@@ -2904,7 +2904,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::rename_network call.
+    /// The request builder for [BareMetalSolution::rename_network][super::super::client::BareMetalSolution::rename_network] calls.
     #[derive(Clone, Debug)]
     pub struct RenameNetwork(RequestBuilder<crate::model::RenameNetworkRequest>);
 
@@ -2952,7 +2952,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::list_os_images call.
+    /// The request builder for [BareMetalSolution::list_os_images][super::super::client::BareMetalSolution::list_os_images] calls.
     #[derive(Clone, Debug)]
     pub struct ListOSImages(RequestBuilder<crate::model::ListOSImagesRequest>);
 
@@ -3021,7 +3021,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::list_locations call.
+    /// The request builder for [BareMetalSolution::list_locations][super::super::client::BareMetalSolution::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -3099,7 +3099,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::get_location call.
+    /// The request builder for [BareMetalSolution::get_location][super::super::client::BareMetalSolution::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -3141,7 +3141,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for a BareMetalSolution::get_operation call.
+    /// The request builder for [BareMetalSolution::get_operation][super::super::client::BareMetalSolution::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

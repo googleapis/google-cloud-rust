@@ -69,7 +69,7 @@ pub mod case_attachment_service {
         }
     }
 
-    /// The request builder for a CaseAttachmentService::list_attachments call.
+    /// The request builder for [CaseAttachmentService::list_attachments][super::super::client::CaseAttachmentService::list_attachments] calls.
     #[derive(Clone, Debug)]
     pub struct ListAttachments(RequestBuilder<crate::model::ListAttachmentsRequest>);
 
@@ -194,7 +194,7 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for a CaseService::get_case call.
+    /// The request builder for [CaseService::get_case][super::super::client::CaseService::get_case] calls.
     #[derive(Clone, Debug)]
     pub struct GetCase(RequestBuilder<crate::model::GetCaseRequest>);
 
@@ -236,7 +236,7 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for a CaseService::list_cases call.
+    /// The request builder for [CaseService::list_cases][super::super::client::CaseService::list_cases] calls.
     #[derive(Clone, Debug)]
     pub struct ListCases(RequestBuilder<crate::model::ListCasesRequest>);
 
@@ -310,7 +310,7 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for a CaseService::search_cases call.
+    /// The request builder for [CaseService::search_cases][super::super::client::CaseService::search_cases] calls.
     #[derive(Clone, Debug)]
     pub struct SearchCases(RequestBuilder<crate::model::SearchCasesRequest>);
 
@@ -385,7 +385,7 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for a CaseService::create_case call.
+    /// The request builder for [CaseService::create_case][super::super::client::CaseService::create_case] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCase(RequestBuilder<crate::model::CreateCaseRequest>);
 
@@ -433,7 +433,7 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for a CaseService::update_case call.
+    /// The request builder for [CaseService::update_case][super::super::client::CaseService::update_case] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCase(RequestBuilder<crate::model::UpdateCaseRequest>);
 
@@ -484,7 +484,7 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for a CaseService::escalate_case call.
+    /// The request builder for [CaseService::escalate_case][super::super::client::CaseService::escalate_case] calls.
     #[derive(Clone, Debug)]
     pub struct EscalateCase(RequestBuilder<crate::model::EscalateCaseRequest>);
 
@@ -535,7 +535,7 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for a CaseService::close_case call.
+    /// The request builder for [CaseService::close_case][super::super::client::CaseService::close_case] calls.
     #[derive(Clone, Debug)]
     pub struct CloseCase(RequestBuilder<crate::model::CloseCaseRequest>);
 
@@ -577,7 +577,7 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for a CaseService::search_case_classifications call.
+    /// The request builder for [CaseService::search_case_classifications][super::super::client::CaseService::search_case_classifications] calls.
     #[derive(Clone, Debug)]
     pub struct SearchCaseClassifications(
         RequestBuilder<crate::model::SearchCaseClassificationsRequest>,
@@ -707,7 +707,7 @@ pub mod comment_service {
         }
     }
 
-    /// The request builder for a CommentService::list_comments call.
+    /// The request builder for [CommentService::list_comments][super::super::client::CommentService::list_comments] calls.
     #[derive(Clone, Debug)]
     pub struct ListComments(RequestBuilder<crate::model::ListCommentsRequest>);
 
@@ -776,7 +776,7 @@ pub mod comment_service {
         }
     }
 
-    /// The request builder for a CommentService::create_comment call.
+    /// The request builder for [CommentService::create_comment][super::super::client::CommentService::create_comment] calls.
     #[derive(Clone, Debug)]
     pub struct CreateComment(RequestBuilder<crate::model::CreateCommentRequest>);
 

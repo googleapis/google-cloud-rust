@@ -67,7 +67,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::list_authorization_policies call.
+    /// The request builder for [NetworkSecurity::list_authorization_policies][super::super::client::NetworkSecurity::list_authorization_policies] calls.
     #[derive(Clone, Debug)]
     pub struct ListAuthorizationPolicies(
         RequestBuilder<crate::model::ListAuthorizationPoliciesRequest>,
@@ -143,7 +143,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::get_authorization_policy call.
+    /// The request builder for [NetworkSecurity::get_authorization_policy][super::super::client::NetworkSecurity::get_authorization_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetAuthorizationPolicy(RequestBuilder<crate::model::GetAuthorizationPolicyRequest>);
 
@@ -188,7 +188,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::create_authorization_policy call.
+    /// The request builder for [NetworkSecurity::create_authorization_policy][super::super::client::NetworkSecurity::create_authorization_policy] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAuthorizationPolicy(
         RequestBuilder<crate::model::CreateAuthorizationPolicyRequest>,
@@ -291,7 +291,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::update_authorization_policy call.
+    /// The request builder for [NetworkSecurity::update_authorization_policy][super::super::client::NetworkSecurity::update_authorization_policy] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateAuthorizationPolicy(
         RequestBuilder<crate::model::UpdateAuthorizationPolicyRequest>,
@@ -391,7 +391,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::delete_authorization_policy call.
+    /// The request builder for [NetworkSecurity::delete_authorization_policy][super::super::client::NetworkSecurity::delete_authorization_policy] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAuthorizationPolicy(
         RequestBuilder<crate::model::DeleteAuthorizationPolicyRequest>,
@@ -473,7 +473,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::list_server_tls_policies call.
+    /// The request builder for [NetworkSecurity::list_server_tls_policies][super::super::client::NetworkSecurity::list_server_tls_policies] calls.
     #[derive(Clone, Debug)]
     pub struct ListServerTlsPolicies(RequestBuilder<crate::model::ListServerTlsPoliciesRequest>);
 
@@ -545,7 +545,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::get_server_tls_policy call.
+    /// The request builder for [NetworkSecurity::get_server_tls_policy][super::super::client::NetworkSecurity::get_server_tls_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetServerTlsPolicy(RequestBuilder<crate::model::GetServerTlsPolicyRequest>);
 
@@ -590,7 +590,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::create_server_tls_policy call.
+    /// The request builder for [NetworkSecurity::create_server_tls_policy][super::super::client::NetworkSecurity::create_server_tls_policy] calls.
     #[derive(Clone, Debug)]
     pub struct CreateServerTlsPolicy(RequestBuilder<crate::model::CreateServerTlsPolicyRequest>);
 
@@ -691,7 +691,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::update_server_tls_policy call.
+    /// The request builder for [NetworkSecurity::update_server_tls_policy][super::super::client::NetworkSecurity::update_server_tls_policy] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateServerTlsPolicy(RequestBuilder<crate::model::UpdateServerTlsPolicyRequest>);
 
@@ -789,7 +789,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::delete_server_tls_policy call.
+    /// The request builder for [NetworkSecurity::delete_server_tls_policy][super::super::client::NetworkSecurity::delete_server_tls_policy] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteServerTlsPolicy(RequestBuilder<crate::model::DeleteServerTlsPolicyRequest>);
 
@@ -869,7 +869,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::list_client_tls_policies call.
+    /// The request builder for [NetworkSecurity::list_client_tls_policies][super::super::client::NetworkSecurity::list_client_tls_policies] calls.
     #[derive(Clone, Debug)]
     pub struct ListClientTlsPolicies(RequestBuilder<crate::model::ListClientTlsPoliciesRequest>);
 
@@ -941,7 +941,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::get_client_tls_policy call.
+    /// The request builder for [NetworkSecurity::get_client_tls_policy][super::super::client::NetworkSecurity::get_client_tls_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetClientTlsPolicy(RequestBuilder<crate::model::GetClientTlsPolicyRequest>);
 
@@ -986,7 +986,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::create_client_tls_policy call.
+    /// The request builder for [NetworkSecurity::create_client_tls_policy][super::super::client::NetworkSecurity::create_client_tls_policy] calls.
     #[derive(Clone, Debug)]
     pub struct CreateClientTlsPolicy(RequestBuilder<crate::model::CreateClientTlsPolicyRequest>);
 
@@ -1087,7 +1087,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::update_client_tls_policy call.
+    /// The request builder for [NetworkSecurity::update_client_tls_policy][super::super::client::NetworkSecurity::update_client_tls_policy] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateClientTlsPolicy(RequestBuilder<crate::model::UpdateClientTlsPolicyRequest>);
 
@@ -1185,7 +1185,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::delete_client_tls_policy call.
+    /// The request builder for [NetworkSecurity::delete_client_tls_policy][super::super::client::NetworkSecurity::delete_client_tls_policy] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteClientTlsPolicy(RequestBuilder<crate::model::DeleteClientTlsPolicyRequest>);
 
@@ -1265,7 +1265,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::list_locations call.
+    /// The request builder for [NetworkSecurity::list_locations][super::super::client::NetworkSecurity::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1343,7 +1343,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::get_location call.
+    /// The request builder for [NetworkSecurity::get_location][super::super::client::NetworkSecurity::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1385,7 +1385,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::set_iam_policy call.
+    /// The request builder for [NetworkSecurity::set_iam_policy][super::super::client::NetworkSecurity::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1445,7 +1445,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::get_iam_policy call.
+    /// The request builder for [NetworkSecurity::get_iam_policy][super::super::client::NetworkSecurity::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1496,7 +1496,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::test_iam_permissions call.
+    /// The request builder for [NetworkSecurity::test_iam_permissions][super::super::client::NetworkSecurity::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1552,7 +1552,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::list_operations call.
+    /// The request builder for [NetworkSecurity::list_operations][super::super::client::NetworkSecurity::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1630,7 +1630,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::get_operation call.
+    /// The request builder for [NetworkSecurity::get_operation][super::super::client::NetworkSecurity::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1675,7 +1675,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::delete_operation call.
+    /// The request builder for [NetworkSecurity::delete_operation][super::super::client::NetworkSecurity::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1720,7 +1720,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for a NetworkSecurity::cancel_operation call.
+    /// The request builder for [NetworkSecurity::cancel_operation][super::super::client::NetworkSecurity::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

@@ -67,7 +67,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for a WebSecurityScanner::create_scan_config call.
+    /// The request builder for [WebSecurityScanner::create_scan_config][super::super::client::WebSecurityScanner::create_scan_config] calls.
     #[derive(Clone, Debug)]
     pub struct CreateScanConfig(RequestBuilder<crate::model::CreateScanConfigRequest>);
 
@@ -121,7 +121,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for a WebSecurityScanner::delete_scan_config call.
+    /// The request builder for [WebSecurityScanner::delete_scan_config][super::super::client::WebSecurityScanner::delete_scan_config] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteScanConfig(RequestBuilder<crate::model::DeleteScanConfigRequest>);
 
@@ -166,7 +166,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for a WebSecurityScanner::get_scan_config call.
+    /// The request builder for [WebSecurityScanner::get_scan_config][super::super::client::WebSecurityScanner::get_scan_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetScanConfig(RequestBuilder<crate::model::GetScanConfigRequest>);
 
@@ -208,7 +208,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for a WebSecurityScanner::list_scan_configs call.
+    /// The request builder for [WebSecurityScanner::list_scan_configs][super::super::client::WebSecurityScanner::list_scan_configs] calls.
     #[derive(Clone, Debug)]
     pub struct ListScanConfigs(RequestBuilder<crate::model::ListScanConfigsRequest>);
 
@@ -277,7 +277,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for a WebSecurityScanner::update_scan_config call.
+    /// The request builder for [WebSecurityScanner::update_scan_config][super::super::client::WebSecurityScanner::update_scan_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateScanConfig(RequestBuilder<crate::model::UpdateScanConfigRequest>);
 
@@ -334,7 +334,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for a WebSecurityScanner::start_scan_run call.
+    /// The request builder for [WebSecurityScanner::start_scan_run][super::super::client::WebSecurityScanner::start_scan_run] calls.
     #[derive(Clone, Debug)]
     pub struct StartScanRun(RequestBuilder<crate::model::StartScanRunRequest>);
 
@@ -376,7 +376,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for a WebSecurityScanner::get_scan_run call.
+    /// The request builder for [WebSecurityScanner::get_scan_run][super::super::client::WebSecurityScanner::get_scan_run] calls.
     #[derive(Clone, Debug)]
     pub struct GetScanRun(RequestBuilder<crate::model::GetScanRunRequest>);
 
@@ -418,7 +418,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for a WebSecurityScanner::list_scan_runs call.
+    /// The request builder for [WebSecurityScanner::list_scan_runs][super::super::client::WebSecurityScanner::list_scan_runs] calls.
     #[derive(Clone, Debug)]
     pub struct ListScanRuns(RequestBuilder<crate::model::ListScanRunsRequest>);
 
@@ -487,7 +487,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for a WebSecurityScanner::stop_scan_run call.
+    /// The request builder for [WebSecurityScanner::stop_scan_run][super::super::client::WebSecurityScanner::stop_scan_run] calls.
     #[derive(Clone, Debug)]
     pub struct StopScanRun(RequestBuilder<crate::model::StopScanRunRequest>);
 
@@ -529,7 +529,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for a WebSecurityScanner::list_crawled_urls call.
+    /// The request builder for [WebSecurityScanner::list_crawled_urls][super::super::client::WebSecurityScanner::list_crawled_urls] calls.
     #[derive(Clone, Debug)]
     pub struct ListCrawledUrls(RequestBuilder<crate::model::ListCrawledUrlsRequest>);
 
@@ -598,7 +598,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for a WebSecurityScanner::get_finding call.
+    /// The request builder for [WebSecurityScanner::get_finding][super::super::client::WebSecurityScanner::get_finding] calls.
     #[derive(Clone, Debug)]
     pub struct GetFinding(RequestBuilder<crate::model::GetFindingRequest>);
 
@@ -640,7 +640,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for a WebSecurityScanner::list_findings call.
+    /// The request builder for [WebSecurityScanner::list_findings][super::super::client::WebSecurityScanner::list_findings] calls.
     #[derive(Clone, Debug)]
     pub struct ListFindings(RequestBuilder<crate::model::ListFindingsRequest>);
 
@@ -715,7 +715,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for a WebSecurityScanner::list_finding_type_stats call.
+    /// The request builder for [WebSecurityScanner::list_finding_type_stats][super::super::client::WebSecurityScanner::list_finding_type_stats] calls.
     #[derive(Clone, Debug)]
     pub struct ListFindingTypeStats(RequestBuilder<crate::model::ListFindingTypeStatsRequest>);
 

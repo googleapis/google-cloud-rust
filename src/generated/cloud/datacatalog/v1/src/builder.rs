@@ -67,7 +67,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::search_catalog call.
+    /// The request builder for [DataCatalog::search_catalog][super::super::client::DataCatalog::search_catalog] calls.
     #[derive(Clone, Debug)]
     pub struct SearchCatalog(RequestBuilder<crate::model::SearchCatalogRequest>);
 
@@ -159,7 +159,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::create_entry_group call.
+    /// The request builder for [DataCatalog::create_entry_group][super::super::client::DataCatalog::create_entry_group] calls.
     #[derive(Clone, Debug)]
     pub struct CreateEntryGroup(RequestBuilder<crate::model::CreateEntryGroupRequest>);
 
@@ -219,7 +219,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::get_entry_group call.
+    /// The request builder for [DataCatalog::get_entry_group][super::super::client::DataCatalog::get_entry_group] calls.
     #[derive(Clone, Debug)]
     pub struct GetEntryGroup(RequestBuilder<crate::model::GetEntryGroupRequest>);
 
@@ -267,7 +267,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::update_entry_group call.
+    /// The request builder for [DataCatalog::update_entry_group][super::super::client::DataCatalog::update_entry_group] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateEntryGroup(RequestBuilder<crate::model::UpdateEntryGroupRequest>);
 
@@ -324,7 +324,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::delete_entry_group call.
+    /// The request builder for [DataCatalog::delete_entry_group][super::super::client::DataCatalog::delete_entry_group] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteEntryGroup(RequestBuilder<crate::model::DeleteEntryGroupRequest>);
 
@@ -375,7 +375,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::list_entry_groups call.
+    /// The request builder for [DataCatalog::list_entry_groups][super::super::client::DataCatalog::list_entry_groups] calls.
     #[derive(Clone, Debug)]
     pub struct ListEntryGroups(RequestBuilder<crate::model::ListEntryGroupsRequest>);
 
@@ -444,7 +444,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::create_entry call.
+    /// The request builder for [DataCatalog::create_entry][super::super::client::DataCatalog::create_entry] calls.
     #[derive(Clone, Debug)]
     pub struct CreateEntry(RequestBuilder<crate::model::CreateEntryRequest>);
 
@@ -501,7 +501,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::update_entry call.
+    /// The request builder for [DataCatalog::update_entry][super::super::client::DataCatalog::update_entry] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateEntry(RequestBuilder<crate::model::UpdateEntryRequest>);
 
@@ -555,7 +555,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::delete_entry call.
+    /// The request builder for [DataCatalog::delete_entry][super::super::client::DataCatalog::delete_entry] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteEntry(RequestBuilder<crate::model::DeleteEntryRequest>);
 
@@ -597,7 +597,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::get_entry call.
+    /// The request builder for [DataCatalog::get_entry][super::super::client::DataCatalog::get_entry] calls.
     #[derive(Clone, Debug)]
     pub struct GetEntry(RequestBuilder<crate::model::GetEntryRequest>);
 
@@ -639,7 +639,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::lookup_entry call.
+    /// The request builder for [DataCatalog::lookup_entry][super::super::client::DataCatalog::lookup_entry] calls.
     #[derive(Clone, Debug)]
     pub struct LookupEntry(RequestBuilder<crate::model::LookupEntryRequest>);
 
@@ -696,7 +696,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::list_entries call.
+    /// The request builder for [DataCatalog::list_entries][super::super::client::DataCatalog::list_entries] calls.
     #[derive(Clone, Debug)]
     pub struct ListEntries(RequestBuilder<crate::model::ListEntriesRequest>);
 
@@ -771,7 +771,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::modify_entry_overview call.
+    /// The request builder for [DataCatalog::modify_entry_overview][super::super::client::DataCatalog::modify_entry_overview] calls.
     #[derive(Clone, Debug)]
     pub struct ModifyEntryOverview(RequestBuilder<crate::model::ModifyEntryOverviewRequest>);
 
@@ -825,7 +825,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::modify_entry_contacts call.
+    /// The request builder for [DataCatalog::modify_entry_contacts][super::super::client::DataCatalog::modify_entry_contacts] calls.
     #[derive(Clone, Debug)]
     pub struct ModifyEntryContacts(RequestBuilder<crate::model::ModifyEntryContactsRequest>);
 
@@ -879,7 +879,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::create_tag_template call.
+    /// The request builder for [DataCatalog::create_tag_template][super::super::client::DataCatalog::create_tag_template] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTagTemplate(RequestBuilder<crate::model::CreateTagTemplateRequest>);
 
@@ -939,7 +939,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::get_tag_template call.
+    /// The request builder for [DataCatalog::get_tag_template][super::super::client::DataCatalog::get_tag_template] calls.
     #[derive(Clone, Debug)]
     pub struct GetTagTemplate(RequestBuilder<crate::model::GetTagTemplateRequest>);
 
@@ -981,7 +981,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::update_tag_template call.
+    /// The request builder for [DataCatalog::update_tag_template][super::super::client::DataCatalog::update_tag_template] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateTagTemplate(RequestBuilder<crate::model::UpdateTagTemplateRequest>);
 
@@ -1038,7 +1038,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::delete_tag_template call.
+    /// The request builder for [DataCatalog::delete_tag_template][super::super::client::DataCatalog::delete_tag_template] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTagTemplate(RequestBuilder<crate::model::DeleteTagTemplateRequest>);
 
@@ -1089,7 +1089,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::create_tag_template_field call.
+    /// The request builder for [DataCatalog::create_tag_template_field][super::super::client::DataCatalog::create_tag_template_field] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTagTemplateField(RequestBuilder<crate::model::CreateTagTemplateFieldRequest>);
 
@@ -1151,7 +1151,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::update_tag_template_field call.
+    /// The request builder for [DataCatalog::update_tag_template_field][super::super::client::DataCatalog::update_tag_template_field] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateTagTemplateField(RequestBuilder<crate::model::UpdateTagTemplateFieldRequest>);
 
@@ -1216,7 +1216,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::rename_tag_template_field call.
+    /// The request builder for [DataCatalog::rename_tag_template_field][super::super::client::DataCatalog::rename_tag_template_field] calls.
     #[derive(Clone, Debug)]
     pub struct RenameTagTemplateField(RequestBuilder<crate::model::RenameTagTemplateFieldRequest>);
 
@@ -1267,7 +1267,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::rename_tag_template_field_enum_value call.
+    /// The request builder for [DataCatalog::rename_tag_template_field_enum_value][super::super::client::DataCatalog::rename_tag_template_field_enum_value] calls.
     #[derive(Clone, Debug)]
     pub struct RenameTagTemplateFieldEnumValue(
         RequestBuilder<crate::model::RenameTagTemplateFieldEnumValueRequest>,
@@ -1323,7 +1323,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::delete_tag_template_field call.
+    /// The request builder for [DataCatalog::delete_tag_template_field][super::super::client::DataCatalog::delete_tag_template_field] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTagTemplateField(RequestBuilder<crate::model::DeleteTagTemplateFieldRequest>);
 
@@ -1374,7 +1374,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::create_tag call.
+    /// The request builder for [DataCatalog::create_tag][super::super::client::DataCatalog::create_tag] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTag(RequestBuilder<crate::model::CreateTagRequest>);
 
@@ -1422,7 +1422,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::update_tag call.
+    /// The request builder for [DataCatalog::update_tag][super::super::client::DataCatalog::update_tag] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateTag(RequestBuilder<crate::model::UpdateTagRequest>);
 
@@ -1473,7 +1473,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::delete_tag call.
+    /// The request builder for [DataCatalog::delete_tag][super::super::client::DataCatalog::delete_tag] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTag(RequestBuilder<crate::model::DeleteTagRequest>);
 
@@ -1515,7 +1515,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::list_tags call.
+    /// The request builder for [DataCatalog::list_tags][super::super::client::DataCatalog::list_tags] calls.
     #[derive(Clone, Debug)]
     pub struct ListTags(RequestBuilder<crate::model::ListTagsRequest>);
 
@@ -1583,7 +1583,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::reconcile_tags call.
+    /// The request builder for [DataCatalog::reconcile_tags][super::super::client::DataCatalog::reconcile_tags] calls.
     #[derive(Clone, Debug)]
     pub struct ReconcileTags(RequestBuilder<crate::model::ReconcileTagsRequest>);
 
@@ -1689,7 +1689,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::star_entry call.
+    /// The request builder for [DataCatalog::star_entry][super::super::client::DataCatalog::star_entry] calls.
     #[derive(Clone, Debug)]
     pub struct StarEntry(RequestBuilder<crate::model::StarEntryRequest>);
 
@@ -1731,7 +1731,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::unstar_entry call.
+    /// The request builder for [DataCatalog::unstar_entry][super::super::client::DataCatalog::unstar_entry] calls.
     #[derive(Clone, Debug)]
     pub struct UnstarEntry(RequestBuilder<crate::model::UnstarEntryRequest>);
 
@@ -1773,7 +1773,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::set_iam_policy call.
+    /// The request builder for [DataCatalog::set_iam_policy][super::super::client::DataCatalog::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1833,7 +1833,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::get_iam_policy call.
+    /// The request builder for [DataCatalog::get_iam_policy][super::super::client::DataCatalog::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1884,7 +1884,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::test_iam_permissions call.
+    /// The request builder for [DataCatalog::test_iam_permissions][super::super::client::DataCatalog::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1940,7 +1940,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::import_entries call.
+    /// The request builder for [DataCatalog::import_entries][super::super::client::DataCatalog::import_entries] calls.
     #[derive(Clone, Debug)]
     pub struct ImportEntries(RequestBuilder<crate::model::ImportEntriesRequest>);
 
@@ -2038,7 +2038,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::set_config call.
+    /// The request builder for [DataCatalog::set_config][super::super::client::DataCatalog::set_config] calls.
     #[derive(Clone, Debug)]
     pub struct SetConfig(RequestBuilder<crate::model::SetConfigRequest>);
 
@@ -2091,7 +2091,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::retrieve_config call.
+    /// The request builder for [DataCatalog::retrieve_config][super::super::client::DataCatalog::retrieve_config] calls.
     #[derive(Clone, Debug)]
     pub struct RetrieveConfig(RequestBuilder<crate::model::RetrieveConfigRequest>);
 
@@ -2133,7 +2133,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::retrieve_effective_config call.
+    /// The request builder for [DataCatalog::retrieve_effective_config][super::super::client::DataCatalog::retrieve_effective_config] calls.
     #[derive(Clone, Debug)]
     pub struct RetrieveEffectiveConfig(
         RequestBuilder<crate::model::RetrieveEffectiveConfigRequest>,
@@ -2180,7 +2180,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::list_operations call.
+    /// The request builder for [DataCatalog::list_operations][super::super::client::DataCatalog::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2258,7 +2258,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::get_operation call.
+    /// The request builder for [DataCatalog::get_operation][super::super::client::DataCatalog::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2303,7 +2303,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::delete_operation call.
+    /// The request builder for [DataCatalog::delete_operation][super::super::client::DataCatalog::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2348,7 +2348,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for a DataCatalog::cancel_operation call.
+    /// The request builder for [DataCatalog::cancel_operation][super::super::client::DataCatalog::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -2447,7 +2447,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for a PolicyTagManager::create_taxonomy call.
+    /// The request builder for [PolicyTagManager::create_taxonomy][super::super::client::PolicyTagManager::create_taxonomy] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTaxonomy(RequestBuilder<crate::model::CreateTaxonomyRequest>);
 
@@ -2498,7 +2498,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for a PolicyTagManager::delete_taxonomy call.
+    /// The request builder for [PolicyTagManager::delete_taxonomy][super::super::client::PolicyTagManager::delete_taxonomy] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTaxonomy(RequestBuilder<crate::model::DeleteTaxonomyRequest>);
 
@@ -2540,7 +2540,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for a PolicyTagManager::update_taxonomy call.
+    /// The request builder for [PolicyTagManager::update_taxonomy][super::super::client::PolicyTagManager::update_taxonomy] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateTaxonomy(RequestBuilder<crate::model::UpdateTaxonomyRequest>);
 
@@ -2594,7 +2594,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for a PolicyTagManager::list_taxonomies call.
+    /// The request builder for [PolicyTagManager::list_taxonomies][super::super::client::PolicyTagManager::list_taxonomies] calls.
     #[derive(Clone, Debug)]
     pub struct ListTaxonomies(RequestBuilder<crate::model::ListTaxonomiesRequest>);
 
@@ -2669,7 +2669,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for a PolicyTagManager::get_taxonomy call.
+    /// The request builder for [PolicyTagManager::get_taxonomy][super::super::client::PolicyTagManager::get_taxonomy] calls.
     #[derive(Clone, Debug)]
     pub struct GetTaxonomy(RequestBuilder<crate::model::GetTaxonomyRequest>);
 
@@ -2711,7 +2711,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for a PolicyTagManager::create_policy_tag call.
+    /// The request builder for [PolicyTagManager::create_policy_tag][super::super::client::PolicyTagManager::create_policy_tag] calls.
     #[derive(Clone, Debug)]
     pub struct CreatePolicyTag(RequestBuilder<crate::model::CreatePolicyTagRequest>);
 
@@ -2762,7 +2762,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for a PolicyTagManager::delete_policy_tag call.
+    /// The request builder for [PolicyTagManager::delete_policy_tag][super::super::client::PolicyTagManager::delete_policy_tag] calls.
     #[derive(Clone, Debug)]
     pub struct DeletePolicyTag(RequestBuilder<crate::model::DeletePolicyTagRequest>);
 
@@ -2804,7 +2804,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for a PolicyTagManager::update_policy_tag call.
+    /// The request builder for [PolicyTagManager::update_policy_tag][super::super::client::PolicyTagManager::update_policy_tag] calls.
     #[derive(Clone, Debug)]
     pub struct UpdatePolicyTag(RequestBuilder<crate::model::UpdatePolicyTagRequest>);
 
@@ -2858,7 +2858,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for a PolicyTagManager::list_policy_tags call.
+    /// The request builder for [PolicyTagManager::list_policy_tags][super::super::client::PolicyTagManager::list_policy_tags] calls.
     #[derive(Clone, Debug)]
     pub struct ListPolicyTags(RequestBuilder<crate::model::ListPolicyTagsRequest>);
 
@@ -2927,7 +2927,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for a PolicyTagManager::get_policy_tag call.
+    /// The request builder for [PolicyTagManager::get_policy_tag][super::super::client::PolicyTagManager::get_policy_tag] calls.
     #[derive(Clone, Debug)]
     pub struct GetPolicyTag(RequestBuilder<crate::model::GetPolicyTagRequest>);
 
@@ -2969,7 +2969,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for a PolicyTagManager::get_iam_policy call.
+    /// The request builder for [PolicyTagManager::get_iam_policy][super::super::client::PolicyTagManager::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -3020,7 +3020,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for a PolicyTagManager::set_iam_policy call.
+    /// The request builder for [PolicyTagManager::set_iam_policy][super::super::client::PolicyTagManager::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -3080,7 +3080,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for a PolicyTagManager::test_iam_permissions call.
+    /// The request builder for [PolicyTagManager::test_iam_permissions][super::super::client::PolicyTagManager::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -3136,7 +3136,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for a PolicyTagManager::list_operations call.
+    /// The request builder for [PolicyTagManager::list_operations][super::super::client::PolicyTagManager::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -3214,7 +3214,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for a PolicyTagManager::get_operation call.
+    /// The request builder for [PolicyTagManager::get_operation][super::super::client::PolicyTagManager::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -3259,7 +3259,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for a PolicyTagManager::delete_operation call.
+    /// The request builder for [PolicyTagManager::delete_operation][super::super::client::PolicyTagManager::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -3304,7 +3304,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for a PolicyTagManager::cancel_operation call.
+    /// The request builder for [PolicyTagManager::cancel_operation][super::super::client::PolicyTagManager::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -3405,7 +3405,7 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    /// The request builder for a PolicyTagManagerSerialization::replace_taxonomy call.
+    /// The request builder for [PolicyTagManagerSerialization::replace_taxonomy][super::super::client::PolicyTagManagerSerialization::replace_taxonomy] calls.
     #[derive(Clone, Debug)]
     pub struct ReplaceTaxonomy(RequestBuilder<crate::model::ReplaceTaxonomyRequest>);
 
@@ -3460,7 +3460,7 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    /// The request builder for a PolicyTagManagerSerialization::import_taxonomies call.
+    /// The request builder for [PolicyTagManagerSerialization::import_taxonomies][super::super::client::PolicyTagManagerSerialization::import_taxonomies] calls.
     #[derive(Clone, Debug)]
     pub struct ImportTaxonomies(RequestBuilder<crate::model::ImportTaxonomiesRequest>);
 
@@ -3516,7 +3516,7 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    /// The request builder for a PolicyTagManagerSerialization::export_taxonomies call.
+    /// The request builder for [PolicyTagManagerSerialization::export_taxonomies][super::super::client::PolicyTagManagerSerialization::export_taxonomies] calls.
     #[derive(Clone, Debug)]
     pub struct ExportTaxonomies(RequestBuilder<crate::model::ExportTaxonomiesRequest>);
 
@@ -3585,7 +3585,7 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    /// The request builder for a PolicyTagManagerSerialization::list_operations call.
+    /// The request builder for [PolicyTagManagerSerialization::list_operations][super::super::client::PolicyTagManagerSerialization::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -3665,7 +3665,7 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    /// The request builder for a PolicyTagManagerSerialization::get_operation call.
+    /// The request builder for [PolicyTagManagerSerialization::get_operation][super::super::client::PolicyTagManagerSerialization::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -3712,7 +3712,7 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    /// The request builder for a PolicyTagManagerSerialization::delete_operation call.
+    /// The request builder for [PolicyTagManagerSerialization::delete_operation][super::super::client::PolicyTagManagerSerialization::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -3759,7 +3759,7 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    /// The request builder for a PolicyTagManagerSerialization::cancel_operation call.
+    /// The request builder for [PolicyTagManagerSerialization::cancel_operation][super::super::client::PolicyTagManagerSerialization::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

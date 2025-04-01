@@ -67,7 +67,7 @@ pub mod iam_policy {
         }
     }
 
-    /// The request builder for a IAMPolicy::set_iam_policy call.
+    /// The request builder for [IAMPolicy::set_iam_policy][super::super::client::IAMPolicy::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<crate::model::SetIamPolicyRequest>);
 
@@ -127,7 +127,7 @@ pub mod iam_policy {
         }
     }
 
-    /// The request builder for a IAMPolicy::get_iam_policy call.
+    /// The request builder for [IAMPolicy::get_iam_policy][super::super::client::IAMPolicy::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<crate::model::GetIamPolicyRequest>);
 
@@ -178,7 +178,7 @@ pub mod iam_policy {
         }
     }
 
-    /// The request builder for a IAMPolicy::test_iam_permissions call.
+    /// The request builder for [IAMPolicy::test_iam_permissions][super::super::client::IAMPolicy::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<crate::model::TestIamPermissionsRequest>);
 
