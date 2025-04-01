@@ -173,6 +173,7 @@ members = [
   "src/generated/cloud/servicehealth/v1",
   "src/generated/cloud/shell/v1",
   "src/generated/cloud/speech/v2",
+  "src/generated/cloud/storagebatchoperations/v1",
   "src/generated/cloud/storageinsights/v1",
   "src/generated/cloud/support/v2",
   "src/generated/cloud/talent/v4",
