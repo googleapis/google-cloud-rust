@@ -229,7 +229,7 @@ func (annotate *annotateModel) annotateModel(options map[string]string) (*modelA
 	ann := &modelAnnotations{
 		PackageName:    packageName(model, packageNameOverride),
 		PackageVersion: packageVersion,
-		MainFileName:   strcase.ToSnake(model.Name),
+		MainFileName:   model.Name,
 		HasServices:    len(model.Services) > 0,
 		CopyrightYear:  generationYear,
 		BoilerPlate: append(license.LicenseHeaderBulk(),
