@@ -128,9 +128,8 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax::Result;
     /// # tokio_test::block_on(async {
+    /// # use examples::credentials; // placeholder for google_cloud_auth::credentials
     /// use examples::Client; // Placeholder for examples
-    /// // Placeholder, normally use google_cloud_auth::credentials
-    /// use examples::credentials;
     /// let client = Client::builder()
     ///     .with_credentials(
     ///         credentials::mds::Builder::new()
