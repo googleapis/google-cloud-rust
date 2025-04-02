@@ -169,4 +169,10 @@ mod driver {
             .await?;
         Ok(())
     }
+
+    #[tokio::test]
+    async fn examine_error_details() -> user_guide_samples::Result<()> {
+        user_guide_samples::examine_error_details::examine_error_details().await?;
+        Ok(())
+    }
 }
