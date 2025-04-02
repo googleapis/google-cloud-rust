@@ -1405,8 +1405,8 @@ pub mod kubernetes_config {
             /// Optional. Whether to propagate the Kubernetes Service to the route
             /// destination clusters. The Service will always be deployed to the Target
             /// cluster even if the HTTPRoute is not. This option may be used to
-            /// facilitiate successful DNS lookup in the route destination clusters.
-            /// Can only be set to true if destinations are specified.
+            /// facilitate successful DNS lookup in the route destination clusters. Can
+            /// only be set to true if destinations are specified.
             pub propagate_service: bool,
         }
 
@@ -2060,7 +2060,8 @@ impl wkt::message::Message for ListDeliveryPipelinesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDeliveryPipelinesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDeliveryPipelinesResponse {
     type PageItem = crate::model::DeliveryPipeline;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3733,7 +3734,8 @@ impl wkt::message::Message for ListTargetsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTargetsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTargetsResponse {
     type PageItem = crate::model::Target;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4760,7 +4762,8 @@ impl wkt::message::Message for ListCustomTargetTypesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCustomTargetTypesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCustomTargetTypesResponse {
     type PageItem = crate::model::CustomTargetType;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7262,7 +7265,8 @@ impl wkt::message::Message for ListDeployPoliciesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDeployPoliciesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDeployPoliciesResponse {
     type PageItem = crate::model::DeployPolicy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7782,7 +7786,8 @@ impl wkt::message::Message for ListReleasesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListReleasesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListReleasesResponse {
     type PageItem = crate::model::Release;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -8443,7 +8448,7 @@ pub mod rollout {
         /// logs.
         pub const EXECUTION_FAILED: FailureCause = FailureCause::new(2);
 
-        /// Deployment did not complete within the alloted time.
+        /// Deployment did not complete within the allotted time.
         pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new(3);
 
         /// Release is in a failed state.
@@ -9759,7 +9764,7 @@ impl wkt::message::Message for ListRolloutsRequest {
     }
 }
 
-/// ListRolloutsResponse is the response object reutrned by `ListRollouts`.
+/// ListRolloutsResponse is the response object returned by `ListRollouts`.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -9819,7 +9824,8 @@ impl wkt::message::Message for ListRolloutsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListRolloutsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRolloutsResponse {
     type PageItem = crate::model::Rollout;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -11033,7 +11039,7 @@ pub mod deploy_job_run {
         /// logs.
         pub const EXECUTION_FAILED: FailureCause = FailureCause::new(2);
 
-        /// The deploy job run did not complete within the alloted time.
+        /// The deploy job run did not complete within the allotted time.
         pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new(3);
 
         /// There were missing resources in the runtime environment required for a
@@ -11207,7 +11213,7 @@ pub mod verify_job_run {
         /// logs.
         pub const EXECUTION_FAILED: FailureCause = FailureCause::new(2);
 
-        /// The verify job run did not complete within the alloted time.
+        /// The verify job run did not complete within the allotted time.
         pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new(3);
 
         /// No Skaffold verify configuration was found.
@@ -11354,7 +11360,7 @@ pub mod predeploy_job_run {
         /// logs.
         pub const EXECUTION_FAILED: FailureCause = FailureCause::new(2);
 
-        /// The predeploy job run did not complete within the alloted time.
+        /// The predeploy job run did not complete within the allotted time.
         pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new(3);
 
         /// Cloud Build failed to fulfill Cloud Deploy's request. See failure_message
@@ -11494,7 +11500,7 @@ pub mod postdeploy_job_run {
         /// logs.
         pub const EXECUTION_FAILED: FailureCause = FailureCause::new(2);
 
-        /// The postdeploy job run did not complete within the alloted time.
+        /// The postdeploy job run did not complete within the allotted time.
         pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new(3);
 
         /// Cloud Build failed to fulfill Cloud Deploy's request. See failure_message
@@ -11780,7 +11786,8 @@ impl wkt::message::Message for ListJobRunsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListJobRunsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListJobRunsResponse {
     type PageItem = crate::model::JobRun;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -13660,7 +13667,8 @@ impl wkt::message::Message for ListAutomationsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAutomationsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAutomationsResponse {
     type PageItem = crate::model::Automation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -14836,7 +14844,8 @@ impl wkt::message::Message for ListAutomationRunsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAutomationRunsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAutomationRunsResponse {
     type PageItem = crate::model::AutomationRun;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

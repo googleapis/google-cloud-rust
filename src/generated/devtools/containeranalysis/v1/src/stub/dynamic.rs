@@ -40,6 +40,12 @@ pub trait ContainerAnalysis: std::fmt::Debug + Send + Sync {
         req: crate::model::GetVulnerabilityOccurrencesSummaryRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::VulnerabilityOccurrencesSummary>;
+
+    async fn export_sbom(
+        &self,
+        req: crate::model::ExportSBOMRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ExportSBOMResponse>;
 }
 
 /// All implementations of [super::ContainerAnalysis] also implement [ContainerAnalysis].
@@ -79,5 +85,14 @@ impl<T: super::ContainerAnalysis> ContainerAnalysis for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::VulnerabilityOccurrencesSummary> {
         T::get_vulnerability_occurrences_summary(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn export_sbom(
+        &self,
+        req: crate::model::ExportSBOMRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ExportSBOMResponse> {
+        T::export_sbom(self, req, options).await
     }
 }

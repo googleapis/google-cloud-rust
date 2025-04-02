@@ -69,7 +69,7 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    /// The request builder for a IdentityAwareProxyAdminService::set_iam_policy call.
+    /// The request builder for [IdentityAwareProxyAdminService::set_iam_policy][super::super::client::IdentityAwareProxyAdminService::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -131,7 +131,7 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    /// The request builder for a IdentityAwareProxyAdminService::get_iam_policy call.
+    /// The request builder for [IdentityAwareProxyAdminService::get_iam_policy][super::super::client::IdentityAwareProxyAdminService::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -184,7 +184,7 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    /// The request builder for a IdentityAwareProxyAdminService::test_iam_permissions call.
+    /// The request builder for [IdentityAwareProxyAdminService::test_iam_permissions][super::super::client::IdentityAwareProxyAdminService::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -242,7 +242,7 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    /// The request builder for a IdentityAwareProxyAdminService::get_iap_settings call.
+    /// The request builder for [IdentityAwareProxyAdminService::get_iap_settings][super::super::client::IdentityAwareProxyAdminService::get_iap_settings] calls.
     #[derive(Clone, Debug)]
     pub struct GetIapSettings(RequestBuilder<crate::model::GetIapSettingsRequest>);
 
@@ -286,7 +286,7 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    /// The request builder for a IdentityAwareProxyAdminService::update_iap_settings call.
+    /// The request builder for [IdentityAwareProxyAdminService::update_iap_settings][super::super::client::IdentityAwareProxyAdminService::update_iap_settings] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateIapSettings(RequestBuilder<crate::model::UpdateIapSettingsRequest>);
 
@@ -345,7 +345,7 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    /// The request builder for a IdentityAwareProxyAdminService::list_tunnel_dest_groups call.
+    /// The request builder for [IdentityAwareProxyAdminService::list_tunnel_dest_groups][super::super::client::IdentityAwareProxyAdminService::list_tunnel_dest_groups] calls.
     #[derive(Clone, Debug)]
     pub struct ListTunnelDestGroups(RequestBuilder<crate::model::ListTunnelDestGroupsRequest>);
 
@@ -419,7 +419,7 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    /// The request builder for a IdentityAwareProxyAdminService::create_tunnel_dest_group call.
+    /// The request builder for [IdentityAwareProxyAdminService::create_tunnel_dest_group][super::super::client::IdentityAwareProxyAdminService::create_tunnel_dest_group] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTunnelDestGroup(RequestBuilder<crate::model::CreateTunnelDestGroupRequest>);
 
@@ -483,7 +483,7 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    /// The request builder for a IdentityAwareProxyAdminService::get_tunnel_dest_group call.
+    /// The request builder for [IdentityAwareProxyAdminService::get_tunnel_dest_group][super::super::client::IdentityAwareProxyAdminService::get_tunnel_dest_group] calls.
     #[derive(Clone, Debug)]
     pub struct GetTunnelDestGroup(RequestBuilder<crate::model::GetTunnelDestGroupRequest>);
 
@@ -530,7 +530,7 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    /// The request builder for a IdentityAwareProxyAdminService::delete_tunnel_dest_group call.
+    /// The request builder for [IdentityAwareProxyAdminService::delete_tunnel_dest_group][super::super::client::IdentityAwareProxyAdminService::delete_tunnel_dest_group] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTunnelDestGroup(RequestBuilder<crate::model::DeleteTunnelDestGroupRequest>);
 
@@ -577,7 +577,7 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    /// The request builder for a IdentityAwareProxyAdminService::update_tunnel_dest_group call.
+    /// The request builder for [IdentityAwareProxyAdminService::update_tunnel_dest_group][super::super::client::IdentityAwareProxyAdminService::update_tunnel_dest_group] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateTunnelDestGroup(RequestBuilder<crate::model::UpdateTunnelDestGroupRequest>);
 
@@ -694,7 +694,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    /// The request builder for a IdentityAwareProxyOAuthService::list_brands call.
+    /// The request builder for [IdentityAwareProxyOAuthService::list_brands][super::super::client::IdentityAwareProxyOAuthService::list_brands] calls.
     #[derive(Clone, Debug)]
     pub struct ListBrands(RequestBuilder<crate::model::ListBrandsRequest>);
 
@@ -738,7 +738,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    /// The request builder for a IdentityAwareProxyOAuthService::create_brand call.
+    /// The request builder for [IdentityAwareProxyOAuthService::create_brand][super::super::client::IdentityAwareProxyOAuthService::create_brand] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBrand(RequestBuilder<crate::model::CreateBrandRequest>);
 
@@ -791,7 +791,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    /// The request builder for a IdentityAwareProxyOAuthService::get_brand call.
+    /// The request builder for [IdentityAwareProxyOAuthService::get_brand][super::super::client::IdentityAwareProxyOAuthService::get_brand] calls.
     #[derive(Clone, Debug)]
     pub struct GetBrand(RequestBuilder<crate::model::GetBrandRequest>);
 
@@ -835,7 +835,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    /// The request builder for a IdentityAwareProxyOAuthService::create_identity_aware_proxy_client call.
+    /// The request builder for [IdentityAwareProxyOAuthService::create_identity_aware_proxy_client][super::super::client::IdentityAwareProxyOAuthService::create_identity_aware_proxy_client] calls.
     #[derive(Clone, Debug)]
     pub struct CreateIdentityAwareProxyClient(
         RequestBuilder<crate::model::CreateIdentityAwareProxyClientRequest>,
@@ -895,7 +895,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    /// The request builder for a IdentityAwareProxyOAuthService::list_identity_aware_proxy_clients call.
+    /// The request builder for [IdentityAwareProxyOAuthService::list_identity_aware_proxy_clients][super::super::client::IdentityAwareProxyOAuthService::list_identity_aware_proxy_clients] calls.
     #[derive(Clone, Debug)]
     pub struct ListIdentityAwareProxyClients(
         RequestBuilder<crate::model::ListIdentityAwareProxyClientsRequest>,
@@ -973,7 +973,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    /// The request builder for a IdentityAwareProxyOAuthService::get_identity_aware_proxy_client call.
+    /// The request builder for [IdentityAwareProxyOAuthService::get_identity_aware_proxy_client][super::super::client::IdentityAwareProxyOAuthService::get_identity_aware_proxy_client] calls.
     #[derive(Clone, Debug)]
     pub struct GetIdentityAwareProxyClient(
         RequestBuilder<crate::model::GetIdentityAwareProxyClientRequest>,
@@ -1022,7 +1022,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    /// The request builder for a IdentityAwareProxyOAuthService::reset_identity_aware_proxy_client_secret call.
+    /// The request builder for [IdentityAwareProxyOAuthService::reset_identity_aware_proxy_client_secret][super::super::client::IdentityAwareProxyOAuthService::reset_identity_aware_proxy_client_secret] calls.
     #[derive(Clone, Debug)]
     pub struct ResetIdentityAwareProxyClientSecret(
         RequestBuilder<crate::model::ResetIdentityAwareProxyClientSecretRequest>,
@@ -1071,7 +1071,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    /// The request builder for a IdentityAwareProxyOAuthService::delete_identity_aware_proxy_client call.
+    /// The request builder for [IdentityAwareProxyOAuthService::delete_identity_aware_proxy_client][super::super::client::IdentityAwareProxyOAuthService::delete_identity_aware_proxy_client] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteIdentityAwareProxyClient(
         RequestBuilder<crate::model::DeleteIdentityAwareProxyClientRequest>,

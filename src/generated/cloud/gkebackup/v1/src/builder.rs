@@ -67,7 +67,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::create_backup_plan call.
+    /// The request builder for [BackupForGKE::create_backup_plan][super::super::client::BackupForGKE::create_backup_plan] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBackupPlan(RequestBuilder<crate::model::CreateBackupPlanRequest>);
 
@@ -165,7 +165,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::list_backup_plans call.
+    /// The request builder for [BackupForGKE::list_backup_plans][super::super::client::BackupForGKE::list_backup_plans] calls.
     #[derive(Clone, Debug)]
     pub struct ListBackupPlans(RequestBuilder<crate::model::ListBackupPlansRequest>);
 
@@ -246,7 +246,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::get_backup_plan call.
+    /// The request builder for [BackupForGKE::get_backup_plan][super::super::client::BackupForGKE::get_backup_plan] calls.
     #[derive(Clone, Debug)]
     pub struct GetBackupPlan(RequestBuilder<crate::model::GetBackupPlanRequest>);
 
@@ -288,7 +288,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::update_backup_plan call.
+    /// The request builder for [BackupForGKE::update_backup_plan][super::super::client::BackupForGKE::update_backup_plan] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBackupPlan(RequestBuilder<crate::model::UpdateBackupPlanRequest>);
 
@@ -383,7 +383,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::delete_backup_plan call.
+    /// The request builder for [BackupForGKE::delete_backup_plan][super::super::client::BackupForGKE::delete_backup_plan] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBackupPlan(RequestBuilder<crate::model::DeleteBackupPlanRequest>);
 
@@ -469,7 +469,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::create_backup call.
+    /// The request builder for [BackupForGKE::create_backup][super::super::client::BackupForGKE::create_backup] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
@@ -563,7 +563,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::list_backups call.
+    /// The request builder for [BackupForGKE::list_backups][super::super::client::BackupForGKE::list_backups] calls.
     #[derive(Clone, Debug)]
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
@@ -644,7 +644,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::get_backup call.
+    /// The request builder for [BackupForGKE::get_backup][super::super::client::BackupForGKE::get_backup] calls.
     #[derive(Clone, Debug)]
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
@@ -686,7 +686,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::update_backup call.
+    /// The request builder for [BackupForGKE::update_backup][super::super::client::BackupForGKE::update_backup] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
@@ -777,7 +777,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::delete_backup call.
+    /// The request builder for [BackupForGKE::delete_backup][super::super::client::BackupForGKE::delete_backup] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
@@ -866,7 +866,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::list_volume_backups call.
+    /// The request builder for [BackupForGKE::list_volume_backups][super::super::client::BackupForGKE::list_volume_backups] calls.
     #[derive(Clone, Debug)]
     pub struct ListVolumeBackups(RequestBuilder<crate::model::ListVolumeBackupsRequest>);
 
@@ -950,7 +950,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::get_volume_backup call.
+    /// The request builder for [BackupForGKE::get_volume_backup][super::super::client::BackupForGKE::get_volume_backup] calls.
     #[derive(Clone, Debug)]
     pub struct GetVolumeBackup(RequestBuilder<crate::model::GetVolumeBackupRequest>);
 
@@ -992,7 +992,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::create_restore_plan call.
+    /// The request builder for [BackupForGKE::create_restore_plan][super::super::client::BackupForGKE::create_restore_plan] calls.
     #[derive(Clone, Debug)]
     pub struct CreateRestorePlan(RequestBuilder<crate::model::CreateRestorePlanRequest>);
 
@@ -1090,7 +1090,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::list_restore_plans call.
+    /// The request builder for [BackupForGKE::list_restore_plans][super::super::client::BackupForGKE::list_restore_plans] calls.
     #[derive(Clone, Debug)]
     pub struct ListRestorePlans(RequestBuilder<crate::model::ListRestorePlansRequest>);
 
@@ -1174,7 +1174,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::get_restore_plan call.
+    /// The request builder for [BackupForGKE::get_restore_plan][super::super::client::BackupForGKE::get_restore_plan] calls.
     #[derive(Clone, Debug)]
     pub struct GetRestorePlan(RequestBuilder<crate::model::GetRestorePlanRequest>);
 
@@ -1216,7 +1216,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::update_restore_plan call.
+    /// The request builder for [BackupForGKE::update_restore_plan][super::super::client::BackupForGKE::update_restore_plan] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateRestorePlan(RequestBuilder<crate::model::UpdateRestorePlanRequest>);
 
@@ -1311,7 +1311,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::delete_restore_plan call.
+    /// The request builder for [BackupForGKE::delete_restore_plan][super::super::client::BackupForGKE::delete_restore_plan] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteRestorePlan(RequestBuilder<crate::model::DeleteRestorePlanRequest>);
 
@@ -1403,7 +1403,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::create_restore call.
+    /// The request builder for [BackupForGKE::create_restore][super::super::client::BackupForGKE::create_restore] calls.
     #[derive(Clone, Debug)]
     pub struct CreateRestore(RequestBuilder<crate::model::CreateRestoreRequest>);
 
@@ -1497,7 +1497,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::list_restores call.
+    /// The request builder for [BackupForGKE::list_restores][super::super::client::BackupForGKE::list_restores] calls.
     #[derive(Clone, Debug)]
     pub struct ListRestores(RequestBuilder<crate::model::ListRestoresRequest>);
 
@@ -1578,7 +1578,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::get_restore call.
+    /// The request builder for [BackupForGKE::get_restore][super::super::client::BackupForGKE::get_restore] calls.
     #[derive(Clone, Debug)]
     pub struct GetRestore(RequestBuilder<crate::model::GetRestoreRequest>);
 
@@ -1620,7 +1620,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::update_restore call.
+    /// The request builder for [BackupForGKE::update_restore][super::super::client::BackupForGKE::update_restore] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateRestore(RequestBuilder<crate::model::UpdateRestoreRequest>);
 
@@ -1711,7 +1711,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::delete_restore call.
+    /// The request builder for [BackupForGKE::delete_restore][super::super::client::BackupForGKE::delete_restore] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteRestore(RequestBuilder<crate::model::DeleteRestoreRequest>);
 
@@ -1800,7 +1800,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::list_volume_restores call.
+    /// The request builder for [BackupForGKE::list_volume_restores][super::super::client::BackupForGKE::list_volume_restores] calls.
     #[derive(Clone, Debug)]
     pub struct ListVolumeRestores(RequestBuilder<crate::model::ListVolumeRestoresRequest>);
 
@@ -1884,7 +1884,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::get_volume_restore call.
+    /// The request builder for [BackupForGKE::get_volume_restore][super::super::client::BackupForGKE::get_volume_restore] calls.
     #[derive(Clone, Debug)]
     pub struct GetVolumeRestore(RequestBuilder<crate::model::GetVolumeRestoreRequest>);
 
@@ -1929,7 +1929,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::get_backup_index_download_url call.
+    /// The request builder for [BackupForGKE::get_backup_index_download_url][super::super::client::BackupForGKE::get_backup_index_download_url] calls.
     #[derive(Clone, Debug)]
     pub struct GetBackupIndexDownloadUrl(
         RequestBuilder<crate::model::GetBackupIndexDownloadUrlRequest>,
@@ -1976,7 +1976,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::list_locations call.
+    /// The request builder for [BackupForGKE::list_locations][super::super::client::BackupForGKE::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -2054,7 +2054,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::get_location call.
+    /// The request builder for [BackupForGKE::get_location][super::super::client::BackupForGKE::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -2096,7 +2096,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::set_iam_policy call.
+    /// The request builder for [BackupForGKE::set_iam_policy][super::super::client::BackupForGKE::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -2156,7 +2156,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::get_iam_policy call.
+    /// The request builder for [BackupForGKE::get_iam_policy][super::super::client::BackupForGKE::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -2207,7 +2207,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::test_iam_permissions call.
+    /// The request builder for [BackupForGKE::test_iam_permissions][super::super::client::BackupForGKE::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -2263,7 +2263,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::list_operations call.
+    /// The request builder for [BackupForGKE::list_operations][super::super::client::BackupForGKE::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2341,7 +2341,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::get_operation call.
+    /// The request builder for [BackupForGKE::get_operation][super::super::client::BackupForGKE::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2386,7 +2386,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::delete_operation call.
+    /// The request builder for [BackupForGKE::delete_operation][super::super::client::BackupForGKE::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2431,7 +2431,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for a BackupForGKE::cancel_operation call.
+    /// The request builder for [BackupForGKE::cancel_operation][super::super::client::BackupForGKE::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

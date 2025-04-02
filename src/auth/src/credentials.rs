@@ -22,7 +22,7 @@ pub mod service_account;
 pub(crate) mod user_credential;
 
 use crate::Result;
-use crate::errors::CredentialError;
+use crate::errors::{self, CredentialError};
 use http::header::{HeaderName, HeaderValue};
 use std::future::Future;
 use std::sync::Arc;
@@ -258,18 +258,17 @@ pub async fn create_access_token_credential() -> Result<Credential> {
         AdcContents::Contents(contents) => contents,
         AdcContents::FallbackToMds => return Ok(mds::new()),
     };
-    let js: serde_json::Value =
-        serde_json::from_str(&contents).map_err(CredentialError::non_retryable)?;
+    let js: serde_json::Value = serde_json::from_str(&contents).map_err(errors::non_retryable)?;
     let cred_type = js
         .get("type")
-        .ok_or_else(|| CredentialError::non_retryable_from_str("Failed to parse Application Default Credentials (ADC). No `type` field found."))?
+        .ok_or_else(|| errors::non_retryable_from_str("Failed to parse Application Default Credentials (ADC). No `type` field found."))?
         .as_str()
-        .ok_or_else(|| CredentialError::non_retryable_from_str("Failed to parse Application Default Credentials (ADC). `type` field is not a string.")
+        .ok_or_else(|| errors::non_retryable_from_str("Failed to parse Application Default Credentials (ADC). `type` field is not a string.")
         )?;
     match cred_type {
         "authorized_user" => user_credential::creds_from(js),
         "service_account" => service_account::creds_from(js),
-        _ => Err(CredentialError::non_retryable_from_str(format!(
+        _ => Err(errors::non_retryable_from_str(format!(
             "Unimplemented credential type: {cred_type}"
         ))),
     }
@@ -288,7 +287,7 @@ enum AdcContents {
 }
 
 fn path_not_found(path: String) -> CredentialError {
-    CredentialError::non_retryable_from_str(format!(
+    errors::non_retryable_from_str(format!(
         "Failed to load Application Default Credentials (ADC) from {path}. Check that the `GOOGLE_APPLICATION_CREDENTIALS` environment variable points to a valid file."
     ))
 }
@@ -299,12 +298,12 @@ fn load_adc() -> Result<AdcContents> {
         Some(AdcPath::FromEnv(path)) => match std::fs::read_to_string(&path) {
             Ok(contents) => Ok(AdcContents::Contents(contents)),
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => Err(path_not_found(path)),
-            Err(e) => Err(CredentialError::non_retryable(e)),
+            Err(e) => Err(errors::non_retryable(e)),
         },
         Some(AdcPath::WellKnown(path)) => match std::fs::read_to_string(path) {
             Ok(contents) => Ok(AdcContents::Contents(contents)),
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(AdcContents::FallbackToMds),
-            Err(e) => Err(CredentialError::non_retryable(e)),
+            Err(e) => Err(errors::non_retryable(e)),
         },
     }
 }

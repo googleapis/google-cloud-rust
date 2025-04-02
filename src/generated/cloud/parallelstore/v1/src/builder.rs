@@ -67,7 +67,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for a Parallelstore::list_instances call.
+    /// The request builder for [Parallelstore::list_instances][super::super::client::Parallelstore::list_instances] calls.
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
@@ -148,7 +148,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for a Parallelstore::get_instance call.
+    /// The request builder for [Parallelstore::get_instance][super::super::client::Parallelstore::get_instance] calls.
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
@@ -190,7 +190,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for a Parallelstore::create_instance call.
+    /// The request builder for [Parallelstore::create_instance][super::super::client::Parallelstore::create_instance] calls.
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
@@ -291,7 +291,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for a Parallelstore::update_instance call.
+    /// The request builder for [Parallelstore::update_instance][super::super::client::Parallelstore::update_instance] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
@@ -389,7 +389,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for a Parallelstore::delete_instance call.
+    /// The request builder for [Parallelstore::delete_instance][super::super::client::Parallelstore::delete_instance] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
@@ -472,7 +472,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for a Parallelstore::import_data call.
+    /// The request builder for [Parallelstore::import_data][super::super::client::Parallelstore::import_data] calls.
     #[derive(Clone, Debug)]
     pub struct ImportData(RequestBuilder<crate::model::ImportDataRequest>);
 
@@ -583,7 +583,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for a Parallelstore::export_data call.
+    /// The request builder for [Parallelstore::export_data][super::super::client::Parallelstore::export_data] calls.
     #[derive(Clone, Debug)]
     pub struct ExportData(RequestBuilder<crate::model::ExportDataRequest>);
 
@@ -694,7 +694,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for a Parallelstore::list_locations call.
+    /// The request builder for [Parallelstore::list_locations][super::super::client::Parallelstore::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -772,7 +772,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for a Parallelstore::get_location call.
+    /// The request builder for [Parallelstore::get_location][super::super::client::Parallelstore::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -814,7 +814,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for a Parallelstore::list_operations call.
+    /// The request builder for [Parallelstore::list_operations][super::super::client::Parallelstore::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -892,7 +892,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for a Parallelstore::get_operation call.
+    /// The request builder for [Parallelstore::get_operation][super::super::client::Parallelstore::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -937,7 +937,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for a Parallelstore::delete_operation call.
+    /// The request builder for [Parallelstore::delete_operation][super::super::client::Parallelstore::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -982,7 +982,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for a Parallelstore::cancel_operation call.
+    /// The request builder for [Parallelstore::cancel_operation][super::super::client::Parallelstore::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

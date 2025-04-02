@@ -86,4 +86,16 @@ pub trait ContainerAnalysis: std::fmt::Debug + Send + Sync {
             Error::other("unimplemented"),
         ))
     }
+
+    /// Implements [super::client::ContainerAnalysis::export_sbom].
+    fn export_sbom(
+        &self,
+        _req: crate::model::ExportSBOMRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::ExportSBOMResponse>> + Send
+    {
+        std::future::ready::<crate::Result<crate::model::ExportSBOMResponse>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
 }

@@ -4718,7 +4718,8 @@ impl wkt::message::Message for ListClustersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListClustersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListClustersResponse {
     type PageItem = crate::model::Cluster;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5574,7 +5575,8 @@ impl wkt::message::Message for ListInstancesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListInstancesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListInstancesResponse {
     type PageItem = crate::model::Instance;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7059,7 +7061,8 @@ impl wkt::message::Message for ListBackupsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListBackupsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBackupsResponse {
     type PageItem = crate::model::Backup;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7450,7 +7453,8 @@ impl wkt::message::Message for ListSupportedDatabaseFlagsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListSupportedDatabaseFlagsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListSupportedDatabaseFlagsResponse {
     type PageItem = crate::model::SupportedDatabaseFlag;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7944,7 +7948,8 @@ impl wkt::message::Message for ListUsersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListUsersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListUsersResponse {
     type PageItem = crate::model::User;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -8332,7 +8337,8 @@ impl wkt::message::Message for ListDatabasesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDatabasesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDatabasesResponse {
     type PageItem = crate::model::Database;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

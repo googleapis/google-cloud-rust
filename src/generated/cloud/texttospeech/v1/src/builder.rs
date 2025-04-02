@@ -67,7 +67,7 @@ pub mod text_to_speech {
         }
     }
 
-    /// The request builder for a TextToSpeech::list_voices call.
+    /// The request builder for [TextToSpeech::list_voices][super::super::client::TextToSpeech::list_voices] calls.
     #[derive(Clone, Debug)]
     pub struct ListVoices(RequestBuilder<crate::model::ListVoicesRequest>);
 
@@ -109,7 +109,7 @@ pub mod text_to_speech {
         }
     }
 
-    /// The request builder for a TextToSpeech::synthesize_speech call.
+    /// The request builder for [TextToSpeech::synthesize_speech][super::super::client::TextToSpeech::synthesize_speech] calls.
     #[derive(Clone, Debug)]
     pub struct SynthesizeSpeech(RequestBuilder<crate::model::SynthesizeSpeechRequest>);
 
@@ -186,7 +186,7 @@ pub mod text_to_speech {
         }
     }
 
-    /// The request builder for a TextToSpeech::list_operations call.
+    /// The request builder for [TextToSpeech::list_operations][super::super::client::TextToSpeech::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -264,7 +264,7 @@ pub mod text_to_speech {
         }
     }
 
-    /// The request builder for a TextToSpeech::get_operation call.
+    /// The request builder for [TextToSpeech::get_operation][super::super::client::TextToSpeech::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -365,7 +365,7 @@ pub mod text_to_speech_long_audio_synthesize {
         }
     }
 
-    /// The request builder for a TextToSpeechLongAudioSynthesize::synthesize_long_audio call.
+    /// The request builder for [TextToSpeechLongAudioSynthesize::synthesize_long_audio][super::super::client::TextToSpeechLongAudioSynthesize::synthesize_long_audio] calls.
     #[derive(Clone, Debug)]
     pub struct SynthesizeLongAudio(RequestBuilder<crate::model::SynthesizeLongAudioRequest>);
 
@@ -488,7 +488,7 @@ pub mod text_to_speech_long_audio_synthesize {
         }
     }
 
-    /// The request builder for a TextToSpeechLongAudioSynthesize::list_operations call.
+    /// The request builder for [TextToSpeechLongAudioSynthesize::list_operations][super::super::client::TextToSpeechLongAudioSynthesize::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -568,7 +568,7 @@ pub mod text_to_speech_long_audio_synthesize {
         }
     }
 
-    /// The request builder for a TextToSpeechLongAudioSynthesize::get_operation call.
+    /// The request builder for [TextToSpeechLongAudioSynthesize::get_operation][super::super::client::TextToSpeechLongAudioSynthesize::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

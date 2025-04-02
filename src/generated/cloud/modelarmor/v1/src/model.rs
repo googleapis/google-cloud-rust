@@ -459,7 +459,8 @@ impl wkt::message::Message for ListTemplatesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTemplatesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTemplatesResponse {
     type PageItem = crate::model::Template;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

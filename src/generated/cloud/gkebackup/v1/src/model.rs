@@ -2281,7 +2281,8 @@ impl wkt::message::Message for ListBackupPlansResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListBackupPlansResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBackupPlansResponse {
     type PageItem = crate::model::BackupPlan;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2614,7 +2615,8 @@ impl wkt::message::Message for ListBackupsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListBackupsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBackupsResponse {
     type PageItem = crate::model::Backup;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2898,7 +2900,8 @@ impl wkt::message::Message for ListVolumeBackupsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListVolumeBackupsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListVolumeBackupsResponse {
     type PageItem = crate::model::VolumeBackup;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3151,7 +3154,8 @@ impl wkt::message::Message for ListRestorePlansResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListRestorePlansResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRestorePlansResponse {
     type PageItem = crate::model::RestorePlan;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3511,7 +3515,8 @@ impl wkt::message::Message for ListRestoresResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListRestoresResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRestoresResponse {
     type PageItem = crate::model::Restore;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3795,7 +3800,8 @@ impl wkt::message::Message for ListVolumeRestoresResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListVolumeRestoresResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListVolumeRestoresResponse {
     type PageItem = crate::model::VolumeRestore;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

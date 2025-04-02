@@ -65,7 +65,7 @@ pub mod sql_backup_runs_service {
         }
     }
 
-    /// The request builder for a SqlBackupRunsService::delete call.
+    /// The request builder for [SqlBackupRunsService::delete][super::super::client::SqlBackupRunsService::delete] calls.
     #[derive(Clone, Debug)]
     pub struct Delete(RequestBuilder<crate::model::SqlBackupRunsDeleteRequest>);
 
@@ -119,7 +119,7 @@ pub mod sql_backup_runs_service {
         }
     }
 
-    /// The request builder for a SqlBackupRunsService::get call.
+    /// The request builder for [SqlBackupRunsService::get][super::super::client::SqlBackupRunsService::get] calls.
     #[derive(Clone, Debug)]
     pub struct Get(RequestBuilder<crate::model::SqlBackupRunsGetRequest>);
 
@@ -173,7 +173,7 @@ pub mod sql_backup_runs_service {
         }
     }
 
-    /// The request builder for a SqlBackupRunsService::insert call.
+    /// The request builder for [SqlBackupRunsService::insert][super::super::client::SqlBackupRunsService::insert] calls.
     #[derive(Clone, Debug)]
     pub struct Insert(RequestBuilder<crate::model::SqlBackupRunsInsertRequest>);
 
@@ -227,7 +227,7 @@ pub mod sql_backup_runs_service {
         }
     }
 
-    /// The request builder for a SqlBackupRunsService::list call.
+    /// The request builder for [SqlBackupRunsService::list][super::super::client::SqlBackupRunsService::list] calls.
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlBackupRunsListRequest>);
 
@@ -340,7 +340,7 @@ pub mod sql_connect_service {
         }
     }
 
-    /// The request builder for a SqlConnectService::get_connect_settings call.
+    /// The request builder for [SqlConnectService::get_connect_settings][super::super::client::SqlConnectService::get_connect_settings] calls.
     #[derive(Clone, Debug)]
     pub struct GetConnectSettings(RequestBuilder<crate::model::GetConnectSettingsRequest>);
 
@@ -394,7 +394,7 @@ pub mod sql_connect_service {
         }
     }
 
-    /// The request builder for a SqlConnectService::generate_ephemeral_cert call.
+    /// The request builder for [SqlConnectService::generate_ephemeral_cert][super::super::client::SqlConnectService::generate_ephemeral_cert] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateEphemeralCert(RequestBuilder<crate::model::GenerateEphemeralCertRequest>);
 
@@ -519,7 +519,7 @@ pub mod sql_databases_service {
         }
     }
 
-    /// The request builder for a SqlDatabasesService::delete call.
+    /// The request builder for [SqlDatabasesService::delete][super::super::client::SqlDatabasesService::delete] calls.
     #[derive(Clone, Debug)]
     pub struct Delete(RequestBuilder<crate::model::SqlDatabasesDeleteRequest>);
 
@@ -573,7 +573,7 @@ pub mod sql_databases_service {
         }
     }
 
-    /// The request builder for a SqlDatabasesService::get call.
+    /// The request builder for [SqlDatabasesService::get][super::super::client::SqlDatabasesService::get] calls.
     #[derive(Clone, Debug)]
     pub struct Get(RequestBuilder<crate::model::SqlDatabasesGetRequest>);
 
@@ -627,7 +627,7 @@ pub mod sql_databases_service {
         }
     }
 
-    /// The request builder for a SqlDatabasesService::insert call.
+    /// The request builder for [SqlDatabasesService::insert][super::super::client::SqlDatabasesService::insert] calls.
     #[derive(Clone, Debug)]
     pub struct Insert(RequestBuilder<crate::model::SqlDatabasesInsertRequest>);
 
@@ -681,7 +681,7 @@ pub mod sql_databases_service {
         }
     }
 
-    /// The request builder for a SqlDatabasesService::list call.
+    /// The request builder for [SqlDatabasesService::list][super::super::client::SqlDatabasesService::list] calls.
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlDatabasesListRequest>);
 
@@ -729,7 +729,7 @@ pub mod sql_databases_service {
         }
     }
 
-    /// The request builder for a SqlDatabasesService::patch call.
+    /// The request builder for [SqlDatabasesService::patch][super::super::client::SqlDatabasesService::patch] calls.
     #[derive(Clone, Debug)]
     pub struct Patch(RequestBuilder<crate::model::SqlDatabasesUpdateRequest>);
 
@@ -789,7 +789,7 @@ pub mod sql_databases_service {
         }
     }
 
-    /// The request builder for a SqlDatabasesService::update call.
+    /// The request builder for [SqlDatabasesService::update][super::super::client::SqlDatabasesService::update] calls.
     #[derive(Clone, Debug)]
     pub struct Update(RequestBuilder<crate::model::SqlDatabasesUpdateRequest>);
 
@@ -902,7 +902,7 @@ pub mod sql_flags_service {
         }
     }
 
-    /// The request builder for a SqlFlagsService::list call.
+    /// The request builder for [SqlFlagsService::list][super::super::client::SqlFlagsService::list] calls.
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlFlagsListRequest>);
 
@@ -997,7 +997,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::add_server_ca call.
+    /// The request builder for [SqlInstancesService::add_server_ca][super::super::client::SqlInstancesService::add_server_ca] calls.
     #[derive(Clone, Debug)]
     pub struct AddServerCa(RequestBuilder<crate::model::SqlInstancesAddServerCaRequest>);
 
@@ -1045,7 +1045,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::clone call.
+    /// The request builder for [SqlInstancesService::clone][super::super::client::SqlInstancesService::clone] calls.
     #[derive(Clone, Debug)]
     pub struct Clone(RequestBuilder<crate::model::SqlInstancesCloneRequest>);
 
@@ -1099,7 +1099,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::delete call.
+    /// The request builder for [SqlInstancesService::delete][super::super::client::SqlInstancesService::delete] calls.
     #[derive(Clone, Debug)]
     pub struct Delete(RequestBuilder<crate::model::SqlInstancesDeleteRequest>);
 
@@ -1147,7 +1147,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::demote_master call.
+    /// The request builder for [SqlInstancesService::demote_master][super::super::client::SqlInstancesService::demote_master] calls.
     #[derive(Clone, Debug)]
     pub struct DemoteMaster(RequestBuilder<crate::model::SqlInstancesDemoteMasterRequest>);
 
@@ -1201,7 +1201,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::demote call.
+    /// The request builder for [SqlInstancesService::demote][super::super::client::SqlInstancesService::demote] calls.
     #[derive(Clone, Debug)]
     pub struct Demote(RequestBuilder<crate::model::SqlInstancesDemoteRequest>);
 
@@ -1255,7 +1255,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::export call.
+    /// The request builder for [SqlInstancesService::export][super::super::client::SqlInstancesService::export] calls.
     #[derive(Clone, Debug)]
     pub struct Export(RequestBuilder<crate::model::SqlInstancesExportRequest>);
 
@@ -1309,7 +1309,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::failover call.
+    /// The request builder for [SqlInstancesService::failover][super::super::client::SqlInstancesService::failover] calls.
     #[derive(Clone, Debug)]
     pub struct Failover(RequestBuilder<crate::model::SqlInstancesFailoverRequest>);
 
@@ -1363,7 +1363,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::reencrypt call.
+    /// The request builder for [SqlInstancesService::reencrypt][super::super::client::SqlInstancesService::reencrypt] calls.
     #[derive(Clone, Debug)]
     pub struct Reencrypt(RequestBuilder<crate::model::SqlInstancesReencryptRequest>);
 
@@ -1417,7 +1417,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::get call.
+    /// The request builder for [SqlInstancesService::get][super::super::client::SqlInstancesService::get] calls.
     #[derive(Clone, Debug)]
     pub struct Get(RequestBuilder<crate::model::SqlInstancesGetRequest>);
 
@@ -1465,7 +1465,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::import call.
+    /// The request builder for [SqlInstancesService::import][super::super::client::SqlInstancesService::import] calls.
     #[derive(Clone, Debug)]
     pub struct Import(RequestBuilder<crate::model::SqlInstancesImportRequest>);
 
@@ -1519,7 +1519,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::insert call.
+    /// The request builder for [SqlInstancesService::insert][super::super::client::SqlInstancesService::insert] calls.
     #[derive(Clone, Debug)]
     pub struct Insert(RequestBuilder<crate::model::SqlInstancesInsertRequest>);
 
@@ -1567,7 +1567,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::list call.
+    /// The request builder for [SqlInstancesService::list][super::super::client::SqlInstancesService::list] calls.
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlInstancesListRequest>);
 
@@ -1627,7 +1627,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::list_server_cas call.
+    /// The request builder for [SqlInstancesService::list_server_cas][super::super::client::SqlInstancesService::list_server_cas] calls.
     #[derive(Clone, Debug)]
     pub struct ListServerCas(RequestBuilder<crate::model::SqlInstancesListServerCasRequest>);
 
@@ -1675,7 +1675,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::patch call.
+    /// The request builder for [SqlInstancesService::patch][super::super::client::SqlInstancesService::patch] calls.
     #[derive(Clone, Debug)]
     pub struct Patch(RequestBuilder<crate::model::SqlInstancesPatchRequest>);
 
@@ -1729,7 +1729,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::promote_replica call.
+    /// The request builder for [SqlInstancesService::promote_replica][super::super::client::SqlInstancesService::promote_replica] calls.
     #[derive(Clone, Debug)]
     pub struct PromoteReplica(RequestBuilder<crate::model::SqlInstancesPromoteReplicaRequest>);
 
@@ -1783,7 +1783,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::switchover call.
+    /// The request builder for [SqlInstancesService::switchover][super::super::client::SqlInstancesService::switchover] calls.
     #[derive(Clone, Debug)]
     pub struct Switchover(RequestBuilder<crate::model::SqlInstancesSwitchoverRequest>);
 
@@ -1837,7 +1837,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::reset_ssl_config call.
+    /// The request builder for [SqlInstancesService::reset_ssl_config][super::super::client::SqlInstancesService::reset_ssl_config] calls.
     #[derive(Clone, Debug)]
     pub struct ResetSslConfig(RequestBuilder<crate::model::SqlInstancesResetSslConfigRequest>);
 
@@ -1885,7 +1885,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::restart call.
+    /// The request builder for [SqlInstancesService::restart][super::super::client::SqlInstancesService::restart] calls.
     #[derive(Clone, Debug)]
     pub struct Restart(RequestBuilder<crate::model::SqlInstancesRestartRequest>);
 
@@ -1933,7 +1933,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::restore_backup call.
+    /// The request builder for [SqlInstancesService::restore_backup][super::super::client::SqlInstancesService::restore_backup] calls.
     #[derive(Clone, Debug)]
     pub struct RestoreBackup(RequestBuilder<crate::model::SqlInstancesRestoreBackupRequest>);
 
@@ -1987,7 +1987,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::rotate_server_ca call.
+    /// The request builder for [SqlInstancesService::rotate_server_ca][super::super::client::SqlInstancesService::rotate_server_ca] calls.
     #[derive(Clone, Debug)]
     pub struct RotateServerCa(RequestBuilder<crate::model::SqlInstancesRotateServerCaRequest>);
 
@@ -2041,7 +2041,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::start_replica call.
+    /// The request builder for [SqlInstancesService::start_replica][super::super::client::SqlInstancesService::start_replica] calls.
     #[derive(Clone, Debug)]
     pub struct StartReplica(RequestBuilder<crate::model::SqlInstancesStartReplicaRequest>);
 
@@ -2089,7 +2089,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::stop_replica call.
+    /// The request builder for [SqlInstancesService::stop_replica][super::super::client::SqlInstancesService::stop_replica] calls.
     #[derive(Clone, Debug)]
     pub struct StopReplica(RequestBuilder<crate::model::SqlInstancesStopReplicaRequest>);
 
@@ -2137,7 +2137,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::truncate_log call.
+    /// The request builder for [SqlInstancesService::truncate_log][super::super::client::SqlInstancesService::truncate_log] calls.
     #[derive(Clone, Debug)]
     pub struct TruncateLog(RequestBuilder<crate::model::SqlInstancesTruncateLogRequest>);
 
@@ -2191,7 +2191,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::update call.
+    /// The request builder for [SqlInstancesService::update][super::super::client::SqlInstancesService::update] calls.
     #[derive(Clone, Debug)]
     pub struct Update(RequestBuilder<crate::model::SqlInstancesUpdateRequest>);
 
@@ -2245,7 +2245,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::create_ephemeral call.
+    /// The request builder for [SqlInstancesService::create_ephemeral][super::super::client::SqlInstancesService::create_ephemeral] calls.
     #[derive(Clone, Debug)]
     pub struct CreateEphemeral(RequestBuilder<crate::model::SqlInstancesCreateEphemeralCertRequest>);
 
@@ -2299,7 +2299,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::reschedule_maintenance call.
+    /// The request builder for [SqlInstancesService::reschedule_maintenance][super::super::client::SqlInstancesService::reschedule_maintenance] calls.
     #[derive(Clone, Debug)]
     pub struct RescheduleMaintenance(RequestBuilder<crate::model::SqlInstancesRescheduleMaintenanceRequest>);
 
@@ -2353,7 +2353,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::verify_external_sync_settings call.
+    /// The request builder for [SqlInstancesService::verify_external_sync_settings][super::super::client::SqlInstancesService::verify_external_sync_settings] calls.
     #[derive(Clone, Debug)]
     pub struct VerifyExternalSyncSettings(RequestBuilder<crate::model::SqlInstancesVerifyExternalSyncSettingsRequest>);
 
@@ -2437,7 +2437,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::start_external_sync call.
+    /// The request builder for [SqlInstancesService::start_external_sync][super::super::client::SqlInstancesService::start_external_sync] calls.
     #[derive(Clone, Debug)]
     pub struct StartExternalSync(RequestBuilder<crate::model::SqlInstancesStartExternalSyncRequest>);
 
@@ -2515,7 +2515,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::perform_disk_shrink call.
+    /// The request builder for [SqlInstancesService::perform_disk_shrink][super::super::client::SqlInstancesService::perform_disk_shrink] calls.
     #[derive(Clone, Debug)]
     pub struct PerformDiskShrink(RequestBuilder<crate::model::SqlInstancesPerformDiskShrinkRequest>);
 
@@ -2569,7 +2569,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::get_disk_shrink_config call.
+    /// The request builder for [SqlInstancesService::get_disk_shrink_config][super::super::client::SqlInstancesService::get_disk_shrink_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetDiskShrinkConfig(RequestBuilder<crate::model::SqlInstancesGetDiskShrinkConfigRequest>);
 
@@ -2617,7 +2617,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::reset_replica_size call.
+    /// The request builder for [SqlInstancesService::reset_replica_size][super::super::client::SqlInstancesService::reset_replica_size] calls.
     #[derive(Clone, Debug)]
     pub struct ResetReplicaSize(RequestBuilder<crate::model::SqlInstancesResetReplicaSizeRequest>);
 
@@ -2665,7 +2665,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::get_latest_recovery_time call.
+    /// The request builder for [SqlInstancesService::get_latest_recovery_time][super::super::client::SqlInstancesService::get_latest_recovery_time] calls.
     #[derive(Clone, Debug)]
     pub struct GetLatestRecoveryTime(RequestBuilder<crate::model::SqlInstancesGetLatestRecoveryTimeRequest>);
 
@@ -2713,7 +2713,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::acquire_ssrs_lease call.
+    /// The request builder for [SqlInstancesService::acquire_ssrs_lease][super::super::client::SqlInstancesService::acquire_ssrs_lease] calls.
     #[derive(Clone, Debug)]
     pub struct AcquireSsrsLease(RequestBuilder<crate::model::SqlInstancesAcquireSsrsLeaseRequest>);
 
@@ -2767,7 +2767,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for a SqlInstancesService::release_ssrs_lease call.
+    /// The request builder for [SqlInstancesService::release_ssrs_lease][super::super::client::SqlInstancesService::release_ssrs_lease] calls.
     #[derive(Clone, Debug)]
     pub struct ReleaseSsrsLease(RequestBuilder<crate::model::SqlInstancesReleaseSsrsLeaseRequest>);
 
@@ -2868,7 +2868,7 @@ pub mod sql_operations_service {
         }
     }
 
-    /// The request builder for a SqlOperationsService::get call.
+    /// The request builder for [SqlOperationsService::get][super::super::client::SqlOperationsService::get] calls.
     #[derive(Clone, Debug)]
     pub struct Get(RequestBuilder<crate::model::SqlOperationsGetRequest>);
 
@@ -2916,7 +2916,7 @@ pub mod sql_operations_service {
         }
     }
 
-    /// The request builder for a SqlOperationsService::list call.
+    /// The request builder for [SqlOperationsService::list][super::super::client::SqlOperationsService::list] calls.
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlOperationsListRequest>);
 
@@ -2976,7 +2976,7 @@ pub mod sql_operations_service {
         }
     }
 
-    /// The request builder for a SqlOperationsService::cancel call.
+    /// The request builder for [SqlOperationsService::cancel][super::super::client::SqlOperationsService::cancel] calls.
     #[derive(Clone, Debug)]
     pub struct Cancel(RequestBuilder<crate::model::SqlOperationsCancelRequest>);
 
@@ -3077,7 +3077,7 @@ pub mod sql_ssl_certs_service {
         }
     }
 
-    /// The request builder for a SqlSslCertsService::delete call.
+    /// The request builder for [SqlSslCertsService::delete][super::super::client::SqlSslCertsService::delete] calls.
     #[derive(Clone, Debug)]
     pub struct Delete(RequestBuilder<crate::model::SqlSslCertsDeleteRequest>);
 
@@ -3131,7 +3131,7 @@ pub mod sql_ssl_certs_service {
         }
     }
 
-    /// The request builder for a SqlSslCertsService::get call.
+    /// The request builder for [SqlSslCertsService::get][super::super::client::SqlSslCertsService::get] calls.
     #[derive(Clone, Debug)]
     pub struct Get(RequestBuilder<crate::model::SqlSslCertsGetRequest>);
 
@@ -3185,7 +3185,7 @@ pub mod sql_ssl_certs_service {
         }
     }
 
-    /// The request builder for a SqlSslCertsService::insert call.
+    /// The request builder for [SqlSslCertsService::insert][super::super::client::SqlSslCertsService::insert] calls.
     #[derive(Clone, Debug)]
     pub struct Insert(RequestBuilder<crate::model::SqlSslCertsInsertRequest>);
 
@@ -3239,7 +3239,7 @@ pub mod sql_ssl_certs_service {
         }
     }
 
-    /// The request builder for a SqlSslCertsService::list call.
+    /// The request builder for [SqlSslCertsService::list][super::super::client::SqlSslCertsService::list] calls.
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlSslCertsListRequest>);
 
@@ -3340,7 +3340,7 @@ pub mod sql_tiers_service {
         }
     }
 
-    /// The request builder for a SqlTiersService::list call.
+    /// The request builder for [SqlTiersService::list][super::super::client::SqlTiersService::list] calls.
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlTiersListRequest>);
 
@@ -3435,7 +3435,7 @@ pub mod sql_users_service {
         }
     }
 
-    /// The request builder for a SqlUsersService::delete call.
+    /// The request builder for [SqlUsersService::delete][super::super::client::SqlUsersService::delete] calls.
     #[derive(Clone, Debug)]
     pub struct Delete(RequestBuilder<crate::model::SqlUsersDeleteRequest>);
 
@@ -3495,7 +3495,7 @@ pub mod sql_users_service {
         }
     }
 
-    /// The request builder for a SqlUsersService::get call.
+    /// The request builder for [SqlUsersService::get][super::super::client::SqlUsersService::get] calls.
     #[derive(Clone, Debug)]
     pub struct Get(RequestBuilder<crate::model::SqlUsersGetRequest>);
 
@@ -3555,7 +3555,7 @@ pub mod sql_users_service {
         }
     }
 
-    /// The request builder for a SqlUsersService::insert call.
+    /// The request builder for [SqlUsersService::insert][super::super::client::SqlUsersService::insert] calls.
     #[derive(Clone, Debug)]
     pub struct Insert(RequestBuilder<crate::model::SqlUsersInsertRequest>);
 
@@ -3609,7 +3609,7 @@ pub mod sql_users_service {
         }
     }
 
-    /// The request builder for a SqlUsersService::list call.
+    /// The request builder for [SqlUsersService::list][super::super::client::SqlUsersService::list] calls.
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlUsersListRequest>);
 
@@ -3657,7 +3657,7 @@ pub mod sql_users_service {
         }
     }
 
-    /// The request builder for a SqlUsersService::update call.
+    /// The request builder for [SqlUsersService::update][super::super::client::SqlUsersService::update] calls.
     #[derive(Clone, Debug)]
     pub struct Update(RequestBuilder<crate::model::SqlUsersUpdateRequest>);
 

@@ -801,7 +801,8 @@ impl wkt::message::Message for ListCollectorsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCollectorsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCollectorsResponse {
     type PageItem = crate::model::Collector;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

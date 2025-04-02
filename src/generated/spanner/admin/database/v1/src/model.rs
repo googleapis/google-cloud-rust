@@ -1097,7 +1097,8 @@ impl wkt::message::Message for ListBackupsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListBackupsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBackupsResponse {
     type PageItem = crate::model::Backup;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1315,7 +1316,8 @@ impl wkt::message::Message for ListBackupOperationsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListBackupOperationsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBackupOperationsResponse {
     type PageItem = longrunning::model::Operation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2405,7 +2407,8 @@ impl wkt::message::Message for ListBackupSchedulesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListBackupSchedulesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBackupSchedulesResponse {
     type PageItem = crate::model::BackupSchedule;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3193,7 +3196,8 @@ impl wkt::message::Message for ListDatabasesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDatabasesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDatabasesResponse {
     type PageItem = crate::model::Database;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4117,7 +4121,8 @@ impl wkt::message::Message for ListDatabaseOperationsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDatabaseOperationsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDatabaseOperationsResponse {
     type PageItem = longrunning::model::Operation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4791,7 +4796,8 @@ impl wkt::message::Message for ListDatabaseRolesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDatabaseRolesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDatabaseRolesResponse {
     type PageItem = crate::model::DatabaseRole;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

@@ -67,7 +67,7 @@ pub mod key_dashboard_service {
         }
     }
 
-    /// The request builder for a KeyDashboardService::list_crypto_keys call.
+    /// The request builder for [KeyDashboardService::list_crypto_keys][super::super::client::KeyDashboardService::list_crypto_keys] calls.
     #[derive(Clone, Debug)]
     pub struct ListCryptoKeys(RequestBuilder<crate::model::ListCryptoKeysRequest>);
 
@@ -190,7 +190,7 @@ pub mod key_tracking_service {
         }
     }
 
-    /// The request builder for a KeyTrackingService::get_protected_resources_summary call.
+    /// The request builder for [KeyTrackingService::get_protected_resources_summary][super::super::client::KeyTrackingService::get_protected_resources_summary] calls.
     #[derive(Clone, Debug)]
     pub struct GetProtectedResourcesSummary(
         RequestBuilder<crate::model::GetProtectedResourcesSummaryRequest>,
@@ -237,7 +237,7 @@ pub mod key_tracking_service {
         }
     }
 
-    /// The request builder for a KeyTrackingService::search_protected_resources call.
+    /// The request builder for [KeyTrackingService::search_protected_resources][super::super::client::KeyTrackingService::search_protected_resources] calls.
     #[derive(Clone, Debug)]
     pub struct SearchProtectedResources(
         RequestBuilder<crate::model::SearchProtectedResourcesRequest>,

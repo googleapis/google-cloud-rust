@@ -67,7 +67,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for a ReservationService::create_reservation call.
+    /// The request builder for [ReservationService::create_reservation][super::super::client::ReservationService::create_reservation] calls.
     #[derive(Clone, Debug)]
     pub struct CreateReservation(RequestBuilder<crate::model::CreateReservationRequest>);
 
@@ -127,7 +127,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for a ReservationService::list_reservations call.
+    /// The request builder for [ReservationService::list_reservations][super::super::client::ReservationService::list_reservations] calls.
     #[derive(Clone, Debug)]
     pub struct ListReservations(RequestBuilder<crate::model::ListReservationsRequest>);
 
@@ -199,7 +199,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for a ReservationService::get_reservation call.
+    /// The request builder for [ReservationService::get_reservation][super::super::client::ReservationService::get_reservation] calls.
     #[derive(Clone, Debug)]
     pub struct GetReservation(RequestBuilder<crate::model::GetReservationRequest>);
 
@@ -241,7 +241,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for a ReservationService::delete_reservation call.
+    /// The request builder for [ReservationService::delete_reservation][super::super::client::ReservationService::delete_reservation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteReservation(RequestBuilder<crate::model::DeleteReservationRequest>);
 
@@ -286,7 +286,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for a ReservationService::update_reservation call.
+    /// The request builder for [ReservationService::update_reservation][super::super::client::ReservationService::update_reservation] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateReservation(RequestBuilder<crate::model::UpdateReservationRequest>);
 
@@ -343,7 +343,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for a ReservationService::failover_reservation call.
+    /// The request builder for [ReservationService::failover_reservation][super::super::client::ReservationService::failover_reservation] calls.
     #[derive(Clone, Debug)]
     pub struct FailoverReservation(RequestBuilder<crate::model::FailoverReservationRequest>);
 
@@ -388,7 +388,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for a ReservationService::create_capacity_commitment call.
+    /// The request builder for [ReservationService::create_capacity_commitment][super::super::client::ReservationService::create_capacity_commitment] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCapacityCommitment(
         RequestBuilder<crate::model::CreateCapacityCommitmentRequest>,
@@ -458,7 +458,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for a ReservationService::list_capacity_commitments call.
+    /// The request builder for [ReservationService::list_capacity_commitments][super::super::client::ReservationService::list_capacity_commitments] calls.
     #[derive(Clone, Debug)]
     pub struct ListCapacityCommitments(
         RequestBuilder<crate::model::ListCapacityCommitmentsRequest>,
@@ -534,7 +534,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for a ReservationService::get_capacity_commitment call.
+    /// The request builder for [ReservationService::get_capacity_commitment][super::super::client::ReservationService::get_capacity_commitment] calls.
     #[derive(Clone, Debug)]
     pub struct GetCapacityCommitment(RequestBuilder<crate::model::GetCapacityCommitmentRequest>);
 
@@ -579,7 +579,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for a ReservationService::delete_capacity_commitment call.
+    /// The request builder for [ReservationService::delete_capacity_commitment][super::super::client::ReservationService::delete_capacity_commitment] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCapacityCommitment(
         RequestBuilder<crate::model::DeleteCapacityCommitmentRequest>,
@@ -632,7 +632,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for a ReservationService::update_capacity_commitment call.
+    /// The request builder for [ReservationService::update_capacity_commitment][super::super::client::ReservationService::update_capacity_commitment] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCapacityCommitment(
         RequestBuilder<crate::model::UpdateCapacityCommitmentRequest>,
@@ -693,7 +693,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for a ReservationService::split_capacity_commitment call.
+    /// The request builder for [ReservationService::split_capacity_commitment][super::super::client::ReservationService::split_capacity_commitment] calls.
     #[derive(Clone, Debug)]
     pub struct SplitCapacityCommitment(
         RequestBuilder<crate::model::SplitCapacityCommitmentRequest>,
@@ -746,7 +746,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for a ReservationService::merge_capacity_commitments call.
+    /// The request builder for [ReservationService::merge_capacity_commitments][super::super::client::ReservationService::merge_capacity_commitments] calls.
     #[derive(Clone, Debug)]
     pub struct MergeCapacityCommitments(
         RequestBuilder<crate::model::MergeCapacityCommitmentsRequest>,
@@ -804,7 +804,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for a ReservationService::create_assignment call.
+    /// The request builder for [ReservationService::create_assignment][super::super::client::ReservationService::create_assignment] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAssignment(RequestBuilder<crate::model::CreateAssignmentRequest>);
 
@@ -864,7 +864,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for a ReservationService::list_assignments call.
+    /// The request builder for [ReservationService::list_assignments][super::super::client::ReservationService::list_assignments] calls.
     #[derive(Clone, Debug)]
     pub struct ListAssignments(RequestBuilder<crate::model::ListAssignmentsRequest>);
 
@@ -933,7 +933,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for a ReservationService::delete_assignment call.
+    /// The request builder for [ReservationService::delete_assignment][super::super::client::ReservationService::delete_assignment] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAssignment(RequestBuilder<crate::model::DeleteAssignmentRequest>);
 
@@ -978,7 +978,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for a ReservationService::search_assignments call.
+    /// The request builder for [ReservationService::search_assignments][super::super::client::ReservationService::search_assignments] calls.
     #[derive(Clone, Debug)]
     pub struct SearchAssignments(RequestBuilder<crate::model::SearchAssignmentsRequest>);
 
@@ -1056,7 +1056,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for a ReservationService::search_all_assignments call.
+    /// The request builder for [ReservationService::search_all_assignments][super::super::client::ReservationService::search_all_assignments] calls.
     #[derive(Clone, Debug)]
     pub struct SearchAllAssignments(RequestBuilder<crate::model::SearchAllAssignmentsRequest>);
 
@@ -1134,7 +1134,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for a ReservationService::move_assignment call.
+    /// The request builder for [ReservationService::move_assignment][super::super::client::ReservationService::move_assignment] calls.
     #[derive(Clone, Debug)]
     pub struct MoveAssignment(RequestBuilder<crate::model::MoveAssignmentRequest>);
 
@@ -1188,7 +1188,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for a ReservationService::update_assignment call.
+    /// The request builder for [ReservationService::update_assignment][super::super::client::ReservationService::update_assignment] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateAssignment(RequestBuilder<crate::model::UpdateAssignmentRequest>);
 
@@ -1245,7 +1245,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for a ReservationService::get_bi_reservation call.
+    /// The request builder for [ReservationService::get_bi_reservation][super::super::client::ReservationService::get_bi_reservation] calls.
     #[derive(Clone, Debug)]
     pub struct GetBiReservation(RequestBuilder<crate::model::GetBiReservationRequest>);
 
@@ -1290,7 +1290,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for a ReservationService::update_bi_reservation call.
+    /// The request builder for [ReservationService::update_bi_reservation][super::super::client::ReservationService::update_bi_reservation] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBiReservation(RequestBuilder<crate::model::UpdateBiReservationRequest>);
 

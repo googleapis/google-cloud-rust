@@ -16,6 +16,7 @@
 mod test {
     use gax::options::*;
     use google_cloud_gax_internal::http::ReqwestClient;
+    use google_cloud_gax_internal::options::ClientConfig;
     use serde_json::json;
     use std::time::Duration;
 
@@ -24,8 +25,7 @@ mod test {
     #[tokio::test(start_paused = true)]
     async fn test_no_timeout() -> Result<()> {
         let (endpoint, server) = echo_server::start().await?;
-        let config =
-            ClientConfig::default().set_credential(auth::credentials::testing::test_credentials());
+        let config = test_config();
         let client = ReqwestClient::new(config, &endpoint).await?;
 
         let delay = Duration::from_millis(200);
@@ -62,8 +62,7 @@ mod test {
     #[tokio::test(start_paused = true)]
     async fn test_timeout_does_not_expire() -> Result<()> {
         let (endpoint, server) = echo_server::start().await?;
-        let config =
-            ClientConfig::default().set_credential(auth::credentials::testing::test_credentials());
+        let config = test_config();
         let client = ReqwestClient::new(config, &endpoint).await?;
 
         let delay = Duration::from_millis(200);
@@ -101,8 +100,7 @@ mod test {
     #[tokio::test(start_paused = true)]
     async fn test_timeout_expires() -> Result<()> {
         let (endpoint, server) = echo_server::start().await?;
-        let config =
-            ClientConfig::default().set_credential(auth::credentials::testing::test_credentials());
+        let config = test_config();
         let client = ReqwestClient::new(config, &endpoint).await?;
 
         let delay = Duration::from_millis(200);
@@ -157,5 +155,11 @@ mod test {
             .map(|v| v.as_str())
             .flatten()
             .map(str::to_string)
+    }
+
+    fn test_config() -> ClientConfig {
+        let mut config = ClientConfig::default();
+        config.cred = auth::credentials::testing::test_credentials().into();
+        config
     }
 }

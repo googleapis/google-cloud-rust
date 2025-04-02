@@ -101,22 +101,22 @@ impl DlpService {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::DlpService>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::DlpService> {
         super::transport::DlpService::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::DlpService> {
         Self::build_transport(conf)
             .await
@@ -151,6 +151,9 @@ impl DlpService {
     /// When no InfoTypes or CustomInfoTypes are specified in this request, the
     /// system will automatically choose what detectors to run. By default this may
     /// be all types, but may change over time as detectors are updated.
+    ///
+    /// Only the first frame of each multiframe image is redacted. Metadata and
+    /// other frames are omitted in the response.
     pub fn redact_image(
         &self,
         parent: impl Into<std::string::String>,

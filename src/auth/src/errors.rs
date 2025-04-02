@@ -74,25 +74,6 @@ impl CredentialError {
     pub fn is_retryable(&self) -> bool {
         self.is_retryable
     }
-
-    /// A helper to create a retryable error.
-    pub(crate) fn retryable<T: Error + Send + Sync + 'static>(source: T) -> Self {
-        CredentialError::new(true, source)
-    }
-
-    #[allow(dead_code)]
-    pub(crate) fn retryable_from_str<T: Into<String>>(message: T) -> Self {
-        CredentialError::from_str(true, message)
-    }
-
-    /// A helper to create a non-retryable error.
-    pub(crate) fn non_retryable<T: Error + Send + Sync + 'static>(source: T) -> Self {
-        CredentialError::new(false, source)
-    }
-
-    pub(crate) fn non_retryable_from_str<T: Into<String>>(message: T) -> Self {
-        CredentialError::from_str(false, message)
-    }
 }
 
 impl std::error::Error for CredentialErrorImpl {
@@ -147,6 +128,25 @@ pub enum InnerAuthError {
     // TODO(#389) - define error types here
 }
 
+/// A helper to create a retryable error.
+pub(crate) fn retryable<T: Error + Send + Sync + 'static>(source: T) -> CredentialError {
+    CredentialError::new(true, source)
+}
+
+#[allow(dead_code)]
+pub(crate) fn retryable_from_str<T: Into<String>>(message: T) -> CredentialError {
+    CredentialError::from_str(true, message)
+}
+
+/// A helper to create a non-retryable error.
+pub(crate) fn non_retryable<T: Error + Send + Sync + 'static>(source: T) -> CredentialError {
+    CredentialError::new(false, source)
+}
+
+pub(crate) fn non_retryable_from_str<T: Into<String>>(message: T) -> CredentialError {
+    CredentialError::from_str(false, message)
+}
+
 pub(crate) fn is_retryable(c: StatusCode) -> bool {
     match c {
         // Internal server errors do not indicate that there is anything wrong
@@ -192,5 +192,34 @@ mod test {
         let got = format!("{e}");
         assert!(got.contains("test-only-err-123"), "{got}");
         assert!(got.contains(NON_RETRYABLE_MSG), "{got}");
+    }
+
+    #[test]
+    fn helpers() {
+        let e = super::retryable_from_str("test-only-err-123");
+        assert!(e.is_retryable(), "{e}");
+        assert!(e.source().unwrap().source().is_none());
+        let got = format!("{e}");
+        assert!(got.contains("test-only-err-123"), "{got}");
+        assert!(got.contains(RETRYABLE_MSG), "{got}");
+
+        let input = "NaN".parse::<u32>().unwrap_err();
+        let e = super::retryable(input.clone());
+        assert!(e.is_retryable(), "{e}");
+        let got = format!("{e}");
+        assert!(got.contains(RETRYABLE_MSG), "{got}");
+        assert!(got.contains(&format!("{input}")), "{got}");
+
+        let e = super::non_retryable_from_str("test-only-err-123");
+        assert!(!e.is_retryable(), "{e}");
+        let got = format!("{e}");
+        assert!(got.contains("test-only-err-123"), "{got}");
+        assert!(got.contains(NON_RETRYABLE_MSG), "{got}");
+
+        let e = super::non_retryable(input.clone());
+        assert!(!e.is_retryable(), "{e}");
+        let got = format!("{e}");
+        assert!(got.contains(NON_RETRYABLE_MSG), "{got}");
+        assert!(got.contains(&format!("{input}")), "{got}");
     }
 }

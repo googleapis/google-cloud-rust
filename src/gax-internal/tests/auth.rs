@@ -19,7 +19,6 @@ mod test {
     use auth::token::Token;
     use gax::options::*;
     use gax::retry_policy::{Aip194Strict, RetryPolicyExt};
-    use google_cloud_gax_internal::http::ReqwestClient;
     use http::header::{HeaderName, HeaderValue};
     use serde_json::json;
 
@@ -58,8 +57,10 @@ mod test {
             ])
         });
 
-        let config = ClientConfig::default().set_credential(Credential::from(mock));
-        let client = ReqwestClient::new(config, &endpoint).await?;
+        let client = echo_server::builder(endpoint)
+            .with_credentials(Credential::from(mock))
+            .build()
+            .await?;
 
         let builder = client.builder(reqwest::Method::GET, "/echo".into());
         let body = json!({});
@@ -87,10 +88,11 @@ mod test {
             .returning(|| Err(CredentialError::from_str(true, "mock retryable error")));
 
         let retry_policy = Aip194Strict.with_attempt_limit(retry_count as u32);
-        let config = ClientConfig::default()
-            .set_credential(Credential::from(mock))
-            .set_retry_policy(retry_policy);
-        let client = ReqwestClient::new(config, &endpoint).await?;
+        let client = echo_server::builder(endpoint)
+            .with_credentials(Credential::from(mock))
+            .with_retry_policy(retry_policy)
+            .build()
+            .await?;
 
         let builder = client.builder(reqwest::Method::GET, "/echo".into());
         let body = json!({});
@@ -122,8 +124,10 @@ mod test {
             .times(1)
             .returning(|| Err(CredentialError::from_str(false, "mock non-retryable error")));
 
-        let config = ClientConfig::default().set_credential(Credential::from(mock));
-        let client = ReqwestClient::new(config, &endpoint).await?;
+        let client = echo_server::builder(endpoint)
+            .with_credentials(Credential::from(mock))
+            .build()
+            .await?;
 
         let builder = client.builder(reqwest::Method::GET, "/echo".into());
         let body = serde_json::json!({});

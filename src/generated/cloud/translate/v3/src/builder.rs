@@ -67,7 +67,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::translate_text call.
+    /// The request builder for [TranslationService::translate_text][super::super::client::TranslationService::translate_text] calls.
     #[derive(Clone, Debug)]
     pub struct TranslateText(RequestBuilder<crate::model::TranslateTextRequest>);
 
@@ -177,7 +177,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::romanize_text call.
+    /// The request builder for [TranslationService::romanize_text][super::super::client::TranslationService::romanize_text] calls.
     #[derive(Clone, Debug)]
     pub struct RomanizeText(RequestBuilder<crate::model::RomanizeTextRequest>);
 
@@ -236,7 +236,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::detect_language call.
+    /// The request builder for [TranslationService::detect_language][super::super::client::TranslationService::detect_language] calls.
     #[derive(Clone, Debug)]
     pub struct DetectLanguage(RequestBuilder<crate::model::DetectLanguageRequest>);
 
@@ -310,7 +310,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::get_supported_languages call.
+    /// The request builder for [TranslationService::get_supported_languages][super::super::client::TranslationService::get_supported_languages] calls.
     #[derive(Clone, Debug)]
     pub struct GetSupportedLanguages(RequestBuilder<crate::model::GetSupportedLanguagesRequest>);
 
@@ -367,7 +367,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::translate_document call.
+    /// The request builder for [TranslationService::translate_document][super::super::client::TranslationService::translate_document] calls.
     #[derive(Clone, Debug)]
     pub struct TranslateDocument(RequestBuilder<crate::model::TranslateDocumentRequest>);
 
@@ -498,7 +498,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::batch_translate_text call.
+    /// The request builder for [TranslationService::batch_translate_text][super::super::client::TranslationService::batch_translate_text] calls.
     #[derive(Clone, Debug)]
     pub struct BatchTranslateText(RequestBuilder<crate::model::BatchTranslateTextRequest>);
 
@@ -654,7 +654,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::batch_translate_document call.
+    /// The request builder for [TranslationService::batch_translate_document][super::super::client::TranslationService::batch_translate_document] calls.
     #[derive(Clone, Debug)]
     pub struct BatchTranslateDocument(RequestBuilder<crate::model::BatchTranslateDocumentRequest>);
 
@@ -833,7 +833,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::create_glossary call.
+    /// The request builder for [TranslationService::create_glossary][super::super::client::TranslationService::create_glossary] calls.
     #[derive(Clone, Debug)]
     pub struct CreateGlossary(RequestBuilder<crate::model::CreateGlossaryRequest>);
 
@@ -923,7 +923,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::update_glossary call.
+    /// The request builder for [TranslationService::update_glossary][super::super::client::TranslationService::update_glossary] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateGlossary(RequestBuilder<crate::model::UpdateGlossaryRequest>);
 
@@ -1016,7 +1016,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::list_glossaries call.
+    /// The request builder for [TranslationService::list_glossaries][super::super::client::TranslationService::list_glossaries] calls.
     #[derive(Clone, Debug)]
     pub struct ListGlossaries(RequestBuilder<crate::model::ListGlossariesRequest>);
 
@@ -1091,7 +1091,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::get_glossary call.
+    /// The request builder for [TranslationService::get_glossary][super::super::client::TranslationService::get_glossary] calls.
     #[derive(Clone, Debug)]
     pub struct GetGlossary(RequestBuilder<crate::model::GetGlossaryRequest>);
 
@@ -1133,7 +1133,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::delete_glossary call.
+    /// The request builder for [TranslationService::delete_glossary][super::super::client::TranslationService::delete_glossary] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteGlossary(RequestBuilder<crate::model::DeleteGlossaryRequest>);
 
@@ -1216,7 +1216,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::get_glossary_entry call.
+    /// The request builder for [TranslationService::get_glossary_entry][super::super::client::TranslationService::get_glossary_entry] calls.
     #[derive(Clone, Debug)]
     pub struct GetGlossaryEntry(RequestBuilder<crate::model::GetGlossaryEntryRequest>);
 
@@ -1261,7 +1261,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::list_glossary_entries call.
+    /// The request builder for [TranslationService::list_glossary_entries][super::super::client::TranslationService::list_glossary_entries] calls.
     #[derive(Clone, Debug)]
     pub struct ListGlossaryEntries(RequestBuilder<crate::model::ListGlossaryEntriesRequest>);
 
@@ -1333,7 +1333,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::create_glossary_entry call.
+    /// The request builder for [TranslationService::create_glossary_entry][super::super::client::TranslationService::create_glossary_entry] calls.
     #[derive(Clone, Debug)]
     pub struct CreateGlossaryEntry(RequestBuilder<crate::model::CreateGlossaryEntryRequest>);
 
@@ -1387,7 +1387,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::update_glossary_entry call.
+    /// The request builder for [TranslationService::update_glossary_entry][super::super::client::TranslationService::update_glossary_entry] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateGlossaryEntry(RequestBuilder<crate::model::UpdateGlossaryEntryRequest>);
 
@@ -1435,7 +1435,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::delete_glossary_entry call.
+    /// The request builder for [TranslationService::delete_glossary_entry][super::super::client::TranslationService::delete_glossary_entry] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteGlossaryEntry(RequestBuilder<crate::model::DeleteGlossaryEntryRequest>);
 
@@ -1480,7 +1480,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::create_dataset call.
+    /// The request builder for [TranslationService::create_dataset][super::super::client::TranslationService::create_dataset] calls.
     #[derive(Clone, Debug)]
     pub struct CreateDataset(RequestBuilder<crate::model::CreateDatasetRequest>);
 
@@ -1569,7 +1569,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::get_dataset call.
+    /// The request builder for [TranslationService::get_dataset][super::super::client::TranslationService::get_dataset] calls.
     #[derive(Clone, Debug)]
     pub struct GetDataset(RequestBuilder<crate::model::GetDatasetRequest>);
 
@@ -1611,7 +1611,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::list_datasets call.
+    /// The request builder for [TranslationService::list_datasets][super::super::client::TranslationService::list_datasets] calls.
     #[derive(Clone, Debug)]
     pub struct ListDatasets(RequestBuilder<crate::model::ListDatasetsRequest>);
 
@@ -1680,7 +1680,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::delete_dataset call.
+    /// The request builder for [TranslationService::delete_dataset][super::super::client::TranslationService::delete_dataset] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteDataset(RequestBuilder<crate::model::DeleteDatasetRequest>);
 
@@ -1757,7 +1757,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::create_adaptive_mt_dataset call.
+    /// The request builder for [TranslationService::create_adaptive_mt_dataset][super::super::client::TranslationService::create_adaptive_mt_dataset] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAdaptiveMtDataset(
         RequestBuilder<crate::model::CreateAdaptiveMtDatasetRequest>,
@@ -1815,7 +1815,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::delete_adaptive_mt_dataset call.
+    /// The request builder for [TranslationService::delete_adaptive_mt_dataset][super::super::client::TranslationService::delete_adaptive_mt_dataset] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAdaptiveMtDataset(
         RequestBuilder<crate::model::DeleteAdaptiveMtDatasetRequest>,
@@ -1862,7 +1862,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::get_adaptive_mt_dataset call.
+    /// The request builder for [TranslationService::get_adaptive_mt_dataset][super::super::client::TranslationService::get_adaptive_mt_dataset] calls.
     #[derive(Clone, Debug)]
     pub struct GetAdaptiveMtDataset(RequestBuilder<crate::model::GetAdaptiveMtDatasetRequest>);
 
@@ -1907,7 +1907,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::list_adaptive_mt_datasets call.
+    /// The request builder for [TranslationService::list_adaptive_mt_datasets][super::super::client::TranslationService::list_adaptive_mt_datasets] calls.
     #[derive(Clone, Debug)]
     pub struct ListAdaptiveMtDatasets(RequestBuilder<crate::model::ListAdaptiveMtDatasetsRequest>);
 
@@ -1987,7 +1987,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::adaptive_mt_translate call.
+    /// The request builder for [TranslationService::adaptive_mt_translate][super::super::client::TranslationService::adaptive_mt_translate] calls.
     #[derive(Clone, Debug)]
     pub struct AdaptiveMtTranslate(RequestBuilder<crate::model::AdaptiveMtTranslateRequest>);
 
@@ -2075,7 +2075,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::get_adaptive_mt_file call.
+    /// The request builder for [TranslationService::get_adaptive_mt_file][super::super::client::TranslationService::get_adaptive_mt_file] calls.
     #[derive(Clone, Debug)]
     pub struct GetAdaptiveMtFile(RequestBuilder<crate::model::GetAdaptiveMtFileRequest>);
 
@@ -2120,7 +2120,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::delete_adaptive_mt_file call.
+    /// The request builder for [TranslationService::delete_adaptive_mt_file][super::super::client::TranslationService::delete_adaptive_mt_file] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAdaptiveMtFile(RequestBuilder<crate::model::DeleteAdaptiveMtFileRequest>);
 
@@ -2165,7 +2165,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::import_adaptive_mt_file call.
+    /// The request builder for [TranslationService::import_adaptive_mt_file][super::super::client::TranslationService::import_adaptive_mt_file] calls.
     #[derive(Clone, Debug)]
     pub struct ImportAdaptiveMtFile(RequestBuilder<crate::model::ImportAdaptiveMtFileRequest>);
 
@@ -2221,7 +2221,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::list_adaptive_mt_files call.
+    /// The request builder for [TranslationService::list_adaptive_mt_files][super::super::client::TranslationService::list_adaptive_mt_files] calls.
     #[derive(Clone, Debug)]
     pub struct ListAdaptiveMtFiles(RequestBuilder<crate::model::ListAdaptiveMtFilesRequest>);
 
@@ -2293,7 +2293,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::list_adaptive_mt_sentences call.
+    /// The request builder for [TranslationService::list_adaptive_mt_sentences][super::super::client::TranslationService::list_adaptive_mt_sentences] calls.
     #[derive(Clone, Debug)]
     pub struct ListAdaptiveMtSentences(
         RequestBuilder<crate::model::ListAdaptiveMtSentencesRequest>,
@@ -2369,7 +2369,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::import_data call.
+    /// The request builder for [TranslationService::import_data][super::super::client::TranslationService::import_data] calls.
     #[derive(Clone, Debug)]
     pub struct ImportData(RequestBuilder<crate::model::ImportDataRequest>);
 
@@ -2455,7 +2455,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::export_data call.
+    /// The request builder for [TranslationService::export_data][super::super::client::TranslationService::export_data] calls.
     #[derive(Clone, Debug)]
     pub struct ExportData(RequestBuilder<crate::model::ExportDataRequest>);
 
@@ -2543,7 +2543,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::list_examples call.
+    /// The request builder for [TranslationService::list_examples][super::super::client::TranslationService::list_examples] calls.
     #[derive(Clone, Debug)]
     pub struct ListExamples(RequestBuilder<crate::model::ListExamplesRequest>);
 
@@ -2618,7 +2618,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::create_model call.
+    /// The request builder for [TranslationService::create_model][super::super::client::TranslationService::create_model] calls.
     #[derive(Clone, Debug)]
     pub struct CreateModel(RequestBuilder<crate::model::CreateModelRequest>);
 
@@ -2706,7 +2706,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::list_models call.
+    /// The request builder for [TranslationService::list_models][super::super::client::TranslationService::list_models] calls.
     #[derive(Clone, Debug)]
     pub struct ListModels(RequestBuilder<crate::model::ListModelsRequest>);
 
@@ -2781,7 +2781,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::get_model call.
+    /// The request builder for [TranslationService::get_model][super::super::client::TranslationService::get_model] calls.
     #[derive(Clone, Debug)]
     pub struct GetModel(RequestBuilder<crate::model::GetModelRequest>);
 
@@ -2823,7 +2823,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::delete_model call.
+    /// The request builder for [TranslationService::delete_model][super::super::client::TranslationService::delete_model] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteModel(RequestBuilder<crate::model::DeleteModelRequest>);
 
@@ -2900,7 +2900,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::list_locations call.
+    /// The request builder for [TranslationService::list_locations][super::super::client::TranslationService::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -2978,7 +2978,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::get_location call.
+    /// The request builder for [TranslationService::get_location][super::super::client::TranslationService::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -3020,7 +3020,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::list_operations call.
+    /// The request builder for [TranslationService::list_operations][super::super::client::TranslationService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -3098,7 +3098,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::get_operation call.
+    /// The request builder for [TranslationService::get_operation][super::super::client::TranslationService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -3143,7 +3143,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::delete_operation call.
+    /// The request builder for [TranslationService::delete_operation][super::super::client::TranslationService::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -3188,7 +3188,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::cancel_operation call.
+    /// The request builder for [TranslationService::cancel_operation][super::super::client::TranslationService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -3233,7 +3233,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for a TranslationService::wait_operation call.
+    /// The request builder for [TranslationService::wait_operation][super::super::client::TranslationService::wait_operation] calls.
     #[derive(Clone, Debug)]
     pub struct WaitOperation(RequestBuilder<longrunning::model::WaitOperationRequest>);
 

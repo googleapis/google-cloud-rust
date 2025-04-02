@@ -28,7 +28,8 @@ categories.workspace = true
 name = "getting_started"
 
 [dependencies]
-tokio = { version = "1", features = ["full", "macros"] }
+crc32c = "0.6"
+tokio  = { version = "1", features = ["full", "macros"] }
 # ANCHOR: longrunning
 google-cloud-longrunning = { version = "0.22", path = "../../src/generated/longrunning" }
 # ANCHOR_END: longrunning
@@ -41,6 +42,15 @@ google-cloud-speech-v2 = { version = "0.2", path = "../../src/generated/cloud/sp
 # ANCHOR: secretmanager
 google-cloud-secretmanager-v1 = { version = "0.2", path = "../../src/generated/cloud/secretmanager/v1" }
 # ANCHOR_END: secretmanager
+# ANCHOR: language
+google-cloud-language-v2 = { version = "0.2", path = "../../src/generated/cloud/language/v2" }
+# ANCHOR_END: language
+
+# ANCHOR: mockall
+[dev-dependencies]
+mockall = "0.13"
+# ANCHOR_END: mockall
+rand = "0.9"
 
 [features]
 run-integration-tests = []

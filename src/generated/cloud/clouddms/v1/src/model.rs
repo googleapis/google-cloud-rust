@@ -179,7 +179,8 @@ impl wkt::message::Message for ListMigrationJobsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListMigrationJobsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListMigrationJobsResponse {
     type PageItem = crate::model::MigrationJob;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1141,7 +1142,8 @@ impl wkt::message::Message for ListConnectionProfilesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListConnectionProfilesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListConnectionProfilesResponse {
     type PageItem = crate::model::ConnectionProfile;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1643,7 +1645,8 @@ impl wkt::message::Message for ListPrivateConnectionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListPrivateConnectionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListPrivateConnectionsResponse {
     type PageItem = crate::model::PrivateConnection;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1963,7 +1966,8 @@ impl wkt::message::Message for ListConversionWorkspacesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListConversionWorkspacesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListConversionWorkspacesResponse {
     type PageItem = crate::model::ConversionWorkspace;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2493,7 +2497,8 @@ impl wkt::message::Message for ListMappingRulesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListMappingRulesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListMappingRulesResponse {
     type PageItem = crate::model::MappingRule;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3094,7 +3099,8 @@ impl wkt::message::Message for DescribeDatabaseEntitiesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for DescribeDatabaseEntitiesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for DescribeDatabaseEntitiesResponse {
     type PageItem = crate::model::DatabaseEntity;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

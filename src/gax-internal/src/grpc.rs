@@ -29,9 +29,9 @@ pub struct Client {
 
 impl Client {
     /// Create a new client.
-    pub async fn new(config: gax::options::ClientConfig, default_endpoint: &str) -> Result<Self> {
-        let inner = Self::make_inner(&config, default_endpoint).await?;
+    pub async fn new(config: crate::options::ClientConfig, default_endpoint: &str) -> Result<Self> {
         let cred = Self::make_credentials(&config).await?;
+        let inner = Self::make_inner(config.endpoint, default_endpoint).await?;
         Ok(Self { inner, cred })
     }
 
@@ -67,15 +67,9 @@ impl Client {
         Ok(response)
     }
 
-    async fn make_inner(
-        config: &gax::options::ClientConfig,
-        default_endpoint: &str,
-    ) -> Result<InnerClient> {
+    async fn make_inner(endpoint: Option<String>, default_endpoint: &str) -> Result<InnerClient> {
         let endpoint = tonic::transport::Endpoint::from_shared(
-            config
-                .endpoint()
-                .clone()
-                .unwrap_or_else(|| default_endpoint.to_string()),
+            endpoint.unwrap_or_else(|| default_endpoint.to_string()),
         )
         .map_err(Error::other)?;
         let conn = endpoint.connect().await.map_err(Error::io)?;
@@ -83,9 +77,9 @@ impl Client {
     }
 
     async fn make_credentials(
-        config: &gax::options::ClientConfig,
+        config: &crate::options::ClientConfig,
     ) -> Result<auth::credentials::Credential> {
-        if let Some(c) = config.credential().clone() {
+        if let Some(c) = config.cred.clone() {
             return Ok(c);
         }
         auth::credentials::create_access_token_credential()

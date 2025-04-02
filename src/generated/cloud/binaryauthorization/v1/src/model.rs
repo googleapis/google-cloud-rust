@@ -1375,7 +1375,8 @@ impl wkt::message::Message for ListAttestorsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAttestorsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAttestorsResponse {
     type PageItem = crate::model::Attestor;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

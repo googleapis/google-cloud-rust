@@ -67,7 +67,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::list_deployments call.
+    /// The request builder for [Config::list_deployments][super::super::client::Config::list_deployments] calls.
     #[derive(Clone, Debug)]
     pub struct ListDeployments(RequestBuilder<crate::model::ListDeploymentsRequest>);
 
@@ -148,7 +148,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::get_deployment call.
+    /// The request builder for [Config::get_deployment][super::super::client::Config::get_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct GetDeployment(RequestBuilder<crate::model::GetDeploymentRequest>);
 
@@ -190,7 +190,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::create_deployment call.
+    /// The request builder for [Config::create_deployment][super::super::client::Config::create_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct CreateDeployment(RequestBuilder<crate::model::CreateDeploymentRequest>);
 
@@ -294,7 +294,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::update_deployment call.
+    /// The request builder for [Config::update_deployment][super::super::client::Config::update_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateDeployment(RequestBuilder<crate::model::UpdateDeploymentRequest>);
 
@@ -395,7 +395,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::delete_deployment call.
+    /// The request builder for [Config::delete_deployment][super::super::client::Config::delete_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteDeployment(RequestBuilder<crate::model::DeleteDeploymentRequest>);
 
@@ -499,7 +499,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::list_revisions call.
+    /// The request builder for [Config::list_revisions][super::super::client::Config::list_revisions] calls.
     #[derive(Clone, Debug)]
     pub struct ListRevisions(RequestBuilder<crate::model::ListRevisionsRequest>);
 
@@ -580,7 +580,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::get_revision call.
+    /// The request builder for [Config::get_revision][super::super::client::Config::get_revision] calls.
     #[derive(Clone, Debug)]
     pub struct GetRevision(RequestBuilder<crate::model::GetRevisionRequest>);
 
@@ -622,7 +622,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::get_resource call.
+    /// The request builder for [Config::get_resource][super::super::client::Config::get_resource] calls.
     #[derive(Clone, Debug)]
     pub struct GetResource(RequestBuilder<crate::model::GetResourceRequest>);
 
@@ -664,7 +664,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::list_resources call.
+    /// The request builder for [Config::list_resources][super::super::client::Config::list_resources] calls.
     #[derive(Clone, Debug)]
     pub struct ListResources(RequestBuilder<crate::model::ListResourcesRequest>);
 
@@ -745,7 +745,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::export_deployment_statefile call.
+    /// The request builder for [Config::export_deployment_statefile][super::super::client::Config::export_deployment_statefile] calls.
     #[derive(Clone, Debug)]
     pub struct ExportDeploymentStatefile(
         RequestBuilder<crate::model::ExportDeploymentStatefileRequest>,
@@ -798,7 +798,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::export_revision_statefile call.
+    /// The request builder for [Config::export_revision_statefile][super::super::client::Config::export_revision_statefile] calls.
     #[derive(Clone, Debug)]
     pub struct ExportRevisionStatefile(
         RequestBuilder<crate::model::ExportRevisionStatefileRequest>,
@@ -845,7 +845,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::import_statefile call.
+    /// The request builder for [Config::import_statefile][super::super::client::Config::import_statefile] calls.
     #[derive(Clone, Debug)]
     pub struct ImportStatefile(RequestBuilder<crate::model::ImportStatefileRequest>);
 
@@ -899,7 +899,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::delete_statefile call.
+    /// The request builder for [Config::delete_statefile][super::super::client::Config::delete_statefile] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteStatefile(RequestBuilder<crate::model::DeleteStatefileRequest>);
 
@@ -947,7 +947,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::lock_deployment call.
+    /// The request builder for [Config::lock_deployment][super::super::client::Config::lock_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct LockDeployment(RequestBuilder<crate::model::LockDeploymentRequest>);
 
@@ -1027,7 +1027,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::unlock_deployment call.
+    /// The request builder for [Config::unlock_deployment][super::super::client::Config::unlock_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct UnlockDeployment(RequestBuilder<crate::model::UnlockDeploymentRequest>);
 
@@ -1116,7 +1116,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::export_lock_info call.
+    /// The request builder for [Config::export_lock_info][super::super::client::Config::export_lock_info] calls.
     #[derive(Clone, Debug)]
     pub struct ExportLockInfo(RequestBuilder<crate::model::ExportLockInfoRequest>);
 
@@ -1158,7 +1158,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::create_preview call.
+    /// The request builder for [Config::create_preview][super::super::client::Config::create_preview] calls.
     #[derive(Clone, Debug)]
     pub struct CreatePreview(RequestBuilder<crate::model::CreatePreviewRequest>);
 
@@ -1258,7 +1258,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::get_preview call.
+    /// The request builder for [Config::get_preview][super::super::client::Config::get_preview] calls.
     #[derive(Clone, Debug)]
     pub struct GetPreview(RequestBuilder<crate::model::GetPreviewRequest>);
 
@@ -1300,7 +1300,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::list_previews call.
+    /// The request builder for [Config::list_previews][super::super::client::Config::list_previews] calls.
     #[derive(Clone, Debug)]
     pub struct ListPreviews(RequestBuilder<crate::model::ListPreviewsRequest>);
 
@@ -1381,7 +1381,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::delete_preview call.
+    /// The request builder for [Config::delete_preview][super::super::client::Config::delete_preview] calls.
     #[derive(Clone, Debug)]
     pub struct DeletePreview(RequestBuilder<crate::model::DeletePreviewRequest>);
 
@@ -1466,7 +1466,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::export_preview_result call.
+    /// The request builder for [Config::export_preview_result][super::super::client::Config::export_preview_result] calls.
     #[derive(Clone, Debug)]
     pub struct ExportPreviewResult(RequestBuilder<crate::model::ExportPreviewResultRequest>);
 
@@ -1511,7 +1511,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::list_terraform_versions call.
+    /// The request builder for [Config::list_terraform_versions][super::super::client::Config::list_terraform_versions] calls.
     #[derive(Clone, Debug)]
     pub struct ListTerraformVersions(RequestBuilder<crate::model::ListTerraformVersionsRequest>);
 
@@ -1595,7 +1595,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::get_terraform_version call.
+    /// The request builder for [Config::get_terraform_version][super::super::client::Config::get_terraform_version] calls.
     #[derive(Clone, Debug)]
     pub struct GetTerraformVersion(RequestBuilder<crate::model::GetTerraformVersionRequest>);
 
@@ -1640,7 +1640,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::list_locations call.
+    /// The request builder for [Config::list_locations][super::super::client::Config::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1718,7 +1718,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::get_location call.
+    /// The request builder for [Config::get_location][super::super::client::Config::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1760,7 +1760,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::set_iam_policy call.
+    /// The request builder for [Config::set_iam_policy][super::super::client::Config::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1820,7 +1820,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::get_iam_policy call.
+    /// The request builder for [Config::get_iam_policy][super::super::client::Config::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1871,7 +1871,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::test_iam_permissions call.
+    /// The request builder for [Config::test_iam_permissions][super::super::client::Config::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1927,7 +1927,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::list_operations call.
+    /// The request builder for [Config::list_operations][super::super::client::Config::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2005,7 +2005,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::get_operation call.
+    /// The request builder for [Config::get_operation][super::super::client::Config::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2050,7 +2050,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::delete_operation call.
+    /// The request builder for [Config::delete_operation][super::super::client::Config::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2095,7 +2095,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for a Config::cancel_operation call.
+    /// The request builder for [Config::cancel_operation][super::super::client::Config::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

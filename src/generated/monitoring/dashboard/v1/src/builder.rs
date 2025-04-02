@@ -67,7 +67,7 @@ pub mod dashboards_service {
         }
     }
 
-    /// The request builder for a DashboardsService::create_dashboard call.
+    /// The request builder for [DashboardsService::create_dashboard][super::super::client::DashboardsService::create_dashboard] calls.
     #[derive(Clone, Debug)]
     pub struct CreateDashboard(RequestBuilder<crate::model::CreateDashboardRequest>);
 
@@ -124,7 +124,7 @@ pub mod dashboards_service {
         }
     }
 
-    /// The request builder for a DashboardsService::list_dashboards call.
+    /// The request builder for [DashboardsService::list_dashboards][super::super::client::DashboardsService::list_dashboards] calls.
     #[derive(Clone, Debug)]
     pub struct ListDashboards(RequestBuilder<crate::model::ListDashboardsRequest>);
 
@@ -193,7 +193,7 @@ pub mod dashboards_service {
         }
     }
 
-    /// The request builder for a DashboardsService::get_dashboard call.
+    /// The request builder for [DashboardsService::get_dashboard][super::super::client::DashboardsService::get_dashboard] calls.
     #[derive(Clone, Debug)]
     pub struct GetDashboard(RequestBuilder<crate::model::GetDashboardRequest>);
 
@@ -235,7 +235,7 @@ pub mod dashboards_service {
         }
     }
 
-    /// The request builder for a DashboardsService::delete_dashboard call.
+    /// The request builder for [DashboardsService::delete_dashboard][super::super::client::DashboardsService::delete_dashboard] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteDashboard(RequestBuilder<crate::model::DeleteDashboardRequest>);
 
@@ -277,7 +277,7 @@ pub mod dashboards_service {
         }
     }
 
-    /// The request builder for a DashboardsService::update_dashboard call.
+    /// The request builder for [DashboardsService::update_dashboard][super::super::client::DashboardsService::update_dashboard] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateDashboard(RequestBuilder<crate::model::UpdateDashboardRequest>);
 

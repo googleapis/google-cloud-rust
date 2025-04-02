@@ -67,7 +67,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::list_databases call.
+    /// The request builder for [DatabaseAdmin::list_databases][super::super::client::DatabaseAdmin::list_databases] calls.
     #[derive(Clone, Debug)]
     pub struct ListDatabases(RequestBuilder<crate::model::ListDatabasesRequest>);
 
@@ -136,7 +136,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::create_database call.
+    /// The request builder for [DatabaseAdmin::create_database][super::super::client::DatabaseAdmin::create_database] calls.
     #[derive(Clone, Debug)]
     pub struct CreateDatabase(RequestBuilder<crate::model::CreateDatabaseRequest>);
 
@@ -260,7 +260,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::get_database call.
+    /// The request builder for [DatabaseAdmin::get_database][super::super::client::DatabaseAdmin::get_database] calls.
     #[derive(Clone, Debug)]
     pub struct GetDatabase(RequestBuilder<crate::model::GetDatabaseRequest>);
 
@@ -302,7 +302,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::update_database call.
+    /// The request builder for [DatabaseAdmin::update_database][super::super::client::DatabaseAdmin::update_database] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateDatabase(RequestBuilder<crate::model::UpdateDatabaseRequest>);
 
@@ -395,7 +395,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::update_database_ddl call.
+    /// The request builder for [DatabaseAdmin::update_database_ddl][super::super::client::DatabaseAdmin::update_database_ddl] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateDatabaseDdl(RequestBuilder<crate::model::UpdateDatabaseDdlRequest>);
 
@@ -500,7 +500,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::drop_database call.
+    /// The request builder for [DatabaseAdmin::drop_database][super::super::client::DatabaseAdmin::drop_database] calls.
     #[derive(Clone, Debug)]
     pub struct DropDatabase(RequestBuilder<crate::model::DropDatabaseRequest>);
 
@@ -542,7 +542,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::get_database_ddl call.
+    /// The request builder for [DatabaseAdmin::get_database_ddl][super::super::client::DatabaseAdmin::get_database_ddl] calls.
     #[derive(Clone, Debug)]
     pub struct GetDatabaseDdl(RequestBuilder<crate::model::GetDatabaseDdlRequest>);
 
@@ -584,7 +584,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::set_iam_policy call.
+    /// The request builder for [DatabaseAdmin::set_iam_policy][super::super::client::DatabaseAdmin::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -644,7 +644,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::get_iam_policy call.
+    /// The request builder for [DatabaseAdmin::get_iam_policy][super::super::client::DatabaseAdmin::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -695,7 +695,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::test_iam_permissions call.
+    /// The request builder for [DatabaseAdmin::test_iam_permissions][super::super::client::DatabaseAdmin::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -751,7 +751,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::create_backup call.
+    /// The request builder for [DatabaseAdmin::create_backup][super::super::client::DatabaseAdmin::create_backup] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
@@ -857,7 +857,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::copy_backup call.
+    /// The request builder for [DatabaseAdmin::copy_backup][super::super::client::DatabaseAdmin::copy_backup] calls.
     #[derive(Clone, Debug)]
     pub struct CopyBackup(RequestBuilder<crate::model::CopyBackupRequest>);
 
@@ -968,7 +968,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::get_backup call.
+    /// The request builder for [DatabaseAdmin::get_backup][super::super::client::DatabaseAdmin::get_backup] calls.
     #[derive(Clone, Debug)]
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
@@ -1010,7 +1010,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::update_backup call.
+    /// The request builder for [DatabaseAdmin::update_backup][super::super::client::DatabaseAdmin::update_backup] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
@@ -1064,7 +1064,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::delete_backup call.
+    /// The request builder for [DatabaseAdmin::delete_backup][super::super::client::DatabaseAdmin::delete_backup] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
@@ -1106,7 +1106,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::list_backups call.
+    /// The request builder for [DatabaseAdmin::list_backups][super::super::client::DatabaseAdmin::list_backups] calls.
     #[derive(Clone, Debug)]
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
@@ -1181,7 +1181,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::restore_database call.
+    /// The request builder for [DatabaseAdmin::restore_database][super::super::client::DatabaseAdmin::restore_database] calls.
     #[derive(Clone, Debug)]
     pub struct RestoreDatabase(RequestBuilder<crate::model::RestoreDatabaseRequest>);
 
@@ -1288,7 +1288,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::list_database_operations call.
+    /// The request builder for [DatabaseAdmin::list_database_operations][super::super::client::DatabaseAdmin::list_database_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListDatabaseOperations(RequestBuilder<crate::model::ListDatabaseOperationsRequest>);
 
@@ -1368,7 +1368,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::list_backup_operations call.
+    /// The request builder for [DatabaseAdmin::list_backup_operations][super::super::client::DatabaseAdmin::list_backup_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListBackupOperations(RequestBuilder<crate::model::ListBackupOperationsRequest>);
 
@@ -1446,7 +1446,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::list_database_roles call.
+    /// The request builder for [DatabaseAdmin::list_database_roles][super::super::client::DatabaseAdmin::list_database_roles] calls.
     #[derive(Clone, Debug)]
     pub struct ListDatabaseRoles(RequestBuilder<crate::model::ListDatabaseRolesRequest>);
 
@@ -1518,7 +1518,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::add_split_points call.
+    /// The request builder for [DatabaseAdmin::add_split_points][super::super::client::DatabaseAdmin::add_split_points] calls.
     #[derive(Clone, Debug)]
     pub struct AddSplitPoints(RequestBuilder<crate::model::AddSplitPointsRequest>);
 
@@ -1577,7 +1577,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::create_backup_schedule call.
+    /// The request builder for [DatabaseAdmin::create_backup_schedule][super::super::client::DatabaseAdmin::create_backup_schedule] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBackupSchedule(RequestBuilder<crate::model::CreateBackupScheduleRequest>);
 
@@ -1637,7 +1637,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::get_backup_schedule call.
+    /// The request builder for [DatabaseAdmin::get_backup_schedule][super::super::client::DatabaseAdmin::get_backup_schedule] calls.
     #[derive(Clone, Debug)]
     pub struct GetBackupSchedule(RequestBuilder<crate::model::GetBackupScheduleRequest>);
 
@@ -1682,7 +1682,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::update_backup_schedule call.
+    /// The request builder for [DatabaseAdmin::update_backup_schedule][super::super::client::DatabaseAdmin::update_backup_schedule] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBackupSchedule(RequestBuilder<crate::model::UpdateBackupScheduleRequest>);
 
@@ -1739,7 +1739,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::delete_backup_schedule call.
+    /// The request builder for [DatabaseAdmin::delete_backup_schedule][super::super::client::DatabaseAdmin::delete_backup_schedule] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBackupSchedule(RequestBuilder<crate::model::DeleteBackupScheduleRequest>);
 
@@ -1784,7 +1784,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::list_backup_schedules call.
+    /// The request builder for [DatabaseAdmin::list_backup_schedules][super::super::client::DatabaseAdmin::list_backup_schedules] calls.
     #[derive(Clone, Debug)]
     pub struct ListBackupSchedules(RequestBuilder<crate::model::ListBackupSchedulesRequest>);
 
@@ -1856,7 +1856,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::list_operations call.
+    /// The request builder for [DatabaseAdmin::list_operations][super::super::client::DatabaseAdmin::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1934,7 +1934,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::get_operation call.
+    /// The request builder for [DatabaseAdmin::get_operation][super::super::client::DatabaseAdmin::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1979,7 +1979,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::delete_operation call.
+    /// The request builder for [DatabaseAdmin::delete_operation][super::super::client::DatabaseAdmin::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2024,7 +2024,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for a DatabaseAdmin::cancel_operation call.
+    /// The request builder for [DatabaseAdmin::cancel_operation][super::super::client::DatabaseAdmin::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

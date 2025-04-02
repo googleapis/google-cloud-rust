@@ -67,7 +67,7 @@ pub mod connection_service {
         }
     }
 
-    /// The request builder for a ConnectionService::list_connections call.
+    /// The request builder for [ConnectionService::list_connections][super::super::client::ConnectionService::list_connections] calls.
     #[derive(Clone, Debug)]
     pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
 

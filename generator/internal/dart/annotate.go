@@ -364,8 +364,8 @@ func (annotate *annotateModel) annotateMessage(m *api.Message, imports map[strin
 	for _, f := range m.Fields {
 		annotate.annotateField(f)
 	}
-	for _, f := range m.OneOfs {
-		annotate.annotateOneOf(f)
+	for _, o := range m.OneOfs {
+		annotate.annotateOneOf(o)
 	}
 	for _, e := range m.Enums {
 		annotate.annotateEnum(e)
@@ -464,10 +464,10 @@ func (annotate *annotateModel) annotateMethod(method *api.Method) {
 	method.Codec = annotation
 }
 
-func (annotate *annotateModel) annotateOneOf(field *api.OneOf) {
-	field.Codec = &oneOfAnnotation{
-		Name:     strcase.ToLowerCamel(field.Name),
-		DocLines: formatDocComments(field.Documentation, annotate.state),
+func (annotate *annotateModel) annotateOneOf(oneof *api.OneOf) {
+	oneof.Codec = &oneOfAnnotation{
+		Name:     strcase.ToLowerCamel(oneof.Name),
+		DocLines: formatDocComments(oneof.Documentation, annotate.state),
 	}
 }
 
@@ -476,7 +476,7 @@ func (annotate *annotateModel) annotateField(field *api.Field) {
 	state := annotate.state
 
 	field.Codec = &fieldAnnotation{
-		Name:     strcase.ToLowerCamel(field.Name),
+		Name:     fieldName(field),
 		Type:     annotate.fieldType(field),
 		DocLines: formatDocComments(field.Documentation, state),
 		Required: required,
@@ -487,7 +487,7 @@ func (annotate *annotateModel) annotateField(field *api.Field) {
 }
 
 func createFromJsonLine(field *api.Field, state *api.APIState, required bool) string {
-	name := strcase.ToLowerCamel(field.Name)
+	name := fieldName(field)
 	message := state.MessageByID[field.TypezID]
 	typeName := ""
 
@@ -495,6 +495,7 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 	isMessage := field.Typez == api.MESSAGE_TYPE
 	isEnum := field.Typez == api.ENUM_TYPE
 	isBytes := field.Typez == api.BYTES_TYPE
+	isDouble := field.Typez == api.DOUBLE_TYPE || field.Typez == api.FLOAT_TYPE
 	isMap := message != nil && message.IsMap
 	isMessageMap := isMap && message.Fields[1].Typez == api.MESSAGE_TYPE
 
@@ -541,6 +542,9 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 		}
 	} else if isBytes {
 		return "decodeBytes(" + data + ")" + bang
+	} else if isDouble {
+		// (json['name'] as num?)?.toDouble(),
+		return "(" + data + " as num" + opt + ")" + opt + ".toDouble()"
 	} else {
 		// json['name']
 		return data
@@ -548,7 +552,7 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 }
 
 func createToJsonLine(field *api.Field, state *api.APIState, required bool) string {
-	name := strcase.ToLowerCamel(field.Name)
+	name := fieldName(field)
 	message := state.MessageByID[field.TypezID]
 
 	isList := field.Repeated
@@ -641,6 +645,7 @@ func (annotate *annotateModel) fieldType(f *api.Field) string {
 			slog.Error("unable to lookup type", "id", f.TypezID)
 			return ""
 		}
+		annotate.updateUsedPackages(e.Package)
 		out = enumName(e)
 	default:
 		slog.Error("unhandled fieldType", "type", f.Typez, "id", f.TypezID)
@@ -663,13 +668,22 @@ func (annotate *annotateModel) resolveTypeName(message *api.Message) string {
 		return "void"
 	}
 
-	// Use the packageMapping info to add any necessary import.
-	dartImport, ok := annotate.packageMapping[message.Package]
-	if ok {
-		annotate.imports[message.Package] = dartImport
-	}
+	annotate.updateUsedPackages(message.Package)
 
 	return messageName(message)
+}
+
+func (annotate *annotateModel) updateUsedPackages(packageName string) {
+	selfReference := annotate.model.PackageName == packageName
+	if !selfReference {
+		// Use the packageMapping info to add any necessary import.
+		dartImport, ok := annotate.packageMapping[packageName]
+		if ok {
+			annotate.imports[packageName] = dartImport
+		} else {
+			println("missing proto package mapping: " + packageName)
+		}
+	}
 }
 
 func registerMissingWkt(state *api.APIState) {

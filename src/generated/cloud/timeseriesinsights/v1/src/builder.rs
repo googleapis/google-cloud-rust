@@ -69,7 +69,7 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    /// The request builder for a TimeseriesInsightsController::list_data_sets call.
+    /// The request builder for [TimeseriesInsightsController::list_data_sets][super::super::client::TimeseriesInsightsController::list_data_sets] calls.
     #[derive(Clone, Debug)]
     pub struct ListDataSets(RequestBuilder<crate::model::ListDataSetsRequest>);
 
@@ -140,7 +140,7 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    /// The request builder for a TimeseriesInsightsController::create_data_set call.
+    /// The request builder for [TimeseriesInsightsController::create_data_set][super::super::client::TimeseriesInsightsController::create_data_set] calls.
     #[derive(Clone, Debug)]
     pub struct CreateDataSet(RequestBuilder<crate::model::CreateDataSetRequest>);
 
@@ -193,7 +193,7 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    /// The request builder for a TimeseriesInsightsController::delete_data_set call.
+    /// The request builder for [TimeseriesInsightsController::delete_data_set][super::super::client::TimeseriesInsightsController::delete_data_set] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteDataSet(RequestBuilder<crate::model::DeleteDataSetRequest>);
 
@@ -237,7 +237,7 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    /// The request builder for a TimeseriesInsightsController::append_events call.
+    /// The request builder for [TimeseriesInsightsController::append_events][super::super::client::TimeseriesInsightsController::append_events] calls.
     #[derive(Clone, Debug)]
     pub struct AppendEvents(RequestBuilder<crate::model::AppendEventsRequest>);
 
@@ -292,7 +292,7 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    /// The request builder for a TimeseriesInsightsController::query_data_set call.
+    /// The request builder for [TimeseriesInsightsController::query_data_set][super::super::client::TimeseriesInsightsController::query_data_set] calls.
     #[derive(Clone, Debug)]
     pub struct QueryDataSet(RequestBuilder<crate::model::QueryDataSetRequest>);
 
@@ -386,7 +386,7 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    /// The request builder for a TimeseriesInsightsController::evaluate_slice call.
+    /// The request builder for [TimeseriesInsightsController::evaluate_slice][super::super::client::TimeseriesInsightsController::evaluate_slice] calls.
     #[derive(Clone, Debug)]
     pub struct EvaluateSlice(RequestBuilder<crate::model::EvaluateSliceRequest>);
 
@@ -470,7 +470,7 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    /// The request builder for a TimeseriesInsightsController::evaluate_timeseries call.
+    /// The request builder for [TimeseriesInsightsController::evaluate_timeseries][super::super::client::TimeseriesInsightsController::evaluate_timeseries] calls.
     #[derive(Clone, Debug)]
     pub struct EvaluateTimeseries(RequestBuilder<crate::model::EvaluateTimeseriesRequest>);
 

@@ -14,9 +14,6 @@
 
 #[cfg(all(test, feature = "_internal_http_client"))]
 mod test {
-    use gax::options::ClientConfig;
-    use google_cloud_gax_internal::http::ReqwestClient;
-
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     /// A test policy, the only interesting bit is the name, which is included
@@ -53,9 +50,10 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn default_polling_policies() -> TestResult {
         let (endpoint, _server) = echo_server::start().await?;
-        let config =
-            ClientConfig::default().set_credential(auth::credentials::testing::test_credentials());
-        let client = ReqwestClient::new(config, &endpoint).await?;
+        let client = echo_server::builder(endpoint)
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
 
         let options = gax::options::RequestOptions::default();
         // Verify the functions are callable from outside the crate.
@@ -68,15 +66,16 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn client_config_polling_policies() -> TestResult {
         let (endpoint, _server) = echo_server::start().await?;
-        let config = ClientConfig::default()
-            .set_credential(auth::credentials::testing::test_credentials())
-            .set_polling_error_policy(TestErrorPolicy {
+        let client = echo_server::builder(endpoint)
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_polling_error_policy(TestErrorPolicy {
                 _name: "client-polling-error".to_string(),
             })
-            .set_polling_backoff_policy(TestBackoffPolicy {
+            .with_polling_backoff_policy(TestBackoffPolicy {
                 _name: "client-polling-backoff".to_string(),
-            });
-        let client = ReqwestClient::new(config, &endpoint).await?;
+            })
+            .build()
+            .await?;
 
         let options = gax::options::RequestOptions::default();
         let polling = client.get_polling_error_policy(&options);
@@ -92,15 +91,16 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn request_options_polling_policies() -> TestResult {
         let (endpoint, _server) = echo_server::start().await?;
-        let config = ClientConfig::default()
-            .set_credential(auth::credentials::testing::test_credentials())
-            .set_polling_error_policy(TestErrorPolicy {
+        let client = echo_server::builder(endpoint)
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_polling_error_policy(TestErrorPolicy {
                 _name: "client-polling-error".to_string(),
             })
-            .set_polling_backoff_policy(TestBackoffPolicy {
+            .with_polling_backoff_policy(TestBackoffPolicy {
                 _name: "client-polling-backoff".to_string(),
-            });
-        let client = ReqwestClient::new(config, &endpoint).await?;
+            })
+            .build()
+            .await?;
 
         let mut options = gax::options::RequestOptions::default();
         options.set_polling_error_policy(TestErrorPolicy {

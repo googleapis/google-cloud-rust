@@ -74,4 +74,13 @@ where
             .get_vulnerability_occurrences_summary(req, options)
             .await
     }
+
+    #[tracing::instrument(ret)]
+    async fn export_sbom(
+        &self,
+        req: crate::model::ExportSBOMRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::ExportSBOMResponse> {
+        self.inner.export_sbom(req, options).await
+    }
 }

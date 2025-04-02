@@ -67,7 +67,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::create_index call.
+    /// The request builder for [FirestoreAdmin::create_index][super::super::client::FirestoreAdmin::create_index] calls.
     #[derive(Clone, Debug)]
     pub struct CreateIndex(RequestBuilder<crate::model::CreateIndexRequest>);
 
@@ -156,7 +156,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::list_indexes call.
+    /// The request builder for [FirestoreAdmin::list_indexes][super::super::client::FirestoreAdmin::list_indexes] calls.
     #[derive(Clone, Debug)]
     pub struct ListIndexes(RequestBuilder<crate::model::ListIndexesRequest>);
 
@@ -231,7 +231,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::get_index call.
+    /// The request builder for [FirestoreAdmin::get_index][super::super::client::FirestoreAdmin::get_index] calls.
     #[derive(Clone, Debug)]
     pub struct GetIndex(RequestBuilder<crate::model::GetIndexRequest>);
 
@@ -273,7 +273,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::delete_index call.
+    /// The request builder for [FirestoreAdmin::delete_index][super::super::client::FirestoreAdmin::delete_index] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteIndex(RequestBuilder<crate::model::DeleteIndexRequest>);
 
@@ -315,7 +315,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::get_field call.
+    /// The request builder for [FirestoreAdmin::get_field][super::super::client::FirestoreAdmin::get_field] calls.
     #[derive(Clone, Debug)]
     pub struct GetField(RequestBuilder<crate::model::GetFieldRequest>);
 
@@ -357,7 +357,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::update_field call.
+    /// The request builder for [FirestoreAdmin::update_field][super::super::client::FirestoreAdmin::update_field] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateField(RequestBuilder<crate::model::UpdateFieldRequest>);
 
@@ -449,7 +449,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::list_fields call.
+    /// The request builder for [FirestoreAdmin::list_fields][super::super::client::FirestoreAdmin::list_fields] calls.
     #[derive(Clone, Debug)]
     pub struct ListFields(RequestBuilder<crate::model::ListFieldsRequest>);
 
@@ -524,7 +524,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::export_documents call.
+    /// The request builder for [FirestoreAdmin::export_documents][super::super::client::FirestoreAdmin::export_documents] calls.
     #[derive(Clone, Debug)]
     pub struct ExportDocuments(RequestBuilder<crate::model::ExportDocumentsRequest>);
 
@@ -644,7 +644,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::import_documents call.
+    /// The request builder for [FirestoreAdmin::import_documents][super::super::client::FirestoreAdmin::import_documents] calls.
     #[derive(Clone, Debug)]
     pub struct ImportDocuments(RequestBuilder<crate::model::ImportDocumentsRequest>);
 
@@ -749,7 +749,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::bulk_delete_documents call.
+    /// The request builder for [FirestoreAdmin::bulk_delete_documents][super::super::client::FirestoreAdmin::bulk_delete_documents] calls.
     #[derive(Clone, Debug)]
     pub struct BulkDeleteDocuments(RequestBuilder<crate::model::BulkDeleteDocumentsRequest>);
 
@@ -859,7 +859,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::create_database call.
+    /// The request builder for [FirestoreAdmin::create_database][super::super::client::FirestoreAdmin::create_database] calls.
     #[derive(Clone, Debug)]
     pub struct CreateDatabase(RequestBuilder<crate::model::CreateDatabaseRequest>);
 
@@ -955,7 +955,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::get_database call.
+    /// The request builder for [FirestoreAdmin::get_database][super::super::client::FirestoreAdmin::get_database] calls.
     #[derive(Clone, Debug)]
     pub struct GetDatabase(RequestBuilder<crate::model::GetDatabaseRequest>);
 
@@ -997,7 +997,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::list_databases call.
+    /// The request builder for [FirestoreAdmin::list_databases][super::super::client::FirestoreAdmin::list_databases] calls.
     #[derive(Clone, Debug)]
     pub struct ListDatabases(RequestBuilder<crate::model::ListDatabasesRequest>);
 
@@ -1045,7 +1045,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::update_database call.
+    /// The request builder for [FirestoreAdmin::update_database][super::super::client::FirestoreAdmin::update_database] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateDatabase(RequestBuilder<crate::model::UpdateDatabaseRequest>);
 
@@ -1138,7 +1138,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::delete_database call.
+    /// The request builder for [FirestoreAdmin::delete_database][super::super::client::FirestoreAdmin::delete_database] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteDatabase(RequestBuilder<crate::model::DeleteDatabaseRequest>);
 
@@ -1225,7 +1225,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::get_backup call.
+    /// The request builder for [FirestoreAdmin::get_backup][super::super::client::FirestoreAdmin::get_backup] calls.
     #[derive(Clone, Debug)]
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
@@ -1267,7 +1267,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::list_backups call.
+    /// The request builder for [FirestoreAdmin::list_backups][super::super::client::FirestoreAdmin::list_backups] calls.
     #[derive(Clone, Debug)]
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
@@ -1315,7 +1315,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::delete_backup call.
+    /// The request builder for [FirestoreAdmin::delete_backup][super::super::client::FirestoreAdmin::delete_backup] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
@@ -1357,7 +1357,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::restore_database call.
+    /// The request builder for [FirestoreAdmin::restore_database][super::super::client::FirestoreAdmin::restore_database] calls.
     #[derive(Clone, Debug)]
     pub struct RestoreDatabase(RequestBuilder<crate::model::RestoreDatabaseRequest>);
 
@@ -1461,7 +1461,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::create_backup_schedule call.
+    /// The request builder for [FirestoreAdmin::create_backup_schedule][super::super::client::FirestoreAdmin::create_backup_schedule] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBackupSchedule(RequestBuilder<crate::model::CreateBackupScheduleRequest>);
 
@@ -1515,7 +1515,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::get_backup_schedule call.
+    /// The request builder for [FirestoreAdmin::get_backup_schedule][super::super::client::FirestoreAdmin::get_backup_schedule] calls.
     #[derive(Clone, Debug)]
     pub struct GetBackupSchedule(RequestBuilder<crate::model::GetBackupScheduleRequest>);
 
@@ -1560,7 +1560,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::list_backup_schedules call.
+    /// The request builder for [FirestoreAdmin::list_backup_schedules][super::super::client::FirestoreAdmin::list_backup_schedules] calls.
     #[derive(Clone, Debug)]
     pub struct ListBackupSchedules(RequestBuilder<crate::model::ListBackupSchedulesRequest>);
 
@@ -1605,7 +1605,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::update_backup_schedule call.
+    /// The request builder for [FirestoreAdmin::update_backup_schedule][super::super::client::FirestoreAdmin::update_backup_schedule] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBackupSchedule(RequestBuilder<crate::model::UpdateBackupScheduleRequest>);
 
@@ -1662,7 +1662,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::delete_backup_schedule call.
+    /// The request builder for [FirestoreAdmin::delete_backup_schedule][super::super::client::FirestoreAdmin::delete_backup_schedule] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBackupSchedule(RequestBuilder<crate::model::DeleteBackupScheduleRequest>);
 
@@ -1707,7 +1707,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::list_operations call.
+    /// The request builder for [FirestoreAdmin::list_operations][super::super::client::FirestoreAdmin::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1785,7 +1785,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::get_operation call.
+    /// The request builder for [FirestoreAdmin::get_operation][super::super::client::FirestoreAdmin::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1830,7 +1830,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::delete_operation call.
+    /// The request builder for [FirestoreAdmin::delete_operation][super::super::client::FirestoreAdmin::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1875,7 +1875,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for a FirestoreAdmin::cancel_operation call.
+    /// The request builder for [FirestoreAdmin::cancel_operation][super::super::client::FirestoreAdmin::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

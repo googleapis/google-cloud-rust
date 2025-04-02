@@ -988,7 +988,8 @@ impl wkt::message::Message for ListLbTrafficExtensionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListLbTrafficExtensionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListLbTrafficExtensionsResponse {
     type PageItem = crate::model::LbTrafficExtension;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1531,7 +1532,8 @@ impl wkt::message::Message for ListLbRouteExtensionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListLbRouteExtensionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListLbRouteExtensionsResponse {
     type PageItem = crate::model::LbRouteExtension;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2130,7 +2132,8 @@ impl wkt::message::Message for ListEndpointPoliciesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListEndpointPoliciesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListEndpointPoliciesResponse {
     type PageItem = crate::model::EndpointPolicy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2633,7 +2636,8 @@ impl wkt::message::Message for ListGatewaysResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListGatewaysResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListGatewaysResponse {
     type PageItem = crate::model::Gateway;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3884,7 +3888,8 @@ impl wkt::message::Message for ListGrpcRoutesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListGrpcRoutesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListGrpcRoutesResponse {
     type PageItem = crate::model::GrpcRoute;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6000,7 +6005,8 @@ impl wkt::message::Message for ListHttpRoutesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListHttpRoutesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListHttpRoutesResponse {
     type PageItem = crate::model::HttpRoute;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6381,7 +6387,8 @@ impl wkt::message::Message for ListMeshesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListMeshesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListMeshesResponse {
     type PageItem = crate::model::Mesh;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6748,7 +6755,8 @@ impl wkt::message::Message for ListServiceBindingsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListServiceBindingsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListServiceBindingsResponse {
     type PageItem = crate::model::ServiceBinding;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7338,7 +7346,8 @@ impl wkt::message::Message for ListTcpRoutesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTcpRoutesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTcpRoutesResponse {
     type PageItem = crate::model::TcpRoute;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7944,7 +7953,8 @@ impl wkt::message::Message for ListTlsRoutesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTlsRoutesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTlsRoutesResponse {
     type PageItem = crate::model::TlsRoute;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

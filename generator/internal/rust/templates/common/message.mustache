@@ -166,7 +166,8 @@ impl wkt::message::Message for {{Codec.Name}} {
 {{/Codec.HasSyntheticFields}}
 {{#Pagination}}
 
-impl gax::paginator::PageableResponse for {{Name}} {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for {{Name}} {
     {{#PageableItem}}
     type PageItem = {{{Codec.PrimitiveFieldType}}};
 

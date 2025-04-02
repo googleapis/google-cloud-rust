@@ -1275,7 +1275,8 @@ impl wkt::message::Message for ListServicesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListServicesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListServicesResponse {
     type PageItem = crate::model::Service;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1524,7 +1525,8 @@ impl wkt::message::Message for ListVersionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListVersionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListVersionsResponse {
     type PageItem = crate::model::Version;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1799,7 +1801,8 @@ impl wkt::message::Message for ListInstancesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListInstancesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListInstancesResponse {
     type PageItem = crate::model::Instance;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2026,7 +2029,8 @@ impl wkt::message::Message for ListIngressRulesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListIngressRulesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListIngressRulesResponse {
     type PageItem = crate::model::FirewallRule;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2378,7 +2382,8 @@ impl wkt::message::Message for ListAuthorizedDomainsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAuthorizedDomainsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAuthorizedDomainsResponse {
     type PageItem = crate::model::AuthorizedDomain;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2495,7 +2500,8 @@ impl wkt::message::Message for ListAuthorizedCertificatesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAuthorizedCertificatesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAuthorizedCertificatesResponse {
     type PageItem = crate::model::AuthorizedCertificate;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2776,7 +2782,8 @@ impl wkt::message::Message for ListDomainMappingsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDomainMappingsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDomainMappingsResponse {
     type PageItem = crate::model::DomainMapping;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

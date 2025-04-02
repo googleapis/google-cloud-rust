@@ -67,7 +67,7 @@ pub mod company_service {
         }
     }
 
-    /// The request builder for a CompanyService::create_company call.
+    /// The request builder for [CompanyService::create_company][super::super::client::CompanyService::create_company] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCompany(RequestBuilder<crate::model::CreateCompanyRequest>);
 
@@ -118,7 +118,7 @@ pub mod company_service {
         }
     }
 
-    /// The request builder for a CompanyService::get_company call.
+    /// The request builder for [CompanyService::get_company][super::super::client::CompanyService::get_company] calls.
     #[derive(Clone, Debug)]
     pub struct GetCompany(RequestBuilder<crate::model::GetCompanyRequest>);
 
@@ -160,7 +160,7 @@ pub mod company_service {
         }
     }
 
-    /// The request builder for a CompanyService::update_company call.
+    /// The request builder for [CompanyService::update_company][super::super::client::CompanyService::update_company] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCompany(RequestBuilder<crate::model::UpdateCompanyRequest>);
 
@@ -214,7 +214,7 @@ pub mod company_service {
         }
     }
 
-    /// The request builder for a CompanyService::delete_company call.
+    /// The request builder for [CompanyService::delete_company][super::super::client::CompanyService::delete_company] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCompany(RequestBuilder<crate::model::DeleteCompanyRequest>);
 
@@ -256,7 +256,7 @@ pub mod company_service {
         }
     }
 
-    /// The request builder for a CompanyService::list_companies call.
+    /// The request builder for [CompanyService::list_companies][super::super::client::CompanyService::list_companies] calls.
     #[derive(Clone, Debug)]
     pub struct ListCompanies(RequestBuilder<crate::model::ListCompaniesRequest>);
 
@@ -331,7 +331,7 @@ pub mod company_service {
         }
     }
 
-    /// The request builder for a CompanyService::get_operation call.
+    /// The request builder for [CompanyService::get_operation][super::super::client::CompanyService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -430,7 +430,7 @@ pub mod completion {
         }
     }
 
-    /// The request builder for a Completion::complete_query call.
+    /// The request builder for [Completion::complete_query][super::super::client::Completion::complete_query] calls.
     #[derive(Clone, Debug)]
     pub struct CompleteQuery(RequestBuilder<crate::model::CompleteQueryRequest>);
 
@@ -519,7 +519,7 @@ pub mod completion {
         }
     }
 
-    /// The request builder for a Completion::get_operation call.
+    /// The request builder for [Completion::get_operation][super::super::client::Completion::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -618,7 +618,7 @@ pub mod event_service {
         }
     }
 
-    /// The request builder for a EventService::create_client_event call.
+    /// The request builder for [EventService::create_client_event][super::super::client::EventService::create_client_event] calls.
     #[derive(Clone, Debug)]
     pub struct CreateClientEvent(RequestBuilder<crate::model::CreateClientEventRequest>);
 
@@ -672,7 +672,7 @@ pub mod event_service {
         }
     }
 
-    /// The request builder for a EventService::get_operation call.
+    /// The request builder for [EventService::get_operation][super::super::client::EventService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -771,7 +771,7 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for a JobService::create_job call.
+    /// The request builder for [JobService::create_job][super::super::client::JobService::create_job] calls.
     #[derive(Clone, Debug)]
     pub struct CreateJob(RequestBuilder<crate::model::CreateJobRequest>);
 
@@ -819,7 +819,7 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for a JobService::batch_create_jobs call.
+    /// The request builder for [JobService::batch_create_jobs][super::super::client::JobService::batch_create_jobs] calls.
     #[derive(Clone, Debug)]
     pub struct BatchCreateJobs(RequestBuilder<crate::model::BatchCreateJobsRequest>);
 
@@ -913,7 +913,7 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for a JobService::get_job call.
+    /// The request builder for [JobService::get_job][super::super::client::JobService::get_job] calls.
     #[derive(Clone, Debug)]
     pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
 
@@ -953,7 +953,7 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for a JobService::update_job call.
+    /// The request builder for [JobService::update_job][super::super::client::JobService::update_job] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateJob(RequestBuilder<crate::model::UpdateJobRequest>);
 
@@ -1004,7 +1004,7 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for a JobService::batch_update_jobs call.
+    /// The request builder for [JobService::batch_update_jobs][super::super::client::JobService::batch_update_jobs] calls.
     #[derive(Clone, Debug)]
     pub struct BatchUpdateJobs(RequestBuilder<crate::model::BatchUpdateJobsRequest>);
 
@@ -1107,7 +1107,7 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for a JobService::delete_job call.
+    /// The request builder for [JobService::delete_job][super::super::client::JobService::delete_job] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
 
@@ -1149,7 +1149,7 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for a JobService::batch_delete_jobs call.
+    /// The request builder for [JobService::batch_delete_jobs][super::super::client::JobService::batch_delete_jobs] calls.
     #[derive(Clone, Debug)]
     pub struct BatchDeleteJobs(RequestBuilder<crate::model::BatchDeleteJobsRequest>);
 
@@ -1243,7 +1243,7 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for a JobService::list_jobs call.
+    /// The request builder for [JobService::list_jobs][super::super::client::JobService::list_jobs] calls.
     #[derive(Clone, Debug)]
     pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
 
@@ -1323,7 +1323,7 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for a JobService::search_jobs call.
+    /// The request builder for [JobService::search_jobs][super::super::client::JobService::search_jobs] calls.
     #[derive(Clone, Debug)]
     pub struct SearchJobs(RequestBuilder<crate::model::SearchJobsRequest>);
 
@@ -1489,7 +1489,7 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for a JobService::search_jobs_for_alert call.
+    /// The request builder for [JobService::search_jobs_for_alert][super::super::client::JobService::search_jobs_for_alert] calls.
     #[derive(Clone, Debug)]
     pub struct SearchJobsForAlert(RequestBuilder<crate::model::SearchJobsRequest>);
 
@@ -1655,7 +1655,7 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for a JobService::get_operation call.
+    /// The request builder for [JobService::get_operation][super::super::client::JobService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1754,7 +1754,7 @@ pub mod tenant_service {
         }
     }
 
-    /// The request builder for a TenantService::create_tenant call.
+    /// The request builder for [TenantService::create_tenant][super::super::client::TenantService::create_tenant] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTenant(RequestBuilder<crate::model::CreateTenantRequest>);
 
@@ -1805,7 +1805,7 @@ pub mod tenant_service {
         }
     }
 
-    /// The request builder for a TenantService::get_tenant call.
+    /// The request builder for [TenantService::get_tenant][super::super::client::TenantService::get_tenant] calls.
     #[derive(Clone, Debug)]
     pub struct GetTenant(RequestBuilder<crate::model::GetTenantRequest>);
 
@@ -1847,7 +1847,7 @@ pub mod tenant_service {
         }
     }
 
-    /// The request builder for a TenantService::update_tenant call.
+    /// The request builder for [TenantService::update_tenant][super::super::client::TenantService::update_tenant] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateTenant(RequestBuilder<crate::model::UpdateTenantRequest>);
 
@@ -1901,7 +1901,7 @@ pub mod tenant_service {
         }
     }
 
-    /// The request builder for a TenantService::delete_tenant call.
+    /// The request builder for [TenantService::delete_tenant][super::super::client::TenantService::delete_tenant] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTenant(RequestBuilder<crate::model::DeleteTenantRequest>);
 
@@ -1943,7 +1943,7 @@ pub mod tenant_service {
         }
     }
 
-    /// The request builder for a TenantService::list_tenants call.
+    /// The request builder for [TenantService::list_tenants][super::super::client::TenantService::list_tenants] calls.
     #[derive(Clone, Debug)]
     pub struct ListTenants(RequestBuilder<crate::model::ListTenantsRequest>);
 
@@ -2012,7 +2012,7 @@ pub mod tenant_service {
         }
     }
 
-    /// The request builder for a TenantService::get_operation call.
+    /// The request builder for [TenantService::get_operation][super::super::client::TenantService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

@@ -18,16 +18,23 @@ use pin_project::pin_project;
 use std::future::Future;
 use std::pin::Pin;
 
-/// Describes a type that can be iterated over asyncly when used with [Paginator].
-pub trait PageableResponse {
-    type PageItem;
+/// This module contains implementation details. It is not part of the public
+/// API. Types inside may be changed or removed without warnings. Applications
+/// should not use any types contained within.
+#[doc(hidden)]
+pub mod internal {
+    /// Describes a type that can be iterated over asynchronously when used with
+    /// [super::Paginator].
+    pub trait PageableResponse {
+        type PageItem;
 
-    // Consumes the [PageableResponse] and returns the items associated with the
-    // current page.
-    fn items(self) -> Vec<Self::PageItem>;
+        // Consumes the [PageableResponse] and returns the items associated with the
+        // current page.
+        fn items(self) -> Vec<Self::PageItem>;
 
-    /// Returns the next page token.
-    fn next_page_token(&self) -> String;
+        /// Returns the next page token.
+        fn next_page_token(&self) -> String;
+    }
 }
 
 /// An adapter that converts list RPCs as defined by [AIP-4233](https://google.aip.dev/client-libraries/4233)
@@ -42,10 +49,10 @@ type ControlFlow = std::ops::ControlFlow<(), String>;
 
 impl<T, E> Paginator<T, E>
 where
-    T: PageableResponse,
+    T: internal::PageableResponse,
 {
     /// Creates a new [Paginator] given the initial page token and a function
-    /// to fetch the next [PageableResponse].
+    /// to fetch the next response.
     pub fn new<F>(
         seed_token: String,
         execute: impl Fn(String) -> F + Clone + Send + 'static,
@@ -116,7 +123,7 @@ impl<T, E> std::fmt::Debug for Paginator<T, E> {
 #[pin_project]
 pub struct ItemPaginator<T, E>
 where
-    T: PageableResponse,
+    T: internal::PageableResponse,
 {
     #[pin]
     stream: Paginator<T, E>,
@@ -125,7 +132,7 @@ where
 
 impl<T, E> ItemPaginator<T, E>
 where
-    T: PageableResponse,
+    T: internal::PageableResponse,
 {
     /// Creates a new [ItemPaginator] from an existing [Paginator].
     fn new(paginator: Paginator<T, E>) -> Self {
@@ -179,6 +186,7 @@ where
 
 #[cfg(test)]
 mod tests {
+    use super::internal::*;
     use super::*;
     use std::collections::VecDeque;
     use std::sync::{Arc, Mutex};

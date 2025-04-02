@@ -344,7 +344,8 @@ impl wkt::message::Message for ListDeploymentsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDeploymentsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDeploymentsResponse {
     type PageItem = crate::model::Deployment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

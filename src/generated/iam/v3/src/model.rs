@@ -133,7 +133,7 @@ impl wkt::message::Message for OperationMetadata {
     }
 }
 
-/// IAM policy binding
+/// IAM policy binding resource.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -141,8 +141,8 @@ impl wkt::message::Message for OperationMetadata {
 pub struct PolicyBinding {
     /// Identifier. The name of the policy binding, in the format
     /// `{binding_parent/locations/{location}/policyBindings/{policy_binding_id}`.
-    /// The binding parent is the closest Resource Manager resource (i.e., Project,
-    /// Folder or Organization) to the binding target.
+    /// The binding parent is the closest Resource Manager resource (project,
+    /// folder, or organization) to the binding target.
     ///
     /// Format:
     ///
@@ -168,7 +168,7 @@ pub struct PolicyBinding {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub display_name: std::string::String,
 
-    /// Optional. User defined annotations. See
+    /// Optional. User-defined annotations. See
     /// <https://google.aip.dev/148#annotations> for more details such as format and
     /// size limitations
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
@@ -187,8 +187,7 @@ pub struct PolicyBinding {
     pub policy_kind: crate::model::policy_binding::PolicyKind,
 
     /// Required. Immutable. The resource name of the policy to be bound. The
-    /// binding parent and policy must belong to the same Organization (or
-    /// Project).
+    /// binding parent and policy must belong to the same organization.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub policy: std::string::String,
 
@@ -196,14 +195,22 @@ pub struct PolicyBinding {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub policy_uid: std::string::String,
 
-    /// Optional. Condition can either be a principal condition or a resource
-    /// condition. It depends on the type of target, the policy it is attached to,
-    /// and/or the expression itself. When set, the `expression` field in the
-    /// `Expr` must include from 1 to 10 subexpressions, joined by the "||"(Logical
-    /// OR),
-    /// "&&"(Logical AND) or "!"(Logical NOT) operators and cannot contain more
-    /// than 250 characters.
-    /// Allowed operations for principal.subject:
+    /// Optional. The condition to apply to the policy binding. When set, the
+    /// `expression` field in the `Expr` must include from 1 to 10 subexpressions,
+    /// joined by the
+    /// "||"(Logical OR), "&&"(Logical AND) or "!"(Logical NOT) operators and
+    /// cannot contain more than 250 characters.
+    ///
+    /// The condition is currently only supported when bound to policies of kind
+    /// principal access boundary.
+    ///
+    /// When the bound policy is a principal access boundary policy, the only
+    /// supported attributes in any subexpression are `principal.type` and
+    /// `principal.subject`. An example expression is: "principal.type ==
+    /// 'iam.googleapis.com/ServiceAccount'" or "principal.subject ==
+    /// 'bob@example.com'".
+    ///
+    /// Allowed operations for `principal.subject`:
     ///
     /// - `principal.subject == <principal subject string>`
     /// - `principal.subject != <principal subject string>`
@@ -211,7 +218,7 @@ pub struct PolicyBinding {
     /// - `principal.subject.startsWith(<string>)`
     /// - `principal.subject.endsWith(<string>)`
     ///
-    /// Allowed operations for principal.type:
+    /// Allowed operations for `principal.type`:
     ///
     /// - `principal.type == <principal type string>`
     /// - `principal.type != <principal type string>`
@@ -224,12 +231,6 @@ pub struct PolicyBinding {
     /// - iam.googleapis.com/WorkforcePoolIdentity
     /// - iam.googleapis.com/WorkloadPoolIdentity
     /// - iam.googleapis.com/ServiceAccount
-    ///
-    /// When the bound policy is a principal access boundary policy, the only
-    /// supported attributes in any subexpression are `principal.type` and
-    /// `principal.subject`. An example expression is: "principal.type ==
-    /// 'iam.googleapis.com/ServiceAccount'" or "principal.subject ==
-    /// 'bob@example.com'".
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub condition: std::option::Option<gtype::model::Expr>,
 
@@ -361,6 +362,7 @@ pub mod policy_binding {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Target {
+        /// The different types of targets that can be bound to a policy.
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub target: std::option::Option<crate::model::policy_binding::target::Target>,
     }
@@ -421,25 +423,34 @@ pub mod policy_binding {
         #[allow(unused_imports)]
         use super::*;
 
+        /// The different types of targets that can be bound to a policy.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
         pub enum Target {
             /// Immutable. Full Resource Name used for principal access boundary policy
-            /// bindings Examples:
+            /// bindings. The principal set must be directly parented by the policy
+            /// binding's parent or same as the parent if the target is a
+            /// project/folder/organization.
             ///
-            /// * Organization:
-            ///   `//cloudresourcemanager.googleapis.com/organizations/ORGANIZATION_ID`
-            /// * Folder: `//cloudresourcemanager.googleapis.com/folders/FOLDER_ID`
-            /// * Project:
-            ///   * `//cloudresourcemanager.googleapis.com/projects/PROJECT_NUMBER`
-            ///   * `//cloudresourcemanager.googleapis.com/projects/PROJECT_ID`
-            /// * Workload Identity Pool:
-            ///   `//iam.googleapis.com/projects/PROJECT_NUMBER/locations/LOCATION/workloadIdentityPools/WORKLOAD_POOL_ID`
-            /// * Workforce Identity:
-            ///   `//iam.googleapis.com/locations/global/workforcePools/WORKFORCE_POOL_ID`
-            /// * Workspace Identity:
-            ///   `//iam.googleapis.com/locations/global/workspace/WORKSPACE_ID`
+            /// Examples:
+            ///
+            /// * For binding's parented by an organization:
+            ///   * Organization:
+            ///     `//cloudresourcemanager.googleapis.com/organizations/ORGANIZATION_ID`
+            ///   * Workforce Identity:
+            ///     `//iam.googleapis.com/locations/global/workforcePools/WORKFORCE_POOL_ID`
+            ///   * Workspace Identity:
+            ///     `//iam.googleapis.com/locations/global/workspace/WORKSPACE_ID`
+            /// * For binding's parented by a folder:
+            ///   * Folder:
+            ///     `//cloudresourcemanager.googleapis.com/folders/FOLDER_ID`
+            /// * For binding's parented by a project:
+            ///   * Project:
+            ///     * `//cloudresourcemanager.googleapis.com/projects/PROJECT_NUMBER`
+            ///     * `//cloudresourcemanager.googleapis.com/projects/PROJECT_ID`
+            ///   * Workload Identity Pool:
+            ///     `//iam.googleapis.com/projects/PROJECT_NUMBER/locations/LOCATION/workloadIdentityPools/WORKLOAD_POOL_ID`
             PrincipalSet(std::string::String),
         }
     }
@@ -508,8 +519,8 @@ pub mod policy_binding {
 #[non_exhaustive]
 pub struct CreatePolicyBindingRequest {
     /// Required. The parent resource where this policy binding will be created.
-    /// The binding parent is the closest Resource Manager resource (Project,
-    /// Folder or Organization) to the binding target.
+    /// The binding parent is the closest Resource Manager resource (project,
+    /// folder or organization) to the binding target.
     ///
     /// Format:
     ///
@@ -866,7 +877,8 @@ impl wkt::message::Message for ListPolicyBindingsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListPolicyBindingsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListPolicyBindingsResponse {
     type PageItem = crate::model::PolicyBinding;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1010,7 +1022,8 @@ impl wkt::message::Message for SearchTargetPolicyBindingsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for SearchTargetPolicyBindingsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for SearchTargetPolicyBindingsResponse {
     type PageItem = crate::model::PolicyBinding;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1030,7 +1043,7 @@ impl gax::paginator::PageableResponse for SearchTargetPolicyBindingsResponse {
 #[non_exhaustive]
 pub struct CreatePrincipalAccessBoundaryPolicyRequest {
     /// Required. The parent resource where this principal access boundary policy
-    /// will be created. Only organization is supported now.
+    /// will be created. Only organizations are supported.
     ///
     /// Format:
     /// `organizations/{organization_id}/locations/{location}`
@@ -1216,8 +1229,8 @@ pub struct DeletePrincipalAccessBoundaryPolicyRequest {
     /// actually post it.
     pub validate_only: bool,
 
-    /// Optional. If set to true, the request will force the deletion of the Policy
-    /// even if the Policy references PolicyBindings.
+    /// Optional. If set to true, the request will force the deletion of the policy
+    /// even if the policy is referenced in policy bindings.
     pub force: bool,
 }
 
@@ -1365,7 +1378,8 @@ impl wkt::message::Message for ListPrincipalAccessBoundaryPoliciesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListPrincipalAccessBoundaryPoliciesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListPrincipalAccessBoundaryPoliciesResponse {
     type PageItem = crate::model::PrincipalAccessBoundaryPolicy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1483,7 +1497,10 @@ impl wkt::message::Message for SearchPrincipalAccessBoundaryPolicyBindingsRespon
     }
 }
 
-impl gax::paginator::PageableResponse for SearchPrincipalAccessBoundaryPolicyBindingsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse
+    for SearchPrincipalAccessBoundaryPolicyBindingsResponse
+{
     type PageItem = crate::model::PolicyBinding;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1634,10 +1651,10 @@ pub struct PrincipalAccessBoundaryPolicyDetails {
     pub rules: std::vec::Vec<crate::model::PrincipalAccessBoundaryPolicyRule>,
 
     /// Optional.
-    /// The version number that indicates which Google Cloud
-    /// services are included in the enforcement (e.g. "latest", "1", ...). If
-    /// empty, the PAB policy version will be set to the current latest version,
-    /// and this version won't get updated when new versions are released.
+    /// The version number (for example, `1` or `latest`) that indicates which
+    /// permissions are able to be blocked by the policy. If empty, the PAB policy
+    /// version will be set to the most recent version number at the time of the
+    /// policy's creation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub enforcement_version: std::string::String,
 }
@@ -1685,9 +1702,10 @@ pub struct PrincipalAccessBoundaryPolicyRule {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub description: std::string::String,
 
-    /// Required. A list of Cloud Resource Manager resources. The resource and all
-    /// the descendants are included. The number of resources in a policy is
-    /// limited to 500 across all rules.
+    /// Required. A list of Resource Manager resources. If a resource is listed in
+    /// the rule, then the rule applies for that resource and its descendants. The
+    /// number of resources in a policy is limited to 500 across all rules in the
+    /// policy.
     ///
     /// The following resource types are supported:
     ///

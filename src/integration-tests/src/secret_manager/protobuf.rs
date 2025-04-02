@@ -246,7 +246,7 @@ async fn run_secret_versions(
         .await?;
     println!("DISABLE_SECRET_VERSION = {disable:?}");
 
-    println!("\nTesting disable_secret_version()");
+    println!("\nTesting enable_secret_version()");
     let enable = client
         .enable_secret_version(&create_secret_version.name)
         .send()

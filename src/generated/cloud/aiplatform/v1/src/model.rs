@@ -4305,6 +4305,11 @@ pub mod grounding_chunk {
         /// Text of the attribution.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub text: std::option::Option<std::string::String>,
+
+        /// Tool-specific details about the retrieved context.
+        #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+        pub context_details:
+            std::option::Option<crate::model::grounding_chunk::retrieved_context::ContextDetails>,
     }
 
     impl RetrievedContext {
@@ -4338,11 +4343,74 @@ pub mod grounding_chunk {
             self.text = v.into();
             self
         }
+
+        /// Sets the value of `context_details`.
+        pub fn set_context_details<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::grounding_chunk::retrieved_context::ContextDetails,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.context_details = v.into();
+            self
+        }
+
+        /// The value of [context_details][crate::model::grounding_chunk::RetrievedContext::context_details]
+        /// if it holds a `RagChunk`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn get_rag_chunk(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::RagChunk>> {
+            #[allow(unreachable_patterns)]
+            self.context_details.as_ref().and_then(|v| match v {
+                crate::model::grounding_chunk::retrieved_context::ContextDetails::RagChunk(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [context_details][crate::model::grounding_chunk::RetrievedContext::context_details]
+        /// to hold a `RagChunk`.
+        ///
+        /// Note that all the setters affecting `context_details` are
+        /// mutually exclusive.
+        pub fn set_rag_chunk<T: std::convert::Into<std::boxed::Box<crate::model::RagChunk>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.context_details = std::option::Option::Some(
+                crate::model::grounding_chunk::retrieved_context::ContextDetails::RagChunk(
+                    v.into(),
+                ),
+            );
+            self
+        }
     }
 
     impl wkt::message::Message for RetrievedContext {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.aiplatform.v1.GroundingChunk.RetrievedContext"
+        }
+    }
+
+    /// Defines additional types related to [RetrievedContext].
+    pub mod retrieved_context {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Tool-specific details about the retrieved context.
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub enum ContextDetails {
+            /// Additional context for the RAG retrieval result. This is only populated
+            /// when using the RAG retrieval tool.
+            RagChunk(std::boxed::Box<crate::model::RagChunk>),
         }
     }
 
@@ -7877,7 +7945,8 @@ impl wkt::message::Message for ListDatasetsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDatasetsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDatasetsResponse {
     type PageItem = crate::model::Dataset;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -8494,7 +8563,8 @@ impl wkt::message::Message for ListDatasetVersionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDatasetVersionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDatasetVersionsResponse {
     type PageItem = crate::model::DatasetVersion;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -8712,7 +8782,8 @@ impl wkt::message::Message for ListDataItemsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDataItemsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDataItemsResponse {
     type PageItem = crate::model::DataItem;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -9106,7 +9177,8 @@ impl wkt::message::Message for SearchDataItemsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for SearchDataItemsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for SearchDataItemsResponse {
     type PageItem = crate::model::DataItemView;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -9316,7 +9388,8 @@ impl wkt::message::Message for ListSavedQueriesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListSavedQueriesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListSavedQueriesResponse {
     type PageItem = crate::model::SavedQuery;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -9544,7 +9617,8 @@ impl wkt::message::Message for ListAnnotationsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAnnotationsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAnnotationsResponse {
     type PageItem = crate::model::Annotation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -10139,7 +10213,8 @@ impl wkt::message::Message for ListDeploymentResourcePoolsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDeploymentResourcePoolsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDeploymentResourcePoolsResponse {
     type PageItem = crate::model::DeploymentResourcePool;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -10408,7 +10483,8 @@ impl wkt::message::Message for QueryDeployedModelsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for QueryDeployedModelsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for QueryDeployedModelsResponse {
     type PageItem = crate::model::DeployedModel;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -11965,7 +12041,8 @@ impl wkt::message::Message for ListEndpointsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListEndpointsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListEndpointsResponse {
     type PageItem = crate::model::Endpoint;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -25301,7 +25378,8 @@ impl wkt::message::Message for ListFeatureOnlineStoresResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListFeatureOnlineStoresResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListFeatureOnlineStoresResponse {
     type PageItem = crate::model::FeatureOnlineStore;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -25698,7 +25776,8 @@ impl wkt::message::Message for ListFeatureViewsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListFeatureViewsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListFeatureViewsResponse {
     type PageItem = crate::model::FeatureView;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -26205,7 +26284,8 @@ impl wkt::message::Message for ListFeatureViewSyncsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListFeatureViewSyncsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListFeatureViewSyncsResponse {
     type PageItem = crate::model::FeatureViewSync;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -27712,7 +27792,8 @@ impl wkt::message::Message for ListFeatureGroupsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListFeatureGroupsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListFeatureGroupsResponse {
     type PageItem = crate::model::FeatureGroup;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -31393,7 +31474,8 @@ impl wkt::message::Message for ListFeaturestoresResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListFeaturestoresResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListFeaturestoresResponse {
     type PageItem = crate::model::Featurestore;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -33082,7 +33164,8 @@ impl wkt::message::Message for ListEntityTypesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListEntityTypesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListEntityTypesResponse {
     type PageItem = crate::model::EntityType;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -33614,7 +33697,8 @@ impl wkt::message::Message for ListFeaturesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListFeaturesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListFeaturesResponse {
     type PageItem = crate::model::Feature;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -33819,7 +33903,8 @@ impl wkt::message::Message for SearchFeaturesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for SearchFeaturesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for SearchFeaturesResponse {
     type PageItem = crate::model::Feature;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -35176,7 +35261,8 @@ impl wkt::message::Message for ListCachedContentsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCachedContentsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCachedContentsResponse {
     type PageItem = crate::model::CachedContent;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -35387,7 +35473,8 @@ impl wkt::message::Message for ListTuningJobsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTuningJobsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTuningJobsResponse {
     type PageItem = crate::model::TuningJob;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -37636,7 +37723,8 @@ impl wkt::message::Message for ListIndexEndpointsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListIndexEndpointsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListIndexEndpointsResponse {
     type PageItem = crate::model::IndexEndpoint;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -38392,7 +38480,8 @@ impl wkt::message::Message for ListIndexesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListIndexesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListIndexesResponse {
     type PageItem = crate::model::Index;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -40386,7 +40475,8 @@ impl wkt::message::Message for ListCustomJobsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCustomJobsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCustomJobsResponse {
     type PageItem = crate::model::CustomJob;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -40706,7 +40796,8 @@ impl wkt::message::Message for ListDataLabelingJobsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDataLabelingJobsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDataLabelingJobsResponse {
     type PageItem = crate::model::DataLabelingJob;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -41029,7 +41120,8 @@ impl wkt::message::Message for ListHyperparameterTuningJobsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListHyperparameterTuningJobsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListHyperparameterTuningJobsResponse {
     type PageItem = crate::model::HyperparameterTuningJob;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -41348,7 +41440,8 @@ impl wkt::message::Message for ListNasJobsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListNasJobsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListNasJobsResponse {
     type PageItem = crate::model::NasJob;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -41576,7 +41669,8 @@ impl wkt::message::Message for ListNasTrialDetailsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListNasTrialDetailsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListNasTrialDetailsResponse {
     type PageItem = crate::model::NasTrialDetail;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -41826,7 +41920,8 @@ impl wkt::message::Message for ListBatchPredictionJobsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListBatchPredictionJobsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBatchPredictionJobsResponse {
     type PageItem = crate::model::BatchPredictionJob;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -42205,7 +42300,10 @@ impl wkt::message::Message for SearchModelDeploymentMonitoringStatsAnomaliesResp
     }
 }
 
-impl gax::paginator::PageableResponse for SearchModelDeploymentMonitoringStatsAnomaliesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse
+    for SearchModelDeploymentMonitoringStatsAnomaliesResponse
+{
     type PageItem = crate::model::ModelMonitoringStatsAnomalies;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -42394,7 +42492,8 @@ impl wkt::message::Message for ListModelDeploymentMonitoringJobsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListModelDeploymentMonitoringJobsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListModelDeploymentMonitoringJobsResponse {
     type PageItem = crate::model::ModelDeploymentMonitoringJob;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -44422,7 +44521,8 @@ impl wkt::message::Message for ListMetadataStoresResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListMetadataStoresResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListMetadataStoresResponse {
     type PageItem = crate::model::MetadataStore;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -44782,7 +44882,8 @@ impl wkt::message::Message for ListArtifactsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListArtifactsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListArtifactsResponse {
     type PageItem = crate::model::Artifact;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -45323,7 +45424,8 @@ impl wkt::message::Message for ListContextsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListContextsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListContextsResponse {
     type PageItem = crate::model::Context;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -46142,7 +46244,8 @@ impl wkt::message::Message for ListExecutionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListExecutionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListExecutionsResponse {
     type PageItem = crate::model::Execution;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -46745,7 +46848,8 @@ impl wkt::message::Message for ListMetadataSchemasResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListMetadataSchemasResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListMetadataSchemasResponse {
     type PageItem = crate::model::MetadataSchema;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -47620,7 +47724,8 @@ impl wkt::message::Message for SearchMigratableResourcesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for SearchMigratableResourcesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for SearchMigratableResourcesResponse {
     type PageItem = crate::model::MigratableResource;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -54277,7 +54382,8 @@ impl wkt::message::Message for ListModelsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListModelsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListModelsResponse {
     type PageItem = crate::model::Model;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -54453,7 +54559,8 @@ impl wkt::message::Message for ListModelVersionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListModelVersionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListModelVersionsResponse {
     type PageItem = crate::model::Model;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -54633,7 +54740,8 @@ impl wkt::message::Message for ListModelVersionCheckpointsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListModelVersionCheckpointsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListModelVersionCheckpointsResponse {
     type PageItem = crate::model::ModelVersionCheckpoint;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -55844,7 +55952,8 @@ impl wkt::message::Message for ListModelEvaluationsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListModelEvaluationsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListModelEvaluationsResponse {
     type PageItem = crate::model::ModelEvaluation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -56029,7 +56138,8 @@ impl wkt::message::Message for ListModelEvaluationSlicesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListModelEvaluationSlicesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListModelEvaluationSlicesResponse {
     type PageItem = crate::model::ModelEvaluationSlice;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -59299,7 +59409,8 @@ impl wkt::message::Message for ListNotebookRuntimeTemplatesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListNotebookRuntimeTemplatesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListNotebookRuntimeTemplatesResponse {
     type PageItem = crate::model::NotebookRuntimeTemplate;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -59756,7 +59867,8 @@ impl wkt::message::Message for ListNotebookRuntimesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListNotebookRuntimesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListNotebookRuntimesResponse {
     type PageItem = crate::model::NotebookRuntime;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -60422,7 +60534,8 @@ impl wkt::message::Message for ListNotebookExecutionJobsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListNotebookExecutionJobsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListNotebookExecutionJobsResponse {
     type PageItem = crate::model::NotebookExecutionJob;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -62190,7 +62303,8 @@ impl wkt::message::Message for ListPersistentResourcesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListPersistentResourcesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListPersistentResourcesResponse {
     type PageItem = crate::model::PersistentResource;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -63914,7 +64028,8 @@ impl wkt::message::Message for ListTrainingPipelinesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTrainingPipelinesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTrainingPipelinesResponse {
     type PageItem = crate::model::TrainingPipeline;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -64282,7 +64397,8 @@ impl wkt::message::Message for ListPipelineJobsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListPipelineJobsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListPipelineJobsResponse {
     type PageItem = crate::model::PipelineJob;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -68611,7 +68727,8 @@ impl wkt::message::Message for ListReasoningEnginesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListReasoningEnginesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListReasoningEnginesResponse {
     type PageItem = crate::model::ReasoningEngine;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -68638,6 +68755,11 @@ pub struct DeleteReasoningEngineRequest {
     /// `projects/{project}/locations/{location}/reasoningEngines/{reasoning_engine}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    /// Optional. If set to true, child resources of this reasoning engine will
+    /// also be deleted. Otherwise, the request will fail with FAILED_PRECONDITION
+    /// error when the reasoning engine has undeleted child resources.
+    pub force: bool,
 }
 
 impl DeleteReasoningEngineRequest {
@@ -68648,6 +68770,12 @@ impl DeleteReasoningEngineRequest {
     /// Sets the value of [name][crate::model::DeleteReasoningEngineRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::DeleteReasoningEngineRequest::force].
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
         self
     }
 }
@@ -69700,7 +69828,8 @@ impl wkt::message::Message for ListSchedulesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListSchedulesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListSchedulesResponse {
     type PageItem = crate::model::Schedule;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -70380,7 +70509,8 @@ impl wkt::message::Message for ListSpecialistPoolsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListSpecialistPoolsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListSpecialistPoolsResponse {
     type PageItem = crate::model::SpecialistPool;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -74121,7 +74251,8 @@ impl wkt::message::Message for ListTensorboardsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTensorboardsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTensorboardsResponse {
     type PageItem = crate::model::Tensorboard;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -74695,7 +74826,8 @@ impl wkt::message::Message for ListTensorboardExperimentsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTensorboardExperimentsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTensorboardExperimentsResponse {
     type PageItem = crate::model::TensorboardExperiment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -75219,7 +75351,8 @@ impl wkt::message::Message for ListTensorboardRunsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTensorboardRunsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTensorboardRunsResponse {
     type PageItem = crate::model::TensorboardRun;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -75663,7 +75796,8 @@ impl wkt::message::Message for ListTensorboardTimeSeriesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTensorboardTimeSeriesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTensorboardTimeSeriesResponse {
     type PageItem = crate::model::TensorboardTimeSeries;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -76246,7 +76380,8 @@ impl wkt::message::Message for ExportTensorboardTimeSeriesDataResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ExportTensorboardTimeSeriesDataResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ExportTensorboardTimeSeriesDataResponse {
     type PageItem = crate::model::TimeSeriesDataPoint;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -81815,6 +81950,38 @@ pub mod file_status {
     }
 }
 
+/// Config for the Vertex AI Search.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct VertexAiSearchConfig {
+    /// Vertex AI Search Serving Config resource full name. For example,
+    /// `projects/{project}/locations/{location}/collections/{collection}/engines/{engine}/servingConfigs/{serving_config}`
+    /// or
+    /// `projects/{project}/locations/{location}/collections/{collection}/dataStores/{data_store}/servingConfigs/{serving_config}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub serving_config: std::string::String,
+}
+
+impl VertexAiSearchConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [serving_config][crate::model::VertexAiSearchConfig::serving_config].
+    pub fn set_serving_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.serving_config = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for VertexAiSearchConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.aiplatform.v1.VertexAiSearchConfig"
+    }
+}
+
 /// RagCorpus status.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -82042,6 +82209,21 @@ impl RagCorpus {
         })
     }
 
+    /// The value of [backend_config][crate::model::RagCorpus::backend_config]
+    /// if it holds a `VertexAiSearchConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_vertex_ai_search_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::VertexAiSearchConfig>> {
+        #[allow(unreachable_patterns)]
+        self.backend_config.as_ref().and_then(|v| match v {
+            crate::model::rag_corpus::BackendConfig::VertexAiSearchConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [backend_config][crate::model::RagCorpus::backend_config]
     /// to hold a `VectorDbConfig`.
     ///
@@ -82055,6 +82237,23 @@ impl RagCorpus {
     ) -> Self {
         self.backend_config = std::option::Option::Some(
             crate::model::rag_corpus::BackendConfig::VectorDbConfig(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [backend_config][crate::model::RagCorpus::backend_config]
+    /// to hold a `VertexAiSearchConfig`.
+    ///
+    /// Note that all the setters affecting `backend_config` are
+    /// mutually exclusive.
+    pub fn set_vertex_ai_search_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::VertexAiSearchConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backend_config = std::option::Option::Some(
+            crate::model::rag_corpus::BackendConfig::VertexAiSearchConfig(v.into()),
         );
         self
     }
@@ -82079,6 +82278,8 @@ pub mod rag_corpus {
     pub enum BackendConfig {
         /// Optional. Immutable. The config for the Vector DBs.
         VectorDbConfig(std::boxed::Box<crate::model::RagVectorDbConfig>),
+        /// Optional. Immutable. The config for the Vertex AI Search.
+        VertexAiSearchConfig(std::boxed::Box<crate::model::VertexAiSearchConfig>),
     }
 }
 
@@ -82389,6 +82590,94 @@ pub mod rag_file {
         JiraSource(std::boxed::Box<crate::model::JiraSource>),
         /// The RagFile is imported from a SharePoint source.
         SharePointSources(std::boxed::Box<crate::model::SharePointSources>),
+    }
+}
+
+/// A RagChunk includes the content of a chunk of a RagFile, and associated
+/// metadata.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct RagChunk {
+    /// The content of the chunk.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub text: std::string::String,
+
+    /// If populated, represents where the chunk starts and ends in the document.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub page_span: std::option::Option<crate::model::rag_chunk::PageSpan>,
+}
+
+impl RagChunk {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [text][crate::model::RagChunk::text].
+    pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.text = v.into();
+        self
+    }
+
+    /// Sets the value of [page_span][crate::model::RagChunk::page_span].
+    pub fn set_page_span<
+        T: std::convert::Into<std::option::Option<crate::model::rag_chunk::PageSpan>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.page_span = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RagChunk {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.aiplatform.v1.RagChunk"
+    }
+}
+
+/// Defines additional types related to [RagChunk].
+pub mod rag_chunk {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents where the chunk starts and ends in the document.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct PageSpan {
+        /// Page where chunk starts in the document. Inclusive. 1-indexed.
+        pub first_page: i32,
+
+        /// Page where chunk ends in the document. Inclusive. 1-indexed.
+        pub last_page: i32,
+    }
+
+    impl PageSpan {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [first_page][crate::model::rag_chunk::PageSpan::first_page].
+        pub fn set_first_page<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.first_page = v.into();
+            self
+        }
+
+        /// Sets the value of [last_page][crate::model::rag_chunk::PageSpan::last_page].
+        pub fn set_last_page<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.last_page = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for PageSpan {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.aiplatform.v1.RagChunk.PageSpan"
+        }
     }
 }
 
@@ -82756,6 +83045,12 @@ pub struct ImportRagFilesConfig {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub partial_failure_sink:
         std::option::Option<crate::model::import_rag_files_config::PartialFailureSink>,
+
+    /// Optional. If provided, all successfully imported files and all partial
+    /// failures are written to the sink.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub import_result_sink:
+        std::option::Option<crate::model::import_rag_files_config::ImportResultSink>,
 }
 
 impl ImportRagFilesConfig {
@@ -83034,6 +83329,85 @@ impl ImportRagFilesConfig {
         );
         self
     }
+
+    /// Sets the value of `import_result_sink`.
+    pub fn set_import_result_sink<
+        T: std::convert::Into<
+                std::option::Option<crate::model::import_rag_files_config::ImportResultSink>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.import_result_sink = v.into();
+        self
+    }
+
+    /// The value of [import_result_sink][crate::model::ImportRagFilesConfig::import_result_sink]
+    /// if it holds a `ImportResultGcsSink`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_import_result_gcs_sink(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
+        #[allow(unreachable_patterns)]
+        self.import_result_sink.as_ref().and_then(|v| match v {
+            crate::model::import_rag_files_config::ImportResultSink::ImportResultGcsSink(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [import_result_sink][crate::model::ImportRagFilesConfig::import_result_sink]
+    /// if it holds a `ImportResultBigquerySink`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_import_result_bigquery_sink(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryDestination>> {
+        #[allow(unreachable_patterns)]
+        self.import_result_sink.as_ref().and_then(|v| match v {
+            crate::model::import_rag_files_config::ImportResultSink::ImportResultBigquerySink(
+                v,
+            ) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [import_result_sink][crate::model::ImportRagFilesConfig::import_result_sink]
+    /// to hold a `ImportResultGcsSink`.
+    ///
+    /// Note that all the setters affecting `import_result_sink` are
+    /// mutually exclusive.
+    pub fn set_import_result_gcs_sink<
+        T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.import_result_sink = std::option::Option::Some(
+            crate::model::import_rag_files_config::ImportResultSink::ImportResultGcsSink(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [import_result_sink][crate::model::ImportRagFilesConfig::import_result_sink]
+    /// to hold a `ImportResultBigquerySink`.
+    ///
+    /// Note that all the setters affecting `import_result_sink` are
+    /// mutually exclusive.
+    pub fn set_import_result_bigquery_sink<
+        T: std::convert::Into<std::boxed::Box<crate::model::BigQueryDestination>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.import_result_sink = std::option::Option::Some(
+            crate::model::import_rag_files_config::ImportResultSink::ImportResultBigquerySink(
+                v.into(),
+            ),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for ImportRagFilesConfig {
@@ -83086,6 +83460,23 @@ pub mod import_rag_files_config {
         /// existing table.
         /// Deprecated. Prefer to use `import_result_bq_sink`.
         PartialFailureBigquerySink(std::boxed::Box<crate::model::BigQueryDestination>),
+    }
+
+    /// Optional. If provided, all successfully imported files and all partial
+    /// failures are written to the sink.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum ImportResultSink {
+        /// The Cloud Storage path to write import result to.
+        ImportResultGcsSink(std::boxed::Box<crate::model::GcsDestination>),
+        /// The BigQuery destination to write import result to. It should be a
+        /// bigquery table resource name (e.g.
+        /// "bq://projectId.bqDatasetId.bqTableId"). The dataset must exist. If the
+        /// table does not exist, it will be created with the expected schema. If the
+        /// table exists, the schema will be validated and data will be added to this
+        /// existing table.
+        ImportResultBigquerySink(std::boxed::Box<crate::model::BigQueryDestination>),
     }
 }
 
@@ -83281,7 +83672,8 @@ impl wkt::message::Message for ListRagCorporaResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListRagCorporaResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRagCorporaResponse {
     type PageItem = crate::model::RagCorpus;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -83860,7 +84252,8 @@ impl wkt::message::Message for ListRagFilesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListRagFilesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRagFilesResponse {
     type PageItem = crate::model::RagFile;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -84469,6 +84862,10 @@ pub mod rag_contexts {
         /// means the most relevant and 2 means the least relevant.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub score: std::option::Option<f64>,
+
+        /// Context of the retrieved chunk.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub chunk: std::option::Option<crate::model::RagChunk>,
     }
 
     impl Context {
@@ -84500,6 +84897,15 @@ pub mod rag_contexts {
         /// Sets the value of [score][crate::model::rag_contexts::Context::score].
         pub fn set_score<T: std::convert::Into<std::option::Option<f64>>>(mut self, v: T) -> Self {
             self.score = v.into();
+            self
+        }
+
+        /// Sets the value of [chunk][crate::model::rag_contexts::Context::chunk].
+        pub fn set_chunk<T: std::convert::Into<std::option::Option<crate::model::RagChunk>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.chunk = v.into();
             self
         }
     }
@@ -84962,6 +85368,10 @@ pub struct Fact {
     /// most relevant and 2 means the least relevant.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub score: std::option::Option<f64>,
+
+    /// If present, chunk properties.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub chunk: std::option::Option<crate::model::RagChunk>,
 }
 
 impl Fact {
@@ -85017,6 +85427,15 @@ impl Fact {
     /// Sets the value of [score][crate::model::Fact::score].
     pub fn set_score<T: std::convert::Into<std::option::Option<f64>>>(mut self, v: T) -> Self {
         self.score = v.into();
+        self
+    }
+
+    /// Sets the value of [chunk][crate::model::Fact::chunk].
+    pub fn set_chunk<T: std::convert::Into<std::option::Option<crate::model::RagChunk>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.chunk = v.into();
         self
     }
 }
@@ -85276,7 +85695,8 @@ impl wkt::message::Message for ListStudiesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListStudiesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListStudiesResponse {
     type PageItem = crate::model::Study;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -85778,7 +86198,8 @@ impl wkt::message::Message for ListTrialsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTrialsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTrialsResponse {
     type PageItem = crate::model::Trial;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

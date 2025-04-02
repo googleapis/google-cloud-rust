@@ -34,8 +34,8 @@ class LanguageService {
 
   final ServiceClient _client;
 
-  LanguageService({required http.Client httpClient})
-      : _client = ServiceClient(httpClient: httpClient);
+  LanguageService({required http.Client client})
+      : _client = ServiceClient(client: client);
 
   /// Analyzes the sentiment of the provided text.
   Future<AnalyzeSentimentResponse> analyzeSentiment(
@@ -384,8 +384,8 @@ class Sentiment extends Message {
 
   factory Sentiment.fromJson(Map<String, dynamic> json) {
     return Sentiment(
-      magnitude: json['magnitude'],
-      score: json['score'],
+      magnitude: (json['magnitude'] as num?)?.toDouble(),
+      score: (json['score'] as num?)?.toDouble(),
     );
   }
 
@@ -443,7 +443,7 @@ class EntityMention extends Message {
       text: decode(json['text'], TextSpan.fromJson),
       type: decode(json['type'], EntityMention$Type.fromJson),
       sentiment: decode(json['sentiment'], Sentiment.fromJson),
-      probability: json['probability'],
+      probability: (json['probability'] as num?)?.toDouble(),
     );
   }
 
@@ -559,8 +559,8 @@ class ClassificationCategory extends Message {
   factory ClassificationCategory.fromJson(Map<String, dynamic> json) {
     return ClassificationCategory(
       name: json['name'],
-      confidence: json['confidence'],
-      severity: json['severity'],
+      confidence: (json['confidence'] as num?)?.toDouble(),
+      severity: (json['severity'] as num?)?.toDouble(),
     );
   }
 

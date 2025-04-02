@@ -19,7 +19,7 @@ library;
 
 import 'dart:io';
 
-import 'package:google_cloud_language/language.dart';
+import 'package:google_cloud_language_v2/language.dart';
 
 import 'package:googleapis_auth/auth_io.dart' as auth;
 
@@ -32,7 +32,7 @@ void main(List<String> args) async {
   final apiKey = args[0];
 
   final client = auth.clientViaApiKey(apiKey);
-  final service = LanguageService(httpClient: client);
+  final service = LanguageService(client: client);
   final document = Document(
     content: 'Hello, world!',
     type: Document$Type.plainText,

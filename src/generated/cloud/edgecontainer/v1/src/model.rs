@@ -3508,7 +3508,8 @@ impl wkt::message::Message for ListClustersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListClustersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListClustersResponse {
     type PageItem = crate::model::Cluster;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4131,7 +4132,8 @@ impl wkt::message::Message for ListNodePoolsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListNodePoolsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListNodePoolsResponse {
     type PageItem = crate::model::NodePool;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4466,7 +4468,8 @@ impl wkt::message::Message for ListMachinesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListMachinesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListMachinesResponse {
     type PageItem = crate::model::Machine;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4636,7 +4639,8 @@ impl wkt::message::Message for ListVpnConnectionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListVpnConnectionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListVpnConnectionsResponse {
     type PageItem = crate::model::VpnConnection;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

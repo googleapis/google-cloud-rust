@@ -69,7 +69,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for a RapidMigrationAssessment::create_collector call.
+    /// The request builder for [RapidMigrationAssessment::create_collector][super::super::client::RapidMigrationAssessment::create_collector] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCollector(RequestBuilder<crate::model::CreateCollectorRequest>);
 
@@ -172,7 +172,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for a RapidMigrationAssessment::create_annotation call.
+    /// The request builder for [RapidMigrationAssessment::create_annotation][super::super::client::RapidMigrationAssessment::create_annotation] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAnnotation(RequestBuilder<crate::model::CreateAnnotationRequest>);
 
@@ -272,7 +272,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for a RapidMigrationAssessment::get_annotation call.
+    /// The request builder for [RapidMigrationAssessment::get_annotation][super::super::client::RapidMigrationAssessment::get_annotation] calls.
     #[derive(Clone, Debug)]
     pub struct GetAnnotation(RequestBuilder<crate::model::GetAnnotationRequest>);
 
@@ -316,7 +316,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for a RapidMigrationAssessment::list_collectors call.
+    /// The request builder for [RapidMigrationAssessment::list_collectors][super::super::client::RapidMigrationAssessment::list_collectors] calls.
     #[derive(Clone, Debug)]
     pub struct ListCollectors(RequestBuilder<crate::model::ListCollectorsRequest>);
 
@@ -399,7 +399,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for a RapidMigrationAssessment::get_collector call.
+    /// The request builder for [RapidMigrationAssessment::get_collector][super::super::client::RapidMigrationAssessment::get_collector] calls.
     #[derive(Clone, Debug)]
     pub struct GetCollector(RequestBuilder<crate::model::GetCollectorRequest>);
 
@@ -443,7 +443,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for a RapidMigrationAssessment::update_collector call.
+    /// The request builder for [RapidMigrationAssessment::update_collector][super::super::client::RapidMigrationAssessment::update_collector] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCollector(RequestBuilder<crate::model::UpdateCollectorRequest>);
 
@@ -543,7 +543,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for a RapidMigrationAssessment::delete_collector call.
+    /// The request builder for [RapidMigrationAssessment::delete_collector][super::super::client::RapidMigrationAssessment::delete_collector] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCollector(RequestBuilder<crate::model::DeleteCollectorRequest>);
 
@@ -631,7 +631,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for a RapidMigrationAssessment::resume_collector call.
+    /// The request builder for [RapidMigrationAssessment::resume_collector][super::super::client::RapidMigrationAssessment::resume_collector] calls.
     #[derive(Clone, Debug)]
     pub struct ResumeCollector(RequestBuilder<crate::model::ResumeCollectorRequest>);
 
@@ -719,7 +719,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for a RapidMigrationAssessment::register_collector call.
+    /// The request builder for [RapidMigrationAssessment::register_collector][super::super::client::RapidMigrationAssessment::register_collector] calls.
     #[derive(Clone, Debug)]
     pub struct RegisterCollector(RequestBuilder<crate::model::RegisterCollectorRequest>);
 
@@ -810,7 +810,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for a RapidMigrationAssessment::pause_collector call.
+    /// The request builder for [RapidMigrationAssessment::pause_collector][super::super::client::RapidMigrationAssessment::pause_collector] calls.
     #[derive(Clone, Debug)]
     pub struct PauseCollector(RequestBuilder<crate::model::PauseCollectorRequest>);
 
@@ -898,7 +898,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for a RapidMigrationAssessment::list_locations call.
+    /// The request builder for [RapidMigrationAssessment::list_locations][super::super::client::RapidMigrationAssessment::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -978,7 +978,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for a RapidMigrationAssessment::get_location call.
+    /// The request builder for [RapidMigrationAssessment::get_location][super::super::client::RapidMigrationAssessment::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1022,7 +1022,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for a RapidMigrationAssessment::list_operations call.
+    /// The request builder for [RapidMigrationAssessment::list_operations][super::super::client::RapidMigrationAssessment::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1102,7 +1102,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for a RapidMigrationAssessment::get_operation call.
+    /// The request builder for [RapidMigrationAssessment::get_operation][super::super::client::RapidMigrationAssessment::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1149,7 +1149,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for a RapidMigrationAssessment::delete_operation call.
+    /// The request builder for [RapidMigrationAssessment::delete_operation][super::super::client::RapidMigrationAssessment::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1196,7 +1196,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for a RapidMigrationAssessment::cancel_operation call.
+    /// The request builder for [RapidMigrationAssessment::cancel_operation][super::super::client::RapidMigrationAssessment::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

@@ -2986,7 +2986,8 @@ impl wkt::message::Message for ListCdnKeysResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCdnKeysResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCdnKeysResponse {
     type PageItem = crate::model::CdnKey;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3272,7 +3273,8 @@ impl wkt::message::Message for ListVodStitchDetailsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListVodStitchDetailsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListVodStitchDetailsResponse {
     type PageItem = crate::model::VodStitchDetail;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3409,7 +3411,8 @@ impl wkt::message::Message for ListVodAdTagDetailsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListVodAdTagDetailsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListVodAdTagDetailsResponse {
     type PageItem = crate::model::VodAdTagDetail;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3546,7 +3549,8 @@ impl wkt::message::Message for ListLiveAdTagDetailsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListLiveAdTagDetailsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListLiveAdTagDetailsResponse {
     type PageItem = crate::model::LiveAdTagDetail;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3826,7 +3830,8 @@ impl wkt::message::Message for ListSlatesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListSlatesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListSlatesResponse {
     type PageItem = crate::model::Slate;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4195,7 +4200,8 @@ impl wkt::message::Message for ListLiveConfigsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListLiveConfigsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListLiveConfigsResponse {
     type PageItem = crate::model::LiveConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4524,7 +4530,8 @@ impl wkt::message::Message for ListVodConfigsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListVodConfigsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListVodConfigsResponse {
     type PageItem = crate::model::VodConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

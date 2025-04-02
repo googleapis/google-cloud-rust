@@ -67,7 +67,7 @@ pub mod language_service {
         }
     }
 
-    /// The request builder for a LanguageService::analyze_sentiment call.
+    /// The request builder for [LanguageService::analyze_sentiment][super::super::client::LanguageService::analyze_sentiment] calls.
     #[derive(Clone, Debug)]
     pub struct AnalyzeSentiment(RequestBuilder<crate::model::AnalyzeSentimentRequest>);
 
@@ -121,7 +121,7 @@ pub mod language_service {
         }
     }
 
-    /// The request builder for a LanguageService::analyze_entities call.
+    /// The request builder for [LanguageService::analyze_entities][super::super::client::LanguageService::analyze_entities] calls.
     #[derive(Clone, Debug)]
     pub struct AnalyzeEntities(RequestBuilder<crate::model::AnalyzeEntitiesRequest>);
 
@@ -172,7 +172,7 @@ pub mod language_service {
         }
     }
 
-    /// The request builder for a LanguageService::classify_text call.
+    /// The request builder for [LanguageService::classify_text][super::super::client::LanguageService::classify_text] calls.
     #[derive(Clone, Debug)]
     pub struct ClassifyText(RequestBuilder<crate::model::ClassifyTextRequest>);
 
@@ -217,7 +217,7 @@ pub mod language_service {
         }
     }
 
-    /// The request builder for a LanguageService::moderate_text call.
+    /// The request builder for [LanguageService::moderate_text][super::super::client::LanguageService::moderate_text] calls.
     #[derive(Clone, Debug)]
     pub struct ModerateText(RequestBuilder<crate::model::ModerateTextRequest>);
 
@@ -271,7 +271,7 @@ pub mod language_service {
         }
     }
 
-    /// The request builder for a LanguageService::annotate_text call.
+    /// The request builder for [LanguageService::annotate_text][super::super::client::LanguageService::annotate_text] calls.
     #[derive(Clone, Debug)]
     pub struct AnnotateText(RequestBuilder<crate::model::AnnotateTextRequest>);
 

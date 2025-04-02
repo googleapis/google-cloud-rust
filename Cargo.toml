@@ -28,6 +28,14 @@ default-members = [
   "src/root",
   "src/wkt",
   "tools/check-copyright",
+  # We need `cargo test` to run at least some documentation tests for generated
+  # libraries. These libraries are implicitly required by the integration tests
+  # and samples, so they are not too expensive to include in the default builds.
+  "src/generated/cloud/language/v2",
+  "src/generated/cloud/secretmanager/v1",
+  "src/generated/cloud/speech/v2",
+  "src/generated/cloud/workflows/v1",
+  "src/generated/openapi-validation",
 ]
 members = [
   "guide/samples",
@@ -165,6 +173,7 @@ members = [
   "src/generated/cloud/servicehealth/v1",
   "src/generated/cloud/shell/v1",
   "src/generated/cloud/speech/v2",
+  "src/generated/cloud/storagebatchoperations/v1",
   "src/generated/cloud/storageinsights/v1",
   "src/generated/cloud/support/v2",
   "src/generated/cloud/talent/v4",

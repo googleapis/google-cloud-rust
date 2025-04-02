@@ -948,7 +948,8 @@ impl wkt::message::Message for ListGatewaysResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListGatewaysResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListGatewaysResponse {
     type PageItem = crate::model::Gateway;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1252,7 +1253,8 @@ impl wkt::message::Message for ListApisResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListApisResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListApisResponse {
     type PageItem = crate::model::Api;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1556,7 +1558,8 @@ impl wkt::message::Message for ListApiConfigsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListApiConfigsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListApiConfigsResponse {
     type PageItem = crate::model::ApiConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

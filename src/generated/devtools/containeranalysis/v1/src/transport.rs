@@ -33,7 +33,7 @@ impl std::fmt::Debug for ContainerAnalysis {
 }
 
 impl ContainerAnalysis {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -121,5 +121,25 @@ impl super::stub::ContainerAnalysis for ContainerAnalysis {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+    }
+
+    async fn export_sbom(
+        &self,
+        req: crate::model::ExportSBOMRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::ExportSBOMResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                format!("/v1/{}:exportSBOM", req.name),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req), options).await
     }
 }

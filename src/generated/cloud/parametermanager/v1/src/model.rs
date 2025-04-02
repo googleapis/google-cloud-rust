@@ -62,6 +62,14 @@ pub struct Parameter {
     /// resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub policy_member: std::option::Option<iam_v1::model::ResourcePolicyMember>,
+
+    /// Optional. Customer managed encryption key (CMEK) to use for encrypting the
+    /// Parameter Versions. If not set, the default Google-managed encryption key
+    /// will be used. Cloud KMS CryptoKeys must reside in the same location as the
+    /// Parameter. The expected format is
+    /// `projects/*/locations/*/keyRings/*/cryptoKeys/*`.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub kms_key: std::option::Option<std::string::String>,
 }
 
 impl Parameter {
@@ -110,6 +118,15 @@ impl Parameter {
         v: T,
     ) -> Self {
         self.policy_member = v.into();
+        self
+    }
+
+    /// Sets the value of [kms_key][crate::model::Parameter::kms_key].
+    pub fn set_kms_key<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.kms_key = v.into();
         self
     }
 
@@ -261,7 +278,8 @@ impl wkt::message::Message for ListParametersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListParametersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListParametersResponse {
     type PageItem = crate::model::Parameter;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -534,6 +552,13 @@ pub struct ParameterVersion {
     /// for GET request).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub payload: std::option::Option<crate::model::ParameterVersionPayload>,
+
+    /// Optional. Output only. [Output only] The resource name of the KMS key
+    /// version used to encrypt the ParameterVersion payload. This field is
+    /// populated only if the Parameter resource has customer managed encryption
+    /// key (CMEK) configured.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub kms_key_version: std::option::Option<std::string::String>,
 }
 
 impl ParameterVersion {
@@ -579,6 +604,15 @@ impl ParameterVersion {
         v: T,
     ) -> Self {
         self.payload = v.into();
+        self
+    }
+
+    /// Sets the value of [kms_key_version][crate::model::ParameterVersion::kms_key_version].
+    pub fn set_kms_key_version<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.kms_key_version = v.into();
         self
     }
 }
@@ -748,7 +782,8 @@ impl wkt::message::Message for ListParameterVersionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListParameterVersionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListParameterVersionsResponse {
     type PageItem = crate::model::ParameterVersion;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -848,7 +883,7 @@ pub struct RenderParameterVersionResponse {
 
     /// Output only. Server generated rendered version of the user provided payload
     /// data (ParameterVersionPayload) which has substitutions of all (if any)
-    /// references to a SecretManager SecretVersion resources. This substituion
+    /// references to a SecretManager SecretVersion resources. This substitution
     /// only works for a Parameter which is in JSON or YAML format.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]

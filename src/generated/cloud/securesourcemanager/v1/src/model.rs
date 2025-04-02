@@ -1198,7 +1198,8 @@ impl wkt::message::Message for ListInstancesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListInstancesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListInstancesResponse {
     type PageItem = crate::model::Instance;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1583,7 +1584,8 @@ impl wkt::message::Message for ListRepositoriesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListRepositoriesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRepositoriesResponse {
     type PageItem = crate::model::Repository;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1988,7 +1990,8 @@ impl wkt::message::Message for ListBranchRulesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListBranchRulesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBranchRulesResponse {
     type PageItem = crate::model::BranchRule;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

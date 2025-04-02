@@ -67,7 +67,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::list_cloud_exadata_infrastructures call.
+    /// The request builder for [OracleDatabase::list_cloud_exadata_infrastructures][super::super::client::OracleDatabase::list_cloud_exadata_infrastructures] calls.
     #[derive(Clone, Debug)]
     pub struct ListCloudExadataInfrastructures(
         RequestBuilder<crate::model::ListCloudExadataInfrastructuresRequest>,
@@ -143,7 +143,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::get_cloud_exadata_infrastructure call.
+    /// The request builder for [OracleDatabase::get_cloud_exadata_infrastructure][super::super::client::OracleDatabase::get_cloud_exadata_infrastructure] calls.
     #[derive(Clone, Debug)]
     pub struct GetCloudExadataInfrastructure(
         RequestBuilder<crate::model::GetCloudExadataInfrastructureRequest>,
@@ -190,7 +190,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::create_cloud_exadata_infrastructure call.
+    /// The request builder for [OracleDatabase::create_cloud_exadata_infrastructure][super::super::client::OracleDatabase::create_cloud_exadata_infrastructure] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCloudExadataInfrastructure(
         RequestBuilder<crate::model::CreateCloudExadataInfrastructureRequest>,
@@ -304,7 +304,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::delete_cloud_exadata_infrastructure call.
+    /// The request builder for [OracleDatabase::delete_cloud_exadata_infrastructure][super::super::client::OracleDatabase::delete_cloud_exadata_infrastructure] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCloudExadataInfrastructure(
         RequestBuilder<crate::model::DeleteCloudExadataInfrastructureRequest>,
@@ -398,7 +398,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::list_cloud_vm_clusters call.
+    /// The request builder for [OracleDatabase::list_cloud_vm_clusters][super::super::client::OracleDatabase::list_cloud_vm_clusters] calls.
     #[derive(Clone, Debug)]
     pub struct ListCloudVmClusters(RequestBuilder<crate::model::ListCloudVmClustersRequest>);
 
@@ -476,7 +476,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::get_cloud_vm_cluster call.
+    /// The request builder for [OracleDatabase::get_cloud_vm_cluster][super::super::client::OracleDatabase::get_cloud_vm_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct GetCloudVmCluster(RequestBuilder<crate::model::GetCloudVmClusterRequest>);
 
@@ -521,7 +521,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::create_cloud_vm_cluster call.
+    /// The request builder for [OracleDatabase::create_cloud_vm_cluster][super::super::client::OracleDatabase::create_cloud_vm_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCloudVmCluster(RequestBuilder<crate::model::CreateCloudVmClusterRequest>);
 
@@ -626,7 +626,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::delete_cloud_vm_cluster call.
+    /// The request builder for [OracleDatabase::delete_cloud_vm_cluster][super::super::client::OracleDatabase::delete_cloud_vm_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCloudVmCluster(RequestBuilder<crate::model::DeleteCloudVmClusterRequest>);
 
@@ -718,7 +718,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::list_entitlements call.
+    /// The request builder for [OracleDatabase::list_entitlements][super::super::client::OracleDatabase::list_entitlements] calls.
     #[derive(Clone, Debug)]
     pub struct ListEntitlements(RequestBuilder<crate::model::ListEntitlementsRequest>);
 
@@ -790,7 +790,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::list_db_servers call.
+    /// The request builder for [OracleDatabase::list_db_servers][super::super::client::OracleDatabase::list_db_servers] calls.
     #[derive(Clone, Debug)]
     pub struct ListDbServers(RequestBuilder<crate::model::ListDbServersRequest>);
 
@@ -859,7 +859,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::list_db_nodes call.
+    /// The request builder for [OracleDatabase::list_db_nodes][super::super::client::OracleDatabase::list_db_nodes] calls.
     #[derive(Clone, Debug)]
     pub struct ListDbNodes(RequestBuilder<crate::model::ListDbNodesRequest>);
 
@@ -928,7 +928,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::list_gi_versions call.
+    /// The request builder for [OracleDatabase::list_gi_versions][super::super::client::OracleDatabase::list_gi_versions] calls.
     #[derive(Clone, Debug)]
     pub struct ListGiVersions(RequestBuilder<crate::model::ListGiVersionsRequest>);
 
@@ -997,7 +997,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::list_db_system_shapes call.
+    /// The request builder for [OracleDatabase::list_db_system_shapes][super::super::client::OracleDatabase::list_db_system_shapes] calls.
     #[derive(Clone, Debug)]
     pub struct ListDbSystemShapes(RequestBuilder<crate::model::ListDbSystemShapesRequest>);
 
@@ -1069,7 +1069,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::list_autonomous_databases call.
+    /// The request builder for [OracleDatabase::list_autonomous_databases][super::super::client::OracleDatabase::list_autonomous_databases] calls.
     #[derive(Clone, Debug)]
     pub struct ListAutonomousDatabases(
         RequestBuilder<crate::model::ListAutonomousDatabasesRequest>,
@@ -1157,7 +1157,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::get_autonomous_database call.
+    /// The request builder for [OracleDatabase::get_autonomous_database][super::super::client::OracleDatabase::get_autonomous_database] calls.
     #[derive(Clone, Debug)]
     pub struct GetAutonomousDatabase(RequestBuilder<crate::model::GetAutonomousDatabaseRequest>);
 
@@ -1202,7 +1202,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::create_autonomous_database call.
+    /// The request builder for [OracleDatabase::create_autonomous_database][super::super::client::OracleDatabase::create_autonomous_database] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAutonomousDatabase(
         RequestBuilder<crate::model::CreateAutonomousDatabaseRequest>,
@@ -1311,7 +1311,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::delete_autonomous_database call.
+    /// The request builder for [OracleDatabase::delete_autonomous_database][super::super::client::OracleDatabase::delete_autonomous_database] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAutonomousDatabase(
         RequestBuilder<crate::model::DeleteAutonomousDatabaseRequest>,
@@ -1399,7 +1399,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::restore_autonomous_database call.
+    /// The request builder for [OracleDatabase::restore_autonomous_database][super::super::client::OracleDatabase::restore_autonomous_database] calls.
     #[derive(Clone, Debug)]
     pub struct RestoreAutonomousDatabase(
         RequestBuilder<crate::model::RestoreAutonomousDatabaseRequest>,
@@ -1494,7 +1494,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::generate_autonomous_database_wallet call.
+    /// The request builder for [OracleDatabase::generate_autonomous_database_wallet][super::super::client::OracleDatabase::generate_autonomous_database_wallet] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateAutonomousDatabaseWallet(
         RequestBuilder<crate::model::GenerateAutonomousDatabaseWalletRequest>,
@@ -1559,7 +1559,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::list_autonomous_db_versions call.
+    /// The request builder for [OracleDatabase::list_autonomous_db_versions][super::super::client::OracleDatabase::list_autonomous_db_versions] calls.
     #[derive(Clone, Debug)]
     pub struct ListAutonomousDbVersions(
         RequestBuilder<crate::model::ListAutonomousDbVersionsRequest>,
@@ -1635,7 +1635,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::list_autonomous_database_character_sets call.
+    /// The request builder for [OracleDatabase::list_autonomous_database_character_sets][super::super::client::OracleDatabase::list_autonomous_database_character_sets] calls.
     #[derive(Clone, Debug)]
     pub struct ListAutonomousDatabaseCharacterSets(
         RequestBuilder<crate::model::ListAutonomousDatabaseCharacterSetsRequest>,
@@ -1719,7 +1719,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::list_autonomous_database_backups call.
+    /// The request builder for [OracleDatabase::list_autonomous_database_backups][super::super::client::OracleDatabase::list_autonomous_database_backups] calls.
     #[derive(Clone, Debug)]
     pub struct ListAutonomousDatabaseBackups(
         RequestBuilder<crate::model::ListAutonomousDatabaseBackupsRequest>,
@@ -1801,7 +1801,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::list_locations call.
+    /// The request builder for [OracleDatabase::list_locations][super::super::client::OracleDatabase::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1879,7 +1879,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::get_location call.
+    /// The request builder for [OracleDatabase::get_location][super::super::client::OracleDatabase::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1921,7 +1921,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::list_operations call.
+    /// The request builder for [OracleDatabase::list_operations][super::super::client::OracleDatabase::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1999,7 +1999,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::get_operation call.
+    /// The request builder for [OracleDatabase::get_operation][super::super::client::OracleDatabase::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2044,7 +2044,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::delete_operation call.
+    /// The request builder for [OracleDatabase::delete_operation][super::super::client::OracleDatabase::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2089,7 +2089,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for a OracleDatabase::cancel_operation call.
+    /// The request builder for [OracleDatabase::cancel_operation][super::super::client::OracleDatabase::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

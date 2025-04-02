@@ -67,7 +67,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::list_connections call.
+    /// The request builder for [Connectors::list_connections][super::super::client::Connectors::list_connections] calls.
     #[derive(Clone, Debug)]
     pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
 
@@ -154,7 +154,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::get_connection call.
+    /// The request builder for [Connectors::get_connection][super::super::client::Connectors::get_connection] calls.
     #[derive(Clone, Debug)]
     pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
 
@@ -202,7 +202,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::create_connection call.
+    /// The request builder for [Connectors::create_connection][super::super::client::Connectors::create_connection] calls.
     #[derive(Clone, Debug)]
     pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
 
@@ -300,7 +300,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::update_connection call.
+    /// The request builder for [Connectors::update_connection][super::super::client::Connectors::update_connection] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
 
@@ -395,7 +395,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::delete_connection call.
+    /// The request builder for [Connectors::delete_connection][super::super::client::Connectors::delete_connection] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
 
@@ -475,7 +475,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::list_providers call.
+    /// The request builder for [Connectors::list_providers][super::super::client::Connectors::list_providers] calls.
     #[derive(Clone, Debug)]
     pub struct ListProviders(RequestBuilder<crate::model::ListProvidersRequest>);
 
@@ -544,7 +544,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::get_provider call.
+    /// The request builder for [Connectors::get_provider][super::super::client::Connectors::get_provider] calls.
     #[derive(Clone, Debug)]
     pub struct GetProvider(RequestBuilder<crate::model::GetProviderRequest>);
 
@@ -586,7 +586,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::list_connectors call.
+    /// The request builder for [Connectors::list_connectors][super::super::client::Connectors::list_connectors] calls.
     #[derive(Clone, Debug)]
     pub struct ListConnectors(RequestBuilder<crate::model::ListConnectorsRequest>);
 
@@ -655,7 +655,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::get_connector call.
+    /// The request builder for [Connectors::get_connector][super::super::client::Connectors::get_connector] calls.
     #[derive(Clone, Debug)]
     pub struct GetConnector(RequestBuilder<crate::model::GetConnectorRequest>);
 
@@ -697,7 +697,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::list_connector_versions call.
+    /// The request builder for [Connectors::list_connector_versions][super::super::client::Connectors::list_connector_versions] calls.
     #[derive(Clone, Debug)]
     pub struct ListConnectorVersions(RequestBuilder<crate::model::ListConnectorVersionsRequest>);
 
@@ -775,7 +775,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::get_connector_version call.
+    /// The request builder for [Connectors::get_connector_version][super::super::client::Connectors::get_connector_version] calls.
     #[derive(Clone, Debug)]
     pub struct GetConnectorVersion(RequestBuilder<crate::model::GetConnectorVersionRequest>);
 
@@ -826,7 +826,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::get_connection_schema_metadata call.
+    /// The request builder for [Connectors::get_connection_schema_metadata][super::super::client::Connectors::get_connection_schema_metadata] calls.
     #[derive(Clone, Debug)]
     pub struct GetConnectionSchemaMetadata(
         RequestBuilder<crate::model::GetConnectionSchemaMetadataRequest>,
@@ -873,7 +873,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::refresh_connection_schema_metadata call.
+    /// The request builder for [Connectors::refresh_connection_schema_metadata][super::super::client::Connectors::refresh_connection_schema_metadata] calls.
     #[derive(Clone, Debug)]
     pub struct RefreshConnectionSchemaMetadata(
         RequestBuilder<crate::model::RefreshConnectionSchemaMetadataRequest>,
@@ -961,7 +961,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::list_runtime_entity_schemas call.
+    /// The request builder for [Connectors::list_runtime_entity_schemas][super::super::client::Connectors::list_runtime_entity_schemas] calls.
     #[derive(Clone, Debug)]
     pub struct ListRuntimeEntitySchemas(
         RequestBuilder<crate::model::ListRuntimeEntitySchemasRequest>,
@@ -1043,7 +1043,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::list_runtime_action_schemas call.
+    /// The request builder for [Connectors::list_runtime_action_schemas][super::super::client::Connectors::list_runtime_action_schemas] calls.
     #[derive(Clone, Debug)]
     pub struct ListRuntimeActionSchemas(
         RequestBuilder<crate::model::ListRuntimeActionSchemasRequest>,
@@ -1125,7 +1125,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::get_runtime_config call.
+    /// The request builder for [Connectors::get_runtime_config][super::super::client::Connectors::get_runtime_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetRuntimeConfig(RequestBuilder<crate::model::GetRuntimeConfigRequest>);
 
@@ -1170,7 +1170,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::get_global_settings call.
+    /// The request builder for [Connectors::get_global_settings][super::super::client::Connectors::get_global_settings] calls.
     #[derive(Clone, Debug)]
     pub struct GetGlobalSettings(RequestBuilder<crate::model::GetGlobalSettingsRequest>);
 
@@ -1215,7 +1215,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::list_locations call.
+    /// The request builder for [Connectors::list_locations][super::super::client::Connectors::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1293,7 +1293,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::get_location call.
+    /// The request builder for [Connectors::get_location][super::super::client::Connectors::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1335,7 +1335,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::set_iam_policy call.
+    /// The request builder for [Connectors::set_iam_policy][super::super::client::Connectors::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1395,7 +1395,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::get_iam_policy call.
+    /// The request builder for [Connectors::get_iam_policy][super::super::client::Connectors::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1446,7 +1446,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::test_iam_permissions call.
+    /// The request builder for [Connectors::test_iam_permissions][super::super::client::Connectors::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1502,7 +1502,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::list_operations call.
+    /// The request builder for [Connectors::list_operations][super::super::client::Connectors::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1580,7 +1580,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::get_operation call.
+    /// The request builder for [Connectors::get_operation][super::super::client::Connectors::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1625,7 +1625,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::delete_operation call.
+    /// The request builder for [Connectors::delete_operation][super::super::client::Connectors::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1670,7 +1670,7 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for a Connectors::cancel_operation call.
+    /// The request builder for [Connectors::cancel_operation][super::super::client::Connectors::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

@@ -1639,7 +1639,8 @@ impl wkt::message::Message for ListMigrationWorkflowsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListMigrationWorkflowsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListMigrationWorkflowsResponse {
     type PageItem = crate::model::MigrationWorkflow;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1879,7 +1880,8 @@ impl wkt::message::Message for ListMigrationSubtasksResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListMigrationSubtasksResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListMigrationSubtasksResponse {
     type PageItem = crate::model::MigrationSubtask;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

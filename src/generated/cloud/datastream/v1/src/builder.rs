@@ -67,7 +67,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::list_connection_profiles call.
+    /// The request builder for [Datastream::list_connection_profiles][super::super::client::Datastream::list_connection_profiles] calls.
     #[derive(Clone, Debug)]
     pub struct ListConnectionProfiles(RequestBuilder<crate::model::ListConnectionProfilesRequest>);
 
@@ -153,7 +153,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::get_connection_profile call.
+    /// The request builder for [Datastream::get_connection_profile][super::super::client::Datastream::get_connection_profile] calls.
     #[derive(Clone, Debug)]
     pub struct GetConnectionProfile(RequestBuilder<crate::model::GetConnectionProfileRequest>);
 
@@ -198,7 +198,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::create_connection_profile call.
+    /// The request builder for [Datastream::create_connection_profile][super::super::client::Datastream::create_connection_profile] calls.
     #[derive(Clone, Debug)]
     pub struct CreateConnectionProfile(
         RequestBuilder<crate::model::CreateConnectionProfileRequest>,
@@ -319,7 +319,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::update_connection_profile call.
+    /// The request builder for [Datastream::update_connection_profile][super::super::client::Datastream::update_connection_profile] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateConnectionProfile(
         RequestBuilder<crate::model::UpdateConnectionProfileRequest>,
@@ -437,7 +437,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::delete_connection_profile call.
+    /// The request builder for [Datastream::delete_connection_profile][super::super::client::Datastream::delete_connection_profile] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteConnectionProfile(
         RequestBuilder<crate::model::DeleteConnectionProfileRequest>,
@@ -525,7 +525,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::discover_connection_profile call.
+    /// The request builder for [Datastream::discover_connection_profile][super::super::client::Datastream::discover_connection_profile] calls.
     #[derive(Clone, Debug)]
     pub struct DiscoverConnectionProfile(
         RequestBuilder<crate::model::DiscoverConnectionProfileRequest>,
@@ -605,7 +605,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::list_streams call.
+    /// The request builder for [Datastream::list_streams][super::super::client::Datastream::list_streams] calls.
     #[derive(Clone, Debug)]
     pub struct ListStreams(RequestBuilder<crate::model::ListStreamsRequest>);
 
@@ -686,7 +686,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::get_stream call.
+    /// The request builder for [Datastream::get_stream][super::super::client::Datastream::get_stream] calls.
     #[derive(Clone, Debug)]
     pub struct GetStream(RequestBuilder<crate::model::GetStreamRequest>);
 
@@ -728,7 +728,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::create_stream call.
+    /// The request builder for [Datastream::create_stream][super::super::client::Datastream::create_stream] calls.
     #[derive(Clone, Debug)]
     pub struct CreateStream(RequestBuilder<crate::model::CreateStreamRequest>);
 
@@ -840,7 +840,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::update_stream call.
+    /// The request builder for [Datastream::update_stream][super::super::client::Datastream::update_stream] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateStream(RequestBuilder<crate::model::UpdateStreamRequest>);
 
@@ -949,7 +949,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::delete_stream call.
+    /// The request builder for [Datastream::delete_stream][super::super::client::Datastream::delete_stream] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteStream(RequestBuilder<crate::model::DeleteStreamRequest>);
 
@@ -1032,7 +1032,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::run_stream call.
+    /// The request builder for [Datastream::run_stream][super::super::client::Datastream::run_stream] calls.
     #[derive(Clone, Debug)]
     pub struct RunStream(RequestBuilder<crate::model::RunStreamRequest>);
 
@@ -1126,7 +1126,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::get_stream_object call.
+    /// The request builder for [Datastream::get_stream_object][super::super::client::Datastream::get_stream_object] calls.
     #[derive(Clone, Debug)]
     pub struct GetStreamObject(RequestBuilder<crate::model::GetStreamObjectRequest>);
 
@@ -1168,7 +1168,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::lookup_stream_object call.
+    /// The request builder for [Datastream::lookup_stream_object][super::super::client::Datastream::lookup_stream_object] calls.
     #[derive(Clone, Debug)]
     pub struct LookupStreamObject(RequestBuilder<crate::model::LookupStreamObjectRequest>);
 
@@ -1224,7 +1224,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::list_stream_objects call.
+    /// The request builder for [Datastream::list_stream_objects][super::super::client::Datastream::list_stream_objects] calls.
     #[derive(Clone, Debug)]
     pub struct ListStreamObjects(RequestBuilder<crate::model::ListStreamObjectsRequest>);
 
@@ -1296,7 +1296,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::start_backfill_job call.
+    /// The request builder for [Datastream::start_backfill_job][super::super::client::Datastream::start_backfill_job] calls.
     #[derive(Clone, Debug)]
     pub struct StartBackfillJob(RequestBuilder<crate::model::StartBackfillJobRequest>);
 
@@ -1341,7 +1341,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::stop_backfill_job call.
+    /// The request builder for [Datastream::stop_backfill_job][super::super::client::Datastream::stop_backfill_job] calls.
     #[derive(Clone, Debug)]
     pub struct StopBackfillJob(RequestBuilder<crate::model::StopBackfillJobRequest>);
 
@@ -1383,7 +1383,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::fetch_static_ips call.
+    /// The request builder for [Datastream::fetch_static_ips][super::super::client::Datastream::fetch_static_ips] calls.
     #[derive(Clone, Debug)]
     pub struct FetchStaticIps(RequestBuilder<crate::model::FetchStaticIpsRequest>);
 
@@ -1437,7 +1437,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::create_private_connection call.
+    /// The request builder for [Datastream::create_private_connection][super::super::client::Datastream::create_private_connection] calls.
     #[derive(Clone, Debug)]
     pub struct CreatePrivateConnection(
         RequestBuilder<crate::model::CreatePrivateConnectionRequest>,
@@ -1552,7 +1552,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::get_private_connection call.
+    /// The request builder for [Datastream::get_private_connection][super::super::client::Datastream::get_private_connection] calls.
     #[derive(Clone, Debug)]
     pub struct GetPrivateConnection(RequestBuilder<crate::model::GetPrivateConnectionRequest>);
 
@@ -1597,7 +1597,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::list_private_connections call.
+    /// The request builder for [Datastream::list_private_connections][super::super::client::Datastream::list_private_connections] calls.
     #[derive(Clone, Debug)]
     pub struct ListPrivateConnections(RequestBuilder<crate::model::ListPrivateConnectionsRequest>);
 
@@ -1683,7 +1683,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::delete_private_connection call.
+    /// The request builder for [Datastream::delete_private_connection][super::super::client::Datastream::delete_private_connection] calls.
     #[derive(Clone, Debug)]
     pub struct DeletePrivateConnection(
         RequestBuilder<crate::model::DeletePrivateConnectionRequest>,
@@ -1777,7 +1777,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::create_route call.
+    /// The request builder for [Datastream::create_route][super::super::client::Datastream::create_route] calls.
     #[derive(Clone, Debug)]
     pub struct CreateRoute(RequestBuilder<crate::model::CreateRouteRequest>);
 
@@ -1877,7 +1877,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::get_route call.
+    /// The request builder for [Datastream::get_route][super::super::client::Datastream::get_route] calls.
     #[derive(Clone, Debug)]
     pub struct GetRoute(RequestBuilder<crate::model::GetRouteRequest>);
 
@@ -1919,7 +1919,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::list_routes call.
+    /// The request builder for [Datastream::list_routes][super::super::client::Datastream::list_routes] calls.
     #[derive(Clone, Debug)]
     pub struct ListRoutes(RequestBuilder<crate::model::ListRoutesRequest>);
 
@@ -2000,7 +2000,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::delete_route call.
+    /// The request builder for [Datastream::delete_route][super::super::client::Datastream::delete_route] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteRoute(RequestBuilder<crate::model::DeleteRouteRequest>);
 
@@ -2083,7 +2083,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::list_locations call.
+    /// The request builder for [Datastream::list_locations][super::super::client::Datastream::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -2161,7 +2161,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::get_location call.
+    /// The request builder for [Datastream::get_location][super::super::client::Datastream::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -2203,7 +2203,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::list_operations call.
+    /// The request builder for [Datastream::list_operations][super::super::client::Datastream::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2281,7 +2281,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::get_operation call.
+    /// The request builder for [Datastream::get_operation][super::super::client::Datastream::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2326,7 +2326,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::delete_operation call.
+    /// The request builder for [Datastream::delete_operation][super::super::client::Datastream::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2371,7 +2371,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for a Datastream::cancel_operation call.
+    /// The request builder for [Datastream::cancel_operation][super::super::client::Datastream::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

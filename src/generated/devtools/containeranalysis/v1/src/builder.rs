@@ -67,7 +67,7 @@ pub mod container_analysis {
         }
     }
 
-    /// The request builder for a ContainerAnalysis::set_iam_policy call.
+    /// The request builder for [ContainerAnalysis::set_iam_policy][super::super::client::ContainerAnalysis::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -127,7 +127,7 @@ pub mod container_analysis {
         }
     }
 
-    /// The request builder for a ContainerAnalysis::get_iam_policy call.
+    /// The request builder for [ContainerAnalysis::get_iam_policy][super::super::client::ContainerAnalysis::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -178,7 +178,7 @@ pub mod container_analysis {
         }
     }
 
-    /// The request builder for a ContainerAnalysis::test_iam_permissions call.
+    /// The request builder for [ContainerAnalysis::test_iam_permissions][super::super::client::ContainerAnalysis::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -234,7 +234,7 @@ pub mod container_analysis {
         }
     }
 
-    /// The request builder for a ContainerAnalysis::get_vulnerability_occurrences_summary call.
+    /// The request builder for [ContainerAnalysis::get_vulnerability_occurrences_summary][super::super::client::ContainerAnalysis::get_vulnerability_occurrences_summary] calls.
     #[derive(Clone, Debug)]
     pub struct GetVulnerabilityOccurrencesSummary(
         RequestBuilder<crate::model::GetVulnerabilityOccurrencesSummaryRequest>,
@@ -282,6 +282,57 @@ pub mod container_analysis {
 
     #[doc(hidden)]
     impl gax::options::internal::RequestBuilder for GetVulnerabilityOccurrencesSummary {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [ContainerAnalysis::export_sbom][super::super::client::ContainerAnalysis::export_sbom] calls.
+    #[derive(Clone, Debug)]
+    pub struct ExportSBOM(RequestBuilder<crate::model::ExportSBOMRequest>);
+
+    impl ExportSBOM {
+        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContainerAnalysis>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ExportSBOMRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ExportSBOMResponse> {
+            (*self.0.stub)
+                .export_sbom(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [name][crate::model::ExportSBOMRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of `target`.
+        pub fn set_target<T: Into<Option<crate::model::export_sbom_request::Target>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.target = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ExportSBOM {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

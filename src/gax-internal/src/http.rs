@@ -40,9 +40,9 @@ pub struct ReqwestClient {
 }
 
 impl ReqwestClient {
-    pub async fn new(config: gax::options::ClientConfig, default_endpoint: &str) -> Result<Self> {
+    pub async fn new(config: crate::options::ClientConfig, default_endpoint: &str) -> Result<Self> {
         let inner = reqwest::Client::new();
-        let cred = if let Some(c) = config.credential().clone() {
+        let cred = if let Some(c) = config.cred.clone() {
             c
         } else {
             create_access_token_credential()
@@ -50,18 +50,17 @@ impl ReqwestClient {
                 .map_err(Error::authentication)?
         };
         let endpoint = config
-            .endpoint()
-            .clone()
+            .endpoint
             .unwrap_or_else(|| default_endpoint.to_string());
         Ok(Self {
             inner,
             cred,
             endpoint,
-            retry_policy: config.retry_policy().clone(),
-            backoff_policy: config.backoff_policy().clone(),
-            retry_throttler: config.retry_throttler(),
-            polling_error_policy: config.polling_error_policy().clone(),
-            polling_backoff_policy: config.polling_backoff_policy().clone(),
+            retry_policy: config.retry_policy,
+            backoff_policy: config.backoff_policy,
+            retry_throttler: config.retry_throttler,
+            polling_error_policy: config.polling_error_policy,
+            polling_backoff_policy: config.polling_backoff_policy,
         })
     }
 

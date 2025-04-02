@@ -27,6 +27,7 @@ extern crate location;
 extern crate longrunning;
 extern crate lro;
 extern crate reqwest;
+extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -62,10 +63,12 @@ pub struct OperationMetadata {
 
     /// Output only. Identifies whether the user has requested cancellation
     /// of the operation. Operations that have been cancelled successfully
-    /// have [Operation.error][] value with a
-    /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
-    /// `Code.CANCELLED`.
+    /// have
+    /// [google.longrunning.Operation.error][google.longrunning.Operation.error]
+    /// value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
+    /// corresponding to `Code.CANCELLED`.
     ///
+    /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
     pub requested_cancellation: bool,
 
@@ -134,6 +137,3101 @@ impl wkt::message::Message for OperationMetadata {
     }
 }
 
+/// The ServiceConnectionMap resource.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ServiceConnectionMap {
+    /// Immutable. The name of a ServiceConnectionMap.
+    /// Format:
+    /// projects/{project}/locations/{location}/serviceConnectionMaps/{service_connection_map}
+    /// See: <https://google.aip.dev/122#fields-representing-resource-names>
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Output only. Time when the ServiceConnectionMap was created.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Time when the ServiceConnectionMap was updated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// User-defined labels.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// A description of this resource.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub description: std::string::String,
+
+    /// The service class identifier this ServiceConnectionMap is for.
+    /// The user of ServiceConnectionMap create API needs to have
+    /// networkconnecitivty.serviceclasses.use iam permission for the service
+    /// class.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub service_class: std::string::String,
+
+    /// Output only. The service class uri this ServiceConnectionMap is for.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub service_class_uri: std::string::String,
+
+    /// Output only. The infrastructure used for connections between
+    /// consumers/producers.
+    pub infrastructure: crate::model::Infrastructure,
+
+    /// The PSC configurations on producer side.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub producer_psc_configs:
+        std::vec::Vec<crate::model::service_connection_map::ProducerPscConfig>,
+
+    /// The PSC configurations on consumer side.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub consumer_psc_configs:
+        std::vec::Vec<crate::model::service_connection_map::ConsumerPscConfig>,
+
+    /// Output only. PSC connection details on consumer side.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub consumer_psc_connections:
+        std::vec::Vec<crate::model::service_connection_map::ConsumerPscConnection>,
+
+    /// The token provided by the consumer. This token authenticates that the
+    /// consumer can create a connection within the specified project and network.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub token: std::string::String,
+
+    /// Optional. The etag is computed by the server, and may be sent on update and
+    /// delete requests to ensure the client has an up-to-date value before
+    /// proceeding.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub etag: std::option::Option<std::string::String>,
+}
+
+impl ServiceConnectionMap {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ServiceConnectionMap::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::ServiceConnectionMap::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::ServiceConnectionMap::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::ServiceConnectionMap::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [service_class][crate::model::ServiceConnectionMap::service_class].
+    pub fn set_service_class<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.service_class = v.into();
+        self
+    }
+
+    /// Sets the value of [service_class_uri][crate::model::ServiceConnectionMap::service_class_uri].
+    pub fn set_service_class_uri<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.service_class_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [infrastructure][crate::model::ServiceConnectionMap::infrastructure].
+    pub fn set_infrastructure<T: std::convert::Into<crate::model::Infrastructure>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.infrastructure = v.into();
+        self
+    }
+
+    /// Sets the value of [token][crate::model::ServiceConnectionMap::token].
+    pub fn set_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.token = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::ServiceConnectionMap::etag].
+    pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [producer_psc_configs][crate::model::ServiceConnectionMap::producer_psc_configs].
+    pub fn set_producer_psc_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::service_connection_map::ProducerPscConfig>,
+    {
+        use std::iter::Iterator;
+        self.producer_psc_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [consumer_psc_configs][crate::model::ServiceConnectionMap::consumer_psc_configs].
+    pub fn set_consumer_psc_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::service_connection_map::ConsumerPscConfig>,
+    {
+        use std::iter::Iterator;
+        self.consumer_psc_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [consumer_psc_connections][crate::model::ServiceConnectionMap::consumer_psc_connections].
+    pub fn set_consumer_psc_connections<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::service_connection_map::ConsumerPscConnection>,
+    {
+        use std::iter::Iterator;
+        self.consumer_psc_connections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::ServiceConnectionMap::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ServiceConnectionMap {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.ServiceConnectionMap"
+    }
+}
+
+/// Defines additional types related to [ServiceConnectionMap].
+pub mod service_connection_map {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The PSC configurations on producer side.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct ProducerPscConfig {
+        /// The resource path of a service attachment.
+        /// Example:
+        /// projects/{projectNumOrId}/regions/{region}/serviceAttachments/{resourceId}.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub service_attachment_uri: std::string::String,
+    }
+
+    impl ProducerPscConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [service_attachment_uri][crate::model::service_connection_map::ProducerPscConfig::service_attachment_uri].
+        pub fn set_service_attachment_uri<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.service_attachment_uri = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ProducerPscConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networkconnectivity.v1.ServiceConnectionMap.ProducerPscConfig"
+        }
+    }
+
+    /// Allow the producer to specify which consumers can connect to it.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct ConsumerPscConfig {
+        /// The consumer project where PSC connections are allowed to be created in.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub project: std::string::String,
+
+        /// The resource path of the consumer network where PSC connections are
+        /// allowed to be created in. Note, this network does not need be in the
+        /// ConsumerPscConfig.project in the case of SharedVPC.
+        /// Example:
+        /// projects/{projectNumOrId}/global/networks/{networkId}.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub network: std::string::String,
+
+        /// This is used in PSC consumer ForwardingRule to control whether the PSC
+        /// endpoint can be accessed from another region.
+        pub disable_global_access: bool,
+
+        /// Output only. Overall state of PSC Connections management for this
+        /// consumer psc config.
+        pub state: crate::model::service_connection_map::consumer_psc_config::State,
+
+        /// Immutable. Deprecated. Use producer_instance_metadata instead.
+        /// An immutable identifier for the producer instance.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub producer_instance_id: std::string::String,
+
+        /// Output only. A map to store mapping between customer vip and target
+        /// service attachment. Only service attachment with producer specified ip
+        /// addresses are stored here.
+        #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        pub service_attachment_ip_address_map:
+            std::collections::HashMap<std::string::String, std::string::String>,
+
+        /// Required. The project ID or project number of the consumer project. This
+        /// project is the one that the consumer uses to interact with the producer
+        /// instance. From the perspective of a consumer who's created a producer
+        /// instance, this is the project of the producer instance. Format:
+        /// 'projects/<project_id_or_number>' Eg. 'projects/consumer-project' or
+        /// 'projects/1234'
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub consumer_instance_project: std::string::String,
+
+        /// Immutable. An immutable map for the producer instance metadata.
+        #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        pub producer_instance_metadata:
+            std::collections::HashMap<std::string::String, std::string::String>,
+
+        /// The requested IP version for the PSC connection.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub ip_version: std::option::Option<crate::model::IPVersion>,
+    }
+
+    impl ConsumerPscConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::service_connection_map::ConsumerPscConfig::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [network][crate::model::service_connection_map::ConsumerPscConfig::network].
+        pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.network = v.into();
+            self
+        }
+
+        /// Sets the value of [disable_global_access][crate::model::service_connection_map::ConsumerPscConfig::disable_global_access].
+        pub fn set_disable_global_access<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.disable_global_access = v.into();
+            self
+        }
+
+        /// Sets the value of [state][crate::model::service_connection_map::ConsumerPscConfig::state].
+        pub fn set_state<
+            T: std::convert::Into<crate::model::service_connection_map::consumer_psc_config::State>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.state = v.into();
+            self
+        }
+
+        /// Sets the value of [producer_instance_id][crate::model::service_connection_map::ConsumerPscConfig::producer_instance_id].
+        pub fn set_producer_instance_id<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.producer_instance_id = v.into();
+            self
+        }
+
+        /// Sets the value of [consumer_instance_project][crate::model::service_connection_map::ConsumerPscConfig::consumer_instance_project].
+        pub fn set_consumer_instance_project<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.consumer_instance_project = v.into();
+            self
+        }
+
+        /// Sets the value of [ip_version][crate::model::service_connection_map::ConsumerPscConfig::ip_version].
+        pub fn set_ip_version<
+            T: std::convert::Into<std::option::Option<crate::model::IPVersion>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.ip_version = v.into();
+            self
+        }
+
+        /// Sets the value of [service_attachment_ip_address_map][crate::model::service_connection_map::ConsumerPscConfig::service_attachment_ip_address_map].
+        pub fn set_service_attachment_ip_address_map<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.service_attachment_ip_address_map =
+                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [producer_instance_metadata][crate::model::service_connection_map::ConsumerPscConfig::producer_instance_metadata].
+        pub fn set_producer_instance_metadata<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.producer_instance_metadata =
+                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ConsumerPscConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networkconnectivity.v1.ServiceConnectionMap.ConsumerPscConfig"
+        }
+    }
+
+    /// Defines additional types related to [ConsumerPscConfig].
+    pub mod consumer_psc_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// PSC Consumer Config State.
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct State(i32);
+
+        impl State {
+            /// Default state, when Connection Map is created initially.
+            pub const STATE_UNSPECIFIED: State = State::new(0);
+
+            /// Set when policy and map configuration is valid,
+            /// and their matching can lead to allowing creation of PSC Connections
+            /// subject to other constraints like connections limit.
+            pub const VALID: State = State::new(1);
+
+            /// No Service Connection Policy found for this network and Service
+            /// Class
+            pub const CONNECTION_POLICY_MISSING: State = State::new(2);
+
+            /// Service Connection Policy limit reached for this network and Service
+            /// Class
+            pub const POLICY_LIMIT_REACHED: State = State::new(3);
+
+            /// The consumer instance project is not in
+            /// AllowedGoogleProducersResourceHierarchyLevels of the matching
+            /// ServiceConnectionPolicy.
+            pub const CONSUMER_INSTANCE_PROJECT_NOT_ALLOWLISTED: State = State::new(4);
+
+            /// Creates a new State instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("VALID"),
+                    2 => std::borrow::Cow::Borrowed("CONNECTION_POLICY_MISSING"),
+                    3 => std::borrow::Cow::Borrowed("POLICY_LIMIT_REACHED"),
+                    4 => std::borrow::Cow::Borrowed("CONSUMER_INSTANCE_PROJECT_NOT_ALLOWLISTED"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                    "VALID" => std::option::Option::Some(Self::VALID),
+                    "CONNECTION_POLICY_MISSING" => {
+                        std::option::Option::Some(Self::CONNECTION_POLICY_MISSING)
+                    }
+                    "POLICY_LIMIT_REACHED" => std::option::Option::Some(Self::POLICY_LIMIT_REACHED),
+                    "CONSUMER_INSTANCE_PROJECT_NOT_ALLOWLISTED" => {
+                        std::option::Option::Some(Self::CONSUMER_INSTANCE_PROJECT_NOT_ALLOWLISTED)
+                    }
+                    _ => std::option::Option::None,
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for State {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for State {
+            fn default() -> Self {
+                Self::new(0)
+            }
+        }
+    }
+
+    /// PSC connection details on consumer side.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct ConsumerPscConnection {
+        /// The URI of a service attachment which is the target of the PSC
+        /// connection.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub service_attachment_uri: std::string::String,
+
+        /// The state of the PSC connection.
+        pub state: crate::model::service_connection_map::consumer_psc_connection::State,
+
+        /// The consumer project whose PSC forwarding rule is connected to the
+        /// service attachments in this service connection map.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub project: std::string::String,
+
+        /// The consumer network whose PSC forwarding rule is connected to the
+        /// service attachments in this service connection map.
+        /// Note that the network could be on a different project (shared VPC).
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub network: std::string::String,
+
+        /// The PSC connection id of the PSC forwarding rule connected
+        /// to the service attachments in this service connection map.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub psc_connection_id: std::string::String,
+
+        /// The IP literal allocated on the consumer network for the PSC forwarding
+        /// rule that is created to connect to the producer service attachment in
+        /// this service connection map.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub ip: std::string::String,
+
+        /// The error type indicates whether the error is consumer facing, producer
+        /// facing or system internal.
+        pub error_type: crate::model::ConnectionErrorType,
+
+        /// The most recent error during operating this connection.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub error: std::option::Option<rpc::model::Status>,
+
+        /// The last Compute Engine operation to setup PSC connection.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub gce_operation: std::string::String,
+
+        /// The URI of the consumer forwarding rule created.
+        /// Example:
+        /// projects/{projectNumOrId}/regions/us-east1/networks/{resourceId}.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub forwarding_rule: std::string::String,
+
+        /// Output only. The error info for the latest error during operating this
+        /// connection.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub error_info: std::option::Option<rpc::model::ErrorInfo>,
+
+        /// Output only. The URI of the selected subnetwork selected to allocate IP
+        /// address for this connection.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub selected_subnetwork: std::string::String,
+
+        /// Immutable. Deprecated. Use producer_instance_metadata instead.
+        /// An immutable identifier for the producer instance.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub producer_instance_id: std::string::String,
+
+        /// Immutable. An immutable map for the producer instance metadata.
+        #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        pub producer_instance_metadata:
+            std::collections::HashMap<std::string::String, std::string::String>,
+
+        /// The requested IP version for the PSC connection.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub ip_version: std::option::Option<crate::model::IPVersion>,
+    }
+
+    impl ConsumerPscConnection {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [service_attachment_uri][crate::model::service_connection_map::ConsumerPscConnection::service_attachment_uri].
+        pub fn set_service_attachment_uri<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.service_attachment_uri = v.into();
+            self
+        }
+
+        /// Sets the value of [state][crate::model::service_connection_map::ConsumerPscConnection::state].
+        pub fn set_state<
+            T: std::convert::Into<
+                    crate::model::service_connection_map::consumer_psc_connection::State,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.state = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::service_connection_map::ConsumerPscConnection::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [network][crate::model::service_connection_map::ConsumerPscConnection::network].
+        pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.network = v.into();
+            self
+        }
+
+        /// Sets the value of [psc_connection_id][crate::model::service_connection_map::ConsumerPscConnection::psc_connection_id].
+        pub fn set_psc_connection_id<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.psc_connection_id = v.into();
+            self
+        }
+
+        /// Sets the value of [ip][crate::model::service_connection_map::ConsumerPscConnection::ip].
+        pub fn set_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.ip = v.into();
+            self
+        }
+
+        /// Sets the value of [error_type][crate::model::service_connection_map::ConsumerPscConnection::error_type].
+        pub fn set_error_type<T: std::convert::Into<crate::model::ConnectionErrorType>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.error_type = v.into();
+            self
+        }
+
+        /// Sets the value of [error][crate::model::service_connection_map::ConsumerPscConnection::error].
+        pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.error = v.into();
+            self
+        }
+
+        /// Sets the value of [gce_operation][crate::model::service_connection_map::ConsumerPscConnection::gce_operation].
+        pub fn set_gce_operation<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.gce_operation = v.into();
+            self
+        }
+
+        /// Sets the value of [forwarding_rule][crate::model::service_connection_map::ConsumerPscConnection::forwarding_rule].
+        pub fn set_forwarding_rule<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.forwarding_rule = v.into();
+            self
+        }
+
+        /// Sets the value of [error_info][crate::model::service_connection_map::ConsumerPscConnection::error_info].
+        pub fn set_error_info<T: std::convert::Into<std::option::Option<rpc::model::ErrorInfo>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.error_info = v.into();
+            self
+        }
+
+        /// Sets the value of [selected_subnetwork][crate::model::service_connection_map::ConsumerPscConnection::selected_subnetwork].
+        pub fn set_selected_subnetwork<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.selected_subnetwork = v.into();
+            self
+        }
+
+        /// Sets the value of [producer_instance_id][crate::model::service_connection_map::ConsumerPscConnection::producer_instance_id].
+        pub fn set_producer_instance_id<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.producer_instance_id = v.into();
+            self
+        }
+
+        /// Sets the value of [ip_version][crate::model::service_connection_map::ConsumerPscConnection::ip_version].
+        pub fn set_ip_version<
+            T: std::convert::Into<std::option::Option<crate::model::IPVersion>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.ip_version = v.into();
+            self
+        }
+
+        /// Sets the value of [producer_instance_metadata][crate::model::service_connection_map::ConsumerPscConnection::producer_instance_metadata].
+        pub fn set_producer_instance_metadata<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.producer_instance_metadata =
+                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ConsumerPscConnection {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networkconnectivity.v1.ServiceConnectionMap.ConsumerPscConnection"
+        }
+    }
+
+    /// Defines additional types related to [ConsumerPscConnection].
+    pub mod consumer_psc_connection {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The state of the PSC connection.
+        /// We reserve the right to add more states without notice in the future.
+        /// Users should not use exhaustive switch statements on this enum.
+        /// See <https://google.aip.dev/216>.
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct State(i32);
+
+        impl State {
+            /// An invalid state as the default case.
+            pub const STATE_UNSPECIFIED: State = State::new(0);
+
+            /// The connection has been created successfully. However, for the
+            /// up-to-date connection status, please use the service attachment's
+            /// "ConnectedEndpoint.status" as the source of truth.
+            pub const ACTIVE: State = State::new(1);
+
+            /// The connection is not functional since some resources on the connection
+            /// fail to be created.
+            pub const FAILED: State = State::new(2);
+
+            /// The connection is being created.
+            pub const CREATING: State = State::new(3);
+
+            /// The connection is being deleted.
+            pub const DELETING: State = State::new(4);
+
+            /// The connection is being repaired to complete creation.
+            pub const CREATE_REPAIRING: State = State::new(5);
+
+            /// The connection is being repaired to complete deletion.
+            pub const DELETE_REPAIRING: State = State::new(6);
+
+            /// Creates a new State instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("ACTIVE"),
+                    2 => std::borrow::Cow::Borrowed("FAILED"),
+                    3 => std::borrow::Cow::Borrowed("CREATING"),
+                    4 => std::borrow::Cow::Borrowed("DELETING"),
+                    5 => std::borrow::Cow::Borrowed("CREATE_REPAIRING"),
+                    6 => std::borrow::Cow::Borrowed("DELETE_REPAIRING"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                    "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                    "FAILED" => std::option::Option::Some(Self::FAILED),
+                    "CREATING" => std::option::Option::Some(Self::CREATING),
+                    "DELETING" => std::option::Option::Some(Self::DELETING),
+                    "CREATE_REPAIRING" => std::option::Option::Some(Self::CREATE_REPAIRING),
+                    "DELETE_REPAIRING" => std::option::Option::Some(Self::DELETE_REPAIRING),
+                    _ => std::option::Option::None,
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for State {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for State {
+            fn default() -> Self {
+                Self::new(0)
+            }
+        }
+    }
+}
+
+/// Request for ListServiceConnectionMaps.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListServiceConnectionMapsRequest {
+    /// Required. The parent resource's name. ex. projects/123/locations/us-east1
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// The maximum number of results per page that should be returned.
+    pub page_size: i32,
+
+    /// The page token.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
+
+    /// A filter expression that filters the results listed in the response.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub filter: std::string::String,
+
+    /// Sort the results by a certain order.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub order_by: std::string::String,
+}
+
+impl ListServiceConnectionMapsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListServiceConnectionMapsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListServiceConnectionMapsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListServiceConnectionMapsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListServiceConnectionMapsRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListServiceConnectionMapsRequest::order_by].
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListServiceConnectionMapsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.ListServiceConnectionMapsRequest"
+    }
+}
+
+/// Response for ListServiceConnectionMaps.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListServiceConnectionMapsResponse {
+    /// ServiceConnectionMaps to be returned.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub service_connection_maps: std::vec::Vec<crate::model::ServiceConnectionMap>,
+
+    /// The next pagination token in the List response. It should be used as
+    /// page_token for the following request. An empty value means no more result.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+}
+
+impl ListServiceConnectionMapsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServiceConnectionMapsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [service_connection_maps][crate::model::ListServiceConnectionMapsResponse::service_connection_maps].
+    pub fn set_service_connection_maps<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ServiceConnectionMap>,
+    {
+        use std::iter::Iterator;
+        self.service_connection_maps = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListServiceConnectionMapsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListServiceConnectionMapsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.ListServiceConnectionMapsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListServiceConnectionMapsResponse {
+    type PageItem = crate::model::ServiceConnectionMap;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.service_connection_maps
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request for GetServiceConnectionMap.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetServiceConnectionMapRequest {
+    /// Required. Name of the ServiceConnectionMap to get.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+}
+
+impl GetServiceConnectionMapRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetServiceConnectionMapRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetServiceConnectionMapRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.GetServiceConnectionMapRequest"
+    }
+}
+
+/// Request for CreateServiceConnectionMap.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateServiceConnectionMapRequest {
+    /// Required. The parent resource's name of the ServiceConnectionMap. ex.
+    /// projects/123/locations/us-east1
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Optional. Resource ID
+    /// (i.e. 'foo' in '[...]/projects/p/locations/l/serviceConnectionMaps/foo')
+    /// See <https://google.aip.dev/122#resource-id-segments>
+    /// Unique per location.
+    /// If one is not provided, one will be generated.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub service_connection_map_id: std::string::String,
+
+    /// Required. Initial values for a new ServiceConnectionMaps
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub service_connection_map: std::option::Option<crate::model::ServiceConnectionMap>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+}
+
+impl CreateServiceConnectionMapRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateServiceConnectionMapRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [service_connection_map_id][crate::model::CreateServiceConnectionMapRequest::service_connection_map_id].
+    pub fn set_service_connection_map_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.service_connection_map_id = v.into();
+        self
+    }
+
+    /// Sets the value of [service_connection_map][crate::model::CreateServiceConnectionMapRequest::service_connection_map].
+    pub fn set_service_connection_map<
+        T: std::convert::Into<std::option::Option<crate::model::ServiceConnectionMap>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.service_connection_map = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateServiceConnectionMapRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateServiceConnectionMapRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.CreateServiceConnectionMapRequest"
+    }
+}
+
+/// Request for UpdateServiceConnectionMap.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateServiceConnectionMapRequest {
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
+    /// ServiceConnectionMap resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then all fields will be overwritten.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. New values to be patched into the resource.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub service_connection_map: std::option::Option<crate::model::ServiceConnectionMap>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+}
+
+impl UpdateServiceConnectionMapRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateServiceConnectionMapRequest::update_mask].
+    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_mask = v.into();
+        self
+    }
+
+    /// Sets the value of [service_connection_map][crate::model::UpdateServiceConnectionMapRequest::service_connection_map].
+    pub fn set_service_connection_map<
+        T: std::convert::Into<std::option::Option<crate::model::ServiceConnectionMap>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.service_connection_map = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateServiceConnectionMapRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateServiceConnectionMapRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.UpdateServiceConnectionMapRequest"
+    }
+}
+
+/// Request for DeleteServiceConnectionMap.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteServiceConnectionMapRequest {
+    /// Required. The name of the ServiceConnectionMap to delete.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes after the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    /// Optional. The etag is computed by the server, and may be sent on update and
+    /// delete requests to ensure the client has an up-to-date value before
+    /// proceeding.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub etag: std::option::Option<std::string::String>,
+}
+
+impl DeleteServiceConnectionMapRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteServiceConnectionMapRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteServiceConnectionMapRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::DeleteServiceConnectionMapRequest::etag].
+    pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteServiceConnectionMapRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.DeleteServiceConnectionMapRequest"
+    }
+}
+
+/// The ServiceConnectionPolicy resource.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ServiceConnectionPolicy {
+    /// Immutable. The name of a ServiceConnectionPolicy.
+    /// Format:
+    /// projects/{project}/locations/{location}/serviceConnectionPolicies/{service_connection_policy}
+    /// See: <https://google.aip.dev/122#fields-representing-resource-names>
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Output only. Time when the ServiceConnectionPolicy was created.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Time when the ServiceConnectionPolicy was updated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// User-defined labels.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// A description of this resource.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub description: std::string::String,
+
+    /// The resource path of the consumer network.
+    /// Example:
+    ///
+    /// - projects/{projectNumOrId}/global/networks/{resourceId}.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub network: std::string::String,
+
+    /// The service class identifier for which this ServiceConnectionPolicy is for.
+    /// The service class identifier is a unique, symbolic representation of a
+    /// ServiceClass. It is provided by the Service Producer. Google services have
+    /// a prefix of gcp or google-cloud. For example, gcp-memorystore-redis or
+    /// google-cloud-sql. 3rd party services do not. For example,
+    /// test-service-a3dfcx.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub service_class: std::string::String,
+
+    /// Output only. The type of underlying resources used to create the
+    /// connection.
+    pub infrastructure: crate::model::Infrastructure,
+
+    /// Configuration used for Private Service Connect connections. Used when
+    /// Infrastructure is PSC.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub psc_config: std::option::Option<crate::model::service_connection_policy::PscConfig>,
+
+    /// Output only. [Output only] Information about each Private Service Connect
+    /// connection.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub psc_connections: std::vec::Vec<crate::model::service_connection_policy::PscConnection>,
+
+    /// Optional. The etag is computed by the server, and may be sent on update and
+    /// delete requests to ensure the client has an up-to-date value before
+    /// proceeding.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub etag: std::option::Option<std::string::String>,
+}
+
+impl ServiceConnectionPolicy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ServiceConnectionPolicy::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::ServiceConnectionPolicy::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::ServiceConnectionPolicy::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::ServiceConnectionPolicy::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [network][crate::model::ServiceConnectionPolicy::network].
+    pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.network = v.into();
+        self
+    }
+
+    /// Sets the value of [service_class][crate::model::ServiceConnectionPolicy::service_class].
+    pub fn set_service_class<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.service_class = v.into();
+        self
+    }
+
+    /// Sets the value of [infrastructure][crate::model::ServiceConnectionPolicy::infrastructure].
+    pub fn set_infrastructure<T: std::convert::Into<crate::model::Infrastructure>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.infrastructure = v.into();
+        self
+    }
+
+    /// Sets the value of [psc_config][crate::model::ServiceConnectionPolicy::psc_config].
+    pub fn set_psc_config<
+        T: std::convert::Into<std::option::Option<crate::model::service_connection_policy::PscConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.psc_config = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::ServiceConnectionPolicy::etag].
+    pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [psc_connections][crate::model::ServiceConnectionPolicy::psc_connections].
+    pub fn set_psc_connections<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::service_connection_policy::PscConnection>,
+    {
+        use std::iter::Iterator;
+        self.psc_connections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::ServiceConnectionPolicy::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ServiceConnectionPolicy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.ServiceConnectionPolicy"
+    }
+}
+
+/// Defines additional types related to [ServiceConnectionPolicy].
+pub mod service_connection_policy {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Configuration used for Private Service Connect connections. Used when
+    /// Infrastructure is PSC.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct PscConfig {
+        /// The resource paths of subnetworks to use for IP address management.
+        /// Example:
+        /// projects/{projectNumOrId}/regions/{region}/subnetworks/{resourceId}.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub subnetworks: std::vec::Vec<std::string::String>,
+
+        /// Optional. Max number of PSC connections for this policy.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        pub limit: std::option::Option<i64>,
+
+        /// Required. ProducerInstanceLocation is used to specify which authorization
+        /// mechanism to use to determine which projects the Producer instance can be
+        /// within.
+        pub producer_instance_location:
+            crate::model::service_connection_policy::psc_config::ProducerInstanceLocation,
+
+        /// Optional. List of Projects, Folders, or Organizations from where the
+        /// Producer instance can be within. For example, a network administrator can
+        /// provide both 'organizations/foo' and 'projects/bar' as
+        /// allowed_google_producers_resource_hierarchy_levels. This allowlists this
+        /// network to connect with any Producer instance within the 'foo'
+        /// organization or the 'bar' project. By default,
+        /// allowed_google_producers_resource_hierarchy_level is empty. The format
+        /// for each allowed_google_producers_resource_hierarchy_level is \<resource
+        /// type\>/\<id\> where <resource type\> is one of 'projects', 'folders', or
+        /// 'organizations' and \<id\> is either the ID or the number of the resource
+        /// type. Format for each allowed_google_producers_resource_hierarchy_level
+        /// value: 'projects/<project_id_or_number>' or 'folders/<folder_id>' or
+        /// 'organizations/<organization_id>'
+        /// Eg. [projects/my-project-id, projects/567, folders/891,
+        /// organizations/123]
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub allowed_google_producers_resource_hierarchy_level: std::vec::Vec<std::string::String>,
+    }
+
+    impl PscConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [limit][crate::model::service_connection_policy::PscConfig::limit].
+        pub fn set_limit<T: std::convert::Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
+            self.limit = v.into();
+            self
+        }
+
+        /// Sets the value of [producer_instance_location][crate::model::service_connection_policy::PscConfig::producer_instance_location].
+        pub fn set_producer_instance_location<
+            T: std::convert::Into<
+                    crate::model::service_connection_policy::psc_config::ProducerInstanceLocation,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.producer_instance_location = v.into();
+            self
+        }
+
+        /// Sets the value of [subnetworks][crate::model::service_connection_policy::PscConfig::subnetworks].
+        pub fn set_subnetworks<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.subnetworks = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [allowed_google_producers_resource_hierarchy_level][crate::model::service_connection_policy::PscConfig::allowed_google_producers_resource_hierarchy_level].
+        pub fn set_allowed_google_producers_resource_hierarchy_level<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.allowed_google_producers_resource_hierarchy_level =
+                v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for PscConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networkconnectivity.v1.ServiceConnectionPolicy.PscConfig"
+        }
+    }
+
+    /// Defines additional types related to [PscConfig].
+    pub mod psc_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// ProducerInstanceLocation is used to specify which authorization mechanism
+        /// to use to determine which projects the Producer instance can be within.
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct ProducerInstanceLocation(i32);
+
+        impl ProducerInstanceLocation {
+            /// Producer instance location is not specified. When this option is
+            /// chosen, then the PSC connections created by this
+            /// ServiceConnectionPolicy must be within the same project as the Producer
+            /// instance. This is the default ProducerInstanceLocation value.
+            /// To allow for PSC connections from this network to other networks, use
+            /// the CUSTOM_RESOURCE_HIERARCHY_LEVELS option.
+            pub const PRODUCER_INSTANCE_LOCATION_UNSPECIFIED: ProducerInstanceLocation =
+                ProducerInstanceLocation::new(0);
+
+            /// Producer instance must be within one of the values provided in
+            /// allowed_google_producers_resource_hierarchy_level.
+            pub const CUSTOM_RESOURCE_HIERARCHY_LEVELS: ProducerInstanceLocation =
+                ProducerInstanceLocation::new(1);
+
+            /// Creates a new ProducerInstanceLocation instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("PRODUCER_INSTANCE_LOCATION_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("CUSTOM_RESOURCE_HIERARCHY_LEVELS"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "PRODUCER_INSTANCE_LOCATION_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::PRODUCER_INSTANCE_LOCATION_UNSPECIFIED)
+                    }
+                    "CUSTOM_RESOURCE_HIERARCHY_LEVELS" => {
+                        std::option::Option::Some(Self::CUSTOM_RESOURCE_HIERARCHY_LEVELS)
+                    }
+                    _ => std::option::Option::None,
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for ProducerInstanceLocation {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for ProducerInstanceLocation {
+            fn default() -> Self {
+                Self::new(0)
+            }
+        }
+    }
+
+    /// Information about a specific Private Service Connect connection.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct PscConnection {
+        /// State of the PSC Connection
+        pub state: crate::model::service_connection_policy::State,
+
+        /// The resource reference of the PSC Forwarding Rule within the consumer
+        /// VPC.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub consumer_forwarding_rule: std::string::String,
+
+        /// The resource reference of the consumer address.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub consumer_address: std::string::String,
+
+        /// The error type indicates whether the error is consumer facing, producer
+        /// facing or system internal.
+        pub error_type: crate::model::ConnectionErrorType,
+
+        /// The most recent error during operating this connection.
+        /// Deprecated, please use error_info instead.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub error: std::option::Option<rpc::model::Status>,
+
+        /// The last Compute Engine operation to setup PSC connection.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub gce_operation: std::string::String,
+
+        /// The project where the PSC connection is created.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub consumer_target_project: std::string::String,
+
+        /// The PSC connection id of the PSC forwarding rule.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub psc_connection_id: std::string::String,
+
+        /// Output only. The error info for the latest error during operating this
+        /// connection.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub error_info: std::option::Option<rpc::model::ErrorInfo>,
+
+        /// Output only. The URI of the subnetwork selected to allocate IP address
+        /// for this connection.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub selected_subnetwork: std::string::String,
+
+        /// Immutable. Deprecated. Use producer_instance_metadata instead.
+        /// An immutable identifier for the producer instance.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub producer_instance_id: std::string::String,
+
+        /// Immutable. An immutable map for the producer instance metadata.
+        #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        pub producer_instance_metadata:
+            std::collections::HashMap<std::string::String, std::string::String>,
+
+        /// Output only. [Output only] The service class associated with this PSC
+        /// Connection. The value is derived from the SCPolicy and matches the
+        /// service class name provided by the customer.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub service_class: std::string::String,
+
+        /// The requested IP version for the PSC connection.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub ip_version: std::option::Option<crate::model::IPVersion>,
+    }
+
+    impl PscConnection {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [state][crate::model::service_connection_policy::PscConnection::state].
+        pub fn set_state<T: std::convert::Into<crate::model::service_connection_policy::State>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.state = v.into();
+            self
+        }
+
+        /// Sets the value of [consumer_forwarding_rule][crate::model::service_connection_policy::PscConnection::consumer_forwarding_rule].
+        pub fn set_consumer_forwarding_rule<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.consumer_forwarding_rule = v.into();
+            self
+        }
+
+        /// Sets the value of [consumer_address][crate::model::service_connection_policy::PscConnection::consumer_address].
+        pub fn set_consumer_address<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.consumer_address = v.into();
+            self
+        }
+
+        /// Sets the value of [error_type][crate::model::service_connection_policy::PscConnection::error_type].
+        pub fn set_error_type<T: std::convert::Into<crate::model::ConnectionErrorType>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.error_type = v.into();
+            self
+        }
+
+        /// Sets the value of [error][crate::model::service_connection_policy::PscConnection::error].
+        pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.error = v.into();
+            self
+        }
+
+        /// Sets the value of [gce_operation][crate::model::service_connection_policy::PscConnection::gce_operation].
+        pub fn set_gce_operation<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.gce_operation = v.into();
+            self
+        }
+
+        /// Sets the value of [consumer_target_project][crate::model::service_connection_policy::PscConnection::consumer_target_project].
+        pub fn set_consumer_target_project<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.consumer_target_project = v.into();
+            self
+        }
+
+        /// Sets the value of [psc_connection_id][crate::model::service_connection_policy::PscConnection::psc_connection_id].
+        pub fn set_psc_connection_id<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.psc_connection_id = v.into();
+            self
+        }
+
+        /// Sets the value of [error_info][crate::model::service_connection_policy::PscConnection::error_info].
+        pub fn set_error_info<T: std::convert::Into<std::option::Option<rpc::model::ErrorInfo>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.error_info = v.into();
+            self
+        }
+
+        /// Sets the value of [selected_subnetwork][crate::model::service_connection_policy::PscConnection::selected_subnetwork].
+        pub fn set_selected_subnetwork<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.selected_subnetwork = v.into();
+            self
+        }
+
+        /// Sets the value of [producer_instance_id][crate::model::service_connection_policy::PscConnection::producer_instance_id].
+        pub fn set_producer_instance_id<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.producer_instance_id = v.into();
+            self
+        }
+
+        /// Sets the value of [service_class][crate::model::service_connection_policy::PscConnection::service_class].
+        pub fn set_service_class<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.service_class = v.into();
+            self
+        }
+
+        /// Sets the value of [ip_version][crate::model::service_connection_policy::PscConnection::ip_version].
+        pub fn set_ip_version<
+            T: std::convert::Into<std::option::Option<crate::model::IPVersion>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.ip_version = v.into();
+            self
+        }
+
+        /// Sets the value of [producer_instance_metadata][crate::model::service_connection_policy::PscConnection::producer_instance_metadata].
+        pub fn set_producer_instance_metadata<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.producer_instance_metadata =
+                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for PscConnection {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networkconnectivity.v1.ServiceConnectionPolicy.PscConnection"
+        }
+    }
+
+    /// The state of the PSC connection.
+    /// We reserve the right to add more states without notice in the future.
+    /// Users should not use exhaustive switch statements on this enum.
+    /// See <https://google.aip.dev/216>.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
+
+    impl State {
+        /// An invalid state as the default case.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The connection has been created successfully. However, for the
+        /// up-to-date connection status, please use the created forwarding rule's
+        /// "PscConnectionStatus" as the source of truth.
+        pub const ACTIVE: State = State::new(1);
+
+        /// The connection is not functional since some resources on the connection
+        /// fail to be created.
+        pub const FAILED: State = State::new(2);
+
+        /// The connection is being created.
+        pub const CREATING: State = State::new(3);
+
+        /// The connection is being deleted.
+        pub const DELETING: State = State::new(4);
+
+        /// The connection is being repaired to complete creation.
+        pub const CREATE_REPAIRING: State = State::new(5);
+
+        /// The connection is being repaired to complete deletion.
+        pub const DELETE_REPAIRING: State = State::new(6);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ACTIVE"),
+                2 => std::borrow::Cow::Borrowed("FAILED"),
+                3 => std::borrow::Cow::Borrowed("CREATING"),
+                4 => std::borrow::Cow::Borrowed("DELETING"),
+                5 => std::borrow::Cow::Borrowed("CREATE_REPAIRING"),
+                6 => std::borrow::Cow::Borrowed("DELETE_REPAIRING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "CREATE_REPAIRING" => std::option::Option::Some(Self::CREATE_REPAIRING),
+                "DELETE_REPAIRING" => std::option::Option::Some(Self::DELETE_REPAIRING),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+}
+
+/// Request for ListServiceConnectionPolicies.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListServiceConnectionPoliciesRequest {
+    /// Required. The parent resource's name. ex. projects/123/locations/us-east1
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// The maximum number of results per page that should be returned.
+    pub page_size: i32,
+
+    /// The page token.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
+
+    /// A filter expression that filters the results listed in the response.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub filter: std::string::String,
+
+    /// Sort the results by a certain order.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub order_by: std::string::String,
+}
+
+impl ListServiceConnectionPoliciesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListServiceConnectionPoliciesRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListServiceConnectionPoliciesRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListServiceConnectionPoliciesRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListServiceConnectionPoliciesRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListServiceConnectionPoliciesRequest::order_by].
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListServiceConnectionPoliciesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.ListServiceConnectionPoliciesRequest"
+    }
+}
+
+/// Response for ListServiceConnectionPolicies.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListServiceConnectionPoliciesResponse {
+    /// ServiceConnectionPolicies to be returned.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub service_connection_policies: std::vec::Vec<crate::model::ServiceConnectionPolicy>,
+
+    /// The next pagination token in the List response. It should be used as
+    /// page_token for the following request. An empty value means no more result.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+}
+
+impl ListServiceConnectionPoliciesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServiceConnectionPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [service_connection_policies][crate::model::ListServiceConnectionPoliciesResponse::service_connection_policies].
+    pub fn set_service_connection_policies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ServiceConnectionPolicy>,
+    {
+        use std::iter::Iterator;
+        self.service_connection_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListServiceConnectionPoliciesResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListServiceConnectionPoliciesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.ListServiceConnectionPoliciesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListServiceConnectionPoliciesResponse {
+    type PageItem = crate::model::ServiceConnectionPolicy;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.service_connection_policies
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request for GetServiceConnectionPolicy.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetServiceConnectionPolicyRequest {
+    /// Required. Name of the ServiceConnectionPolicy to get.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+}
+
+impl GetServiceConnectionPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetServiceConnectionPolicyRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetServiceConnectionPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.GetServiceConnectionPolicyRequest"
+    }
+}
+
+/// Request for CreateServiceConnectionPolicy.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateServiceConnectionPolicyRequest {
+    /// Required. The parent resource's name of the ServiceConnectionPolicy. ex.
+    /// projects/123/locations/us-east1
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Optional. Resource ID
+    /// (i.e. 'foo' in
+    /// '[...]/projects/p/locations/l/serviceConnectionPolicies/foo') See
+    /// <https://google.aip.dev/122#resource-id-segments> Unique per location.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub service_connection_policy_id: std::string::String,
+
+    /// Required. Initial values for a new ServiceConnectionPolicies
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub service_connection_policy: std::option::Option<crate::model::ServiceConnectionPolicy>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+}
+
+impl CreateServiceConnectionPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateServiceConnectionPolicyRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [service_connection_policy_id][crate::model::CreateServiceConnectionPolicyRequest::service_connection_policy_id].
+    pub fn set_service_connection_policy_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.service_connection_policy_id = v.into();
+        self
+    }
+
+    /// Sets the value of [service_connection_policy][crate::model::CreateServiceConnectionPolicyRequest::service_connection_policy].
+    pub fn set_service_connection_policy<
+        T: std::convert::Into<std::option::Option<crate::model::ServiceConnectionPolicy>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.service_connection_policy = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateServiceConnectionPolicyRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateServiceConnectionPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.CreateServiceConnectionPolicyRequest"
+    }
+}
+
+/// Request for UpdateServiceConnectionPolicy.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateServiceConnectionPolicyRequest {
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
+    /// ServiceConnectionPolicy resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then all fields will be overwritten.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. New values to be patched into the resource.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub service_connection_policy: std::option::Option<crate::model::ServiceConnectionPolicy>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+}
+
+impl UpdateServiceConnectionPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateServiceConnectionPolicyRequest::update_mask].
+    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_mask = v.into();
+        self
+    }
+
+    /// Sets the value of [service_connection_policy][crate::model::UpdateServiceConnectionPolicyRequest::service_connection_policy].
+    pub fn set_service_connection_policy<
+        T: std::convert::Into<std::option::Option<crate::model::ServiceConnectionPolicy>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.service_connection_policy = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateServiceConnectionPolicyRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateServiceConnectionPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.UpdateServiceConnectionPolicyRequest"
+    }
+}
+
+/// Request for DeleteServiceConnectionPolicy.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteServiceConnectionPolicyRequest {
+    /// Required. The name of the ServiceConnectionPolicy to delete.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes after the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    /// Optional. The etag is computed by the server, and may be sent on update and
+    /// delete requests to ensure the client has an up-to-date value before
+    /// proceeding.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub etag: std::option::Option<std::string::String>,
+}
+
+impl DeleteServiceConnectionPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteServiceConnectionPolicyRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteServiceConnectionPolicyRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::DeleteServiceConnectionPolicyRequest::etag].
+    pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteServiceConnectionPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.DeleteServiceConnectionPolicyRequest"
+    }
+}
+
+/// The ServiceClass resource.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ServiceClass {
+    /// Immutable. The name of a ServiceClass resource.
+    /// Format:
+    /// projects/{project}/locations/{location}/serviceClasses/{service_class}
+    /// See: <https://google.aip.dev/122#fields-representing-resource-names>
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Output only. The generated service class name. Use this name to refer to
+    /// the Service class in Service Connection Maps and Service Connection
+    /// Policies.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub service_class: std::string::String,
+
+    /// Output only. Time when the ServiceClass was created.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Time when the ServiceClass was updated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// User-defined labels.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// A description of this resource.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub description: std::string::String,
+
+    /// Optional. The etag is computed by the server, and may be sent on update and
+    /// delete requests to ensure the client has an up-to-date value before
+    /// proceeding.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub etag: std::option::Option<std::string::String>,
+}
+
+impl ServiceClass {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ServiceClass::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [service_class][crate::model::ServiceClass::service_class].
+    pub fn set_service_class<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.service_class = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::ServiceClass::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::ServiceClass::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::ServiceClass::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::ServiceClass::etag].
+    pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::ServiceClass::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ServiceClass {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.ServiceClass"
+    }
+}
+
+/// Request for ListServiceClasses.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListServiceClassesRequest {
+    /// Required. The parent resource's name. ex. projects/123/locations/us-east1
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// The maximum number of results per page that should be returned.
+    pub page_size: i32,
+
+    /// The page token.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
+
+    /// A filter expression that filters the results listed in the response.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub filter: std::string::String,
+
+    /// Sort the results by a certain order.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub order_by: std::string::String,
+}
+
+impl ListServiceClassesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListServiceClassesRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListServiceClassesRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListServiceClassesRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListServiceClassesRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListServiceClassesRequest::order_by].
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListServiceClassesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.ListServiceClassesRequest"
+    }
+}
+
+/// Response for ListServiceClasses.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListServiceClassesResponse {
+    /// ServiceClasses to be returned.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub service_classes: std::vec::Vec<crate::model::ServiceClass>,
+
+    /// The next pagination token in the List response. It should be used as
+    /// page_token for the following request. An empty value means no more result.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+}
+
+impl ListServiceClassesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServiceClassesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [service_classes][crate::model::ListServiceClassesResponse::service_classes].
+    pub fn set_service_classes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ServiceClass>,
+    {
+        use std::iter::Iterator;
+        self.service_classes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListServiceClassesResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListServiceClassesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.ListServiceClassesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListServiceClassesResponse {
+    type PageItem = crate::model::ServiceClass;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.service_classes
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request for GetServiceClass.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetServiceClassRequest {
+    /// Required. Name of the ServiceClass to get.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+}
+
+impl GetServiceClassRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetServiceClassRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetServiceClassRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.GetServiceClassRequest"
+    }
+}
+
+/// Request for UpdateServiceClass.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateServiceClassRequest {
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
+    /// ServiceClass resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then all fields will be overwritten.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. New values to be patched into the resource.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub service_class: std::option::Option<crate::model::ServiceClass>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+}
+
+impl UpdateServiceClassRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateServiceClassRequest::update_mask].
+    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_mask = v.into();
+        self
+    }
+
+    /// Sets the value of [service_class][crate::model::UpdateServiceClassRequest::service_class].
+    pub fn set_service_class<
+        T: std::convert::Into<std::option::Option<crate::model::ServiceClass>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.service_class = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateServiceClassRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateServiceClassRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.UpdateServiceClassRequest"
+    }
+}
+
+/// Request for DeleteServiceClass.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteServiceClassRequest {
+    /// Required. The name of the ServiceClass to delete.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes after the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    /// Optional. The etag is computed by the server, and may be sent on update and
+    /// delete requests to ensure the client has an up-to-date value before
+    /// proceeding.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub etag: std::option::Option<std::string::String>,
+}
+
+impl DeleteServiceClassRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteServiceClassRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteServiceClassRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::DeleteServiceClassRequest::etag].
+    pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteServiceClassRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.DeleteServiceClassRequest"
+    }
+}
+
+/// The ServiceConnectionToken resource.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ServiceConnectionToken {
+    /// Immutable. The name of a ServiceConnectionToken.
+    /// Format:
+    /// projects/{project}/locations/{location}/ServiceConnectionTokens/{service_connection_token}
+    /// See: <https://google.aip.dev/122#fields-representing-resource-names>
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Output only. Time when the ServiceConnectionToken was created.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Time when the ServiceConnectionToken was updated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// User-defined labels.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// A description of this resource.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub description: std::string::String,
+
+    /// The resource path of the network associated with this token.
+    /// Example:
+    /// projects/{projectNumOrId}/global/networks/{resourceId}.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub network: std::string::String,
+
+    /// Output only. The token generated by Automation.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub token: std::string::String,
+
+    /// Output only. The time to which this token is valid.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub expire_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. The etag is computed by the server, and may be sent on update and
+    /// delete requests to ensure the client has an up-to-date value before
+    /// proceeding.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub etag: std::option::Option<std::string::String>,
+}
+
+impl ServiceConnectionToken {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ServiceConnectionToken::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::ServiceConnectionToken::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::ServiceConnectionToken::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::ServiceConnectionToken::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [network][crate::model::ServiceConnectionToken::network].
+    pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.network = v.into();
+        self
+    }
+
+    /// Sets the value of [token][crate::model::ServiceConnectionToken::token].
+    pub fn set_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.token = v.into();
+        self
+    }
+
+    /// Sets the value of [expire_time][crate::model::ServiceConnectionToken::expire_time].
+    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.expire_time = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::ServiceConnectionToken::etag].
+    pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::ServiceConnectionToken::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ServiceConnectionToken {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.ServiceConnectionToken"
+    }
+}
+
+/// Request for ListServiceConnectionTokens.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListServiceConnectionTokensRequest {
+    /// Required. The parent resource's name. ex. projects/123/locations/us-east1
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// The maximum number of results per page that should be returned.
+    pub page_size: i32,
+
+    /// The page token.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
+
+    /// A filter expression that filters the results listed in the response.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub filter: std::string::String,
+
+    /// Sort the results by a certain order.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub order_by: std::string::String,
+}
+
+impl ListServiceConnectionTokensRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListServiceConnectionTokensRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListServiceConnectionTokensRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListServiceConnectionTokensRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListServiceConnectionTokensRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListServiceConnectionTokensRequest::order_by].
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListServiceConnectionTokensRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.ListServiceConnectionTokensRequest"
+    }
+}
+
+/// Response for ListServiceConnectionTokens.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListServiceConnectionTokensResponse {
+    /// ServiceConnectionTokens to be returned.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub service_connection_tokens: std::vec::Vec<crate::model::ServiceConnectionToken>,
+
+    /// The next pagination token in the List response. It should be used as
+    /// page_token for the following request. An empty value means no more result.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+}
+
+impl ListServiceConnectionTokensResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServiceConnectionTokensResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [service_connection_tokens][crate::model::ListServiceConnectionTokensResponse::service_connection_tokens].
+    pub fn set_service_connection_tokens<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ServiceConnectionToken>,
+    {
+        use std::iter::Iterator;
+        self.service_connection_tokens = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListServiceConnectionTokensResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListServiceConnectionTokensResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.ListServiceConnectionTokensResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListServiceConnectionTokensResponse {
+    type PageItem = crate::model::ServiceConnectionToken;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.service_connection_tokens
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request for GetServiceConnectionToken.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetServiceConnectionTokenRequest {
+    /// Required. Name of the ServiceConnectionToken to get.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+}
+
+impl GetServiceConnectionTokenRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetServiceConnectionTokenRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetServiceConnectionTokenRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.GetServiceConnectionTokenRequest"
+    }
+}
+
+/// Request for CreateServiceConnectionToken.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateServiceConnectionTokenRequest {
+    /// Required. The parent resource's name of the ServiceConnectionToken. ex.
+    /// projects/123/locations/us-east1
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Optional. Resource ID
+    /// (i.e. 'foo' in '[...]/projects/p/locations/l/ServiceConnectionTokens/foo')
+    /// See <https://google.aip.dev/122#resource-id-segments>
+    /// Unique per location.
+    /// If one is not provided, one will be generated.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub service_connection_token_id: std::string::String,
+
+    /// Required. Initial values for a new ServiceConnectionTokens
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub service_connection_token: std::option::Option<crate::model::ServiceConnectionToken>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+}
+
+impl CreateServiceConnectionTokenRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateServiceConnectionTokenRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [service_connection_token_id][crate::model::CreateServiceConnectionTokenRequest::service_connection_token_id].
+    pub fn set_service_connection_token_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.service_connection_token_id = v.into();
+        self
+    }
+
+    /// Sets the value of [service_connection_token][crate::model::CreateServiceConnectionTokenRequest::service_connection_token].
+    pub fn set_service_connection_token<
+        T: std::convert::Into<std::option::Option<crate::model::ServiceConnectionToken>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.service_connection_token = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateServiceConnectionTokenRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateServiceConnectionTokenRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.CreateServiceConnectionTokenRequest"
+    }
+}
+
+/// Request for DeleteServiceConnectionToken.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteServiceConnectionTokenRequest {
+    /// Required. The name of the ServiceConnectionToken to delete.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes after the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    /// Optional. The etag is computed by the server, and may be sent on update and
+    /// delete requests to ensure the client has an up-to-date value before
+    /// proceeding.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub etag: std::option::Option<std::string::String>,
+}
+
+impl DeleteServiceConnectionTokenRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteServiceConnectionTokenRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteServiceConnectionTokenRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::DeleteServiceConnectionTokenRequest::etag].
+    pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteServiceConnectionTokenRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.DeleteServiceConnectionTokenRequest"
+    }
+}
+
 /// A Network Connectivity Center hub is a global management resource to which
 /// you attach spokes. A single hub can contain spokes from multiple regions.
 /// However, if any of a hub's spokes use the site-to-site data transfer feature,
@@ -165,7 +3263,7 @@ pub struct Hub {
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// An optional description of the hub.
+    /// Optional. An optional description of the hub.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub description: std::string::String,
 
@@ -214,10 +3312,10 @@ pub struct Hub {
     /// the preset_topology is set to PRESET_TOPOLOGY_UNSPECIFIED.
     pub preset_topology: crate::model::PresetTopology,
 
-    /// Optional. Whether Private Service Connect transitivity is enabled for the
-    /// hub. If true, Private Service Connect endpoints in VPC spokes attached to
-    /// the hub are made accessible to other VPC spokes attached to the hub.
-    /// The default value is false.
+    /// Optional. Whether Private Service Connect connection propagation is enabled
+    /// for the hub. If true, Private Service Connect endpoints in VPC spokes
+    /// attached to the hub are made accessible to other VPC spokes attached to the
+    /// hub. The default value is false.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub export_psc: std::option::Option<bool>,
 }
@@ -429,7 +3527,7 @@ pub struct Spoke {
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// An optional description of the spoke.
+    /// Optional. An optional description of the spoke.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub description: std::string::String,
 
@@ -441,16 +3539,16 @@ pub struct Spoke {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub group: std::string::String,
 
-    /// VPN tunnels that are associated with the spoke.
+    /// Optional. VPN tunnels that are associated with the spoke.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub linked_vpn_tunnels: std::option::Option<crate::model::LinkedVpnTunnels>,
 
-    /// VLAN attachments that are associated with the spoke.
+    /// Optional. VLAN attachments that are associated with the spoke.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub linked_interconnect_attachments:
         std::option::Option<crate::model::LinkedInterconnectAttachments>,
 
-    /// Router appliance instances that are associated with the spoke.
+    /// Optional. Router appliance instances that are associated with the spoke.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub linked_router_appliance_instances:
         std::option::Option<crate::model::LinkedRouterApplianceInstances>,
@@ -472,13 +3570,22 @@ pub struct Spoke {
     /// Output only. The current lifecycle state of this spoke.
     pub state: crate::model::State,
 
-    /// Output only. The reasons for current state of the spoke. Only present when
-    /// the spoke is in the `INACTIVE` state.
+    /// Output only. The reasons for current state of the spoke.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub reasons: std::vec::Vec<crate::model::spoke::StateReason>,
 
     /// Output only. The type of resource associated with the spoke.
     pub spoke_type: crate::model::SpokeType,
+
+    /// Optional. This checksum is computed by the server based on the value of
+    /// other fields, and may be sent on update and delete requests to ensure the
+    /// client has an up-to-date value before proceeding.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
+
+    /// Optional. The list of fields waiting for hub administration's approval.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub field_paths_pending_update: std::vec::Vec<std::string::String>,
 }
 
 impl Spoke {
@@ -601,6 +3708,12 @@ impl Spoke {
         self
     }
 
+    /// Sets the value of [etag][crate::model::Spoke::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
     /// Sets the value of [reasons][crate::model::Spoke::reasons].
     pub fn set_reasons<T, V>(mut self, v: T) -> Self
     where
@@ -609,6 +3722,17 @@ impl Spoke {
     {
         use std::iter::Iterator;
         self.reasons = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [field_paths_pending_update][crate::model::Spoke::field_paths_pending_update].
+    pub fn set_field_paths_pending_update<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.field_paths_pending_update = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -716,6 +3840,16 @@ pub mod spoke {
             /// the spoke.
             pub const FAILED: Code = Code::new(4);
 
+            /// The proposed spoke update is pending review.
+            pub const UPDATE_PENDING_REVIEW: Code = Code::new(5);
+
+            /// The proposed spoke update has been rejected by the hub administrator.
+            pub const UPDATE_REJECTED: Code = Code::new(6);
+
+            /// Network Connectivity Center encountered errors while accepting
+            /// the spoke update.
+            pub const UPDATE_FAILED: Code = Code::new(7);
+
             /// Creates a new Code instance.
             pub(crate) const fn new(value: i32) -> Self {
                 Self(value)
@@ -734,6 +3868,9 @@ pub mod spoke {
                     2 => std::borrow::Cow::Borrowed("REJECTED"),
                     3 => std::borrow::Cow::Borrowed("PAUSED"),
                     4 => std::borrow::Cow::Borrowed("FAILED"),
+                    5 => std::borrow::Cow::Borrowed("UPDATE_PENDING_REVIEW"),
+                    6 => std::borrow::Cow::Borrowed("UPDATE_REJECTED"),
+                    7 => std::borrow::Cow::Borrowed("UPDATE_FAILED"),
                     _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
                 }
             }
@@ -746,6 +3883,11 @@ pub mod spoke {
                     "REJECTED" => std::option::Option::Some(Self::REJECTED),
                     "PAUSED" => std::option::Option::Some(Self::PAUSED),
                     "FAILED" => std::option::Option::Some(Self::FAILED),
+                    "UPDATE_PENDING_REVIEW" => {
+                        std::option::Option::Some(Self::UPDATE_PENDING_REVIEW)
+                    }
+                    "UPDATE_REJECTED" => std::option::Option::Some(Self::UPDATE_REJECTED),
+                    "UPDATE_FAILED" => std::option::Option::Some(Self::UPDATE_FAILED),
                     _ => std::option::Option::None,
                 }
             }
@@ -1242,7 +4384,7 @@ impl wkt::message::Message for Group {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AutoAccept {
-    /// A list of project ids or project numbers for which you want
+    /// Optional. A list of project ids or project numbers for which you want
     /// to enable auto-accept. The auto-accept setting is applied to
     /// spokes being created or updated in these projects.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -1409,7 +4551,8 @@ impl wkt::message::Message for ListHubsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListHubsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListHubsResponse {
     type PageItem = crate::model::Hub;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1905,7 +5048,8 @@ impl wkt::message::Message for ListHubSpokesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListHubSpokesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListHubSpokesResponse {
     type PageItem = crate::model::Spoke;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2075,7 +5219,8 @@ impl wkt::message::Message for QueryHubStatusResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for QueryHubStatusResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for QueryHubStatusResponse {
     type PageItem = crate::model::HubStatusEntry;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2480,7 +5625,8 @@ impl wkt::message::Message for ListSpokesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListSpokesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListSpokesResponse {
     type PageItem = crate::model::Spoke;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2945,6 +6091,236 @@ impl wkt::message::Message for RejectHubSpokeResponse {
 }
 
 /// The request for
+/// [HubService.AcceptSpokeUpdate][google.cloud.networkconnectivity.v1.HubService.AcceptSpokeUpdate].
+///
+/// [google.cloud.networkconnectivity.v1.HubService.AcceptSpokeUpdate]: crate::client::HubService::accept_spoke_update
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct AcceptSpokeUpdateRequest {
+    /// Required. The name of the hub to accept spoke update.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Required. The URI of the spoke to accept update.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub spoke_uri: std::string::String,
+
+    /// Required. The etag of the spoke to accept update.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub spoke_etag: std::string::String,
+
+    /// Optional. A request ID to identify requests. Specify a unique request ID so
+    /// that if you must retry your request, the server knows to ignore the request
+    /// if it has already been completed. The server guarantees that a request
+    /// doesn't result in creation of duplicate commitments for at least 60
+    /// minutes.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check to see whether the original operation
+    /// was received. If it was, the server ignores the second request. This
+    /// behavior prevents clients from mistakenly creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID, with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+}
+
+impl AcceptSpokeUpdateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AcceptSpokeUpdateRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [spoke_uri][crate::model::AcceptSpokeUpdateRequest::spoke_uri].
+    pub fn set_spoke_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.spoke_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [spoke_etag][crate::model::AcceptSpokeUpdateRequest::spoke_etag].
+    pub fn set_spoke_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.spoke_etag = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::AcceptSpokeUpdateRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AcceptSpokeUpdateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.AcceptSpokeUpdateRequest"
+    }
+}
+
+/// The response for
+/// [HubService.AcceptSpokeUpdate][google.cloud.networkconnectivity.v1.HubService.AcceptSpokeUpdate].
+///
+/// [google.cloud.networkconnectivity.v1.HubService.AcceptSpokeUpdate]: crate::client::HubService::accept_spoke_update
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct AcceptSpokeUpdateResponse {
+    /// The spoke that was operated on.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub spoke: std::option::Option<crate::model::Spoke>,
+}
+
+impl AcceptSpokeUpdateResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [spoke][crate::model::AcceptSpokeUpdateResponse::spoke].
+    pub fn set_spoke<T: std::convert::Into<std::option::Option<crate::model::Spoke>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.spoke = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AcceptSpokeUpdateResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.AcceptSpokeUpdateResponse"
+    }
+}
+
+/// The request for
+/// [HubService.RejectSpokeUpdate][google.cloud.networkconnectivity.v1.HubService.RejectSpokeUpdate].
+///
+/// [google.cloud.networkconnectivity.v1.HubService.RejectSpokeUpdate]: crate::client::HubService::reject_spoke_update
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct RejectSpokeUpdateRequest {
+    /// Required. The name of the hub to reject spoke update.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Required. The URI of the spoke to reject update.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub spoke_uri: std::string::String,
+
+    /// Required. The etag of the spoke to reject update.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub spoke_etag: std::string::String,
+
+    /// Optional. Additional information provided by the hub administrator.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub details: std::string::String,
+
+    /// Optional. A request ID to identify requests. Specify a unique request ID so
+    /// that if you must retry your request, the server knows to ignore the request
+    /// if it has already been completed. The server guarantees that a request
+    /// doesn't result in creation of duplicate commitments for at least 60
+    /// minutes.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check to see whether the original operation
+    /// was received. If it was, the server ignores the second request. This
+    /// behavior prevents clients from mistakenly creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID, with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+}
+
+impl RejectSpokeUpdateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RejectSpokeUpdateRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [spoke_uri][crate::model::RejectSpokeUpdateRequest::spoke_uri].
+    pub fn set_spoke_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.spoke_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [spoke_etag][crate::model::RejectSpokeUpdateRequest::spoke_etag].
+    pub fn set_spoke_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.spoke_etag = v.into();
+        self
+    }
+
+    /// Sets the value of [details][crate::model::RejectSpokeUpdateRequest::details].
+    pub fn set_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.details = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::RejectSpokeUpdateRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RejectSpokeUpdateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.RejectSpokeUpdateRequest"
+    }
+}
+
+/// The response for
+/// [HubService.RejectSpokeUpdate][google.cloud.networkconnectivity.v1.HubService.RejectSpokeUpdate].
+///
+/// [google.cloud.networkconnectivity.v1.HubService.RejectSpokeUpdate]: crate::client::HubService::reject_spoke_update
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct RejectSpokeUpdateResponse {
+    /// The spoke that was operated on.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub spoke: std::option::Option<crate::model::Spoke>,
+}
+
+impl RejectSpokeUpdateResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [spoke][crate::model::RejectSpokeUpdateResponse::spoke].
+    pub fn set_spoke<T: std::convert::Into<std::option::Option<crate::model::Spoke>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.spoke = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RejectSpokeUpdateResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.RejectSpokeUpdateResponse"
+    }
+}
+
+/// The request for
 /// [HubService.GetRouteTable][google.cloud.networkconnectivity.v1.HubService.GetRouteTable].
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.GetRouteTable]: crate::client::HubService::get_route_table
@@ -3145,7 +6521,8 @@ impl wkt::message::Message for ListRoutesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListRoutesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRoutesResponse {
     type PageItem = crate::model::Route;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3295,7 +6672,8 @@ impl wkt::message::Message for ListRouteTablesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListRouteTablesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRouteTablesResponse {
     type PageItem = crate::model::RouteTable;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3445,7 +6823,8 @@ impl wkt::message::Message for ListGroupsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListGroupsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListGroupsResponse {
     type PageItem = crate::model::Group;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3702,9 +7081,23 @@ pub struct LinkedVpcNetwork {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub include_export_ranges: std::vec::Vec<std::string::String>,
 
+    /// Optional. The proposed include export IP ranges waiting for hub
+    /// administration's approval.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub proposed_include_export_ranges: std::vec::Vec<std::string::String>,
+
+    /// Output only. The proposed exclude export IP ranges waiting for hub
+    /// administration's approval.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub proposed_exclude_export_ranges: std::vec::Vec<std::string::String>,
+
     /// Output only. The list of Producer VPC spokes that this VPC spoke is a
     /// service consumer VPC spoke for. These producer VPCs are connected through
-    /// VPC peering to this spoke's backing VPC network.
+    /// VPC peering to this spoke's backing VPC network. Because they are directly
+    /// connected throuh VPC peering, NCC export filters do not apply between the
+    /// service consumer VPC spoke and any of its producer VPC spokes. This VPC
+    /// spoke cannot be deleted as long as any of these producer VPC spokes are
+    /// connected to the NCC Hub.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub producer_vpc_spokes: std::vec::Vec<std::string::String>,
 }
@@ -3739,6 +7132,28 @@ impl LinkedVpcNetwork {
     {
         use std::iter::Iterator;
         self.include_export_ranges = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [proposed_include_export_ranges][crate::model::LinkedVpcNetwork::proposed_include_export_ranges].
+    pub fn set_proposed_include_export_ranges<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.proposed_include_export_ranges = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [proposed_exclude_export_ranges][crate::model::LinkedVpcNetwork::proposed_exclude_export_ranges].
+    pub fn set_proposed_exclude_export_ranges<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.proposed_exclude_export_ranges = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -3791,6 +7206,16 @@ pub struct LinkedProducerVpcNetwork {
     /// Optional. IP ranges allowed to be included from peering.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub include_export_ranges: std::vec::Vec<std::string::String>,
+
+    /// Optional. The proposed include export IP ranges waiting for hub
+    /// administration's approval.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub proposed_include_export_ranges: std::vec::Vec<std::string::String>,
+
+    /// Output only. The proposed exclude export IP ranges waiting for hub
+    /// administration's approval.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub proposed_exclude_export_ranges: std::vec::Vec<std::string::String>,
 }
 
 impl LinkedProducerVpcNetwork {
@@ -3847,6 +7272,28 @@ impl LinkedProducerVpcNetwork {
     {
         use std::iter::Iterator;
         self.include_export_ranges = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [proposed_include_export_ranges][crate::model::LinkedProducerVpcNetwork::proposed_include_export_ranges].
+    pub fn set_proposed_include_export_ranges<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.proposed_include_export_ranges = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [proposed_exclude_export_ranges][crate::model::LinkedProducerVpcNetwork::proposed_exclude_export_ranges].
+    pub fn set_proposed_exclude_export_ranges<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.proposed_exclude_export_ranges = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4426,11 +7873,10 @@ impl wkt::message::Message for UpdateGroupRequest {
     }
 }
 
-/// Policy Based Routes (PBR) are more powerful routes that allows GCP customers
-/// to route their L4 network traffic based on not just destination IP, but also
-/// source IP, protocol and more. A PBR always take precedence when it conflicts
-/// with other types of routes.
-/// Next id: 22
+/// Policy-based routes route L4 network traffic based on not just destination IP
+/// address, but also source IP address, protocol, and more. If a policy-based
+/// route conflicts with other types of routes, the policy-based route always
+/// takes precedence.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4441,11 +7887,11 @@ pub struct PolicyBasedRoute {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
-    /// Output only. Time when the PolicyBasedRoute was created.
+    /// Output only. Time when the policy-based route was created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
 
-    /// Output only. Time when the PolicyBasedRoute was updated.
+    /// Output only. Time when the policy-based route was updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
 
@@ -4458,8 +7904,8 @@ pub struct PolicyBasedRoute {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub description: std::string::String,
 
-    /// Required. Fully-qualified URL of the network that this route applies to.
-    /// e.g. projects/my-project/global/networks/my-network.
+    /// Required. Fully-qualified URL of the network that this route applies to,
+    /// for example: projects/my-project/global/networks/my-network.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub network: std::string::String,
 
@@ -4467,9 +7913,9 @@ pub struct PolicyBasedRoute {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub filter: std::option::Option<crate::model::policy_based_route::Filter>,
 
-    /// Optional. The priority of this policy based route. Priority is used to
-    /// break ties in cases where there are more than one matching policy based
-    /// routes found. In cases where multiple policy based routes are matched, the
+    /// Optional. The priority of this policy-based route. Priority is used to
+    /// break ties in cases where there are more than one matching policy-based
+    /// routes found. In cases where multiple policy-based routes are matched, the
     /// one with the lowest-numbered priority value wins. The default value is
     /// 1000. The priority value must be from 1 to 65535, inclusive.
     pub priority: i32,
@@ -4484,13 +7930,13 @@ pub struct PolicyBasedRoute {
     pub self_link: std::string::String,
 
     /// Output only. Type of this resource. Always
-    /// networkconnectivity#policyBasedRoute for Policy Based Route resources.
+    /// networkconnectivity#policyBasedRoute for policy-based Route resources.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub kind: std::string::String,
 
-    /// Target specifies network endpoints to which this policy based route applies
-    /// to. If none of the target is specified, the PBR will be installed on all
-    /// network endpoints (e.g. VMs, VPNs, and Interconnects) in the VPC.
+    /// Target specifies network endpoints that this policy-based route applies to.
+    /// If no target is specified, the PBR will be installed on all network
+    /// endpoints (e.g. VMs, VPNs, and Interconnects) in the VPC.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub target: std::option::Option<crate::model::policy_based_route::Target>,
 
@@ -4751,15 +8197,14 @@ pub mod policy_based_route {
     #[allow(unused_imports)]
     use super::*;
 
-    /// VM instances to which this policy based route applies to.
+    /// VM instances that this policy-based route applies to.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct VirtualMachine {
-        /// Optional. A list of VM instance tags to which this policy based route
-        /// applies to. VM instances that have ANY of tags specified here will
-        /// install this PBR.
+        /// Optional. A list of VM instance tags that this policy-based route applies
+        /// to. VM instances that have ANY of tags specified here installs this PBR.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub tags: std::vec::Vec<std::string::String>,
     }
@@ -4787,13 +8232,13 @@ pub mod policy_based_route {
         }
     }
 
-    /// InterconnectAttachment to which this route applies to.
+    /// InterconnectAttachment that this route applies to.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct InterconnectAttachment {
-        /// Optional. Cloud region to install this policy based route on interconnect
+        /// Optional. Cloud region to install this policy-based route on interconnect
         /// attachment. Use `all` to install it on all interconnect attachments.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub region: std::string::String,
@@ -4823,24 +8268,24 @@ pub mod policy_based_route {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Filter {
-        /// Optional. The IP protocol that this policy based route applies to. Valid
+        /// Optional. The IP protocol that this policy-based route applies to. Valid
         /// values are 'TCP', 'UDP', and 'ALL'. Default is 'ALL'.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub ip_protocol: std::string::String,
 
-        /// Optional. The source IP range of outgoing packets that this policy based
+        /// Optional. The source IP range of outgoing packets that this policy-based
         /// route applies to. Default is "0.0.0.0/0" if protocol version is IPv4.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub src_range: std::string::String,
 
-        /// Optional. The destination IP range of outgoing packets that this policy
-        /// based route applies to. Default is "0.0.0.0/0" if protocol version is
-        /// IPv4.
+        /// Optional. The destination IP range of outgoing packets that this
+        /// policy-based route applies to. Default is "0.0.0.0/0" if protocol version
+        /// is IPv4.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub dest_range: std::string::String,
 
-        /// Required. Internet protocol versions this policy based route applies to.
-        /// For this version, only IPV4 is supported.
+        /// Required. Internet protocol versions this policy-based route applies to.
+        /// For this version, only IPV4 is supported. IPV6 is supported in preview.
         pub protocol_version: crate::model::policy_based_route::filter::ProtocolVersion,
     }
 
@@ -5015,7 +8460,7 @@ pub mod policy_based_route {
         #[allow(unused_imports)]
         use super::*;
 
-        /// Warning code for Policy Based Routing. Expect to add values in the
+        /// Warning code for policy-based routing. Expect to add values in the
         /// future.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Code(i32);
@@ -5024,12 +8469,12 @@ pub mod policy_based_route {
             /// Default value.
             pub const WARNING_UNSPECIFIED: Code = Code::new(0);
 
-            /// The policy based route is not active and functioning. Common causes are
-            /// the dependent network was deleted or the resource project was turned
-            /// off.
+            /// The policy-based route is not active and functioning. Common causes are
+            /// that the dependent network was deleted or the resource project was
+            /// turned off.
             pub const RESOURCE_NOT_ACTIVE: Code = Code::new(1);
 
-            /// The policy based route is being modified (e.g. created/deleted) at this
+            /// The policy-based route is being modified (e.g. created/deleted) at this
             /// time.
             pub const RESOURCE_BEING_MODIFIED: Code = Code::new(2);
 
@@ -5088,9 +8533,9 @@ pub mod policy_based_route {
         pub const OTHER_ROUTES_UNSPECIFIED: OtherRoutes = OtherRoutes::new(0);
 
         /// Use the routes from the default routing tables (system-generated routes,
-        /// custom routes, peering route) to determine the next hop. This will
-        /// effectively exclude matching packets being applied on other PBRs with a
-        /// lower priority.
+        /// custom routes, peering route) to determine the next hop. This effectively
+        /// excludes matching packets being applied on other PBRs with a lower
+        /// priority.
         pub const DEFAULT_ROUTING: OtherRoutes = OtherRoutes::new(1);
 
         /// Creates a new OtherRoutes instance.
@@ -5136,16 +8581,17 @@ pub mod policy_based_route {
         }
     }
 
-    /// Target specifies network endpoints to which this policy based route applies
-    /// to. If none of the target is specified, the PBR will be installed on all
-    /// network endpoints (e.g. VMs, VPNs, and Interconnects) in the VPC.
+    /// Target specifies network endpoints that this policy-based route applies to.
+    /// If no target is specified, the PBR will be installed on all network
+    /// endpoints (e.g. VMs, VPNs, and Interconnects) in the VPC.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Target {
-        /// Optional. VM instances to which this policy based route applies to.
+        /// Optional. VM instances that this policy-based route applies to.
         VirtualMachine(std::boxed::Box<crate::model::policy_based_route::VirtualMachine>),
-        /// Optional. The interconnect attachments to which this route applies to.
+        /// Optional. The interconnect attachments that this policy-based route
+        /// applies to.
         InterconnectAttachment(
             std::boxed::Box<crate::model::policy_based_route::InterconnectAttachment>,
         ),
@@ -5155,9 +8601,9 @@ pub mod policy_based_route {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum NextHop {
-        /// Optional. The IP of a global access enabled L4 ILB that should be the
-        /// next hop to handle matching packets. For this version, only
-        /// next_hop_ilb_ip is supported.
+        /// Optional. The IP address of a global-access-enabled L4 ILB that is the
+        /// next hop for matching packets. For this version, only nextHopIlbIp is
+        /// supported.
         NextHopIlbIp(std::string::String),
         /// Optional. Other routes that will be referenced to determine the next hop
         /// of the packet.
@@ -5165,7 +8611,11 @@ pub mod policy_based_route {
     }
 }
 
-/// Request for [PolicyBasedRouting.ListPolicyBasedRoutes][] method.
+/// Request for
+/// [PolicyBasedRoutingService.ListPolicyBasedRoutes][google.cloud.networkconnectivity.v1.PolicyBasedRoutingService.ListPolicyBasedRoutes]
+/// method.
+///
+/// [google.cloud.networkconnectivity.v1.PolicyBasedRoutingService.ListPolicyBasedRoutes]: crate::client::PolicyBasedRoutingService::list_policy_based_routes
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -5233,13 +8683,17 @@ impl wkt::message::Message for ListPolicyBasedRoutesRequest {
     }
 }
 
-/// Response for [PolicyBasedRouting.ListPolicyBasedRoutes][] method.
+/// Response for
+/// [PolicyBasedRoutingService.ListPolicyBasedRoutes][google.cloud.networkconnectivity.v1.PolicyBasedRoutingService.ListPolicyBasedRoutes]
+/// method.
+///
+/// [google.cloud.networkconnectivity.v1.PolicyBasedRoutingService.ListPolicyBasedRoutes]: crate::client::PolicyBasedRoutingService::list_policy_based_routes
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListPolicyBasedRoutesResponse {
-    /// Policy based routes to be returned.
+    /// Policy-based routes to be returned.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub policy_based_routes: std::vec::Vec<crate::model::PolicyBasedRoute>,
 
@@ -5293,7 +8747,8 @@ impl wkt::message::Message for ListPolicyBasedRoutesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListPolicyBasedRoutesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListPolicyBasedRoutesResponse {
     type PageItem = crate::model::PolicyBasedRoute;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5306,7 +8761,11 @@ impl gax::paginator::PageableResponse for ListPolicyBasedRoutesResponse {
     }
 }
 
-/// Request for [PolicyBasedRouting.GetPolicyBasedRoute][] method.
+/// Request for
+/// [PolicyBasedRoutingService.GetPolicyBasedRoute][google.cloud.networkconnectivity.v1.PolicyBasedRoutingService.GetPolicyBasedRoute]
+/// method.
+///
+/// [google.cloud.networkconnectivity.v1.PolicyBasedRoutingService.GetPolicyBasedRoute]: crate::client::PolicyBasedRoutingService::get_policy_based_route
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -5335,7 +8794,11 @@ impl wkt::message::Message for GetPolicyBasedRouteRequest {
     }
 }
 
-/// Request for [PolicyBasedRouting.CreatePolicyBasedRoute][] method.
+/// Request for
+/// [PolicyBasedRoutingService.CreatePolicyBasedRoute][google.cloud.networkconnectivity.v1.PolicyBasedRoutingService.CreatePolicyBasedRoute]
+/// method.
+///
+/// [google.cloud.networkconnectivity.v1.PolicyBasedRoutingService.CreatePolicyBasedRoute]: crate::client::PolicyBasedRoutingService::create_policy_based_route
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -5345,24 +8808,31 @@ pub struct CreatePolicyBasedRouteRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
-    /// Required. Unique id for the Policy Based Route to create.
+    /// Required. Unique id for the policy-based route to create. Provided by the
+    /// client when the resource is created. The name must comply with
+    /// <https://google.aip.dev/122#resource-id-segments>. Specifically, the name
+    /// must be 1-63 characters long and match the regular expression
+    /// [a-z]([a-z0-9-]*[a-z0-9])?. The first character must be a lowercase letter,
+    /// and all following characters (except for the last character) must be a
+    /// dash, lowercase letter, or digit. The last character must be a lowercase
+    /// letter or digit.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub policy_based_route_id: std::string::String,
 
-    /// Required. Initial values for a new Policy Based Route.
+    /// Required. Initial values for a new policy-based route.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub policy_based_route: std::option::Option<crate::model::PolicyBasedRoute>,
 
     /// Optional. An optional request ID to identify requests. Specify a unique
-    /// request ID so that if you must retry your request, the server will know to
-    /// ignore the request if it has already been completed. The server will
-    /// guarantee that for at least 60 minutes since the first request.
+    /// request ID so that if you must retry your request, the server knows to
+    /// ignore the request if it has already been completed. The server guarantees
+    /// that for at least 60 minutes since the first request.
     ///
     /// For example, consider a situation where you make an initial request and
     /// the request times out. If you make the request again with the same request
     /// ID, the server can check if original operation with the same request ID
-    /// was received, and if so, will ignore the second request. This prevents
-    /// clients from accidentally creating duplicate commitments.
+    /// was received, and if so, ignores the second request. This prevents clients
+    /// from accidentally creating duplicate commitments.
     ///
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
@@ -5414,26 +8884,30 @@ impl wkt::message::Message for CreatePolicyBasedRouteRequest {
     }
 }
 
-/// Request for [PolicyBasedRouting.DeletePolicyBasedRoute][] method.
+/// Request for
+/// [PolicyBasedRoutingService.DeletePolicyBasedRoute][google.cloud.networkconnectivity.v1.PolicyBasedRoutingService.DeletePolicyBasedRoute]
+/// method.
+///
+/// [google.cloud.networkconnectivity.v1.PolicyBasedRoutingService.DeletePolicyBasedRoute]: crate::client::PolicyBasedRoutingService::delete_policy_based_route
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DeletePolicyBasedRouteRequest {
-    /// Required. Name of the PolicyBasedRoute resource to delete.
+    /// Required. Name of the policy-based route resource to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
     /// Optional. An optional request ID to identify requests. Specify a unique
-    /// request ID so that if you must retry your request, the server will know to
-    /// ignore the request if it has already been completed. The server will
-    /// guarantee that for at least 60 minutes after the first request.
+    /// request ID so that if you must retry your request, the server knows to
+    /// ignore the request if it has already been completed. The server guarantees
+    /// that for at least 60 minutes after the first request.
     ///
     /// For example, consider a situation where you make an initial request and
     /// the request times out. If you make the request again with the same request
     /// ID, the server can check if original operation with the same request ID
-    /// was received, and if so, will ignore the second request. This prevents
-    /// clients from accidentally creating duplicate commitments.
+    /// was received, and if so, ignores the second request. This prevents clients
+    /// from accidentally creating duplicate commitments.
     ///
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
@@ -5462,6 +8936,183 @@ impl DeletePolicyBasedRouteRequest {
 impl wkt::message::Message for DeletePolicyBasedRouteRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.networkconnectivity.v1.DeletePolicyBasedRouteRequest"
+    }
+}
+
+/// The infrastructure used for connections between consumers/producers.
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct Infrastructure(i32);
+
+impl Infrastructure {
+    /// An invalid infrastructure as the default case.
+    pub const INFRASTRUCTURE_UNSPECIFIED: Infrastructure = Infrastructure::new(0);
+
+    /// Private Service Connect is used for connections.
+    pub const PSC: Infrastructure = Infrastructure::new(1);
+
+    /// Creates a new Infrastructure instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("INFRASTRUCTURE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("PSC"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "INFRASTRUCTURE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::INFRASTRUCTURE_UNSPECIFIED)
+            }
+            "PSC" => std::option::Option::Some(Self::PSC),
+            _ => std::option::Option::None,
+        }
+    }
+}
+
+impl std::convert::From<i32> for Infrastructure {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for Infrastructure {
+    fn default() -> Self {
+        Self::new(0)
+    }
+}
+
+/// The error type indicates whether a connection error is consumer facing,
+/// producer facing or system internal.
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct ConnectionErrorType(i32);
+
+impl ConnectionErrorType {
+    /// An invalid error type as the default case.
+    pub const CONNECTION_ERROR_TYPE_UNSPECIFIED: ConnectionErrorType = ConnectionErrorType::new(0);
+
+    /// The error is due to Service Automation system internal.
+    pub const ERROR_INTERNAL: ConnectionErrorType = ConnectionErrorType::new(1);
+
+    /// The error is due to the setup on consumer side.
+    pub const ERROR_CONSUMER_SIDE: ConnectionErrorType = ConnectionErrorType::new(2);
+
+    /// The error is due to the setup on producer side.
+    pub const ERROR_PRODUCER_SIDE: ConnectionErrorType = ConnectionErrorType::new(3);
+
+    /// Creates a new ConnectionErrorType instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("CONNECTION_ERROR_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("ERROR_INTERNAL"),
+            2 => std::borrow::Cow::Borrowed("ERROR_CONSUMER_SIDE"),
+            3 => std::borrow::Cow::Borrowed("ERROR_PRODUCER_SIDE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "CONNECTION_ERROR_TYPE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::CONNECTION_ERROR_TYPE_UNSPECIFIED)
+            }
+            "ERROR_INTERNAL" => std::option::Option::Some(Self::ERROR_INTERNAL),
+            "ERROR_CONSUMER_SIDE" => std::option::Option::Some(Self::ERROR_CONSUMER_SIDE),
+            "ERROR_PRODUCER_SIDE" => std::option::Option::Some(Self::ERROR_PRODUCER_SIDE),
+            _ => std::option::Option::None,
+        }
+    }
+}
+
+impl std::convert::From<i32> for ConnectionErrorType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for ConnectionErrorType {
+    fn default() -> Self {
+        Self::new(0)
+    }
+}
+
+/// The requested IP version for the PSC connection.
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct IPVersion(i32);
+
+impl IPVersion {
+    /// Default value. We will use IPv4 or IPv6 depending on the IP version of
+    /// first available subnetwork.
+    pub const IP_VERSION_UNSPECIFIED: IPVersion = IPVersion::new(0);
+
+    /// Will use IPv4 only.
+    pub const IPV4: IPVersion = IPVersion::new(1);
+
+    /// Will use IPv6 only.
+    pub const IPV6: IPVersion = IPVersion::new(2);
+
+    /// Creates a new IPVersion instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("IP_VERSION_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("IPV4"),
+            2 => std::borrow::Cow::Borrowed("IPV6"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "IP_VERSION_UNSPECIFIED" => std::option::Option::Some(Self::IP_VERSION_UNSPECIFIED),
+            "IPV4" => std::option::Option::Some(Self::IPV4),
+            "IPV6" => std::option::Option::Some(Self::IPV6),
+            _ => std::option::Option::None,
+        }
+    }
+}
+
+impl std::convert::From<i32> for IPVersion {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for IPVersion {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
@@ -5624,6 +9275,11 @@ impl State {
     /// This state applies to spoke resources only.
     pub const OBSOLETE: State = State::new(10);
 
+    /// The resource is in an undefined state due to resource creation or deletion
+    /// failure. You can try to delete the resource later or contact support for
+    /// help.
+    pub const FAILED: State = State::new(11);
+
     /// Creates a new State instance.
     pub(crate) const fn new(value: i32) -> Self {
         Self(value)
@@ -5646,6 +9302,7 @@ impl State {
             8 => std::borrow::Cow::Borrowed("ACCEPTING"),
             9 => std::borrow::Cow::Borrowed("REJECTING"),
             10 => std::borrow::Cow::Borrowed("OBSOLETE"),
+            11 => std::borrow::Cow::Borrowed("FAILED"),
             _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
         }
     }
@@ -5662,6 +9319,7 @@ impl State {
             "UPDATING" => std::option::Option::Some(Self::UPDATING),
             "INACTIVE" => std::option::Option::Some(Self::INACTIVE),
             "OBSOLETE" => std::option::Option::Some(Self::OBSOLETE),
+            "FAILED" => std::option::Option::Some(Self::FAILED),
             _ => std::option::Option::None,
         }
     }

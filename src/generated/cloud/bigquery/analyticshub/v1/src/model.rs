@@ -91,6 +91,12 @@ pub struct DataExchange {
     /// discovery_type field for all the listings under this exchange.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub discovery_type: std::option::Option<crate::model::DiscoveryType>,
+
+    /// Optional. By default, false.
+    /// If true, the DataExchange has an email sharing mandate enabled.
+    /// Publishers can view the logged email of the subscriber.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub log_linked_dataset_query_user_email: std::option::Option<bool>,
 }
 
 impl DataExchange {
@@ -159,6 +165,17 @@ impl DataExchange {
         v: T,
     ) -> Self {
         self.discovery_type = v.into();
+        self
+    }
+
+    /// Sets the value of [log_linked_dataset_query_user_email][crate::model::DataExchange::log_linked_dataset_query_user_email].
+    pub fn set_log_linked_dataset_query_user_email<
+        T: std::convert::Into<std::option::Option<bool>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.log_linked_dataset_query_user_email = v.into();
         self
     }
 }
@@ -454,7 +471,6 @@ impl wkt::message::Message for Publisher {
     }
 }
 
-/// Contains the reference that identifies a destination bigquery dataset.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -587,6 +603,40 @@ impl wkt::message::Message for DestinationDataset {
     }
 }
 
+/// Defines the destination Pub/Sub subscription.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DestinationPubSubSubscription {
+    /// Required. Destination Pub/Sub subscription resource.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub pubsub_subscription: std::option::Option<crate::model::PubSubSubscription>,
+}
+
+impl DestinationPubSubSubscription {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [pubsub_subscription][crate::model::DestinationPubSubSubscription::pubsub_subscription].
+    pub fn set_pubsub_subscription<
+        T: std::convert::Into<std::option::Option<crate::model::PubSubSubscription>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.pubsub_subscription = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DestinationPubSubSubscription {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.DestinationPubSubSubscription"
+    }
+}
+
 /// A listing is what gets published into a data exchange that a subscriber can
 /// subscribe to. It contains a reference to the data source along with
 /// descriptive information that will help subscribers find and subscribe the
@@ -664,6 +714,14 @@ pub struct Listing {
     /// Optional. Type of discovery of the listing on the discovery page.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub discovery_type: std::option::Option<crate::model::DiscoveryType>,
+
+    /// Output only. Listing shared asset type.
+    pub resource_type: crate::model::SharedResourceType,
+
+    /// Optional. By default, false.
+    /// If true, the Listing has an email sharing mandate enabled.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub log_linked_dataset_query_user_email: std::option::Option<bool>,
 
     /// Listing source.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -765,6 +823,26 @@ impl Listing {
         self
     }
 
+    /// Sets the value of [resource_type][crate::model::Listing::resource_type].
+    pub fn set_resource_type<T: std::convert::Into<crate::model::SharedResourceType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.resource_type = v.into();
+        self
+    }
+
+    /// Sets the value of [log_linked_dataset_query_user_email][crate::model::Listing::log_linked_dataset_query_user_email].
+    pub fn set_log_linked_dataset_query_user_email<
+        T: std::convert::Into<std::option::Option<bool>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.log_linked_dataset_query_user_email = v.into();
+        self
+    }
+
     /// Sets the value of [categories][crate::model::Listing::categories].
     pub fn set_categories<T, V>(mut self, v: T) -> Self
     where
@@ -798,6 +876,19 @@ impl Listing {
         })
     }
 
+    /// The value of [source][crate::model::Listing::source]
+    /// if it holds a `PubsubTopic`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_pubsub_topic(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::listing::PubSubTopicSource>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::listing::Source::PubsubTopic(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [source][crate::model::Listing::source]
     /// to hold a `BigqueryDataset`.
     ///
@@ -811,6 +902,22 @@ impl Listing {
     ) -> Self {
         self.source =
             std::option::Option::Some(crate::model::listing::Source::BigqueryDataset(v.into()));
+        self
+    }
+
+    /// Sets the value of [source][crate::model::Listing::source]
+    /// to hold a `PubsubTopic`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    pub fn set_pubsub_topic<
+        T: std::convert::Into<std::boxed::Box<crate::model::listing::PubSubTopicSource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source =
+            std::option::Option::Some(crate::model::listing::Source::PubsubTopic(v.into()));
         self
     }
 }
@@ -838,14 +945,13 @@ pub mod listing {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct BigQueryDatasetSource {
-        /// Resource name of the dataset source for this listing.
+        /// Optional. Resource name of the dataset source for this listing.
         /// e.g. `projects/myproject/datasets/123`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub dataset: std::string::String,
 
-        /// Optional. Resources in this dataset that are selectively shared.
-        /// If this field is empty, then the entire dataset (all resources) are
-        /// shared. This field is only valid for data clean room exchanges.
+        /// Optional. Resource in this dataset that is selectively shared.
+        /// This field is required for data clean room exchanges.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub selected_resources:
             std::vec::Vec<crate::model::listing::big_query_dataset_source::SelectedResource>,
@@ -909,7 +1015,7 @@ pub mod listing {
         #[allow(unused_imports)]
         use super::*;
 
-        /// Resource in this dataset that are selectively shared.
+        /// Resource in this dataset that is selectively shared.
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -1045,6 +1151,53 @@ pub mod listing {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.Listing.BigQueryDatasetSource.RestrictedExportPolicy"
             }
+        }
+    }
+
+    /// Pub/Sub topic source.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct PubSubTopicSource {
+        /// Required. Resource name of the Pub/Sub topic source for this listing.
+        /// e.g. projects/myproject/topics/topicId
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub topic: std::string::String,
+
+        /// Optional. Region hint on where the data might be published. Data affinity
+        /// regions are modifiable. See <https://cloud.google.com/about/locations> for
+        /// full listing of possible Cloud regions.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub data_affinity_regions: std::vec::Vec<std::string::String>,
+    }
+
+    impl PubSubTopicSource {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [topic][crate::model::listing::PubSubTopicSource::topic].
+        pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.topic = v.into();
+            self
+        }
+
+        /// Sets the value of [data_affinity_regions][crate::model::listing::PubSubTopicSource::data_affinity_regions].
+        pub fn set_data_affinity_regions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.data_affinity_regions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for PubSubTopicSource {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.Listing.PubSubTopicSource"
         }
     }
 
@@ -1292,8 +1445,10 @@ pub mod listing {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Source {
-        /// Required. Shared dataset i.e. BigQuery dataset source.
+        /// Shared dataset i.e. BigQuery dataset source.
         BigqueryDataset(std::boxed::Box<crate::model::listing::BigQueryDatasetSource>),
+        /// Pub/Sub topic source.
+        PubsubTopic(std::boxed::Box<crate::model::listing::PubSubTopicSource>),
     }
 }
 
@@ -1343,6 +1498,20 @@ pub struct Subscription {
     /// Output only. Email of the subscriber.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub subscriber_contact: std::string::String,
+
+    /// Output only. Linked resources created in the subscription. Only contains
+    /// values if state = STATE_ACTIVE.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub linked_resources: std::vec::Vec<crate::model::subscription::LinkedResource>,
+
+    /// Output only. Listing shared asset type.
+    pub resource_type: crate::model::SharedResourceType,
+
+    /// Output only. By default, false.
+    /// If true, the Subscriber agreed to the email sharing mandate
+    /// that is enabled for DataExchange/Listing.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub log_linked_dataset_query_user_email: std::option::Option<bool>,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub resource_name: std::option::Option<crate::model::subscription::ResourceName>,
@@ -1407,6 +1576,37 @@ impl Subscription {
         v: T,
     ) -> Self {
         self.subscriber_contact = v.into();
+        self
+    }
+
+    /// Sets the value of [resource_type][crate::model::Subscription::resource_type].
+    pub fn set_resource_type<T: std::convert::Into<crate::model::SharedResourceType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.resource_type = v.into();
+        self
+    }
+
+    /// Sets the value of [log_linked_dataset_query_user_email][crate::model::Subscription::log_linked_dataset_query_user_email].
+    pub fn set_log_linked_dataset_query_user_email<
+        T: std::convert::Into<std::option::Option<bool>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.log_linked_dataset_query_user_email = v.into();
+        self
+    }
+
+    /// Sets the value of [linked_resources][crate::model::Subscription::linked_resources].
+    pub fn set_linked_resources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::subscription::LinkedResource>,
+    {
+        use std::iter::Iterator;
+        self.linked_resources = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -1498,6 +1698,10 @@ pub mod subscription {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct LinkedResource {
+        /// Output only. Listing for which linked resource is created.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub listing: std::string::String,
+
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub reference: std::option::Option<crate::model::subscription::linked_resource::Reference>,
     }
@@ -1505,6 +1709,12 @@ pub mod subscription {
     impl LinkedResource {
         pub fn new() -> Self {
             std::default::Default::default()
+        }
+
+        /// Sets the value of [listing][crate::model::subscription::LinkedResource::listing].
+        pub fn set_listing<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.listing = v.into();
+            self
         }
 
         /// Sets the value of `reference`.
@@ -1533,6 +1743,17 @@ pub mod subscription {
             })
         }
 
+        /// The value of [reference][crate::model::subscription::LinkedResource::reference]
+        /// if it holds a `LinkedPubsubSubscription`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn get_linked_pubsub_subscription(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.reference.as_ref().and_then(|v| match v {
+                crate::model::subscription::linked_resource::Reference::LinkedPubsubSubscription(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [reference][crate::model::subscription::LinkedResource::reference]
         /// to hold a `LinkedDataset`.
         ///
@@ -1544,6 +1765,23 @@ pub mod subscription {
         ) -> Self {
             self.reference = std::option::Option::Some(
                 crate::model::subscription::linked_resource::Reference::LinkedDataset(v.into()),
+            );
+            self
+        }
+
+        /// Sets the value of [reference][crate::model::subscription::LinkedResource::reference]
+        /// to hold a `LinkedPubsubSubscription`.
+        ///
+        /// Note that all the setters affecting `reference` are
+        /// mutually exclusive.
+        pub fn set_linked_pubsub_subscription<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.reference = std::option::Option::Some(
+                crate::model::subscription::linked_resource::Reference::LinkedPubsubSubscription(
+                    v.into(),
+                ),
             );
             self
         }
@@ -1567,6 +1805,9 @@ pub mod subscription {
             /// Output only. Name of the linked dataset, e.g.
             /// projects/subscriberproject/datasets/linked_dataset
             LinkedDataset(std::string::String),
+            /// Output only. Name of the Pub/Sub subscription, e.g.
+            /// projects/subscriberproject/subscriptions/subscriptions/sub_id
+            LinkedPubsubSubscription(std::string::String),
         }
     }
 
@@ -1742,7 +1983,8 @@ impl wkt::message::Message for ListDataExchangesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDataExchangesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDataExchangesResponse {
     type PageItem = crate::model::DataExchange;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1852,7 +2094,8 @@ impl wkt::message::Message for ListOrgDataExchangesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListOrgDataExchangesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListOrgDataExchangesResponse {
     type PageItem = crate::model::DataExchange;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1907,9 +2150,7 @@ pub struct CreateDataExchangeRequest {
     pub parent: std::string::String,
 
     /// Required. The ID of the data exchange.
-    /// Must contain only Unicode letters, numbers (0-9), underscores (_).
-    /// Should not use characters that require URL-escaping, or characters
-    /// outside of ASCII, spaces.
+    /// Must contain only ASCII letters, numbers (0-9), underscores (_).
     /// Max length: 100 bytes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub data_exchange_id: std::string::String,
@@ -2131,7 +2372,8 @@ impl wkt::message::Message for ListListingsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListListingsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListListingsResponse {
     type PageItem = crate::model::Listing;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2186,9 +2428,7 @@ pub struct CreateListingRequest {
     pub parent: std::string::String,
 
     /// Required. The ID of the listing to create.
-    /// Must contain only Unicode letters, numbers (0-9), underscores (_).
-    /// Should not use characters that require URL-escaping, or characters
-    /// outside of ASCII, spaces.
+    /// Must contain only ASCII letters, numbers (0-9), underscores (_).
     /// Max length: 100 bytes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub listing_id: std::string::String,
@@ -2363,6 +2603,21 @@ impl SubscribeListingRequest {
         })
     }
 
+    /// The value of [destination][crate::model::SubscribeListingRequest::destination]
+    /// if it holds a `DestinationPubsubSubscription`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_destination_pubsub_subscription(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DestinationPubSubSubscription>> {
+        #[allow(unreachable_patterns)]
+        self.destination.as_ref().and_then(|v| match v {
+            crate::model::subscribe_listing_request::Destination::DestinationPubsubSubscription(
+                v,
+            ) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [destination][crate::model::SubscribeListingRequest::destination]
     /// to hold a `DestinationDataset`.
     ///
@@ -2376,6 +2631,25 @@ impl SubscribeListingRequest {
     ) -> Self {
         self.destination = std::option::Option::Some(
             crate::model::subscribe_listing_request::Destination::DestinationDataset(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [destination][crate::model::SubscribeListingRequest::destination]
+    /// to hold a `DestinationPubsubSubscription`.
+    ///
+    /// Note that all the setters affecting `destination` are
+    /// mutually exclusive.
+    pub fn set_destination_pubsub_subscription<
+        T: std::convert::Into<std::boxed::Box<crate::model::DestinationPubSubSubscription>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination = std::option::Option::Some(
+            crate::model::subscribe_listing_request::Destination::DestinationPubsubSubscription(
+                v.into(),
+            ),
         );
         self
     }
@@ -2399,6 +2673,9 @@ pub mod subscribe_listing_request {
     pub enum Destination {
         /// Input only. BigQuery destination dataset to create for the subscriber.
         DestinationDataset(std::boxed::Box<crate::model::DestinationDataset>),
+        /// Input only. Destination Pub/Sub subscription to create for the
+        /// subscriber.
+        DestinationPubsubSubscription(std::boxed::Box<crate::model::DestinationPubSubSubscription>),
     }
 }
 
@@ -2452,6 +2729,10 @@ pub struct SubscribeDataExchangeRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub destination: std::string::String,
 
+    /// Optional. BigQuery destination dataset to create for the subscriber.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub destination_dataset: std::option::Option<crate::model::DestinationDataset>,
+
     /// Required. Name of the subscription to create.
     /// e.g. `subscription1`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -2476,6 +2757,17 @@ impl SubscribeDataExchangeRequest {
     /// Sets the value of [destination][crate::model::SubscribeDataExchangeRequest::destination].
     pub fn set_destination<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_dataset][crate::model::SubscribeDataExchangeRequest::destination_dataset].
+    pub fn set_destination_dataset<
+        T: std::convert::Into<std::option::Option<crate::model::DestinationDataset>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination_dataset = v.into();
         self
     }
 
@@ -2746,7 +3038,8 @@ impl wkt::message::Message for ListSubscriptionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListSubscriptionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListSubscriptionsResponse {
     type PageItem = crate::model::Subscription;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2864,7 +3157,8 @@ impl wkt::message::Message for ListSharedResourceSubscriptionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListSharedResourceSubscriptionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListSharedResourceSubscriptionsResponse {
     type PageItem = crate::model::Subscription;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2908,6 +3202,7 @@ impl wkt::message::Message for RevokeSubscriptionRequest {
 }
 
 /// Message for response when you revoke a subscription.
+/// Empty for now.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3056,6 +3351,1357 @@ impl wkt::message::Message for OperationMetadata {
     }
 }
 
+/// Defines the destination Pub/Sub subscription.
+/// If none of `push_config`, `bigquery_config`, `cloud_storage_config`,
+/// `pubsub_export_config`, or `pubsublite_export_config`
+/// is set, then the subscriber will pull and ack messages using API methods. At
+/// most one of these fields may be set.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct PubSubSubscription {
+    /// Required. Name of the subscription.
+    /// Format is `projects/{project}/subscriptions/{sub}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Optional. If push delivery is used with this subscription, this field is
+    /// used to configure it.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub push_config: std::option::Option<crate::model::PushConfig>,
+
+    /// Optional. If delivery to BigQuery is used with this subscription, this
+    /// field is used to configure it.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub bigquery_config: std::option::Option<crate::model::BigQueryConfig>,
+
+    /// Optional. If delivery to Google Cloud Storage is used with this
+    /// subscription, this field is used to configure it.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub cloud_storage_config: std::option::Option<crate::model::CloudStorageConfig>,
+
+    /// Optional. The approximate amount of time (on a best-effort basis) Pub/Sub
+    /// waits for the subscriber to acknowledge receipt before resending the
+    /// message. In the interval after the message is delivered and before it is
+    /// acknowledged, it is considered to be _outstanding_. During that time
+    /// period, the message will not be redelivered (on a best-effort basis).
+    ///
+    /// For pull subscriptions, this value is used as the initial value for the ack
+    /// deadline. To override this value for a given message, call
+    /// `ModifyAckDeadline` with the corresponding `ack_id` if using
+    /// non-streaming pull or send the `ack_id` in a
+    /// `StreamingModifyAckDeadlineRequest` if using streaming pull.
+    /// The minimum custom deadline you can specify is 10 seconds.
+    /// The maximum custom deadline you can specify is 600 seconds (10 minutes).
+    /// If this parameter is 0, a default value of 10 seconds is used.
+    ///
+    /// For push delivery, this value is also used to set the request timeout for
+    /// the call to the push endpoint.
+    ///
+    /// If the subscriber never acknowledges the message, the Pub/Sub
+    /// system will eventually redeliver the message.
+    pub ack_deadline_seconds: i32,
+
+    /// Optional. Indicates whether to retain acknowledged messages. If true, then
+    /// messages are not expunged from the subscription's backlog, even if they are
+    /// acknowledged, until they fall out of the `message_retention_duration`
+    /// window. This must be true if you would like to [`Seek` to a timestamp]
+    /// (<https://cloud.google.com/pubsub/docs/replay-overview#seek_to_a_time>) in
+    /// the past to replay previously-acknowledged messages.
+    pub retain_acked_messages: bool,
+
+    /// Optional. How long to retain unacknowledged messages in the subscription's
+    /// backlog, from the moment a message is published. If `retain_acked_messages`
+    /// is true, then this also configures the retention of acknowledged messages,
+    /// and thus configures how far back in time a `Seek` can be done. Defaults to
+    /// 7 days. Cannot be more than 31 days or less than 10 minutes.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub message_retention_duration: std::option::Option<wkt::Duration>,
+
+    /// Optional. See [Creating and managing
+    /// labels](https://cloud.google.com/pubsub/docs/labels).
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. If true, messages published with the same `ordering_key` in
+    /// `PubsubMessage` will be delivered to the subscribers in the order in which
+    /// they are received by the Pub/Sub system. Otherwise, they may be delivered
+    /// in any order.
+    pub enable_message_ordering: bool,
+
+    /// Optional. A policy that specifies the conditions for this subscription's
+    /// expiration. A subscription is considered active as long as any connected
+    /// subscriber is successfully consuming messages from the subscription or is
+    /// issuing operations on the subscription. If `expiration_policy` is not set,
+    /// a *default policy* with `ttl` of 31 days will be used. The minimum allowed
+    /// value for `expiration_policy.ttl` is 1 day. If `expiration_policy` is set,
+    /// but `expiration_policy.ttl` is not set, the subscription never expires.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub expiration_policy: std::option::Option<crate::model::ExpirationPolicy>,
+
+    /// Optional. An expression written in the Pub/Sub [filter
+    /// language](https://cloud.google.com/pubsub/docs/filtering). If non-empty,
+    /// then only `PubsubMessage`s whose `attributes` field matches the filter are
+    /// delivered on this subscription. If empty, then no messages are filtered
+    /// out.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub filter: std::string::String,
+
+    /// Optional. A policy that specifies the conditions for dead lettering
+    /// messages in this subscription. If dead_letter_policy is not set, dead
+    /// lettering is disabled.
+    ///
+    /// The Pub/Sub service account associated with this subscriptions's
+    /// parent project (i.e.,
+    /// service-{project_number}@gcp-sa-pubsub.iam.gserviceaccount.com) must have
+    /// permission to Acknowledge() messages on this subscription.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub dead_letter_policy: std::option::Option<crate::model::DeadLetterPolicy>,
+
+    /// Optional. A policy that specifies how Pub/Sub retries message delivery for
+    /// this subscription.
+    ///
+    /// If not set, the default retry policy is applied. This generally implies
+    /// that messages will be retried as soon as possible for healthy subscribers.
+    /// RetryPolicy will be triggered on NACKs or acknowledgement deadline
+    /// exceeded events for a given message.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub retry_policy: std::option::Option<crate::model::RetryPolicy>,
+
+    /// Optional. Indicates whether the subscription is detached from its topic.
+    /// Detached subscriptions don't receive messages from their topic and don't
+    /// retain any backlog. `Pull` and `StreamingPull` requests will return
+    /// FAILED_PRECONDITION. If the subscription is a push subscription, pushes to
+    /// the endpoint will not be made.
+    pub detached: bool,
+
+    /// Optional. If true, Pub/Sub provides the following guarantees for the
+    /// delivery of a message with a given value of `message_id` on this
+    /// subscription:
+    ///
+    /// * The message sent to a subscriber is guaranteed not to be resent
+    ///   before the message's acknowledgement deadline expires.
+    /// * An acknowledged message will not be resent to a subscriber.
+    ///
+    /// Note that subscribers may still receive multiple copies of a message
+    /// when `enable_exactly_once_delivery` is true if the message was published
+    /// multiple times by a publisher client. These copies are  considered distinct
+    /// by Pub/Sub and have distinct `message_id` values.
+    pub enable_exactly_once_delivery: bool,
+
+    /// Optional. Transforms to be applied to messages before they are delivered to
+    /// subscribers. Transforms are applied in the order specified.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub message_transforms: std::vec::Vec<crate::model::MessageTransform>,
+}
+
+impl PubSubSubscription {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::PubSubSubscription::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [push_config][crate::model::PubSubSubscription::push_config].
+    pub fn set_push_config<T: std::convert::Into<std::option::Option<crate::model::PushConfig>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.push_config = v.into();
+        self
+    }
+
+    /// Sets the value of [bigquery_config][crate::model::PubSubSubscription::bigquery_config].
+    pub fn set_bigquery_config<
+        T: std::convert::Into<std::option::Option<crate::model::BigQueryConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.bigquery_config = v.into();
+        self
+    }
+
+    /// Sets the value of [cloud_storage_config][crate::model::PubSubSubscription::cloud_storage_config].
+    pub fn set_cloud_storage_config<
+        T: std::convert::Into<std::option::Option<crate::model::CloudStorageConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cloud_storage_config = v.into();
+        self
+    }
+
+    /// Sets the value of [ack_deadline_seconds][crate::model::PubSubSubscription::ack_deadline_seconds].
+    pub fn set_ack_deadline_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.ack_deadline_seconds = v.into();
+        self
+    }
+
+    /// Sets the value of [retain_acked_messages][crate::model::PubSubSubscription::retain_acked_messages].
+    pub fn set_retain_acked_messages<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.retain_acked_messages = v.into();
+        self
+    }
+
+    /// Sets the value of [message_retention_duration][crate::model::PubSubSubscription::message_retention_duration].
+    pub fn set_message_retention_duration<
+        T: std::convert::Into<std::option::Option<wkt::Duration>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.message_retention_duration = v.into();
+        self
+    }
+
+    /// Sets the value of [enable_message_ordering][crate::model::PubSubSubscription::enable_message_ordering].
+    pub fn set_enable_message_ordering<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enable_message_ordering = v.into();
+        self
+    }
+
+    /// Sets the value of [expiration_policy][crate::model::PubSubSubscription::expiration_policy].
+    pub fn set_expiration_policy<
+        T: std::convert::Into<std::option::Option<crate::model::ExpirationPolicy>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.expiration_policy = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::PubSubSubscription::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [dead_letter_policy][crate::model::PubSubSubscription::dead_letter_policy].
+    pub fn set_dead_letter_policy<
+        T: std::convert::Into<std::option::Option<crate::model::DeadLetterPolicy>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.dead_letter_policy = v.into();
+        self
+    }
+
+    /// Sets the value of [retry_policy][crate::model::PubSubSubscription::retry_policy].
+    pub fn set_retry_policy<
+        T: std::convert::Into<std::option::Option<crate::model::RetryPolicy>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.retry_policy = v.into();
+        self
+    }
+
+    /// Sets the value of [detached][crate::model::PubSubSubscription::detached].
+    pub fn set_detached<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.detached = v.into();
+        self
+    }
+
+    /// Sets the value of [enable_exactly_once_delivery][crate::model::PubSubSubscription::enable_exactly_once_delivery].
+    pub fn set_enable_exactly_once_delivery<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enable_exactly_once_delivery = v.into();
+        self
+    }
+
+    /// Sets the value of [message_transforms][crate::model::PubSubSubscription::message_transforms].
+    pub fn set_message_transforms<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MessageTransform>,
+    {
+        use std::iter::Iterator;
+        self.message_transforms = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::PubSubSubscription::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for PubSubSubscription {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.PubSubSubscription"
+    }
+}
+
+/// A policy that specifies how Pub/Sub retries message delivery.
+///
+/// Retry delay will be exponential based on provided minimum and maximum
+/// backoffs. <https://en.wikipedia.org/wiki/Exponential_backoff>.
+///
+/// RetryPolicy will be triggered on NACKs or acknowledgement deadline exceeded
+/// events for a given message.
+///
+/// Retry Policy is implemented on a best effort basis. At times, the delay
+/// between consecutive deliveries may not match the configuration. That is,
+/// delay can be more or less than configured backoff.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct RetryPolicy {
+    /// Optional. The minimum delay between consecutive deliveries of a given
+    /// message. Value should be between 0 and 600 seconds. Defaults to 10 seconds.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub minimum_backoff: std::option::Option<wkt::Duration>,
+
+    /// Optional. The maximum delay between consecutive deliveries of a given
+    /// message. Value should be between 0 and 600 seconds. Defaults to 600
+    /// seconds.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub maximum_backoff: std::option::Option<wkt::Duration>,
+}
+
+impl RetryPolicy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [minimum_backoff][crate::model::RetryPolicy::minimum_backoff].
+    pub fn set_minimum_backoff<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.minimum_backoff = v.into();
+        self
+    }
+
+    /// Sets the value of [maximum_backoff][crate::model::RetryPolicy::maximum_backoff].
+    pub fn set_maximum_backoff<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.maximum_backoff = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RetryPolicy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.RetryPolicy"
+    }
+}
+
+/// Dead lettering is done on a best effort basis. The same message might be
+/// dead lettered multiple times.
+///
+/// If validation on any of the fields fails at subscription creation/updation,
+/// the create/update subscription request will fail.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeadLetterPolicy {
+    /// Optional. The name of the topic to which dead letter messages should be
+    /// published. Format is `projects/{project}/topics/{topic}`.The Pub/Sub
+    /// service account associated with the enclosing subscription's parent project
+    /// (i.e., service-{project_number}@gcp-sa-pubsub.iam.gserviceaccount.com) must
+    /// have permission to Publish() to this topic.
+    ///
+    /// The operation will fail if the topic does not exist.
+    /// Users should ensure that there is a subscription attached to this topic
+    /// since messages published to a topic with no subscriptions are lost.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub dead_letter_topic: std::string::String,
+
+    /// Optional. The maximum number of delivery attempts for any message. The
+    /// value must be between 5 and 100.
+    ///
+    /// The number of delivery attempts is defined as 1 + (the sum of number of
+    /// NACKs and number of times the acknowledgement deadline has been exceeded
+    /// for the message).
+    ///
+    /// A NACK is any call to ModifyAckDeadline with a 0 deadline. Note that
+    /// client libraries may automatically extend ack_deadlines.
+    ///
+    /// This field will be honored on a best effort basis.
+    ///
+    /// If this parameter is 0, a default value of 5 is used.
+    pub max_delivery_attempts: i32,
+}
+
+impl DeadLetterPolicy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [dead_letter_topic][crate::model::DeadLetterPolicy::dead_letter_topic].
+    pub fn set_dead_letter_topic<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.dead_letter_topic = v.into();
+        self
+    }
+
+    /// Sets the value of [max_delivery_attempts][crate::model::DeadLetterPolicy::max_delivery_attempts].
+    pub fn set_max_delivery_attempts<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.max_delivery_attempts = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeadLetterPolicy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.DeadLetterPolicy"
+    }
+}
+
+/// A policy that specifies the conditions for resource expiration (i.e.,
+/// automatic resource deletion).
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ExpirationPolicy {
+    /// Optional. Specifies the "time-to-live" duration for an associated resource.
+    /// The resource expires if it is not active for a period of `ttl`. The
+    /// definition of "activity" depends on the type of the associated resource.
+    /// The minimum and maximum allowed values for `ttl` depend on the type of the
+    /// associated resource, as well. If `ttl` is not set, the associated resource
+    /// never expires.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub ttl: std::option::Option<wkt::Duration>,
+}
+
+impl ExpirationPolicy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [ttl][crate::model::ExpirationPolicy::ttl].
+    pub fn set_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ttl = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ExpirationPolicy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.ExpirationPolicy"
+    }
+}
+
+/// Configuration for a push delivery endpoint.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct PushConfig {
+    /// Optional. A URL locating the endpoint to which messages should be pushed.
+    /// For example, a Webhook endpoint might use `<https://example.com/push>`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub push_endpoint: std::string::String,
+
+    /// Optional. Endpoint configuration attributes that can be used to control
+    /// different aspects of the message delivery.
+    ///
+    /// The only currently supported attribute is `x-goog-version`, which you can
+    /// use to change the format of the pushed message. This attribute
+    /// indicates the version of the data expected by the endpoint. This
+    /// controls the shape of the pushed message (i.e., its fields and metadata).
+    ///
+    /// If not present during the `CreateSubscription` call, it will default to
+    /// the version of the Pub/Sub API used to make such call. If not present in a
+    /// `ModifyPushConfig` call, its value will not be changed. `GetSubscription`
+    /// calls will always return a valid version, even if the subscription was
+    /// created without this attribute.
+    ///
+    /// The only supported values for the `x-goog-version` attribute are:
+    ///
+    /// * `v1beta1`: uses the push format defined in the v1beta1 Pub/Sub API.
+    /// * `v1` or `v1beta2`: uses the push format defined in the v1 Pub/Sub API.
+    ///
+    /// For example:
+    /// `attributes { "x-goog-version": "v1" }`
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub attributes: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// An authentication method used by push endpoints to verify the source of
+    /// push requests. This can be used with push endpoints that are private by
+    /// default to allow requests only from the Pub/Sub system, for example.
+    /// This field is optional and should be set only by users interested in
+    /// authenticated push.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub authentication_method: std::option::Option<crate::model::push_config::AuthenticationMethod>,
+
+    /// The format of the delivered message to the push endpoint is defined by
+    /// the chosen wrapper. When unset, `PubsubWrapper` is used.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub wrapper: std::option::Option<crate::model::push_config::Wrapper>,
+}
+
+impl PushConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [push_endpoint][crate::model::PushConfig::push_endpoint].
+    pub fn set_push_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.push_endpoint = v.into();
+        self
+    }
+
+    /// Sets the value of [attributes][crate::model::PushConfig::attributes].
+    pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of `authentication_method`.
+    pub fn set_authentication_method<
+        T: std::convert::Into<std::option::Option<crate::model::push_config::AuthenticationMethod>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.authentication_method = v.into();
+        self
+    }
+
+    /// The value of [authentication_method][crate::model::PushConfig::authentication_method]
+    /// if it holds a `OidcToken`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_oidc_token(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::push_config::OidcToken>> {
+        #[allow(unreachable_patterns)]
+        self.authentication_method.as_ref().and_then(|v| match v {
+            crate::model::push_config::AuthenticationMethod::OidcToken(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [authentication_method][crate::model::PushConfig::authentication_method]
+    /// to hold a `OidcToken`.
+    ///
+    /// Note that all the setters affecting `authentication_method` are
+    /// mutually exclusive.
+    pub fn set_oidc_token<
+        T: std::convert::Into<std::boxed::Box<crate::model::push_config::OidcToken>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.authentication_method = std::option::Option::Some(
+            crate::model::push_config::AuthenticationMethod::OidcToken(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of `wrapper`.
+    pub fn set_wrapper<
+        T: std::convert::Into<std::option::Option<crate::model::push_config::Wrapper>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.wrapper = v.into();
+        self
+    }
+
+    /// The value of [wrapper][crate::model::PushConfig::wrapper]
+    /// if it holds a `PubsubWrapper`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_pubsub_wrapper(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::push_config::PubsubWrapper>> {
+        #[allow(unreachable_patterns)]
+        self.wrapper.as_ref().and_then(|v| match v {
+            crate::model::push_config::Wrapper::PubsubWrapper(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [wrapper][crate::model::PushConfig::wrapper]
+    /// if it holds a `NoWrapper`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_no_wrapper(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::push_config::NoWrapper>> {
+        #[allow(unreachable_patterns)]
+        self.wrapper.as_ref().and_then(|v| match v {
+            crate::model::push_config::Wrapper::NoWrapper(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [wrapper][crate::model::PushConfig::wrapper]
+    /// to hold a `PubsubWrapper`.
+    ///
+    /// Note that all the setters affecting `wrapper` are
+    /// mutually exclusive.
+    pub fn set_pubsub_wrapper<
+        T: std::convert::Into<std::boxed::Box<crate::model::push_config::PubsubWrapper>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.wrapper =
+            std::option::Option::Some(crate::model::push_config::Wrapper::PubsubWrapper(v.into()));
+        self
+    }
+
+    /// Sets the value of [wrapper][crate::model::PushConfig::wrapper]
+    /// to hold a `NoWrapper`.
+    ///
+    /// Note that all the setters affecting `wrapper` are
+    /// mutually exclusive.
+    pub fn set_no_wrapper<
+        T: std::convert::Into<std::boxed::Box<crate::model::push_config::NoWrapper>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.wrapper =
+            std::option::Option::Some(crate::model::push_config::Wrapper::NoWrapper(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for PushConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.PushConfig"
+    }
+}
+
+/// Defines additional types related to [PushConfig].
+pub mod push_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Contains information needed for generating an
+    /// [OpenID Connect
+    /// token](https://developers.google.com/identity/protocols/OpenIDConnect).
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct OidcToken {
+        /// Optional. [Service account
+        /// email](https://cloud.google.com/iam/docs/service-accounts)
+        /// used for generating the OIDC token. For more information
+        /// on setting up authentication, see
+        /// [Push subscriptions](https://cloud.google.com/pubsub/docs/push).
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub service_account_email: std::string::String,
+
+        /// Optional. Audience to be used when generating OIDC token. The audience
+        /// claim identifies the recipients that the JWT is intended for. The
+        /// audience value is a single case-sensitive string. Having multiple values
+        /// (array) for the audience field is not supported. More info about the OIDC
+        /// JWT token audience here:
+        /// <https://tools.ietf.org/html/rfc7519#section-4.1.3> Note: if not specified,
+        /// the Push endpoint URL will be used.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub audience: std::string::String,
+    }
+
+    impl OidcToken {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [service_account_email][crate::model::push_config::OidcToken::service_account_email].
+        pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.service_account_email = v.into();
+            self
+        }
+
+        /// Sets the value of [audience][crate::model::push_config::OidcToken::audience].
+        pub fn set_audience<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.audience = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for OidcToken {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.PushConfig.OidcToken"
+        }
+    }
+
+    /// The payload to the push endpoint is in the form of the JSON representation
+    /// of a PubsubMessage
+    /// (<https://cloud.google.com/pubsub/docs/reference/rpc/google.pubsub.v1#pubsubmessage>).
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct PubsubWrapper {}
+
+    impl PubsubWrapper {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for PubsubWrapper {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.PushConfig.PubsubWrapper"
+        }
+    }
+
+    /// Sets the `data` field as the HTTP body for delivery.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct NoWrapper {
+        /// Optional. When true, writes the Pub/Sub message metadata to
+        /// `x-goog-pubsub-<KEY>:<VAL>` headers of the HTTP request. Writes the
+        /// Pub/Sub message attributes to `<KEY>:<VAL>` headers of the HTTP request.
+        pub write_metadata: bool,
+    }
+
+    impl NoWrapper {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [write_metadata][crate::model::push_config::NoWrapper::write_metadata].
+        pub fn set_write_metadata<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.write_metadata = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for NoWrapper {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.PushConfig.NoWrapper"
+        }
+    }
+
+    /// An authentication method used by push endpoints to verify the source of
+    /// push requests. This can be used with push endpoints that are private by
+    /// default to allow requests only from the Pub/Sub system, for example.
+    /// This field is optional and should be set only by users interested in
+    /// authenticated push.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum AuthenticationMethod {
+        /// Optional. If specified, Pub/Sub will generate and attach an OIDC JWT
+        /// token as an `Authorization` header in the HTTP request for every pushed
+        /// message.
+        OidcToken(std::boxed::Box<crate::model::push_config::OidcToken>),
+    }
+
+    /// The format of the delivered message to the push endpoint is defined by
+    /// the chosen wrapper. When unset, `PubsubWrapper` is used.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Wrapper {
+        /// Optional. When set, the payload to the push endpoint is in the form of
+        /// the JSON representation of a PubsubMessage
+        /// (<https://cloud.google.com/pubsub/docs/reference/rpc/google.pubsub.v1#pubsubmessage>).
+        PubsubWrapper(std::boxed::Box<crate::model::push_config::PubsubWrapper>),
+        /// Optional. When set, the payload to the push endpoint is not wrapped.
+        NoWrapper(std::boxed::Box<crate::model::push_config::NoWrapper>),
+    }
+}
+
+/// Configuration for a BigQuery subscription.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct BigQueryConfig {
+    /// Optional. The name of the table to which to write data, of the form
+    /// {projectId}.{datasetId}.{tableId}
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub table: std::string::String,
+
+    /// Optional. When true, use the topic's schema as the columns to write to in
+    /// BigQuery, if it exists. `use_topic_schema` and `use_table_schema` cannot be
+    /// enabled at the same time.
+    pub use_topic_schema: bool,
+
+    /// Optional. When true, write the subscription name, message_id, publish_time,
+    /// attributes, and ordering_key to additional columns in the table. The
+    /// subscription name, message_id, and publish_time fields are put in their own
+    /// columns while all other message properties (other than data) are written to
+    /// a JSON object in the attributes column.
+    pub write_metadata: bool,
+
+    /// Optional. When true and use_topic_schema is true, any fields that are a
+    /// part of the topic schema that are not part of the BigQuery table schema are
+    /// dropped when writing to BigQuery. Otherwise, the schemas must be kept in
+    /// sync and any messages with extra fields are not written and remain in the
+    /// subscription's backlog.
+    pub drop_unknown_fields: bool,
+
+    /// Optional. When true, use the BigQuery table's schema as the columns to
+    /// write to in BigQuery. `use_table_schema` and `use_topic_schema` cannot be
+    /// enabled at the same time.
+    pub use_table_schema: bool,
+
+    /// Optional. The service account to use to write to BigQuery. The subscription
+    /// creator or updater that specifies this field must have
+    /// `iam.serviceAccounts.actAs` permission on the service account. If not
+    /// specified, the Pub/Sub [service
+    /// agent](https://cloud.google.com/iam/docs/service-agents),
+    /// service-{project_number}@gcp-sa-pubsub.iam.gserviceaccount.com, is used.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub service_account_email: std::string::String,
+}
+
+impl BigQueryConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [table][crate::model::BigQueryConfig::table].
+    pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.table = v.into();
+        self
+    }
+
+    /// Sets the value of [use_topic_schema][crate::model::BigQueryConfig::use_topic_schema].
+    pub fn set_use_topic_schema<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.use_topic_schema = v.into();
+        self
+    }
+
+    /// Sets the value of [write_metadata][crate::model::BigQueryConfig::write_metadata].
+    pub fn set_write_metadata<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.write_metadata = v.into();
+        self
+    }
+
+    /// Sets the value of [drop_unknown_fields][crate::model::BigQueryConfig::drop_unknown_fields].
+    pub fn set_drop_unknown_fields<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.drop_unknown_fields = v.into();
+        self
+    }
+
+    /// Sets the value of [use_table_schema][crate::model::BigQueryConfig::use_table_schema].
+    pub fn set_use_table_schema<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.use_table_schema = v.into();
+        self
+    }
+
+    /// Sets the value of [service_account_email][crate::model::BigQueryConfig::service_account_email].
+    pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.service_account_email = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BigQueryConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.BigQueryConfig"
+    }
+}
+
+/// Configuration for a Cloud Storage subscription.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CloudStorageConfig {
+    /// Required. User-provided name for the Cloud Storage bucket.
+    /// The bucket must be created by the user. The bucket name must be without
+    /// any prefix like "gs://". See the [bucket naming
+    /// requirements] (<https://cloud.google.com/storage/docs/buckets#naming>).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub bucket: std::string::String,
+
+    /// Optional. User-provided prefix for Cloud Storage filename. See the [object
+    /// naming requirements](https://cloud.google.com/storage/docs/objects#naming).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub filename_prefix: std::string::String,
+
+    /// Optional. User-provided suffix for Cloud Storage filename. See the [object
+    /// naming requirements](https://cloud.google.com/storage/docs/objects#naming).
+    /// Must not end in "/".
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub filename_suffix: std::string::String,
+
+    /// Optional. User-provided format string specifying how to represent datetimes
+    /// in Cloud Storage filenames. See the [datetime format
+    /// guidance](https://cloud.google.com/pubsub/docs/create-cloudstorage-subscription#file_names).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub filename_datetime_format: std::string::String,
+
+    /// Optional. File batching settings.
+    /// If no max_duration setting is specified, a max_duration of 5 minutes will
+    /// be set by default. max_duration is required regardless of whether other
+    /// file batching settings are specified.
+    ///
+    /// The maximum duration that can elapse before a new Cloud Storage file is
+    /// created. Min 1 minute, max 10 minutes, default 5 minutes. May not exceed
+    /// the subscription's acknowledgement deadline.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub max_duration: std::option::Option<wkt::Duration>,
+
+    /// Optional. The maximum bytes that can be written to a Cloud Storage file
+    /// before a new file is created. Min 1 KB, max 10 GiB. The max_bytes limit may
+    /// be exceeded in cases where messages are larger than the limit.
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub max_bytes: i64,
+
+    /// Optional. The maximum number of messages that can be written to a Cloud
+    /// Storage file before a new file is created. Min 1000 messages.
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub max_messages: i64,
+
+    /// Optional. The service account to use to write to Cloud Storage. The
+    /// subscription creator or updater that specifies this field must have
+    /// `iam.serviceAccounts.actAs` permission on the service account. If not
+    /// specified, the Pub/Sub
+    /// [service agent](https://cloud.google.com/iam/docs/service-agents),
+    /// service-{project_number}@gcp-sa-pubsub.iam.gserviceaccount.com, is used.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub service_account_email: std::string::String,
+
+    /// Defaults to text format.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub output_format: std::option::Option<crate::model::cloud_storage_config::OutputFormat>,
+}
+
+impl CloudStorageConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [bucket][crate::model::CloudStorageConfig::bucket].
+    pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.bucket = v.into();
+        self
+    }
+
+    /// Sets the value of [filename_prefix][crate::model::CloudStorageConfig::filename_prefix].
+    pub fn set_filename_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filename_prefix = v.into();
+        self
+    }
+
+    /// Sets the value of [filename_suffix][crate::model::CloudStorageConfig::filename_suffix].
+    pub fn set_filename_suffix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filename_suffix = v.into();
+        self
+    }
+
+    /// Sets the value of [filename_datetime_format][crate::model::CloudStorageConfig::filename_datetime_format].
+    pub fn set_filename_datetime_format<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.filename_datetime_format = v.into();
+        self
+    }
+
+    /// Sets the value of [max_duration][crate::model::CloudStorageConfig::max_duration].
+    pub fn set_max_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.max_duration = v.into();
+        self
+    }
+
+    /// Sets the value of [max_bytes][crate::model::CloudStorageConfig::max_bytes].
+    pub fn set_max_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.max_bytes = v.into();
+        self
+    }
+
+    /// Sets the value of [max_messages][crate::model::CloudStorageConfig::max_messages].
+    pub fn set_max_messages<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.max_messages = v.into();
+        self
+    }
+
+    /// Sets the value of [service_account_email][crate::model::CloudStorageConfig::service_account_email].
+    pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.service_account_email = v.into();
+        self
+    }
+
+    /// Sets the value of `output_format`.
+    pub fn set_output_format<
+        T: std::convert::Into<std::option::Option<crate::model::cloud_storage_config::OutputFormat>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_format = v.into();
+        self
+    }
+
+    /// The value of [output_format][crate::model::CloudStorageConfig::output_format]
+    /// if it holds a `TextConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_text_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::cloud_storage_config::TextConfig>> {
+        #[allow(unreachable_patterns)]
+        self.output_format.as_ref().and_then(|v| match v {
+            crate::model::cloud_storage_config::OutputFormat::TextConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [output_format][crate::model::CloudStorageConfig::output_format]
+    /// if it holds a `AvroConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_avro_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::cloud_storage_config::AvroConfig>> {
+        #[allow(unreachable_patterns)]
+        self.output_format.as_ref().and_then(|v| match v {
+            crate::model::cloud_storage_config::OutputFormat::AvroConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [output_format][crate::model::CloudStorageConfig::output_format]
+    /// to hold a `TextConfig`.
+    ///
+    /// Note that all the setters affecting `output_format` are
+    /// mutually exclusive.
+    pub fn set_text_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::cloud_storage_config::TextConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_format = std::option::Option::Some(
+            crate::model::cloud_storage_config::OutputFormat::TextConfig(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [output_format][crate::model::CloudStorageConfig::output_format]
+    /// to hold a `AvroConfig`.
+    ///
+    /// Note that all the setters affecting `output_format` are
+    /// mutually exclusive.
+    pub fn set_avro_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::cloud_storage_config::AvroConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_format = std::option::Option::Some(
+            crate::model::cloud_storage_config::OutputFormat::AvroConfig(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for CloudStorageConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.CloudStorageConfig"
+    }
+}
+
+/// Defines additional types related to [CloudStorageConfig].
+pub mod cloud_storage_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Configuration for writing message data in text format.
+    /// Message payloads will be written to files as raw text, separated by a
+    /// newline.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct TextConfig {}
+
+    impl TextConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for TextConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.CloudStorageConfig.TextConfig"
+        }
+    }
+
+    /// Configuration for writing message data in Avro format.
+    /// Message payloads and metadata will be written to files as an Avro binary.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct AvroConfig {
+        /// Optional. When true, write the subscription name, message_id,
+        /// publish_time, attributes, and ordering_key as additional fields in the
+        /// output. The subscription name, message_id, and publish_time fields are
+        /// put in their own fields while all other message properties other than
+        /// data (for example, an ordering_key, if present) are added as entries in
+        /// the attributes map.
+        pub write_metadata: bool,
+
+        /// Optional. When true, the output Cloud Storage file will be serialized
+        /// using the topic schema, if it exists.
+        pub use_topic_schema: bool,
+    }
+
+    impl AvroConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [write_metadata][crate::model::cloud_storage_config::AvroConfig::write_metadata].
+        pub fn set_write_metadata<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.write_metadata = v.into();
+            self
+        }
+
+        /// Sets the value of [use_topic_schema][crate::model::cloud_storage_config::AvroConfig::use_topic_schema].
+        pub fn set_use_topic_schema<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.use_topic_schema = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for AvroConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.CloudStorageConfig.AvroConfig"
+        }
+    }
+
+    /// Defaults to text format.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum OutputFormat {
+        /// Optional. If set, message data will be written to Cloud Storage in text
+        /// format.
+        TextConfig(std::boxed::Box<crate::model::cloud_storage_config::TextConfig>),
+        /// Optional. If set, message data will be written to Cloud Storage in Avro
+        /// format.
+        AvroConfig(std::boxed::Box<crate::model::cloud_storage_config::AvroConfig>),
+    }
+}
+
+/// All supported message transforms types.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MessageTransform {
+    /// Optional. This field is deprecated, use the `disabled` field to disable
+    /// transforms.
+    pub enabled: bool,
+
+    /// Optional. If true, the transform is disabled and will not be applied to
+    /// messages. Defaults to `false`.
+    pub disabled: bool,
+
+    /// The type of transform to apply to messages.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub transform: std::option::Option<crate::model::message_transform::Transform>,
+}
+
+impl MessageTransform {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enabled][crate::model::MessageTransform::enabled].
+    pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [disabled][crate::model::MessageTransform::disabled].
+    pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.disabled = v.into();
+        self
+    }
+
+    /// Sets the value of `transform`.
+    pub fn set_transform<
+        T: std::convert::Into<std::option::Option<crate::model::message_transform::Transform>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.transform = v.into();
+        self
+    }
+
+    /// The value of [transform][crate::model::MessageTransform::transform]
+    /// if it holds a `JavascriptUdf`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_javascript_udf(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::JavaScriptUDF>> {
+        #[allow(unreachable_patterns)]
+        self.transform.as_ref().and_then(|v| match v {
+            crate::model::message_transform::Transform::JavascriptUdf(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [transform][crate::model::MessageTransform::transform]
+    /// to hold a `JavascriptUdf`.
+    ///
+    /// Note that all the setters affecting `transform` are
+    /// mutually exclusive.
+    pub fn set_javascript_udf<
+        T: std::convert::Into<std::boxed::Box<crate::model::JavaScriptUDF>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.transform = std::option::Option::Some(
+            crate::model::message_transform::Transform::JavascriptUdf(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for MessageTransform {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.MessageTransform"
+    }
+}
+
+/// Defines additional types related to [MessageTransform].
+pub mod message_transform {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The type of transform to apply to messages.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Transform {
+        /// Optional. JavaScript User Defined Function. If multiple JavaScriptUDF's
+        /// are specified on a resource, each must have a unique `function_name`.
+        JavascriptUdf(std::boxed::Box<crate::model::JavaScriptUDF>),
+    }
+}
+
+/// User-defined JavaScript function that can transform or filter a Pub/Sub
+/// message.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct JavaScriptUDF {
+    /// Required. Name of the JavasScript function that should applied to Pub/Sub
+    /// messages.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub function_name: std::string::String,
+
+    /// Required. JavaScript code that contains a function `function_name` with the
+    /// below signature:
+    ///
+    /// ```norust
+    ///   /**
+    ///   * Transforms a Pub/Sub message.
+    ///
+    ///   * @return {(Object<string, (string | Object<string, string>)>|null)} - To
+    ///   * filter a message, return `null`. To transform a message return a map
+    ///   * with the following keys:
+    ///   *   - (required) 'data' : {string}
+    ///   *   - (optional) 'attributes' : {Object<string, string>}
+    ///   * Returning empty `attributes` will remove all attributes from the
+    ///   * message.
+    ///   *
+    ///   * @param  {(Object<string, (string | Object<string, string>)>} Pub/Sub
+    ///   * message. Keys:
+    ///   *   - (required) 'data' : {string}
+    ///   *   - (required) 'attributes' : {Object<string, string>}
+    ///   *
+    ///   * @param  {Object<string, any>} metadata - Pub/Sub message metadata.
+    ///   * Keys:
+    ///   *   - (required) 'message_id'  : {string}
+    ///   *   - (optional) 'publish_time': {string} YYYY-MM-DDTHH:MM:SSZ format
+    ///   *   - (optional) 'ordering_key': {string}
+    ///   */
+    ///
+    ///   function <function_name>(message, metadata) {
+    ///   }
+    /// ```
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub code: std::string::String,
+}
+
+impl JavaScriptUDF {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [function_name][crate::model::JavaScriptUDF::function_name].
+    pub fn set_function_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.function_name = v.into();
+        self
+    }
+
+    /// Sets the value of [code][crate::model::JavaScriptUDF::code].
+    pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.code = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for JavaScriptUDF {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.JavaScriptUDF"
+    }
+}
+
 /// Specifies the type of discovery on the discovery page. Note that
 /// this does not control the visibility of the exchange/listing which is
 /// defined by IAM permission.
@@ -3114,6 +4760,65 @@ impl std::convert::From<i32> for DiscoveryType {
 }
 
 impl std::default::Default for DiscoveryType {
+    fn default() -> Self {
+        Self::new(0)
+    }
+}
+
+/// The underlying shared asset type shared in a listing by a publisher.
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct SharedResourceType(i32);
+
+impl SharedResourceType {
+    /// Not specified.
+    pub const SHARED_RESOURCE_TYPE_UNSPECIFIED: SharedResourceType = SharedResourceType::new(0);
+
+    /// BigQuery Dataset Asset.
+    pub const BIGQUERY_DATASET: SharedResourceType = SharedResourceType::new(1);
+
+    /// Pub/Sub Topic Asset.
+    pub const PUBSUB_TOPIC: SharedResourceType = SharedResourceType::new(2);
+
+    /// Creates a new SharedResourceType instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SHARED_RESOURCE_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("BIGQUERY_DATASET"),
+            2 => std::borrow::Cow::Borrowed("PUBSUB_TOPIC"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SHARED_RESOURCE_TYPE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::SHARED_RESOURCE_TYPE_UNSPECIFIED)
+            }
+            "BIGQUERY_DATASET" => std::option::Option::Some(Self::BIGQUERY_DATASET),
+            "PUBSUB_TOPIC" => std::option::Option::Some(Self::PUBSUB_TOPIC),
+            _ => std::option::Option::None,
+        }
+    }
+}
+
+impl std::convert::From<i32> for SharedResourceType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for SharedResourceType {
     fn default() -> Self {
         Self::new(0)
     }

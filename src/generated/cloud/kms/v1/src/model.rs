@@ -370,7 +370,8 @@ impl wkt::message::Message for ListKeyHandlesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListKeyHandlesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListKeyHandlesResponse {
     type PageItem = crate::model::KeyHandle;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -838,7 +839,8 @@ impl wkt::message::Message for ListEkmConnectionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListEkmConnectionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListEkmConnectionsResponse {
     type PageItem = crate::model::EkmConnection;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4751,7 +4753,8 @@ impl wkt::message::Message for ListKeyRingsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListKeyRingsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListKeyRingsResponse {
     type PageItem = crate::model::KeyRing;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4829,7 +4832,8 @@ impl wkt::message::Message for ListCryptoKeysResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCryptoKeysResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCryptoKeysResponse {
     type PageItem = crate::model::CryptoKey;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4908,7 +4912,8 @@ impl wkt::message::Message for ListCryptoKeyVersionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCryptoKeyVersionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCryptoKeyVersionsResponse {
     type PageItem = crate::model::CryptoKeyVersion;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4986,7 +4991,8 @@ impl wkt::message::Message for ListImportJobsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListImportJobsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListImportJobsResponse {
     type PageItem = crate::model::ImportJob;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

@@ -1898,7 +1898,8 @@ impl wkt::message::Message for ListRegistrationsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListRegistrationsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRegistrationsResponse {
     type PageItem = crate::model::Registration;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

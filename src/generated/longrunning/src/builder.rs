@@ -67,7 +67,7 @@ pub mod operations {
         }
     }
 
-    /// The request builder for a Operations::list_operations call.
+    /// The request builder for [Operations::list_operations][super::super::client::Operations::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<crate::model::ListOperationsRequest>);
 
@@ -142,7 +142,7 @@ pub mod operations {
         }
     }
 
-    /// The request builder for a Operations::get_operation call.
+    /// The request builder for [Operations::get_operation][super::super::client::Operations::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<crate::model::GetOperationRequest>);
 
@@ -184,7 +184,7 @@ pub mod operations {
         }
     }
 
-    /// The request builder for a Operations::delete_operation call.
+    /// The request builder for [Operations::delete_operation][super::super::client::Operations::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<crate::model::DeleteOperationRequest>);
 
@@ -226,7 +226,7 @@ pub mod operations {
         }
     }
 
-    /// The request builder for a Operations::cancel_operation call.
+    /// The request builder for [Operations::cancel_operation][super::super::client::Operations::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<crate::model::CancelOperationRequest>);
 

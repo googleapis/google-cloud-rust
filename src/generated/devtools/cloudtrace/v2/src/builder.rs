@@ -67,7 +67,7 @@ pub mod trace_service {
         }
     }
 
-    /// The request builder for a TraceService::batch_write_spans call.
+    /// The request builder for [TraceService::batch_write_spans][super::super::client::TraceService::batch_write_spans] calls.
     #[derive(Clone, Debug)]
     pub struct BatchWriteSpans(RequestBuilder<crate::model::BatchWriteSpansRequest>);
 
@@ -120,7 +120,7 @@ pub mod trace_service {
         }
     }
 
-    /// The request builder for a TraceService::create_span call.
+    /// The request builder for [TraceService::create_span][super::super::client::TraceService::create_span] calls.
     #[derive(Clone, Debug)]
     pub struct CreateSpan(RequestBuilder<crate::model::Span>);
 

@@ -67,7 +67,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::create_environment call.
+    /// The request builder for [Environments::create_environment][super::super::client::Environments::create_environment] calls.
     #[derive(Clone, Debug)]
     pub struct CreateEnvironment(RequestBuilder<crate::model::CreateEnvironmentRequest>);
 
@@ -159,7 +159,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::get_environment call.
+    /// The request builder for [Environments::get_environment][super::super::client::Environments::get_environment] calls.
     #[derive(Clone, Debug)]
     pub struct GetEnvironment(RequestBuilder<crate::model::GetEnvironmentRequest>);
 
@@ -201,7 +201,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::list_environments call.
+    /// The request builder for [Environments::list_environments][super::super::client::Environments::list_environments] calls.
     #[derive(Clone, Debug)]
     pub struct ListEnvironments(RequestBuilder<crate::model::ListEnvironmentsRequest>);
 
@@ -273,7 +273,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::update_environment call.
+    /// The request builder for [Environments::update_environment][super::super::client::Environments::update_environment] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateEnvironment(RequestBuilder<crate::model::UpdateEnvironmentRequest>);
 
@@ -374,7 +374,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::delete_environment call.
+    /// The request builder for [Environments::delete_environment][super::super::client::Environments::delete_environment] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteEnvironment(RequestBuilder<crate::model::DeleteEnvironmentRequest>);
 
@@ -454,7 +454,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::execute_airflow_command call.
+    /// The request builder for [Environments::execute_airflow_command][super::super::client::Environments::execute_airflow_command] calls.
     #[derive(Clone, Debug)]
     pub struct ExecuteAirflowCommand(RequestBuilder<crate::model::ExecuteAirflowCommandRequest>);
 
@@ -522,7 +522,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::stop_airflow_command call.
+    /// The request builder for [Environments::stop_airflow_command][super::super::client::Environments::stop_airflow_command] calls.
     #[derive(Clone, Debug)]
     pub struct StopAirflowCommand(RequestBuilder<crate::model::StopAirflowCommandRequest>);
 
@@ -591,7 +591,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::poll_airflow_command call.
+    /// The request builder for [Environments::poll_airflow_command][super::super::client::Environments::poll_airflow_command] calls.
     #[derive(Clone, Debug)]
     pub struct PollAirflowCommand(RequestBuilder<crate::model::PollAirflowCommandRequest>);
 
@@ -660,7 +660,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::list_workloads call.
+    /// The request builder for [Environments::list_workloads][super::super::client::Environments::list_workloads] calls.
     #[derive(Clone, Debug)]
     pub struct ListWorkloads(RequestBuilder<crate::model::ListWorkloadsRequest>);
 
@@ -735,7 +735,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::check_upgrade call.
+    /// The request builder for [Environments::check_upgrade][super::super::client::Environments::check_upgrade] calls.
     #[derive(Clone, Debug)]
     pub struct CheckUpgrade(RequestBuilder<crate::model::CheckUpgradeRequest>);
 
@@ -822,7 +822,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::create_user_workloads_secret call.
+    /// The request builder for [Environments::create_user_workloads_secret][super::super::client::Environments::create_user_workloads_secret] calls.
     #[derive(Clone, Debug)]
     pub struct CreateUserWorkloadsSecret(
         RequestBuilder<crate::model::CreateUserWorkloadsSecretRequest>,
@@ -880,7 +880,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::get_user_workloads_secret call.
+    /// The request builder for [Environments::get_user_workloads_secret][super::super::client::Environments::get_user_workloads_secret] calls.
     #[derive(Clone, Debug)]
     pub struct GetUserWorkloadsSecret(RequestBuilder<crate::model::GetUserWorkloadsSecretRequest>);
 
@@ -925,7 +925,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::list_user_workloads_secrets call.
+    /// The request builder for [Environments::list_user_workloads_secrets][super::super::client::Environments::list_user_workloads_secrets] calls.
     #[derive(Clone, Debug)]
     pub struct ListUserWorkloadsSecrets(
         RequestBuilder<crate::model::ListUserWorkloadsSecretsRequest>,
@@ -1001,7 +1001,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::update_user_workloads_secret call.
+    /// The request builder for [Environments::update_user_workloads_secret][super::super::client::Environments::update_user_workloads_secret] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateUserWorkloadsSecret(
         RequestBuilder<crate::model::UpdateUserWorkloadsSecretRequest>,
@@ -1053,7 +1053,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::delete_user_workloads_secret call.
+    /// The request builder for [Environments::delete_user_workloads_secret][super::super::client::Environments::delete_user_workloads_secret] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteUserWorkloadsSecret(
         RequestBuilder<crate::model::DeleteUserWorkloadsSecretRequest>,
@@ -1100,7 +1100,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::create_user_workloads_config_map call.
+    /// The request builder for [Environments::create_user_workloads_config_map][super::super::client::Environments::create_user_workloads_config_map] calls.
     #[derive(Clone, Debug)]
     pub struct CreateUserWorkloadsConfigMap(
         RequestBuilder<crate::model::CreateUserWorkloadsConfigMapRequest>,
@@ -1158,7 +1158,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::get_user_workloads_config_map call.
+    /// The request builder for [Environments::get_user_workloads_config_map][super::super::client::Environments::get_user_workloads_config_map] calls.
     #[derive(Clone, Debug)]
     pub struct GetUserWorkloadsConfigMap(
         RequestBuilder<crate::model::GetUserWorkloadsConfigMapRequest>,
@@ -1205,7 +1205,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::list_user_workloads_config_maps call.
+    /// The request builder for [Environments::list_user_workloads_config_maps][super::super::client::Environments::list_user_workloads_config_maps] calls.
     #[derive(Clone, Debug)]
     pub struct ListUserWorkloadsConfigMaps(
         RequestBuilder<crate::model::ListUserWorkloadsConfigMapsRequest>,
@@ -1281,7 +1281,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::update_user_workloads_config_map call.
+    /// The request builder for [Environments::update_user_workloads_config_map][super::super::client::Environments::update_user_workloads_config_map] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateUserWorkloadsConfigMap(
         RequestBuilder<crate::model::UpdateUserWorkloadsConfigMapRequest>,
@@ -1333,7 +1333,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::delete_user_workloads_config_map call.
+    /// The request builder for [Environments::delete_user_workloads_config_map][super::super::client::Environments::delete_user_workloads_config_map] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteUserWorkloadsConfigMap(
         RequestBuilder<crate::model::DeleteUserWorkloadsConfigMapRequest>,
@@ -1380,7 +1380,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::save_snapshot call.
+    /// The request builder for [Environments::save_snapshot][super::super::client::Environments::save_snapshot] calls.
     #[derive(Clone, Debug)]
     pub struct SaveSnapshot(RequestBuilder<crate::model::SaveSnapshotRequest>);
 
@@ -1467,7 +1467,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::load_snapshot call.
+    /// The request builder for [Environments::load_snapshot][super::super::client::Environments::load_snapshot] calls.
     #[derive(Clone, Debug)]
     pub struct LoadSnapshot(RequestBuilder<crate::model::LoadSnapshotRequest>);
 
@@ -1578,7 +1578,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::database_failover call.
+    /// The request builder for [Environments::database_failover][super::super::client::Environments::database_failover] calls.
     #[derive(Clone, Debug)]
     pub struct DatabaseFailover(RequestBuilder<crate::model::DatabaseFailoverRequest>);
 
@@ -1664,7 +1664,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::fetch_database_properties call.
+    /// The request builder for [Environments::fetch_database_properties][super::super::client::Environments::fetch_database_properties] calls.
     #[derive(Clone, Debug)]
     pub struct FetchDatabaseProperties(
         RequestBuilder<crate::model::FetchDatabasePropertiesRequest>,
@@ -1711,7 +1711,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::list_operations call.
+    /// The request builder for [Environments::list_operations][super::super::client::Environments::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1789,7 +1789,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::get_operation call.
+    /// The request builder for [Environments::get_operation][super::super::client::Environments::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1834,7 +1834,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for a Environments::delete_operation call.
+    /// The request builder for [Environments::delete_operation][super::super::client::Environments::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1933,7 +1933,7 @@ pub mod image_versions {
         }
     }
 
-    /// The request builder for a ImageVersions::list_image_versions call.
+    /// The request builder for [ImageVersions::list_image_versions][super::super::client::ImageVersions::list_image_versions] calls.
     #[derive(Clone, Debug)]
     pub struct ListImageVersions(RequestBuilder<crate::model::ListImageVersionsRequest>);
 
@@ -2011,7 +2011,7 @@ pub mod image_versions {
         }
     }
 
-    /// The request builder for a ImageVersions::list_operations call.
+    /// The request builder for [ImageVersions::list_operations][super::super::client::ImageVersions::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2089,7 +2089,7 @@ pub mod image_versions {
         }
     }
 
-    /// The request builder for a ImageVersions::get_operation call.
+    /// The request builder for [ImageVersions::get_operation][super::super::client::ImageVersions::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2134,7 +2134,7 @@ pub mod image_versions {
         }
     }
 
-    /// The request builder for a ImageVersions::delete_operation call.
+    /// The request builder for [ImageVersions::delete_operation][super::super::client::ImageVersions::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 

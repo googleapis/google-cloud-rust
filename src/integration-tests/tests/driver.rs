@@ -78,6 +78,16 @@ mod driver {
             .map_err(report)
     }
 
+    #[test_case(ta::client::TelcoAutomation::builder().with_tracing(); "with tracing enabled")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_error_details(
+        builder: ta::builder::telco_automation::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::error_details::run(builder)
+            .await
+            .map_err(report)
+    }
+
     #[test_case(wf::client::Workflows::builder(); "default")]
     #[test_case(wf::client::Workflows::builder().with_tracing(); "with tracing enabled")]
     #[test_case(wf::client::Workflows::builder().with_retry_policy(retry_policy()); "with retry enabled")]

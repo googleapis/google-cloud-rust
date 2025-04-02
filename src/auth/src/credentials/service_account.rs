@@ -74,7 +74,7 @@ mod jws;
 use crate::credentials::QUOTA_PROJECT_KEY;
 use crate::credentials::dynamic::CredentialTrait;
 use crate::credentials::{Credential, Result};
-use crate::errors::CredentialError;
+use crate::errors::{self, CredentialError};
 use crate::token::{Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use async_trait::async_trait;
@@ -89,8 +89,22 @@ use time::OffsetDateTime;
 
 const DEFAULT_SCOPES: [&str; 1] = ["https://www.googleapis.com/auth/cloud-platform"];
 
+<<<<<<< HEAD
 pub(crate) fn creds_from(js: Value) -> Result<Credential> {
     Builder::new(js).build()
+=======
+pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
+    let service_account_info =
+        serde_json::from_value::<ServiceAccountInfo>(js).map_err(errors::non_retryable)?;
+    let token_provider = ServiceAccountTokenProvider {
+        service_account_info,
+    };
+    let token_provider = TokenCache::new(token_provider);
+
+    Ok(Credential {
+        inner: Arc::new(ServiceAccountCredential { token_provider }),
+    })
+>>>>>>> f8258730766e23b09d482e4ee22130c8904a7866
 }
 
 #[derive(Debug)]
@@ -303,7 +317,7 @@ impl TokenProvider for ServiceAccountTokenProvider {
         let encoded_header_claims = format!("{}.{}", header.encode()?, claims.encode()?);
         let sig = signer
             .sign(encoded_header_claims.as_bytes())
-            .map_err(CredentialError::non_retryable)?;
+            .map_err(errors::non_retryable)?;
         use base64::prelude::{BASE64_URL_SAFE_NO_PAD, Engine as _};
         let token = format!(
             "{}.{}",
@@ -330,11 +344,9 @@ impl ServiceAccountTokenProvider {
         );
 
         let private_key = rustls_pemfile::read_one(&mut private_key.as_bytes())
-            .map_err(CredentialError::non_retryable)?
+            .map_err(errors::non_retryable)?
             .ok_or_else(|| {
-                CredentialError::non_retryable_from_str(
-                    "missing PEM section in service account key",
-                )
+                errors::non_retryable_from_str("missing PEM section in service account key")
             })?;
         let pk = match private_key {
             Item::Pkcs8Key(item) => key_provider.load_private_key(item.into()),
@@ -342,14 +354,19 @@ impl ServiceAccountTokenProvider {
                 return Err(Self::unexpected_private_key_error(other));
             }
         };
+<<<<<<< HEAD
         let sk = pk.map_err(CredentialError::non_retryable)?;
 
+=======
+        let sk = pk.map_err(errors::non_retryable)?;
+        //TODO(#679) add support for ECDSA
+>>>>>>> f8258730766e23b09d482e4ee22130c8904a7866
         sk.choose_scheme(&[rustls::SignatureScheme::RSA_PKCS1_SHA256])
-            .ok_or_else(|| CredentialError::non_retryable_from_str("Unable to choose RSA_PKCS1_SHA256 signing scheme as it is not supported by current signer"))
+            .ok_or_else(|| errors::non_retryable_from_str("Unable to choose RSA_PKCS1_SHA256 signing scheme as it is not supported by current signer"))
     }
 
     fn unexpected_private_key_error(private_key_format: Item) -> CredentialError {
-        CredentialError::non_retryable_from_str(format!(
+        errors::non_retryable_from_str(format!(
             "expected key to be in form of PKCS8, found {:?}",
             private_key_format
         ))
@@ -369,7 +386,7 @@ where
         //TODO(#1686) Refactor the common logic out of the individual get_headers methods.
         let token = self.get_token().await?;
         let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
-            .map_err(CredentialError::non_retryable)?;
+            .map_err(errors::non_retryable)?;
         value.set_sensitive(true);
         let mut headers = vec![(AUTHORIZATION, value)];
         if let Some(project) = &self.quota_project_id {
@@ -444,7 +461,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
-            .return_once(|| Err(CredentialError::non_retryable_from_str("fail")));
+            .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
         let sac = ServiceAccountCredential {
             token_provider: mock,
@@ -523,7 +540,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
-            .return_once(|| Err(CredentialError::non_retryable_from_str("fail")));
+            .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
         let sac = ServiceAccountCredential {
             token_provider: mock,

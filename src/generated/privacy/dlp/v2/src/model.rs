@@ -915,6 +915,9 @@ pub mod byte_content_item {
     /// The type of data being sent for inspection. To learn more, see
     /// [Supported file
     /// types](https://cloud.google.com/sensitive-data-protection/docs/supported-file-types).
+    ///
+    /// Only the first frame of each multiframe image is inspected. Metadata and
+    /// other frames aren't inspected.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct BytesType(i32);
 
@@ -4112,6 +4115,14 @@ pub struct InfoTypeDescription {
     /// The default sensitivity of the infoType.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub sensitivity_score: std::option::Option<crate::model::SensitivityScore>,
+
+    /// If this field is set, this infoType is a general infoType and these
+    /// specific infoTypes are contained within it.
+    /// General infoTypes are infoTypes that encompass multiple specific infoTypes.
+    /// For example, the "GEOGRAPHIC_DATA" general infoType would have set for this
+    /// field "LOCATION", "LOCATION_COORDINATES", and "STREET_ADDRESS".
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub specific_info_types: std::vec::Vec<std::string::String>,
 }
 
 impl InfoTypeDescription {
@@ -4184,6 +4195,17 @@ impl InfoTypeDescription {
     {
         use std::iter::Iterator;
         self.categories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [specific_info_types][crate::model::InfoTypeDescription::specific_info_types].
+    pub fn set_specific_info_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.specific_info_types = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4379,6 +4401,9 @@ pub mod info_type_category {
         /// The infoType is typically used in Croatia.
         pub const CROATIA: LocationCategory = LocationCategory::new(42);
 
+        /// The infoType is typically used in Czechia.
+        pub const CZECHIA: LocationCategory = LocationCategory::new(52);
+
         /// The infoType is typically used in Denmark.
         pub const DENMARK: LocationCategory = LocationCategory::new(10);
 
@@ -4554,6 +4579,7 @@ pub mod info_type_category {
                 48 => std::borrow::Cow::Borrowed("AZERBAIJAN"),
                 50 => std::borrow::Cow::Borrowed("BELARUS"),
                 51 => std::borrow::Cow::Borrowed("ARMENIA"),
+                52 => std::borrow::Cow::Borrowed("CZECHIA"),
                 _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
             }
         }
@@ -4575,6 +4601,7 @@ pub mod info_type_category {
                 "CHINA" => std::option::Option::Some(Self::CHINA),
                 "COLOMBIA" => std::option::Option::Some(Self::COLOMBIA),
                 "CROATIA" => std::option::Option::Some(Self::CROATIA),
+                "CZECHIA" => std::option::Option::Some(Self::CZECHIA),
                 "DENMARK" => std::option::Option::Some(Self::DENMARK),
                 "FRANCE" => std::option::Option::Some(Self::FRANCE),
                 "FINLAND" => std::option::Option::Some(Self::FINLAND),
@@ -13867,7 +13894,8 @@ impl wkt::message::Message for ListInspectTemplatesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListInspectTemplatesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListInspectTemplatesResponse {
     type PageItem = crate::model::InspectTemplate;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -14397,7 +14425,8 @@ impl wkt::message::Message for ListDiscoveryConfigsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDiscoveryConfigsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDiscoveryConfigsResponse {
     type PageItem = crate::model::DiscoveryConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -14794,7 +14823,8 @@ impl wkt::message::Message for ListJobTriggersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListJobTriggersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListJobTriggersResponse {
     type PageItem = crate::model::JobTrigger;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -15157,6 +15187,18 @@ pub mod data_profile_action {
         ///   you must use a separate table for each boundary.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub profile_table: std::option::Option<crate::model::BigQueryTable>,
+
+        /// Store sample [data profile
+        /// findings][google.privacy.dlp.v2.DataProfileFinding] in an existing table
+        /// or a new table in an existing dataset. Each regeneration will result in
+        /// new rows in BigQuery. Data is inserted using [streaming
+        /// insert](https://cloud.google.com/blog/products/bigquery/life-of-a-bigquery-streaming-insert)
+        /// and so data may be in the buffer for a period of time after the profile
+        /// has finished.
+        ///
+        /// [google.privacy.dlp.v2.DataProfileFinding]: crate::model::DataProfileFinding
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub sample_findings_table: std::option::Option<crate::model::BigQueryTable>,
     }
 
     impl Export {
@@ -15172,6 +15214,17 @@ pub mod data_profile_action {
             v: T,
         ) -> Self {
             self.profile_table = v.into();
+            self
+        }
+
+        /// Sets the value of [sample_findings_table][crate::model::data_profile_action::Export::sample_findings_table].
+        pub fn set_sample_findings_table<
+            T: std::convert::Into<std::option::Option<crate::model::BigQueryTable>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.sample_findings_table = v.into();
             self
         }
     }
@@ -15735,6 +15788,270 @@ pub mod data_profile_action {
         ),
         /// Tags the profiled resources with the specified tag values.
         TagResources(std::boxed::Box<crate::model::data_profile_action::TagResources>),
+    }
+}
+
+/// Details about a piece of potentially sensitive information that was detected
+/// when the data resource was profiled.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DataProfileFinding {
+    /// The content that was found. Even if the content is not textual, it
+    /// may be converted to a textual representation here. If the finding exceeds
+    /// 4096 bytes in length, the quote may be omitted.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub quote: std::string::String,
+
+    /// The [type of
+    /// content](https://cloud.google.com/sensitive-data-protection/docs/infotypes-reference)
+    /// that might have been found.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub infotype: std::option::Option<crate::model::InfoType>,
+
+    /// Contains data parsed from quotes. Currently supported infoTypes: DATE,
+    /// DATE_OF_BIRTH, and TIME.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub quote_info: std::option::Option<crate::model::QuoteInfo>,
+
+    /// Resource name of the data profile associated with the finding.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub data_profile_resource_name: std::string::String,
+
+    /// A unique identifier for the finding.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub finding_id: std::string::String,
+
+    /// Timestamp when the finding was detected.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub timestamp: std::option::Option<wkt::Timestamp>,
+
+    /// Where the content was found.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub location: std::option::Option<crate::model::DataProfileFindingLocation>,
+
+    /// How broadly a resource has been shared.
+    pub resource_visibility: crate::model::ResourceVisibility,
+}
+
+impl DataProfileFinding {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [quote][crate::model::DataProfileFinding::quote].
+    pub fn set_quote<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.quote = v.into();
+        self
+    }
+
+    /// Sets the value of [infotype][crate::model::DataProfileFinding::infotype].
+    pub fn set_infotype<T: std::convert::Into<std::option::Option<crate::model::InfoType>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.infotype = v.into();
+        self
+    }
+
+    /// Sets the value of [quote_info][crate::model::DataProfileFinding::quote_info].
+    pub fn set_quote_info<T: std::convert::Into<std::option::Option<crate::model::QuoteInfo>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.quote_info = v.into();
+        self
+    }
+
+    /// Sets the value of [data_profile_resource_name][crate::model::DataProfileFinding::data_profile_resource_name].
+    pub fn set_data_profile_resource_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_profile_resource_name = v.into();
+        self
+    }
+
+    /// Sets the value of [finding_id][crate::model::DataProfileFinding::finding_id].
+    pub fn set_finding_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.finding_id = v.into();
+        self
+    }
+
+    /// Sets the value of [timestamp][crate::model::DataProfileFinding::timestamp].
+    pub fn set_timestamp<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.timestamp = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::DataProfileFinding::location].
+    pub fn set_location<
+        T: std::convert::Into<std::option::Option<crate::model::DataProfileFindingLocation>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of [resource_visibility][crate::model::DataProfileFinding::resource_visibility].
+    pub fn set_resource_visibility<T: std::convert::Into<crate::model::ResourceVisibility>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.resource_visibility = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DataProfileFinding {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.DataProfileFinding"
+    }
+}
+
+/// Location of a data profile finding within a resource.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DataProfileFindingLocation {
+    /// Name of the container where the finding is located.
+    /// The top-level name is the source file name or table name. Names of some
+    /// common storage containers are formatted as follows:
+    ///
+    /// * BigQuery tables:  `{project_id}:{dataset_id}.{table_id}`
+    /// * Cloud Storage files: `gs://{bucket}/{path}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub container_name: std::string::String,
+
+    /// Additional location details that may be provided for some types of
+    /// profiles. At this time, only findings for table data profiles include such
+    /// details.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub location_extra_details:
+        std::option::Option<crate::model::data_profile_finding_location::LocationExtraDetails>,
+}
+
+impl DataProfileFindingLocation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [container_name][crate::model::DataProfileFindingLocation::container_name].
+    pub fn set_container_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.container_name = v.into();
+        self
+    }
+
+    /// Sets the value of `location_extra_details`.
+    pub fn set_location_extra_details<
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::model::data_profile_finding_location::LocationExtraDetails,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.location_extra_details = v.into();
+        self
+    }
+
+    /// The value of [location_extra_details][crate::model::DataProfileFindingLocation::location_extra_details]
+    /// if it holds a `DataProfileFindingRecordLocation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_data_profile_finding_record_location(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DataProfileFindingRecordLocation>> {
+        #[allow(unreachable_patterns)]
+        self.location_extra_details.as_ref().and_then(|v| match v {
+            crate::model::data_profile_finding_location::LocationExtraDetails::DataProfileFindingRecordLocation(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [location_extra_details][crate::model::DataProfileFindingLocation::location_extra_details]
+    /// to hold a `DataProfileFindingRecordLocation`.
+    ///
+    /// Note that all the setters affecting `location_extra_details` are
+    /// mutually exclusive.
+    pub fn set_data_profile_finding_record_location<
+        T: std::convert::Into<std::boxed::Box<crate::model::DataProfileFindingRecordLocation>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.location_extra_details = std::option::Option::Some(
+            crate::model::data_profile_finding_location::LocationExtraDetails::DataProfileFindingRecordLocation(
+                v.into()
+            )
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for DataProfileFindingLocation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.DataProfileFindingLocation"
+    }
+}
+
+/// Defines additional types related to [DataProfileFindingLocation].
+pub mod data_profile_finding_location {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Additional location details that may be provided for some types of
+    /// profiles. At this time, only findings for table data profiles include such
+    /// details.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum LocationExtraDetails {
+        /// Location of a finding within a resource that produces a table data
+        /// profile.
+        DataProfileFindingRecordLocation(
+            std::boxed::Box<crate::model::DataProfileFindingRecordLocation>,
+        ),
+    }
+}
+
+/// Location of a finding within a resource that produces a table data profile.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DataProfileFindingRecordLocation {
+    /// Field ID of the column containing the finding.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub field: std::option::Option<crate::model::FieldId>,
+}
+
+impl DataProfileFindingRecordLocation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [field][crate::model::DataProfileFindingRecordLocation::field].
+    pub fn set_field<T: std::convert::Into<std::option::Option<crate::model::FieldId>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.field = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DataProfileFindingRecordLocation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.DataProfileFindingRecordLocation"
     }
 }
 
@@ -22140,7 +22457,8 @@ impl wkt::message::Message for ListDlpJobsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDlpJobsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDlpJobsResponse {
     type PageItem = crate::model::DlpJob;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -22568,7 +22886,8 @@ impl wkt::message::Message for ListDeidentifyTemplatesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDeidentifyTemplatesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDeidentifyTemplatesResponse {
     type PageItem = crate::model::DeidentifyTemplate;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -23524,7 +23843,8 @@ impl wkt::message::Message for ListStoredInfoTypesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListStoredInfoTypesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListStoredInfoTypesResponse {
     type PageItem = crate::model::StoredInfoType;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -23984,7 +24304,8 @@ impl wkt::message::Message for ListProjectDataProfilesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListProjectDataProfilesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListProjectDataProfilesResponse {
     type PageItem = crate::model::ProjectDataProfile;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -24159,7 +24480,8 @@ impl wkt::message::Message for ListTableDataProfilesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListTableDataProfilesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListTableDataProfilesResponse {
     type PageItem = crate::model::TableDataProfile;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -24335,7 +24657,8 @@ impl wkt::message::Message for ListColumnDataProfilesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListColumnDataProfilesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListColumnDataProfilesResponse {
     type PageItem = crate::model::ColumnDataProfile;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -24789,6 +25112,16 @@ pub struct TableDataProfile {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
 
+    /// The BigQuery table to which the sample findings are written.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub sample_findings_table: std::option::Option<crate::model::BigQueryTable>,
+
+    /// The tags attached to the table, including any tags attached during
+    /// profiling. Because tags are attached to Cloud SQL instances rather than
+    /// Cloud SQL tables, this field is empty for Cloud SQL table profiles.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub tags: std::vec::Vec<crate::model::Tag>,
+
     /// Resources related to this profile.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub related_resources: std::vec::Vec<crate::model::RelatedResource>,
@@ -24994,6 +25327,17 @@ impl TableDataProfile {
         self
     }
 
+    /// Sets the value of [sample_findings_table][crate::model::TableDataProfile::sample_findings_table].
+    pub fn set_sample_findings_table<
+        T: std::convert::Into<std::option::Option<crate::model::BigQueryTable>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.sample_findings_table = v.into();
+        self
+    }
+
     /// Sets the value of [predicted_info_types][crate::model::TableDataProfile::predicted_info_types].
     pub fn set_predicted_info_types<T, V>(mut self, v: T) -> Self
     where
@@ -25013,6 +25357,17 @@ impl TableDataProfile {
     {
         use std::iter::Iterator;
         self.other_info_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [tags][crate::model::TableDataProfile::tags].
+    pub fn set_tags<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Tag>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -25919,8 +26274,17 @@ pub struct FileStoreDataProfile {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub file_store_info_type_summaries: std::vec::Vec<crate::model::FileStoreInfoTypeSummary>,
 
+    /// The BigQuery table to which the sample findings are written.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub sample_findings_table: std::option::Option<crate::model::BigQueryTable>,
+
     /// The file store does not have any files.
     pub file_store_is_empty: bool,
+
+    /// The tags attached to the resource, including any tags attached during
+    /// profiling.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub tags: std::vec::Vec<crate::model::Tag>,
 
     /// Resources related to this profile.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -26082,6 +26446,17 @@ impl FileStoreDataProfile {
         self
     }
 
+    /// Sets the value of [sample_findings_table][crate::model::FileStoreDataProfile::sample_findings_table].
+    pub fn set_sample_findings_table<
+        T: std::convert::Into<std::option::Option<crate::model::BigQueryTable>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.sample_findings_table = v.into();
+        self
+    }
+
     /// Sets the value of [file_store_is_empty][crate::model::FileStoreDataProfile::file_store_is_empty].
     pub fn set_file_store_is_empty<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.file_store_is_empty = v.into();
@@ -26118,6 +26493,17 @@ impl FileStoreDataProfile {
     {
         use std::iter::Iterator;
         self.file_store_info_type_summaries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [tags][crate::model::FileStoreDataProfile::tags].
+    pub fn set_tags<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Tag>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -26226,6 +26612,63 @@ pub mod file_store_data_profile {
         fn default() -> Self {
             Self::new(0)
         }
+    }
+}
+
+/// A tag associated with a resource.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct Tag {
+    /// The namespaced name for the tag value to attach to Google Cloud resources.
+    /// Must be in the format `{parent_id}/{tag_key_short_name}/{short_name}`, for
+    /// example, "123456/environment/prod". This is only set for Google Cloud
+    /// resources.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub namespaced_tag_value: std::string::String,
+
+    /// The key of a tag key-value pair. For Google Cloud resources, this is the
+    /// resource name of the key, for example, "tagKeys/123456".
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub key: std::string::String,
+
+    /// The value of a tag key-value pair. For Google Cloud resources, this is the
+    /// resource name of the value, for example, "tagValues/123456".
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub value: std::string::String,
+}
+
+impl Tag {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [namespaced_tag_value][crate::model::Tag::namespaced_tag_value].
+    pub fn set_namespaced_tag_value<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.namespaced_tag_value = v.into();
+        self
+    }
+
+    /// Sets the value of [key][crate::model::Tag::key].
+    pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.key = v.into();
+        self
+    }
+
+    /// Sets the value of [value][crate::model::Tag::value].
+    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.value = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Tag {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.Tag"
     }
 }
 
@@ -26692,7 +27135,8 @@ impl wkt::message::Message for ListFileStoreDataProfilesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListFileStoreDataProfilesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListFileStoreDataProfilesResponse {
     type PageItem = crate::model::FileStoreDataProfile;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -27447,7 +27891,8 @@ impl wkt::message::Message for ListConnectionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListConnectionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListConnectionsResponse {
     type PageItem = crate::model::Connection;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -27507,7 +27952,8 @@ impl wkt::message::Message for SearchConnectionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for SearchConnectionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for SearchConnectionsResponse {
     type PageItem = crate::model::Connection;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

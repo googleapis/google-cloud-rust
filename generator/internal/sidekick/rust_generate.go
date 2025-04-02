@@ -95,7 +95,7 @@ func rust_generate(rootConfig *config.Config, cmdLine *CommandLine) error {
 		return err
 	}
 	slog.Info("Running `cargo doc` on new client library")
-	if err := runExternalCommand("env", "RUSTDOCFLAGS=-D warnings", "cargo", "doc", "--package", packagez); err != nil {
+	if err := runExternalCommand("env", "RUSTDOCFLAGS=-D warnings", "cargo", "doc", "--package", packagez, "--no-deps"); err != nil {
 		return err
 	}
 	slog.Info("Running `cargo clippy` on new client library")

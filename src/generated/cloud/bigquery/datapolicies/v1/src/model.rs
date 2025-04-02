@@ -345,7 +345,8 @@ impl wkt::message::Message for ListDataPoliciesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDataPoliciesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDataPoliciesResponse {
     type PageItem = crate::model::DataPolicy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

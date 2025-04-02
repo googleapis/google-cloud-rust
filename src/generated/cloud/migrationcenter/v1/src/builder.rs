@@ -67,7 +67,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::list_assets call.
+    /// The request builder for [MigrationCenter::list_assets][super::super::client::MigrationCenter::list_assets] calls.
     #[derive(Clone, Debug)]
     pub struct ListAssets(RequestBuilder<crate::model::ListAssetsRequest>);
 
@@ -154,7 +154,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::get_asset call.
+    /// The request builder for [MigrationCenter::get_asset][super::super::client::MigrationCenter::get_asset] calls.
     #[derive(Clone, Debug)]
     pub struct GetAsset(RequestBuilder<crate::model::GetAssetRequest>);
 
@@ -202,7 +202,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::update_asset call.
+    /// The request builder for [MigrationCenter::update_asset][super::super::client::MigrationCenter::update_asset] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateAsset(RequestBuilder<crate::model::UpdateAssetRequest>);
 
@@ -262,7 +262,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::batch_update_assets call.
+    /// The request builder for [MigrationCenter::batch_update_assets][super::super::client::MigrationCenter::batch_update_assets] calls.
     #[derive(Clone, Debug)]
     pub struct BatchUpdateAssets(RequestBuilder<crate::model::BatchUpdateAssetsRequest>);
 
@@ -318,7 +318,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::delete_asset call.
+    /// The request builder for [MigrationCenter::delete_asset][super::super::client::MigrationCenter::delete_asset] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAsset(RequestBuilder<crate::model::DeleteAssetRequest>);
 
@@ -366,7 +366,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::batch_delete_assets call.
+    /// The request builder for [MigrationCenter::batch_delete_assets][super::super::client::MigrationCenter::batch_delete_assets] calls.
     #[derive(Clone, Debug)]
     pub struct BatchDeleteAssets(RequestBuilder<crate::model::BatchDeleteAssetsRequest>);
 
@@ -428,7 +428,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::report_asset_frames call.
+    /// The request builder for [MigrationCenter::report_asset_frames][super::super::client::MigrationCenter::report_asset_frames] calls.
     #[derive(Clone, Debug)]
     pub struct ReportAssetFrames(RequestBuilder<crate::model::ReportAssetFramesRequest>);
 
@@ -488,7 +488,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::aggregate_assets_values call.
+    /// The request builder for [MigrationCenter::aggregate_assets_values][super::super::client::MigrationCenter::aggregate_assets_values] calls.
     #[derive(Clone, Debug)]
     pub struct AggregateAssetsValues(RequestBuilder<crate::model::AggregateAssetsValuesRequest>);
 
@@ -550,7 +550,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::create_import_job call.
+    /// The request builder for [MigrationCenter::create_import_job][super::super::client::MigrationCenter::create_import_job] calls.
     #[derive(Clone, Debug)]
     pub struct CreateImportJob(RequestBuilder<crate::model::CreateImportJobRequest>);
 
@@ -651,7 +651,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::list_import_jobs call.
+    /// The request builder for [MigrationCenter::list_import_jobs][super::super::client::MigrationCenter::list_import_jobs] calls.
     #[derive(Clone, Debug)]
     pub struct ListImportJobs(RequestBuilder<crate::model::ListImportJobsRequest>);
 
@@ -738,7 +738,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::get_import_job call.
+    /// The request builder for [MigrationCenter::get_import_job][super::super::client::MigrationCenter::get_import_job] calls.
     #[derive(Clone, Debug)]
     pub struct GetImportJob(RequestBuilder<crate::model::GetImportJobRequest>);
 
@@ -786,7 +786,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::delete_import_job call.
+    /// The request builder for [MigrationCenter::delete_import_job][super::super::client::MigrationCenter::delete_import_job] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteImportJob(RequestBuilder<crate::model::DeleteImportJobRequest>);
 
@@ -875,7 +875,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::update_import_job call.
+    /// The request builder for [MigrationCenter::update_import_job][super::super::client::MigrationCenter::update_import_job] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateImportJob(RequestBuilder<crate::model::UpdateImportJobRequest>);
 
@@ -973,7 +973,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::validate_import_job call.
+    /// The request builder for [MigrationCenter::validate_import_job][super::super::client::MigrationCenter::validate_import_job] calls.
     #[derive(Clone, Debug)]
     pub struct ValidateImportJob(RequestBuilder<crate::model::ValidateImportJobRequest>);
 
@@ -1059,7 +1059,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::run_import_job call.
+    /// The request builder for [MigrationCenter::run_import_job][super::super::client::MigrationCenter::run_import_job] calls.
     #[derive(Clone, Debug)]
     pub struct RunImportJob(RequestBuilder<crate::model::RunImportJobRequest>);
 
@@ -1142,7 +1142,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::get_import_data_file call.
+    /// The request builder for [MigrationCenter::get_import_data_file][super::super::client::MigrationCenter::get_import_data_file] calls.
     #[derive(Clone, Debug)]
     pub struct GetImportDataFile(RequestBuilder<crate::model::GetImportDataFileRequest>);
 
@@ -1187,7 +1187,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::list_import_data_files call.
+    /// The request builder for [MigrationCenter::list_import_data_files][super::super::client::MigrationCenter::list_import_data_files] calls.
     #[derive(Clone, Debug)]
     pub struct ListImportDataFiles(RequestBuilder<crate::model::ListImportDataFilesRequest>);
 
@@ -1271,7 +1271,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::create_import_data_file call.
+    /// The request builder for [MigrationCenter::create_import_data_file][super::super::client::MigrationCenter::create_import_data_file] calls.
     #[derive(Clone, Debug)]
     pub struct CreateImportDataFile(RequestBuilder<crate::model::CreateImportDataFileRequest>);
 
@@ -1376,7 +1376,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::delete_import_data_file call.
+    /// The request builder for [MigrationCenter::delete_import_data_file][super::super::client::MigrationCenter::delete_import_data_file] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteImportDataFile(RequestBuilder<crate::model::DeleteImportDataFileRequest>);
 
@@ -1462,7 +1462,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::list_groups call.
+    /// The request builder for [MigrationCenter::list_groups][super::super::client::MigrationCenter::list_groups] calls.
     #[derive(Clone, Debug)]
     pub struct ListGroups(RequestBuilder<crate::model::ListGroupsRequest>);
 
@@ -1543,7 +1543,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::get_group call.
+    /// The request builder for [MigrationCenter::get_group][super::super::client::MigrationCenter::get_group] calls.
     #[derive(Clone, Debug)]
     pub struct GetGroup(RequestBuilder<crate::model::GetGroupRequest>);
 
@@ -1585,7 +1585,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::create_group call.
+    /// The request builder for [MigrationCenter::create_group][super::super::client::MigrationCenter::create_group] calls.
     #[derive(Clone, Debug)]
     pub struct CreateGroup(RequestBuilder<crate::model::CreateGroupRequest>);
 
@@ -1685,7 +1685,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::update_group call.
+    /// The request builder for [MigrationCenter::update_group][super::super::client::MigrationCenter::update_group] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateGroup(RequestBuilder<crate::model::UpdateGroupRequest>);
 
@@ -1782,7 +1782,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::delete_group call.
+    /// The request builder for [MigrationCenter::delete_group][super::super::client::MigrationCenter::delete_group] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteGroup(RequestBuilder<crate::model::DeleteGroupRequest>);
 
@@ -1865,7 +1865,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::add_assets_to_group call.
+    /// The request builder for [MigrationCenter::add_assets_to_group][super::super::client::MigrationCenter::add_assets_to_group] calls.
     #[derive(Clone, Debug)]
     pub struct AddAssetsToGroup(RequestBuilder<crate::model::AddAssetsToGroupRequest>);
 
@@ -1968,7 +1968,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::remove_assets_from_group call.
+    /// The request builder for [MigrationCenter::remove_assets_from_group][super::super::client::MigrationCenter::remove_assets_from_group] calls.
     #[derive(Clone, Debug)]
     pub struct RemoveAssetsFromGroup(RequestBuilder<crate::model::RemoveAssetsFromGroupRequest>);
 
@@ -2071,7 +2071,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::list_error_frames call.
+    /// The request builder for [MigrationCenter::list_error_frames][super::super::client::MigrationCenter::list_error_frames] calls.
     #[derive(Clone, Debug)]
     pub struct ListErrorFrames(RequestBuilder<crate::model::ListErrorFramesRequest>);
 
@@ -2146,7 +2146,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::get_error_frame call.
+    /// The request builder for [MigrationCenter::get_error_frame][super::super::client::MigrationCenter::get_error_frame] calls.
     #[derive(Clone, Debug)]
     pub struct GetErrorFrame(RequestBuilder<crate::model::GetErrorFrameRequest>);
 
@@ -2194,7 +2194,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::list_sources call.
+    /// The request builder for [MigrationCenter::list_sources][super::super::client::MigrationCenter::list_sources] calls.
     #[derive(Clone, Debug)]
     pub struct ListSources(RequestBuilder<crate::model::ListSourcesRequest>);
 
@@ -2275,7 +2275,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::get_source call.
+    /// The request builder for [MigrationCenter::get_source][super::super::client::MigrationCenter::get_source] calls.
     #[derive(Clone, Debug)]
     pub struct GetSource(RequestBuilder<crate::model::GetSourceRequest>);
 
@@ -2317,7 +2317,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::create_source call.
+    /// The request builder for [MigrationCenter::create_source][super::super::client::MigrationCenter::create_source] calls.
     #[derive(Clone, Debug)]
     pub struct CreateSource(RequestBuilder<crate::model::CreateSourceRequest>);
 
@@ -2417,7 +2417,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::update_source call.
+    /// The request builder for [MigrationCenter::update_source][super::super::client::MigrationCenter::update_source] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateSource(RequestBuilder<crate::model::UpdateSourceRequest>);
 
@@ -2514,7 +2514,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::delete_source call.
+    /// The request builder for [MigrationCenter::delete_source][super::super::client::MigrationCenter::delete_source] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteSource(RequestBuilder<crate::model::DeleteSourceRequest>);
 
@@ -2597,7 +2597,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::list_preference_sets call.
+    /// The request builder for [MigrationCenter::list_preference_sets][super::super::client::MigrationCenter::list_preference_sets] calls.
     #[derive(Clone, Debug)]
     pub struct ListPreferenceSets(RequestBuilder<crate::model::ListPreferenceSetsRequest>);
 
@@ -2675,7 +2675,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::get_preference_set call.
+    /// The request builder for [MigrationCenter::get_preference_set][super::super::client::MigrationCenter::get_preference_set] calls.
     #[derive(Clone, Debug)]
     pub struct GetPreferenceSet(RequestBuilder<crate::model::GetPreferenceSetRequest>);
 
@@ -2720,7 +2720,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::create_preference_set call.
+    /// The request builder for [MigrationCenter::create_preference_set][super::super::client::MigrationCenter::create_preference_set] calls.
     #[derive(Clone, Debug)]
     pub struct CreatePreferenceSet(RequestBuilder<crate::model::CreatePreferenceSetRequest>);
 
@@ -2825,7 +2825,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::update_preference_set call.
+    /// The request builder for [MigrationCenter::update_preference_set][super::super::client::MigrationCenter::update_preference_set] calls.
     #[derive(Clone, Debug)]
     pub struct UpdatePreferenceSet(RequestBuilder<crate::model::UpdatePreferenceSetRequest>);
 
@@ -2927,7 +2927,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::delete_preference_set call.
+    /// The request builder for [MigrationCenter::delete_preference_set][super::super::client::MigrationCenter::delete_preference_set] calls.
     #[derive(Clone, Debug)]
     pub struct DeletePreferenceSet(RequestBuilder<crate::model::DeletePreferenceSetRequest>);
 
@@ -3013,7 +3013,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::get_settings call.
+    /// The request builder for [MigrationCenter::get_settings][super::super::client::MigrationCenter::get_settings] calls.
     #[derive(Clone, Debug)]
     pub struct GetSettings(RequestBuilder<crate::model::GetSettingsRequest>);
 
@@ -3055,7 +3055,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::update_settings call.
+    /// The request builder for [MigrationCenter::update_settings][super::super::client::MigrationCenter::update_settings] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateSettings(RequestBuilder<crate::model::UpdateSettingsRequest>);
 
@@ -3153,7 +3153,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::create_report_config call.
+    /// The request builder for [MigrationCenter::create_report_config][super::super::client::MigrationCenter::create_report_config] calls.
     #[derive(Clone, Debug)]
     pub struct CreateReportConfig(RequestBuilder<crate::model::CreateReportConfigRequest>);
 
@@ -3257,7 +3257,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::get_report_config call.
+    /// The request builder for [MigrationCenter::get_report_config][super::super::client::MigrationCenter::get_report_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetReportConfig(RequestBuilder<crate::model::GetReportConfigRequest>);
 
@@ -3299,7 +3299,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::list_report_configs call.
+    /// The request builder for [MigrationCenter::list_report_configs][super::super::client::MigrationCenter::list_report_configs] calls.
     #[derive(Clone, Debug)]
     pub struct ListReportConfigs(RequestBuilder<crate::model::ListReportConfigsRequest>);
 
@@ -3383,7 +3383,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::delete_report_config call.
+    /// The request builder for [MigrationCenter::delete_report_config][super::super::client::MigrationCenter::delete_report_config] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteReportConfig(RequestBuilder<crate::model::DeleteReportConfigRequest>);
 
@@ -3475,7 +3475,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::create_report call.
+    /// The request builder for [MigrationCenter::create_report][super::super::client::MigrationCenter::create_report] calls.
     #[derive(Clone, Debug)]
     pub struct CreateReport(RequestBuilder<crate::model::CreateReportRequest>);
 
@@ -3575,7 +3575,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::get_report call.
+    /// The request builder for [MigrationCenter::get_report][super::super::client::MigrationCenter::get_report] calls.
     #[derive(Clone, Debug)]
     pub struct GetReport(RequestBuilder<crate::model::GetReportRequest>);
 
@@ -3623,7 +3623,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::list_reports call.
+    /// The request builder for [MigrationCenter::list_reports][super::super::client::MigrationCenter::list_reports] calls.
     #[derive(Clone, Debug)]
     pub struct ListReports(RequestBuilder<crate::model::ListReportsRequest>);
 
@@ -3710,7 +3710,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::delete_report call.
+    /// The request builder for [MigrationCenter::delete_report][super::super::client::MigrationCenter::delete_report] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteReport(RequestBuilder<crate::model::DeleteReportRequest>);
 
@@ -3793,7 +3793,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::list_locations call.
+    /// The request builder for [MigrationCenter::list_locations][super::super::client::MigrationCenter::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -3871,7 +3871,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::get_location call.
+    /// The request builder for [MigrationCenter::get_location][super::super::client::MigrationCenter::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -3913,7 +3913,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::list_operations call.
+    /// The request builder for [MigrationCenter::list_operations][super::super::client::MigrationCenter::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -3991,7 +3991,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::get_operation call.
+    /// The request builder for [MigrationCenter::get_operation][super::super::client::MigrationCenter::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -4036,7 +4036,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::delete_operation call.
+    /// The request builder for [MigrationCenter::delete_operation][super::super::client::MigrationCenter::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -4081,7 +4081,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for a MigrationCenter::cancel_operation call.
+    /// The request builder for [MigrationCenter::cancel_operation][super::super::client::MigrationCenter::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

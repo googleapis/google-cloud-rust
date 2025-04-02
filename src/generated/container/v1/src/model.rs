@@ -16496,7 +16496,8 @@ impl wkt::message::Message for ListUsableSubnetworksResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListUsableSubnetworksResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListUsableSubnetworksResponse {
     type PageItem = crate::model::UsableSubnetwork;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

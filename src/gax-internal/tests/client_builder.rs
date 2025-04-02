@@ -41,7 +41,7 @@ mod test {
                 gax::client_builder::internal::new_builder(fake_client::Factory)
             }
 
-            async fn new(config: gax::options::ClientConfig) -> gax::Result<Self> {
+            async fn new(config: gaxi::options::ClientConfig) -> gax::Result<Self> {
                 let inner = gaxi::grpc::Client::new(config, super::DEFAULT_ENDPOINT).await?;
                 Ok(Self { inner })
             }
@@ -52,13 +52,14 @@ mod test {
         // Note the pub(self), the types in this module are not accessible to
         // application developers.
         pub(self) mod fake_client {
+            use super::gaxi;
             pub struct Factory;
             impl gax::client_builder::internal::ClientFactory for Factory {
                 type Client = super::FakeClient;
                 type Credentials = super::Credential;
                 async fn build(
                     self,
-                    config: gax::options::ClientConfig,
+                    config: gaxi::options::ClientConfig,
                 ) -> gax::Result<Self::Client> {
                     Self::Client::new(config).await
                 }
@@ -90,7 +91,7 @@ mod test {
                 gax::client_builder::internal::new_builder(fake_client::Factory)
             }
 
-            async fn new(config: gax::options::ClientConfig) -> gax::Result<Self> {
+            async fn new(config: gaxi::options::ClientConfig) -> gax::Result<Self> {
                 let inner = gaxi::http::ReqwestClient::new(config, super::DEFAULT_ENDPOINT).await?;
                 Ok(Self { inner })
             }
@@ -101,13 +102,14 @@ mod test {
         // Note the pub(self), the types in this module are not accessible to
         // application developers.
         pub(self) mod fake_client {
+            use super::gaxi;
             pub struct Factory;
             impl gax::client_builder::internal::ClientFactory for Factory {
                 type Client = super::FakeClient;
                 type Credentials = super::Credential;
                 async fn build(
                     self,
-                    config: gax::options::ClientConfig,
+                    config: gaxi::options::ClientConfig,
                 ) -> gax::Result<Self::Client> {
                     Self::Client::new(config).await
                 }

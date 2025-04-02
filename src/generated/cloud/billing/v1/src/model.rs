@@ -363,7 +363,8 @@ impl wkt::message::Message for ListBillingAccountsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListBillingAccountsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBillingAccountsResponse {
     type PageItem = crate::model::BillingAccount;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -584,7 +585,8 @@ impl wkt::message::Message for ListProjectBillingInfoResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListProjectBillingInfoResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListProjectBillingInfoResponse {
     type PageItem = crate::model::ProjectBillingInfo;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1627,7 +1629,8 @@ impl wkt::message::Message for ListServicesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListServicesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListServicesResponse {
     type PageItem = crate::model::Service;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1785,7 +1788,8 @@ impl wkt::message::Message for ListSkusResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListSkusResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListSkusResponse {
     type PageItem = crate::model::Sku;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

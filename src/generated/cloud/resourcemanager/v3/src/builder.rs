@@ -67,7 +67,7 @@ pub mod folders {
         }
     }
 
-    /// The request builder for a Folders::get_folder call.
+    /// The request builder for [Folders::get_folder][super::super::client::Folders::get_folder] calls.
     #[derive(Clone, Debug)]
     pub struct GetFolder(RequestBuilder<crate::model::GetFolderRequest>);
 
@@ -109,7 +109,7 @@ pub mod folders {
         }
     }
 
-    /// The request builder for a Folders::list_folders call.
+    /// The request builder for [Folders::list_folders][super::super::client::Folders::list_folders] calls.
     #[derive(Clone, Debug)]
     pub struct ListFolders(RequestBuilder<crate::model::ListFoldersRequest>);
 
@@ -184,7 +184,7 @@ pub mod folders {
         }
     }
 
-    /// The request builder for a Folders::search_folders call.
+    /// The request builder for [Folders::search_folders][super::super::client::Folders::search_folders] calls.
     #[derive(Clone, Debug)]
     pub struct SearchFolders(RequestBuilder<crate::model::SearchFoldersRequest>);
 
@@ -253,7 +253,7 @@ pub mod folders {
         }
     }
 
-    /// The request builder for a Folders::create_folder call.
+    /// The request builder for [Folders::create_folder][super::super::client::Folders::create_folder] calls.
     #[derive(Clone, Debug)]
     pub struct CreateFolder(RequestBuilder<crate::model::CreateFolderRequest>);
 
@@ -336,7 +336,7 @@ pub mod folders {
         }
     }
 
-    /// The request builder for a Folders::update_folder call.
+    /// The request builder for [Folders::update_folder][super::super::client::Folders::update_folder] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateFolder(RequestBuilder<crate::model::UpdateFolderRequest>);
 
@@ -428,7 +428,7 @@ pub mod folders {
         }
     }
 
-    /// The request builder for a Folders::move_folder call.
+    /// The request builder for [Folders::move_folder][super::super::client::Folders::move_folder] calls.
     #[derive(Clone, Debug)]
     pub struct MoveFolder(RequestBuilder<crate::model::MoveFolderRequest>);
 
@@ -513,7 +513,7 @@ pub mod folders {
         }
     }
 
-    /// The request builder for a Folders::delete_folder call.
+    /// The request builder for [Folders::delete_folder][super::super::client::Folders::delete_folder] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteFolder(RequestBuilder<crate::model::DeleteFolderRequest>);
 
@@ -593,7 +593,7 @@ pub mod folders {
         }
     }
 
-    /// The request builder for a Folders::undelete_folder call.
+    /// The request builder for [Folders::undelete_folder][super::super::client::Folders::undelete_folder] calls.
     #[derive(Clone, Debug)]
     pub struct UndeleteFolder(RequestBuilder<crate::model::UndeleteFolderRequest>);
 
@@ -673,7 +673,7 @@ pub mod folders {
         }
     }
 
-    /// The request builder for a Folders::get_iam_policy call.
+    /// The request builder for [Folders::get_iam_policy][super::super::client::Folders::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -724,7 +724,7 @@ pub mod folders {
         }
     }
 
-    /// The request builder for a Folders::set_iam_policy call.
+    /// The request builder for [Folders::set_iam_policy][super::super::client::Folders::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -784,7 +784,7 @@ pub mod folders {
         }
     }
 
-    /// The request builder for a Folders::test_iam_permissions call.
+    /// The request builder for [Folders::test_iam_permissions][super::super::client::Folders::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -840,7 +840,7 @@ pub mod folders {
         }
     }
 
-    /// The request builder for a Folders::get_operation call.
+    /// The request builder for [Folders::get_operation][super::super::client::Folders::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -939,7 +939,7 @@ pub mod organizations {
         }
     }
 
-    /// The request builder for a Organizations::get_organization call.
+    /// The request builder for [Organizations::get_organization][super::super::client::Organizations::get_organization] calls.
     #[derive(Clone, Debug)]
     pub struct GetOrganization(RequestBuilder<crate::model::GetOrganizationRequest>);
 
@@ -981,7 +981,7 @@ pub mod organizations {
         }
     }
 
-    /// The request builder for a Organizations::search_organizations call.
+    /// The request builder for [Organizations::search_organizations][super::super::client::Organizations::search_organizations] calls.
     #[derive(Clone, Debug)]
     pub struct SearchOrganizations(RequestBuilder<crate::model::SearchOrganizationsRequest>);
 
@@ -1053,7 +1053,7 @@ pub mod organizations {
         }
     }
 
-    /// The request builder for a Organizations::get_iam_policy call.
+    /// The request builder for [Organizations::get_iam_policy][super::super::client::Organizations::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1104,7 +1104,7 @@ pub mod organizations {
         }
     }
 
-    /// The request builder for a Organizations::set_iam_policy call.
+    /// The request builder for [Organizations::set_iam_policy][super::super::client::Organizations::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1164,7 +1164,7 @@ pub mod organizations {
         }
     }
 
-    /// The request builder for a Organizations::test_iam_permissions call.
+    /// The request builder for [Organizations::test_iam_permissions][super::super::client::Organizations::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1220,7 +1220,7 @@ pub mod organizations {
         }
     }
 
-    /// The request builder for a Organizations::get_operation call.
+    /// The request builder for [Organizations::get_operation][super::super::client::Organizations::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1319,7 +1319,7 @@ pub mod projects {
         }
     }
 
-    /// The request builder for a Projects::get_project call.
+    /// The request builder for [Projects::get_project][super::super::client::Projects::get_project] calls.
     #[derive(Clone, Debug)]
     pub struct GetProject(RequestBuilder<crate::model::GetProjectRequest>);
 
@@ -1361,7 +1361,7 @@ pub mod projects {
         }
     }
 
-    /// The request builder for a Projects::list_projects call.
+    /// The request builder for [Projects::list_projects][super::super::client::Projects::list_projects] calls.
     #[derive(Clone, Debug)]
     pub struct ListProjects(RequestBuilder<crate::model::ListProjectsRequest>);
 
@@ -1436,7 +1436,7 @@ pub mod projects {
         }
     }
 
-    /// The request builder for a Projects::search_projects call.
+    /// The request builder for [Projects::search_projects][super::super::client::Projects::search_projects] calls.
     #[derive(Clone, Debug)]
     pub struct SearchProjects(RequestBuilder<crate::model::SearchProjectsRequest>);
 
@@ -1505,7 +1505,7 @@ pub mod projects {
         }
     }
 
-    /// The request builder for a Projects::create_project call.
+    /// The request builder for [Projects::create_project][super::super::client::Projects::create_project] calls.
     #[derive(Clone, Debug)]
     pub struct CreateProject(RequestBuilder<crate::model::CreateProjectRequest>);
 
@@ -1588,7 +1588,7 @@ pub mod projects {
         }
     }
 
-    /// The request builder for a Projects::update_project call.
+    /// The request builder for [Projects::update_project][super::super::client::Projects::update_project] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateProject(RequestBuilder<crate::model::UpdateProjectRequest>);
 
@@ -1680,7 +1680,7 @@ pub mod projects {
         }
     }
 
-    /// The request builder for a Projects::move_project call.
+    /// The request builder for [Projects::move_project][super::super::client::Projects::move_project] calls.
     #[derive(Clone, Debug)]
     pub struct MoveProject(RequestBuilder<crate::model::MoveProjectRequest>);
 
@@ -1766,7 +1766,7 @@ pub mod projects {
         }
     }
 
-    /// The request builder for a Projects::delete_project call.
+    /// The request builder for [Projects::delete_project][super::super::client::Projects::delete_project] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteProject(RequestBuilder<crate::model::DeleteProjectRequest>);
 
@@ -1846,7 +1846,7 @@ pub mod projects {
         }
     }
 
-    /// The request builder for a Projects::undelete_project call.
+    /// The request builder for [Projects::undelete_project][super::super::client::Projects::undelete_project] calls.
     #[derive(Clone, Debug)]
     pub struct UndeleteProject(RequestBuilder<crate::model::UndeleteProjectRequest>);
 
@@ -1927,7 +1927,7 @@ pub mod projects {
         }
     }
 
-    /// The request builder for a Projects::get_iam_policy call.
+    /// The request builder for [Projects::get_iam_policy][super::super::client::Projects::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1978,7 +1978,7 @@ pub mod projects {
         }
     }
 
-    /// The request builder for a Projects::set_iam_policy call.
+    /// The request builder for [Projects::set_iam_policy][super::super::client::Projects::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -2038,7 +2038,7 @@ pub mod projects {
         }
     }
 
-    /// The request builder for a Projects::test_iam_permissions call.
+    /// The request builder for [Projects::test_iam_permissions][super::super::client::Projects::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -2094,7 +2094,7 @@ pub mod projects {
         }
     }
 
-    /// The request builder for a Projects::get_operation call.
+    /// The request builder for [Projects::get_operation][super::super::client::Projects::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2193,7 +2193,7 @@ pub mod tag_bindings {
         }
     }
 
-    /// The request builder for a TagBindings::list_tag_bindings call.
+    /// The request builder for [TagBindings::list_tag_bindings][super::super::client::TagBindings::list_tag_bindings] calls.
     #[derive(Clone, Debug)]
     pub struct ListTagBindings(RequestBuilder<crate::model::ListTagBindingsRequest>);
 
@@ -2262,7 +2262,7 @@ pub mod tag_bindings {
         }
     }
 
-    /// The request builder for a TagBindings::create_tag_binding call.
+    /// The request builder for [TagBindings::create_tag_binding][super::super::client::TagBindings::create_tag_binding] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTagBinding(RequestBuilder<crate::model::CreateTagBindingRequest>);
 
@@ -2355,7 +2355,7 @@ pub mod tag_bindings {
         }
     }
 
-    /// The request builder for a TagBindings::delete_tag_binding call.
+    /// The request builder for [TagBindings::delete_tag_binding][super::super::client::TagBindings::delete_tag_binding] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTagBinding(RequestBuilder<crate::model::DeleteTagBindingRequest>);
 
@@ -2437,7 +2437,7 @@ pub mod tag_bindings {
         }
     }
 
-    /// The request builder for a TagBindings::list_effective_tags call.
+    /// The request builder for [TagBindings::list_effective_tags][super::super::client::TagBindings::list_effective_tags] calls.
     #[derive(Clone, Debug)]
     pub struct ListEffectiveTags(RequestBuilder<crate::model::ListEffectiveTagsRequest>);
 
@@ -2509,7 +2509,7 @@ pub mod tag_bindings {
         }
     }
 
-    /// The request builder for a TagBindings::get_operation call.
+    /// The request builder for [TagBindings::get_operation][super::super::client::TagBindings::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2608,7 +2608,7 @@ pub mod tag_holds {
         }
     }
 
-    /// The request builder for a TagHolds::create_tag_hold call.
+    /// The request builder for [TagHolds::create_tag_hold][super::super::client::TagHolds::create_tag_hold] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTagHold(RequestBuilder<crate::model::CreateTagHoldRequest>);
 
@@ -2703,7 +2703,7 @@ pub mod tag_holds {
         }
     }
 
-    /// The request builder for a TagHolds::delete_tag_hold call.
+    /// The request builder for [TagHolds::delete_tag_hold][super::super::client::TagHolds::delete_tag_hold] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTagHold(RequestBuilder<crate::model::DeleteTagHoldRequest>);
 
@@ -2786,7 +2786,7 @@ pub mod tag_holds {
         }
     }
 
-    /// The request builder for a TagHolds::list_tag_holds call.
+    /// The request builder for [TagHolds::list_tag_holds][super::super::client::TagHolds::list_tag_holds] calls.
     #[derive(Clone, Debug)]
     pub struct ListTagHolds(RequestBuilder<crate::model::ListTagHoldsRequest>);
 
@@ -2861,7 +2861,7 @@ pub mod tag_holds {
         }
     }
 
-    /// The request builder for a TagHolds::get_operation call.
+    /// The request builder for [TagHolds::get_operation][super::super::client::TagHolds::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2960,7 +2960,7 @@ pub mod tag_keys {
         }
     }
 
-    /// The request builder for a TagKeys::list_tag_keys call.
+    /// The request builder for [TagKeys::list_tag_keys][super::super::client::TagKeys::list_tag_keys] calls.
     #[derive(Clone, Debug)]
     pub struct ListTagKeys(RequestBuilder<crate::model::ListTagKeysRequest>);
 
@@ -3029,7 +3029,7 @@ pub mod tag_keys {
         }
     }
 
-    /// The request builder for a TagKeys::get_tag_key call.
+    /// The request builder for [TagKeys::get_tag_key][super::super::client::TagKeys::get_tag_key] calls.
     #[derive(Clone, Debug)]
     pub struct GetTagKey(RequestBuilder<crate::model::GetTagKeyRequest>);
 
@@ -3071,7 +3071,7 @@ pub mod tag_keys {
         }
     }
 
-    /// The request builder for a TagKeys::get_namespaced_tag_key call.
+    /// The request builder for [TagKeys::get_namespaced_tag_key][super::super::client::TagKeys::get_namespaced_tag_key] calls.
     #[derive(Clone, Debug)]
     pub struct GetNamespacedTagKey(RequestBuilder<crate::model::GetNamespacedTagKeyRequest>);
 
@@ -3116,7 +3116,7 @@ pub mod tag_keys {
         }
     }
 
-    /// The request builder for a TagKeys::create_tag_key call.
+    /// The request builder for [TagKeys::create_tag_key][super::super::client::TagKeys::create_tag_key] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTagKey(RequestBuilder<crate::model::CreateTagKeyRequest>);
 
@@ -3205,7 +3205,7 @@ pub mod tag_keys {
         }
     }
 
-    /// The request builder for a TagKeys::update_tag_key call.
+    /// The request builder for [TagKeys::update_tag_key][super::super::client::TagKeys::update_tag_key] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateTagKey(RequestBuilder<crate::model::UpdateTagKeyRequest>);
 
@@ -3303,7 +3303,7 @@ pub mod tag_keys {
         }
     }
 
-    /// The request builder for a TagKeys::delete_tag_key call.
+    /// The request builder for [TagKeys::delete_tag_key][super::super::client::TagKeys::delete_tag_key] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTagKey(RequestBuilder<crate::model::DeleteTagKeyRequest>);
 
@@ -3395,7 +3395,7 @@ pub mod tag_keys {
         }
     }
 
-    /// The request builder for a TagKeys::get_iam_policy call.
+    /// The request builder for [TagKeys::get_iam_policy][super::super::client::TagKeys::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -3446,7 +3446,7 @@ pub mod tag_keys {
         }
     }
 
-    /// The request builder for a TagKeys::set_iam_policy call.
+    /// The request builder for [TagKeys::set_iam_policy][super::super::client::TagKeys::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -3506,7 +3506,7 @@ pub mod tag_keys {
         }
     }
 
-    /// The request builder for a TagKeys::test_iam_permissions call.
+    /// The request builder for [TagKeys::test_iam_permissions][super::super::client::TagKeys::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -3562,7 +3562,7 @@ pub mod tag_keys {
         }
     }
 
-    /// The request builder for a TagKeys::get_operation call.
+    /// The request builder for [TagKeys::get_operation][super::super::client::TagKeys::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -3661,7 +3661,7 @@ pub mod tag_values {
         }
     }
 
-    /// The request builder for a TagValues::list_tag_values call.
+    /// The request builder for [TagValues::list_tag_values][super::super::client::TagValues::list_tag_values] calls.
     #[derive(Clone, Debug)]
     pub struct ListTagValues(RequestBuilder<crate::model::ListTagValuesRequest>);
 
@@ -3730,7 +3730,7 @@ pub mod tag_values {
         }
     }
 
-    /// The request builder for a TagValues::get_tag_value call.
+    /// The request builder for [TagValues::get_tag_value][super::super::client::TagValues::get_tag_value] calls.
     #[derive(Clone, Debug)]
     pub struct GetTagValue(RequestBuilder<crate::model::GetTagValueRequest>);
 
@@ -3772,7 +3772,7 @@ pub mod tag_values {
         }
     }
 
-    /// The request builder for a TagValues::get_namespaced_tag_value call.
+    /// The request builder for [TagValues::get_namespaced_tag_value][super::super::client::TagValues::get_namespaced_tag_value] calls.
     #[derive(Clone, Debug)]
     pub struct GetNamespacedTagValue(RequestBuilder<crate::model::GetNamespacedTagValueRequest>);
 
@@ -3817,7 +3817,7 @@ pub mod tag_values {
         }
     }
 
-    /// The request builder for a TagValues::create_tag_value call.
+    /// The request builder for [TagValues::create_tag_value][super::super::client::TagValues::create_tag_value] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTagValue(RequestBuilder<crate::model::CreateTagValueRequest>);
 
@@ -3907,7 +3907,7 @@ pub mod tag_values {
         }
     }
 
-    /// The request builder for a TagValues::update_tag_value call.
+    /// The request builder for [TagValues::update_tag_value][super::super::client::TagValues::update_tag_value] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateTagValue(RequestBuilder<crate::model::UpdateTagValueRequest>);
 
@@ -4006,7 +4006,7 @@ pub mod tag_values {
         }
     }
 
-    /// The request builder for a TagValues::delete_tag_value call.
+    /// The request builder for [TagValues::delete_tag_value][super::super::client::TagValues::delete_tag_value] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTagValue(RequestBuilder<crate::model::DeleteTagValueRequest>);
 
@@ -4099,7 +4099,7 @@ pub mod tag_values {
         }
     }
 
-    /// The request builder for a TagValues::get_iam_policy call.
+    /// The request builder for [TagValues::get_iam_policy][super::super::client::TagValues::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -4150,7 +4150,7 @@ pub mod tag_values {
         }
     }
 
-    /// The request builder for a TagValues::set_iam_policy call.
+    /// The request builder for [TagValues::set_iam_policy][super::super::client::TagValues::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -4210,7 +4210,7 @@ pub mod tag_values {
         }
     }
 
-    /// The request builder for a TagValues::test_iam_permissions call.
+    /// The request builder for [TagValues::test_iam_permissions][super::super::client::TagValues::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -4266,7 +4266,7 @@ pub mod tag_values {
         }
     }
 
-    /// The request builder for a TagValues::get_operation call.
+    /// The request builder for [TagValues::get_operation][super::super::client::TagValues::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

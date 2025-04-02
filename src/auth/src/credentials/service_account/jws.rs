@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::credentials::CredentialError;
 use crate::credentials::Result;
+use crate::errors;
 use serde::Serialize;
 use std::time::Duration;
 use time::OffsetDateTime;
@@ -47,21 +47,21 @@ pub struct JwsClaims {
 impl JwsClaims {
     pub fn encode(&self) -> Result<String> {
         if self.exp < self.iat {
-            return Err(CredentialError::non_retryable_from_str(format!(
+            return Err(errors::non_retryable_from_str(format!(
                 "expiration time {:?}, must be later than issued time {:?}",
                 self.exp, self.iat
             )));
         }
 
         if self.aud.is_some() && self.scope.is_some() {
-            return Err(CredentialError::non_retryable_from_str(format!(
+            return Err(errors::non_retryable_from_str(format!(
                 "Found {:?} for audience and {:?} for scope, however expecting only 1 of them to be set.",
                 self.aud, self.scope
             )));
         }
 
         use base64::prelude::{BASE64_URL_SAFE_NO_PAD, Engine as _};
-        let json = serde_json::to_string(&self).map_err(CredentialError::non_retryable)?;
+        let json = serde_json::to_string(&self).map_err(errors::non_retryable)?;
         Ok(BASE64_URL_SAFE_NO_PAD.encode(json.as_bytes()))
     }
 }
@@ -78,7 +78,7 @@ pub struct JwsHeader<'a> {
 impl JwsHeader<'_> {
     pub fn encode(&self) -> Result<String> {
         use base64::prelude::{BASE64_URL_SAFE_NO_PAD, Engine as _};
-        let json = serde_json::to_string(&self).map_err(CredentialError::non_retryable)?;
+        let json = serde_json::to_string(&self).map_err(errors::non_retryable)?;
         Ok(BASE64_URL_SAFE_NO_PAD.encode(json.as_bytes()))
     }
 }

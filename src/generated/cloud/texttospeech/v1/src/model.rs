@@ -175,8 +175,8 @@ impl wkt::message::Message for Voice {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AdvancedVoiceOptions {
-    /// Only for Journey voices. If false, the synthesis will be context aware
-    /// and have higher latency.
+    /// Only for Journey voices. If false, the synthesis is context aware
+    /// and has a higher latency.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub low_latency_journey_synthesis: std::option::Option<bool>,
 }
@@ -285,9 +285,9 @@ impl wkt::message::Message for SynthesizeSpeechRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CustomPronunciationParams {
-    /// The phrase to which the customization will be applied.
-    /// The phrase can be multiple words (in the case of proper nouns etc), but
-    /// should not span to a whole sentence.
+    /// The phrase to which the customization is applied.
+    /// The phrase can be multiple words, such as proper nouns, but shouldn't span
+    /// the length of the sentence.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub phrase: std::option::Option<std::string::String>,
 
@@ -358,11 +358,11 @@ pub mod custom_pronunciation_params {
         /// Not specified.
         pub const PHONETIC_ENCODING_UNSPECIFIED: PhoneticEncoding = PhoneticEncoding::new(0);
 
-        /// IPA. (e.g. apple -> ˈæpəl )
+        /// IPA, such as apple -> ˈæpəl.
         /// <https://en.wikipedia.org/wiki/International_Phonetic_Alphabet>
         pub const PHONETIC_ENCODING_IPA: PhoneticEncoding = PhoneticEncoding::new(1);
 
-        /// X-SAMPA (e.g. apple -> "{p@l" )
+        /// X-SAMPA, such as apple -> "{p@l".
         /// <https://en.wikipedia.org/wiki/X-SAMPA>
         pub const PHONETIC_ENCODING_X_SAMPA: PhoneticEncoding = PhoneticEncoding::new(2);
 
@@ -420,7 +420,7 @@ pub mod custom_pronunciation_params {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CustomPronunciations {
-    /// The pronunciation customizations to be applied.
+    /// The pronunciation customizations are applied.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub pronunciations: std::vec::Vec<crate::model::CustomPronunciationParams>,
 }
@@ -487,7 +487,7 @@ pub mod multi_speaker_markup {
     #[allow(unused_imports)]
     use super::*;
 
-    /// A Multi-speaker turn.
+    /// A multi-speaker turn.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -537,18 +537,16 @@ pub mod multi_speaker_markup {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SynthesisInput {
-    /// Optional. The pronunciation customizations to be applied to the input. If
-    /// this is set, the input will be synthesized using the given pronunciation
+    /// Optional. The pronunciation customizations are applied to the input. If
+    /// this is set, the input is synthesized using the given pronunciation
     /// customizations.
     ///
-    /// The initial support will be for EFIGS (English, French,
-    /// Italian, German, Spanish) languages, as provided in
-    /// VoiceSelectionParams. Journey and Instant Clone voices are
-    /// not supported yet.
+    /// The initial support is for en-us, with plans to expand to other locales in
+    /// the future. Instant Clone voices aren't supported.
     ///
     /// In order to customize the pronunciation of a phrase, there must be an exact
     /// match of the phrase in the input types. If using SSML, the phrase must not
-    /// be inside a phoneme tag (entirely or partially).
+    /// be inside a phoneme tag.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub custom_pronunciations: std::option::Option<crate::model::CustomPronunciations>,
 
@@ -731,8 +729,8 @@ pub struct VoiceSelectionParams {
     pub custom_voice: std::option::Option<crate::model::CustomVoiceParams>,
 
     /// Optional. The configuration for a voice clone. If
-    /// [VoiceCloneParams.voice_clone_key] is set, the service will choose the
-    /// voice clone matching the specified configuration.
+    /// [VoiceCloneParams.voice_clone_key] is set, the service chooses the voice
+    /// clone matching the specified configuration.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub voice_clone: std::option::Option<crate::model::VoiceCloneParams>,
 }
@@ -801,10 +799,10 @@ pub struct AudioConfig {
     /// Required. The format of the audio byte stream.
     pub audio_encoding: crate::model::AudioEncoding,
 
-    /// Optional. Input only. Speaking rate/speed, in the range [0.25, 4.0]. 1.0 is
+    /// Optional. Input only. Speaking rate/speed, in the range [0.25, 2.0]. 1.0 is
     /// the normal native speed supported by the specific voice. 2.0 is twice as
     /// fast, and 0.5 is half as fast. If unset(0.0), defaults to the native 1.0
-    /// speed. Any other values < 0.25 or > 4.0 will return an error.
+    /// speed. Any other values < 0.25 or > 2.0 will return an error.
     pub speaking_rate: f64,
 
     /// Optional. Input only. Speaking pitch, in the range [-20.0, 20.0]. 20 means
@@ -1082,12 +1080,18 @@ impl wkt::message::Message for SynthesizeSpeechResponse {
 #[non_exhaustive]
 pub struct StreamingAudioConfig {
     /// Required. The format of the audio byte stream.
-    /// For now, streaming only supports PCM and OGG_OPUS. All other encodings
-    /// will return an error.
+    /// Streaming supports PCM, ALAW, MULAW and OGG_OPUS. All other encodings
+    /// return an error.
     pub audio_encoding: crate::model::AudioEncoding,
 
     /// Optional. The synthesis sample rate (in hertz) for this audio.
     pub sample_rate_hertz: i32,
+
+    /// Optional. Input only. Speaking rate/speed, in the range [0.25, 2.0]. 1.0 is
+    /// the normal native speed supported by the specific voice. 2.0 is twice as
+    /// fast, and 0.5 is half as fast. If unset(0.0), defaults to the native 1.0
+    /// speed. Any other values < 0.25 or > 2.0 will return an error.
+    pub speaking_rate: f64,
 }
 
 impl StreamingAudioConfig {
@@ -1107,6 +1111,12 @@ impl StreamingAudioConfig {
     /// Sets the value of [sample_rate_hertz][crate::model::StreamingAudioConfig::sample_rate_hertz].
     pub fn set_sample_rate_hertz<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.sample_rate_hertz = v.into();
+        self
+    }
+
+    /// Sets the value of [speaking_rate][crate::model::StreamingAudioConfig::speaking_rate].
+    pub fn set_speaking_rate<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+        self.speaking_rate = v.into();
         self
     }
 }
@@ -1130,6 +1140,19 @@ pub struct StreamingSynthesizeConfig {
     /// Optional. The configuration of the synthesized audio.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub streaming_audio_config: std::option::Option<crate::model::StreamingAudioConfig>,
+
+    /// Optional. The pronunciation customizations are applied to the input. If
+    /// this is set, the input is synthesized using the given pronunciation
+    /// customizations.
+    ///
+    /// The initial support is for en-us, with plans to expand to other locales in
+    /// the future. Instant Clone voices aren't supported.
+    ///
+    /// In order to customize the pronunciation of a phrase, there must be an exact
+    /// match of the phrase in the input types. If using SSML, the phrase must not
+    /// be inside a phoneme tag.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub custom_pronunciations: std::option::Option<crate::model::CustomPronunciations>,
 }
 
 impl StreamingSynthesizeConfig {
@@ -1156,6 +1179,17 @@ impl StreamingSynthesizeConfig {
         v: T,
     ) -> Self {
         self.streaming_audio_config = v.into();
+        self
+    }
+
+    /// Sets the value of [custom_pronunciations][crate::model::StreamingSynthesizeConfig::custom_pronunciations].
+    pub fn set_custom_pronunciations<
+        T: std::convert::Into<std::option::Option<crate::model::CustomPronunciations>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.custom_pronunciations = v.into();
         self
     }
 }
@@ -1236,9 +1270,8 @@ pub mod streaming_synthesis_input {
     #[non_exhaustive]
     pub enum InputSource {
         /// The raw text to be synthesized. It is recommended that each input
-        /// contains complete, terminating sentences, as this will likely result in
-        /// better prosody in the output audio. That being said, users are free to
-        /// input text however they please.
+        /// contains complete, terminating sentences, which results in better prosody
+        /// in the output audio.
         Text(std::string::String),
     }
 }
@@ -1647,7 +1680,7 @@ impl AudioEncoding {
     /// MP3 audio at 32kbps.
     pub const MP3: AudioEncoding = AudioEncoding::new(2);
 
-    /// Opus encoded audio wrapped in an ogg container. The result will be a
+    /// Opus encoded audio wrapped in an ogg container. The result is a
     /// file which can be played natively on Android, and in browsers (at least
     /// Chrome and Firefox). The quality of the encoding is considerably higher
     /// than MP3 while using approximately the same bitrate.
@@ -1662,7 +1695,7 @@ impl AudioEncoding {
     pub const ALAW: AudioEncoding = AudioEncoding::new(6);
 
     /// Uncompressed 16-bit signed little-endian samples (Linear PCM).
-    /// Note that as opposed to LINEAR16, audio will not be wrapped in a WAV (or
+    /// Note that as opposed to LINEAR16, audio won't be wrapped in a WAV (or
     /// any other) header.
     pub const PCM: AudioEncoding = AudioEncoding::new(7);
 

@@ -52,7 +52,7 @@
 
 use crate::credentials::dynamic::CredentialTrait;
 use crate::credentials::{Credential, DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY, Result};
-use crate::errors::{CredentialError, is_retryable};
+use crate::errors::{self, CredentialError, is_retryable};
 use crate::token::{Token, TokenProvider};
 use async_trait::async_trait;
 use bon::Builder;
@@ -182,13 +182,13 @@ where
     async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         let token = self.get_token().await?;
         let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
-            .map_err(CredentialError::non_retryable)?;
+            .map_err(errors::non_retryable)?;
         value.set_sensitive(true);
         let mut headers = vec![(AUTHORIZATION, value)];
         if let Some(project) = &self.quota_project_id {
             headers.push((
                 HeaderName::from_static(QUOTA_PROJECT_KEY),
-                HeaderValue::from_str(project).map_err(CredentialError::non_retryable)?,
+                HeaderValue::from_str(project).map_err(errors::non_retryable)?,
             ));
         }
         Ok(headers)
@@ -238,12 +238,12 @@ impl MDSAccessTokenProvider {
                 HeaderValue::from_static(METADATA_FLAVOR_VALUE),
             );
 
-        let response = request.send().await.map_err(CredentialError::retryable)?;
+        let response = request.send().await.map_err(errors::retryable)?;
 
         response
             .json::<ServiceAccountInfo>()
             .await
-            .map_err(CredentialError::non_retryable)
+            .map_err(errors::non_retryable)
     }
 }
 
@@ -271,7 +271,7 @@ impl TokenProvider for MDSAccessTokenProvider {
                 HeaderValue::from_static(METADATA_FLAVOR_VALUE),
             );
 
-        let response = request.send().await.map_err(CredentialError::retryable)?;
+        let response = request.send().await.map_err(errors::retryable)?;
         // Process the response
         if !response.status().is_success() {
             let status = response.status();
@@ -355,7 +355,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
-            .return_once(|| Err(CredentialError::non_retryable_from_str("fail")));
+            .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
         let mdsc = MDSCredential {
             quota_project_id: None,
@@ -399,7 +399,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
-            .return_once(|| Err(CredentialError::non_retryable_from_str("fail")));
+            .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
         let mdsc = MDSCredential {
             quota_project_id: None,

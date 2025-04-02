@@ -26,6 +26,7 @@ The main types to work with this crate are the clients:
 * [SchemaService](https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.SchemaService.html)
 * [SearchService](https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.SearchService.html)
 * [SearchTuningService](https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.SearchTuningService.html)
+* [ServingConfigService](https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.ServingConfigService.html)
 * [SiteSearchEngineService](https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.SiteSearchEngineService.html)
 * [UserEventService](https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.UserEventService.html)
 

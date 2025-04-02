@@ -628,7 +628,8 @@ impl wkt::message::Message for ListAuthorizationPoliciesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAuthorizationPoliciesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAuthorizationPoliciesResponse {
     type PageItem = crate::model::AuthorizationPolicy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1039,7 +1040,8 @@ impl wkt::message::Message for ListClientTlsPoliciesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListClientTlsPoliciesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListClientTlsPoliciesResponse {
     type PageItem = crate::model::ClientTlsPolicy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1599,7 +1601,8 @@ impl wkt::message::Message for ListServerTlsPoliciesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListServerTlsPoliciesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListServerTlsPoliciesResponse {
     type PageItem = crate::model::ServerTlsPolicy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

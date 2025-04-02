@@ -4068,7 +4068,8 @@ impl wkt::message::Message for ListProductsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListProductsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListProductsResponse {
     type PageItem = crate::model::Product;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4349,7 +4350,8 @@ impl wkt::message::Message for ListProductSetsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListProductSetsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListProductSetsResponse {
     type PageItem = crate::model::ProductSet;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4648,7 +4650,8 @@ impl wkt::message::Message for ListReferenceImagesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListReferenceImagesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListReferenceImagesResponse {
     type PageItem = crate::model::ReferenceImage;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4912,7 +4915,8 @@ impl wkt::message::Message for ListProductsInProductSetResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListProductsInProductSetResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListProductsInProductSetResponse {
     type PageItem = crate::model::Product;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

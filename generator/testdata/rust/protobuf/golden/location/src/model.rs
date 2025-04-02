@@ -126,7 +126,8 @@ impl wkt::message::Message for ListLocationsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListLocationsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListLocationsResponse {
     type PageItem = crate::model::Location;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

@@ -1320,7 +1320,8 @@ impl wkt::message::Message for ListEntitlementsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListEntitlementsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListEntitlementsResponse {
     type PageItem = crate::model::Entitlement;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1518,7 +1519,8 @@ impl wkt::message::Message for SearchEntitlementsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for SearchEntitlementsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for SearchEntitlementsResponse {
     type PageItem = crate::model::Entitlement;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3106,7 +3108,8 @@ impl wkt::message::Message for ListGrantsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListGrantsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListGrantsResponse {
     type PageItem = crate::model::Grant;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3309,7 +3312,8 @@ impl wkt::message::Message for SearchGrantsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for SearchGrantsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for SearchGrantsResponse {
     type PageItem = crate::model::Grant;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

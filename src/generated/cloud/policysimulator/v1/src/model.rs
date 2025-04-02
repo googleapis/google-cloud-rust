@@ -1241,7 +1241,8 @@ impl wkt::message::Message for ListReplayResultsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListReplayResultsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListReplayResultsResponse {
     type PageItem = crate::model::ReplayResult;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

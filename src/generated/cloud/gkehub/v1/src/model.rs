@@ -1862,7 +1862,8 @@ impl wkt::message::Message for ListMembershipsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListMembershipsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListMembershipsResponse {
     type PageItem = crate::model::Membership;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2500,7 +2501,8 @@ impl wkt::message::Message for ListFeaturesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListFeaturesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListFeaturesResponse {
     type PageItem = crate::model::Feature;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

@@ -4259,7 +4259,8 @@ impl wkt::message::Message for ListOccurrencesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListOccurrencesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListOccurrencesResponse {
     type PageItem = crate::model::Occurrence;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4567,7 +4568,8 @@ impl wkt::message::Message for ListNotesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListNotesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListNotesResponse {
     type PageItem = crate::model::Note;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4822,7 +4824,8 @@ impl wkt::message::Message for ListNoteOccurrencesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListNoteOccurrencesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListNoteOccurrencesResponse {
     type PageItem = crate::model::Occurrence;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

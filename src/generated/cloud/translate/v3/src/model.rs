@@ -354,7 +354,8 @@ impl wkt::message::Message for ListAdaptiveMtDatasetsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAdaptiveMtDatasetsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAdaptiveMtDatasetsResponse {
     type PageItem = crate::model::AdaptiveMtDataset;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1163,7 +1164,8 @@ impl wkt::message::Message for ListAdaptiveMtFilesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAdaptiveMtFilesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAdaptiveMtFilesResponse {
     type PageItem = crate::model::AdaptiveMtFile;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1351,7 +1353,8 @@ impl wkt::message::Message for ListAdaptiveMtSentencesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAdaptiveMtSentencesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAdaptiveMtSentencesResponse {
     type PageItem = crate::model::AdaptiveMtSentence;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2030,7 +2033,8 @@ impl wkt::message::Message for ListDatasetsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListDatasetsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDatasetsResponse {
     type PageItem = crate::model::Dataset;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2263,7 +2267,8 @@ impl wkt::message::Message for ListExamplesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListExamplesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListExamplesResponse {
     type PageItem = crate::model::Example;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2783,7 +2788,8 @@ impl wkt::message::Message for ListModelsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListModelsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListModelsResponse {
     type PageItem = crate::model::Model;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6351,7 +6357,8 @@ impl wkt::message::Message for ListGlossariesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListGlossariesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListGlossariesResponse {
     type PageItem = crate::model::Glossary;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6520,7 +6527,8 @@ impl wkt::message::Message for ListGlossaryEntriesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListGlossaryEntriesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListGlossaryEntriesResponse {
     type PageItem = crate::model::GlossaryEntry;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

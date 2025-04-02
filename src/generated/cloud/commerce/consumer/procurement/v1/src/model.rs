@@ -652,7 +652,8 @@ impl wkt::message::Message for EnumerateLicensedUsersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for EnumerateLicensedUsersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for EnumerateLicensedUsersResponse {
     type PageItem = crate::model::LicensedUser;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1563,7 +1564,8 @@ impl wkt::message::Message for ListOrdersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListOrdersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListOrdersResponse {
     type PageItem = crate::model::Order;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

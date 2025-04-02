@@ -67,7 +67,7 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for a AccessApproval::list_approval_requests call.
+    /// The request builder for [AccessApproval::list_approval_requests][super::super::client::AccessApproval::list_approval_requests] calls.
     #[derive(Clone, Debug)]
     pub struct ListApprovalRequests(RequestBuilder<crate::model::ListApprovalRequestsMessage>);
 
@@ -145,7 +145,7 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for a AccessApproval::get_approval_request call.
+    /// The request builder for [AccessApproval::get_approval_request][super::super::client::AccessApproval::get_approval_request] calls.
     #[derive(Clone, Debug)]
     pub struct GetApprovalRequest(RequestBuilder<crate::model::GetApprovalRequestMessage>);
 
@@ -190,7 +190,7 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for a AccessApproval::approve_approval_request call.
+    /// The request builder for [AccessApproval::approve_approval_request][super::super::client::AccessApproval::approve_approval_request] calls.
     #[derive(Clone, Debug)]
     pub struct ApproveApprovalRequest(RequestBuilder<crate::model::ApproveApprovalRequestMessage>);
 
@@ -244,7 +244,7 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for a AccessApproval::dismiss_approval_request call.
+    /// The request builder for [AccessApproval::dismiss_approval_request][super::super::client::AccessApproval::dismiss_approval_request] calls.
     #[derive(Clone, Debug)]
     pub struct DismissApprovalRequest(RequestBuilder<crate::model::DismissApprovalRequestMessage>);
 
@@ -289,7 +289,7 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for a AccessApproval::invalidate_approval_request call.
+    /// The request builder for [AccessApproval::invalidate_approval_request][super::super::client::AccessApproval::invalidate_approval_request] calls.
     #[derive(Clone, Debug)]
     pub struct InvalidateApprovalRequest(
         RequestBuilder<crate::model::InvalidateApprovalRequestMessage>,
@@ -336,7 +336,7 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for a AccessApproval::get_access_approval_settings call.
+    /// The request builder for [AccessApproval::get_access_approval_settings][super::super::client::AccessApproval::get_access_approval_settings] calls.
     #[derive(Clone, Debug)]
     pub struct GetAccessApprovalSettings(
         RequestBuilder<crate::model::GetAccessApprovalSettingsMessage>,
@@ -383,7 +383,7 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for a AccessApproval::update_access_approval_settings call.
+    /// The request builder for [AccessApproval::update_access_approval_settings][super::super::client::AccessApproval::update_access_approval_settings] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateAccessApprovalSettings(
         RequestBuilder<crate::model::UpdateAccessApprovalSettingsMessage>,
@@ -442,7 +442,7 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for a AccessApproval::delete_access_approval_settings call.
+    /// The request builder for [AccessApproval::delete_access_approval_settings][super::super::client::AccessApproval::delete_access_approval_settings] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAccessApprovalSettings(
         RequestBuilder<crate::model::DeleteAccessApprovalSettingsMessage>,
@@ -489,7 +489,7 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for a AccessApproval::get_access_approval_service_account call.
+    /// The request builder for [AccessApproval::get_access_approval_service_account][super::super::client::AccessApproval::get_access_approval_service_account] calls.
     #[derive(Clone, Debug)]
     pub struct GetAccessApprovalServiceAccount(
         RequestBuilder<crate::model::GetAccessApprovalServiceAccountMessage>,

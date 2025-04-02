@@ -33,7 +33,7 @@ impl std::fmt::Debug for Builds {
 }
 
 impl Builds {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -154,7 +154,7 @@ impl std::fmt::Debug for Executions {
 }
 
 impl Executions {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -349,7 +349,7 @@ impl std::fmt::Debug for Jobs {
 }
 
 impl Jobs {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -662,7 +662,7 @@ impl std::fmt::Debug for Revisions {
 }
 
 impl Revisions {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -842,7 +842,7 @@ impl std::fmt::Debug for Services {
 }
 
 impl Services {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1153,7 +1153,7 @@ impl std::fmt::Debug for Tasks {
 }
 
 impl Tasks {
-    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }

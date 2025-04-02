@@ -104,22 +104,22 @@ impl AnalyticsHubService {
     }
 
     async fn build_inner(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<Arc<dyn super::stub::dynamic::AnalyticsHubService>> {
-        if conf.tracing_enabled() {
+        if gaxi::options::tracing_enabled(&conf) {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::AnalyticsHubService> {
         super::transport::AnalyticsHubService::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
+        conf: gaxi::options::ClientConfig,
     ) -> Result<impl super::stub::AnalyticsHubService> {
         Self::build_transport(conf)
             .await
@@ -240,8 +240,8 @@ impl AnalyticsHubService {
             .set_name(name.into())
     }
 
-    /// Creates a Subscription to a Data Exchange. This is a long-running operation
-    /// as it will create one or more linked datasets.
+    /// Creates a Subscription to a Data Clean Room. This is a long-running
+    /// operation as it will create one or more linked datasets.
     ///
     /// # Long running operations
     ///

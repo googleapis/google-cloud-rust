@@ -4028,7 +4028,8 @@ impl wkt::message::Message for ListBuildsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListBuildsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBuildsResponse {
     type PageItem = crate::model::Build;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6444,7 +6445,8 @@ impl wkt::message::Message for ListBuildTriggersResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListBuildTriggersResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBuildTriggersResponse {
     type PageItem = crate::model::BuildTrigger;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -8492,7 +8494,8 @@ impl wkt::message::Message for ListWorkerPoolsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListWorkerPoolsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListWorkerPoolsResponse {
     type PageItem = crate::model::WorkerPool;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

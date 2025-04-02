@@ -2689,7 +2689,8 @@ impl wkt::message::Message for ListNodesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListNodesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListNodesResponse {
     type PageItem = crate::model::Node;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3043,7 +3044,8 @@ impl wkt::message::Message for ListQueuedResourcesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListQueuedResourcesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListQueuedResourcesResponse {
     type PageItem = crate::model::QueuedResource;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3562,7 +3564,8 @@ impl wkt::message::Message for ListAcceleratorTypesResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListAcceleratorTypesResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAcceleratorTypesResponse {
     type PageItem = crate::model::AcceleratorType;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3778,7 +3781,8 @@ impl wkt::message::Message for ListRuntimeVersionsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListRuntimeVersionsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRuntimeVersionsResponse {
     type PageItem = crate::model::RuntimeVersion;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

@@ -3114,7 +3114,8 @@ impl wkt::message::Message for ListScanConfigsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListScanConfigsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListScanConfigsResponse {
     type PageItem = crate::model::ScanConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3286,7 +3287,8 @@ impl wkt::message::Message for ListScanRunsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListScanRunsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListScanRunsResponse {
     type PageItem = crate::model::ScanRun;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3429,7 +3431,8 @@ impl wkt::message::Message for ListCrawledUrlsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListCrawledUrlsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListCrawledUrlsResponse {
     type PageItem = crate::model::CrawledUrl;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3585,7 +3588,8 @@ impl wkt::message::Message for ListFindingsResponse {
     }
 }
 
-impl gax::paginator::PageableResponse for ListFindingsResponse {
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListFindingsResponse {
     type PageItem = crate::model::Finding;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

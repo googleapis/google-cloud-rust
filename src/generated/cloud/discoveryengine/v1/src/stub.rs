@@ -1410,6 +1410,63 @@ pub trait SearchTuningService: std::fmt::Debug + Send + Sync {
     }
 }
 
+/// Defines the trait used to implement [super::client::ServingConfigService].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::ServingConfigService`.  In other use-cases, application developers only
+/// use `client::ServingConfigService` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait ServingConfigService: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::ServingConfigService::update_serving_config].
+    fn update_serving_config(
+        &self,
+        _req: crate::model::UpdateServingConfigRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::ServingConfig>> + Send {
+        std::future::ready::<crate::Result<crate::model::ServingConfig>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::ServingConfigService::list_operations].
+    fn list_operations(
+        &self,
+        _req: longrunning::model::ListOperationsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
+    + Send {
+        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::ServingConfigService::get_operation].
+    fn get_operation(
+        &self,
+        _req: longrunning::model::GetOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
+    {
+        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::ServingConfigService::cancel_operation].
+    fn cancel_operation(
+        &self,
+        _req: longrunning::model::CancelOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    }
+}
+
 /// Defines the trait used to implement [super::client::SiteSearchEngineService].
 ///
 /// Application developers may need to implement this trait to mock
@@ -1503,6 +1560,42 @@ pub trait SiteSearchEngineService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::ListTargetSitesResponse>>(Err(
             Error::other("unimplemented"),
         ))
+    }
+
+    /// Implements [super::client::SiteSearchEngineService::create_sitemap].
+    fn create_sitemap(
+        &self,
+        _req: crate::model::CreateSitemapRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
+    {
+        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::SiteSearchEngineService::delete_sitemap].
+    fn delete_sitemap(
+        &self,
+        _req: crate::model::DeleteSitemapRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
+    {
+        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::SiteSearchEngineService::fetch_sitemaps].
+    fn fetch_sitemaps(
+        &self,
+        _req: crate::model::FetchSitemapsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::FetchSitemapsResponse>> + Send
+    {
+        std::future::ready::<crate::Result<crate::model::FetchSitemapsResponse>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::SiteSearchEngineService::enable_advanced_site_search].

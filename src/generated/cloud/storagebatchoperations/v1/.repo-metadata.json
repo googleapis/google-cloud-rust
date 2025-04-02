@@ -1,0 +1,11 @@
+{
+    "api_id": "storagebatchoperations.googleapis.com",
+    "api_shortname": "storagebatchoperations",
+    "client_documentation": "https://docs.rs/google-cloud-storagebatchoperations-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Storage Batch Operations API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
