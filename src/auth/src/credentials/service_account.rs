@@ -140,7 +140,8 @@ pub struct Builder {
 impl Builder {
     /// Creates a new builder using [service_account_key] json value.
     /// By default, the builder is configured with [cloud-platform scope]. This can
-    /// be overridden using [with_scopes] or [with_aud] methods.
+    /// be overridden using [with_scopes][Builder::with_scopes] or
+    /// [with_aud][Builder::with_aud] methods.
     ///
     /// [cloud-platform scope]:https://cloud.google.com/compute/docs/access/service-accounts#scopes_best_practice
     /// [service_account_key]: https://cloud.google.com/iam/docs/keys-create-delete#creating
