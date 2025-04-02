@@ -26,3 +26,4 @@ limitations under the License.
 - [Working with long-running operations](working_with_long_running_operations.md)
 - [Configuring polling policies](configuring_polling_policies.md)
 - [How to write tests using a client](mock_a_client.md)
+- [How to write tests for long-running operations](mocking_lros.md)
