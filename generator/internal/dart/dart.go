@@ -156,7 +156,13 @@ func packageName(api *api.API, packageNameOverride string) string {
 	if len(packageNameOverride) > 0 {
 		return packageNameOverride
 	}
-	return "google_cloud_" + strcase.ToSnake(api.Name)
+
+	// Convert 'google.protobuf' to 'google_cloud_protobuf' and
+	// 'google.cloud.language.v2' to 'google_cloud_language_v2.
+	packageName := api.PackageName
+	packageName = strings.TrimPrefix(packageName, "google.cloud.")
+	packageName = strings.TrimPrefix(packageName, "google.")
+	return "google_cloud_" + strings.ReplaceAll(packageName, ".", "_")
 }
 
 func shouldGenerateMethod(m *api.Method) bool {

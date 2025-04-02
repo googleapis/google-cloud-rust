@@ -19,7 +19,7 @@ library;
 
 import 'dart:io';
 
-import 'package:google_cloud_language/language.dart';
+import 'package:google_cloud_language_v2/language.dart';
 
 import 'package:googleapis_auth/auth_io.dart' as auth;
 

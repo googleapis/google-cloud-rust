@@ -18,7 +18,7 @@ library;
 
 import 'dart:convert';
 
-import 'package:google_cloud_language/language.dart';
+import 'package:google_cloud_language_v2/language.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
 import 'package:google_cloud_rpc/rpc.dart';
 import 'package:test/test.dart';

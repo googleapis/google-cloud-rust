@@ -21,7 +21,7 @@ environment:
 workspace:
   - examples
   - generated/google_cloud_iam_v1
-  - generated/google_cloud_language
+  - generated/google_cloud_language_v2
   - generated/google_cloud_protobuf
   - generated/google_cloud_rpc
   - generated/google_cloud_type
