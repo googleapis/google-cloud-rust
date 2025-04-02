@@ -67,7 +67,7 @@ pub mod container_analysis {
         }
     }
 
-    /// The request builder for a ContainerAnalysis::set_iam_policy call.
+    /// The request builder for [ContainerAnalysis::set_iam_policy][super::super::client::ContainerAnalysis::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -127,7 +127,7 @@ pub mod container_analysis {
         }
     }
 
-    /// The request builder for a ContainerAnalysis::get_iam_policy call.
+    /// The request builder for [ContainerAnalysis::get_iam_policy][super::super::client::ContainerAnalysis::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -178,7 +178,7 @@ pub mod container_analysis {
         }
     }
 
-    /// The request builder for a ContainerAnalysis::test_iam_permissions call.
+    /// The request builder for [ContainerAnalysis::test_iam_permissions][super::super::client::ContainerAnalysis::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -234,7 +234,7 @@ pub mod container_analysis {
         }
     }
 
-    /// The request builder for a ContainerAnalysis::get_vulnerability_occurrences_summary call.
+    /// The request builder for [ContainerAnalysis::get_vulnerability_occurrences_summary][super::super::client::ContainerAnalysis::get_vulnerability_occurrences_summary] calls.
     #[derive(Clone, Debug)]
     pub struct GetVulnerabilityOccurrencesSummary(
         RequestBuilder<crate::model::GetVulnerabilityOccurrencesSummaryRequest>,
@@ -287,7 +287,7 @@ pub mod container_analysis {
         }
     }
 
-    /// The request builder for a ContainerAnalysis::export_sbom call.
+    /// The request builder for [ContainerAnalysis::export_sbom][super::super::client::ContainerAnalysis::export_sbom] calls.
     #[derive(Clone, Debug)]
     pub struct ExportSBOM(RequestBuilder<crate::model::ExportSBOMRequest>);
 

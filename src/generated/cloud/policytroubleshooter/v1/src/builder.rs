@@ -67,7 +67,7 @@ pub mod iam_checker {
         }
     }
 
-    /// The request builder for a IamChecker::troubleshoot_iam_policy call.
+    /// The request builder for [IamChecker::troubleshoot_iam_policy][super::super::client::IamChecker::troubleshoot_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct TroubleshootIamPolicy(RequestBuilder<crate::model::TroubleshootIamPolicyRequest>);
 

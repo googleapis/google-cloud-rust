@@ -69,7 +69,7 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    /// The request builder for a BinauthzManagementServiceV1::get_policy call.
+    /// The request builder for [BinauthzManagementServiceV1::get_policy][super::super::client::BinauthzManagementServiceV1::get_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetPolicy(RequestBuilder<crate::model::GetPolicyRequest>);
 
@@ -113,7 +113,7 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    /// The request builder for a BinauthzManagementServiceV1::update_policy call.
+    /// The request builder for [BinauthzManagementServiceV1::update_policy][super::super::client::BinauthzManagementServiceV1::update_policy] calls.
     #[derive(Clone, Debug)]
     pub struct UpdatePolicy(RequestBuilder<crate::model::UpdatePolicyRequest>);
 
@@ -160,7 +160,7 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    /// The request builder for a BinauthzManagementServiceV1::create_attestor call.
+    /// The request builder for [BinauthzManagementServiceV1::create_attestor][super::super::client::BinauthzManagementServiceV1::create_attestor] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAttestor(RequestBuilder<crate::model::CreateAttestorRequest>);
 
@@ -219,7 +219,7 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    /// The request builder for a BinauthzManagementServiceV1::get_attestor call.
+    /// The request builder for [BinauthzManagementServiceV1::get_attestor][super::super::client::BinauthzManagementServiceV1::get_attestor] calls.
     #[derive(Clone, Debug)]
     pub struct GetAttestor(RequestBuilder<crate::model::GetAttestorRequest>);
 
@@ -263,7 +263,7 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    /// The request builder for a BinauthzManagementServiceV1::update_attestor call.
+    /// The request builder for [BinauthzManagementServiceV1::update_attestor][super::super::client::BinauthzManagementServiceV1::update_attestor] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateAttestor(RequestBuilder<crate::model::UpdateAttestorRequest>);
 
@@ -310,7 +310,7 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    /// The request builder for a BinauthzManagementServiceV1::list_attestors call.
+    /// The request builder for [BinauthzManagementServiceV1::list_attestors][super::super::client::BinauthzManagementServiceV1::list_attestors] calls.
     #[derive(Clone, Debug)]
     pub struct ListAttestors(RequestBuilder<crate::model::ListAttestorsRequest>);
 
@@ -381,7 +381,7 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    /// The request builder for a BinauthzManagementServiceV1::delete_attestor call.
+    /// The request builder for [BinauthzManagementServiceV1::delete_attestor][super::super::client::BinauthzManagementServiceV1::delete_attestor] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAttestor(RequestBuilder<crate::model::DeleteAttestorRequest>);
 
@@ -479,7 +479,7 @@ pub mod system_policy_v_1 {
         }
     }
 
-    /// The request builder for a SystemPolicyV1::get_system_policy call.
+    /// The request builder for [SystemPolicyV1::get_system_policy][super::super::client::SystemPolicyV1::get_system_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetSystemPolicy(RequestBuilder<crate::model::GetSystemPolicyRequest>);
 
@@ -575,7 +575,7 @@ pub mod validation_helper_v_1 {
         }
     }
 
-    /// The request builder for a ValidationHelperV1::validate_attestation_occurrence call.
+    /// The request builder for [ValidationHelperV1::validate_attestation_occurrence][super::super::client::ValidationHelperV1::validate_attestation_occurrence] calls.
     #[derive(Clone, Debug)]
     pub struct ValidateAttestationOccurrence(
         RequestBuilder<crate::model::ValidateAttestationOccurrenceRequest>,

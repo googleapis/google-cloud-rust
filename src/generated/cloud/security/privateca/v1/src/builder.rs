@@ -69,7 +69,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::create_certificate call.
+    /// The request builder for [CertificateAuthorityService::create_certificate][super::super::client::CertificateAuthorityService::create_certificate] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCertificate(RequestBuilder<crate::model::CreateCertificateRequest>);
 
@@ -152,7 +152,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::get_certificate call.
+    /// The request builder for [CertificateAuthorityService::get_certificate][super::super::client::CertificateAuthorityService::get_certificate] calls.
     #[derive(Clone, Debug)]
     pub struct GetCertificate(RequestBuilder<crate::model::GetCertificateRequest>);
 
@@ -196,7 +196,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::list_certificates call.
+    /// The request builder for [CertificateAuthorityService::list_certificates][super::super::client::CertificateAuthorityService::list_certificates] calls.
     #[derive(Clone, Debug)]
     pub struct ListCertificates(RequestBuilder<crate::model::ListCertificatesRequest>);
 
@@ -282,7 +282,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::revoke_certificate call.
+    /// The request builder for [CertificateAuthorityService::revoke_certificate][super::super::client::CertificateAuthorityService::revoke_certificate] calls.
     #[derive(Clone, Debug)]
     pub struct RevokeCertificate(RequestBuilder<crate::model::RevokeCertificateRequest>);
 
@@ -341,7 +341,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::update_certificate call.
+    /// The request builder for [CertificateAuthorityService::update_certificate][super::super::client::CertificateAuthorityService::update_certificate] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCertificate(RequestBuilder<crate::model::UpdateCertificateRequest>);
 
@@ -406,7 +406,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::activate_certificate_authority call.
+    /// The request builder for [CertificateAuthorityService::activate_certificate_authority][super::super::client::CertificateAuthorityService::activate_certificate_authority] calls.
     #[derive(Clone, Debug)]
     pub struct ActivateCertificateAuthority(
         RequestBuilder<crate::model::ActivateCertificateAuthorityRequest>,
@@ -517,7 +517,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::create_certificate_authority call.
+    /// The request builder for [CertificateAuthorityService::create_certificate_authority][super::super::client::CertificateAuthorityService::create_certificate_authority] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCertificateAuthority(
         RequestBuilder<crate::model::CreateCertificateAuthorityRequest>,
@@ -628,7 +628,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::disable_certificate_authority call.
+    /// The request builder for [CertificateAuthorityService::disable_certificate_authority][super::super::client::CertificateAuthorityService::disable_certificate_authority] calls.
     #[derive(Clone, Debug)]
     pub struct DisableCertificateAuthority(
         RequestBuilder<crate::model::DisableCertificateAuthorityRequest>,
@@ -728,7 +728,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::enable_certificate_authority call.
+    /// The request builder for [CertificateAuthorityService::enable_certificate_authority][super::super::client::CertificateAuthorityService::enable_certificate_authority] calls.
     #[derive(Clone, Debug)]
     pub struct EnableCertificateAuthority(
         RequestBuilder<crate::model::EnableCertificateAuthorityRequest>,
@@ -822,7 +822,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::fetch_certificate_authority_csr call.
+    /// The request builder for [CertificateAuthorityService::fetch_certificate_authority_csr][super::super::client::CertificateAuthorityService::fetch_certificate_authority_csr] calls.
     #[derive(Clone, Debug)]
     pub struct FetchCertificateAuthorityCsr(
         RequestBuilder<crate::model::FetchCertificateAuthorityCsrRequest>,
@@ -871,7 +871,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::get_certificate_authority call.
+    /// The request builder for [CertificateAuthorityService::get_certificate_authority][super::super::client::CertificateAuthorityService::get_certificate_authority] calls.
     #[derive(Clone, Debug)]
     pub struct GetCertificateAuthority(
         RequestBuilder<crate::model::GetCertificateAuthorityRequest>,
@@ -920,7 +920,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::list_certificate_authorities call.
+    /// The request builder for [CertificateAuthorityService::list_certificate_authorities][super::super::client::CertificateAuthorityService::list_certificate_authorities] calls.
     #[derive(Clone, Debug)]
     pub struct ListCertificateAuthorities(
         RequestBuilder<crate::model::ListCertificateAuthoritiesRequest>,
@@ -1010,7 +1010,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::undelete_certificate_authority call.
+    /// The request builder for [CertificateAuthorityService::undelete_certificate_authority][super::super::client::CertificateAuthorityService::undelete_certificate_authority] calls.
     #[derive(Clone, Debug)]
     pub struct UndeleteCertificateAuthority(
         RequestBuilder<crate::model::UndeleteCertificateAuthorityRequest>,
@@ -1104,7 +1104,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::delete_certificate_authority call.
+    /// The request builder for [CertificateAuthorityService::delete_certificate_authority][super::super::client::CertificateAuthorityService::delete_certificate_authority] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCertificateAuthority(
         RequestBuilder<crate::model::DeleteCertificateAuthorityRequest>,
@@ -1216,7 +1216,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::update_certificate_authority call.
+    /// The request builder for [CertificateAuthorityService::update_certificate_authority][super::super::client::CertificateAuthorityService::update_certificate_authority] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCertificateAuthority(
         RequestBuilder<crate::model::UpdateCertificateAuthorityRequest>,
@@ -1324,7 +1324,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::create_ca_pool call.
+    /// The request builder for [CertificateAuthorityService::create_ca_pool][super::super::client::CertificateAuthorityService::create_ca_pool] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCaPool(RequestBuilder<crate::model::CreateCaPoolRequest>);
 
@@ -1426,7 +1426,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::update_ca_pool call.
+    /// The request builder for [CertificateAuthorityService::update_ca_pool][super::super::client::CertificateAuthorityService::update_ca_pool] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCaPool(RequestBuilder<crate::model::UpdateCaPoolRequest>);
 
@@ -1525,7 +1525,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::get_ca_pool call.
+    /// The request builder for [CertificateAuthorityService::get_ca_pool][super::super::client::CertificateAuthorityService::get_ca_pool] calls.
     #[derive(Clone, Debug)]
     pub struct GetCaPool(RequestBuilder<crate::model::GetCaPoolRequest>);
 
@@ -1569,7 +1569,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::list_ca_pools call.
+    /// The request builder for [CertificateAuthorityService::list_ca_pools][super::super::client::CertificateAuthorityService::list_ca_pools] calls.
     #[derive(Clone, Debug)]
     pub struct ListCaPools(RequestBuilder<crate::model::ListCaPoolsRequest>);
 
@@ -1652,7 +1652,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::delete_ca_pool call.
+    /// The request builder for [CertificateAuthorityService::delete_ca_pool][super::super::client::CertificateAuthorityService::delete_ca_pool] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCaPool(RequestBuilder<crate::model::DeleteCaPoolRequest>);
 
@@ -1743,7 +1743,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::fetch_ca_certs call.
+    /// The request builder for [CertificateAuthorityService::fetch_ca_certs][super::super::client::CertificateAuthorityService::fetch_ca_certs] calls.
     #[derive(Clone, Debug)]
     pub struct FetchCaCerts(RequestBuilder<crate::model::FetchCaCertsRequest>);
 
@@ -1793,7 +1793,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::get_certificate_revocation_list call.
+    /// The request builder for [CertificateAuthorityService::get_certificate_revocation_list][super::super::client::CertificateAuthorityService::get_certificate_revocation_list] calls.
     #[derive(Clone, Debug)]
     pub struct GetCertificateRevocationList(
         RequestBuilder<crate::model::GetCertificateRevocationListRequest>,
@@ -1842,7 +1842,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::list_certificate_revocation_lists call.
+    /// The request builder for [CertificateAuthorityService::list_certificate_revocation_lists][super::super::client::CertificateAuthorityService::list_certificate_revocation_lists] calls.
     #[derive(Clone, Debug)]
     pub struct ListCertificateRevocationLists(
         RequestBuilder<crate::model::ListCertificateRevocationListsRequest>,
@@ -1932,7 +1932,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::update_certificate_revocation_list call.
+    /// The request builder for [CertificateAuthorityService::update_certificate_revocation_list][super::super::client::CertificateAuthorityService::update_certificate_revocation_list] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCertificateRevocationList(
         RequestBuilder<crate::model::UpdateCertificateRevocationListRequest>,
@@ -2042,7 +2042,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::create_certificate_template call.
+    /// The request builder for [CertificateAuthorityService::create_certificate_template][super::super::client::CertificateAuthorityService::create_certificate_template] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCertificateTemplate(
         RequestBuilder<crate::model::CreateCertificateTemplateRequest>,
@@ -2153,7 +2153,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::delete_certificate_template call.
+    /// The request builder for [CertificateAuthorityService::delete_certificate_template][super::super::client::CertificateAuthorityService::delete_certificate_template] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCertificateTemplate(
         RequestBuilder<crate::model::DeleteCertificateTemplateRequest>,
@@ -2243,7 +2243,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::get_certificate_template call.
+    /// The request builder for [CertificateAuthorityService::get_certificate_template][super::super::client::CertificateAuthorityService::get_certificate_template] calls.
     #[derive(Clone, Debug)]
     pub struct GetCertificateTemplate(RequestBuilder<crate::model::GetCertificateTemplateRequest>);
 
@@ -2290,7 +2290,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::list_certificate_templates call.
+    /// The request builder for [CertificateAuthorityService::list_certificate_templates][super::super::client::CertificateAuthorityService::list_certificate_templates] calls.
     #[derive(Clone, Debug)]
     pub struct ListCertificateTemplates(
         RequestBuilder<crate::model::ListCertificateTemplatesRequest>,
@@ -2380,7 +2380,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::update_certificate_template call.
+    /// The request builder for [CertificateAuthorityService::update_certificate_template][super::super::client::CertificateAuthorityService::update_certificate_template] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCertificateTemplate(
         RequestBuilder<crate::model::UpdateCertificateTemplateRequest>,
@@ -2488,7 +2488,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::list_locations call.
+    /// The request builder for [CertificateAuthorityService::list_locations][super::super::client::CertificateAuthorityService::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -2568,7 +2568,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::get_location call.
+    /// The request builder for [CertificateAuthorityService::get_location][super::super::client::CertificateAuthorityService::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -2612,7 +2612,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::set_iam_policy call.
+    /// The request builder for [CertificateAuthorityService::set_iam_policy][super::super::client::CertificateAuthorityService::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -2674,7 +2674,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::get_iam_policy call.
+    /// The request builder for [CertificateAuthorityService::get_iam_policy][super::super::client::CertificateAuthorityService::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -2727,7 +2727,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::test_iam_permissions call.
+    /// The request builder for [CertificateAuthorityService::test_iam_permissions][super::super::client::CertificateAuthorityService::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -2785,7 +2785,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::list_operations call.
+    /// The request builder for [CertificateAuthorityService::list_operations][super::super::client::CertificateAuthorityService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2865,7 +2865,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::get_operation call.
+    /// The request builder for [CertificateAuthorityService::get_operation][super::super::client::CertificateAuthorityService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2912,7 +2912,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::delete_operation call.
+    /// The request builder for [CertificateAuthorityService::delete_operation][super::super::client::CertificateAuthorityService::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2959,7 +2959,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for a CertificateAuthorityService::cancel_operation call.
+    /// The request builder for [CertificateAuthorityService::cancel_operation][super::super::client::CertificateAuthorityService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

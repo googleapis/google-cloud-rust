@@ -69,7 +69,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for a AppConnectorsService::list_app_connectors call.
+    /// The request builder for [AppConnectorsService::list_app_connectors][super::super::client::AppConnectorsService::list_app_connectors] calls.
     #[derive(Clone, Debug)]
     pub struct ListAppConnectors(RequestBuilder<crate::model::ListAppConnectorsRequest>);
 
@@ -155,7 +155,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for a AppConnectorsService::get_app_connector call.
+    /// The request builder for [AppConnectorsService::get_app_connector][super::super::client::AppConnectorsService::get_app_connector] calls.
     #[derive(Clone, Debug)]
     pub struct GetAppConnector(RequestBuilder<crate::model::GetAppConnectorRequest>);
 
@@ -199,7 +199,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for a AppConnectorsService::create_app_connector call.
+    /// The request builder for [AppConnectorsService::create_app_connector][super::super::client::AppConnectorsService::create_app_connector] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAppConnector(RequestBuilder<crate::model::CreateAppConnectorRequest>);
 
@@ -314,7 +314,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for a AppConnectorsService::update_app_connector call.
+    /// The request builder for [AppConnectorsService::update_app_connector][super::super::client::AppConnectorsService::update_app_connector] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateAppConnector(RequestBuilder<crate::model::UpdateAppConnectorRequest>);
 
@@ -426,7 +426,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for a AppConnectorsService::delete_app_connector call.
+    /// The request builder for [AppConnectorsService::delete_app_connector][super::super::client::AppConnectorsService::delete_app_connector] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAppConnector(RequestBuilder<crate::model::DeleteAppConnectorRequest>);
 
@@ -523,7 +523,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for a AppConnectorsService::report_status call.
+    /// The request builder for [AppConnectorsService::report_status][super::super::client::AppConnectorsService::report_status] calls.
     #[derive(Clone, Debug)]
     pub struct ReportStatus(RequestBuilder<crate::model::ReportStatusRequest>);
 
@@ -629,7 +629,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for a AppConnectorsService::list_locations call.
+    /// The request builder for [AppConnectorsService::list_locations][super::super::client::AppConnectorsService::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -709,7 +709,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for a AppConnectorsService::get_location call.
+    /// The request builder for [AppConnectorsService::get_location][super::super::client::AppConnectorsService::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -753,7 +753,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for a AppConnectorsService::set_iam_policy call.
+    /// The request builder for [AppConnectorsService::set_iam_policy][super::super::client::AppConnectorsService::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -815,7 +815,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for a AppConnectorsService::get_iam_policy call.
+    /// The request builder for [AppConnectorsService::get_iam_policy][super::super::client::AppConnectorsService::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -868,7 +868,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for a AppConnectorsService::test_iam_permissions call.
+    /// The request builder for [AppConnectorsService::test_iam_permissions][super::super::client::AppConnectorsService::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -926,7 +926,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for a AppConnectorsService::list_operations call.
+    /// The request builder for [AppConnectorsService::list_operations][super::super::client::AppConnectorsService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1006,7 +1006,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for a AppConnectorsService::get_operation call.
+    /// The request builder for [AppConnectorsService::get_operation][super::super::client::AppConnectorsService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1053,7 +1053,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for a AppConnectorsService::delete_operation call.
+    /// The request builder for [AppConnectorsService::delete_operation][super::super::client::AppConnectorsService::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1100,7 +1100,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for a AppConnectorsService::cancel_operation call.
+    /// The request builder for [AppConnectorsService::cancel_operation][super::super::client::AppConnectorsService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

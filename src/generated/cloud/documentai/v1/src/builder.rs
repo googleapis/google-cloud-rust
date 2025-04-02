@@ -69,7 +69,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::process_document call.
+    /// The request builder for [DocumentProcessorService::process_document][super::super::client::DocumentProcessorService::process_document] calls.
     #[derive(Clone, Debug)]
     pub struct ProcessDocument(RequestBuilder<crate::model::ProcessRequest>);
 
@@ -163,7 +163,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::batch_process_documents call.
+    /// The request builder for [DocumentProcessorService::batch_process_documents][super::super::client::DocumentProcessorService::batch_process_documents] calls.
     #[derive(Clone, Debug)]
     pub struct BatchProcessDocuments(RequestBuilder<crate::model::BatchProcessRequest>);
 
@@ -296,7 +296,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::fetch_processor_types call.
+    /// The request builder for [DocumentProcessorService::fetch_processor_types][super::super::client::DocumentProcessorService::fetch_processor_types] calls.
     #[derive(Clone, Debug)]
     pub struct FetchProcessorTypes(RequestBuilder<crate::model::FetchProcessorTypesRequest>);
 
@@ -343,7 +343,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::list_processor_types call.
+    /// The request builder for [DocumentProcessorService::list_processor_types][super::super::client::DocumentProcessorService::list_processor_types] calls.
     #[derive(Clone, Debug)]
     pub struct ListProcessorTypes(RequestBuilder<crate::model::ListProcessorTypesRequest>);
 
@@ -417,7 +417,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::get_processor_type call.
+    /// The request builder for [DocumentProcessorService::get_processor_type][super::super::client::DocumentProcessorService::get_processor_type] calls.
     #[derive(Clone, Debug)]
     pub struct GetProcessorType(RequestBuilder<crate::model::GetProcessorTypeRequest>);
 
@@ -464,7 +464,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::list_processors call.
+    /// The request builder for [DocumentProcessorService::list_processors][super::super::client::DocumentProcessorService::list_processors] calls.
     #[derive(Clone, Debug)]
     pub struct ListProcessors(RequestBuilder<crate::model::ListProcessorsRequest>);
 
@@ -535,7 +535,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::get_processor call.
+    /// The request builder for [DocumentProcessorService::get_processor][super::super::client::DocumentProcessorService::get_processor] calls.
     #[derive(Clone, Debug)]
     pub struct GetProcessor(RequestBuilder<crate::model::GetProcessorRequest>);
 
@@ -579,7 +579,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::train_processor_version call.
+    /// The request builder for [DocumentProcessorService::train_processor_version][super::super::client::DocumentProcessorService::train_processor_version] calls.
     #[derive(Clone, Debug)]
     pub struct TrainProcessorVersion(RequestBuilder<crate::model::TrainProcessorVersionRequest>);
 
@@ -717,7 +717,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::get_processor_version call.
+    /// The request builder for [DocumentProcessorService::get_processor_version][super::super::client::DocumentProcessorService::get_processor_version] calls.
     #[derive(Clone, Debug)]
     pub struct GetProcessorVersion(RequestBuilder<crate::model::GetProcessorVersionRequest>);
 
@@ -764,7 +764,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::list_processor_versions call.
+    /// The request builder for [DocumentProcessorService::list_processor_versions][super::super::client::DocumentProcessorService::list_processor_versions] calls.
     #[derive(Clone, Debug)]
     pub struct ListProcessorVersions(RequestBuilder<crate::model::ListProcessorVersionsRequest>);
 
@@ -838,7 +838,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::delete_processor_version call.
+    /// The request builder for [DocumentProcessorService::delete_processor_version][super::super::client::DocumentProcessorService::delete_processor_version] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteProcessorVersion(RequestBuilder<crate::model::DeleteProcessorVersionRequest>);
 
@@ -923,7 +923,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::deploy_processor_version call.
+    /// The request builder for [DocumentProcessorService::deploy_processor_version][super::super::client::DocumentProcessorService::deploy_processor_version] calls.
     #[derive(Clone, Debug)]
     pub struct DeployProcessorVersion(RequestBuilder<crate::model::DeployProcessorVersionRequest>);
 
@@ -1013,7 +1013,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::undeploy_processor_version call.
+    /// The request builder for [DocumentProcessorService::undeploy_processor_version][super::super::client::DocumentProcessorService::undeploy_processor_version] calls.
     #[derive(Clone, Debug)]
     pub struct UndeployProcessorVersion(
         RequestBuilder<crate::model::UndeployProcessorVersionRequest>,
@@ -1105,7 +1105,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::create_processor call.
+    /// The request builder for [DocumentProcessorService::create_processor][super::super::client::DocumentProcessorService::create_processor] calls.
     #[derive(Clone, Debug)]
     pub struct CreateProcessor(RequestBuilder<crate::model::CreateProcessorRequest>);
 
@@ -1158,7 +1158,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::delete_processor call.
+    /// The request builder for [DocumentProcessorService::delete_processor][super::super::client::DocumentProcessorService::delete_processor] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteProcessor(RequestBuilder<crate::model::DeleteProcessorRequest>);
 
@@ -1237,7 +1237,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::enable_processor call.
+    /// The request builder for [DocumentProcessorService::enable_processor][super::super::client::DocumentProcessorService::enable_processor] calls.
     #[derive(Clone, Debug)]
     pub struct EnableProcessor(RequestBuilder<crate::model::EnableProcessorRequest>);
 
@@ -1322,7 +1322,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::disable_processor call.
+    /// The request builder for [DocumentProcessorService::disable_processor][super::super::client::DocumentProcessorService::disable_processor] calls.
     #[derive(Clone, Debug)]
     pub struct DisableProcessor(RequestBuilder<crate::model::DisableProcessorRequest>);
 
@@ -1412,7 +1412,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::set_default_processor_version call.
+    /// The request builder for [DocumentProcessorService::set_default_processor_version][super::super::client::DocumentProcessorService::set_default_processor_version] calls.
     #[derive(Clone, Debug)]
     pub struct SetDefaultProcessorVersion(
         RequestBuilder<crate::model::SetDefaultProcessorVersionRequest>,
@@ -1510,7 +1510,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::review_document call.
+    /// The request builder for [DocumentProcessorService::review_document][super::super::client::DocumentProcessorService::review_document] calls.
     #[derive(Clone, Debug)]
     pub struct ReviewDocument(RequestBuilder<crate::model::ReviewDocumentRequest>);
 
@@ -1630,7 +1630,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::evaluate_processor_version call.
+    /// The request builder for [DocumentProcessorService::evaluate_processor_version][super::super::client::DocumentProcessorService::evaluate_processor_version] calls.
     #[derive(Clone, Debug)]
     pub struct EvaluateProcessorVersion(
         RequestBuilder<crate::model::EvaluateProcessorVersionRequest>,
@@ -1733,7 +1733,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::get_evaluation call.
+    /// The request builder for [DocumentProcessorService::get_evaluation][super::super::client::DocumentProcessorService::get_evaluation] calls.
     #[derive(Clone, Debug)]
     pub struct GetEvaluation(RequestBuilder<crate::model::GetEvaluationRequest>);
 
@@ -1777,7 +1777,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::list_evaluations call.
+    /// The request builder for [DocumentProcessorService::list_evaluations][super::super::client::DocumentProcessorService::list_evaluations] calls.
     #[derive(Clone, Debug)]
     pub struct ListEvaluations(RequestBuilder<crate::model::ListEvaluationsRequest>);
 
@@ -1848,7 +1848,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::list_locations call.
+    /// The request builder for [DocumentProcessorService::list_locations][super::super::client::DocumentProcessorService::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1928,7 +1928,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::get_location call.
+    /// The request builder for [DocumentProcessorService::get_location][super::super::client::DocumentProcessorService::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1972,7 +1972,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::list_operations call.
+    /// The request builder for [DocumentProcessorService::list_operations][super::super::client::DocumentProcessorService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2052,7 +2052,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::get_operation call.
+    /// The request builder for [DocumentProcessorService::get_operation][super::super::client::DocumentProcessorService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2099,7 +2099,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for a DocumentProcessorService::cancel_operation call.
+    /// The request builder for [DocumentProcessorService::cancel_operation][super::super::client::DocumentProcessorService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

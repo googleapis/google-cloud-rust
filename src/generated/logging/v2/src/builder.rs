@@ -67,7 +67,7 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for a LoggingServiceV2::delete_log call.
+    /// The request builder for [LoggingServiceV2::delete_log][super::super::client::LoggingServiceV2::delete_log] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteLog(RequestBuilder<crate::model::DeleteLogRequest>);
 
@@ -109,7 +109,7 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for a LoggingServiceV2::write_log_entries call.
+    /// The request builder for [LoggingServiceV2::write_log_entries][super::super::client::LoggingServiceV2::write_log_entries] calls.
     #[derive(Clone, Debug)]
     pub struct WriteLogEntries(RequestBuilder<crate::model::WriteLogEntriesRequest>);
 
@@ -194,7 +194,7 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for a LoggingServiceV2::list_log_entries call.
+    /// The request builder for [LoggingServiceV2::list_log_entries][super::super::client::LoggingServiceV2::list_log_entries] calls.
     #[derive(Clone, Debug)]
     pub struct ListLogEntries(RequestBuilder<crate::model::ListLogEntriesRequest>);
 
@@ -280,7 +280,7 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for a LoggingServiceV2::list_monitored_resource_descriptors call.
+    /// The request builder for [LoggingServiceV2::list_monitored_resource_descriptors][super::super::client::LoggingServiceV2::list_monitored_resource_descriptors] calls.
     #[derive(Clone, Debug)]
     pub struct ListMonitoredResourceDescriptors(
         RequestBuilder<crate::model::ListMonitoredResourceDescriptorsRequest>,
@@ -350,7 +350,7 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for a LoggingServiceV2::list_logs call.
+    /// The request builder for [LoggingServiceV2::list_logs][super::super::client::LoggingServiceV2::list_logs] calls.
     #[derive(Clone, Debug)]
     pub struct ListLogs(RequestBuilder<crate::model::ListLogsRequest>);
 
@@ -415,7 +415,7 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for a LoggingServiceV2::list_operations call.
+    /// The request builder for [LoggingServiceV2::list_operations][super::super::client::LoggingServiceV2::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -493,7 +493,7 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for a LoggingServiceV2::get_operation call.
+    /// The request builder for [LoggingServiceV2::get_operation][super::super::client::LoggingServiceV2::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -538,7 +538,7 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for a LoggingServiceV2::cancel_operation call.
+    /// The request builder for [LoggingServiceV2::cancel_operation][super::super::client::LoggingServiceV2::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -637,7 +637,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::list_buckets call.
+    /// The request builder for [ConfigServiceV2::list_buckets][super::super::client::ConfigServiceV2::list_buckets] calls.
     #[derive(Clone, Debug)]
     pub struct ListBuckets(RequestBuilder<crate::model::ListBucketsRequest>);
 
@@ -706,7 +706,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::get_bucket call.
+    /// The request builder for [ConfigServiceV2::get_bucket][super::super::client::ConfigServiceV2::get_bucket] calls.
     #[derive(Clone, Debug)]
     pub struct GetBucket(RequestBuilder<crate::model::GetBucketRequest>);
 
@@ -748,7 +748,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::create_bucket_async call.
+    /// The request builder for [ConfigServiceV2::create_bucket_async][super::super::client::ConfigServiceV2::create_bucket_async] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBucketAsync(RequestBuilder<crate::model::CreateBucketRequest>);
 
@@ -842,7 +842,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::update_bucket_async call.
+    /// The request builder for [ConfigServiceV2::update_bucket_async][super::super::client::ConfigServiceV2::update_bucket_async] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBucketAsync(RequestBuilder<crate::model::UpdateBucketRequest>);
 
@@ -939,7 +939,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::create_bucket call.
+    /// The request builder for [ConfigServiceV2::create_bucket][super::super::client::ConfigServiceV2::create_bucket] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBucket(RequestBuilder<crate::model::CreateBucketRequest>);
 
@@ -996,7 +996,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::update_bucket call.
+    /// The request builder for [ConfigServiceV2::update_bucket][super::super::client::ConfigServiceV2::update_bucket] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBucket(RequestBuilder<crate::model::UpdateBucketRequest>);
 
@@ -1056,7 +1056,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::delete_bucket call.
+    /// The request builder for [ConfigServiceV2::delete_bucket][super::super::client::ConfigServiceV2::delete_bucket] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBucket(RequestBuilder<crate::model::DeleteBucketRequest>);
 
@@ -1098,7 +1098,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::undelete_bucket call.
+    /// The request builder for [ConfigServiceV2::undelete_bucket][super::super::client::ConfigServiceV2::undelete_bucket] calls.
     #[derive(Clone, Debug)]
     pub struct UndeleteBucket(RequestBuilder<crate::model::UndeleteBucketRequest>);
 
@@ -1140,7 +1140,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::list_views call.
+    /// The request builder for [ConfigServiceV2::list_views][super::super::client::ConfigServiceV2::list_views] calls.
     #[derive(Clone, Debug)]
     pub struct ListViews(RequestBuilder<crate::model::ListViewsRequest>);
 
@@ -1208,7 +1208,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::get_view call.
+    /// The request builder for [ConfigServiceV2::get_view][super::super::client::ConfigServiceV2::get_view] calls.
     #[derive(Clone, Debug)]
     pub struct GetView(RequestBuilder<crate::model::GetViewRequest>);
 
@@ -1250,7 +1250,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::create_view call.
+    /// The request builder for [ConfigServiceV2::create_view][super::super::client::ConfigServiceV2::create_view] calls.
     #[derive(Clone, Debug)]
     pub struct CreateView(RequestBuilder<crate::model::CreateViewRequest>);
 
@@ -1307,7 +1307,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::update_view call.
+    /// The request builder for [ConfigServiceV2::update_view][super::super::client::ConfigServiceV2::update_view] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateView(RequestBuilder<crate::model::UpdateViewRequest>);
 
@@ -1367,7 +1367,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::delete_view call.
+    /// The request builder for [ConfigServiceV2::delete_view][super::super::client::ConfigServiceV2::delete_view] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteView(RequestBuilder<crate::model::DeleteViewRequest>);
 
@@ -1409,7 +1409,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::list_sinks call.
+    /// The request builder for [ConfigServiceV2::list_sinks][super::super::client::ConfigServiceV2::list_sinks] calls.
     #[derive(Clone, Debug)]
     pub struct ListSinks(RequestBuilder<crate::model::ListSinksRequest>);
 
@@ -1477,7 +1477,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::get_sink call.
+    /// The request builder for [ConfigServiceV2::get_sink][super::super::client::ConfigServiceV2::get_sink] calls.
     #[derive(Clone, Debug)]
     pub struct GetSink(RequestBuilder<crate::model::GetSinkRequest>);
 
@@ -1519,7 +1519,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::create_sink call.
+    /// The request builder for [ConfigServiceV2::create_sink][super::super::client::ConfigServiceV2::create_sink] calls.
     #[derive(Clone, Debug)]
     pub struct CreateSink(RequestBuilder<crate::model::CreateSinkRequest>);
 
@@ -1576,7 +1576,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::update_sink call.
+    /// The request builder for [ConfigServiceV2::update_sink][super::super::client::ConfigServiceV2::update_sink] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateSink(RequestBuilder<crate::model::UpdateSinkRequest>);
 
@@ -1642,7 +1642,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::delete_sink call.
+    /// The request builder for [ConfigServiceV2::delete_sink][super::super::client::ConfigServiceV2::delete_sink] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteSink(RequestBuilder<crate::model::DeleteSinkRequest>);
 
@@ -1684,7 +1684,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::create_link call.
+    /// The request builder for [ConfigServiceV2::create_link][super::super::client::ConfigServiceV2::create_link] calls.
     #[derive(Clone, Debug)]
     pub struct CreateLink(RequestBuilder<crate::model::CreateLinkRequest>);
 
@@ -1773,7 +1773,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::delete_link call.
+    /// The request builder for [ConfigServiceV2::delete_link][super::super::client::ConfigServiceV2::delete_link] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteLink(RequestBuilder<crate::model::DeleteLinkRequest>);
 
@@ -1850,7 +1850,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::list_links call.
+    /// The request builder for [ConfigServiceV2::list_links][super::super::client::ConfigServiceV2::list_links] calls.
     #[derive(Clone, Debug)]
     pub struct ListLinks(RequestBuilder<crate::model::ListLinksRequest>);
 
@@ -1918,7 +1918,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::get_link call.
+    /// The request builder for [ConfigServiceV2::get_link][super::super::client::ConfigServiceV2::get_link] calls.
     #[derive(Clone, Debug)]
     pub struct GetLink(RequestBuilder<crate::model::GetLinkRequest>);
 
@@ -1960,7 +1960,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::list_exclusions call.
+    /// The request builder for [ConfigServiceV2::list_exclusions][super::super::client::ConfigServiceV2::list_exclusions] calls.
     #[derive(Clone, Debug)]
     pub struct ListExclusions(RequestBuilder<crate::model::ListExclusionsRequest>);
 
@@ -2029,7 +2029,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::get_exclusion call.
+    /// The request builder for [ConfigServiceV2::get_exclusion][super::super::client::ConfigServiceV2::get_exclusion] calls.
     #[derive(Clone, Debug)]
     pub struct GetExclusion(RequestBuilder<crate::model::GetExclusionRequest>);
 
@@ -2071,7 +2071,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::create_exclusion call.
+    /// The request builder for [ConfigServiceV2::create_exclusion][super::super::client::ConfigServiceV2::create_exclusion] calls.
     #[derive(Clone, Debug)]
     pub struct CreateExclusion(RequestBuilder<crate::model::CreateExclusionRequest>);
 
@@ -2122,7 +2122,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::update_exclusion call.
+    /// The request builder for [ConfigServiceV2::update_exclusion][super::super::client::ConfigServiceV2::update_exclusion] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateExclusion(RequestBuilder<crate::model::UpdateExclusionRequest>);
 
@@ -2182,7 +2182,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::delete_exclusion call.
+    /// The request builder for [ConfigServiceV2::delete_exclusion][super::super::client::ConfigServiceV2::delete_exclusion] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteExclusion(RequestBuilder<crate::model::DeleteExclusionRequest>);
 
@@ -2224,7 +2224,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::get_cmek_settings call.
+    /// The request builder for [ConfigServiceV2::get_cmek_settings][super::super::client::ConfigServiceV2::get_cmek_settings] calls.
     #[derive(Clone, Debug)]
     pub struct GetCmekSettings(RequestBuilder<crate::model::GetCmekSettingsRequest>);
 
@@ -2266,7 +2266,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::update_cmek_settings call.
+    /// The request builder for [ConfigServiceV2::update_cmek_settings][super::super::client::ConfigServiceV2::update_cmek_settings] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCmekSettings(RequestBuilder<crate::model::UpdateCmekSettingsRequest>);
 
@@ -2329,7 +2329,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::get_settings call.
+    /// The request builder for [ConfigServiceV2::get_settings][super::super::client::ConfigServiceV2::get_settings] calls.
     #[derive(Clone, Debug)]
     pub struct GetSettings(RequestBuilder<crate::model::GetSettingsRequest>);
 
@@ -2371,7 +2371,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::update_settings call.
+    /// The request builder for [ConfigServiceV2::update_settings][super::super::client::ConfigServiceV2::update_settings] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateSettings(RequestBuilder<crate::model::UpdateSettingsRequest>);
 
@@ -2431,7 +2431,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::copy_log_entries call.
+    /// The request builder for [ConfigServiceV2::copy_log_entries][super::super::client::ConfigServiceV2::copy_log_entries] calls.
     #[derive(Clone, Debug)]
     pub struct CopyLogEntries(RequestBuilder<crate::model::CopyLogEntriesRequest>);
 
@@ -2526,7 +2526,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::list_operations call.
+    /// The request builder for [ConfigServiceV2::list_operations][super::super::client::ConfigServiceV2::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2604,7 +2604,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::get_operation call.
+    /// The request builder for [ConfigServiceV2::get_operation][super::super::client::ConfigServiceV2::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2649,7 +2649,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for a ConfigServiceV2::cancel_operation call.
+    /// The request builder for [ConfigServiceV2::cancel_operation][super::super::client::ConfigServiceV2::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -2748,7 +2748,7 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for a MetricsServiceV2::list_log_metrics call.
+    /// The request builder for [MetricsServiceV2::list_log_metrics][super::super::client::MetricsServiceV2::list_log_metrics] calls.
     #[derive(Clone, Debug)]
     pub struct ListLogMetrics(RequestBuilder<crate::model::ListLogMetricsRequest>);
 
@@ -2817,7 +2817,7 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for a MetricsServiceV2::get_log_metric call.
+    /// The request builder for [MetricsServiceV2::get_log_metric][super::super::client::MetricsServiceV2::get_log_metric] calls.
     #[derive(Clone, Debug)]
     pub struct GetLogMetric(RequestBuilder<crate::model::GetLogMetricRequest>);
 
@@ -2859,7 +2859,7 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for a MetricsServiceV2::create_log_metric call.
+    /// The request builder for [MetricsServiceV2::create_log_metric][super::super::client::MetricsServiceV2::create_log_metric] calls.
     #[derive(Clone, Debug)]
     pub struct CreateLogMetric(RequestBuilder<crate::model::CreateLogMetricRequest>);
 
@@ -2910,7 +2910,7 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for a MetricsServiceV2::update_log_metric call.
+    /// The request builder for [MetricsServiceV2::update_log_metric][super::super::client::MetricsServiceV2::update_log_metric] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateLogMetric(RequestBuilder<crate::model::UpdateLogMetricRequest>);
 
@@ -2961,7 +2961,7 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for a MetricsServiceV2::delete_log_metric call.
+    /// The request builder for [MetricsServiceV2::delete_log_metric][super::super::client::MetricsServiceV2::delete_log_metric] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteLogMetric(RequestBuilder<crate::model::DeleteLogMetricRequest>);
 
@@ -3003,7 +3003,7 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for a MetricsServiceV2::list_operations call.
+    /// The request builder for [MetricsServiceV2::list_operations][super::super::client::MetricsServiceV2::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -3081,7 +3081,7 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for a MetricsServiceV2::get_operation call.
+    /// The request builder for [MetricsServiceV2::get_operation][super::super::client::MetricsServiceV2::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -3126,7 +3126,7 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for a MetricsServiceV2::cancel_operation call.
+    /// The request builder for [MetricsServiceV2::cancel_operation][super::super::client::MetricsServiceV2::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

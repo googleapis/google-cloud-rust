@@ -67,7 +67,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for a OsConfigService::execute_patch_job call.
+    /// The request builder for [OsConfigService::execute_patch_job][super::super::client::OsConfigService::execute_patch_job] calls.
     #[derive(Clone, Debug)]
     pub struct ExecutePatchJob(RequestBuilder<crate::model::ExecutePatchJobRequest>);
 
@@ -162,7 +162,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for a OsConfigService::get_patch_job call.
+    /// The request builder for [OsConfigService::get_patch_job][super::super::client::OsConfigService::get_patch_job] calls.
     #[derive(Clone, Debug)]
     pub struct GetPatchJob(RequestBuilder<crate::model::GetPatchJobRequest>);
 
@@ -204,7 +204,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for a OsConfigService::cancel_patch_job call.
+    /// The request builder for [OsConfigService::cancel_patch_job][super::super::client::OsConfigService::cancel_patch_job] calls.
     #[derive(Clone, Debug)]
     pub struct CancelPatchJob(RequestBuilder<crate::model::CancelPatchJobRequest>);
 
@@ -246,7 +246,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for a OsConfigService::list_patch_jobs call.
+    /// The request builder for [OsConfigService::list_patch_jobs][super::super::client::OsConfigService::list_patch_jobs] calls.
     #[derive(Clone, Debug)]
     pub struct ListPatchJobs(RequestBuilder<crate::model::ListPatchJobsRequest>);
 
@@ -321,7 +321,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for a OsConfigService::list_patch_job_instance_details call.
+    /// The request builder for [OsConfigService::list_patch_job_instance_details][super::super::client::OsConfigService::list_patch_job_instance_details] calls.
     #[derive(Clone, Debug)]
     pub struct ListPatchJobInstanceDetails(
         RequestBuilder<crate::model::ListPatchJobInstanceDetailsRequest>,
@@ -403,7 +403,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for a OsConfigService::create_patch_deployment call.
+    /// The request builder for [OsConfigService::create_patch_deployment][super::super::client::OsConfigService::create_patch_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct CreatePatchDeployment(RequestBuilder<crate::model::CreatePatchDeploymentRequest>);
 
@@ -463,7 +463,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for a OsConfigService::get_patch_deployment call.
+    /// The request builder for [OsConfigService::get_patch_deployment][super::super::client::OsConfigService::get_patch_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct GetPatchDeployment(RequestBuilder<crate::model::GetPatchDeploymentRequest>);
 
@@ -508,7 +508,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for a OsConfigService::list_patch_deployments call.
+    /// The request builder for [OsConfigService::list_patch_deployments][super::super::client::OsConfigService::list_patch_deployments] calls.
     #[derive(Clone, Debug)]
     pub struct ListPatchDeployments(RequestBuilder<crate::model::ListPatchDeploymentsRequest>);
 
@@ -580,7 +580,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for a OsConfigService::delete_patch_deployment call.
+    /// The request builder for [OsConfigService::delete_patch_deployment][super::super::client::OsConfigService::delete_patch_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct DeletePatchDeployment(RequestBuilder<crate::model::DeletePatchDeploymentRequest>);
 
@@ -625,7 +625,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for a OsConfigService::update_patch_deployment call.
+    /// The request builder for [OsConfigService::update_patch_deployment][super::super::client::OsConfigService::update_patch_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct UpdatePatchDeployment(RequestBuilder<crate::model::UpdatePatchDeploymentRequest>);
 
@@ -682,7 +682,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for a OsConfigService::pause_patch_deployment call.
+    /// The request builder for [OsConfigService::pause_patch_deployment][super::super::client::OsConfigService::pause_patch_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct PausePatchDeployment(RequestBuilder<crate::model::PausePatchDeploymentRequest>);
 
@@ -727,7 +727,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for a OsConfigService::resume_patch_deployment call.
+    /// The request builder for [OsConfigService::resume_patch_deployment][super::super::client::OsConfigService::resume_patch_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct ResumePatchDeployment(RequestBuilder<crate::model::ResumePatchDeploymentRequest>);
 
@@ -772,7 +772,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for a OsConfigService::get_operation call.
+    /// The request builder for [OsConfigService::get_operation][super::super::client::OsConfigService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -817,7 +817,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for a OsConfigService::cancel_operation call.
+    /// The request builder for [OsConfigService::cancel_operation][super::super::client::OsConfigService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -918,7 +918,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for a OsConfigZonalService::create_os_policy_assignment call.
+    /// The request builder for [OsConfigZonalService::create_os_policy_assignment][super::super::client::OsConfigZonalService::create_os_policy_assignment] calls.
     #[derive(Clone, Debug)]
     pub struct CreateOSPolicyAssignment(
         RequestBuilder<crate::model::CreateOSPolicyAssignmentRequest>,
@@ -1027,7 +1027,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for a OsConfigZonalService::update_os_policy_assignment call.
+    /// The request builder for [OsConfigZonalService::update_os_policy_assignment][super::super::client::OsConfigZonalService::update_os_policy_assignment] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateOSPolicyAssignment(
         RequestBuilder<crate::model::UpdateOSPolicyAssignmentRequest>,
@@ -1133,7 +1133,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for a OsConfigZonalService::get_os_policy_assignment call.
+    /// The request builder for [OsConfigZonalService::get_os_policy_assignment][super::super::client::OsConfigZonalService::get_os_policy_assignment] calls.
     #[derive(Clone, Debug)]
     pub struct GetOSPolicyAssignment(RequestBuilder<crate::model::GetOSPolicyAssignmentRequest>);
 
@@ -1180,7 +1180,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for a OsConfigZonalService::list_os_policy_assignments call.
+    /// The request builder for [OsConfigZonalService::list_os_policy_assignments][super::super::client::OsConfigZonalService::list_os_policy_assignments] calls.
     #[derive(Clone, Debug)]
     pub struct ListOSPolicyAssignments(
         RequestBuilder<crate::model::ListOSPolicyAssignmentsRequest>,
@@ -1258,7 +1258,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for a OsConfigZonalService::list_os_policy_assignment_revisions call.
+    /// The request builder for [OsConfigZonalService::list_os_policy_assignment_revisions][super::super::client::OsConfigZonalService::list_os_policy_assignment_revisions] calls.
     #[derive(Clone, Debug)]
     pub struct ListOSPolicyAssignmentRevisions(
         RequestBuilder<crate::model::ListOSPolicyAssignmentRevisionsRequest>,
@@ -1336,7 +1336,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for a OsConfigZonalService::delete_os_policy_assignment call.
+    /// The request builder for [OsConfigZonalService::delete_os_policy_assignment][super::super::client::OsConfigZonalService::delete_os_policy_assignment] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOSPolicyAssignment(
         RequestBuilder<crate::model::DeleteOSPolicyAssignmentRequest>,
@@ -1424,7 +1424,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for a OsConfigZonalService::get_os_policy_assignment_report call.
+    /// The request builder for [OsConfigZonalService::get_os_policy_assignment_report][super::super::client::OsConfigZonalService::get_os_policy_assignment_report] calls.
     #[derive(Clone, Debug)]
     pub struct GetOSPolicyAssignmentReport(
         RequestBuilder<crate::model::GetOSPolicyAssignmentReportRequest>,
@@ -1473,7 +1473,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for a OsConfigZonalService::list_os_policy_assignment_reports call.
+    /// The request builder for [OsConfigZonalService::list_os_policy_assignment_reports][super::super::client::OsConfigZonalService::list_os_policy_assignment_reports] calls.
     #[derive(Clone, Debug)]
     pub struct ListOSPolicyAssignmentReports(
         RequestBuilder<crate::model::ListOSPolicyAssignmentReportsRequest>,
@@ -1557,7 +1557,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for a OsConfigZonalService::get_inventory call.
+    /// The request builder for [OsConfigZonalService::get_inventory][super::super::client::OsConfigZonalService::get_inventory] calls.
     #[derive(Clone, Debug)]
     pub struct GetInventory(RequestBuilder<crate::model::GetInventoryRequest>);
 
@@ -1607,7 +1607,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for a OsConfigZonalService::list_inventories call.
+    /// The request builder for [OsConfigZonalService::list_inventories][super::super::client::OsConfigZonalService::list_inventories] calls.
     #[derive(Clone, Debug)]
     pub struct ListInventories(RequestBuilder<crate::model::ListInventoriesRequest>);
 
@@ -1690,7 +1690,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for a OsConfigZonalService::get_vulnerability_report call.
+    /// The request builder for [OsConfigZonalService::get_vulnerability_report][super::super::client::OsConfigZonalService::get_vulnerability_report] calls.
     #[derive(Clone, Debug)]
     pub struct GetVulnerabilityReport(RequestBuilder<crate::model::GetVulnerabilityReportRequest>);
 
@@ -1737,7 +1737,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for a OsConfigZonalService::list_vulnerability_reports call.
+    /// The request builder for [OsConfigZonalService::list_vulnerability_reports][super::super::client::OsConfigZonalService::list_vulnerability_reports] calls.
     #[derive(Clone, Debug)]
     pub struct ListVulnerabilityReports(
         RequestBuilder<crate::model::ListVulnerabilityReportsRequest>,
@@ -1821,7 +1821,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for a OsConfigZonalService::get_operation call.
+    /// The request builder for [OsConfigZonalService::get_operation][super::super::client::OsConfigZonalService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1868,7 +1868,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for a OsConfigZonalService::cancel_operation call.
+    /// The request builder for [OsConfigZonalService::cancel_operation][super::super::client::OsConfigZonalService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

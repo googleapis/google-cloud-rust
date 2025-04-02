@@ -69,7 +69,7 @@ pub mod license_management_service {
         }
     }
 
-    /// The request builder for a LicenseManagementService::get_license_pool call.
+    /// The request builder for [LicenseManagementService::get_license_pool][super::super::client::LicenseManagementService::get_license_pool] calls.
     #[derive(Clone, Debug)]
     pub struct GetLicensePool(RequestBuilder<crate::model::GetLicensePoolRequest>);
 
@@ -113,7 +113,7 @@ pub mod license_management_service {
         }
     }
 
-    /// The request builder for a LicenseManagementService::update_license_pool call.
+    /// The request builder for [LicenseManagementService::update_license_pool][super::super::client::LicenseManagementService::update_license_pool] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateLicensePool(RequestBuilder<crate::model::UpdateLicensePoolRequest>);
 
@@ -172,7 +172,7 @@ pub mod license_management_service {
         }
     }
 
-    /// The request builder for a LicenseManagementService::assign call.
+    /// The request builder for [LicenseManagementService::assign][super::super::client::LicenseManagementService::assign] calls.
     #[derive(Clone, Debug)]
     pub struct Assign(RequestBuilder<crate::model::AssignRequest>);
 
@@ -225,7 +225,7 @@ pub mod license_management_service {
         }
     }
 
-    /// The request builder for a LicenseManagementService::unassign call.
+    /// The request builder for [LicenseManagementService::unassign][super::super::client::LicenseManagementService::unassign] calls.
     #[derive(Clone, Debug)]
     pub struct Unassign(RequestBuilder<crate::model::UnassignRequest>);
 
@@ -280,7 +280,7 @@ pub mod license_management_service {
         }
     }
 
-    /// The request builder for a LicenseManagementService::enumerate_licensed_users call.
+    /// The request builder for [LicenseManagementService::enumerate_licensed_users][super::super::client::LicenseManagementService::enumerate_licensed_users] calls.
     #[derive(Clone, Debug)]
     pub struct EnumerateLicensedUsers(RequestBuilder<crate::model::EnumerateLicensedUsersRequest>);
 
@@ -356,7 +356,7 @@ pub mod license_management_service {
         }
     }
 
-    /// The request builder for a LicenseManagementService::get_operation call.
+    /// The request builder for [LicenseManagementService::get_operation][super::super::client::LicenseManagementService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -459,7 +459,7 @@ pub mod consumer_procurement_service {
         }
     }
 
-    /// The request builder for a ConsumerProcurementService::place_order call.
+    /// The request builder for [ConsumerProcurementService::place_order][super::super::client::ConsumerProcurementService::place_order] calls.
     #[derive(Clone, Debug)]
     pub struct PlaceOrder(RequestBuilder<crate::model::PlaceOrderRequest>);
 
@@ -563,7 +563,7 @@ pub mod consumer_procurement_service {
         }
     }
 
-    /// The request builder for a ConsumerProcurementService::get_order call.
+    /// The request builder for [ConsumerProcurementService::get_order][super::super::client::ConsumerProcurementService::get_order] calls.
     #[derive(Clone, Debug)]
     pub struct GetOrder(RequestBuilder<crate::model::GetOrderRequest>);
 
@@ -607,7 +607,7 @@ pub mod consumer_procurement_service {
         }
     }
 
-    /// The request builder for a ConsumerProcurementService::list_orders call.
+    /// The request builder for [ConsumerProcurementService::list_orders][super::super::client::ConsumerProcurementService::list_orders] calls.
     #[derive(Clone, Debug)]
     pub struct ListOrders(RequestBuilder<crate::model::ListOrdersRequest>);
 
@@ -684,7 +684,7 @@ pub mod consumer_procurement_service {
         }
     }
 
-    /// The request builder for a ConsumerProcurementService::modify_order call.
+    /// The request builder for [ConsumerProcurementService::modify_order][super::super::client::ConsumerProcurementService::modify_order] calls.
     #[derive(Clone, Debug)]
     pub struct ModifyOrder(RequestBuilder<crate::model::ModifyOrderRequest>);
 
@@ -788,7 +788,7 @@ pub mod consumer_procurement_service {
         }
     }
 
-    /// The request builder for a ConsumerProcurementService::cancel_order call.
+    /// The request builder for [ConsumerProcurementService::cancel_order][super::super::client::ConsumerProcurementService::cancel_order] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOrder(RequestBuilder<crate::model::CancelOrderRequest>);
 
@@ -886,7 +886,7 @@ pub mod consumer_procurement_service {
         }
     }
 
-    /// The request builder for a ConsumerProcurementService::get_operation call.
+    /// The request builder for [ConsumerProcurementService::get_operation][super::super::client::ConsumerProcurementService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

@@ -67,7 +67,7 @@ pub mod os_login_service {
         }
     }
 
-    /// The request builder for a OsLoginService::create_ssh_public_key call.
+    /// The request builder for [OsLoginService::create_ssh_public_key][super::super::client::OsLoginService::create_ssh_public_key] calls.
     #[derive(Clone, Debug)]
     pub struct CreateSshPublicKey(RequestBuilder<crate::model::CreateSshPublicKeyRequest>);
 
@@ -123,7 +123,7 @@ pub mod os_login_service {
         }
     }
 
-    /// The request builder for a OsLoginService::delete_posix_account call.
+    /// The request builder for [OsLoginService::delete_posix_account][super::super::client::OsLoginService::delete_posix_account] calls.
     #[derive(Clone, Debug)]
     pub struct DeletePosixAccount(RequestBuilder<crate::model::DeletePosixAccountRequest>);
 
@@ -168,7 +168,7 @@ pub mod os_login_service {
         }
     }
 
-    /// The request builder for a OsLoginService::delete_ssh_public_key call.
+    /// The request builder for [OsLoginService::delete_ssh_public_key][super::super::client::OsLoginService::delete_ssh_public_key] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteSshPublicKey(RequestBuilder<crate::model::DeleteSshPublicKeyRequest>);
 
@@ -213,7 +213,7 @@ pub mod os_login_service {
         }
     }
 
-    /// The request builder for a OsLoginService::get_login_profile call.
+    /// The request builder for [OsLoginService::get_login_profile][super::super::client::OsLoginService::get_login_profile] calls.
     #[derive(Clone, Debug)]
     pub struct GetLoginProfile(RequestBuilder<crate::model::GetLoginProfileRequest>);
 
@@ -267,7 +267,7 @@ pub mod os_login_service {
         }
     }
 
-    /// The request builder for a OsLoginService::get_ssh_public_key call.
+    /// The request builder for [OsLoginService::get_ssh_public_key][super::super::client::OsLoginService::get_ssh_public_key] calls.
     #[derive(Clone, Debug)]
     pub struct GetSshPublicKey(RequestBuilder<crate::model::GetSshPublicKeyRequest>);
 
@@ -309,7 +309,7 @@ pub mod os_login_service {
         }
     }
 
-    /// The request builder for a OsLoginService::import_ssh_public_key call.
+    /// The request builder for [OsLoginService::import_ssh_public_key][super::super::client::OsLoginService::import_ssh_public_key] calls.
     #[derive(Clone, Debug)]
     pub struct ImportSshPublicKey(RequestBuilder<crate::model::ImportSshPublicKeyRequest>);
 
@@ -382,7 +382,7 @@ pub mod os_login_service {
         }
     }
 
-    /// The request builder for a OsLoginService::update_ssh_public_key call.
+    /// The request builder for [OsLoginService::update_ssh_public_key][super::super::client::OsLoginService::update_ssh_public_key] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateSshPublicKey(RequestBuilder<crate::model::UpdateSshPublicKeyRequest>);
 

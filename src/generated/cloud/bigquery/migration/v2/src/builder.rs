@@ -67,7 +67,7 @@ pub mod migration_service {
         }
     }
 
-    /// The request builder for a MigrationService::create_migration_workflow call.
+    /// The request builder for [MigrationService::create_migration_workflow][super::super::client::MigrationService::create_migration_workflow] calls.
     #[derive(Clone, Debug)]
     pub struct CreateMigrationWorkflow(
         RequestBuilder<crate::model::CreateMigrationWorkflowRequest>,
@@ -125,7 +125,7 @@ pub mod migration_service {
         }
     }
 
-    /// The request builder for a MigrationService::get_migration_workflow call.
+    /// The request builder for [MigrationService::get_migration_workflow][super::super::client::MigrationService::get_migration_workflow] calls.
     #[derive(Clone, Debug)]
     pub struct GetMigrationWorkflow(RequestBuilder<crate::model::GetMigrationWorkflowRequest>);
 
@@ -176,7 +176,7 @@ pub mod migration_service {
         }
     }
 
-    /// The request builder for a MigrationService::list_migration_workflows call.
+    /// The request builder for [MigrationService::list_migration_workflows][super::super::client::MigrationService::list_migration_workflows] calls.
     #[derive(Clone, Debug)]
     pub struct ListMigrationWorkflows(RequestBuilder<crate::model::ListMigrationWorkflowsRequest>);
 
@@ -256,7 +256,7 @@ pub mod migration_service {
         }
     }
 
-    /// The request builder for a MigrationService::delete_migration_workflow call.
+    /// The request builder for [MigrationService::delete_migration_workflow][super::super::client::MigrationService::delete_migration_workflow] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteMigrationWorkflow(
         RequestBuilder<crate::model::DeleteMigrationWorkflowRequest>,
@@ -303,7 +303,7 @@ pub mod migration_service {
         }
     }
 
-    /// The request builder for a MigrationService::start_migration_workflow call.
+    /// The request builder for [MigrationService::start_migration_workflow][super::super::client::MigrationService::start_migration_workflow] calls.
     #[derive(Clone, Debug)]
     pub struct StartMigrationWorkflow(RequestBuilder<crate::model::StartMigrationWorkflowRequest>);
 
@@ -348,7 +348,7 @@ pub mod migration_service {
         }
     }
 
-    /// The request builder for a MigrationService::get_migration_subtask call.
+    /// The request builder for [MigrationService::get_migration_subtask][super::super::client::MigrationService::get_migration_subtask] calls.
     #[derive(Clone, Debug)]
     pub struct GetMigrationSubtask(RequestBuilder<crate::model::GetMigrationSubtaskRequest>);
 
@@ -399,7 +399,7 @@ pub mod migration_service {
         }
     }
 
-    /// The request builder for a MigrationService::list_migration_subtasks call.
+    /// The request builder for [MigrationService::list_migration_subtasks][super::super::client::MigrationService::list_migration_subtasks] calls.
     #[derive(Clone, Debug)]
     pub struct ListMigrationSubtasks(RequestBuilder<crate::model::ListMigrationSubtasksRequest>);
 

@@ -67,7 +67,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::list_instances call.
+    /// The request builder for [SecureSourceManager::list_instances][super::super::client::SecureSourceManager::list_instances] calls.
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
@@ -148,7 +148,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::get_instance call.
+    /// The request builder for [SecureSourceManager::get_instance][super::super::client::SecureSourceManager::get_instance] calls.
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
@@ -190,7 +190,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::create_instance call.
+    /// The request builder for [SecureSourceManager::create_instance][super::super::client::SecureSourceManager::create_instance] calls.
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
@@ -291,7 +291,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::delete_instance call.
+    /// The request builder for [SecureSourceManager::delete_instance][super::super::client::SecureSourceManager::delete_instance] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
@@ -374,7 +374,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::list_repositories call.
+    /// The request builder for [SecureSourceManager::list_repositories][super::super::client::SecureSourceManager::list_repositories] calls.
     #[derive(Clone, Debug)]
     pub struct ListRepositories(RequestBuilder<crate::model::ListRepositoriesRequest>);
 
@@ -458,7 +458,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::get_repository call.
+    /// The request builder for [SecureSourceManager::get_repository][super::super::client::SecureSourceManager::get_repository] calls.
     #[derive(Clone, Debug)]
     pub struct GetRepository(RequestBuilder<crate::model::GetRepositoryRequest>);
 
@@ -500,7 +500,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::create_repository call.
+    /// The request builder for [SecureSourceManager::create_repository][super::super::client::SecureSourceManager::create_repository] calls.
     #[derive(Clone, Debug)]
     pub struct CreateRepository(RequestBuilder<crate::model::CreateRepositoryRequest>);
 
@@ -598,7 +598,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::delete_repository call.
+    /// The request builder for [SecureSourceManager::delete_repository][super::super::client::SecureSourceManager::delete_repository] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteRepository(RequestBuilder<crate::model::DeleteRepositoryRequest>);
 
@@ -684,7 +684,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::get_iam_policy_repo call.
+    /// The request builder for [SecureSourceManager::get_iam_policy_repo][super::super::client::SecureSourceManager::get_iam_policy_repo] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicyRepo(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -735,7 +735,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::set_iam_policy_repo call.
+    /// The request builder for [SecureSourceManager::set_iam_policy_repo][super::super::client::SecureSourceManager::set_iam_policy_repo] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicyRepo(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -795,7 +795,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::test_iam_permissions_repo call.
+    /// The request builder for [SecureSourceManager::test_iam_permissions_repo][super::super::client::SecureSourceManager::test_iam_permissions_repo] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissionsRepo(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -851,7 +851,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::create_branch_rule call.
+    /// The request builder for [SecureSourceManager::create_branch_rule][super::super::client::SecureSourceManager::create_branch_rule] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBranchRule(RequestBuilder<crate::model::CreateBranchRuleRequest>);
 
@@ -949,7 +949,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::list_branch_rules call.
+    /// The request builder for [SecureSourceManager::list_branch_rules][super::super::client::SecureSourceManager::list_branch_rules] calls.
     #[derive(Clone, Debug)]
     pub struct ListBranchRules(RequestBuilder<crate::model::ListBranchRulesRequest>);
 
@@ -1018,7 +1018,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::get_branch_rule call.
+    /// The request builder for [SecureSourceManager::get_branch_rule][super::super::client::SecureSourceManager::get_branch_rule] calls.
     #[derive(Clone, Debug)]
     pub struct GetBranchRule(RequestBuilder<crate::model::GetBranchRuleRequest>);
 
@@ -1060,7 +1060,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::update_branch_rule call.
+    /// The request builder for [SecureSourceManager::update_branch_rule][super::super::client::SecureSourceManager::update_branch_rule] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBranchRule(RequestBuilder<crate::model::UpdateBranchRuleRequest>);
 
@@ -1161,7 +1161,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::delete_branch_rule call.
+    /// The request builder for [SecureSourceManager::delete_branch_rule][super::super::client::SecureSourceManager::delete_branch_rule] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBranchRule(RequestBuilder<crate::model::DeleteBranchRuleRequest>);
 
@@ -1247,7 +1247,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::list_locations call.
+    /// The request builder for [SecureSourceManager::list_locations][super::super::client::SecureSourceManager::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1325,7 +1325,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::get_location call.
+    /// The request builder for [SecureSourceManager::get_location][super::super::client::SecureSourceManager::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1367,7 +1367,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::set_iam_policy call.
+    /// The request builder for [SecureSourceManager::set_iam_policy][super::super::client::SecureSourceManager::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1427,7 +1427,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::get_iam_policy call.
+    /// The request builder for [SecureSourceManager::get_iam_policy][super::super::client::SecureSourceManager::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1478,7 +1478,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::test_iam_permissions call.
+    /// The request builder for [SecureSourceManager::test_iam_permissions][super::super::client::SecureSourceManager::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1534,7 +1534,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::list_operations call.
+    /// The request builder for [SecureSourceManager::list_operations][super::super::client::SecureSourceManager::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1612,7 +1612,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::get_operation call.
+    /// The request builder for [SecureSourceManager::get_operation][super::super::client::SecureSourceManager::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1657,7 +1657,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::delete_operation call.
+    /// The request builder for [SecureSourceManager::delete_operation][super::super::client::SecureSourceManager::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1702,7 +1702,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for a SecureSourceManager::cancel_operation call.
+    /// The request builder for [SecureSourceManager::cancel_operation][super::super::client::SecureSourceManager::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

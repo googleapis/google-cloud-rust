@@ -67,7 +67,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for a CloudBuild::create_build call.
+    /// The request builder for [CloudBuild::create_build][super::super::client::CloudBuild::create_build] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBuild(RequestBuilder<crate::model::CreateBuildRequest>);
 
@@ -162,7 +162,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for a CloudBuild::get_build call.
+    /// The request builder for [CloudBuild::get_build][super::super::client::CloudBuild::get_build] calls.
     #[derive(Clone, Debug)]
     pub struct GetBuild(RequestBuilder<crate::model::GetBuildRequest>);
 
@@ -216,7 +216,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for a CloudBuild::list_builds call.
+    /// The request builder for [CloudBuild::list_builds][super::super::client::CloudBuild::list_builds] calls.
     #[derive(Clone, Debug)]
     pub struct ListBuilds(RequestBuilder<crate::model::ListBuildsRequest>);
 
@@ -297,7 +297,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for a CloudBuild::cancel_build call.
+    /// The request builder for [CloudBuild::cancel_build][super::super::client::CloudBuild::cancel_build] calls.
     #[derive(Clone, Debug)]
     pub struct CancelBuild(RequestBuilder<crate::model::CancelBuildRequest>);
 
@@ -351,7 +351,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for a CloudBuild::retry_build call.
+    /// The request builder for [CloudBuild::retry_build][super::super::client::CloudBuild::retry_build] calls.
     #[derive(Clone, Debug)]
     pub struct RetryBuild(RequestBuilder<crate::model::RetryBuildRequest>);
 
@@ -443,7 +443,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for a CloudBuild::approve_build call.
+    /// The request builder for [CloudBuild::approve_build][super::super::client::CloudBuild::approve_build] calls.
     #[derive(Clone, Debug)]
     pub struct ApproveBuild(RequestBuilder<crate::model::ApproveBuildRequest>);
 
@@ -532,7 +532,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for a CloudBuild::create_build_trigger call.
+    /// The request builder for [CloudBuild::create_build_trigger][super::super::client::CloudBuild::create_build_trigger] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBuildTrigger(RequestBuilder<crate::model::CreateBuildTriggerRequest>);
 
@@ -592,7 +592,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for a CloudBuild::get_build_trigger call.
+    /// The request builder for [CloudBuild::get_build_trigger][super::super::client::CloudBuild::get_build_trigger] calls.
     #[derive(Clone, Debug)]
     pub struct GetBuildTrigger(RequestBuilder<crate::model::GetBuildTriggerRequest>);
 
@@ -646,7 +646,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for a CloudBuild::list_build_triggers call.
+    /// The request builder for [CloudBuild::list_build_triggers][super::super::client::CloudBuild::list_build_triggers] calls.
     #[derive(Clone, Debug)]
     pub struct ListBuildTriggers(RequestBuilder<crate::model::ListBuildTriggersRequest>);
 
@@ -724,7 +724,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for a CloudBuild::delete_build_trigger call.
+    /// The request builder for [CloudBuild::delete_build_trigger][super::super::client::CloudBuild::delete_build_trigger] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBuildTrigger(RequestBuilder<crate::model::DeleteBuildTriggerRequest>);
 
@@ -781,7 +781,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for a CloudBuild::update_build_trigger call.
+    /// The request builder for [CloudBuild::update_build_trigger][super::super::client::CloudBuild::update_build_trigger] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBuildTrigger(RequestBuilder<crate::model::UpdateBuildTriggerRequest>);
 
@@ -850,7 +850,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for a CloudBuild::run_build_trigger call.
+    /// The request builder for [CloudBuild::run_build_trigger][super::super::client::CloudBuild::run_build_trigger] calls.
     #[derive(Clone, Debug)]
     pub struct RunBuildTrigger(RequestBuilder<crate::model::RunBuildTriggerRequest>);
 
@@ -951,7 +951,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for a CloudBuild::receive_trigger_webhook call.
+    /// The request builder for [CloudBuild::receive_trigger_webhook][super::super::client::CloudBuild::receive_trigger_webhook] calls.
     #[derive(Clone, Debug)]
     pub struct ReceiveTriggerWebhook(RequestBuilder<crate::model::ReceiveTriggerWebhookRequest>);
 
@@ -1023,7 +1023,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for a CloudBuild::create_worker_pool call.
+    /// The request builder for [CloudBuild::create_worker_pool][super::super::client::CloudBuild::create_worker_pool] calls.
     #[derive(Clone, Debug)]
     pub struct CreateWorkerPool(RequestBuilder<crate::model::CreateWorkerPoolRequest>);
 
@@ -1130,7 +1130,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for a CloudBuild::get_worker_pool call.
+    /// The request builder for [CloudBuild::get_worker_pool][super::super::client::CloudBuild::get_worker_pool] calls.
     #[derive(Clone, Debug)]
     pub struct GetWorkerPool(RequestBuilder<crate::model::GetWorkerPoolRequest>);
 
@@ -1172,7 +1172,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for a CloudBuild::delete_worker_pool call.
+    /// The request builder for [CloudBuild::delete_worker_pool][super::super::client::CloudBuild::delete_worker_pool] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteWorkerPool(RequestBuilder<crate::model::DeleteWorkerPoolRequest>);
 
@@ -1273,7 +1273,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for a CloudBuild::update_worker_pool call.
+    /// The request builder for [CloudBuild::update_worker_pool][super::super::client::CloudBuild::update_worker_pool] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateWorkerPool(RequestBuilder<crate::model::UpdateWorkerPoolRequest>);
 
@@ -1377,7 +1377,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for a CloudBuild::list_worker_pools call.
+    /// The request builder for [CloudBuild::list_worker_pools][super::super::client::CloudBuild::list_worker_pools] calls.
     #[derive(Clone, Debug)]
     pub struct ListWorkerPools(RequestBuilder<crate::model::ListWorkerPoolsRequest>);
 
@@ -1446,7 +1446,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for a CloudBuild::get_operation call.
+    /// The request builder for [CloudBuild::get_operation][super::super::client::CloudBuild::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1491,7 +1491,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for a CloudBuild::cancel_operation call.
+    /// The request builder for [CloudBuild::cancel_operation][super::super::client::CloudBuild::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

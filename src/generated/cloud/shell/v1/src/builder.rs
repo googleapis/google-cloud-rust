@@ -67,7 +67,7 @@ pub mod cloud_shell_service {
         }
     }
 
-    /// The request builder for a CloudShellService::get_environment call.
+    /// The request builder for [CloudShellService::get_environment][super::super::client::CloudShellService::get_environment] calls.
     #[derive(Clone, Debug)]
     pub struct GetEnvironment(RequestBuilder<crate::model::GetEnvironmentRequest>);
 
@@ -109,7 +109,7 @@ pub mod cloud_shell_service {
         }
     }
 
-    /// The request builder for a CloudShellService::start_environment call.
+    /// The request builder for [CloudShellService::start_environment][super::super::client::CloudShellService::start_environment] calls.
     #[derive(Clone, Debug)]
     pub struct StartEnvironment(RequestBuilder<crate::model::StartEnvironmentRequest>);
 
@@ -214,7 +214,7 @@ pub mod cloud_shell_service {
         }
     }
 
-    /// The request builder for a CloudShellService::authorize_environment call.
+    /// The request builder for [CloudShellService::authorize_environment][super::super::client::CloudShellService::authorize_environment] calls.
     #[derive(Clone, Debug)]
     pub struct AuthorizeEnvironment(RequestBuilder<crate::model::AuthorizeEnvironmentRequest>);
 
@@ -323,7 +323,7 @@ pub mod cloud_shell_service {
         }
     }
 
-    /// The request builder for a CloudShellService::add_public_key call.
+    /// The request builder for [CloudShellService::add_public_key][super::super::client::CloudShellService::add_public_key] calls.
     #[derive(Clone, Debug)]
     pub struct AddPublicKey(RequestBuilder<crate::model::AddPublicKeyRequest>);
 
@@ -412,7 +412,7 @@ pub mod cloud_shell_service {
         }
     }
 
-    /// The request builder for a CloudShellService::remove_public_key call.
+    /// The request builder for [CloudShellService::remove_public_key][super::super::client::CloudShellService::remove_public_key] calls.
     #[derive(Clone, Debug)]
     pub struct RemovePublicKey(RequestBuilder<crate::model::RemovePublicKeyRequest>);
 
@@ -501,7 +501,7 @@ pub mod cloud_shell_service {
         }
     }
 
-    /// The request builder for a CloudShellService::get_operation call.
+    /// The request builder for [CloudShellService::get_operation][super::super::client::CloudShellService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

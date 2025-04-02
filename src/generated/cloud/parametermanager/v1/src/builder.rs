@@ -67,7 +67,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for a ParameterManager::list_parameters call.
+    /// The request builder for [ParameterManager::list_parameters][super::super::client::ParameterManager::list_parameters] calls.
     #[derive(Clone, Debug)]
     pub struct ListParameters(RequestBuilder<crate::model::ListParametersRequest>);
 
@@ -148,7 +148,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for a ParameterManager::get_parameter call.
+    /// The request builder for [ParameterManager::get_parameter][super::super::client::ParameterManager::get_parameter] calls.
     #[derive(Clone, Debug)]
     pub struct GetParameter(RequestBuilder<crate::model::GetParameterRequest>);
 
@@ -190,7 +190,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for a ParameterManager::create_parameter call.
+    /// The request builder for [ParameterManager::create_parameter][super::super::client::ParameterManager::create_parameter] calls.
     #[derive(Clone, Debug)]
     pub struct CreateParameter(RequestBuilder<crate::model::CreateParameterRequest>);
 
@@ -253,7 +253,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for a ParameterManager::update_parameter call.
+    /// The request builder for [ParameterManager::update_parameter][super::super::client::ParameterManager::update_parameter] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateParameter(RequestBuilder<crate::model::UpdateParameterRequest>);
 
@@ -313,7 +313,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for a ParameterManager::delete_parameter call.
+    /// The request builder for [ParameterManager::delete_parameter][super::super::client::ParameterManager::delete_parameter] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteParameter(RequestBuilder<crate::model::DeleteParameterRequest>);
 
@@ -361,7 +361,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for a ParameterManager::list_parameter_versions call.
+    /// The request builder for [ParameterManager::list_parameter_versions][super::super::client::ParameterManager::list_parameter_versions] calls.
     #[derive(Clone, Debug)]
     pub struct ListParameterVersions(RequestBuilder<crate::model::ListParameterVersionsRequest>);
 
@@ -445,7 +445,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for a ParameterManager::get_parameter_version call.
+    /// The request builder for [ParameterManager::get_parameter_version][super::super::client::ParameterManager::get_parameter_version] calls.
     #[derive(Clone, Debug)]
     pub struct GetParameterVersion(RequestBuilder<crate::model::GetParameterVersionRequest>);
 
@@ -496,7 +496,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for a ParameterManager::render_parameter_version call.
+    /// The request builder for [ParameterManager::render_parameter_version][super::super::client::ParameterManager::render_parameter_version] calls.
     #[derive(Clone, Debug)]
     pub struct RenderParameterVersion(RequestBuilder<crate::model::RenderParameterVersionRequest>);
 
@@ -541,7 +541,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for a ParameterManager::create_parameter_version call.
+    /// The request builder for [ParameterManager::create_parameter_version][super::super::client::ParameterManager::create_parameter_version] calls.
     #[derive(Clone, Debug)]
     pub struct CreateParameterVersion(RequestBuilder<crate::model::CreateParameterVersionRequest>);
 
@@ -609,7 +609,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for a ParameterManager::update_parameter_version call.
+    /// The request builder for [ParameterManager::update_parameter_version][super::super::client::ParameterManager::update_parameter_version] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateParameterVersion(RequestBuilder<crate::model::UpdateParameterVersionRequest>);
 
@@ -674,7 +674,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for a ParameterManager::delete_parameter_version call.
+    /// The request builder for [ParameterManager::delete_parameter_version][super::super::client::ParameterManager::delete_parameter_version] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteParameterVersion(RequestBuilder<crate::model::DeleteParameterVersionRequest>);
 
@@ -725,7 +725,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for a ParameterManager::list_locations call.
+    /// The request builder for [ParameterManager::list_locations][super::super::client::ParameterManager::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -803,7 +803,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for a ParameterManager::get_location call.
+    /// The request builder for [ParameterManager::get_location][super::super::client::ParameterManager::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 

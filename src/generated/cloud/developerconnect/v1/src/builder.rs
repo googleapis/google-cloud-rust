@@ -67,7 +67,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for a DeveloperConnect::list_connections call.
+    /// The request builder for [DeveloperConnect::list_connections][super::super::client::DeveloperConnect::list_connections] calls.
     #[derive(Clone, Debug)]
     pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
 
@@ -148,7 +148,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for a DeveloperConnect::get_connection call.
+    /// The request builder for [DeveloperConnect::get_connection][super::super::client::DeveloperConnect::get_connection] calls.
     #[derive(Clone, Debug)]
     pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
 
@@ -190,7 +190,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for a DeveloperConnect::create_connection call.
+    /// The request builder for [DeveloperConnect::create_connection][super::super::client::DeveloperConnect::create_connection] calls.
     #[derive(Clone, Debug)]
     pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
 
@@ -300,7 +300,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for a DeveloperConnect::update_connection call.
+    /// The request builder for [DeveloperConnect::update_connection][super::super::client::DeveloperConnect::update_connection] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
 
@@ -413,7 +413,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for a DeveloperConnect::delete_connection call.
+    /// The request builder for [DeveloperConnect::delete_connection][super::super::client::DeveloperConnect::delete_connection] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
 
@@ -511,7 +511,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for a DeveloperConnect::create_git_repository_link call.
+    /// The request builder for [DeveloperConnect::create_git_repository_link][super::super::client::DeveloperConnect::create_git_repository_link] calls.
     #[derive(Clone, Debug)]
     pub struct CreateGitRepositoryLink(
         RequestBuilder<crate::model::CreateGitRepositoryLinkRequest>,
@@ -626,7 +626,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for a DeveloperConnect::delete_git_repository_link call.
+    /// The request builder for [DeveloperConnect::delete_git_repository_link][super::super::client::DeveloperConnect::delete_git_repository_link] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteGitRepositoryLink(
         RequestBuilder<crate::model::DeleteGitRepositoryLinkRequest>,
@@ -726,7 +726,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for a DeveloperConnect::list_git_repository_links call.
+    /// The request builder for [DeveloperConnect::list_git_repository_links][super::super::client::DeveloperConnect::list_git_repository_links] calls.
     #[derive(Clone, Debug)]
     pub struct ListGitRepositoryLinks(RequestBuilder<crate::model::ListGitRepositoryLinksRequest>);
 
@@ -812,7 +812,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for a DeveloperConnect::get_git_repository_link call.
+    /// The request builder for [DeveloperConnect::get_git_repository_link][super::super::client::DeveloperConnect::get_git_repository_link] calls.
     #[derive(Clone, Debug)]
     pub struct GetGitRepositoryLink(RequestBuilder<crate::model::GetGitRepositoryLinkRequest>);
 
@@ -857,7 +857,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for a DeveloperConnect::fetch_read_write_token call.
+    /// The request builder for [DeveloperConnect::fetch_read_write_token][super::super::client::DeveloperConnect::fetch_read_write_token] calls.
     #[derive(Clone, Debug)]
     pub struct FetchReadWriteToken(RequestBuilder<crate::model::FetchReadWriteTokenRequest>);
 
@@ -902,7 +902,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for a DeveloperConnect::fetch_read_token call.
+    /// The request builder for [DeveloperConnect::fetch_read_token][super::super::client::DeveloperConnect::fetch_read_token] calls.
     #[derive(Clone, Debug)]
     pub struct FetchReadToken(RequestBuilder<crate::model::FetchReadTokenRequest>);
 
@@ -944,7 +944,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for a DeveloperConnect::fetch_linkable_git_repositories call.
+    /// The request builder for [DeveloperConnect::fetch_linkable_git_repositories][super::super::client::DeveloperConnect::fetch_linkable_git_repositories] calls.
     #[derive(Clone, Debug)]
     pub struct FetchLinkableGitRepositories(
         RequestBuilder<crate::model::FetchLinkableGitRepositoriesRequest>,
@@ -1020,7 +1020,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for a DeveloperConnect::fetch_git_hub_installations call.
+    /// The request builder for [DeveloperConnect::fetch_git_hub_installations][super::super::client::DeveloperConnect::fetch_git_hub_installations] calls.
     #[derive(Clone, Debug)]
     pub struct FetchGitHubInstallations(
         RequestBuilder<crate::model::FetchGitHubInstallationsRequest>,
@@ -1067,7 +1067,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for a DeveloperConnect::fetch_git_refs call.
+    /// The request builder for [DeveloperConnect::fetch_git_refs][super::super::client::DeveloperConnect::fetch_git_refs] calls.
     #[derive(Clone, Debug)]
     pub struct FetchGitRefs(RequestBuilder<crate::model::FetchGitRefsRequest>);
 
@@ -1130,7 +1130,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for a DeveloperConnect::list_locations call.
+    /// The request builder for [DeveloperConnect::list_locations][super::super::client::DeveloperConnect::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1208,7 +1208,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for a DeveloperConnect::get_location call.
+    /// The request builder for [DeveloperConnect::get_location][super::super::client::DeveloperConnect::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1250,7 +1250,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for a DeveloperConnect::list_operations call.
+    /// The request builder for [DeveloperConnect::list_operations][super::super::client::DeveloperConnect::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1328,7 +1328,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for a DeveloperConnect::get_operation call.
+    /// The request builder for [DeveloperConnect::get_operation][super::super::client::DeveloperConnect::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1373,7 +1373,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for a DeveloperConnect::delete_operation call.
+    /// The request builder for [DeveloperConnect::delete_operation][super::super::client::DeveloperConnect::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1418,7 +1418,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for a DeveloperConnect::cancel_operation call.
+    /// The request builder for [DeveloperConnect::cancel_operation][super::super::client::DeveloperConnect::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

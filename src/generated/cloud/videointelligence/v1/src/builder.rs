@@ -69,7 +69,7 @@ pub mod video_intelligence_service {
         }
     }
 
-    /// The request builder for a VideoIntelligenceService::annotate_video call.
+    /// The request builder for [VideoIntelligenceService::annotate_video][super::super::client::VideoIntelligenceService::annotate_video] calls.
     #[derive(Clone, Debug)]
     pub struct AnnotateVideo(RequestBuilder<crate::model::AnnotateVideoRequest>);
 
@@ -192,7 +192,7 @@ pub mod video_intelligence_service {
         }
     }
 
-    /// The request builder for a VideoIntelligenceService::list_operations call.
+    /// The request builder for [VideoIntelligenceService::list_operations][super::super::client::VideoIntelligenceService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -272,7 +272,7 @@ pub mod video_intelligence_service {
         }
     }
 
-    /// The request builder for a VideoIntelligenceService::get_operation call.
+    /// The request builder for [VideoIntelligenceService::get_operation][super::super::client::VideoIntelligenceService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -319,7 +319,7 @@ pub mod video_intelligence_service {
         }
     }
 
-    /// The request builder for a VideoIntelligenceService::delete_operation call.
+    /// The request builder for [VideoIntelligenceService::delete_operation][super::super::client::VideoIntelligenceService::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -366,7 +366,7 @@ pub mod video_intelligence_service {
         }
     }
 
-    /// The request builder for a VideoIntelligenceService::cancel_operation call.
+    /// The request builder for [VideoIntelligenceService::cancel_operation][super::super::client::VideoIntelligenceService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

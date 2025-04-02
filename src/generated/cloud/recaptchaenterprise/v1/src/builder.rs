@@ -69,7 +69,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for a RecaptchaEnterpriseService::create_assessment call.
+    /// The request builder for [RecaptchaEnterpriseService::create_assessment][super::super::client::RecaptchaEnterpriseService::create_assessment] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAssessment(RequestBuilder<crate::model::CreateAssessmentRequest>);
 
@@ -125,7 +125,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for a RecaptchaEnterpriseService::annotate_assessment call.
+    /// The request builder for [RecaptchaEnterpriseService::annotate_assessment][super::super::client::RecaptchaEnterpriseService::annotate_assessment] calls.
     #[derive(Clone, Debug)]
     pub struct AnnotateAssessment(RequestBuilder<crate::model::AnnotateAssessmentRequest>);
 
@@ -215,7 +215,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for a RecaptchaEnterpriseService::create_key call.
+    /// The request builder for [RecaptchaEnterpriseService::create_key][super::super::client::RecaptchaEnterpriseService::create_key] calls.
     #[derive(Clone, Debug)]
     pub struct CreateKey(RequestBuilder<crate::model::CreateKeyRequest>);
 
@@ -265,7 +265,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for a RecaptchaEnterpriseService::list_keys call.
+    /// The request builder for [RecaptchaEnterpriseService::list_keys][super::super::client::RecaptchaEnterpriseService::list_keys] calls.
     #[derive(Clone, Debug)]
     pub struct ListKeys(RequestBuilder<crate::model::ListKeysRequest>);
 
@@ -335,7 +335,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for a RecaptchaEnterpriseService::retrieve_legacy_secret_key call.
+    /// The request builder for [RecaptchaEnterpriseService::retrieve_legacy_secret_key][super::super::client::RecaptchaEnterpriseService::retrieve_legacy_secret_key] calls.
     #[derive(Clone, Debug)]
     pub struct RetrieveLegacySecretKey(
         RequestBuilder<crate::model::RetrieveLegacySecretKeyRequest>,
@@ -384,7 +384,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for a RecaptchaEnterpriseService::get_key call.
+    /// The request builder for [RecaptchaEnterpriseService::get_key][super::super::client::RecaptchaEnterpriseService::get_key] calls.
     #[derive(Clone, Debug)]
     pub struct GetKey(RequestBuilder<crate::model::GetKeyRequest>);
 
@@ -426,7 +426,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for a RecaptchaEnterpriseService::update_key call.
+    /// The request builder for [RecaptchaEnterpriseService::update_key][super::super::client::RecaptchaEnterpriseService::update_key] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateKey(RequestBuilder<crate::model::UpdateKeyRequest>);
 
@@ -479,7 +479,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for a RecaptchaEnterpriseService::delete_key call.
+    /// The request builder for [RecaptchaEnterpriseService::delete_key][super::super::client::RecaptchaEnterpriseService::delete_key] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteKey(RequestBuilder<crate::model::DeleteKeyRequest>);
 
@@ -523,7 +523,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for a RecaptchaEnterpriseService::migrate_key call.
+    /// The request builder for [RecaptchaEnterpriseService::migrate_key][super::super::client::RecaptchaEnterpriseService::migrate_key] calls.
     #[derive(Clone, Debug)]
     pub struct MigrateKey(RequestBuilder<crate::model::MigrateKeyRequest>);
 
@@ -573,7 +573,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for a RecaptchaEnterpriseService::add_ip_override call.
+    /// The request builder for [RecaptchaEnterpriseService::add_ip_override][super::super::client::RecaptchaEnterpriseService::add_ip_override] calls.
     #[derive(Clone, Debug)]
     pub struct AddIpOverride(RequestBuilder<crate::model::AddIpOverrideRequest>);
 
@@ -626,7 +626,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for a RecaptchaEnterpriseService::remove_ip_override call.
+    /// The request builder for [RecaptchaEnterpriseService::remove_ip_override][super::super::client::RecaptchaEnterpriseService::remove_ip_override] calls.
     #[derive(Clone, Debug)]
     pub struct RemoveIpOverride(RequestBuilder<crate::model::RemoveIpOverrideRequest>);
 
@@ -682,7 +682,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for a RecaptchaEnterpriseService::list_ip_overrides call.
+    /// The request builder for [RecaptchaEnterpriseService::list_ip_overrides][super::super::client::RecaptchaEnterpriseService::list_ip_overrides] calls.
     #[derive(Clone, Debug)]
     pub struct ListIpOverrides(RequestBuilder<crate::model::ListIpOverridesRequest>);
 
@@ -753,7 +753,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for a RecaptchaEnterpriseService::get_metrics call.
+    /// The request builder for [RecaptchaEnterpriseService::get_metrics][super::super::client::RecaptchaEnterpriseService::get_metrics] calls.
     #[derive(Clone, Debug)]
     pub struct GetMetrics(RequestBuilder<crate::model::GetMetricsRequest>);
 
@@ -797,7 +797,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for a RecaptchaEnterpriseService::create_firewall_policy call.
+    /// The request builder for [RecaptchaEnterpriseService::create_firewall_policy][super::super::client::RecaptchaEnterpriseService::create_firewall_policy] calls.
     #[derive(Clone, Debug)]
     pub struct CreateFirewallPolicy(RequestBuilder<crate::model::CreateFirewallPolicyRequest>);
 
@@ -853,7 +853,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for a RecaptchaEnterpriseService::list_firewall_policies call.
+    /// The request builder for [RecaptchaEnterpriseService::list_firewall_policies][super::super::client::RecaptchaEnterpriseService::list_firewall_policies] calls.
     #[derive(Clone, Debug)]
     pub struct ListFirewallPolicies(RequestBuilder<crate::model::ListFirewallPoliciesRequest>);
 
@@ -927,7 +927,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for a RecaptchaEnterpriseService::get_firewall_policy call.
+    /// The request builder for [RecaptchaEnterpriseService::get_firewall_policy][super::super::client::RecaptchaEnterpriseService::get_firewall_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetFirewallPolicy(RequestBuilder<crate::model::GetFirewallPolicyRequest>);
 
@@ -974,7 +974,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for a RecaptchaEnterpriseService::update_firewall_policy call.
+    /// The request builder for [RecaptchaEnterpriseService::update_firewall_policy][super::super::client::RecaptchaEnterpriseService::update_firewall_policy] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateFirewallPolicy(RequestBuilder<crate::model::UpdateFirewallPolicyRequest>);
 
@@ -1033,7 +1033,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for a RecaptchaEnterpriseService::delete_firewall_policy call.
+    /// The request builder for [RecaptchaEnterpriseService::delete_firewall_policy][super::super::client::RecaptchaEnterpriseService::delete_firewall_policy] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteFirewallPolicy(RequestBuilder<crate::model::DeleteFirewallPolicyRequest>);
 
@@ -1080,7 +1080,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for a RecaptchaEnterpriseService::reorder_firewall_policies call.
+    /// The request builder for [RecaptchaEnterpriseService::reorder_firewall_policies][super::super::client::RecaptchaEnterpriseService::reorder_firewall_policies] calls.
     #[derive(Clone, Debug)]
     pub struct ReorderFirewallPolicies(
         RequestBuilder<crate::model::ReorderFirewallPoliciesRequest>,
@@ -1140,7 +1140,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for a RecaptchaEnterpriseService::list_related_account_groups call.
+    /// The request builder for [RecaptchaEnterpriseService::list_related_account_groups][super::super::client::RecaptchaEnterpriseService::list_related_account_groups] calls.
     #[derive(Clone, Debug)]
     pub struct ListRelatedAccountGroups(
         RequestBuilder<crate::model::ListRelatedAccountGroupsRequest>,
@@ -1218,7 +1218,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for a RecaptchaEnterpriseService::list_related_account_group_memberships call.
+    /// The request builder for [RecaptchaEnterpriseService::list_related_account_group_memberships][super::super::client::RecaptchaEnterpriseService::list_related_account_group_memberships] calls.
     #[derive(Clone, Debug)]
     pub struct ListRelatedAccountGroupMemberships(
         RequestBuilder<crate::model::ListRelatedAccountGroupMembershipsRequest>,
@@ -1298,7 +1298,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for a RecaptchaEnterpriseService::search_related_account_group_memberships call.
+    /// The request builder for [RecaptchaEnterpriseService::search_related_account_group_memberships][super::super::client::RecaptchaEnterpriseService::search_related_account_group_memberships] calls.
     #[derive(Clone, Debug)]
     pub struct SearchRelatedAccountGroupMemberships(
         RequestBuilder<crate::model::SearchRelatedAccountGroupMembershipsRequest>,

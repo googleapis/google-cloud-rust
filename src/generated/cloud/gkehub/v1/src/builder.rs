@@ -67,7 +67,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for a GkeHub::list_memberships call.
+    /// The request builder for [GkeHub::list_memberships][super::super::client::GkeHub::list_memberships] calls.
     #[derive(Clone, Debug)]
     pub struct ListMemberships(RequestBuilder<crate::model::ListMembershipsRequest>);
 
@@ -148,7 +148,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for a GkeHub::list_features call.
+    /// The request builder for [GkeHub::list_features][super::super::client::GkeHub::list_features] calls.
     #[derive(Clone, Debug)]
     pub struct ListFeatures(RequestBuilder<crate::model::ListFeaturesRequest>);
 
@@ -229,7 +229,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for a GkeHub::get_membership call.
+    /// The request builder for [GkeHub::get_membership][super::super::client::GkeHub::get_membership] calls.
     #[derive(Clone, Debug)]
     pub struct GetMembership(RequestBuilder<crate::model::GetMembershipRequest>);
 
@@ -271,7 +271,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for a GkeHub::get_feature call.
+    /// The request builder for [GkeHub::get_feature][super::super::client::GkeHub::get_feature] calls.
     #[derive(Clone, Debug)]
     pub struct GetFeature(RequestBuilder<crate::model::GetFeatureRequest>);
 
@@ -313,7 +313,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for a GkeHub::create_membership call.
+    /// The request builder for [GkeHub::create_membership][super::super::client::GkeHub::create_membership] calls.
     #[derive(Clone, Debug)]
     pub struct CreateMembership(RequestBuilder<crate::model::CreateMembershipRequest>);
 
@@ -417,7 +417,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for a GkeHub::create_feature call.
+    /// The request builder for [GkeHub::create_feature][super::super::client::GkeHub::create_feature] calls.
     #[derive(Clone, Debug)]
     pub struct CreateFeature(RequestBuilder<crate::model::CreateFeatureRequest>);
 
@@ -517,7 +517,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for a GkeHub::delete_membership call.
+    /// The request builder for [GkeHub::delete_membership][super::super::client::GkeHub::delete_membership] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteMembership(RequestBuilder<crate::model::DeleteMembershipRequest>);
 
@@ -609,7 +609,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for a GkeHub::delete_feature call.
+    /// The request builder for [GkeHub::delete_feature][super::super::client::GkeHub::delete_feature] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteFeature(RequestBuilder<crate::model::DeleteFeatureRequest>);
 
@@ -698,7 +698,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for a GkeHub::update_membership call.
+    /// The request builder for [GkeHub::update_membership][super::super::client::GkeHub::update_membership] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateMembership(RequestBuilder<crate::model::UpdateMembershipRequest>);
 
@@ -805,7 +805,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for a GkeHub::update_feature call.
+    /// The request builder for [GkeHub::update_feature][super::super::client::GkeHub::update_feature] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateFeature(RequestBuilder<crate::model::UpdateFeatureRequest>);
 
@@ -908,7 +908,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for a GkeHub::generate_connect_manifest call.
+    /// The request builder for [GkeHub::generate_connect_manifest][super::super::client::GkeHub::generate_connect_manifest] calls.
     #[derive(Clone, Debug)]
     pub struct GenerateConnectManifest(
         RequestBuilder<crate::model::GenerateConnectManifestRequest>,
@@ -991,7 +991,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for a GkeHub::list_operations call.
+    /// The request builder for [GkeHub::list_operations][super::super::client::GkeHub::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1069,7 +1069,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for a GkeHub::get_operation call.
+    /// The request builder for [GkeHub::get_operation][super::super::client::GkeHub::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1114,7 +1114,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for a GkeHub::delete_operation call.
+    /// The request builder for [GkeHub::delete_operation][super::super::client::GkeHub::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1159,7 +1159,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for a GkeHub::cancel_operation call.
+    /// The request builder for [GkeHub::cancel_operation][super::super::client::GkeHub::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

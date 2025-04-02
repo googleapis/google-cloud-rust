@@ -67,7 +67,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for a ReachabilityService::list_connectivity_tests call.
+    /// The request builder for [ReachabilityService::list_connectivity_tests][super::super::client::ReachabilityService::list_connectivity_tests] calls.
     #[derive(Clone, Debug)]
     pub struct ListConnectivityTests(RequestBuilder<crate::model::ListConnectivityTestsRequest>);
 
@@ -151,7 +151,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for a ReachabilityService::get_connectivity_test call.
+    /// The request builder for [ReachabilityService::get_connectivity_test][super::super::client::ReachabilityService::get_connectivity_test] calls.
     #[derive(Clone, Debug)]
     pub struct GetConnectivityTest(RequestBuilder<crate::model::GetConnectivityTestRequest>);
 
@@ -196,7 +196,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for a ReachabilityService::create_connectivity_test call.
+    /// The request builder for [ReachabilityService::create_connectivity_test][super::super::client::ReachabilityService::create_connectivity_test] calls.
     #[derive(Clone, Debug)]
     pub struct CreateConnectivityTest(RequestBuilder<crate::model::CreateConnectivityTestRequest>);
 
@@ -295,7 +295,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for a ReachabilityService::update_connectivity_test call.
+    /// The request builder for [ReachabilityService::update_connectivity_test][super::super::client::ReachabilityService::update_connectivity_test] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateConnectivityTest(RequestBuilder<crate::model::UpdateConnectivityTestRequest>);
 
@@ -391,7 +391,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for a ReachabilityService::rerun_connectivity_test call.
+    /// The request builder for [ReachabilityService::rerun_connectivity_test][super::super::client::ReachabilityService::rerun_connectivity_test] calls.
     #[derive(Clone, Debug)]
     pub struct RerunConnectivityTest(RequestBuilder<crate::model::RerunConnectivityTestRequest>);
 
@@ -475,7 +475,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for a ReachabilityService::delete_connectivity_test call.
+    /// The request builder for [ReachabilityService::delete_connectivity_test][super::super::client::ReachabilityService::delete_connectivity_test] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteConnectivityTest(RequestBuilder<crate::model::DeleteConnectivityTestRequest>);
 
@@ -555,7 +555,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for a ReachabilityService::list_locations call.
+    /// The request builder for [ReachabilityService::list_locations][super::super::client::ReachabilityService::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -633,7 +633,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for a ReachabilityService::get_location call.
+    /// The request builder for [ReachabilityService::get_location][super::super::client::ReachabilityService::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -675,7 +675,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for a ReachabilityService::set_iam_policy call.
+    /// The request builder for [ReachabilityService::set_iam_policy][super::super::client::ReachabilityService::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -735,7 +735,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for a ReachabilityService::get_iam_policy call.
+    /// The request builder for [ReachabilityService::get_iam_policy][super::super::client::ReachabilityService::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -786,7 +786,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for a ReachabilityService::test_iam_permissions call.
+    /// The request builder for [ReachabilityService::test_iam_permissions][super::super::client::ReachabilityService::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -842,7 +842,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for a ReachabilityService::list_operations call.
+    /// The request builder for [ReachabilityService::list_operations][super::super::client::ReachabilityService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -920,7 +920,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for a ReachabilityService::get_operation call.
+    /// The request builder for [ReachabilityService::get_operation][super::super::client::ReachabilityService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -965,7 +965,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for a ReachabilityService::delete_operation call.
+    /// The request builder for [ReachabilityService::delete_operation][super::super::client::ReachabilityService::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1010,7 +1010,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for a ReachabilityService::cancel_operation call.
+    /// The request builder for [ReachabilityService::cancel_operation][super::super::client::ReachabilityService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -1109,7 +1109,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for a VpcFlowLogsService::list_vpc_flow_logs_configs call.
+    /// The request builder for [VpcFlowLogsService::list_vpc_flow_logs_configs][super::super::client::VpcFlowLogsService::list_vpc_flow_logs_configs] calls.
     #[derive(Clone, Debug)]
     pub struct ListVpcFlowLogsConfigs(RequestBuilder<crate::model::ListVpcFlowLogsConfigsRequest>);
 
@@ -1195,7 +1195,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for a VpcFlowLogsService::get_vpc_flow_logs_config call.
+    /// The request builder for [VpcFlowLogsService::get_vpc_flow_logs_config][super::super::client::VpcFlowLogsService::get_vpc_flow_logs_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetVpcFlowLogsConfig(RequestBuilder<crate::model::GetVpcFlowLogsConfigRequest>);
 
@@ -1240,7 +1240,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for a VpcFlowLogsService::create_vpc_flow_logs_config call.
+    /// The request builder for [VpcFlowLogsService::create_vpc_flow_logs_config][super::super::client::VpcFlowLogsService::create_vpc_flow_logs_config] calls.
     #[derive(Clone, Debug)]
     pub struct CreateVpcFlowLogsConfig(
         RequestBuilder<crate::model::CreateVpcFlowLogsConfigRequest>,
@@ -1343,7 +1343,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for a VpcFlowLogsService::update_vpc_flow_logs_config call.
+    /// The request builder for [VpcFlowLogsService::update_vpc_flow_logs_config][super::super::client::VpcFlowLogsService::update_vpc_flow_logs_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateVpcFlowLogsConfig(
         RequestBuilder<crate::model::UpdateVpcFlowLogsConfigRequest>,
@@ -1443,7 +1443,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for a VpcFlowLogsService::delete_vpc_flow_logs_config call.
+    /// The request builder for [VpcFlowLogsService::delete_vpc_flow_logs_config][super::super::client::VpcFlowLogsService::delete_vpc_flow_logs_config] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteVpcFlowLogsConfig(
         RequestBuilder<crate::model::DeleteVpcFlowLogsConfigRequest>,
@@ -1525,7 +1525,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for a VpcFlowLogsService::list_locations call.
+    /// The request builder for [VpcFlowLogsService::list_locations][super::super::client::VpcFlowLogsService::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1603,7 +1603,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for a VpcFlowLogsService::get_location call.
+    /// The request builder for [VpcFlowLogsService::get_location][super::super::client::VpcFlowLogsService::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1645,7 +1645,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for a VpcFlowLogsService::set_iam_policy call.
+    /// The request builder for [VpcFlowLogsService::set_iam_policy][super::super::client::VpcFlowLogsService::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1705,7 +1705,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for a VpcFlowLogsService::get_iam_policy call.
+    /// The request builder for [VpcFlowLogsService::get_iam_policy][super::super::client::VpcFlowLogsService::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1756,7 +1756,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for a VpcFlowLogsService::test_iam_permissions call.
+    /// The request builder for [VpcFlowLogsService::test_iam_permissions][super::super::client::VpcFlowLogsService::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1812,7 +1812,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for a VpcFlowLogsService::list_operations call.
+    /// The request builder for [VpcFlowLogsService::list_operations][super::super::client::VpcFlowLogsService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1890,7 +1890,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for a VpcFlowLogsService::get_operation call.
+    /// The request builder for [VpcFlowLogsService::get_operation][super::super::client::VpcFlowLogsService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1935,7 +1935,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for a VpcFlowLogsService::delete_operation call.
+    /// The request builder for [VpcFlowLogsService::delete_operation][super::super::client::VpcFlowLogsService::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1980,7 +1980,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for a VpcFlowLogsService::cancel_operation call.
+    /// The request builder for [VpcFlowLogsService::cancel_operation][super::super::client::VpcFlowLogsService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

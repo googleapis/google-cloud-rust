@@ -67,7 +67,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::list_orchestration_clusters call.
+    /// The request builder for [TelcoAutomation::list_orchestration_clusters][super::super::client::TelcoAutomation::list_orchestration_clusters] calls.
     #[derive(Clone, Debug)]
     pub struct ListOrchestrationClusters(
         RequestBuilder<crate::model::ListOrchestrationClustersRequest>,
@@ -155,7 +155,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::get_orchestration_cluster call.
+    /// The request builder for [TelcoAutomation::get_orchestration_cluster][super::super::client::TelcoAutomation::get_orchestration_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct GetOrchestrationCluster(
         RequestBuilder<crate::model::GetOrchestrationClusterRequest>,
@@ -202,7 +202,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::create_orchestration_cluster call.
+    /// The request builder for [TelcoAutomation::create_orchestration_cluster][super::super::client::TelcoAutomation::create_orchestration_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct CreateOrchestrationCluster(
         RequestBuilder<crate::model::CreateOrchestrationClusterRequest>,
@@ -311,7 +311,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::delete_orchestration_cluster call.
+    /// The request builder for [TelcoAutomation::delete_orchestration_cluster][super::super::client::TelcoAutomation::delete_orchestration_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOrchestrationCluster(
         RequestBuilder<crate::model::DeleteOrchestrationClusterRequest>,
@@ -399,7 +399,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::list_edge_slms call.
+    /// The request builder for [TelcoAutomation::list_edge_slms][super::super::client::TelcoAutomation::list_edge_slms] calls.
     #[derive(Clone, Debug)]
     pub struct ListEdgeSlms(RequestBuilder<crate::model::ListEdgeSlmsRequest>);
 
@@ -480,7 +480,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::get_edge_slm call.
+    /// The request builder for [TelcoAutomation::get_edge_slm][super::super::client::TelcoAutomation::get_edge_slm] calls.
     #[derive(Clone, Debug)]
     pub struct GetEdgeSlm(RequestBuilder<crate::model::GetEdgeSlmRequest>);
 
@@ -522,7 +522,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::create_edge_slm call.
+    /// The request builder for [TelcoAutomation::create_edge_slm][super::super::client::TelcoAutomation::create_edge_slm] calls.
     #[derive(Clone, Debug)]
     pub struct CreateEdgeSlm(RequestBuilder<crate::model::CreateEdgeSlmRequest>);
 
@@ -622,7 +622,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::delete_edge_slm call.
+    /// The request builder for [TelcoAutomation::delete_edge_slm][super::super::client::TelcoAutomation::delete_edge_slm] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteEdgeSlm(RequestBuilder<crate::model::DeleteEdgeSlmRequest>);
 
@@ -705,7 +705,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::create_blueprint call.
+    /// The request builder for [TelcoAutomation::create_blueprint][super::super::client::TelcoAutomation::create_blueprint] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBlueprint(RequestBuilder<crate::model::CreateBlueprintRequest>);
 
@@ -762,7 +762,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::update_blueprint call.
+    /// The request builder for [TelcoAutomation::update_blueprint][super::super::client::TelcoAutomation::update_blueprint] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBlueprint(RequestBuilder<crate::model::UpdateBlueprintRequest>);
 
@@ -816,7 +816,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::get_blueprint call.
+    /// The request builder for [TelcoAutomation::get_blueprint][super::super::client::TelcoAutomation::get_blueprint] calls.
     #[derive(Clone, Debug)]
     pub struct GetBlueprint(RequestBuilder<crate::model::GetBlueprintRequest>);
 
@@ -864,7 +864,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::delete_blueprint call.
+    /// The request builder for [TelcoAutomation::delete_blueprint][super::super::client::TelcoAutomation::delete_blueprint] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBlueprint(RequestBuilder<crate::model::DeleteBlueprintRequest>);
 
@@ -906,7 +906,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::list_blueprints call.
+    /// The request builder for [TelcoAutomation::list_blueprints][super::super::client::TelcoAutomation::list_blueprints] calls.
     #[derive(Clone, Debug)]
     pub struct ListBlueprints(RequestBuilder<crate::model::ListBlueprintsRequest>);
 
@@ -981,7 +981,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::approve_blueprint call.
+    /// The request builder for [TelcoAutomation::approve_blueprint][super::super::client::TelcoAutomation::approve_blueprint] calls.
     #[derive(Clone, Debug)]
     pub struct ApproveBlueprint(RequestBuilder<crate::model::ApproveBlueprintRequest>);
 
@@ -1026,7 +1026,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::propose_blueprint call.
+    /// The request builder for [TelcoAutomation::propose_blueprint][super::super::client::TelcoAutomation::propose_blueprint] calls.
     #[derive(Clone, Debug)]
     pub struct ProposeBlueprint(RequestBuilder<crate::model::ProposeBlueprintRequest>);
 
@@ -1071,7 +1071,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::reject_blueprint call.
+    /// The request builder for [TelcoAutomation::reject_blueprint][super::super::client::TelcoAutomation::reject_blueprint] calls.
     #[derive(Clone, Debug)]
     pub struct RejectBlueprint(RequestBuilder<crate::model::RejectBlueprintRequest>);
 
@@ -1113,7 +1113,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::list_blueprint_revisions call.
+    /// The request builder for [TelcoAutomation::list_blueprint_revisions][super::super::client::TelcoAutomation::list_blueprint_revisions] calls.
     #[derive(Clone, Debug)]
     pub struct ListBlueprintRevisions(RequestBuilder<crate::model::ListBlueprintRevisionsRequest>);
 
@@ -1187,7 +1187,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::search_blueprint_revisions call.
+    /// The request builder for [TelcoAutomation::search_blueprint_revisions][super::super::client::TelcoAutomation::search_blueprint_revisions] calls.
     #[derive(Clone, Debug)]
     pub struct SearchBlueprintRevisions(
         RequestBuilder<crate::model::SearchBlueprintRevisionsRequest>,
@@ -1269,7 +1269,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::search_deployment_revisions call.
+    /// The request builder for [TelcoAutomation::search_deployment_revisions][super::super::client::TelcoAutomation::search_deployment_revisions] calls.
     #[derive(Clone, Debug)]
     pub struct SearchDeploymentRevisions(
         RequestBuilder<crate::model::SearchDeploymentRevisionsRequest>,
@@ -1351,7 +1351,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::discard_blueprint_changes call.
+    /// The request builder for [TelcoAutomation::discard_blueprint_changes][super::super::client::TelcoAutomation::discard_blueprint_changes] calls.
     #[derive(Clone, Debug)]
     pub struct DiscardBlueprintChanges(
         RequestBuilder<crate::model::DiscardBlueprintChangesRequest>,
@@ -1398,7 +1398,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::list_public_blueprints call.
+    /// The request builder for [TelcoAutomation::list_public_blueprints][super::super::client::TelcoAutomation::list_public_blueprints] calls.
     #[derive(Clone, Debug)]
     pub struct ListPublicBlueprints(RequestBuilder<crate::model::ListPublicBlueprintsRequest>);
 
@@ -1470,7 +1470,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::get_public_blueprint call.
+    /// The request builder for [TelcoAutomation::get_public_blueprint][super::super::client::TelcoAutomation::get_public_blueprint] calls.
     #[derive(Clone, Debug)]
     pub struct GetPublicBlueprint(RequestBuilder<crate::model::GetPublicBlueprintRequest>);
 
@@ -1515,7 +1515,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::create_deployment call.
+    /// The request builder for [TelcoAutomation::create_deployment][super::super::client::TelcoAutomation::create_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct CreateDeployment(RequestBuilder<crate::model::CreateDeploymentRequest>);
 
@@ -1575,7 +1575,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::update_deployment call.
+    /// The request builder for [TelcoAutomation::update_deployment][super::super::client::TelcoAutomation::update_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateDeployment(RequestBuilder<crate::model::UpdateDeploymentRequest>);
 
@@ -1632,7 +1632,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::get_deployment call.
+    /// The request builder for [TelcoAutomation::get_deployment][super::super::client::TelcoAutomation::get_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct GetDeployment(RequestBuilder<crate::model::GetDeploymentRequest>);
 
@@ -1680,7 +1680,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::remove_deployment call.
+    /// The request builder for [TelcoAutomation::remove_deployment][super::super::client::TelcoAutomation::remove_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct RemoveDeployment(RequestBuilder<crate::model::RemoveDeploymentRequest>);
 
@@ -1725,7 +1725,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::list_deployments call.
+    /// The request builder for [TelcoAutomation::list_deployments][super::super::client::TelcoAutomation::list_deployments] calls.
     #[derive(Clone, Debug)]
     pub struct ListDeployments(RequestBuilder<crate::model::ListDeploymentsRequest>);
 
@@ -1800,7 +1800,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::list_deployment_revisions call.
+    /// The request builder for [TelcoAutomation::list_deployment_revisions][super::super::client::TelcoAutomation::list_deployment_revisions] calls.
     #[derive(Clone, Debug)]
     pub struct ListDeploymentRevisions(
         RequestBuilder<crate::model::ListDeploymentRevisionsRequest>,
@@ -1876,7 +1876,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::discard_deployment_changes call.
+    /// The request builder for [TelcoAutomation::discard_deployment_changes][super::super::client::TelcoAutomation::discard_deployment_changes] calls.
     #[derive(Clone, Debug)]
     pub struct DiscardDeploymentChanges(
         RequestBuilder<crate::model::DiscardDeploymentChangesRequest>,
@@ -1923,7 +1923,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::apply_deployment call.
+    /// The request builder for [TelcoAutomation::apply_deployment][super::super::client::TelcoAutomation::apply_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct ApplyDeployment(RequestBuilder<crate::model::ApplyDeploymentRequest>);
 
@@ -1965,7 +1965,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::compute_deployment_status call.
+    /// The request builder for [TelcoAutomation::compute_deployment_status][super::super::client::TelcoAutomation::compute_deployment_status] calls.
     #[derive(Clone, Debug)]
     pub struct ComputeDeploymentStatus(
         RequestBuilder<crate::model::ComputeDeploymentStatusRequest>,
@@ -2012,7 +2012,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::rollback_deployment call.
+    /// The request builder for [TelcoAutomation::rollback_deployment][super::super::client::TelcoAutomation::rollback_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct RollbackDeployment(RequestBuilder<crate::model::RollbackDeploymentRequest>);
 
@@ -2063,7 +2063,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::get_hydrated_deployment call.
+    /// The request builder for [TelcoAutomation::get_hydrated_deployment][super::super::client::TelcoAutomation::get_hydrated_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct GetHydratedDeployment(RequestBuilder<crate::model::GetHydratedDeploymentRequest>);
 
@@ -2108,7 +2108,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::list_hydrated_deployments call.
+    /// The request builder for [TelcoAutomation::list_hydrated_deployments][super::super::client::TelcoAutomation::list_hydrated_deployments] calls.
     #[derive(Clone, Debug)]
     pub struct ListHydratedDeployments(
         RequestBuilder<crate::model::ListHydratedDeploymentsRequest>,
@@ -2184,7 +2184,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::update_hydrated_deployment call.
+    /// The request builder for [TelcoAutomation::update_hydrated_deployment][super::super::client::TelcoAutomation::update_hydrated_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateHydratedDeployment(
         RequestBuilder<crate::model::UpdateHydratedDeploymentRequest>,
@@ -2245,7 +2245,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::apply_hydrated_deployment call.
+    /// The request builder for [TelcoAutomation::apply_hydrated_deployment][super::super::client::TelcoAutomation::apply_hydrated_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct ApplyHydratedDeployment(
         RequestBuilder<crate::model::ApplyHydratedDeploymentRequest>,
@@ -2292,7 +2292,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::list_locations call.
+    /// The request builder for [TelcoAutomation::list_locations][super::super::client::TelcoAutomation::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -2370,7 +2370,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::get_location call.
+    /// The request builder for [TelcoAutomation::get_location][super::super::client::TelcoAutomation::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -2412,7 +2412,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::list_operations call.
+    /// The request builder for [TelcoAutomation::list_operations][super::super::client::TelcoAutomation::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2490,7 +2490,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::get_operation call.
+    /// The request builder for [TelcoAutomation::get_operation][super::super::client::TelcoAutomation::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2535,7 +2535,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::delete_operation call.
+    /// The request builder for [TelcoAutomation::delete_operation][super::super::client::TelcoAutomation::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2580,7 +2580,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for a TelcoAutomation::cancel_operation call.
+    /// The request builder for [TelcoAutomation::cancel_operation][super::super::client::TelcoAutomation::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

@@ -67,7 +67,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::list_data_exchanges call.
+    /// The request builder for [AnalyticsHubService::list_data_exchanges][super::super::client::AnalyticsHubService::list_data_exchanges] calls.
     #[derive(Clone, Debug)]
     pub struct ListDataExchanges(RequestBuilder<crate::model::ListDataExchangesRequest>);
 
@@ -139,7 +139,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::list_org_data_exchanges call.
+    /// The request builder for [AnalyticsHubService::list_org_data_exchanges][super::super::client::AnalyticsHubService::list_org_data_exchanges] calls.
     #[derive(Clone, Debug)]
     pub struct ListOrgDataExchanges(RequestBuilder<crate::model::ListOrgDataExchangesRequest>);
 
@@ -211,7 +211,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::get_data_exchange call.
+    /// The request builder for [AnalyticsHubService::get_data_exchange][super::super::client::AnalyticsHubService::get_data_exchange] calls.
     #[derive(Clone, Debug)]
     pub struct GetDataExchange(RequestBuilder<crate::model::GetDataExchangeRequest>);
 
@@ -253,7 +253,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::create_data_exchange call.
+    /// The request builder for [AnalyticsHubService::create_data_exchange][super::super::client::AnalyticsHubService::create_data_exchange] calls.
     #[derive(Clone, Debug)]
     pub struct CreateDataExchange(RequestBuilder<crate::model::CreateDataExchangeRequest>);
 
@@ -313,7 +313,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::update_data_exchange call.
+    /// The request builder for [AnalyticsHubService::update_data_exchange][super::super::client::AnalyticsHubService::update_data_exchange] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateDataExchange(RequestBuilder<crate::model::UpdateDataExchangeRequest>);
 
@@ -370,7 +370,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::delete_data_exchange call.
+    /// The request builder for [AnalyticsHubService::delete_data_exchange][super::super::client::AnalyticsHubService::delete_data_exchange] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteDataExchange(RequestBuilder<crate::model::DeleteDataExchangeRequest>);
 
@@ -415,7 +415,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::list_listings call.
+    /// The request builder for [AnalyticsHubService::list_listings][super::super::client::AnalyticsHubService::list_listings] calls.
     #[derive(Clone, Debug)]
     pub struct ListListings(RequestBuilder<crate::model::ListListingsRequest>);
 
@@ -484,7 +484,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::get_listing call.
+    /// The request builder for [AnalyticsHubService::get_listing][super::super::client::AnalyticsHubService::get_listing] calls.
     #[derive(Clone, Debug)]
     pub struct GetListing(RequestBuilder<crate::model::GetListingRequest>);
 
@@ -526,7 +526,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::create_listing call.
+    /// The request builder for [AnalyticsHubService::create_listing][super::super::client::AnalyticsHubService::create_listing] calls.
     #[derive(Clone, Debug)]
     pub struct CreateListing(RequestBuilder<crate::model::CreateListingRequest>);
 
@@ -583,7 +583,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::update_listing call.
+    /// The request builder for [AnalyticsHubService::update_listing][super::super::client::AnalyticsHubService::update_listing] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateListing(RequestBuilder<crate::model::UpdateListingRequest>);
 
@@ -637,7 +637,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::delete_listing call.
+    /// The request builder for [AnalyticsHubService::delete_listing][super::super::client::AnalyticsHubService::delete_listing] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteListing(RequestBuilder<crate::model::DeleteListingRequest>);
 
@@ -679,7 +679,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::subscribe_listing call.
+    /// The request builder for [AnalyticsHubService::subscribe_listing][super::super::client::AnalyticsHubService::subscribe_listing] calls.
     #[derive(Clone, Debug)]
     pub struct SubscribeListing(RequestBuilder<crate::model::SubscribeListingRequest>);
 
@@ -735,7 +735,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::subscribe_data_exchange call.
+    /// The request builder for [AnalyticsHubService::subscribe_data_exchange][super::super::client::AnalyticsHubService::subscribe_data_exchange] calls.
     #[derive(Clone, Debug)]
     pub struct SubscribeDataExchange(RequestBuilder<crate::model::SubscribeDataExchangeRequest>);
 
@@ -850,7 +850,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::refresh_subscription call.
+    /// The request builder for [AnalyticsHubService::refresh_subscription][super::super::client::AnalyticsHubService::refresh_subscription] calls.
     #[derive(Clone, Debug)]
     pub struct RefreshSubscription(RequestBuilder<crate::model::RefreshSubscriptionRequest>);
 
@@ -936,7 +936,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::get_subscription call.
+    /// The request builder for [AnalyticsHubService::get_subscription][super::super::client::AnalyticsHubService::get_subscription] calls.
     #[derive(Clone, Debug)]
     pub struct GetSubscription(RequestBuilder<crate::model::GetSubscriptionRequest>);
 
@@ -978,7 +978,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::list_subscriptions call.
+    /// The request builder for [AnalyticsHubService::list_subscriptions][super::super::client::AnalyticsHubService::list_subscriptions] calls.
     #[derive(Clone, Debug)]
     pub struct ListSubscriptions(RequestBuilder<crate::model::ListSubscriptionsRequest>);
 
@@ -1056,7 +1056,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::list_shared_resource_subscriptions call.
+    /// The request builder for [AnalyticsHubService::list_shared_resource_subscriptions][super::super::client::AnalyticsHubService::list_shared_resource_subscriptions] calls.
     #[derive(Clone, Debug)]
     pub struct ListSharedResourceSubscriptions(
         RequestBuilder<crate::model::ListSharedResourceSubscriptionsRequest>,
@@ -1138,7 +1138,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::revoke_subscription call.
+    /// The request builder for [AnalyticsHubService::revoke_subscription][super::super::client::AnalyticsHubService::revoke_subscription] calls.
     #[derive(Clone, Debug)]
     pub struct RevokeSubscription(RequestBuilder<crate::model::RevokeSubscriptionRequest>);
 
@@ -1183,7 +1183,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::delete_subscription call.
+    /// The request builder for [AnalyticsHubService::delete_subscription][super::super::client::AnalyticsHubService::delete_subscription] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteSubscription(RequestBuilder<crate::model::DeleteSubscriptionRequest>);
 
@@ -1263,7 +1263,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::get_iam_policy call.
+    /// The request builder for [AnalyticsHubService::get_iam_policy][super::super::client::AnalyticsHubService::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1314,7 +1314,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::set_iam_policy call.
+    /// The request builder for [AnalyticsHubService::set_iam_policy][super::super::client::AnalyticsHubService::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1374,7 +1374,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::test_iam_permissions call.
+    /// The request builder for [AnalyticsHubService::test_iam_permissions][super::super::client::AnalyticsHubService::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1430,7 +1430,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for a AnalyticsHubService::get_operation call.
+    /// The request builder for [AnalyticsHubService::get_operation][super::super::client::AnalyticsHubService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

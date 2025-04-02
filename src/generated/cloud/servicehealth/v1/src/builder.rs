@@ -67,7 +67,7 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for a ServiceHealth::list_events call.
+    /// The request builder for [ServiceHealth::list_events][super::super::client::ServiceHealth::list_events] calls.
     #[derive(Clone, Debug)]
     pub struct ListEvents(RequestBuilder<crate::model::ListEventsRequest>);
 
@@ -148,7 +148,7 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for a ServiceHealth::get_event call.
+    /// The request builder for [ServiceHealth::get_event][super::super::client::ServiceHealth::get_event] calls.
     #[derive(Clone, Debug)]
     pub struct GetEvent(RequestBuilder<crate::model::GetEventRequest>);
 
@@ -190,7 +190,7 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for a ServiceHealth::list_organization_events call.
+    /// The request builder for [ServiceHealth::list_organization_events][super::super::client::ServiceHealth::list_organization_events] calls.
     #[derive(Clone, Debug)]
     pub struct ListOrganizationEvents(RequestBuilder<crate::model::ListOrganizationEventsRequest>);
 
@@ -276,7 +276,7 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for a ServiceHealth::get_organization_event call.
+    /// The request builder for [ServiceHealth::get_organization_event][super::super::client::ServiceHealth::get_organization_event] calls.
     #[derive(Clone, Debug)]
     pub struct GetOrganizationEvent(RequestBuilder<crate::model::GetOrganizationEventRequest>);
 
@@ -321,7 +321,7 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for a ServiceHealth::list_organization_impacts call.
+    /// The request builder for [ServiceHealth::list_organization_impacts][super::super::client::ServiceHealth::list_organization_impacts] calls.
     #[derive(Clone, Debug)]
     pub struct ListOrganizationImpacts(
         RequestBuilder<crate::model::ListOrganizationImpactsRequest>,
@@ -403,7 +403,7 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for a ServiceHealth::get_organization_impact call.
+    /// The request builder for [ServiceHealth::get_organization_impact][super::super::client::ServiceHealth::get_organization_impact] calls.
     #[derive(Clone, Debug)]
     pub struct GetOrganizationImpact(RequestBuilder<crate::model::GetOrganizationImpactRequest>);
 
@@ -448,7 +448,7 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for a ServiceHealth::list_locations call.
+    /// The request builder for [ServiceHealth::list_locations][super::super::client::ServiceHealth::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -526,7 +526,7 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for a ServiceHealth::get_location call.
+    /// The request builder for [ServiceHealth::get_location][super::super::client::ServiceHealth::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 

@@ -67,7 +67,7 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for a GSuiteAddOns::get_authorization call.
+    /// The request builder for [GSuiteAddOns::get_authorization][super::super::client::GSuiteAddOns::get_authorization] calls.
     #[derive(Clone, Debug)]
     pub struct GetAuthorization(RequestBuilder<crate::model::GetAuthorizationRequest>);
 
@@ -112,7 +112,7 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for a GSuiteAddOns::create_deployment call.
+    /// The request builder for [GSuiteAddOns::create_deployment][super::super::client::GSuiteAddOns::create_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct CreateDeployment(RequestBuilder<crate::model::CreateDeploymentRequest>);
 
@@ -172,7 +172,7 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for a GSuiteAddOns::replace_deployment call.
+    /// The request builder for [GSuiteAddOns::replace_deployment][super::super::client::GSuiteAddOns::replace_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct ReplaceDeployment(RequestBuilder<crate::model::ReplaceDeploymentRequest>);
 
@@ -220,7 +220,7 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for a GSuiteAddOns::get_deployment call.
+    /// The request builder for [GSuiteAddOns::get_deployment][super::super::client::GSuiteAddOns::get_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct GetDeployment(RequestBuilder<crate::model::GetDeploymentRequest>);
 
@@ -262,7 +262,7 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for a GSuiteAddOns::list_deployments call.
+    /// The request builder for [GSuiteAddOns::list_deployments][super::super::client::GSuiteAddOns::list_deployments] calls.
     #[derive(Clone, Debug)]
     pub struct ListDeployments(RequestBuilder<crate::model::ListDeploymentsRequest>);
 
@@ -331,7 +331,7 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for a GSuiteAddOns::delete_deployment call.
+    /// The request builder for [GSuiteAddOns::delete_deployment][super::super::client::GSuiteAddOns::delete_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteDeployment(RequestBuilder<crate::model::DeleteDeploymentRequest>);
 
@@ -382,7 +382,7 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for a GSuiteAddOns::install_deployment call.
+    /// The request builder for [GSuiteAddOns::install_deployment][super::super::client::GSuiteAddOns::install_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct InstallDeployment(RequestBuilder<crate::model::InstallDeploymentRequest>);
 
@@ -427,7 +427,7 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for a GSuiteAddOns::uninstall_deployment call.
+    /// The request builder for [GSuiteAddOns::uninstall_deployment][super::super::client::GSuiteAddOns::uninstall_deployment] calls.
     #[derive(Clone, Debug)]
     pub struct UninstallDeployment(RequestBuilder<crate::model::UninstallDeploymentRequest>);
 
@@ -472,7 +472,7 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for a GSuiteAddOns::get_install_status call.
+    /// The request builder for [GSuiteAddOns::get_install_status][super::super::client::GSuiteAddOns::get_install_status] calls.
     #[derive(Clone, Debug)]
     pub struct GetInstallStatus(RequestBuilder<crate::model::GetInstallStatusRequest>);
 

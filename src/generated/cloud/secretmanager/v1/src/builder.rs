@@ -69,7 +69,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for a SecretManagerService::list_secrets call.
+    /// The request builder for [SecretManagerService::list_secrets][super::super::client::SecretManagerService::list_secrets] calls.
     #[derive(Clone, Debug)]
     pub struct ListSecrets(RequestBuilder<crate::model::ListSecretsRequest>);
 
@@ -146,7 +146,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for a SecretManagerService::create_secret call.
+    /// The request builder for [SecretManagerService::create_secret][super::super::client::SecretManagerService::create_secret] calls.
     #[derive(Clone, Debug)]
     pub struct CreateSecret(RequestBuilder<crate::model::CreateSecretRequest>);
 
@@ -205,7 +205,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for a SecretManagerService::add_secret_version call.
+    /// The request builder for [SecretManagerService::add_secret_version][super::super::client::SecretManagerService::add_secret_version] calls.
     #[derive(Clone, Debug)]
     pub struct AddSecretVersion(RequestBuilder<crate::model::AddSecretVersionRequest>);
 
@@ -261,7 +261,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for a SecretManagerService::get_secret call.
+    /// The request builder for [SecretManagerService::get_secret][super::super::client::SecretManagerService::get_secret] calls.
     #[derive(Clone, Debug)]
     pub struct GetSecret(RequestBuilder<crate::model::GetSecretRequest>);
 
@@ -305,7 +305,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for a SecretManagerService::update_secret call.
+    /// The request builder for [SecretManagerService::update_secret][super::super::client::SecretManagerService::update_secret] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateSecret(RequestBuilder<crate::model::UpdateSecretRequest>);
 
@@ -361,7 +361,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for a SecretManagerService::delete_secret call.
+    /// The request builder for [SecretManagerService::delete_secret][super::super::client::SecretManagerService::delete_secret] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteSecret(RequestBuilder<crate::model::DeleteSecretRequest>);
 
@@ -411,7 +411,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for a SecretManagerService::list_secret_versions call.
+    /// The request builder for [SecretManagerService::list_secret_versions][super::super::client::SecretManagerService::list_secret_versions] calls.
     #[derive(Clone, Debug)]
     pub struct ListSecretVersions(RequestBuilder<crate::model::ListSecretVersionsRequest>);
 
@@ -491,7 +491,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for a SecretManagerService::get_secret_version call.
+    /// The request builder for [SecretManagerService::get_secret_version][super::super::client::SecretManagerService::get_secret_version] calls.
     #[derive(Clone, Debug)]
     pub struct GetSecretVersion(RequestBuilder<crate::model::GetSecretVersionRequest>);
 
@@ -538,7 +538,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for a SecretManagerService::access_secret_version call.
+    /// The request builder for [SecretManagerService::access_secret_version][super::super::client::SecretManagerService::access_secret_version] calls.
     #[derive(Clone, Debug)]
     pub struct AccessSecretVersion(RequestBuilder<crate::model::AccessSecretVersionRequest>);
 
@@ -585,7 +585,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for a SecretManagerService::disable_secret_version call.
+    /// The request builder for [SecretManagerService::disable_secret_version][super::super::client::SecretManagerService::disable_secret_version] calls.
     #[derive(Clone, Debug)]
     pub struct DisableSecretVersion(RequestBuilder<crate::model::DisableSecretVersionRequest>);
 
@@ -638,7 +638,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for a SecretManagerService::enable_secret_version call.
+    /// The request builder for [SecretManagerService::enable_secret_version][super::super::client::SecretManagerService::enable_secret_version] calls.
     #[derive(Clone, Debug)]
     pub struct EnableSecretVersion(RequestBuilder<crate::model::EnableSecretVersionRequest>);
 
@@ -691,7 +691,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for a SecretManagerService::destroy_secret_version call.
+    /// The request builder for [SecretManagerService::destroy_secret_version][super::super::client::SecretManagerService::destroy_secret_version] calls.
     #[derive(Clone, Debug)]
     pub struct DestroySecretVersion(RequestBuilder<crate::model::DestroySecretVersionRequest>);
 
@@ -744,7 +744,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for a SecretManagerService::set_iam_policy call.
+    /// The request builder for [SecretManagerService::set_iam_policy][super::super::client::SecretManagerService::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -806,7 +806,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for a SecretManagerService::get_iam_policy call.
+    /// The request builder for [SecretManagerService::get_iam_policy][super::super::client::SecretManagerService::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -859,7 +859,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for a SecretManagerService::test_iam_permissions call.
+    /// The request builder for [SecretManagerService::test_iam_permissions][super::super::client::SecretManagerService::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -917,7 +917,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for a SecretManagerService::list_locations call.
+    /// The request builder for [SecretManagerService::list_locations][super::super::client::SecretManagerService::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -997,7 +997,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for a SecretManagerService::get_location call.
+    /// The request builder for [SecretManagerService::get_location][super::super::client::SecretManagerService::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 

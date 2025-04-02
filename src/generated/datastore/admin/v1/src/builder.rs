@@ -67,7 +67,7 @@ pub mod datastore_admin {
         }
     }
 
-    /// The request builder for a DatastoreAdmin::export_entities call.
+    /// The request builder for [DatastoreAdmin::export_entities][super::super::client::DatastoreAdmin::export_entities] calls.
     #[derive(Clone, Debug)]
     pub struct ExportEntities(RequestBuilder<crate::model::ExportEntitiesRequest>);
 
@@ -176,7 +176,7 @@ pub mod datastore_admin {
         }
     }
 
-    /// The request builder for a DatastoreAdmin::import_entities call.
+    /// The request builder for [DatastoreAdmin::import_entities][super::super::client::DatastoreAdmin::import_entities] calls.
     #[derive(Clone, Debug)]
     pub struct ImportEntities(RequestBuilder<crate::model::ImportEntitiesRequest>);
 
@@ -279,7 +279,7 @@ pub mod datastore_admin {
         }
     }
 
-    /// The request builder for a DatastoreAdmin::create_index call.
+    /// The request builder for [DatastoreAdmin::create_index][super::super::client::DatastoreAdmin::create_index] calls.
     #[derive(Clone, Debug)]
     pub struct CreateIndex(RequestBuilder<crate::model::CreateIndexRequest>);
 
@@ -368,7 +368,7 @@ pub mod datastore_admin {
         }
     }
 
-    /// The request builder for a DatastoreAdmin::delete_index call.
+    /// The request builder for [DatastoreAdmin::delete_index][super::super::client::DatastoreAdmin::delete_index] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteIndex(RequestBuilder<crate::model::DeleteIndexRequest>);
 
@@ -454,7 +454,7 @@ pub mod datastore_admin {
         }
     }
 
-    /// The request builder for a DatastoreAdmin::get_index call.
+    /// The request builder for [DatastoreAdmin::get_index][super::super::client::DatastoreAdmin::get_index] calls.
     #[derive(Clone, Debug)]
     pub struct GetIndex(RequestBuilder<crate::model::GetIndexRequest>);
 
@@ -502,7 +502,7 @@ pub mod datastore_admin {
         }
     }
 
-    /// The request builder for a DatastoreAdmin::list_indexes call.
+    /// The request builder for [DatastoreAdmin::list_indexes][super::super::client::DatastoreAdmin::list_indexes] calls.
     #[derive(Clone, Debug)]
     pub struct ListIndexes(RequestBuilder<crate::model::ListIndexesRequest>);
 
@@ -577,7 +577,7 @@ pub mod datastore_admin {
         }
     }
 
-    /// The request builder for a DatastoreAdmin::list_operations call.
+    /// The request builder for [DatastoreAdmin::list_operations][super::super::client::DatastoreAdmin::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -655,7 +655,7 @@ pub mod datastore_admin {
         }
     }
 
-    /// The request builder for a DatastoreAdmin::get_operation call.
+    /// The request builder for [DatastoreAdmin::get_operation][super::super::client::DatastoreAdmin::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -700,7 +700,7 @@ pub mod datastore_admin {
         }
     }
 
-    /// The request builder for a DatastoreAdmin::delete_operation call.
+    /// The request builder for [DatastoreAdmin::delete_operation][super::super::client::DatastoreAdmin::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -745,7 +745,7 @@ pub mod datastore_admin {
         }
     }
 
-    /// The request builder for a DatastoreAdmin::cancel_operation call.
+    /// The request builder for [DatastoreAdmin::cancel_operation][super::super::client::DatastoreAdmin::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

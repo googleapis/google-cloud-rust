@@ -69,7 +69,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for a StorageTransferService::get_google_service_account call.
+    /// The request builder for [StorageTransferService::get_google_service_account][super::super::client::StorageTransferService::get_google_service_account] calls.
     #[derive(Clone, Debug)]
     pub struct GetGoogleServiceAccount(
         RequestBuilder<crate::model::GetGoogleServiceAccountRequest>,
@@ -118,7 +118,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for a StorageTransferService::create_transfer_job call.
+    /// The request builder for [StorageTransferService::create_transfer_job][super::super::client::StorageTransferService::create_transfer_job] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTransferJob(RequestBuilder<crate::model::CreateTransferJobRequest>);
 
@@ -168,7 +168,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for a StorageTransferService::update_transfer_job call.
+    /// The request builder for [StorageTransferService::update_transfer_job][super::super::client::StorageTransferService::update_transfer_job] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateTransferJob(RequestBuilder<crate::model::UpdateTransferJobRequest>);
 
@@ -239,7 +239,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for a StorageTransferService::get_transfer_job call.
+    /// The request builder for [StorageTransferService::get_transfer_job][super::super::client::StorageTransferService::get_transfer_job] calls.
     #[derive(Clone, Debug)]
     pub struct GetTransferJob(RequestBuilder<crate::model::GetTransferJobRequest>);
 
@@ -289,7 +289,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for a StorageTransferService::list_transfer_jobs call.
+    /// The request builder for [StorageTransferService::list_transfer_jobs][super::super::client::StorageTransferService::list_transfer_jobs] calls.
     #[derive(Clone, Debug)]
     pub struct ListTransferJobs(RequestBuilder<crate::model::ListTransferJobsRequest>);
 
@@ -363,7 +363,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for a StorageTransferService::pause_transfer_operation call.
+    /// The request builder for [StorageTransferService::pause_transfer_operation][super::super::client::StorageTransferService::pause_transfer_operation] calls.
     #[derive(Clone, Debug)]
     pub struct PauseTransferOperation(RequestBuilder<crate::model::PauseTransferOperationRequest>);
 
@@ -410,7 +410,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for a StorageTransferService::resume_transfer_operation call.
+    /// The request builder for [StorageTransferService::resume_transfer_operation][super::super::client::StorageTransferService::resume_transfer_operation] calls.
     #[derive(Clone, Debug)]
     pub struct ResumeTransferOperation(
         RequestBuilder<crate::model::ResumeTransferOperationRequest>,
@@ -459,7 +459,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for a StorageTransferService::run_transfer_job call.
+    /// The request builder for [StorageTransferService::run_transfer_job][super::super::client::StorageTransferService::run_transfer_job] calls.
     #[derive(Clone, Debug)]
     pub struct RunTransferJob(RequestBuilder<crate::model::RunTransferJobRequest>);
 
@@ -544,7 +544,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for a StorageTransferService::delete_transfer_job call.
+    /// The request builder for [StorageTransferService::delete_transfer_job][super::super::client::StorageTransferService::delete_transfer_job] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteTransferJob(RequestBuilder<crate::model::DeleteTransferJobRequest>);
 
@@ -597,7 +597,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for a StorageTransferService::create_agent_pool call.
+    /// The request builder for [StorageTransferService::create_agent_pool][super::super::client::StorageTransferService::create_agent_pool] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAgentPool(RequestBuilder<crate::model::CreateAgentPoolRequest>);
 
@@ -656,7 +656,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for a StorageTransferService::update_agent_pool call.
+    /// The request builder for [StorageTransferService::update_agent_pool][super::super::client::StorageTransferService::update_agent_pool] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateAgentPool(RequestBuilder<crate::model::UpdateAgentPoolRequest>);
 
@@ -712,7 +712,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for a StorageTransferService::get_agent_pool call.
+    /// The request builder for [StorageTransferService::get_agent_pool][super::super::client::StorageTransferService::get_agent_pool] calls.
     #[derive(Clone, Debug)]
     pub struct GetAgentPool(RequestBuilder<crate::model::GetAgentPoolRequest>);
 
@@ -756,7 +756,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for a StorageTransferService::list_agent_pools call.
+    /// The request builder for [StorageTransferService::list_agent_pools][super::super::client::StorageTransferService::list_agent_pools] calls.
     #[derive(Clone, Debug)]
     pub struct ListAgentPools(RequestBuilder<crate::model::ListAgentPoolsRequest>);
 
@@ -833,7 +833,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for a StorageTransferService::delete_agent_pool call.
+    /// The request builder for [StorageTransferService::delete_agent_pool][super::super::client::StorageTransferService::delete_agent_pool] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAgentPool(RequestBuilder<crate::model::DeleteAgentPoolRequest>);
 
@@ -877,7 +877,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for a StorageTransferService::list_operations call.
+    /// The request builder for [StorageTransferService::list_operations][super::super::client::StorageTransferService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -957,7 +957,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for a StorageTransferService::get_operation call.
+    /// The request builder for [StorageTransferService::get_operation][super::super::client::StorageTransferService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1004,7 +1004,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for a StorageTransferService::cancel_operation call.
+    /// The request builder for [StorageTransferService::cancel_operation][super::super::client::StorageTransferService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

@@ -67,7 +67,7 @@ pub mod policy_bindings {
         }
     }
 
-    /// The request builder for a PolicyBindings::create_policy_binding call.
+    /// The request builder for [PolicyBindings::create_policy_binding][super::super::client::PolicyBindings::create_policy_binding] calls.
     #[derive(Clone, Debug)]
     pub struct CreatePolicyBinding(RequestBuilder<crate::model::CreatePolicyBindingRequest>);
 
@@ -172,7 +172,7 @@ pub mod policy_bindings {
         }
     }
 
-    /// The request builder for a PolicyBindings::get_policy_binding call.
+    /// The request builder for [PolicyBindings::get_policy_binding][super::super::client::PolicyBindings::get_policy_binding] calls.
     #[derive(Clone, Debug)]
     pub struct GetPolicyBinding(RequestBuilder<crate::model::GetPolicyBindingRequest>);
 
@@ -217,7 +217,7 @@ pub mod policy_bindings {
         }
     }
 
-    /// The request builder for a PolicyBindings::update_policy_binding call.
+    /// The request builder for [PolicyBindings::update_policy_binding][super::super::client::PolicyBindings::update_policy_binding] calls.
     #[derive(Clone, Debug)]
     pub struct UpdatePolicyBinding(RequestBuilder<crate::model::UpdatePolicyBindingRequest>);
 
@@ -319,7 +319,7 @@ pub mod policy_bindings {
         }
     }
 
-    /// The request builder for a PolicyBindings::delete_policy_binding call.
+    /// The request builder for [PolicyBindings::delete_policy_binding][super::super::client::PolicyBindings::delete_policy_binding] calls.
     #[derive(Clone, Debug)]
     pub struct DeletePolicyBinding(RequestBuilder<crate::model::DeletePolicyBindingRequest>);
 
@@ -411,7 +411,7 @@ pub mod policy_bindings {
         }
     }
 
-    /// The request builder for a PolicyBindings::list_policy_bindings call.
+    /// The request builder for [PolicyBindings::list_policy_bindings][super::super::client::PolicyBindings::list_policy_bindings] calls.
     #[derive(Clone, Debug)]
     pub struct ListPolicyBindings(RequestBuilder<crate::model::ListPolicyBindingsRequest>);
 
@@ -489,7 +489,7 @@ pub mod policy_bindings {
         }
     }
 
-    /// The request builder for a PolicyBindings::search_target_policy_bindings call.
+    /// The request builder for [PolicyBindings::search_target_policy_bindings][super::super::client::PolicyBindings::search_target_policy_bindings] calls.
     #[derive(Clone, Debug)]
     pub struct SearchTargetPolicyBindings(
         RequestBuilder<crate::model::SearchTargetPolicyBindingsRequest>,
@@ -571,7 +571,7 @@ pub mod policy_bindings {
         }
     }
 
-    /// The request builder for a PolicyBindings::get_operation call.
+    /// The request builder for [PolicyBindings::get_operation][super::super::client::PolicyBindings::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -672,7 +672,7 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    /// The request builder for a PrincipalAccessBoundaryPolicies::create_principal_access_boundary_policy call.
+    /// The request builder for [PrincipalAccessBoundaryPolicies::create_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::create_principal_access_boundary_policy] calls.
     #[derive(Clone, Debug)]
     pub struct CreatePrincipalAccessBoundaryPolicy(
         RequestBuilder<crate::model::CreatePrincipalAccessBoundaryPolicyRequest>,
@@ -788,7 +788,7 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    /// The request builder for a PrincipalAccessBoundaryPolicies::get_principal_access_boundary_policy call.
+    /// The request builder for [PrincipalAccessBoundaryPolicies::get_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::get_principal_access_boundary_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetPrincipalAccessBoundaryPolicy(
         RequestBuilder<crate::model::GetPrincipalAccessBoundaryPolicyRequest>,
@@ -837,7 +837,7 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    /// The request builder for a PrincipalAccessBoundaryPolicies::update_principal_access_boundary_policy call.
+    /// The request builder for [PrincipalAccessBoundaryPolicies::update_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::update_principal_access_boundary_policy] calls.
     #[derive(Clone, Debug)]
     pub struct UpdatePrincipalAccessBoundaryPolicy(
         RequestBuilder<crate::model::UpdatePrincipalAccessBoundaryPolicyRequest>,
@@ -947,7 +947,7 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    /// The request builder for a PrincipalAccessBoundaryPolicies::delete_principal_access_boundary_policy call.
+    /// The request builder for [PrincipalAccessBoundaryPolicies::delete_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::delete_principal_access_boundary_policy] calls.
     #[derive(Clone, Debug)]
     pub struct DeletePrincipalAccessBoundaryPolicy(
         RequestBuilder<crate::model::DeletePrincipalAccessBoundaryPolicyRequest>,
@@ -1049,7 +1049,7 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    /// The request builder for a PrincipalAccessBoundaryPolicies::list_principal_access_boundary_policies call.
+    /// The request builder for [PrincipalAccessBoundaryPolicies::list_principal_access_boundary_policies][super::super::client::PrincipalAccessBoundaryPolicies::list_principal_access_boundary_policies] calls.
     #[derive(Clone, Debug)]
     pub struct ListPrincipalAccessBoundaryPolicies(
         RequestBuilder<crate::model::ListPrincipalAccessBoundaryPoliciesRequest>,
@@ -1129,7 +1129,7 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    /// The request builder for a PrincipalAccessBoundaryPolicies::search_principal_access_boundary_policy_bindings call.
+    /// The request builder for [PrincipalAccessBoundaryPolicies::search_principal_access_boundary_policy_bindings][super::super::client::PrincipalAccessBoundaryPolicies::search_principal_access_boundary_policy_bindings] calls.
     #[derive(Clone, Debug)]
     pub struct SearchPrincipalAccessBoundaryPolicyBindings(
         RequestBuilder<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest>,
@@ -1211,7 +1211,7 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    /// The request builder for a PrincipalAccessBoundaryPolicies::get_operation call.
+    /// The request builder for [PrincipalAccessBoundaryPolicies::get_operation][super::super::client::PrincipalAccessBoundaryPolicies::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

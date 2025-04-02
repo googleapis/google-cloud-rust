@@ -67,7 +67,7 @@ pub mod fleet_routing {
         }
     }
 
-    /// The request builder for a FleetRouting::optimize_tours call.
+    /// The request builder for [FleetRouting::optimize_tours][super::super::client::FleetRouting::optimize_tours] calls.
     #[derive(Clone, Debug)]
     pub struct OptimizeTours(RequestBuilder<crate::model::OptimizeToursRequest>);
 
@@ -250,7 +250,7 @@ pub mod fleet_routing {
         }
     }
 
-    /// The request builder for a FleetRouting::batch_optimize_tours call.
+    /// The request builder for [FleetRouting::batch_optimize_tours][super::super::client::FleetRouting::batch_optimize_tours] calls.
     #[derive(Clone, Debug)]
     pub struct BatchOptimizeTours(RequestBuilder<crate::model::BatchOptimizeToursRequest>);
 
@@ -347,7 +347,7 @@ pub mod fleet_routing {
         }
     }
 
-    /// The request builder for a FleetRouting::get_operation call.
+    /// The request builder for [FleetRouting::get_operation][super::super::client::FleetRouting::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

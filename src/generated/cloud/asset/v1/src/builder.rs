@@ -67,7 +67,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::export_assets call.
+    /// The request builder for [AssetService::export_assets][super::super::client::AssetService::export_assets] calls.
     #[derive(Clone, Debug)]
     pub struct ExportAssets(RequestBuilder<crate::model::ExportAssetsRequest>);
 
@@ -193,7 +193,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::list_assets call.
+    /// The request builder for [AssetService::list_assets][super::super::client::AssetService::list_assets] calls.
     #[derive(Clone, Debug)]
     pub struct ListAssets(RequestBuilder<crate::model::ListAssetsRequest>);
 
@@ -296,7 +296,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::batch_get_assets_history call.
+    /// The request builder for [AssetService::batch_get_assets_history][super::super::client::AssetService::batch_get_assets_history] calls.
     #[derive(Clone, Debug)]
     pub struct BatchGetAssetsHistory(RequestBuilder<crate::model::BatchGetAssetsHistoryRequest>);
 
@@ -378,7 +378,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::create_feed call.
+    /// The request builder for [AssetService::create_feed][super::super::client::AssetService::create_feed] calls.
     #[derive(Clone, Debug)]
     pub struct CreateFeed(RequestBuilder<crate::model::CreateFeedRequest>);
 
@@ -432,7 +432,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::get_feed call.
+    /// The request builder for [AssetService::get_feed][super::super::client::AssetService::get_feed] calls.
     #[derive(Clone, Debug)]
     pub struct GetFeed(RequestBuilder<crate::model::GetFeedRequest>);
 
@@ -474,7 +474,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::list_feeds call.
+    /// The request builder for [AssetService::list_feeds][super::super::client::AssetService::list_feeds] calls.
     #[derive(Clone, Debug)]
     pub struct ListFeeds(RequestBuilder<crate::model::ListFeedsRequest>);
 
@@ -516,7 +516,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::update_feed call.
+    /// The request builder for [AssetService::update_feed][super::super::client::AssetService::update_feed] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateFeed(RequestBuilder<crate::model::UpdateFeedRequest>);
 
@@ -567,7 +567,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::delete_feed call.
+    /// The request builder for [AssetService::delete_feed][super::super::client::AssetService::delete_feed] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteFeed(RequestBuilder<crate::model::DeleteFeedRequest>);
 
@@ -609,7 +609,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::search_all_resources call.
+    /// The request builder for [AssetService::search_all_resources][super::super::client::AssetService::search_all_resources] calls.
     #[derive(Clone, Debug)]
     pub struct SearchAllResources(RequestBuilder<crate::model::SearchAllResourcesRequest>);
 
@@ -710,7 +710,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::search_all_iam_policies call.
+    /// The request builder for [AssetService::search_all_iam_policies][super::super::client::AssetService::search_all_iam_policies] calls.
     #[derive(Clone, Debug)]
     pub struct SearchAllIamPolicies(RequestBuilder<crate::model::SearchAllIamPoliciesRequest>);
 
@@ -805,7 +805,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::analyze_iam_policy call.
+    /// The request builder for [AssetService::analyze_iam_policy][super::super::client::AssetService::analyze_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct AnalyzeIamPolicy(RequestBuilder<crate::model::AnalyzeIamPolicyRequest>);
 
@@ -870,7 +870,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::analyze_iam_policy_longrunning call.
+    /// The request builder for [AssetService::analyze_iam_policy_longrunning][super::super::client::AssetService::analyze_iam_policy_longrunning] calls.
     #[derive(Clone, Debug)]
     pub struct AnalyzeIamPolicyLongrunning(
         RequestBuilder<crate::model::AnalyzeIamPolicyLongrunningRequest>,
@@ -982,7 +982,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::analyze_move call.
+    /// The request builder for [AssetService::analyze_move][super::super::client::AssetService::analyze_move] calls.
     #[derive(Clone, Debug)]
     pub struct AnalyzeMove(RequestBuilder<crate::model::AnalyzeMoveRequest>);
 
@@ -1039,7 +1039,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::query_assets call.
+    /// The request builder for [AssetService::query_assets][super::super::client::AssetService::query_assets] calls.
     #[derive(Clone, Debug)]
     pub struct QueryAssets(RequestBuilder<crate::model::QueryAssetsRequest>);
 
@@ -1128,7 +1128,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::create_saved_query call.
+    /// The request builder for [AssetService::create_saved_query][super::super::client::AssetService::create_saved_query] calls.
     #[derive(Clone, Debug)]
     pub struct CreateSavedQuery(RequestBuilder<crate::model::CreateSavedQueryRequest>);
 
@@ -1188,7 +1188,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::get_saved_query call.
+    /// The request builder for [AssetService::get_saved_query][super::super::client::AssetService::get_saved_query] calls.
     #[derive(Clone, Debug)]
     pub struct GetSavedQuery(RequestBuilder<crate::model::GetSavedQueryRequest>);
 
@@ -1230,7 +1230,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::list_saved_queries call.
+    /// The request builder for [AssetService::list_saved_queries][super::super::client::AssetService::list_saved_queries] calls.
     #[derive(Clone, Debug)]
     pub struct ListSavedQueries(RequestBuilder<crate::model::ListSavedQueriesRequest>);
 
@@ -1308,7 +1308,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::update_saved_query call.
+    /// The request builder for [AssetService::update_saved_query][super::super::client::AssetService::update_saved_query] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateSavedQuery(RequestBuilder<crate::model::UpdateSavedQueryRequest>);
 
@@ -1365,7 +1365,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::delete_saved_query call.
+    /// The request builder for [AssetService::delete_saved_query][super::super::client::AssetService::delete_saved_query] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteSavedQuery(RequestBuilder<crate::model::DeleteSavedQueryRequest>);
 
@@ -1410,7 +1410,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::batch_get_effective_iam_policies call.
+    /// The request builder for [AssetService::batch_get_effective_iam_policies][super::super::client::AssetService::batch_get_effective_iam_policies] calls.
     #[derive(Clone, Debug)]
     pub struct BatchGetEffectiveIamPolicies(
         RequestBuilder<crate::model::BatchGetEffectiveIamPoliciesRequest>,
@@ -1468,7 +1468,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::analyze_org_policies call.
+    /// The request builder for [AssetService::analyze_org_policies][super::super::client::AssetService::analyze_org_policies] calls.
     #[derive(Clone, Debug)]
     pub struct AnalyzeOrgPolicies(RequestBuilder<crate::model::AnalyzeOrgPoliciesRequest>);
 
@@ -1552,7 +1552,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::analyze_org_policy_governed_containers call.
+    /// The request builder for [AssetService::analyze_org_policy_governed_containers][super::super::client::AssetService::analyze_org_policy_governed_containers] calls.
     #[derive(Clone, Debug)]
     pub struct AnalyzeOrgPolicyGovernedContainers(
         RequestBuilder<crate::model::AnalyzeOrgPolicyGovernedContainersRequest>,
@@ -1642,7 +1642,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::analyze_org_policy_governed_assets call.
+    /// The request builder for [AssetService::analyze_org_policy_governed_assets][super::super::client::AssetService::analyze_org_policy_governed_assets] calls.
     #[derive(Clone, Debug)]
     pub struct AnalyzeOrgPolicyGovernedAssets(
         RequestBuilder<crate::model::AnalyzeOrgPolicyGovernedAssetsRequest>,
@@ -1730,7 +1730,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for a AssetService::get_operation call.
+    /// The request builder for [AssetService::get_operation][super::super::client::AssetService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

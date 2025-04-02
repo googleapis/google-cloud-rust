@@ -67,7 +67,7 @@ pub mod alert_policy_service {
         }
     }
 
-    /// The request builder for a AlertPolicyService::list_alert_policies call.
+    /// The request builder for [AlertPolicyService::list_alert_policies][super::super::client::AlertPolicyService::list_alert_policies] calls.
     #[derive(Clone, Debug)]
     pub struct ListAlertPolicies(RequestBuilder<crate::model::ListAlertPoliciesRequest>);
 
@@ -151,7 +151,7 @@ pub mod alert_policy_service {
         }
     }
 
-    /// The request builder for a AlertPolicyService::get_alert_policy call.
+    /// The request builder for [AlertPolicyService::get_alert_policy][super::super::client::AlertPolicyService::get_alert_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetAlertPolicy(RequestBuilder<crate::model::GetAlertPolicyRequest>);
 
@@ -193,7 +193,7 @@ pub mod alert_policy_service {
         }
     }
 
-    /// The request builder for a AlertPolicyService::create_alert_policy call.
+    /// The request builder for [AlertPolicyService::create_alert_policy][super::super::client::AlertPolicyService::create_alert_policy] calls.
     #[derive(Clone, Debug)]
     pub struct CreateAlertPolicy(RequestBuilder<crate::model::CreateAlertPolicyRequest>);
 
@@ -247,7 +247,7 @@ pub mod alert_policy_service {
         }
     }
 
-    /// The request builder for a AlertPolicyService::delete_alert_policy call.
+    /// The request builder for [AlertPolicyService::delete_alert_policy][super::super::client::AlertPolicyService::delete_alert_policy] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteAlertPolicy(RequestBuilder<crate::model::DeleteAlertPolicyRequest>);
 
@@ -292,7 +292,7 @@ pub mod alert_policy_service {
         }
     }
 
-    /// The request builder for a AlertPolicyService::update_alert_policy call.
+    /// The request builder for [AlertPolicyService::update_alert_policy][super::super::client::AlertPolicyService::update_alert_policy] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateAlertPolicy(RequestBuilder<crate::model::UpdateAlertPolicyRequest>);
 
@@ -403,7 +403,7 @@ pub mod group_service {
         }
     }
 
-    /// The request builder for a GroupService::list_groups call.
+    /// The request builder for [GroupService::list_groups][super::super::client::GroupService::list_groups] calls.
     #[derive(Clone, Debug)]
     pub struct ListGroups(RequestBuilder<crate::model::ListGroupsRequest>);
 
@@ -481,7 +481,7 @@ pub mod group_service {
         }
     }
 
-    /// The request builder for a GroupService::get_group call.
+    /// The request builder for [GroupService::get_group][super::super::client::GroupService::get_group] calls.
     #[derive(Clone, Debug)]
     pub struct GetGroup(RequestBuilder<crate::model::GetGroupRequest>);
 
@@ -523,7 +523,7 @@ pub mod group_service {
         }
     }
 
-    /// The request builder for a GroupService::create_group call.
+    /// The request builder for [GroupService::create_group][super::super::client::GroupService::create_group] calls.
     #[derive(Clone, Debug)]
     pub struct CreateGroup(RequestBuilder<crate::model::CreateGroupRequest>);
 
@@ -580,7 +580,7 @@ pub mod group_service {
         }
     }
 
-    /// The request builder for a GroupService::update_group call.
+    /// The request builder for [GroupService::update_group][super::super::client::GroupService::update_group] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateGroup(RequestBuilder<crate::model::UpdateGroupRequest>);
 
@@ -631,7 +631,7 @@ pub mod group_service {
         }
     }
 
-    /// The request builder for a GroupService::delete_group call.
+    /// The request builder for [GroupService::delete_group][super::super::client::GroupService::delete_group] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteGroup(RequestBuilder<crate::model::DeleteGroupRequest>);
 
@@ -679,7 +679,7 @@ pub mod group_service {
         }
     }
 
-    /// The request builder for a GroupService::list_group_members call.
+    /// The request builder for [GroupService::list_group_members][super::super::client::GroupService::list_group_members] calls.
     #[derive(Clone, Debug)]
     pub struct ListGroupMembers(RequestBuilder<crate::model::ListGroupMembersRequest>);
 
@@ -820,7 +820,7 @@ pub mod metric_service {
         }
     }
 
-    /// The request builder for a MetricService::list_monitored_resource_descriptors call.
+    /// The request builder for [MetricService::list_monitored_resource_descriptors][super::super::client::MetricService::list_monitored_resource_descriptors] calls.
     #[derive(Clone, Debug)]
     pub struct ListMonitoredResourceDescriptors(
         RequestBuilder<crate::model::ListMonitoredResourceDescriptorsRequest>,
@@ -902,7 +902,7 @@ pub mod metric_service {
         }
     }
 
-    /// The request builder for a MetricService::get_monitored_resource_descriptor call.
+    /// The request builder for [MetricService::get_monitored_resource_descriptor][super::super::client::MetricService::get_monitored_resource_descriptor] calls.
     #[derive(Clone, Debug)]
     pub struct GetMonitoredResourceDescriptor(
         RequestBuilder<crate::model::GetMonitoredResourceDescriptorRequest>,
@@ -949,7 +949,7 @@ pub mod metric_service {
         }
     }
 
-    /// The request builder for a MetricService::list_metric_descriptors call.
+    /// The request builder for [MetricService::list_metric_descriptors][super::super::client::MetricService::list_metric_descriptors] calls.
     #[derive(Clone, Debug)]
     pub struct ListMetricDescriptors(RequestBuilder<crate::model::ListMetricDescriptorsRequest>);
 
@@ -1033,7 +1033,7 @@ pub mod metric_service {
         }
     }
 
-    /// The request builder for a MetricService::get_metric_descriptor call.
+    /// The request builder for [MetricService::get_metric_descriptor][super::super::client::MetricService::get_metric_descriptor] calls.
     #[derive(Clone, Debug)]
     pub struct GetMetricDescriptor(RequestBuilder<crate::model::GetMetricDescriptorRequest>);
 
@@ -1078,7 +1078,7 @@ pub mod metric_service {
         }
     }
 
-    /// The request builder for a MetricService::create_metric_descriptor call.
+    /// The request builder for [MetricService::create_metric_descriptor][super::super::client::MetricService::create_metric_descriptor] calls.
     #[derive(Clone, Debug)]
     pub struct CreateMetricDescriptor(RequestBuilder<crate::model::CreateMetricDescriptorRequest>);
 
@@ -1132,7 +1132,7 @@ pub mod metric_service {
         }
     }
 
-    /// The request builder for a MetricService::delete_metric_descriptor call.
+    /// The request builder for [MetricService::delete_metric_descriptor][super::super::client::MetricService::delete_metric_descriptor] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteMetricDescriptor(RequestBuilder<crate::model::DeleteMetricDescriptorRequest>);
 
@@ -1177,7 +1177,7 @@ pub mod metric_service {
         }
     }
 
-    /// The request builder for a MetricService::list_time_series call.
+    /// The request builder for [MetricService::list_time_series][super::super::client::MetricService::list_time_series] calls.
     #[derive(Clone, Debug)]
     pub struct ListTimeSeries(RequestBuilder<crate::model::ListTimeSeriesRequest>);
 
@@ -1296,7 +1296,7 @@ pub mod metric_service {
         }
     }
 
-    /// The request builder for a MetricService::create_time_series call.
+    /// The request builder for [MetricService::create_time_series][super::super::client::MetricService::create_time_series] calls.
     #[derive(Clone, Debug)]
     pub struct CreateTimeSeries(RequestBuilder<crate::model::CreateTimeSeriesRequest>);
 
@@ -1352,7 +1352,7 @@ pub mod metric_service {
         }
     }
 
-    /// The request builder for a MetricService::create_service_time_series call.
+    /// The request builder for [MetricService::create_service_time_series][super::super::client::MetricService::create_service_time_series] calls.
     #[derive(Clone, Debug)]
     pub struct CreateServiceTimeSeries(RequestBuilder<crate::model::CreateTimeSeriesRequest>);
 
@@ -1464,7 +1464,7 @@ pub mod notification_channel_service {
         }
     }
 
-    /// The request builder for a NotificationChannelService::list_notification_channel_descriptors call.
+    /// The request builder for [NotificationChannelService::list_notification_channel_descriptors][super::super::client::NotificationChannelService::list_notification_channel_descriptors] calls.
     #[derive(Clone, Debug)]
     pub struct ListNotificationChannelDescriptors(
         RequestBuilder<crate::model::ListNotificationChannelDescriptorsRequest>,
@@ -1544,7 +1544,7 @@ pub mod notification_channel_service {
         }
     }
 
-    /// The request builder for a NotificationChannelService::get_notification_channel_descriptor call.
+    /// The request builder for [NotificationChannelService::get_notification_channel_descriptor][super::super::client::NotificationChannelService::get_notification_channel_descriptor] calls.
     #[derive(Clone, Debug)]
     pub struct GetNotificationChannelDescriptor(
         RequestBuilder<crate::model::GetNotificationChannelDescriptorRequest>,
@@ -1593,7 +1593,7 @@ pub mod notification_channel_service {
         }
     }
 
-    /// The request builder for a NotificationChannelService::list_notification_channels call.
+    /// The request builder for [NotificationChannelService::list_notification_channels][super::super::client::NotificationChannelService::list_notification_channels] calls.
     #[derive(Clone, Debug)]
     pub struct ListNotificationChannels(
         RequestBuilder<crate::model::ListNotificationChannelsRequest>,
@@ -1683,7 +1683,7 @@ pub mod notification_channel_service {
         }
     }
 
-    /// The request builder for a NotificationChannelService::get_notification_channel call.
+    /// The request builder for [NotificationChannelService::get_notification_channel][super::super::client::NotificationChannelService::get_notification_channel] calls.
     #[derive(Clone, Debug)]
     pub struct GetNotificationChannel(RequestBuilder<crate::model::GetNotificationChannelRequest>);
 
@@ -1730,7 +1730,7 @@ pub mod notification_channel_service {
         }
     }
 
-    /// The request builder for a NotificationChannelService::create_notification_channel call.
+    /// The request builder for [NotificationChannelService::create_notification_channel][super::super::client::NotificationChannelService::create_notification_channel] calls.
     #[derive(Clone, Debug)]
     pub struct CreateNotificationChannel(
         RequestBuilder<crate::model::CreateNotificationChannelRequest>,
@@ -1790,7 +1790,7 @@ pub mod notification_channel_service {
         }
     }
 
-    /// The request builder for a NotificationChannelService::update_notification_channel call.
+    /// The request builder for [NotificationChannelService::update_notification_channel][super::super::client::NotificationChannelService::update_notification_channel] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateNotificationChannel(
         RequestBuilder<crate::model::UpdateNotificationChannelRequest>,
@@ -1853,7 +1853,7 @@ pub mod notification_channel_service {
         }
     }
 
-    /// The request builder for a NotificationChannelService::delete_notification_channel call.
+    /// The request builder for [NotificationChannelService::delete_notification_channel][super::super::client::NotificationChannelService::delete_notification_channel] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteNotificationChannel(
         RequestBuilder<crate::model::DeleteNotificationChannelRequest>,
@@ -1908,7 +1908,7 @@ pub mod notification_channel_service {
         }
     }
 
-    /// The request builder for a NotificationChannelService::send_notification_channel_verification_code call.
+    /// The request builder for [NotificationChannelService::send_notification_channel_verification_code][super::super::client::NotificationChannelService::send_notification_channel_verification_code] calls.
     #[derive(Clone, Debug)]
     pub struct SendNotificationChannelVerificationCode(
         RequestBuilder<crate::model::SendNotificationChannelVerificationCodeRequest>,
@@ -1959,7 +1959,7 @@ pub mod notification_channel_service {
         }
     }
 
-    /// The request builder for a NotificationChannelService::get_notification_channel_verification_code call.
+    /// The request builder for [NotificationChannelService::get_notification_channel_verification_code][super::super::client::NotificationChannelService::get_notification_channel_verification_code] calls.
     #[derive(Clone, Debug)]
     pub struct GetNotificationChannelVerificationCode(
         RequestBuilder<crate::model::GetNotificationChannelVerificationCodeRequest>,
@@ -2021,7 +2021,7 @@ pub mod notification_channel_service {
         }
     }
 
-    /// The request builder for a NotificationChannelService::verify_notification_channel call.
+    /// The request builder for [NotificationChannelService::verify_notification_channel][super::super::client::NotificationChannelService::verify_notification_channel] calls.
     #[derive(Clone, Debug)]
     pub struct VerifyNotificationChannel(
         RequestBuilder<crate::model::VerifyNotificationChannelRequest>,
@@ -2130,7 +2130,7 @@ pub mod query_service {
         }
     }
 
-    /// The request builder for a QueryService::query_time_series call.
+    /// The request builder for [QueryService::query_time_series][super::super::client::QueryService::query_time_series] calls.
     #[derive(Clone, Debug)]
     pub struct QueryTimeSeries(RequestBuilder<crate::model::QueryTimeSeriesRequest>);
 
@@ -2261,7 +2261,7 @@ pub mod service_monitoring_service {
         }
     }
 
-    /// The request builder for a ServiceMonitoringService::create_service call.
+    /// The request builder for [ServiceMonitoringService::create_service][super::super::client::ServiceMonitoringService::create_service] calls.
     #[derive(Clone, Debug)]
     pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
 
@@ -2320,7 +2320,7 @@ pub mod service_monitoring_service {
         }
     }
 
-    /// The request builder for a ServiceMonitoringService::get_service call.
+    /// The request builder for [ServiceMonitoringService::get_service][super::super::client::ServiceMonitoringService::get_service] calls.
     #[derive(Clone, Debug)]
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
@@ -2364,7 +2364,7 @@ pub mod service_monitoring_service {
         }
     }
 
-    /// The request builder for a ServiceMonitoringService::list_services call.
+    /// The request builder for [ServiceMonitoringService::list_services][super::super::client::ServiceMonitoringService::list_services] calls.
     #[derive(Clone, Debug)]
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
@@ -2441,7 +2441,7 @@ pub mod service_monitoring_service {
         }
     }
 
-    /// The request builder for a ServiceMonitoringService::update_service call.
+    /// The request builder for [ServiceMonitoringService::update_service][super::super::client::ServiceMonitoringService::update_service] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
 
@@ -2497,7 +2497,7 @@ pub mod service_monitoring_service {
         }
     }
 
-    /// The request builder for a ServiceMonitoringService::delete_service call.
+    /// The request builder for [ServiceMonitoringService::delete_service][super::super::client::ServiceMonitoringService::delete_service] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
 
@@ -2541,7 +2541,7 @@ pub mod service_monitoring_service {
         }
     }
 
-    /// The request builder for a ServiceMonitoringService::create_service_level_objective call.
+    /// The request builder for [ServiceMonitoringService::create_service_level_objective][super::super::client::ServiceMonitoringService::create_service_level_objective] calls.
     #[derive(Clone, Debug)]
     pub struct CreateServiceLevelObjective(
         RequestBuilder<crate::model::CreateServiceLevelObjectiveRequest>,
@@ -2610,7 +2610,7 @@ pub mod service_monitoring_service {
         }
     }
 
-    /// The request builder for a ServiceMonitoringService::get_service_level_objective call.
+    /// The request builder for [ServiceMonitoringService::get_service_level_objective][super::super::client::ServiceMonitoringService::get_service_level_objective] calls.
     #[derive(Clone, Debug)]
     pub struct GetServiceLevelObjective(
         RequestBuilder<crate::model::GetServiceLevelObjectiveRequest>,
@@ -2668,7 +2668,7 @@ pub mod service_monitoring_service {
         }
     }
 
-    /// The request builder for a ServiceMonitoringService::list_service_level_objectives call.
+    /// The request builder for [ServiceMonitoringService::list_service_level_objectives][super::super::client::ServiceMonitoringService::list_service_level_objectives] calls.
     #[derive(Clone, Debug)]
     pub struct ListServiceLevelObjectives(
         RequestBuilder<crate::model::ListServiceLevelObjectivesRequest>,
@@ -2761,7 +2761,7 @@ pub mod service_monitoring_service {
         }
     }
 
-    /// The request builder for a ServiceMonitoringService::update_service_level_objective call.
+    /// The request builder for [ServiceMonitoringService::update_service_level_objective][super::super::client::ServiceMonitoringService::update_service_level_objective] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateServiceLevelObjective(
         RequestBuilder<crate::model::UpdateServiceLevelObjectiveRequest>,
@@ -2824,7 +2824,7 @@ pub mod service_monitoring_service {
         }
     }
 
-    /// The request builder for a ServiceMonitoringService::delete_service_level_objective call.
+    /// The request builder for [ServiceMonitoringService::delete_service_level_objective][super::super::client::ServiceMonitoringService::delete_service_level_objective] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteServiceLevelObjective(
         RequestBuilder<crate::model::DeleteServiceLevelObjectiveRequest>,
@@ -2927,7 +2927,7 @@ pub mod snooze_service {
         }
     }
 
-    /// The request builder for a SnoozeService::create_snooze call.
+    /// The request builder for [SnoozeService::create_snooze][super::super::client::SnoozeService::create_snooze] calls.
     #[derive(Clone, Debug)]
     pub struct CreateSnooze(RequestBuilder<crate::model::CreateSnoozeRequest>);
 
@@ -2978,7 +2978,7 @@ pub mod snooze_service {
         }
     }
 
-    /// The request builder for a SnoozeService::list_snoozes call.
+    /// The request builder for [SnoozeService::list_snoozes][super::super::client::SnoozeService::list_snoozes] calls.
     #[derive(Clone, Debug)]
     pub struct ListSnoozes(RequestBuilder<crate::model::ListSnoozesRequest>);
 
@@ -3053,7 +3053,7 @@ pub mod snooze_service {
         }
     }
 
-    /// The request builder for a SnoozeService::get_snooze call.
+    /// The request builder for [SnoozeService::get_snooze][super::super::client::SnoozeService::get_snooze] calls.
     #[derive(Clone, Debug)]
     pub struct GetSnooze(RequestBuilder<crate::model::GetSnoozeRequest>);
 
@@ -3095,7 +3095,7 @@ pub mod snooze_service {
         }
     }
 
-    /// The request builder for a SnoozeService::update_snooze call.
+    /// The request builder for [SnoozeService::update_snooze][super::super::client::SnoozeService::update_snooze] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateSnooze(RequestBuilder<crate::model::UpdateSnoozeRequest>);
 
@@ -3203,7 +3203,7 @@ pub mod uptime_check_service {
         }
     }
 
-    /// The request builder for a UptimeCheckService::list_uptime_check_configs call.
+    /// The request builder for [UptimeCheckService::list_uptime_check_configs][super::super::client::UptimeCheckService::list_uptime_check_configs] calls.
     #[derive(Clone, Debug)]
     pub struct ListUptimeCheckConfigs(RequestBuilder<crate::model::ListUptimeCheckConfigsRequest>);
 
@@ -3283,7 +3283,7 @@ pub mod uptime_check_service {
         }
     }
 
-    /// The request builder for a UptimeCheckService::get_uptime_check_config call.
+    /// The request builder for [UptimeCheckService::get_uptime_check_config][super::super::client::UptimeCheckService::get_uptime_check_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetUptimeCheckConfig(RequestBuilder<crate::model::GetUptimeCheckConfigRequest>);
 
@@ -3328,7 +3328,7 @@ pub mod uptime_check_service {
         }
     }
 
-    /// The request builder for a UptimeCheckService::create_uptime_check_config call.
+    /// The request builder for [UptimeCheckService::create_uptime_check_config][super::super::client::UptimeCheckService::create_uptime_check_config] calls.
     #[derive(Clone, Debug)]
     pub struct CreateUptimeCheckConfig(
         RequestBuilder<crate::model::CreateUptimeCheckConfigRequest>,
@@ -3386,7 +3386,7 @@ pub mod uptime_check_service {
         }
     }
 
-    /// The request builder for a UptimeCheckService::update_uptime_check_config call.
+    /// The request builder for [UptimeCheckService::update_uptime_check_config][super::super::client::UptimeCheckService::update_uptime_check_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateUptimeCheckConfig(
         RequestBuilder<crate::model::UpdateUptimeCheckConfigRequest>,
@@ -3447,7 +3447,7 @@ pub mod uptime_check_service {
         }
     }
 
-    /// The request builder for a UptimeCheckService::delete_uptime_check_config call.
+    /// The request builder for [UptimeCheckService::delete_uptime_check_config][super::super::client::UptimeCheckService::delete_uptime_check_config] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteUptimeCheckConfig(
         RequestBuilder<crate::model::DeleteUptimeCheckConfigRequest>,
@@ -3494,7 +3494,7 @@ pub mod uptime_check_service {
         }
     }
 
-    /// The request builder for a UptimeCheckService::list_uptime_check_ips call.
+    /// The request builder for [UptimeCheckService::list_uptime_check_ips][super::super::client::UptimeCheckService::list_uptime_check_ips] calls.
     #[derive(Clone, Debug)]
     pub struct ListUptimeCheckIps(RequestBuilder<crate::model::ListUptimeCheckIpsRequest>);
 

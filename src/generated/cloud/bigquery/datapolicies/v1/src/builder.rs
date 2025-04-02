@@ -67,7 +67,7 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for a DataPolicyService::create_data_policy call.
+    /// The request builder for [DataPolicyService::create_data_policy][super::super::client::DataPolicyService::create_data_policy] calls.
     #[derive(Clone, Debug)]
     pub struct CreateDataPolicy(RequestBuilder<crate::model::CreateDataPolicyRequest>);
 
@@ -121,7 +121,7 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for a DataPolicyService::update_data_policy call.
+    /// The request builder for [DataPolicyService::update_data_policy][super::super::client::DataPolicyService::update_data_policy] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateDataPolicy(RequestBuilder<crate::model::UpdateDataPolicyRequest>);
 
@@ -178,7 +178,7 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for a DataPolicyService::rename_data_policy call.
+    /// The request builder for [DataPolicyService::rename_data_policy][super::super::client::DataPolicyService::rename_data_policy] calls.
     #[derive(Clone, Debug)]
     pub struct RenameDataPolicy(RequestBuilder<crate::model::RenameDataPolicyRequest>);
 
@@ -229,7 +229,7 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for a DataPolicyService::delete_data_policy call.
+    /// The request builder for [DataPolicyService::delete_data_policy][super::super::client::DataPolicyService::delete_data_policy] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteDataPolicy(RequestBuilder<crate::model::DeleteDataPolicyRequest>);
 
@@ -274,7 +274,7 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for a DataPolicyService::get_data_policy call.
+    /// The request builder for [DataPolicyService::get_data_policy][super::super::client::DataPolicyService::get_data_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetDataPolicy(RequestBuilder<crate::model::GetDataPolicyRequest>);
 
@@ -316,7 +316,7 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for a DataPolicyService::list_data_policies call.
+    /// The request builder for [DataPolicyService::list_data_policies][super::super::client::DataPolicyService::list_data_policies] calls.
     #[derive(Clone, Debug)]
     pub struct ListDataPolicies(RequestBuilder<crate::model::ListDataPoliciesRequest>);
 
@@ -394,7 +394,7 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for a DataPolicyService::get_iam_policy call.
+    /// The request builder for [DataPolicyService::get_iam_policy][super::super::client::DataPolicyService::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -445,7 +445,7 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for a DataPolicyService::set_iam_policy call.
+    /// The request builder for [DataPolicyService::set_iam_policy][super::super::client::DataPolicyService::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -505,7 +505,7 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for a DataPolicyService::test_iam_permissions call.
+    /// The request builder for [DataPolicyService::test_iam_permissions][super::super::client::DataPolicyService::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 

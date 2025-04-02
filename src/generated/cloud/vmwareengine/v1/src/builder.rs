@@ -67,7 +67,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::list_private_clouds call.
+    /// The request builder for [VmwareEngine::list_private_clouds][super::super::client::VmwareEngine::list_private_clouds] calls.
     #[derive(Clone, Debug)]
     pub struct ListPrivateClouds(RequestBuilder<crate::model::ListPrivateCloudsRequest>);
 
@@ -151,7 +151,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::get_private_cloud call.
+    /// The request builder for [VmwareEngine::get_private_cloud][super::super::client::VmwareEngine::get_private_cloud] calls.
     #[derive(Clone, Debug)]
     pub struct GetPrivateCloud(RequestBuilder<crate::model::GetPrivateCloudRequest>);
 
@@ -193,7 +193,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::create_private_cloud call.
+    /// The request builder for [VmwareEngine::create_private_cloud][super::super::client::VmwareEngine::create_private_cloud] calls.
     #[derive(Clone, Debug)]
     pub struct CreatePrivateCloud(RequestBuilder<crate::model::CreatePrivateCloudRequest>);
 
@@ -303,7 +303,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::update_private_cloud call.
+    /// The request builder for [VmwareEngine::update_private_cloud][super::super::client::VmwareEngine::update_private_cloud] calls.
     #[derive(Clone, Debug)]
     pub struct UpdatePrivateCloud(RequestBuilder<crate::model::UpdatePrivateCloudRequest>);
 
@@ -404,7 +404,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::delete_private_cloud call.
+    /// The request builder for [VmwareEngine::delete_private_cloud][super::super::client::VmwareEngine::delete_private_cloud] calls.
     #[derive(Clone, Debug)]
     pub struct DeletePrivateCloud(RequestBuilder<crate::model::DeletePrivateCloudRequest>);
 
@@ -505,7 +505,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::undelete_private_cloud call.
+    /// The request builder for [VmwareEngine::undelete_private_cloud][super::super::client::VmwareEngine::undelete_private_cloud] calls.
     #[derive(Clone, Debug)]
     pub struct UndeletePrivateCloud(RequestBuilder<crate::model::UndeletePrivateCloudRequest>);
 
@@ -594,7 +594,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::list_clusters call.
+    /// The request builder for [VmwareEngine::list_clusters][super::super::client::VmwareEngine::list_clusters] calls.
     #[derive(Clone, Debug)]
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
@@ -675,7 +675,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::get_cluster call.
+    /// The request builder for [VmwareEngine::get_cluster][super::super::client::VmwareEngine::get_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
@@ -717,7 +717,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::create_cluster call.
+    /// The request builder for [VmwareEngine::create_cluster][super::super::client::VmwareEngine::create_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
@@ -823,7 +823,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::update_cluster call.
+    /// The request builder for [VmwareEngine::update_cluster][super::super::client::VmwareEngine::update_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
@@ -926,7 +926,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::delete_cluster call.
+    /// The request builder for [VmwareEngine::delete_cluster][super::super::client::VmwareEngine::delete_cluster] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
@@ -1009,7 +1009,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::list_nodes call.
+    /// The request builder for [VmwareEngine::list_nodes][super::super::client::VmwareEngine::list_nodes] calls.
     #[derive(Clone, Debug)]
     pub struct ListNodes(RequestBuilder<crate::model::ListNodesRequest>);
 
@@ -1077,7 +1077,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::get_node call.
+    /// The request builder for [VmwareEngine::get_node][super::super::client::VmwareEngine::get_node] calls.
     #[derive(Clone, Debug)]
     pub struct GetNode(RequestBuilder<crate::model::GetNodeRequest>);
 
@@ -1119,7 +1119,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::list_external_addresses call.
+    /// The request builder for [VmwareEngine::list_external_addresses][super::super::client::VmwareEngine::list_external_addresses] calls.
     #[derive(Clone, Debug)]
     pub struct ListExternalAddresses(RequestBuilder<crate::model::ListExternalAddressesRequest>);
 
@@ -1203,7 +1203,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::fetch_network_policy_external_addresses call.
+    /// The request builder for [VmwareEngine::fetch_network_policy_external_addresses][super::super::client::VmwareEngine::fetch_network_policy_external_addresses] calls.
     #[derive(Clone, Debug)]
     pub struct FetchNetworkPolicyExternalAddresses(
         RequestBuilder<crate::model::FetchNetworkPolicyExternalAddressesRequest>,
@@ -1281,7 +1281,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::get_external_address call.
+    /// The request builder for [VmwareEngine::get_external_address][super::super::client::VmwareEngine::get_external_address] calls.
     #[derive(Clone, Debug)]
     pub struct GetExternalAddress(RequestBuilder<crate::model::GetExternalAddressRequest>);
 
@@ -1326,7 +1326,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::create_external_address call.
+    /// The request builder for [VmwareEngine::create_external_address][super::super::client::VmwareEngine::create_external_address] calls.
     #[derive(Clone, Debug)]
     pub struct CreateExternalAddress(RequestBuilder<crate::model::CreateExternalAddressRequest>);
 
@@ -1431,7 +1431,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::update_external_address call.
+    /// The request builder for [VmwareEngine::update_external_address][super::super::client::VmwareEngine::update_external_address] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateExternalAddress(RequestBuilder<crate::model::UpdateExternalAddressRequest>);
 
@@ -1533,7 +1533,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::delete_external_address call.
+    /// The request builder for [VmwareEngine::delete_external_address][super::super::client::VmwareEngine::delete_external_address] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteExternalAddress(RequestBuilder<crate::model::DeleteExternalAddressRequest>);
 
@@ -1619,7 +1619,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::list_subnets call.
+    /// The request builder for [VmwareEngine::list_subnets][super::super::client::VmwareEngine::list_subnets] calls.
     #[derive(Clone, Debug)]
     pub struct ListSubnets(RequestBuilder<crate::model::ListSubnetsRequest>);
 
@@ -1688,7 +1688,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::get_subnet call.
+    /// The request builder for [VmwareEngine::get_subnet][super::super::client::VmwareEngine::get_subnet] calls.
     #[derive(Clone, Debug)]
     pub struct GetSubnet(RequestBuilder<crate::model::GetSubnetRequest>);
 
@@ -1730,7 +1730,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::update_subnet call.
+    /// The request builder for [VmwareEngine::update_subnet][super::super::client::VmwareEngine::update_subnet] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateSubnet(RequestBuilder<crate::model::UpdateSubnetRequest>);
 
@@ -1821,7 +1821,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::list_external_access_rules call.
+    /// The request builder for [VmwareEngine::list_external_access_rules][super::super::client::VmwareEngine::list_external_access_rules] calls.
     #[derive(Clone, Debug)]
     pub struct ListExternalAccessRules(
         RequestBuilder<crate::model::ListExternalAccessRulesRequest>,
@@ -1909,7 +1909,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::get_external_access_rule call.
+    /// The request builder for [VmwareEngine::get_external_access_rule][super::super::client::VmwareEngine::get_external_access_rule] calls.
     #[derive(Clone, Debug)]
     pub struct GetExternalAccessRule(RequestBuilder<crate::model::GetExternalAccessRuleRequest>);
 
@@ -1954,7 +1954,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::create_external_access_rule call.
+    /// The request builder for [VmwareEngine::create_external_access_rule][super::super::client::VmwareEngine::create_external_access_rule] calls.
     #[derive(Clone, Debug)]
     pub struct CreateExternalAccessRule(
         RequestBuilder<crate::model::CreateExternalAccessRuleRequest>,
@@ -2063,7 +2063,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::update_external_access_rule call.
+    /// The request builder for [VmwareEngine::update_external_access_rule][super::super::client::VmwareEngine::update_external_access_rule] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateExternalAccessRule(
         RequestBuilder<crate::model::UpdateExternalAccessRuleRequest>,
@@ -2169,7 +2169,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::delete_external_access_rule call.
+    /// The request builder for [VmwareEngine::delete_external_access_rule][super::super::client::VmwareEngine::delete_external_access_rule] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteExternalAccessRule(
         RequestBuilder<crate::model::DeleteExternalAccessRuleRequest>,
@@ -2257,7 +2257,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::list_logging_servers call.
+    /// The request builder for [VmwareEngine::list_logging_servers][super::super::client::VmwareEngine::list_logging_servers] calls.
     #[derive(Clone, Debug)]
     pub struct ListLoggingServers(RequestBuilder<crate::model::ListLoggingServersRequest>);
 
@@ -2341,7 +2341,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::get_logging_server call.
+    /// The request builder for [VmwareEngine::get_logging_server][super::super::client::VmwareEngine::get_logging_server] calls.
     #[derive(Clone, Debug)]
     pub struct GetLoggingServer(RequestBuilder<crate::model::GetLoggingServerRequest>);
 
@@ -2386,7 +2386,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::create_logging_server call.
+    /// The request builder for [VmwareEngine::create_logging_server][super::super::client::VmwareEngine::create_logging_server] calls.
     #[derive(Clone, Debug)]
     pub struct CreateLoggingServer(RequestBuilder<crate::model::CreateLoggingServerRequest>);
 
@@ -2491,7 +2491,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::update_logging_server call.
+    /// The request builder for [VmwareEngine::update_logging_server][super::super::client::VmwareEngine::update_logging_server] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateLoggingServer(RequestBuilder<crate::model::UpdateLoggingServerRequest>);
 
@@ -2593,7 +2593,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::delete_logging_server call.
+    /// The request builder for [VmwareEngine::delete_logging_server][super::super::client::VmwareEngine::delete_logging_server] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteLoggingServer(RequestBuilder<crate::model::DeleteLoggingServerRequest>);
 
@@ -2679,7 +2679,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::list_node_types call.
+    /// The request builder for [VmwareEngine::list_node_types][super::super::client::VmwareEngine::list_node_types] calls.
     #[derive(Clone, Debug)]
     pub struct ListNodeTypes(RequestBuilder<crate::model::ListNodeTypesRequest>);
 
@@ -2754,7 +2754,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::get_node_type call.
+    /// The request builder for [VmwareEngine::get_node_type][super::super::client::VmwareEngine::get_node_type] calls.
     #[derive(Clone, Debug)]
     pub struct GetNodeType(RequestBuilder<crate::model::GetNodeTypeRequest>);
 
@@ -2796,7 +2796,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::show_nsx_credentials call.
+    /// The request builder for [VmwareEngine::show_nsx_credentials][super::super::client::VmwareEngine::show_nsx_credentials] calls.
     #[derive(Clone, Debug)]
     pub struct ShowNsxCredentials(RequestBuilder<crate::model::ShowNsxCredentialsRequest>);
 
@@ -2841,7 +2841,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::show_vcenter_credentials call.
+    /// The request builder for [VmwareEngine::show_vcenter_credentials][super::super::client::VmwareEngine::show_vcenter_credentials] calls.
     #[derive(Clone, Debug)]
     pub struct ShowVcenterCredentials(RequestBuilder<crate::model::ShowVcenterCredentialsRequest>);
 
@@ -2892,7 +2892,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::reset_nsx_credentials call.
+    /// The request builder for [VmwareEngine::reset_nsx_credentials][super::super::client::VmwareEngine::reset_nsx_credentials] calls.
     #[derive(Clone, Debug)]
     pub struct ResetNsxCredentials(RequestBuilder<crate::model::ResetNsxCredentialsRequest>);
 
@@ -2981,7 +2981,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::reset_vcenter_credentials call.
+    /// The request builder for [VmwareEngine::reset_vcenter_credentials][super::super::client::VmwareEngine::reset_vcenter_credentials] calls.
     #[derive(Clone, Debug)]
     pub struct ResetVcenterCredentials(
         RequestBuilder<crate::model::ResetVcenterCredentialsRequest>,
@@ -3078,7 +3078,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::get_dns_forwarding call.
+    /// The request builder for [VmwareEngine::get_dns_forwarding][super::super::client::VmwareEngine::get_dns_forwarding] calls.
     #[derive(Clone, Debug)]
     pub struct GetDnsForwarding(RequestBuilder<crate::model::GetDnsForwardingRequest>);
 
@@ -3123,7 +3123,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::update_dns_forwarding call.
+    /// The request builder for [VmwareEngine::update_dns_forwarding][super::super::client::VmwareEngine::update_dns_forwarding] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateDnsForwarding(RequestBuilder<crate::model::UpdateDnsForwardingRequest>);
 
@@ -3225,7 +3225,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::get_network_peering call.
+    /// The request builder for [VmwareEngine::get_network_peering][super::super::client::VmwareEngine::get_network_peering] calls.
     #[derive(Clone, Debug)]
     pub struct GetNetworkPeering(RequestBuilder<crate::model::GetNetworkPeeringRequest>);
 
@@ -3270,7 +3270,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::list_network_peerings call.
+    /// The request builder for [VmwareEngine::list_network_peerings][super::super::client::VmwareEngine::list_network_peerings] calls.
     #[derive(Clone, Debug)]
     pub struct ListNetworkPeerings(RequestBuilder<crate::model::ListNetworkPeeringsRequest>);
 
@@ -3354,7 +3354,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::create_network_peering call.
+    /// The request builder for [VmwareEngine::create_network_peering][super::super::client::VmwareEngine::create_network_peering] calls.
     #[derive(Clone, Debug)]
     pub struct CreateNetworkPeering(RequestBuilder<crate::model::CreateNetworkPeeringRequest>);
 
@@ -3459,7 +3459,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::delete_network_peering call.
+    /// The request builder for [VmwareEngine::delete_network_peering][super::super::client::VmwareEngine::delete_network_peering] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteNetworkPeering(RequestBuilder<crate::model::DeleteNetworkPeeringRequest>);
 
@@ -3545,7 +3545,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::update_network_peering call.
+    /// The request builder for [VmwareEngine::update_network_peering][super::super::client::VmwareEngine::update_network_peering] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateNetworkPeering(RequestBuilder<crate::model::UpdateNetworkPeeringRequest>);
 
@@ -3647,7 +3647,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::list_peering_routes call.
+    /// The request builder for [VmwareEngine::list_peering_routes][super::super::client::VmwareEngine::list_peering_routes] calls.
     #[derive(Clone, Debug)]
     pub struct ListPeeringRoutes(RequestBuilder<crate::model::ListPeeringRoutesRequest>);
 
@@ -3725,7 +3725,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::create_hcx_activation_key call.
+    /// The request builder for [VmwareEngine::create_hcx_activation_key][super::super::client::VmwareEngine::create_hcx_activation_key] calls.
     #[derive(Clone, Debug)]
     pub struct CreateHcxActivationKey(RequestBuilder<crate::model::CreateHcxActivationKeyRequest>);
 
@@ -3832,7 +3832,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::list_hcx_activation_keys call.
+    /// The request builder for [VmwareEngine::list_hcx_activation_keys][super::super::client::VmwareEngine::list_hcx_activation_keys] calls.
     #[derive(Clone, Debug)]
     pub struct ListHcxActivationKeys(RequestBuilder<crate::model::ListHcxActivationKeysRequest>);
 
@@ -3904,7 +3904,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::get_hcx_activation_key call.
+    /// The request builder for [VmwareEngine::get_hcx_activation_key][super::super::client::VmwareEngine::get_hcx_activation_key] calls.
     #[derive(Clone, Debug)]
     pub struct GetHcxActivationKey(RequestBuilder<crate::model::GetHcxActivationKeyRequest>);
 
@@ -3949,7 +3949,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::get_network_policy call.
+    /// The request builder for [VmwareEngine::get_network_policy][super::super::client::VmwareEngine::get_network_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetNetworkPolicy(RequestBuilder<crate::model::GetNetworkPolicyRequest>);
 
@@ -3994,7 +3994,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::list_network_policies call.
+    /// The request builder for [VmwareEngine::list_network_policies][super::super::client::VmwareEngine::list_network_policies] calls.
     #[derive(Clone, Debug)]
     pub struct ListNetworkPolicies(RequestBuilder<crate::model::ListNetworkPoliciesRequest>);
 
@@ -4078,7 +4078,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::create_network_policy call.
+    /// The request builder for [VmwareEngine::create_network_policy][super::super::client::VmwareEngine::create_network_policy] calls.
     #[derive(Clone, Debug)]
     pub struct CreateNetworkPolicy(RequestBuilder<crate::model::CreateNetworkPolicyRequest>);
 
@@ -4183,7 +4183,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::update_network_policy call.
+    /// The request builder for [VmwareEngine::update_network_policy][super::super::client::VmwareEngine::update_network_policy] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateNetworkPolicy(RequestBuilder<crate::model::UpdateNetworkPolicyRequest>);
 
@@ -4285,7 +4285,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::delete_network_policy call.
+    /// The request builder for [VmwareEngine::delete_network_policy][super::super::client::VmwareEngine::delete_network_policy] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteNetworkPolicy(RequestBuilder<crate::model::DeleteNetworkPolicyRequest>);
 
@@ -4371,7 +4371,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::list_management_dns_zone_bindings call.
+    /// The request builder for [VmwareEngine::list_management_dns_zone_bindings][super::super::client::VmwareEngine::list_management_dns_zone_bindings] calls.
     #[derive(Clone, Debug)]
     pub struct ListManagementDnsZoneBindings(
         RequestBuilder<crate::model::ListManagementDnsZoneBindingsRequest>,
@@ -4459,7 +4459,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::get_management_dns_zone_binding call.
+    /// The request builder for [VmwareEngine::get_management_dns_zone_binding][super::super::client::VmwareEngine::get_management_dns_zone_binding] calls.
     #[derive(Clone, Debug)]
     pub struct GetManagementDnsZoneBinding(
         RequestBuilder<crate::model::GetManagementDnsZoneBindingRequest>,
@@ -4506,7 +4506,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::create_management_dns_zone_binding call.
+    /// The request builder for [VmwareEngine::create_management_dns_zone_binding][super::super::client::VmwareEngine::create_management_dns_zone_binding] calls.
     #[derive(Clone, Debug)]
     pub struct CreateManagementDnsZoneBinding(
         RequestBuilder<crate::model::CreateManagementDnsZoneBindingRequest>,
@@ -4620,7 +4620,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::update_management_dns_zone_binding call.
+    /// The request builder for [VmwareEngine::update_management_dns_zone_binding][super::super::client::VmwareEngine::update_management_dns_zone_binding] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateManagementDnsZoneBinding(
         RequestBuilder<crate::model::UpdateManagementDnsZoneBindingRequest>,
@@ -4728,7 +4728,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::delete_management_dns_zone_binding call.
+    /// The request builder for [VmwareEngine::delete_management_dns_zone_binding][super::super::client::VmwareEngine::delete_management_dns_zone_binding] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteManagementDnsZoneBinding(
         RequestBuilder<crate::model::DeleteManagementDnsZoneBindingRequest>,
@@ -4816,7 +4816,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::repair_management_dns_zone_binding call.
+    /// The request builder for [VmwareEngine::repair_management_dns_zone_binding][super::super::client::VmwareEngine::repair_management_dns_zone_binding] calls.
     #[derive(Clone, Debug)]
     pub struct RepairManagementDnsZoneBinding(
         RequestBuilder<crate::model::RepairManagementDnsZoneBindingRequest>,
@@ -4910,7 +4910,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::create_vmware_engine_network call.
+    /// The request builder for [VmwareEngine::create_vmware_engine_network][super::super::client::VmwareEngine::create_vmware_engine_network] calls.
     #[derive(Clone, Debug)]
     pub struct CreateVmwareEngineNetwork(
         RequestBuilder<crate::model::CreateVmwareEngineNetworkRequest>,
@@ -5019,7 +5019,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::update_vmware_engine_network call.
+    /// The request builder for [VmwareEngine::update_vmware_engine_network][super::super::client::VmwareEngine::update_vmware_engine_network] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateVmwareEngineNetwork(
         RequestBuilder<crate::model::UpdateVmwareEngineNetworkRequest>,
@@ -5125,7 +5125,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::delete_vmware_engine_network call.
+    /// The request builder for [VmwareEngine::delete_vmware_engine_network][super::super::client::VmwareEngine::delete_vmware_engine_network] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteVmwareEngineNetwork(
         RequestBuilder<crate::model::DeleteVmwareEngineNetworkRequest>,
@@ -5219,7 +5219,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::get_vmware_engine_network call.
+    /// The request builder for [VmwareEngine::get_vmware_engine_network][super::super::client::VmwareEngine::get_vmware_engine_network] calls.
     #[derive(Clone, Debug)]
     pub struct GetVmwareEngineNetwork(RequestBuilder<crate::model::GetVmwareEngineNetworkRequest>);
 
@@ -5264,7 +5264,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::list_vmware_engine_networks call.
+    /// The request builder for [VmwareEngine::list_vmware_engine_networks][super::super::client::VmwareEngine::list_vmware_engine_networks] calls.
     #[derive(Clone, Debug)]
     pub struct ListVmwareEngineNetworks(
         RequestBuilder<crate::model::ListVmwareEngineNetworksRequest>,
@@ -5352,7 +5352,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::create_private_connection call.
+    /// The request builder for [VmwareEngine::create_private_connection][super::super::client::VmwareEngine::create_private_connection] calls.
     #[derive(Clone, Debug)]
     pub struct CreatePrivateConnection(
         RequestBuilder<crate::model::CreatePrivateConnectionRequest>,
@@ -5461,7 +5461,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::get_private_connection call.
+    /// The request builder for [VmwareEngine::get_private_connection][super::super::client::VmwareEngine::get_private_connection] calls.
     #[derive(Clone, Debug)]
     pub struct GetPrivateConnection(RequestBuilder<crate::model::GetPrivateConnectionRequest>);
 
@@ -5506,7 +5506,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::list_private_connections call.
+    /// The request builder for [VmwareEngine::list_private_connections][super::super::client::VmwareEngine::list_private_connections] calls.
     #[derive(Clone, Debug)]
     pub struct ListPrivateConnections(RequestBuilder<crate::model::ListPrivateConnectionsRequest>);
 
@@ -5592,7 +5592,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::update_private_connection call.
+    /// The request builder for [VmwareEngine::update_private_connection][super::super::client::VmwareEngine::update_private_connection] calls.
     #[derive(Clone, Debug)]
     pub struct UpdatePrivateConnection(
         RequestBuilder<crate::model::UpdatePrivateConnectionRequest>,
@@ -5698,7 +5698,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::delete_private_connection call.
+    /// The request builder for [VmwareEngine::delete_private_connection][super::super::client::VmwareEngine::delete_private_connection] calls.
     #[derive(Clone, Debug)]
     pub struct DeletePrivateConnection(
         RequestBuilder<crate::model::DeletePrivateConnectionRequest>,
@@ -5786,7 +5786,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::list_private_connection_peering_routes call.
+    /// The request builder for [VmwareEngine::list_private_connection_peering_routes][super::super::client::VmwareEngine::list_private_connection_peering_routes] calls.
     #[derive(Clone, Debug)]
     pub struct ListPrivateConnectionPeeringRoutes(
         RequestBuilder<crate::model::ListPrivateConnectionPeeringRoutesRequest>,
@@ -5864,7 +5864,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::grant_dns_bind_permission call.
+    /// The request builder for [VmwareEngine::grant_dns_bind_permission][super::super::client::VmwareEngine::grant_dns_bind_permission] calls.
     #[derive(Clone, Debug)]
     pub struct GrantDnsBindPermission(RequestBuilder<crate::model::GrantDnsBindPermissionRequest>);
 
@@ -5963,7 +5963,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::get_dns_bind_permission call.
+    /// The request builder for [VmwareEngine::get_dns_bind_permission][super::super::client::VmwareEngine::get_dns_bind_permission] calls.
     #[derive(Clone, Debug)]
     pub struct GetDnsBindPermission(RequestBuilder<crate::model::GetDnsBindPermissionRequest>);
 
@@ -6008,7 +6008,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::revoke_dns_bind_permission call.
+    /// The request builder for [VmwareEngine::revoke_dns_bind_permission][super::super::client::VmwareEngine::revoke_dns_bind_permission] calls.
     #[derive(Clone, Debug)]
     pub struct RevokeDnsBindPermission(
         RequestBuilder<crate::model::RevokeDnsBindPermissionRequest>,
@@ -6109,7 +6109,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::list_locations call.
+    /// The request builder for [VmwareEngine::list_locations][super::super::client::VmwareEngine::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -6187,7 +6187,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::get_location call.
+    /// The request builder for [VmwareEngine::get_location][super::super::client::VmwareEngine::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -6229,7 +6229,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::set_iam_policy call.
+    /// The request builder for [VmwareEngine::set_iam_policy][super::super::client::VmwareEngine::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -6289,7 +6289,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::get_iam_policy call.
+    /// The request builder for [VmwareEngine::get_iam_policy][super::super::client::VmwareEngine::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -6340,7 +6340,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::test_iam_permissions call.
+    /// The request builder for [VmwareEngine::test_iam_permissions][super::super::client::VmwareEngine::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -6396,7 +6396,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::list_operations call.
+    /// The request builder for [VmwareEngine::list_operations][super::super::client::VmwareEngine::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -6474,7 +6474,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::get_operation call.
+    /// The request builder for [VmwareEngine::get_operation][super::super::client::VmwareEngine::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -6519,7 +6519,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for a VmwareEngine::delete_operation call.
+    /// The request builder for [VmwareEngine::delete_operation][super::super::client::VmwareEngine::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 

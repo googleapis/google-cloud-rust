@@ -67,7 +67,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::list_services call.
+    /// The request builder for [DataprocMetastore::list_services][super::super::client::DataprocMetastore::list_services] calls.
     #[derive(Clone, Debug)]
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
@@ -148,7 +148,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::get_service call.
+    /// The request builder for [DataprocMetastore::get_service][super::super::client::DataprocMetastore::get_service] calls.
     #[derive(Clone, Debug)]
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
@@ -190,7 +190,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::create_service call.
+    /// The request builder for [DataprocMetastore::create_service][super::super::client::DataprocMetastore::create_service] calls.
     #[derive(Clone, Debug)]
     pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
 
@@ -290,7 +290,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::update_service call.
+    /// The request builder for [DataprocMetastore::update_service][super::super::client::DataprocMetastore::update_service] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
 
@@ -387,7 +387,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::delete_service call.
+    /// The request builder for [DataprocMetastore::delete_service][super::super::client::DataprocMetastore::delete_service] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
 
@@ -470,7 +470,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::list_metadata_imports call.
+    /// The request builder for [DataprocMetastore::list_metadata_imports][super::super::client::DataprocMetastore::list_metadata_imports] calls.
     #[derive(Clone, Debug)]
     pub struct ListMetadataImports(RequestBuilder<crate::model::ListMetadataImportsRequest>);
 
@@ -554,7 +554,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::get_metadata_import call.
+    /// The request builder for [DataprocMetastore::get_metadata_import][super::super::client::DataprocMetastore::get_metadata_import] calls.
     #[derive(Clone, Debug)]
     pub struct GetMetadataImport(RequestBuilder<crate::model::GetMetadataImportRequest>);
 
@@ -599,7 +599,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::create_metadata_import call.
+    /// The request builder for [DataprocMetastore::create_metadata_import][super::super::client::DataprocMetastore::create_metadata_import] calls.
     #[derive(Clone, Debug)]
     pub struct CreateMetadataImport(RequestBuilder<crate::model::CreateMetadataImportRequest>);
 
@@ -704,7 +704,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::update_metadata_import call.
+    /// The request builder for [DataprocMetastore::update_metadata_import][super::super::client::DataprocMetastore::update_metadata_import] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateMetadataImport(RequestBuilder<crate::model::UpdateMetadataImportRequest>);
 
@@ -806,7 +806,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::export_metadata call.
+    /// The request builder for [DataprocMetastore::export_metadata][super::super::client::DataprocMetastore::export_metadata] calls.
     #[derive(Clone, Debug)]
     pub struct ExportMetadata(RequestBuilder<crate::model::ExportMetadataRequest>);
 
@@ -913,7 +913,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::restore_service call.
+    /// The request builder for [DataprocMetastore::restore_service][super::super::client::DataprocMetastore::restore_service] calls.
     #[derive(Clone, Debug)]
     pub struct RestoreService(RequestBuilder<crate::model::RestoreServiceRequest>);
 
@@ -1013,7 +1013,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::list_backups call.
+    /// The request builder for [DataprocMetastore::list_backups][super::super::client::DataprocMetastore::list_backups] calls.
     #[derive(Clone, Debug)]
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
@@ -1094,7 +1094,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::get_backup call.
+    /// The request builder for [DataprocMetastore::get_backup][super::super::client::DataprocMetastore::get_backup] calls.
     #[derive(Clone, Debug)]
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
@@ -1136,7 +1136,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::create_backup call.
+    /// The request builder for [DataprocMetastore::create_backup][super::super::client::DataprocMetastore::create_backup] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
@@ -1236,7 +1236,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::delete_backup call.
+    /// The request builder for [DataprocMetastore::delete_backup][super::super::client::DataprocMetastore::delete_backup] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
@@ -1319,7 +1319,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::query_metadata call.
+    /// The request builder for [DataprocMetastore::query_metadata][super::super::client::DataprocMetastore::query_metadata] calls.
     #[derive(Clone, Debug)]
     pub struct QueryMetadata(RequestBuilder<crate::model::QueryMetadataRequest>);
 
@@ -1408,7 +1408,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::move_table_to_database call.
+    /// The request builder for [DataprocMetastore::move_table_to_database][super::super::client::DataprocMetastore::move_table_to_database] calls.
     #[derive(Clone, Debug)]
     pub struct MoveTableToDatabase(RequestBuilder<crate::model::MoveTableToDatabaseRequest>);
 
@@ -1512,7 +1512,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::alter_metadata_resource_location call.
+    /// The request builder for [DataprocMetastore::alter_metadata_resource_location][super::super::client::DataprocMetastore::alter_metadata_resource_location] calls.
     #[derive(Clone, Debug)]
     pub struct AlterMetadataResourceLocation(
         RequestBuilder<crate::model::AlterMetadataResourceLocationRequest>,
@@ -1614,7 +1614,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::list_locations call.
+    /// The request builder for [DataprocMetastore::list_locations][super::super::client::DataprocMetastore::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1692,7 +1692,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::get_location call.
+    /// The request builder for [DataprocMetastore::get_location][super::super::client::DataprocMetastore::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1734,7 +1734,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::set_iam_policy call.
+    /// The request builder for [DataprocMetastore::set_iam_policy][super::super::client::DataprocMetastore::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1794,7 +1794,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::get_iam_policy call.
+    /// The request builder for [DataprocMetastore::get_iam_policy][super::super::client::DataprocMetastore::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1845,7 +1845,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::test_iam_permissions call.
+    /// The request builder for [DataprocMetastore::test_iam_permissions][super::super::client::DataprocMetastore::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1901,7 +1901,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::list_operations call.
+    /// The request builder for [DataprocMetastore::list_operations][super::super::client::DataprocMetastore::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1979,7 +1979,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::get_operation call.
+    /// The request builder for [DataprocMetastore::get_operation][super::super::client::DataprocMetastore::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2024,7 +2024,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::delete_operation call.
+    /// The request builder for [DataprocMetastore::delete_operation][super::super::client::DataprocMetastore::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2069,7 +2069,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for a DataprocMetastore::cancel_operation call.
+    /// The request builder for [DataprocMetastore::cancel_operation][super::super::client::DataprocMetastore::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -2170,7 +2170,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for a DataprocMetastoreFederation::list_federations call.
+    /// The request builder for [DataprocMetastoreFederation::list_federations][super::super::client::DataprocMetastoreFederation::list_federations] calls.
     #[derive(Clone, Debug)]
     pub struct ListFederations(RequestBuilder<crate::model::ListFederationsRequest>);
 
@@ -2253,7 +2253,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for a DataprocMetastoreFederation::get_federation call.
+    /// The request builder for [DataprocMetastoreFederation::get_federation][super::super::client::DataprocMetastoreFederation::get_federation] calls.
     #[derive(Clone, Debug)]
     pub struct GetFederation(RequestBuilder<crate::model::GetFederationRequest>);
 
@@ -2297,7 +2297,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for a DataprocMetastoreFederation::create_federation call.
+    /// The request builder for [DataprocMetastoreFederation::create_federation][super::super::client::DataprocMetastoreFederation::create_federation] calls.
     #[derive(Clone, Debug)]
     pub struct CreateFederation(RequestBuilder<crate::model::CreateFederationRequest>);
 
@@ -2403,7 +2403,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for a DataprocMetastoreFederation::update_federation call.
+    /// The request builder for [DataprocMetastoreFederation::update_federation][super::super::client::DataprocMetastoreFederation::update_federation] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateFederation(RequestBuilder<crate::model::UpdateFederationRequest>);
 
@@ -2506,7 +2506,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for a DataprocMetastoreFederation::delete_federation call.
+    /// The request builder for [DataprocMetastoreFederation::delete_federation][super::super::client::DataprocMetastoreFederation::delete_federation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteFederation(RequestBuilder<crate::model::DeleteFederationRequest>);
 
@@ -2594,7 +2594,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for a DataprocMetastoreFederation::list_locations call.
+    /// The request builder for [DataprocMetastoreFederation::list_locations][super::super::client::DataprocMetastoreFederation::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -2674,7 +2674,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for a DataprocMetastoreFederation::get_location call.
+    /// The request builder for [DataprocMetastoreFederation::get_location][super::super::client::DataprocMetastoreFederation::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -2718,7 +2718,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for a DataprocMetastoreFederation::set_iam_policy call.
+    /// The request builder for [DataprocMetastoreFederation::set_iam_policy][super::super::client::DataprocMetastoreFederation::set_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -2780,7 +2780,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for a DataprocMetastoreFederation::get_iam_policy call.
+    /// The request builder for [DataprocMetastoreFederation::get_iam_policy][super::super::client::DataprocMetastoreFederation::get_iam_policy] calls.
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -2833,7 +2833,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for a DataprocMetastoreFederation::test_iam_permissions call.
+    /// The request builder for [DataprocMetastoreFederation::test_iam_permissions][super::super::client::DataprocMetastoreFederation::test_iam_permissions] calls.
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -2891,7 +2891,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for a DataprocMetastoreFederation::list_operations call.
+    /// The request builder for [DataprocMetastoreFederation::list_operations][super::super::client::DataprocMetastoreFederation::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2971,7 +2971,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for a DataprocMetastoreFederation::get_operation call.
+    /// The request builder for [DataprocMetastoreFederation::get_operation][super::super::client::DataprocMetastoreFederation::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -3018,7 +3018,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for a DataprocMetastoreFederation::delete_operation call.
+    /// The request builder for [DataprocMetastoreFederation::delete_operation][super::super::client::DataprocMetastoreFederation::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -3065,7 +3065,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for a DataprocMetastoreFederation::cancel_operation call.
+    /// The request builder for [DataprocMetastoreFederation::cancel_operation][super::super::client::DataprocMetastoreFederation::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

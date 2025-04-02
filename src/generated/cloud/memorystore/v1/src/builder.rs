@@ -67,7 +67,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for a Memorystore::list_instances call.
+    /// The request builder for [Memorystore::list_instances][super::super::client::Memorystore::list_instances] calls.
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
@@ -148,7 +148,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for a Memorystore::get_instance call.
+    /// The request builder for [Memorystore::get_instance][super::super::client::Memorystore::get_instance] calls.
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
@@ -190,7 +190,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for a Memorystore::create_instance call.
+    /// The request builder for [Memorystore::create_instance][super::super::client::Memorystore::create_instance] calls.
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
@@ -291,7 +291,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for a Memorystore::update_instance call.
+    /// The request builder for [Memorystore::update_instance][super::super::client::Memorystore::update_instance] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
@@ -389,7 +389,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for a Memorystore::delete_instance call.
+    /// The request builder for [Memorystore::delete_instance][super::super::client::Memorystore::delete_instance] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
@@ -472,7 +472,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for a Memorystore::get_certificate_authority call.
+    /// The request builder for [Memorystore::get_certificate_authority][super::super::client::Memorystore::get_certificate_authority] calls.
     #[derive(Clone, Debug)]
     pub struct GetCertificateAuthority(
         RequestBuilder<crate::model::GetCertificateAuthorityRequest>,
@@ -519,7 +519,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for a Memorystore::list_locations call.
+    /// The request builder for [Memorystore::list_locations][super::super::client::Memorystore::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -597,7 +597,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for a Memorystore::get_location call.
+    /// The request builder for [Memorystore::get_location][super::super::client::Memorystore::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -639,7 +639,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for a Memorystore::list_operations call.
+    /// The request builder for [Memorystore::list_operations][super::super::client::Memorystore::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -717,7 +717,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for a Memorystore::get_operation call.
+    /// The request builder for [Memorystore::get_operation][super::super::client::Memorystore::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -762,7 +762,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for a Memorystore::delete_operation call.
+    /// The request builder for [Memorystore::delete_operation][super::super::client::Memorystore::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -807,7 +807,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for a Memorystore::cancel_operation call.
+    /// The request builder for [Memorystore::cancel_operation][super::super::client::Memorystore::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

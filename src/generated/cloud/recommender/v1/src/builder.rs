@@ -67,7 +67,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for a Recommender::list_insights call.
+    /// The request builder for [Recommender::list_insights][super::super::client::Recommender::list_insights] calls.
     #[derive(Clone, Debug)]
     pub struct ListInsights(RequestBuilder<crate::model::ListInsightsRequest>);
 
@@ -142,7 +142,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for a Recommender::get_insight call.
+    /// The request builder for [Recommender::get_insight][super::super::client::Recommender::get_insight] calls.
     #[derive(Clone, Debug)]
     pub struct GetInsight(RequestBuilder<crate::model::GetInsightRequest>);
 
@@ -184,7 +184,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for a Recommender::mark_insight_accepted call.
+    /// The request builder for [Recommender::mark_insight_accepted][super::super::client::Recommender::mark_insight_accepted] calls.
     #[derive(Clone, Debug)]
     pub struct MarkInsightAccepted(RequestBuilder<crate::model::MarkInsightAcceptedRequest>);
 
@@ -247,7 +247,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for a Recommender::list_recommendations call.
+    /// The request builder for [Recommender::list_recommendations][super::super::client::Recommender::list_recommendations] calls.
     #[derive(Clone, Debug)]
     pub struct ListRecommendations(RequestBuilder<crate::model::ListRecommendationsRequest>);
 
@@ -325,7 +325,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for a Recommender::get_recommendation call.
+    /// The request builder for [Recommender::get_recommendation][super::super::client::Recommender::get_recommendation] calls.
     #[derive(Clone, Debug)]
     pub struct GetRecommendation(RequestBuilder<crate::model::GetRecommendationRequest>);
 
@@ -370,7 +370,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for a Recommender::mark_recommendation_dismissed call.
+    /// The request builder for [Recommender::mark_recommendation_dismissed][super::super::client::Recommender::mark_recommendation_dismissed] calls.
     #[derive(Clone, Debug)]
     pub struct MarkRecommendationDismissed(
         RequestBuilder<crate::model::MarkRecommendationDismissedRequest>,
@@ -423,7 +423,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for a Recommender::mark_recommendation_claimed call.
+    /// The request builder for [Recommender::mark_recommendation_claimed][super::super::client::Recommender::mark_recommendation_claimed] calls.
     #[derive(Clone, Debug)]
     pub struct MarkRecommendationClaimed(
         RequestBuilder<crate::model::MarkRecommendationClaimedRequest>,
@@ -488,7 +488,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for a Recommender::mark_recommendation_succeeded call.
+    /// The request builder for [Recommender::mark_recommendation_succeeded][super::super::client::Recommender::mark_recommendation_succeeded] calls.
     #[derive(Clone, Debug)]
     pub struct MarkRecommendationSucceeded(
         RequestBuilder<crate::model::MarkRecommendationSucceededRequest>,
@@ -553,7 +553,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for a Recommender::mark_recommendation_failed call.
+    /// The request builder for [Recommender::mark_recommendation_failed][super::super::client::Recommender::mark_recommendation_failed] calls.
     #[derive(Clone, Debug)]
     pub struct MarkRecommendationFailed(
         RequestBuilder<crate::model::MarkRecommendationFailedRequest>,
@@ -618,7 +618,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for a Recommender::get_recommender_config call.
+    /// The request builder for [Recommender::get_recommender_config][super::super::client::Recommender::get_recommender_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetRecommenderConfig(RequestBuilder<crate::model::GetRecommenderConfigRequest>);
 
@@ -663,7 +663,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for a Recommender::update_recommender_config call.
+    /// The request builder for [Recommender::update_recommender_config][super::super::client::Recommender::update_recommender_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateRecommenderConfig(
         RequestBuilder<crate::model::UpdateRecommenderConfigRequest>,
@@ -730,7 +730,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for a Recommender::get_insight_type_config call.
+    /// The request builder for [Recommender::get_insight_type_config][super::super::client::Recommender::get_insight_type_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetInsightTypeConfig(RequestBuilder<crate::model::GetInsightTypeConfigRequest>);
 
@@ -775,7 +775,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for a Recommender::update_insight_type_config call.
+    /// The request builder for [Recommender::update_insight_type_config][super::super::client::Recommender::update_insight_type_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateInsightTypeConfig(
         RequestBuilder<crate::model::UpdateInsightTypeConfigRequest>,

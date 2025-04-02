@@ -67,7 +67,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for a CloudRedis::list_instances call.
+    /// The request builder for [CloudRedis::list_instances][super::super::client::CloudRedis::list_instances] calls.
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
@@ -136,7 +136,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for a CloudRedis::get_instance call.
+    /// The request builder for [CloudRedis::get_instance][super::super::client::CloudRedis::get_instance] calls.
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
@@ -178,7 +178,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for a CloudRedis::get_instance_auth_string call.
+    /// The request builder for [CloudRedis::get_instance_auth_string][super::super::client::CloudRedis::get_instance_auth_string] calls.
     #[derive(Clone, Debug)]
     pub struct GetInstanceAuthString(RequestBuilder<crate::model::GetInstanceAuthStringRequest>);
 
@@ -223,7 +223,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for a CloudRedis::create_instance call.
+    /// The request builder for [CloudRedis::create_instance][super::super::client::CloudRedis::create_instance] calls.
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
@@ -318,7 +318,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for a CloudRedis::update_instance call.
+    /// The request builder for [CloudRedis::update_instance][super::super::client::CloudRedis::update_instance] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
@@ -410,7 +410,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for a CloudRedis::upgrade_instance call.
+    /// The request builder for [CloudRedis::upgrade_instance][super::super::client::CloudRedis::upgrade_instance] calls.
     #[derive(Clone, Debug)]
     pub struct UpgradeInstance(RequestBuilder<crate::model::UpgradeInstanceRequest>);
 
@@ -496,7 +496,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for a CloudRedis::import_instance call.
+    /// The request builder for [CloudRedis::import_instance][super::super::client::CloudRedis::import_instance] calls.
     #[derive(Clone, Debug)]
     pub struct ImportInstance(RequestBuilder<crate::model::ImportInstanceRequest>);
 
@@ -585,7 +585,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for a CloudRedis::export_instance call.
+    /// The request builder for [CloudRedis::export_instance][super::super::client::CloudRedis::export_instance] calls.
     #[derive(Clone, Debug)]
     pub struct ExportInstance(RequestBuilder<crate::model::ExportInstanceRequest>);
 
@@ -674,7 +674,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for a CloudRedis::failover_instance call.
+    /// The request builder for [CloudRedis::failover_instance][super::super::client::CloudRedis::failover_instance] calls.
     #[derive(Clone, Debug)]
     pub struct FailoverInstance(RequestBuilder<crate::model::FailoverInstanceRequest>);
 
@@ -768,7 +768,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for a CloudRedis::delete_instance call.
+    /// The request builder for [CloudRedis::delete_instance][super::super::client::CloudRedis::delete_instance] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
@@ -845,7 +845,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for a CloudRedis::reschedule_maintenance call.
+    /// The request builder for [CloudRedis::reschedule_maintenance][super::super::client::CloudRedis::reschedule_maintenance] calls.
     #[derive(Clone, Debug)]
     pub struct RescheduleMaintenance(RequestBuilder<crate::model::RescheduleMaintenanceRequest>);
 
@@ -948,7 +948,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for a CloudRedis::list_locations call.
+    /// The request builder for [CloudRedis::list_locations][super::super::client::CloudRedis::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1026,7 +1026,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for a CloudRedis::get_location call.
+    /// The request builder for [CloudRedis::get_location][super::super::client::CloudRedis::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1068,7 +1068,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for a CloudRedis::list_operations call.
+    /// The request builder for [CloudRedis::list_operations][super::super::client::CloudRedis::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1146,7 +1146,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for a CloudRedis::get_operation call.
+    /// The request builder for [CloudRedis::get_operation][super::super::client::CloudRedis::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1191,7 +1191,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for a CloudRedis::delete_operation call.
+    /// The request builder for [CloudRedis::delete_operation][super::super::client::CloudRedis::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1236,7 +1236,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for a CloudRedis::cancel_operation call.
+    /// The request builder for [CloudRedis::cancel_operation][super::super::client::CloudRedis::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

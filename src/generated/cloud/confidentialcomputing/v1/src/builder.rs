@@ -69,7 +69,7 @@ pub mod confidential_computing {
         }
     }
 
-    /// The request builder for a ConfidentialComputing::create_challenge call.
+    /// The request builder for [ConfidentialComputing::create_challenge][super::super::client::ConfidentialComputing::create_challenge] calls.
     #[derive(Clone, Debug)]
     pub struct CreateChallenge(RequestBuilder<crate::model::CreateChallengeRequest>);
 
@@ -122,7 +122,7 @@ pub mod confidential_computing {
         }
     }
 
-    /// The request builder for a ConfidentialComputing::verify_attestation call.
+    /// The request builder for [ConfidentialComputing::verify_attestation][super::super::client::ConfidentialComputing::verify_attestation] calls.
     #[derive(Clone, Debug)]
     pub struct VerifyAttestation(RequestBuilder<crate::model::VerifyAttestationRequest>);
 
@@ -224,7 +224,7 @@ pub mod confidential_computing {
         }
     }
 
-    /// The request builder for a ConfidentialComputing::list_locations call.
+    /// The request builder for [ConfidentialComputing::list_locations][super::super::client::ConfidentialComputing::list_locations] calls.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -304,7 +304,7 @@ pub mod confidential_computing {
         }
     }
 
-    /// The request builder for a ConfidentialComputing::get_location call.
+    /// The request builder for [ConfidentialComputing::get_location][super::super::client::ConfidentialComputing::get_location] calls.
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 

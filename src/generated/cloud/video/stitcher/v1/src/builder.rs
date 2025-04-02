@@ -69,7 +69,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::create_cdn_key call.
+    /// The request builder for [VideoStitcherService::create_cdn_key][super::super::client::VideoStitcherService::create_cdn_key] calls.
     #[derive(Clone, Debug)]
     pub struct CreateCdnKey(RequestBuilder<crate::model::CreateCdnKeyRequest>);
 
@@ -165,7 +165,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::list_cdn_keys call.
+    /// The request builder for [VideoStitcherService::list_cdn_keys][super::super::client::VideoStitcherService::list_cdn_keys] calls.
     #[derive(Clone, Debug)]
     pub struct ListCdnKeys(RequestBuilder<crate::model::ListCdnKeysRequest>);
 
@@ -248,7 +248,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::get_cdn_key call.
+    /// The request builder for [VideoStitcherService::get_cdn_key][super::super::client::VideoStitcherService::get_cdn_key] calls.
     #[derive(Clone, Debug)]
     pub struct GetCdnKey(RequestBuilder<crate::model::GetCdnKeyRequest>);
 
@@ -292,7 +292,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::delete_cdn_key call.
+    /// The request builder for [VideoStitcherService::delete_cdn_key][super::super::client::VideoStitcherService::delete_cdn_key] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteCdnKey(RequestBuilder<crate::model::DeleteCdnKeyRequest>);
 
@@ -371,7 +371,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::update_cdn_key call.
+    /// The request builder for [VideoStitcherService::update_cdn_key][super::super::client::VideoStitcherService::update_cdn_key] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateCdnKey(RequestBuilder<crate::model::UpdateCdnKeyRequest>);
 
@@ -464,7 +464,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::create_vod_session call.
+    /// The request builder for [VideoStitcherService::create_vod_session][super::super::client::VideoStitcherService::create_vod_session] calls.
     #[derive(Clone, Debug)]
     pub struct CreateVodSession(RequestBuilder<crate::model::CreateVodSessionRequest>);
 
@@ -520,7 +520,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::get_vod_session call.
+    /// The request builder for [VideoStitcherService::get_vod_session][super::super::client::VideoStitcherService::get_vod_session] calls.
     #[derive(Clone, Debug)]
     pub struct GetVodSession(RequestBuilder<crate::model::GetVodSessionRequest>);
 
@@ -564,7 +564,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::list_vod_stitch_details call.
+    /// The request builder for [VideoStitcherService::list_vod_stitch_details][super::super::client::VideoStitcherService::list_vod_stitch_details] calls.
     #[derive(Clone, Debug)]
     pub struct ListVodStitchDetails(RequestBuilder<crate::model::ListVodStitchDetailsRequest>);
 
@@ -638,7 +638,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::get_vod_stitch_detail call.
+    /// The request builder for [VideoStitcherService::get_vod_stitch_detail][super::super::client::VideoStitcherService::get_vod_stitch_detail] calls.
     #[derive(Clone, Debug)]
     pub struct GetVodStitchDetail(RequestBuilder<crate::model::GetVodStitchDetailRequest>);
 
@@ -685,7 +685,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::list_vod_ad_tag_details call.
+    /// The request builder for [VideoStitcherService::list_vod_ad_tag_details][super::super::client::VideoStitcherService::list_vod_ad_tag_details] calls.
     #[derive(Clone, Debug)]
     pub struct ListVodAdTagDetails(RequestBuilder<crate::model::ListVodAdTagDetailsRequest>);
 
@@ -759,7 +759,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::get_vod_ad_tag_detail call.
+    /// The request builder for [VideoStitcherService::get_vod_ad_tag_detail][super::super::client::VideoStitcherService::get_vod_ad_tag_detail] calls.
     #[derive(Clone, Debug)]
     pub struct GetVodAdTagDetail(RequestBuilder<crate::model::GetVodAdTagDetailRequest>);
 
@@ -806,7 +806,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::list_live_ad_tag_details call.
+    /// The request builder for [VideoStitcherService::list_live_ad_tag_details][super::super::client::VideoStitcherService::list_live_ad_tag_details] calls.
     #[derive(Clone, Debug)]
     pub struct ListLiveAdTagDetails(RequestBuilder<crate::model::ListLiveAdTagDetailsRequest>);
 
@@ -880,7 +880,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::get_live_ad_tag_detail call.
+    /// The request builder for [VideoStitcherService::get_live_ad_tag_detail][super::super::client::VideoStitcherService::get_live_ad_tag_detail] calls.
     #[derive(Clone, Debug)]
     pub struct GetLiveAdTagDetail(RequestBuilder<crate::model::GetLiveAdTagDetailRequest>);
 
@@ -927,7 +927,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::create_slate call.
+    /// The request builder for [VideoStitcherService::create_slate][super::super::client::VideoStitcherService::create_slate] calls.
     #[derive(Clone, Debug)]
     pub struct CreateSlate(RequestBuilder<crate::model::CreateSlateRequest>);
 
@@ -1029,7 +1029,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::list_slates call.
+    /// The request builder for [VideoStitcherService::list_slates][super::super::client::VideoStitcherService::list_slates] calls.
     #[derive(Clone, Debug)]
     pub struct ListSlates(RequestBuilder<crate::model::ListSlatesRequest>);
 
@@ -1112,7 +1112,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::get_slate call.
+    /// The request builder for [VideoStitcherService::get_slate][super::super::client::VideoStitcherService::get_slate] calls.
     #[derive(Clone, Debug)]
     pub struct GetSlate(RequestBuilder<crate::model::GetSlateRequest>);
 
@@ -1156,7 +1156,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::update_slate call.
+    /// The request builder for [VideoStitcherService::update_slate][super::super::client::VideoStitcherService::update_slate] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateSlate(RequestBuilder<crate::model::UpdateSlateRequest>);
 
@@ -1249,7 +1249,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::delete_slate call.
+    /// The request builder for [VideoStitcherService::delete_slate][super::super::client::VideoStitcherService::delete_slate] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteSlate(RequestBuilder<crate::model::DeleteSlateRequest>);
 
@@ -1328,7 +1328,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::create_live_session call.
+    /// The request builder for [VideoStitcherService::create_live_session][super::super::client::VideoStitcherService::create_live_session] calls.
     #[derive(Clone, Debug)]
     pub struct CreateLiveSession(RequestBuilder<crate::model::CreateLiveSessionRequest>);
 
@@ -1384,7 +1384,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::get_live_session call.
+    /// The request builder for [VideoStitcherService::get_live_session][super::super::client::VideoStitcherService::get_live_session] calls.
     #[derive(Clone, Debug)]
     pub struct GetLiveSession(RequestBuilder<crate::model::GetLiveSessionRequest>);
 
@@ -1428,7 +1428,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::create_live_config call.
+    /// The request builder for [VideoStitcherService::create_live_config][super::super::client::VideoStitcherService::create_live_config] calls.
     #[derive(Clone, Debug)]
     pub struct CreateLiveConfig(RequestBuilder<crate::model::CreateLiveConfigRequest>);
 
@@ -1534,7 +1534,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::list_live_configs call.
+    /// The request builder for [VideoStitcherService::list_live_configs][super::super::client::VideoStitcherService::list_live_configs] calls.
     #[derive(Clone, Debug)]
     pub struct ListLiveConfigs(RequestBuilder<crate::model::ListLiveConfigsRequest>);
 
@@ -1617,7 +1617,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::get_live_config call.
+    /// The request builder for [VideoStitcherService::get_live_config][super::super::client::VideoStitcherService::get_live_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetLiveConfig(RequestBuilder<crate::model::GetLiveConfigRequest>);
 
@@ -1661,7 +1661,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::delete_live_config call.
+    /// The request builder for [VideoStitcherService::delete_live_config][super::super::client::VideoStitcherService::delete_live_config] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteLiveConfig(RequestBuilder<crate::model::DeleteLiveConfigRequest>);
 
@@ -1743,7 +1743,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::update_live_config call.
+    /// The request builder for [VideoStitcherService::update_live_config][super::super::client::VideoStitcherService::update_live_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateLiveConfig(RequestBuilder<crate::model::UpdateLiveConfigRequest>);
 
@@ -1840,7 +1840,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::create_vod_config call.
+    /// The request builder for [VideoStitcherService::create_vod_config][super::super::client::VideoStitcherService::create_vod_config] calls.
     #[derive(Clone, Debug)]
     pub struct CreateVodConfig(RequestBuilder<crate::model::CreateVodConfigRequest>);
 
@@ -1943,7 +1943,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::list_vod_configs call.
+    /// The request builder for [VideoStitcherService::list_vod_configs][super::super::client::VideoStitcherService::list_vod_configs] calls.
     #[derive(Clone, Debug)]
     pub struct ListVodConfigs(RequestBuilder<crate::model::ListVodConfigsRequest>);
 
@@ -2026,7 +2026,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::get_vod_config call.
+    /// The request builder for [VideoStitcherService::get_vod_config][super::super::client::VideoStitcherService::get_vod_config] calls.
     #[derive(Clone, Debug)]
     pub struct GetVodConfig(RequestBuilder<crate::model::GetVodConfigRequest>);
 
@@ -2070,7 +2070,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::delete_vod_config call.
+    /// The request builder for [VideoStitcherService::delete_vod_config][super::super::client::VideoStitcherService::delete_vod_config] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteVodConfig(RequestBuilder<crate::model::DeleteVodConfigRequest>);
 
@@ -2149,7 +2149,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::update_vod_config call.
+    /// The request builder for [VideoStitcherService::update_vod_config][super::super::client::VideoStitcherService::update_vod_config] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateVodConfig(RequestBuilder<crate::model::UpdateVodConfigRequest>);
 
@@ -2243,7 +2243,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::list_operations call.
+    /// The request builder for [VideoStitcherService::list_operations][super::super::client::VideoStitcherService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2323,7 +2323,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::get_operation call.
+    /// The request builder for [VideoStitcherService::get_operation][super::super::client::VideoStitcherService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2370,7 +2370,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::delete_operation call.
+    /// The request builder for [VideoStitcherService::delete_operation][super::super::client::VideoStitcherService::delete_operation] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2417,7 +2417,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for a VideoStitcherService::cancel_operation call.
+    /// The request builder for [VideoStitcherService::cancel_operation][super::super::client::VideoStitcherService::cancel_operation] calls.
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

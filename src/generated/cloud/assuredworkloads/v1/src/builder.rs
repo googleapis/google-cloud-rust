@@ -69,7 +69,7 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for a AssuredWorkloadsService::create_workload call.
+    /// The request builder for [AssuredWorkloadsService::create_workload][super::super::client::AssuredWorkloadsService::create_workload] calls.
     #[derive(Clone, Debug)]
     pub struct CreateWorkload(RequestBuilder<crate::model::CreateWorkloadRequest>);
 
@@ -169,7 +169,7 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for a AssuredWorkloadsService::update_workload call.
+    /// The request builder for [AssuredWorkloadsService::update_workload][super::super::client::AssuredWorkloadsService::update_workload] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateWorkload(RequestBuilder<crate::model::UpdateWorkloadRequest>);
 
@@ -225,7 +225,7 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for a AssuredWorkloadsService::restrict_allowed_resources call.
+    /// The request builder for [AssuredWorkloadsService::restrict_allowed_resources][super::super::client::AssuredWorkloadsService::restrict_allowed_resources] calls.
     #[derive(Clone, Debug)]
     pub struct RestrictAllowedResources(
         RequestBuilder<crate::model::RestrictAllowedResourcesRequest>,
@@ -285,7 +285,7 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for a AssuredWorkloadsService::delete_workload call.
+    /// The request builder for [AssuredWorkloadsService::delete_workload][super::super::client::AssuredWorkloadsService::delete_workload] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteWorkload(RequestBuilder<crate::model::DeleteWorkloadRequest>);
 
@@ -335,7 +335,7 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for a AssuredWorkloadsService::get_workload call.
+    /// The request builder for [AssuredWorkloadsService::get_workload][super::super::client::AssuredWorkloadsService::get_workload] calls.
     #[derive(Clone, Debug)]
     pub struct GetWorkload(RequestBuilder<crate::model::GetWorkloadRequest>);
 
@@ -379,7 +379,7 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for a AssuredWorkloadsService::list_workloads call.
+    /// The request builder for [AssuredWorkloadsService::list_workloads][super::super::client::AssuredWorkloadsService::list_workloads] calls.
     #[derive(Clone, Debug)]
     pub struct ListWorkloads(RequestBuilder<crate::model::ListWorkloadsRequest>);
 
@@ -456,7 +456,7 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for a AssuredWorkloadsService::list_operations call.
+    /// The request builder for [AssuredWorkloadsService::list_operations][super::super::client::AssuredWorkloadsService::list_operations] calls.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -536,7 +536,7 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for a AssuredWorkloadsService::get_operation call.
+    /// The request builder for [AssuredWorkloadsService::get_operation][super::super::client::AssuredWorkloadsService::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
