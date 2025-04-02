@@ -20,8 +20,8 @@ use std::sync::Arc;
 ///
 /// The Google Cloud client libraries may experience problems creating
 /// credentials and/or using them. An example of problems creating credentials
-/// may be a badly formatted or missing files key files. An example of problems
-/// using credentials may be a temporary failure to retrieve or create
+/// may be a badly formatted or missing key file. An example of problems using
+/// credentials may be a temporary failure to retrieve or create
 /// [access tokens]. Note that the latter kind of errors may happen even after
 /// the credential files are successfully loaded and parsed.
 ///
@@ -66,8 +66,8 @@ impl CredentialError {
     ///
     /// This function is only intended for use in the client libraries
     /// implementation. Application may use this in mocks, though we do not
-    /// recommend that your write tests for specific error cases. Most tests
-    /// should use the generic type [Error][crate::error::Error] type.
+    /// recommend that you write tests for specific error cases. Most tests
+    /// should use the generic [Error][crate::error::Error] type.
     ///
     /// # Example
     /// ```
@@ -92,8 +92,8 @@ impl CredentialError {
     ///
     /// This function is only intended for use in the client libraries
     /// implementation. Application may use this in mocks, though we do not
-    /// recommend that your write tests for specific error cases. Most tests
-    /// should use the generic type [Error][crate::error::Error] type.
+    /// recommend that you write tests for specific error cases. Most tests
+    /// should use the generic [Error][crate::error::Error] type.
     ///
     /// # Example
     /// ```
