@@ -130,7 +130,7 @@ where
 #[cfg(test)]
 mod test {
     use super::*;
-    use crate::errors::CredentialError;
+    use crate::errors;
     use crate::token::test::MockTokenProvider;
     use std::ops::{Add, Sub};
     use std::sync::{Arc, Mutex};
@@ -168,7 +168,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
-            .returning(|| Err(CredentialError::non_retryable_from_str("fail")));
+            .returning(|| Err(errors::non_retryable_from_str("fail")));
 
         let cache = TokenCache::new(mock);
         assert!(cache.get_token().await.is_err());
@@ -241,7 +241,7 @@ mod test {
 
         mock.expect_get_token()
             .times(1)
-            .return_once(|| Err(CredentialError::non_retryable_from_str("fail")));
+            .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
         // fetch an initial token
         let cache = TokenCache::new(mock);
@@ -560,7 +560,7 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 8)]
     async fn no_initial_token_thundering_herd_failure_shares_error() {
-        let err = Err(CredentialError::non_retryable_from_str("epic fail"));
+        let err = Err(errors::non_retryable_from_str("epic fail"));
 
         let tp = FakeTokenProvider::new(err);
 
