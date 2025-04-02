@@ -4849,6 +4849,7 @@ dependencies = [
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-secretmanager-v1",
+ "google-cloud-telcoautomation-v1",
  "google-cloud-wkt",
  "google-cloud-workflows-v1",
  "mockall",
