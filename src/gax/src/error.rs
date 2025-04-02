@@ -13,10 +13,12 @@
 // limitations under the License.
 
 mod core_error;
-mod http_error;
-mod service_error;
 pub use core_error::*;
+mod credentials;
+pub use credentials::CredentialError;
+mod http_error;
 pub use http_error::*;
+mod service_error;
 pub use service_error::*;
 
 /// Errors and error details returned by Service RPCs.
