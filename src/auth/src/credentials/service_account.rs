@@ -143,7 +143,7 @@ impl Builder {
     /// This can be overridden using [with_aud][Builder::with_aud]
     /// or [with_scopes][Builder::with_scopes] methods.
     ///
-    /// [cloud-platform scope]:https://cloud.google.com/compute/docs/access/service-accounts#scopes_best_practice
+    /// [cloud-platform]:https://cloud.google.com/compute/docs/access/service-accounts#scopes_best_practice
     /// [service_account_key]: https://cloud.google.com/iam/docs/keys-create-delete#creating
     pub fn new(service_account_key: Value) -> Self {
         Self {
