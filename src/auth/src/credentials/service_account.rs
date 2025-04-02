@@ -15,63 +15,58 @@
 //! [Service Account] Credentials type.
 //!
 //! A service account is an account for an application or compute workload
-//! instead of an individual end user. The recommended practice is to use
-//! Google Default Credentials, which relies on the configuration of the Google
-//! Cloud system hosting your application ([Google Compute Engine (GCE)][gce-link],
-//! [Google Kubernetes Engine (GKE)][gke-link], [Cloud Run]) to authenticate
-//! your workload or application.  But sometimes you may need to create and
-//! download a [service account key], for example, to use a service account
-//! when running your application on a system that is not part of Google Cloud.
+//! instead of an individual end user. The default credentials used by the
+//! client libraries may be, and often are, associated with a service account.
+//! Therefore, you can use service accounts by configuring your environment,
+//! without any code changes.
 //!
-//! Service account credentials are used in this latter case.
+//! Sometimes the application needs to use a [service account key] directly.
+//! The types in this module will help you in this case. For more information
+//! on when service account keys are appropriate, consult the
+//! relevant section in the [Best practices for using service accounts] guide.
 //!
 //! You can create multiple service account keys for a single service account.
-//! When you create a service account key, the key is returned as a string, in the
-//! format described by [aip/4112]. This string contains an ID for the service
-//! account, as well as the cryptographic materials (an RSA private key)
-//! required to authenticate the caller.
+//! When you [create a service account key], the key is returned as a string.
+//! This string contains an ID for the service account, as well as the
+//! cryptographic materials (an RSA private key) required to authenticate the caller.
 //!
 //! Therefore, service account keys should be treated as any other secret
 //! with security implications. Think of them as unencrypted passwords. Do not
 //! store them where unauthorized persons or programs may read them.
 //!
-//! The credentials in this module use [Self-signed JWTs] to bypass the
-//! intermediate step of exchanging client assertions for OAuth tokens.
+//! The types in this module allow you to create access tokens, based on
+//! service account keys and can be used with the Google Cloud client
+//! libraries for Rust.
 //!
-//! The types in this module allow you to retrieve access tokens, and
-//! can be used with the Google Cloud client libraries for Rust.
-//!
-//! While the Google Cloud client libraries for Rust default to
-//! using the types defined in this module, you may want to use these types directly
-//! when the service account key is obtained from Cloud Secret Manager or a similar service.
+//! While the Google Cloud client libraries for Rust automatically use the types
+//! in this module when ADC finds a service account key file, you may want to
+//! use these types directly when the service account key is obtained from
+//! Cloud Secret Manager or a similar service.
 //!
 //! Example usage:
 //!
 //! ```
-//! # use google_cloud_auth::credentials::service_account::{Builder, ServiceAccountKey};
+//! # use google_cloud_auth::credentials::service_account::Builder;
 //! # use google_cloud_auth::credentials::Credential;
 //! # use google_cloud_auth::errors::CredentialError;
 //! # tokio_test::block_on(async {
-//! let service_account_key = serde_json::from_value::<ServiceAccountKey>(serde_json::json!({
+//! let service_account_key = serde_json::json!({
 //! "client_email": "test-client-email",
 //! "private_key_id": "test-private-key-id",
-//! "private_key": "", // <-- Provide valid PKCS#8 PEM key here
+//! "private_key": "<YOUR_PKCS8_PEM_KEY_HERE>",
 //! "project_id": "test-project-id",
 //! "universe_domain": "test-universe-domain",
-//! })).unwrap();
-//! let credential: Credential = Builder::default().service_account_key(service_account_key).quota_project_id("my-quota-project").build();
+//! });
+//! let credential: Credential = Builder::new(service_account_key).with_quota_project_id("my-quota-project").build()?;
 //! let token = credential.get_token().await?;
 //! println!("Token: {}", token.token);
 //! # Ok::<(), CredentialError>(())
 //! # });
 //! ```
 //!
-//! [aip/4112]: https://google.aip.dev/auth/4112
-//! [Cloud Run]: https://cloud.google.com/run
-//! [gce-link]: https://cloud.google.com/products/compute
-//! [gke-link]: https://cloud.google.com/kubernetes-engine
-//! [Self-signed JWTs]: https://google.aip.dev/auth/4111
-//! [Service Account]: https://cloud.google.com/iam/docs/service-account-creds
+//! [Best practices for using service accounts]: https://cloud.google.com/iam/docs/best-practices-service-accounts#choose-when-to-use
+//! [create a service account key]: https://cloud.google.com/iam/docs/keys-create-delete#creating
+//! [Service Account]: https://cloud.google.com/iam/docs/service-account-overview
 //! [service account key]: https://cloud.google.com/iam/docs/keys-create-delete#creating
 
 mod jws;
@@ -88,60 +83,110 @@ use jws::{CLOCK_SKEW_FUDGE, DEFAULT_TOKEN_TIMEOUT, JwsClaims, JwsHeader};
 use rustls::crypto::CryptoProvider;
 use rustls::sign::Signer;
 use rustls_pemfile::Item;
+use serde_json::Value;
 use std::sync::Arc;
 use time::OffsetDateTime;
 
-const DEFAULT_SCOPES: &str = "https://www.googleapis.com/auth/cloud-platform";
+const DEFAULT_SCOPES: [&str; 1] = ["https://www.googleapis.com/auth/cloud-platform"];
 
-pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
-    let service_account_key =
-        serde_json::from_value::<ServiceAccountKey>(js).map_err(CredentialError::non_retryable)?;
-    Ok(Builder::default()
-        .service_account_key(service_account_key)
-        .build())
+pub(crate) fn creds_from(js: Value) -> Result<Credential> {
+    Builder::new(js).build()
 }
 
-#[derive(Default)]
+#[derive(Debug)]
+enum ServiceAccountRestrictions {
+    Audience(String),
+    Scopes(Vec<String>),
+}
+
+impl ServiceAccountRestrictions {
+    fn get_audience(&self) -> Option<&String> {
+        match self {
+            ServiceAccountRestrictions::Audience(aud) => Some(aud),
+            ServiceAccountRestrictions::Scopes(_) => None,
+        }
+    }
+
+    fn get_scopes(&self) -> Option<&[String]> {
+        match self {
+            ServiceAccountRestrictions::Scopes(scopes) => Some(scopes),
+            ServiceAccountRestrictions::Audience(_) => None,
+        }
+    }
+}
+
+/// A builder for constructing service account [Credential] instances.
+///
+/// # Example
+/// ```
+/// # use google_cloud_auth::credentials::service_account::Builder;
+/// # tokio_test::block_on(async {
+/// let key = serde_json::json!({
+/// "client_email": "test-client-email",
+/// "private_key_id": "test-private-key-id",
+/// "private_key": "<YOUR_PKCS8_PEM_KEY_HERE>",
+/// "project_id": "test-project-id",
+/// "universe_domain": "test-universe-domain",
+/// });
+/// let credentials = Builder::new(key).with_aud("https://pubsub.googleapis.com").build();
+/// })
+/// ```
 pub struct Builder {
-    service_account_key: ServiceAccountKey,
-    aud: Option<String>,
-    scopes: Option<String>,
+    service_account_key: Value,
+    restrictions: ServiceAccountRestrictions,
     quota_project_id: Option<String>,
 }
 
 impl Builder {
-    /// Sets the [service account key] in [aip/4112] format for this credential.
+    /// Creates a new builder using [service_account_key] json value.
+    /// By default, the builder is configured with [cloud-platform scope]. This can
+    /// be overridden using [with_scopes] or [with_aud] methods.
     ///
-    /// [aip/4112]: https://google.aip.dev/auth/4112
-    /// [service account key]: https://cloud.google.com/iam/docs/keys-create-delete#creating
-    pub fn service_account_key(mut self, service_account_key: ServiceAccountKey) -> Self {
-        self.service_account_key = service_account_key;
-        self
+    /// [cloud-platform scope]:https://cloud.google.com/compute/docs/access/service-accounts#scopes_best_practice
+    /// [service_account_key]: https://cloud.google.com/iam/docs/keys-create-delete#creating
+    pub fn new(service_account_key: Value) -> Self {
+        Self {
+            service_account_key,
+            restrictions: ServiceAccountRestrictions::Scopes(
+                DEFAULT_SCOPES.into_iter().map(|s| s.into()).collect(),
+            ),
+            quota_project_id: None,
+        }
     }
 
     /// Sets the audience for this credential.
     ///
     /// `aud` is a [JWT] claim specifying intended recipient(s) of the token,
-    /// that is, a service(s) or resource(s).
-    /// This cannot be used at the same time as the scopes claim.
+    /// that is, a service(s).
+    /// Only one of audience or scopes can be specified for a credential.
+    /// Setting the audience will replace any previously configured scopes.
     /// The value should be https://{SERVICE}/. (e.g. `https://pubsub.googleapis.com/`)
     ///
     /// [JWT]: https://google.aip.dev/auth/4111
-    pub fn aud<S: Into<String>>(mut self, aud: S) -> Self {
-        self.aud = Some(aud.into());
+    pub fn with_aud<V: Into<String>>(mut self, v: V) -> Self {
+        self.restrictions = ServiceAccountRestrictions::Audience(v.into());
         self
     }
 
-    /// Sets the [scopes] for this credentials.
+    /// Sets the [scopes] for this credential.
     ///
     /// `scopes` is a [JWT] claim specifying requested permission(s) for the token.
-    /// This cannot be used at the same time as the aud claim.
-    /// Multiple scopes can be specified using a single space (" ") as delimiter.
+    /// Only one of audience or scopes can be specified for a credential.
+    /// Setting the scopes will replace any previously configured audience.
+    ///
+    /// `scopes` define what an application can do on behalf of a user after the
+    /// user grants permission. IAM permissions define what a service account or
+    ///  user can do within a system .
     ///
     /// [JWT]: https://google.aip.dev/auth/4111
     /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
-    pub fn scopes<S: Into<String>>(mut self, scopes: S) -> Self {
-        self.scopes = Some(scopes.into());
+    pub fn with_scopes<I, S>(mut self, scopes: I) -> Self
+    where
+        I: IntoIterator<Item = S>,
+        S: Into<String>,
+    {
+        self.restrictions =
+            ServiceAccountRestrictions::Scopes(scopes.into_iter().map(|s| s.into()).collect());
         self
     }
 
@@ -153,53 +198,48 @@ impl Builder {
     /// service account has `serviceusage.services.use` permissions on the quota project.
     ///
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
-    pub fn quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
+    pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
         self.quota_project_id = Some(quota_project_id.into());
         self
     }
 
     /// Returns a [Credential] instance with the configured settings.
-    pub fn build(self) -> Credential {
+    pub fn build(self) -> Result<Credential> {
+        let service_account_key =
+            serde_json::from_value::<ServiceAccountKey>(self.service_account_key)
+                .map_err(CredentialError::non_retryable)?;
         let token_provider = ServiceAccountTokenProvider {
-            service_account_key: self.service_account_key,
-            aud: self.aud,
-            scopes: self.scopes,
+            service_account_key,
+            restrictions: self.restrictions,
         };
         let token_provider = TokenCache::new(token_provider);
 
-        Credential {
+        Ok(Credential {
             inner: Arc::new(ServiceAccountCredential {
                 token_provider,
                 quota_project_id: self.quota_project_id,
             }),
-        }
+        })
     }
 }
 
-/// A representation of a [service account key] in the format described by [aip/4112].
+/// A representation of a [service account key].
 ///
-/// This type is typically created by
-/// deserializing the JSON key data, for example, when the service account key
-/// is obtained from [Cloud Secret Manager] or a similar service.
-/// This key can then be used to create a [Credential], by passing it to the [Builder].
-///
-/// [aip/4112]: https://google.aip.dev/auth/4112
-/// [Cloud Secret Manager]: https://cloud.google.com/secret-manager/docs
 /// [Service Account Key]: https://cloud.google.com/iam/docs/keys-create-delete#creating
 #[derive(serde::Deserialize, Default, Clone)]
-pub struct ServiceAccountKey {
+struct ServiceAccountKey {
     /// The client email address of the service account.
     /// (e.g., "my-sa@my-project.iam.gserviceaccount.com").
-    pub client_email: String,
+    client_email: String,
     /// ID of the service account's private key.
-    pub private_key_id: String,
+    private_key_id: String,
     /// The PEM-encoded PKCS#8 private key string associated with the service account.
     /// Begins with `-----BEGIN PRIVATE KEY-----`.
-    pub private_key: String,
+    private_key: String,
     /// The project id the service account belongs to.
-    pub project_id: String,
+    project_id: String,
     /// The universe domain this service account belongs to.
-    pub universe_domain: String,
+    universe_domain: Option<String>,
 }
 
 impl std::fmt::Debug for ServiceAccountKey {
@@ -226,8 +266,7 @@ where
 #[derive(Debug)]
 struct ServiceAccountTokenProvider {
     service_account_key: ServiceAccountKey,
-    aud: Option<String>,
-    scopes: Option<String>,
+    restrictions: ServiceAccountRestrictions,
 }
 
 #[async_trait]
@@ -241,16 +280,14 @@ impl TokenProvider for ServiceAccountTokenProvider {
         // the implementation.
         let now = OffsetDateTime::now_utc() - CLOCK_SKEW_FUDGE;
         let exp = now + DEFAULT_TOKEN_TIMEOUT;
-        let scopes = if self.aud.is_none() && self.scopes.is_none() {
-            Some(DEFAULT_SCOPES.to_string())
-        } else {
-            self.scopes.clone()
-        };
 
         let claims = JwsClaims {
             iss: self.service_account_key.client_email.clone(),
-            scope: scopes,
-            aud: self.aud.clone(),
+            scope: self
+                .restrictions
+                .get_scopes()
+                .map(|scopes| scopes.join(" ")),
+            aud: self.restrictions.get_audience().cloned(),
             exp,
             iat: now,
             typ: None,
@@ -328,6 +365,7 @@ where
     }
 
     async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+        //TODO(#1686) Refactor the common logic out of the individual get_headers methods.
         let token = self.get_token().await?;
         let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
             .map_err(CredentialError::non_retryable)?;
@@ -351,10 +389,8 @@ mod test {
     use base64::Engine;
     use rsa::RsaPrivateKey;
     use rsa::pkcs1::EncodeRsaPrivateKey;
-    use rsa::pkcs8::EncodePrivateKey;
-    use rsa::pkcs8::LineEnding;
+    use rsa::pkcs8::{EncodePrivateKey, LineEnding};
     use rustls_pemfile::Item;
-    use serde_json::Value;
     use serde_json::json;
     use std::time::Duration;
 
@@ -369,7 +405,7 @@ mod test {
             private_key_id: "test-private-key-id".to_string(),
             private_key: "super-duper-secret-private-key".to_string(),
             project_id: "test-project-id".to_string(),
-            universe_domain: "test-universe-domain".to_string(),
+            universe_domain: Some("test-universe-domain".to_string()),
         };
         let fmt = format!("{expected:?}");
         assert!(fmt.contains("test-client-email"), "{fmt}");
@@ -495,17 +531,13 @@ mod test {
         assert!(sac.get_headers().await.is_err());
     }
 
-    fn get_mock_service_key() -> ServiceAccountKey {
-        let service_account_key_json = json!({
+    fn get_mock_service_key() -> Value {
+        json!({
             "client_email": "test-client-email",
             "private_key_id": "test-private-key-id",
             "private_key": "",
             "project_id": "test-project-id",
-            "universe_domain": "test-universe-domain",
-        });
-        serde_json::from_value::<ServiceAccountKey>(service_account_key_json)
-            .map_err(CredentialError::non_retryable)
-            .unwrap()
+        })
     }
 
     fn generate_pkcs1_private_key() -> String {
@@ -521,10 +553,8 @@ mod test {
     #[tokio::test]
     async fn get_service_account_token_pkcs1_private_key_failure() -> TestResult {
         let mut service_account_key = get_mock_service_key();
-        service_account_key.private_key = generate_pkcs1_private_key();
-        let cred = Builder::default()
-            .service_account_key(service_account_key)
-            .build();
+        service_account_key["private_key"] = Value::from(generate_pkcs1_private_key());
+        let cred = Builder::new(service_account_key).build()?;
         let expected_error_message = "expected key to be in form of PKCS8, found Pkcs1Key";
         assert!(
             cred.get_token()
@@ -557,10 +587,8 @@ mod test {
     #[tokio::test]
     async fn get_service_account_token_pkcs8_key_success() -> TestResult {
         let mut service_account_key = get_mock_service_key();
-        service_account_key.private_key = generate_pkcs8_private_key();
-        let cred = Builder::default()
-            .service_account_key(service_account_key.clone())
-            .build();
+        service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
+        let cred = Builder::new(service_account_key.clone()).build()?;
         let token = cred.get_token().await?;
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
         let captures = re.captures(&token.token).ok_or_else(|| {
@@ -572,14 +600,14 @@ mod test {
         let header = b64_decode_to_json(captures["header"].to_string());
         assert_eq!(header["alg"], "RS256");
         assert_eq!(header["typ"], "JWT");
-        assert_eq!(header["kid"], service_account_key.private_key_id);
+        assert_eq!(header["kid"], service_account_key["private_key_id"]);
 
         let claims = b64_decode_to_json(captures["claims"].to_string());
-        assert_eq!(claims["iss"], service_account_key.client_email);
-        assert_eq!(claims["scope"], DEFAULT_SCOPES);
+        assert_eq!(claims["iss"], service_account_key["client_email"]);
+        assert_eq!(claims["scope"], DEFAULT_SCOPES.join(" "));
         assert!(claims["iat"].is_number());
         assert!(claims["exp"].is_number());
-        assert_eq!(claims["sub"], service_account_key.client_email);
+        assert_eq!(claims["sub"], service_account_key["client_email"]);
 
         Ok(())
     }
@@ -629,10 +657,8 @@ mod test {
     async fn get_service_account_token_invalid_key_failure() -> TestResult {
         let mut service_account_key = get_mock_service_key();
         let pem_data = "-----BEGIN PRIVATE KEY-----\nMIGkAg==\n-----END PRIVATE KEY-----";
-        service_account_key.private_key = pem_data.to_string();
-        let cred = Builder::default()
-            .service_account_key(service_account_key)
-            .build();
+        service_account_key["private_key"] = Value::from(pem_data);
+        let cred = Builder::new(service_account_key).build()?;
 
         let token = cred.get_token().await;
         let expected_error_message = "failed to parse private key";
@@ -640,12 +666,22 @@ mod test {
         Ok(())
     }
 
+    #[tokio::test]
+    async fn get_service_account_token_invalid_json_failure() -> TestResult {
+        let service_account_key = Value::from(" ");
+        let e = Builder::new(service_account_key).build().err().unwrap();
+
+        assert!(!e.is_retryable());
+
+        Ok(())
+    }
+
     #[test]
     fn signer_failure() -> TestResult {
         let tp = ServiceAccountTokenProvider {
-            service_account_key: get_mock_service_key(),
-            aud: None,
-            scopes: None,
+            service_account_key:
+                serde_json::from_value::<ServiceAccountKey>(get_mock_service_key()).unwrap(),
+            restrictions: ServiceAccountRestrictions::Scopes(vec![]),
         };
         let signer = tp.signer(&tp.service_account_key.private_key);
         let expected_error_message = "missing PEM section in service account key";
@@ -669,11 +705,10 @@ mod test {
     #[tokio::test]
     async fn get_service_account_token_with_audience() -> TestResult {
         let mut service_account_key = get_mock_service_key();
-        service_account_key.private_key = generate_pkcs8_private_key();
-        let token = Builder::default()
-            .service_account_key(service_account_key.clone())
-            .aud("test-audience")
-            .build()
+        service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
+        let token = Builder::new(service_account_key.clone())
+            .with_aud("test-audience")
+            .build()?
             .get_token()
             .await?;
 
@@ -687,28 +722,28 @@ mod test {
         let header = b64_decode_to_json(captures["header"].to_string());
         assert_eq!(header["alg"], "RS256");
         assert_eq!(header["typ"], "JWT");
-        assert_eq!(header["kid"], service_account_key.private_key_id);
+        assert_eq!(header["kid"], service_account_key["private_key_id"]);
 
         let claims = b64_decode_to_json(captures["claims"].to_string());
-        assert_eq!(claims["iss"], service_account_key.client_email);
+        assert_eq!(claims["iss"], service_account_key["client_email"]);
         assert_eq!(claims["scope"], Value::Null);
         assert_eq!(claims["aud"], "test-audience");
         assert!(claims["iat"].is_number());
         assert!(claims["exp"].is_number());
-        assert_eq!(claims["sub"], service_account_key.client_email);
+        assert_eq!(claims["sub"], service_account_key["client_email"]);
         Ok(())
     }
 
     #[tokio::test]
     async fn get_service_account_token_with_custom_scopes() -> TestResult {
         let mut service_account_key = get_mock_service_key();
-        let scopes =
-            "https://www.googleapis.com/auth/pubsub https://www.googleapis.com/auth/translate";
-        service_account_key.private_key = generate_pkcs8_private_key();
-        let token = Builder::default()
-            .service_account_key(service_account_key.clone())
-            .scopes(scopes)
-            .build()
+        let scopes = vec![
+            "https://www.googleapis.com/auth/pubsub, https://www.googleapis.com/auth/translate",
+        ];
+        service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
+        let token = Builder::new(service_account_key.clone())
+            .with_scopes(scopes.clone())
+            .build()?
             .get_token()
             .await?;
 
@@ -722,15 +757,15 @@ mod test {
         let header = b64_decode_to_json(captures["header"].to_string());
         assert_eq!(header["alg"], "RS256");
         assert_eq!(header["typ"], "JWT");
-        assert_eq!(header["kid"], service_account_key.private_key_id);
+        assert_eq!(header["kid"], service_account_key["private_key_id"]);
 
         let claims = b64_decode_to_json(captures["claims"].to_string());
-        assert_eq!(claims["iss"], service_account_key.client_email);
-        assert_eq!(claims["scope"], scopes);
+        assert_eq!(claims["iss"], service_account_key["client_email"]);
+        assert_eq!(claims["scope"], scopes.join(" "));
         assert_eq!(claims["aud"], Value::Null);
         assert!(claims["iat"].is_number());
         assert!(claims["exp"].is_number());
-        assert_eq!(claims["sub"], service_account_key.client_email);
+        assert_eq!(claims["sub"], service_account_key["client_email"]);
         Ok(())
     }
 }

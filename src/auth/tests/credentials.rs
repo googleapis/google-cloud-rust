@@ -13,9 +13,7 @@
 // limitations under the License.
 
 use google_cloud_auth::credentials::mds::Builder as MdsBuilder;
-use google_cloud_auth::credentials::service_account::{
-    Builder as ServiceAccountBuilder, ServiceAccountKey,
-};
+use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBuilder;
 use google_cloud_auth::credentials::testing::test_credentials;
 use google_cloud_auth::credentials::{
     ApiKeyOptions, Credential, CredentialTrait, create_access_token_credential,
@@ -209,12 +207,9 @@ mod test {
             "project_id": "test-project-id",
             "universe_domain": "test-universe-domain",
         });
-        let service_account = ServiceAccountBuilder::default()
-            .service_account_key(
-                serde_json::from_value::<ServiceAccountKey>(service_account_info_json).unwrap(),
-            )
-            .quota_project_id(test_quota_project)
-            .build();
+        let service_account = ServiceAccountBuilder::new(service_account_info_json)
+            .with_quota_project_id(test_quota_project)
+            .build()?;
         let fmt = format!("{:?}", service_account);
         assert!(fmt.contains("ServiceAccountCredential"));
         assert!(fmt.contains(test_quota_project));
