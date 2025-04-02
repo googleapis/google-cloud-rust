@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::fake_library::model;
+use super::library::model;
 use axum::http::StatusCode;
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 

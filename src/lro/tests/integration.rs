@@ -13,18 +13,14 @@
 // limitations under the License.
 
 #[cfg(test)]
-mod fake_library;
-#[cfg(test)]
-mod fake_responses;
-#[cfg(test)]
-mod fake_service;
+mod fake;
 
 #[cfg(test)]
 mod test {
-    use super::fake_library::client;
-    use super::fake_library::model;
-    use super::fake_responses;
-    use super::fake_service::*;
+    use super::fake::library::client;
+    use super::fake::library::model;
+    use super::fake::responses;
+    use super::fake::service::*;
     use google_cloud_lro as lro;
     use lro::Poller;
 
@@ -40,7 +36,7 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn until_done_immediate_success() -> TestResult {
-        let create = vec![fake_responses::success("op/001", "p/test-p/r/r-001")?];
+        let create = vec![responses::success("op/001", "p/test-p/r/r-001")?];
         let poll = vec![];
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
@@ -66,7 +62,7 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn until_done_immediate_error() -> TestResult {
-        let create = vec![fake_responses::operation_error("op/001")?];
+        let create = vec![responses::operation_error("op/001")?];
         let poll = vec![];
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
@@ -88,10 +84,10 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn until_done_success() -> TestResult {
-        let create = vec![fake_responses::pending("op/001", 25)?];
+        let create = vec![responses::pending("op/001", 25)?];
         let poll = vec![
-            fake_responses::pending("op/001", 75)?,
-            fake_responses::success("op/001", "p/test-p/r/r-001")?,
+            responses::pending("op/001", 75)?,
+            responses::success("op/001", "p/test-p/r/r-001")?,
         ];
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
@@ -117,10 +113,10 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn until_done_error() -> TestResult {
-        let create = vec![fake_responses::pending("op/001", 25)?];
+        let create = vec![responses::pending("op/001", 25)?];
         let poll = vec![
-            fake_responses::pending("op/001", 75)?,
-            fake_responses::operation_error("op/001")?,
+            responses::pending("op/001", 75)?,
+            responses::operation_error("op/001")?,
         ];
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
@@ -142,7 +138,7 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn poller_immediate_success() -> TestResult {
-        let create = vec![fake_responses::success("op/001", "p/test-p/r/r-001")?];
+        let create = vec![responses::success("op/001", "p/test-p/r/r-001")?];
         let poll = vec![];
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
@@ -175,7 +171,7 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn poller_immediate_error() -> TestResult {
-        let create = vec![fake_responses::operation_error("op/001")?];
+        let create = vec![responses::operation_error("op/001")?];
         let poll = vec![];
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
@@ -205,10 +201,10 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn poller_success() -> TestResult {
-        let create = vec![fake_responses::pending("op/001", 25)?];
+        let create = vec![responses::pending("op/001", 25)?];
         let poll = vec![
-            fake_responses::pending("op/001", 75)?,
-            fake_responses::success("op/001", "p/test-p/r/r-001")?,
+            responses::pending("op/001", 75)?,
+            responses::success("op/001", "p/test-p/r/r-001")?,
         ];
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
@@ -260,10 +256,10 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn poller_error() -> TestResult {
-        let create = vec![fake_responses::pending("op/001", 25)?];
+        let create = vec![responses::pending("op/001", 25)?];
         let poll = vec![
-            fake_responses::pending("op/001", 75)?,
-            fake_responses::operation_error("op/001")?,
+            responses::pending("op/001", 75)?,
+            responses::operation_error("op/001")?,
         ];
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
@@ -312,7 +308,7 @@ mod test {
     // The manual tests are here to validate all the test infrastructure.
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn manual_immediate_success() -> TestResult {
-        let create = vec![fake_responses::success("op/001", "p/test-p/r/r-001")?];
+        let create = vec![responses::success("op/001", "p/test-p/r/r-001")?];
         let poll = vec![];
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
@@ -354,10 +350,10 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn manual_success() -> TestResult {
-        let create = vec![fake_responses::pending("op/001", 25)?];
+        let create = vec![responses::pending("op/001", 25)?];
         let poll = vec![
-            fake_responses::pending("op/001", 50)?,
-            fake_responses::success("op/001", "p/test-p/r/r-001")?,
+            responses::pending("op/001", 50)?,
+            responses::success("op/001", "p/test-p/r/r-001")?,
         ];
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
