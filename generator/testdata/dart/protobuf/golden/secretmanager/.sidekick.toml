@@ -25,6 +25,7 @@ name-override = 'secretmanager'
 [codec]
 copyright-year = '2025'
 not-for-publication = 'true'
+'proto:google.cloud.location' = 'package:google_cloud_location/location.dart'
 'proto:google.protobuf' = 'package:google_cloud_protobuf/protobuf.dart'
 skip-format = 'true'
 version = '0.1.0'
