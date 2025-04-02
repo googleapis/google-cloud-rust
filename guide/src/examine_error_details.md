@@ -17,7 +17,7 @@ limitations under the License.
 # Examine error details
 
 Some Google Cloud services include additional error details when requests fail.
-To help with any troubleshooting the Google Cloud client libraries for Rust
+To help with any troubleshooting, the Google Cloud client libraries for Rust
 always include these details when errors are formatted using
 `std::fmt::Display`. Some applications may want to examine these details and
 change their behavior based on their contents.
@@ -135,7 +135,7 @@ And then iterate over all the details:
 {{#include ../samples/src/examine_error_details.rs:examine-error-details-service-error}}
 ```
 
-The client libraries return a the [`StatusDetails`] enum with the different
+The client libraries return a [`StatusDetails`] enum with the different
 types of error details. In this example we will only examine `BadRequest` errors:
 
 ```rust,ignore
@@ -153,7 +153,7 @@ Such information can be useful during development. Other branches of
 `StatusDetails`, such as [`QuotaFailure`] may be useful at runtime to throttle
 an application.
 
-### Expected Output
+### Expected output
 
 Typically the output from the error details will look like so:
 
