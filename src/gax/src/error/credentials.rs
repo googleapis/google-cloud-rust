@@ -204,4 +204,12 @@ mod test {
         assert!(got.contains("test-only-err-123"), "{got}");
         assert!(got.contains(NON_RETRYABLE_MSG), "{got}");
     }
+
+    #[test]
+    fn source() {
+        let got = CredentialErrorImpl::SimpleMessage("test-only".into());
+        assert!(got.source().is_none(), "{got}");
+        let got = CredentialErrorImpl::Source(Arc::new(crate::error::Error::other("test-only")));
+        assert!(got.source().is_some(), "{got}");
+    }
 }
