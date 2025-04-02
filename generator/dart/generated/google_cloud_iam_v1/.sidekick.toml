@@ -17,7 +17,7 @@ specification-source = 'google/iam/v1'
 service-config = 'google/iam/v1/iam_meta_api.yaml'
 
 [source]
-name-override = 'iam_v1'
+name-override = 'iam'
 
 [codec]
 copyright-year = '2025'
