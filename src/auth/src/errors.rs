@@ -193,4 +193,33 @@ mod test {
         assert!(got.contains("test-only-err-123"), "{got}");
         assert!(got.contains(NON_RETRYABLE_MSG), "{got}");
     }
+
+    #[test]
+    fn helpers() {
+        let e = super::retryable_from_str("test-only-err-123");
+        assert!(e.is_retryable(), "{e}");
+        assert!(e.source().unwrap().source().is_none());
+        let got = format!("{e}");
+        assert!(got.contains("test-only-err-123"), "{got}");
+        assert!(got.contains(RETRYABLE_MSG), "{got}");
+
+        let input = "NaN".parse::<u32>().unwrap_err();
+        let e = super::retryable(input.clone());
+        assert!(e.is_retryable(), "{e}");
+        let got = format!("{e}");
+        assert!(got.contains(RETRYABLE_MSG), "{got}");
+        assert!(got.contains(&format!("{input}")), "{got}");
+
+        let e = super::non_retryable_from_str("test-only-err-123");
+        assert!(!e.is_retryable(), "{e}");
+        let got = format!("{e}");
+        assert!(got.contains("test-only-err-123"), "{got}");
+        assert!(got.contains(NON_RETRYABLE_MSG), "{got}");
+
+        let e = super::non_retryable(input.clone());
+        assert!(!e.is_retryable(), "{e}");
+        let got = format!("{e}");
+        assert!(got.contains(NON_RETRYABLE_MSG), "{got}");
+        assert!(got.contains(&format!("{input}")), "{got}");
+    }
 }
