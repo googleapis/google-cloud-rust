@@ -52,9 +52,7 @@
 //!
 //! [idempotent]: https://en.wikipedia.org/wiki/Idempotence
 
-use auth::errors::CredentialError;
-
-use crate::error::Error;
+use crate::error::{CredentialError, Error};
 use crate::loop_state::LoopState;
 use std::sync::Arc;
 
@@ -725,15 +723,13 @@ mod tests {
         assert!(p.on_error(now, 0, idempotent, error).is_exhausted());
     }
 
-    fn from_status(status: Status) -> Error {
+    fn http_from_status(status: Status) -> Error {
         use std::collections::HashMap;
-        let payload = serde_json::to_value(&status)
-            .ok()
-            .map(|v| serde_json::json!({"error": v}));
-        let payload = payload.map(|v| v.to_string());
-        let payload = payload.map(bytes::Bytes::from_owner);
-        let http = crate::error::HttpError::new(status.code as u16, HashMap::new(), payload);
-        Error::rpc(http)
+        Error::rpc(crate::error::HttpError::new(
+            status.code as u16,
+            HashMap::new(),
+            bytes::Bytes::from_owner(status.message).into(),
+        ))
     }
 
     fn http_unavailable() -> Error {
@@ -741,7 +737,7 @@ mod tests {
         status.code = 503;
         status.message = "SERVICE UNAVAILABLE".to_string();
         status.status = Some("UNAVAILABLE".to_string());
-        from_status(status)
+        http_from_status(status)
     }
 
     fn http_permission_denied() -> Error {
@@ -749,7 +745,7 @@ mod tests {
         status.code = 403;
         status.message = "PERMISSION DENIED".to_string();
         status.status = Some("PERMISSION_DENIED".to_string());
-        from_status(status)
+        http_from_status(status)
     }
 
     fn unavailable() -> Error {
