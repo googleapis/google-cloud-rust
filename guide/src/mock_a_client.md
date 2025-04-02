@@ -101,6 +101,18 @@ Finally, we are ready to call our function...
 {{#include ../samples/tests/mocking.rs:validate}}
 ```
 
+### Simulating errors
+
+Simulating errors is no different than simulating successes. We just need to
+modify the result returned by our mock.
+
+```rust,ignore
+{{#include ../samples/tests/mocking.rs:error}}
+```
+
+Note that a client built `from_stub()` does not have an internal retry loop. It
+returns all errors from the stub directly to the application.
+
 ______________________________________________________________________
 
 ## Full program

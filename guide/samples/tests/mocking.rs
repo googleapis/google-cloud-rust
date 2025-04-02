@@ -51,7 +51,7 @@ mod test {
     // ANCHOR_END: mockall_macro
 
     #[tokio::test]
-    async fn unary() -> Result<()> {
+    async fn basic_success() -> Result<()> {
         // Create a mock, and set expectations on it.
         // ANCHOR: mock_new
         let mut mock = MockSpeech::new();
@@ -80,6 +80,28 @@ mod test {
         // ANCHOR: validate
         assert_eq!(display_name, "test-display-name");
         // ANCHOR_END: validate
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn basic_fail() -> Result<()> {
+        let mut mock = MockSpeech::new();
+        // ANCHOR: error
+        mock.expect_get_recognizer().return_once(|_, _| {
+            // This time, return an error.
+            Err(gax::error::Error::other("fail"))
+        });
+        // ANCHOR_END: error
+
+        // Create a client, implemented by the mock.
+        let client = speech::client::Speech::from_stub(mock);
+
+        // Call our function.
+        let display_name = my_application_function(&client).await;
+
+        // Verify the final result of the RPC.
+        assert!(display_name.is_err());
 
         Ok(())
     }
