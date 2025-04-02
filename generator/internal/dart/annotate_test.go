@@ -24,6 +24,7 @@ import (
 
 func TestAnnotateModel(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	model.PackageName = "test"
 	annotate := newAnnotateModel(model)
 	_, err := annotate.annotateModel(map[string]string{})
 	if err != nil {

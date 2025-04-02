@@ -23,5 +23,5 @@ environment:
 resolution: workspace
 
 dependencies:
-  google_cloud_language: any
+  google_cloud_language_v2: any
   googleapis_auth: ^1.6.0

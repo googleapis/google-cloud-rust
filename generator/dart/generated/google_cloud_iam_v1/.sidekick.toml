@@ -21,4 +21,3 @@ name-override = 'iam'
 
 [codec]
 copyright-year = '2025'
-package-name-override = 'google_cloud_iam_v1'
