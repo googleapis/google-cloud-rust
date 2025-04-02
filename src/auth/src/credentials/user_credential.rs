@@ -14,7 +14,7 @@
 
 use crate::credentials::dynamic::CredentialTrait;
 use crate::credentials::{Credential, QUOTA_PROJECT_KEY, Result};
-use crate::errors::{CredentialError, is_retryable};
+use crate::errors::{self, CredentialError, is_retryable};
 use crate::token::{Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use http::header::{AUTHORIZATION, CONTENT_TYPE, HeaderName, HeaderValue};
@@ -25,8 +25,7 @@ use std::time::Duration;
 const OAUTH2_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
 
 pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
-    let au =
-        serde_json::from_value::<AuthorizedUser>(js).map_err(CredentialError::non_retryable)?;
+    let au = serde_json::from_value::<AuthorizedUser>(js).map_err(errors::non_retryable)?;
 
     let endpoint = au.token_uri.unwrap_or_else(|| OAUTH2_ENDPOINT.to_string());
 
@@ -83,7 +82,7 @@ impl TokenProvider for UserTokenProvider {
             .request(Method::POST, self.endpoint.as_str())
             .header(CONTENT_TYPE, header)
             .json(&req);
-        let resp = builder.send().await.map_err(CredentialError::retryable)?;
+        let resp = builder.send().await.map_err(errors::retryable)?;
 
         // Process the response
         if !resp.status().is_success() {
@@ -137,13 +136,13 @@ where
     async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         let token = self.get_token().await?;
         let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
-            .map_err(CredentialError::non_retryable)?;
+            .map_err(errors::non_retryable)?;
         value.set_sensitive(true);
         let mut headers = vec![(AUTHORIZATION, value)];
         if let Some(project) = &self.quota_project_id {
             headers.push((
                 HeaderName::from_static(QUOTA_PROJECT_KEY),
-                HeaderValue::from_str(project).map_err(CredentialError::non_retryable)?,
+                HeaderValue::from_str(project).map_err(errors::non_retryable)?,
             ));
         }
         Ok(headers)
@@ -313,7 +312,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
-            .return_once(|| Err(CredentialError::non_retryable_from_str("fail")));
+            .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
         let uc = UserCredential {
             token_provider: mock,
@@ -355,7 +354,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
-            .return_once(|| Err(CredentialError::non_retryable_from_str("fail")));
+            .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
         let uc = UserCredential {
             token_provider: mock,

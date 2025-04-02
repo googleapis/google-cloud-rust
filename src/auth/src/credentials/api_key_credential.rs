@@ -14,7 +14,7 @@
 
 use crate::credentials::dynamic::CredentialTrait;
 use crate::credentials::{Credential, QUOTA_PROJECT_KEY, Result};
-use crate::errors::CredentialError;
+use crate::errors;
 use crate::token::{Token, TokenProvider};
 use http::header::{HeaderName, HeaderValue};
 use std::sync::Arc;
@@ -119,14 +119,13 @@ where
 
     async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         let token = self.get_token().await?;
-        let mut value =
-            HeaderValue::from_str(&token.token).map_err(CredentialError::non_retryable)?;
+        let mut value = HeaderValue::from_str(&token.token).map_err(errors::non_retryable)?;
         value.set_sensitive(true);
         let mut headers = vec![(HeaderName::from_static(API_KEY_HEADER_KEY), value)];
         if let Some(project) = &self.quota_project_id {
             headers.push((
                 HeaderName::from_static(QUOTA_PROJECT_KEY),
-                HeaderValue::from_str(project).map_err(CredentialError::non_retryable)?,
+                HeaderValue::from_str(project).map_err(errors::non_retryable)?,
             ));
         }
         Ok(headers)
