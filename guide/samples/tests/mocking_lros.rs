@@ -47,6 +47,66 @@ mod my_application {
             .map(|r| r.total_billed_duration)
     }
     // ANCHOR_END: auto-fn
+
+    // ANCHOR: manual-fn
+    pub struct BatchRecognizeResult {
+        pub progress_updates: Vec<i32>,
+        pub billed_duration: Result<Option<wkt::Duration>>,
+    }
+
+    // An example application function that manually polls.
+    //
+    // It starts an LRO. It consolidates the polling results, whether full or
+    // partial.
+    //
+    // In this case, it is the `BatchRecognize` RPC. If we get a partial update,
+    // we extract the `progress_percent` field. If we get a final result, we
+    // extract the `total_billed_duration` field.
+    pub async fn my_manual_poller(
+        client: &speech::client::Speech,
+        project_id: &str,
+    ) -> BatchRecognizeResult {
+        use speech::Poller;
+        let mut progress_updates = Vec::<i32>::new();
+        let mut poller = client
+            .batch_recognize(format!(
+                "projects/{project_id}/locations/global/recognizers/_"
+            ))
+            .poller();
+        while let Some(p) = poller.poll().await {
+            match p {
+                speech::PollingResult::Completed(r) => {
+                    let billed_duration = r.map(|r| r.total_billed_duration);
+                    return BatchRecognizeResult {
+                        progress_updates,
+                        billed_duration,
+                    };
+                }
+                speech::PollingResult::InProgress(m) => {
+                    if let Some(metadata) = m {
+                        // This is a silly application. Your application likely
+                        // performs some task immediately with the partial
+                        // update, instead of storing it for after the operation
+                        // has completed.
+                        progress_updates.push(metadata.progress_percent);
+                    }
+                }
+                speech::PollingResult::PollingError(e) => {
+                    return BatchRecognizeResult {
+                        progress_updates,
+                        billed_duration: Err(Error::from(e)),
+                    };
+                }
+            }
+            tokio::time::sleep(std::time::Duration::from_millis(500)).await;
+        }
+
+        // We can only get here if `poll()` returns `None`, but it only returns
+        // `None` after it returned `PollingResult::Completed`. Therefore this
+        // is never reached.
+        unreachable!("loop should exit via the `Completed` branch.");
+    }
+    // ANCHOR_END: manual-fn
 }
 
 // ANCHOR: all
@@ -122,66 +182,6 @@ mod test {
 
         Ok(())
     }
-
-    // ANCHOR: manual-fn
-    pub struct BatchRecognizeResult {
-        pub progress_updates: Vec<i32>,
-        pub billed_duration: Result<Option<wkt::Duration>>,
-    }
-
-    // An example application function that manually polls.
-    //
-    // It starts an LRO. It consolidates the polling results, whether full or
-    // partial.
-    //
-    // In this case, it is the `BatchRecognize` RPC. If we get a partial update,
-    // we extract the `progress_percent` field. If we get a final result, we
-    // extract the `total_billed_duration` field.
-    pub async fn my_manual_poller(
-        client: &speech::client::Speech,
-        project_id: &str,
-    ) -> BatchRecognizeResult {
-        use speech::Poller;
-        let mut progress_updates = Vec::<i32>::new();
-        let mut poller = client
-            .batch_recognize(format!(
-                "projects/{project_id}/locations/global/recognizers/_"
-            ))
-            .poller();
-        while let Some(p) = poller.poll().await {
-            match p {
-                speech::PollingResult::Completed(r) => {
-                    let billed_duration = r.map(|r| r.total_billed_duration);
-                    return BatchRecognizeResult {
-                        progress_updates,
-                        billed_duration,
-                    };
-                }
-                speech::PollingResult::InProgress(m) => {
-                    if let Some(metadata) = m {
-                        // This is a silly application. Your application likely
-                        // performs some task immediately with the partial
-                        // update, instead of storing it for after the operation
-                        // has completed.
-                        progress_updates.push(metadata.progress_percent);
-                    }
-                }
-                speech::PollingResult::PollingError(e) => {
-                    return BatchRecognizeResult {
-                        progress_updates,
-                        billed_duration: Err(Error::from(e)),
-                    };
-                }
-            }
-            tokio::time::sleep(std::time::Duration::from_millis(500)).await;
-        }
-
-        // We can only get here if `poll()` returns `None`, but it only returns
-        // `None` after it returned `PollingResult::Completed`. Therefore this
-        // is never reached.
-        unreachable!("loop should exit via the `Completed` branch.");
-    }
-    // ANCHOR_END: manual-fn
 
     #[tokio::test]
     async fn manual_polling_with_metadata() -> Result<()> {
