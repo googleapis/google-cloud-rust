@@ -65,6 +65,6 @@ mod test {
         let got = svc.status().clone();
         assert_eq!(got.code, rpc::Code::InvalidArgument as i32);
         assert_eq!(&got.message, "test-only");
-        assert_eq!(got.status, Some(String::from(rpc::Code::from(got.code))));
+        assert_eq!(got.status.as_deref(), Some("INVALID_ARGUMENT"));
     }
 }
