@@ -175,9 +175,11 @@ impl Builder {
     /// Only one of audience or scopes can be specified for a credential.
     /// Setting the scopes will replace any previously configured audience.
     ///
-    /// `scopes` define what an application can do on behalf of a user after the
-    /// user grants permission. IAM permissions define what a service account or
-    ///  user can do within a system.
+    /// `scopes` define the *permissions being requested* for this specific session 
+    /// when interacting with a service. For example, https://www.googleapis.com/auth/devstorage.read_write.
+    /// IAM permissions, on the other hand, define the *underlying capabilities* 
+    /// the service account possesses within a system. For example, storage.buckets.delete.
+    /// IAM permissions are typically more fine-grained than OAuth scopes.
     ///
     /// [JWT]: https://google.aip.dev/auth/4111
     /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
@@ -195,7 +197,7 @@ impl Builder {
     ///
     /// In some services, you can use a service account in
     /// one project for authentication and authorization, and charge
-    /// the usage to a different project. This may require that the
+    /// the usage to a different project. This requires that the
     /// service account has `serviceusage.services.use` permissions on the quota project.
     ///
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
