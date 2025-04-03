@@ -91,6 +91,7 @@ jobs:
             cargo "${sub}" --package google-cloud-wkt --all-features
           done
           cargo clippy --no-deps --package google-cloud-wkt --all-features -- --deny warnings
+
           cargo clean
           for sub in test doc; do
             cargo "${sub}" --package google-cloud-gax --no-default-features
@@ -98,6 +99,7 @@ jobs:
             cargo "${sub}" --package google-cloud-gax --all-features
           done
           cargo clippy --no-deps --package google-cloud-gax --all-features -- --deny warnings
+
           cargo clean
           for sub in test doc; do
             cargo "${sub}" --package google-cloud-gax-internal --no-default-features
@@ -107,6 +109,14 @@ jobs:
             cargo "${sub}" --package google-cloud-gax-internal --all-features
           done
           cargo clippy --no-deps --package google-cloud-gax-internal --all-features -- --deny warnings
+
+          cargo clean
+          for sub in test doc; do
+            cargo "${sub}" --package google-cloud-lro --no-default-features
+            cargo "${sub}" --package google-cloud-lro --no-default-features --features unstable-stream
+            cargo "${sub}" --package google-cloud-lro --all-features
+          done
+          cargo clippy --no-deps --package google-cloud-lro --all-features -- --deny warnings
   coverage:
     runs-on: ubuntu-24.04
     strategy:
