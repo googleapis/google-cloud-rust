@@ -86,12 +86,14 @@ jobs:
             cargo "${sub}" --package google-cloud-wkt --no-default-features --features time
             cargo "${sub}" --package google-cloud-wkt --all-features
           done
+          cargo clippy --no-deps --package google-cloud-wkt --all-features -- --deny warnings
           cargo clean
           for sub in test doc; do
             cargo "${sub}" --package google-cloud-gax --no-default-features
             cargo "${sub}" --package google-cloud-gax --no-default-features --features unstable-sdk-client
             cargo "${sub}" --package google-cloud-gax --all-features
           done
+          cargo clippy --no-deps --package google-cloud-gax --all-features -- --deny warnings
           cargo clean
           for sub in test doc; do
             cargo "${sub}" --package google-cloud-gax-internal --no-default-features
@@ -100,6 +102,7 @@ jobs:
             cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal_grpc_client
             cargo "${sub}" --package google-cloud-gax-internal --all-features
           done
+          cargo clippy --no-deps --package google-cloud-gax-internal --all-features -- --deny warnings
   coverage:
     runs-on: ubuntu-24.04
     strategy:
