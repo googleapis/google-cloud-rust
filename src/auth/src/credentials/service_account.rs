@@ -175,9 +175,9 @@ impl Builder {
     /// Only one of audience or scopes can be specified for a credential.
     /// Setting the scopes will replace any previously configured audience.
     ///
-    /// `scopes` define the *permissions being requested* for this specific session 
-    /// when interacting with a service. For example, https://www.googleapis.com/auth/devstorage.read_write.
-    /// IAM permissions, on the other hand, define the *underlying capabilities* 
+    /// `scopes` define the *permissions being requested* for this specific session
+    /// when interacting with a service. For example, `https://www.googleapis.com/auth/devstorage.read_write`.
+    /// IAM permissions, on the other hand, define the *underlying capabilities*
     /// the service account possesses within a system. For example, storage.buckets.delete.
     /// IAM permissions are typically more fine-grained than OAuth scopes.
     ///
