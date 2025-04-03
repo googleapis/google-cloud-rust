@@ -46,20 +46,6 @@ jobs:
         run: cargo version
       - name: Display rustc version
         run: rustup show active-toolchain -v
-      - name: Test gax with features disabled
-        run: cargo clean && cargo test --package google-cloud-gax --no-default-features
-      - name: Test gax with all features
-        run: cargo clean && cargo test --package google-cloud-gax --all-features
-      - name: Test gax-internal with no features
-        run: cargo clean && cargo test --package google-cloud-gax-internal --no-default-features
-      - name: Test gax-internal with common features
-        run: cargo clean && cargo test --package google-cloud-gax-internal --features _internal_common
-      - name: Test gax-internal with http features
-        run: cargo clean && cargo test --package google-cloud-gax-internal --features _internal_http_client
-      - name: Test gax-internal with gRPC features
-        run: cargo clean && cargo test --package google-cloud-gax-internal --features _internal_grpc_client
-      - name: Test gax-internal with all features
-        run: cargo clean && cargo test --package google-cloud-gax-internal --all-features
       - name: Running tests for key crates
         run: cargo clean && cargo test
       - name: Build full workspace
@@ -67,6 +53,53 @@ jobs:
       - name: Running tests for full workspace
         run: cargo clean && cargo test --workspace
         if: github.event_name == 'push'
+  features:
+    strategy:
+      matrix:
+        os: ['ubuntu-24.04']
+        rust-version: ['rust:current']
+    runs-on: ${{ matrix.os }}
+    env:
+      RUSTDOCFLAGS: "-D warnings"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
+      - name: Setup Rust ${{ matrix.rust-version }}
+        run: rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+      - run: rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+      - name: Display Cargo version
+        run: cargo version
+      - name: Display rustc version
+        run: rustup show active-toolchain -v
+      - name: Test gax with features disabled
+        run: |
+          set -e
+          cargo clean
+          for sub in test doc; do
+            cargo "${sub}" --package google-cloud-wkt --no-default-features
+            cargo "${sub}" --package google-cloud-wkt --no-default-features --features prost
+            cargo "${sub}" --package google-cloud-wkt --no-default-features --features chrono
+            cargo "${sub}" --package google-cloud-wkt --no-default-features --features time
+            cargo "${sub}" --package google-cloud-wkt --all-features
+          done
+          cargo clean
+          for sub in test doc; do
+            cargo "${sub}" --package google-cloud-gax --no-default-features
+            cargo "${sub}" --package google-cloud-gax --no-default-features --features unstable-sdk-client
+            cargo "${sub}" --package google-cloud-gax --all-features
+          done
+          cargo clean
+          for sub in test doc; do
+            cargo "${sub}" --package google-cloud-gax-internal --no-default-features
+            cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal_common
+            cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal_http_client
+            cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal_grpc_client
+            cargo "${sub}" --package google-cloud-gax-internal --all-features
+          done
   coverage:
     runs-on: ubuntu-24.04
     strategy:
@@ -174,7 +207,7 @@ jobs:
         run: cargo version
       - name: Display rustc version
         run: rustup show active-toolchain -v
-      - run: cargo clippy --workspace -- --deny warnings
+      - run: cargo clippy --all-features --workspace -- --deny warnings
       - run: cargo fmt
       - run: git diff --exit-code
   regenerate:
