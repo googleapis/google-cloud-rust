@@ -35,7 +35,7 @@ Let's say our application code awaits `lro::Poller::until_done()`. In previous
 sections, we called this "automatic polling".
 
 ```rust,ignore
-{{#rustdoc_include ../samples/tests/mocking_lros.rs:auto-fn}}
+{{#rustdoc_include ../samples/tests/mocking_lros_auto.rs:app-fn}}
 ```
 
 Note that our application only cares about the final result of the LRO. We do
@@ -47,7 +47,7 @@ tests can simply return the final result of the LRO from the mock.
 Let's say we want our call to result in the following response.
 
 ```rust,ignore
-{{#rustdoc_include ../samples/tests/mocking_lros.rs:expected-response}}
+{{#rustdoc_include ../samples/tests/mocking_lros_auto.rs:expected-response}}
 ```
 
 You may have noticed that the stub returns a `longrunning::model::Operation`,
@@ -55,14 +55,14 @@ not a `BatchRecognizeResponse`. We need to pack our desired response into the
 `Operation::result`.
 
 ```rust,ignore
-{{#rustdoc_include ../samples/tests/mocking_lros.rs:finished-op}}
+{{#rustdoc_include ../samples/tests/mocking_lros_auto.rs:finished-op}}
 ```
 
 Note also that we set the `done` field to `true`. This indicates to the `Poller`
 that the operation has completed, thus ending the polling loop.
 
 ```rust,ignore
-{{#rustdoc_include ../samples/tests/mocking_lros.rs:set-done-true}}
+{{#rustdoc_include ../samples/tests/mocking_lros_auto.rs:set-done-true}}
 ```
 
 ### Test code
@@ -72,20 +72,20 @@ Now we are ready to write our test.
 First we define our mock class, which implements the [`speech::stub::Speech`][speech-stub] trait.
 
 ```rust,ignore
-{{#rustdoc_include ../samples/tests/mocking_lros.rs:mockall-macro}}
+{{#rustdoc_include ../samples/tests/mocking_lros_auto.rs:mockall-macro}}
 ```
 
 Now in our test we create our mock, and set expectations on it.
 
 ```rust,ignore
-{{#rustdoc_include ../samples/tests/mocking_lros.rs:auto-mock-expectations}}
+{{#rustdoc_include ../samples/tests/mocking_lros_auto.rs:mock-expectations}}
 ```
 
 Finally, we create a client from the mock, call our function, and verify the
 response.
 
 ```rust,ignore
-{{#rustdoc_include ../samples/tests/mocking_lros.rs:auto-client-call}}
+{{#rustdoc_include ../samples/tests/mocking_lros_auto.rs:client-call}}
 ```
 
 ## Tests for manual polling with intermediate metadata
@@ -94,7 +94,7 @@ Let's say our application code manually polls, and does some processing on
 partial updates.
 
 ```rust,ignore
-{{#rustdoc_include ../samples/tests/mocking_lros.rs:manual-fn}}
+{{#rustdoc_include ../samples/tests/mocking_lros_manual.rs:app-fn}}
 ```
 
 We want to simulate how our application acts when it receives intermediate
@@ -108,7 +108,7 @@ the returned `longrunning::model::Operation`, but this time into the
 `Operation::metadata` field.
 
 ```rust,ignore
-{{#rustdoc_include ../samples/tests/mocking_lros.rs:partial-op}}
+{{#rustdoc_include ../samples/tests/mocking_lros_manual.rs:partial-op}}
 ```
 
 ### Test code
@@ -118,13 +118,13 @@ First we define our mock class, which implements the
 `get_operation()`. We will see why shortly.
 
 ```rust,ignore
-{{#rustdoc_include ../samples/tests/mocking_lros.rs:mockall-macro}}
+{{#rustdoc_include ../samples/tests/mocking_lros_manual.rs:mockall-macro}}
 ```
 
 Now in our test we create our mock, and set expectations on it.
 
 ```rust,ignore
-{{#rustdoc_include ../samples/tests/mocking_lros.rs:manual-mock-expectations}}
+{{#rustdoc_include ../samples/tests/mocking_lros_manual.rs:mock-expectations}}
 ```
 
 These expectations will return partial results (25%, 50%, 75%), then return our
@@ -147,46 +147,28 @@ Now a few things you probably noticed.
 
 1. Expectations are set in a [sequence].
 
-   This is a particularity of `mockall`. It allows `mockall` to distinguish
-   between different expectations.
+   This allows `mockall` to verify the order of the calls. It is also necessary
+   to determine which `expect_get_operation` is matched.
 
 Finally, we create a client from the mock, call our function, and verify the
 response.
 
 ```rust,ignore
-{{#rustdoc_include ../samples/tests/mocking_lros.rs:manual-client-call}}
+{{#rustdoc_include ../samples/tests/mocking_lros_manual.rs:client-call}}
 ```
-
-## Simulating errors
-
-As before, simulating errors is no different than simulating a successful
-response.
-
-```rust,ignore
-{{#rustdoc_include ../samples/tests/mocking_lros.rs:error}}
-```
-
-Errors can be returned from the original RPC (`batch_recognize`) or from
-subsequent `get_operation` calls.
 
 ______________________________________________________________________
 
 ## Automatic polling - Full test
 
 ```rust,ignore,noplayground
-{{#rustdoc_include ../samples/tests/mocking_lros.rs:auto-all}}
+{{#rustdoc_include ../samples/tests/mocking_lros_auto.rs:all}}
 ```
 
 ## Manual polling with intermediate metadata - Full test
 
 ```rust,ignore,noplayground
-{{#rustdoc_include ../samples/tests/mocking_lros.rs:manual-all}}
-```
-
-## Simulating errors - Full test
-
-```rust,ignore,noplayground
-{{#rustdoc_include ../samples/tests/mocking_lros.rs:error-all}}
+{{#rustdoc_include ../samples/tests/mocking_lros_manual.rs:all}}
 ```
 
 [sequence]: https://docs.rs/mockall/latest/mockall/struct.Sequence.html

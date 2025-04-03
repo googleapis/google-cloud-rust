@@ -14,26 +14,22 @@
 
 //! Examples showing how to simulate LROs in tests.
 
-// ANCHOR: auto-all
-// ANCHOR: manual-all
-// ANCHOR: error-all
+// ANCHOR: all
 use gax::Result;
 use gax::error::Error;
 use google_cloud_gax as gax;
 use google_cloud_longrunning as longrunning;
 use google_cloud_speech_v2 as speech;
 use google_cloud_wkt as wkt;
+use longrunning::model::Operation;
 use longrunning::model::operation::Result as OperationResult;
-use longrunning::model::{GetOperationRequest, Operation};
-use speech::model::{BatchRecognizeRequest, BatchRecognizeResponse, OperationMetadata};
+use speech::model::{BatchRecognizeRequest, BatchRecognizeResponse};
 
 // Example application code that is under test
 mod my_application {
     use super::*;
 
-    // ANCHOR_END: manual-all
-    // ANCHOR_END: error-all
-    // ANCHOR: auto-fn
+    // ANCHOR: app-fn
     // An example application function that automatically polls.
     //
     // It starts an LRO, awaits the result, and processes it.
@@ -51,7 +47,7 @@ mod my_application {
             .await
             .map(|r| r.total_billed_duration)
     }
-    // ANCHOR_END: auto-fn
+    // ANCHOR_END: app-fn
 }
 
 #[cfg(test)]
@@ -65,7 +61,6 @@ mod test {
         Speech {}
         impl speech::stub::Speech for Speech {
             async fn batch_recognize(&self, req: BatchRecognizeRequest, _options: gax::options::RequestOptions) -> Result<Operation>;
-            async fn get_operation(&self, req: GetOperationRequest, _options: gax::options::RequestOptions) -> Result<Operation>;
         }
     }
     // ANCHOR_END: mockall-macro
@@ -76,10 +71,7 @@ mod test {
     }
 
     fn expected_response() -> BatchRecognizeResponse {
-        BatchRecognizeResponse::new()
-            // ANCHOR: fake-anchor-to-split-up-the-code
-            // ANCHOR_END: fake-anchor-to-split-up-the-code
-            .set_total_billed_duration(expected_duration())
+        BatchRecognizeResponse::new().set_total_billed_duration(expected_duration())
     }
     // ANCHOR_END: expected-response
 
@@ -95,18 +87,16 @@ mod test {
     }
     // ANCHOR_END: finished-op
 
-    // ANCHOR_END: manual-all
-    // ANCHOR_END: error-all
     #[tokio::test]
     async fn automatic_polling() -> Result<()> {
         // Create a mock, and set expectations on it.
-        // ANCHOR: auto-mock-expectations
+        // ANCHOR: mock-expectations
         let mut mock = MockSpeech::new();
         mock.expect_batch_recognize()
             .return_once(|_, _| make_finished_operation(&expected_response()));
-        // ANCHOR_END: auto-mock-expectations
+        // ANCHOR_END: mock-expectations
 
-        // ANCHOR: auto-client-call
+        // ANCHOR: client-call
         // Create a client, implemented by our mock.
         let client = speech::client::Speech::from_stub(mock);
 
@@ -115,11 +105,9 @@ mod test {
 
         // Verify the final result of the LRO.
         assert_eq!(billed_duration, expected_duration());
-        // ANCHOR_END: auto-client-call
+        // ANCHOR_END: client-call
 
         Ok(())
     }
 }
-// ANCHOR_END: auto-all
-// ANCHOR_END: manual-all
-// ANCHOR_END: error-all
+// ANCHOR_END: all

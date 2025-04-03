@@ -14,9 +14,7 @@
 
 //! Examples showing how to simulate LROs in tests.
 
-// ANCHOR: auto-all
-// ANCHOR: manual-all
-// ANCHOR: error-all
+// ANCHOR: all
 use gax::Result;
 use gax::error::Error;
 use google_cloud_gax as gax;
@@ -31,8 +29,7 @@ use speech::model::{BatchRecognizeRequest, BatchRecognizeResponse, OperationMeta
 mod my_application {
     use super::*;
 
-    // ANCHOR: error-all
-    // ANCHOR: manual-fn
+    // ANCHOR: app-fn
     pub struct BatchRecognizeResult {
         pub progress_updates: Vec<i32>,
         pub billed_duration: Result<Option<wkt::Duration>>,
@@ -51,7 +48,7 @@ mod my_application {
         project_id: &str,
     ) -> BatchRecognizeResult {
         use speech::Poller;
-        let mut progress_updates = Vec::<i32>::new();
+        let mut progress_updates = Vec::new();
         let mut poller = client
             .batch_recognize(format!(
                 "projects/{project_id}/locations/global/recognizers/_"
@@ -90,8 +87,7 @@ mod my_application {
         // is never reached.
         unreachable!("loop should exit via the `Completed` branch.");
     }
-    // ANCHOR_END: manual-fn
-    // ANCHOR: auto-all
+    // ANCHOR_END: app-fn
 }
 
 #[cfg(test)]
@@ -110,32 +106,22 @@ mod test {
     }
     // ANCHOR_END: mockall-macro
 
-    // ANCHOR: expected-response
     fn expected_duration() -> Option<wkt::Duration> {
         Some(wkt::Duration::clamp(100, 0))
     }
 
     fn expected_response() -> BatchRecognizeResponse {
-        BatchRecognizeResponse::new()
-            // ANCHOR: fake-anchor-to-split-up-the-code
-            // ANCHOR_END: fake-anchor-to-split-up-the-code
-            .set_total_billed_duration(expected_duration())
+        BatchRecognizeResponse::new().set_total_billed_duration(expected_duration())
     }
-    // ANCHOR_END: expected-response
 
-    // ANCHOR: finished-op
     fn make_finished_operation(response: &BatchRecognizeResponse) -> Result<Operation> {
         let any = wkt::Any::try_from(response).map_err(Error::serde)?;
         let operation = Operation::new()
-            // ANCHOR: set-done-true
             .set_done(true)
-            // ANCHOR_END: set-done-true
             .set_result(OperationResult::Response(any.into()));
         Ok(operation)
     }
-    // ANCHOR_END: finished-op
 
-    // ANCHOR_END: auto-all
     // ANCHOR: partial-op
     fn make_partial_operation(progress: i32) -> Result<Operation> {
         let metadata = OperationMetadata::new().set_progress_percent(progress);
@@ -147,7 +133,7 @@ mod test {
 
     #[tokio::test]
     async fn manual_polling_with_metadata() -> Result<()> {
-        // ANCHOR: manual-mock-expectations
+        // ANCHOR: mock-expectations
         let mut seq = mockall::Sequence::new();
         let mut mock = MockSpeech::new();
         mock.expect_batch_recognize()
@@ -166,9 +152,9 @@ mod test {
             .once()
             .in_sequence(&mut seq)
             .returning(|_, _| make_finished_operation(&expected_response()));
-        // ANCHOR_END: manual-mock-expectations
+        // ANCHOR_END: mock-expectations
 
-        // ANCHOR: manual-client-call
+        // ANCHOR: client-call
         // Create a client, implemented by our mock.
         let client = speech::client::Speech::from_stub(mock);
 
@@ -178,11 +164,9 @@ mod test {
         // Verify the partial metadata updates, and the final result.
         assert_eq!(result.progress_updates, [25, 50, 75]);
         assert_eq!(result.billed_duration?, expected_duration());
-        // ANCHOR_END: manual-client-call
+        // ANCHOR_END: client-call
 
         Ok(())
     }
 }
-// ANCHOR_END: auto-all
-// ANCHOR_END: manual-all
-// ANCHOR_END: error-all
+// ANCHOR_END: all
