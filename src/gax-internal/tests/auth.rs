@@ -14,7 +14,7 @@
 
 #[cfg(all(test, feature = "_internal_http_client"))]
 mod test {
-    use auth::credentials::{Credential, CredentialTrait};
+    use auth::credentials::{Credential, CredentialsTrait};
     use auth::errors::CredentialError;
     use auth::token::Token;
     use gax::options::*;
@@ -29,7 +29,7 @@ mod test {
         #[derive(Debug)]
         Credential {}
 
-        impl CredentialTrait for Credential {
+        impl CredentialsTrait for Credential {
             async fn get_token(&self) -> AuthResult<Token>;
             async fn get_headers(&self) -> AuthResult<Vec<(HeaderName, HeaderValue)>>;
             async fn get_universe_domain(&self) -> Option<String>;
