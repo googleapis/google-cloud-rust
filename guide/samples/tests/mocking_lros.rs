@@ -12,24 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Examples showing how to mock a client in tests.
+//! Examples showing how to simulate LROs in tests.
 
 // ANCHOR: all
 #[cfg(test)]
 mod test {
+    use gax::Result;
+    use gax::error::Error;
     use google_cloud_gax as gax;
     use google_cloud_longrunning as longrunning;
     use google_cloud_speech_v2 as speech;
     use google_cloud_wkt as wkt;
-    type Result<T> = std::result::Result<T, Box<dyn std::error::Error + Send + Sync>>;
+    use longrunning::model::operation::Result as OperationResult;
+    use longrunning::model::{GetOperationRequest, Operation};
+    use speech::model::{BatchRecognizeRequest, BatchRecognizeResponse, OperationMetadata};
 
     // ANCHOR: mockall-macro
     mockall::mock! {
         #[derive(Debug)]
         Speech {}
         impl speech::stub::Speech for Speech {
-            async fn batch_recognize(&self, req: speech::model::BatchRecognizeRequest, _options: gax::options::RequestOptions) -> gax::Result<longrunning::model::Operation>;
-            async fn get_operation(&self, req: longrunning::model::GetOperationRequest, _options: gax::options::RequestOptions) -> gax::Result<longrunning::model::Operation>;
+            async fn batch_recognize(&self, req: BatchRecognizeRequest, _options: gax::options::RequestOptions) -> Result<Operation>;
+            async fn get_operation(&self, req: GetOperationRequest, _options: gax::options::RequestOptions) -> Result<Operation>;
         }
     }
     // ANCHOR_END: mockall-macro
@@ -39,8 +43,11 @@ mod test {
         Some(wkt::Duration::clamp(100, 0))
     }
 
-    fn expected_response() -> speech::model::BatchRecognizeResponse {
-        speech::model::BatchRecognizeResponse::new().set_total_billed_duration(expected_duration())
+    fn expected_response() -> BatchRecognizeResponse {
+        BatchRecognizeResponse::new()
+            // ANCHOR: fake-anchor-to-split-up-the-code
+            // ANCHOR_END: fake-anchor-to-split-up-the-code
+            .set_total_billed_duration(expected_duration())
     }
     // ANCHOR_END: expected-response
 
@@ -50,10 +57,13 @@ mod test {
     // It starts an LRO, awaits the result, and processes it.
     async fn my_automatic_poller(
         client: &speech::client::Speech,
-    ) -> gax::Result<Option<wkt::Duration>> {
+        project_id: &str,
+    ) -> Result<Option<wkt::Duration>> {
         use speech::Poller;
         client
-            .batch_recognize("invalid-test-recognizer")
+            .batch_recognize(format!(
+                "projects/{project_id}/locations/global/recognizers/_"
+            ))
             .poller()
             .until_done()
             .await
@@ -62,15 +72,13 @@ mod test {
     // ANCHOR_END: auto-fn
 
     // ANCHOR: finished-op
-    fn make_finished_operation(
-        response: &speech::model::BatchRecognizeResponse,
-    ) -> Result<longrunning::model::Operation> {
-        let any = wkt::Any::try_from(response)?;
-        let operation = longrunning::model::Operation::new()
+    fn make_finished_operation(response: &BatchRecognizeResponse) -> Result<Operation> {
+        let any = wkt::Any::try_from(response).map_err(Error::serde)?;
+        let operation = Operation::new()
             // ANCHOR: set-done-true
             .set_done(true)
             // ANCHOR_END: set-done-true
-            .set_result(longrunning::model::operation::Result::Response(any.into()));
+            .set_result(OperationResult::Response(any.into()));
         Ok(operation)
     }
     // ANCHOR_END: finished-op
@@ -80,9 +88,8 @@ mod test {
         // Create a mock, and set expectations on it.
         // ANCHOR: auto-mock-expectations
         let mut mock = MockSpeech::new();
-        mock.expect_batch_recognize().return_once(move |_, _| {
-            make_finished_operation(&expected_response()).map_err(gax::error::Error::serde)
-        });
+        mock.expect_batch_recognize()
+            .return_once(|_, _| make_finished_operation(&expected_response()));
         // ANCHOR_END: auto-mock-expectations
 
         // ANCHOR: auto-client-call
@@ -90,7 +97,7 @@ mod test {
         let client = speech::client::Speech::from_stub(mock);
 
         // Call our function which automatically polls.
-        let billed_duration = my_automatic_poller(&client).await?;
+        let billed_duration = my_automatic_poller(&client, "my-project").await?;
 
         // Verify the final result of the LRO.
         assert_eq!(billed_duration, expected_duration());
@@ -100,9 +107,9 @@ mod test {
     }
 
     // ANCHOR: manual-fn
-    struct BatchRecognizeResult {
-        progress_updates: Vec<i32>,
-        billed_duration: gax::Result<Option<wkt::Duration>>,
+    pub struct BatchRecognizeResult {
+        pub progress_updates: Vec<i32>,
+        pub billed_duration: Result<Option<wkt::Duration>>,
     }
 
     // An example application function that manually polls.
@@ -113,10 +120,17 @@ mod test {
     // In this case, it is the `BatchRecognize` RPC. If we get a partial update,
     // we extract the `progress_percent` field. If we get a final result, we
     // extract the `total_billed_duration` field.
-    async fn my_manual_poller(client: &speech::client::Speech) -> BatchRecognizeResult {
+    pub async fn my_manual_poller(
+        client: &speech::client::Speech,
+        project_id: &str,
+    ) -> BatchRecognizeResult {
         use speech::Poller;
         let mut progress_updates = Vec::<i32>::new();
-        let mut poller = client.batch_recognize("invalid-test-recognizer").poller();
+        let mut poller = client
+            .batch_recognize(format!(
+                "projects/{project_id}/locations/global/recognizers/_"
+            ))
+            .poller();
         while let Some(p) = poller.poll().await {
             match p {
                 speech::PollingResult::Completed(r) => {
@@ -127,7 +141,6 @@ mod test {
                     };
                 }
                 speech::PollingResult::InProgress(m) => {
-                    println!("LRO in progress, metadata={m:?}");
                     if let Some(metadata) = m {
                         // This is a silly application. Your application likely
                         // performs some task immediately with the partial
@@ -139,27 +152,25 @@ mod test {
                 speech::PollingResult::PollingError(e) => {
                     return BatchRecognizeResult {
                         progress_updates,
-                        billed_duration: Err(gax::error::Error::from(e)),
+                        billed_duration: Err(Error::from(e)),
                     };
                 }
             }
             tokio::time::sleep(std::time::Duration::from_millis(500)).await;
         }
-        // ANCHOR_END: manual-fn
 
-        BatchRecognizeResult {
-            progress_updates,
-            billed_duration: Ok(None),
-        }
-        // ANCHOR: manual-fn
+        // We can only get here if `poll()` returns `None`, but it only returns
+        // `None` after it returned `PollingResult::Completed`. Therefore this
+        // is never reached.
+        unreachable!("loop should exit via the `Completed` branch.");
     }
     // ANCHOR_END: manual-fn
 
     // ANCHOR: partial-op
-    fn make_partial_operation(progress: i32) -> Result<longrunning::model::Operation> {
-        let metadata = speech::model::OperationMetadata::new().set_progress_percent(progress);
-        let any = wkt::Any::try_from(&metadata)?;
-        let operation = longrunning::model::Operation::new().set_metadata(Some(any));
+    fn make_partial_operation(progress: i32) -> Result<Operation> {
+        let metadata = OperationMetadata::new().set_progress_percent(progress);
+        let any = wkt::Any::try_from(&metadata).map_err(Error::serde)?;
+        let operation = Operation::new().set_metadata(Some(any));
         Ok(operation)
     }
     // ANCHOR_END: partial-op
@@ -172,21 +183,19 @@ mod test {
         mock.expect_batch_recognize()
             .once()
             .in_sequence(&mut seq)
-            .returning(|_, _| make_partial_operation(25).map_err(gax::error::Error::serde));
+            .returning(|_, _| make_partial_operation(25));
         mock.expect_get_operation()
             .once()
             .in_sequence(&mut seq)
-            .returning(|_, _| make_partial_operation(50).map_err(gax::error::Error::serde));
+            .returning(|_, _| make_partial_operation(50));
         mock.expect_get_operation()
             .once()
             .in_sequence(&mut seq)
-            .returning(|_, _| make_partial_operation(75).map_err(gax::error::Error::serde));
+            .returning(|_, _| make_partial_operation(75));
         mock.expect_get_operation()
             .once()
             .in_sequence(&mut seq)
-            .returning(|_, _| {
-                make_finished_operation(&expected_response()).map_err(gax::error::Error::serde)
-            });
+            .returning(|_, _| make_finished_operation(&expected_response()));
         // ANCHOR_END: manual-mock-expectations
 
         // ANCHOR: manual-client-call
@@ -194,7 +203,7 @@ mod test {
         let client = speech::client::Speech::from_stub(mock);
 
         // Call our function which manually polls.
-        let result = my_manual_poller(&client).await;
+        let result = my_manual_poller(&client, "my-project").await;
 
         // Verify the partial metadata updates, and the final result.
         assert_eq!(result.progress_updates, [25, 50, 75]);
@@ -211,30 +220,29 @@ mod test {
         mock.expect_batch_recognize()
             .once()
             .in_sequence(&mut seq)
-            .returning(|_, _| make_partial_operation(25).map_err(gax::error::Error::serde));
+            .returning(|_, _| make_partial_operation(25));
         mock.expect_get_operation()
             .once()
             .in_sequence(&mut seq)
-            .returning(|_, _| make_partial_operation(50).map_err(gax::error::Error::serde));
+            .returning(|_, _| make_partial_operation(50));
         mock.expect_get_operation()
             .once()
             .in_sequence(&mut seq)
-            .returning(|_, _| make_partial_operation(75).map_err(gax::error::Error::serde));
+            .returning(|_, _| make_partial_operation(75));
         // ANCHOR: error
         mock.expect_get_operation()
             .once()
             .in_sequence(&mut seq)
-            .returning(|_, _| {
+            .returning(|_, _|
                 // This time, return an error.
-                Err(gax::error::Error::other("fail"))
-            });
+                Err(Error::other("fail")));
         // ANCHOR_END: error
 
         // Create a client, implemented by our mock.
         let client = speech::client::Speech::from_stub(mock);
 
         // Call our function which manually polls.
-        let result = my_manual_poller(&client).await;
+        let result = my_manual_poller(&client, "my-project").await;
 
         // Verify the partial metadata updates, and the final result.
         assert_eq!(result.progress_updates, [25, 50, 75]);

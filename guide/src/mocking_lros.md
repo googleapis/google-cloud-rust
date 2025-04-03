@@ -19,8 +19,8 @@ limitations under the License.
 The Google Cloud client libraries for Rust have helpers that simplify
 interaction with long-running operations (henceforth, LROs).
 
-Simulating the behavior of LROs in tests involves reverse-engineering some of
-those helpers. This guide shows how to do that.
+Simulating the behavior of LROs in tests involves understanding the details
+these helpers hide. This guide shows how to do that.
 
 ## Prerequisites
 
@@ -31,8 +31,8 @@ This guide assumes you are familiar with the previous chapters:
 
 ## Tests for automatic polling
 
-Let's say our application code awaits `lro::Poller::until_done()` (in previous
-sections, we called this automatic polling).
+Let's say our application code awaits `lro::Poller::until_done()`. In previous
+sections, we called this "automatic polling".
 
 ```rust,ignore
 {{#rustdoc_include ../samples/tests/mocking_lros.rs:auto-fn}}
@@ -67,7 +67,7 @@ that the operation has completed, thus ending the polling loop.
 
 ### Test code
 
-Now let's get to the test code.
+Now we are ready to write our test.
 
 First we define our mock class, which implements the [`speech::stub::Speech`][speech-stub] trait.
 
@@ -136,10 +136,10 @@ Now a few things you probably noticed.
    expectations are set on `get_operation()`.
 
    The initial `BatchRecognize` RPC starts the LRO on the server-side. The
-   server returns some identifier for the LRO. (This is the `name` field which
-   is omitted from the test code, for simplicity).
+   server returns some identifier for the LRO. This is the `name` field which is
+   omitted from the test code, for simplicity.
 
-   From then on, the client library just checks the status of that LRO. It does
+   From then on, the client library just polls the status of that LRO. It does
    this using the `GetOperation` RPC.
 
    That is why we set expectations on different RPCs for the initial response
@@ -176,7 +176,7 @@ ______________________________________________________________________
 Putting all this code together into a full test suite looks as follows:
 
 ```rust,ignore,noplayground
-{{#include ../samples/tests/mocking_lros.rs:all}}
+{{#rustdoc_include ../samples/tests/mocking_lros.rs:all}}
 ```
 
 [sequence]: https://docs.rs/mockall/latest/mockall/struct.Sequence.html
