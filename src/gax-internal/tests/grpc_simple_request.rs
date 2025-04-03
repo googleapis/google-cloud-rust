@@ -91,6 +91,10 @@ mod test {
         let response = send_request(client, "").await;
         let err = response.err().unwrap();
         assert_eq!(err.kind(), gax::error::ErrorKind::Rpc, "{err:?}");
+        let svc = err.as_inner::<gax::error::ServiceError>().unwrap();
+        let status = svc.status().clone();
+        assert_eq!(status.code, gax::error::rpc::Code::InvalidArgument as i32);
+        assert_eq!(status.status, Some(String::from(gax::error::rpc::Code::from(status.code))));
         Ok(())
     }
 
