@@ -16,6 +16,8 @@
 
 use gax::Result;
 use gax::error::Error;
+mod from_status;
+use from_status::to_gax_error;
 
 #[doc(hidden)]
 pub type InnerClient = tonic::client::Grpc<tonic::transport::Channel>;
@@ -62,7 +64,7 @@ impl Client {
         let response: tonic::Response<Response> = inner
             .unary(request, path, codec)
             .await
-            .map_err(Error::rpc)?;
+            .map_err(to_gax_error)?;
         let response = response.into_inner();
         Ok(response)
     }

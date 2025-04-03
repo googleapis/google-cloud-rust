@@ -84,7 +84,7 @@ impl Status {
 /// the most specific error code that applies.  For example, prefer
 /// `OUT_OF_RANGE` over `FAILED_PRECONDITION` if both codes apply.
 /// Similarly prefer `NOT_FOUND` or `ALREADY_EXISTS` over `FAILED_PRECONDITION`.
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum Code {
     /// Not an error; returned on success.
@@ -330,7 +330,7 @@ impl Serialize for Code {
     where
         S: serde::Serializer,
     {
-        serializer.serialize_i32(self.clone() as i32)
+        serializer.serialize_i32(*self as i32)
     }
 }
 
