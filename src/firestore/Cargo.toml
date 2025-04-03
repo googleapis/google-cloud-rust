@@ -40,7 +40,7 @@ tonic       = { version = "0.13", features = ["tls-native-roots", "tls-ring"] }
 tokio       = { version = "1", features = ["macros", "rt-multi-thread"] }
 tracing     = "0.1"
 # Local crates
-auth = { version = "0.18", path = "../auth", package = "google-cloud-auth" }
+auth = { version = "0.19", path = "../auth", package = "google-cloud-auth" }
 gax = { version = "0.21", path = "../gax", package = "google-cloud-gax", features = ["unstable-sdk-client"] }
 gaxi = { version = "0.1", path = "../gax-internal", package = "google-cloud-gax-internal", features = [
   "_internal_common",

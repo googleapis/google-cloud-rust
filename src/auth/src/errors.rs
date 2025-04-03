@@ -50,15 +50,6 @@ pub(crate) fn is_retryable(c: StatusCode) -> bool {
     }
 }
 
-/// InnerAuthError enum is designed to enumerate specific auth error types.
-///
-/// This allows distinguishing various causes of auth failures which can be used
-/// for more fine-grained error handling.
-#[derive(thiserror::Error, Debug)]
-pub enum InnerAuthError {
-    // TODO(#389) - define error types here
-}
-
 #[cfg(test)]
 mod test {
     use super::*;

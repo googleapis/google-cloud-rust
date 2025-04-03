@@ -53,7 +53,7 @@ tonic = { version = "0.13", default-features = false, features = [
   "tls-ring",
 ], optional = true }
 # Local crates
-auth = { version = "0.18", path = "../auth", package = "google-cloud-auth", optional = true }
+auth = { version = "0.19", path = "../auth", package = "google-cloud-auth", optional = true }
 gax = { version = "0.21", path = "../gax", package = "google-cloud-gax", features = [
   "unstable-sdk-client",
 ], optional = true }
