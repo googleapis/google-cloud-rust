@@ -14,6 +14,9 @@
 
 //! Examples showing how to simulate LROs in tests.
 
+// ANCHOR: auto-all
+// ANCHOR: manual-all
+// ANCHOR: error-all
 use gax::Result;
 use gax::error::Error;
 use google_cloud_gax as gax;
@@ -28,6 +31,8 @@ use speech::model::{BatchRecognizeRequest, BatchRecognizeResponse, OperationMeta
 mod my_application {
     use super::*;
 
+    // ANCHOR_END: manual-all
+    // ANCHOR_END: error-all
     // ANCHOR: auto-fn
     // An example application function that automatically polls.
     //
@@ -47,7 +52,10 @@ mod my_application {
             .map(|r| r.total_billed_duration)
     }
     // ANCHOR_END: auto-fn
+    // ANCHOR_END: auto-all
 
+    // ANCHOR: manual-all
+    // ANCHOR: error-all
     // ANCHOR: manual-fn
     pub struct BatchRecognizeResult {
         pub progress_updates: Vec<i32>,
@@ -107,9 +115,9 @@ mod my_application {
         unreachable!("loop should exit via the `Completed` branch.");
     }
     // ANCHOR_END: manual-fn
+    // ANCHOR: auto-all
 }
 
-// ANCHOR: all
 #[cfg(test)]
 mod test {
     use super::my_application::*;
@@ -151,6 +159,7 @@ mod test {
     }
     // ANCHOR_END: finished-op
 
+    // ANCHOR_END: auto-all
     // ANCHOR: partial-op
     fn make_partial_operation(progress: i32) -> Result<Operation> {
         let metadata = OperationMetadata::new().set_progress_percent(progress);
@@ -160,6 +169,9 @@ mod test {
     }
     // ANCHOR_END: partial-op
 
+    // ANCHOR_END: manual-all
+    // ANCHOR_END: error-all
+    // ANCHOR: auto-all
     #[tokio::test]
     async fn automatic_polling() -> Result<()> {
         // Create a mock, and set expectations on it.
@@ -182,7 +194,9 @@ mod test {
 
         Ok(())
     }
+    // ANCHOR_END: auto-all
 
+    // ANCHOR: manual-all
     #[tokio::test]
     async fn manual_polling_with_metadata() -> Result<()> {
         // ANCHOR: manual-mock-expectations
@@ -220,7 +234,9 @@ mod test {
 
         Ok(())
     }
+    // ANCHOR_END: manual-all
 
+    // ANCHOR: error-all
     #[tokio::test]
     async fn simulating_errors() -> Result<()> {
         let mut seq = mockall::Sequence::new();
@@ -258,5 +274,8 @@ mod test {
 
         Ok(())
     }
+    // ANCHOR: auto-all
 }
-// ANCHOR_END: all
+// ANCHOR_END: auto-all
+// ANCHOR_END: manual-all
+// ANCHOR_END: error-all

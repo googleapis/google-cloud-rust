@@ -118,7 +118,7 @@ First we define our mock class, which implements the
 `get_operation()`. We will see why shortly.
 
 ```rust,ignore
-{{#rustdoc_include ../samples/tests/mocking_lros.rs:manual-mockall-macro}}
+{{#rustdoc_include ../samples/tests/mocking_lros.rs:mockall-macro}}
 ```
 
 Now in our test we create our mock, and set expectations on it.
@@ -171,12 +171,22 @@ subsequent `get_operation` calls.
 
 ______________________________________________________________________
 
-## Testing LROs - Full test suite
-
-Putting all this code together into a full test suite looks as follows:
+## Automatic polling - Full test
 
 ```rust,ignore,noplayground
-{{#rustdoc_include ../samples/tests/mocking_lros.rs:all}}
+{{#rustdoc_include ../samples/tests/mocking_lros.rs:auto-all}}
+```
+
+## Manual polling with intermediate metadata - Full test
+
+```rust,ignore,noplayground
+{{#rustdoc_include ../samples/tests/mocking_lros.rs:manual-all}}
+```
+
+## Simulating errors - Full test
+
+```rust,ignore,noplayground
+{{#rustdoc_include ../samples/tests/mocking_lros.rs:error-all}}
 ```
 
 [sequence]: https://docs.rs/mockall/latest/mockall/struct.Sequence.html
