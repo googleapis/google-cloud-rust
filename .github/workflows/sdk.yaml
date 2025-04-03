@@ -79,7 +79,7 @@ jobs:
         run: cargo version
       - name: Display rustc version
         run: rustup show active-toolchain -v
-      - name: Test gax with features disabled
+      - name: Test crates with features disabled
         run: |
           set -e
           cargo clean
