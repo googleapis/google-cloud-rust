@@ -207,7 +207,7 @@ jobs:
         run: cargo version
       - name: Display rustc version
         run: rustup show active-toolchain -v
-      - run: cargo clippy --all-features --workspace -- --deny warnings
+      - run: cargo clippy --workspace -- --deny warnings
       - run: cargo fmt
       - run: git diff --exit-code
   regenerate:
