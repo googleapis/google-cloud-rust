@@ -89,22 +89,8 @@ use time::OffsetDateTime;
 
 const DEFAULT_SCOPES: [&str; 1] = ["https://www.googleapis.com/auth/cloud-platform"];
 
-<<<<<<< HEAD
 pub(crate) fn creds_from(js: Value) -> Result<Credential> {
     Builder::new(js).build()
-=======
-pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
-    let service_account_info =
-        serde_json::from_value::<ServiceAccountInfo>(js).map_err(errors::non_retryable)?;
-    let token_provider = ServiceAccountTokenProvider {
-        service_account_info,
-    };
-    let token_provider = TokenCache::new(token_provider);
-
-    Ok(Credential {
-        inner: Arc::new(ServiceAccountCredential { token_provider }),
-    })
->>>>>>> f8258730766e23b09d482e4ee22130c8904a7866
 }
 
 #[derive(Debug)]
@@ -222,7 +208,7 @@ impl Builder {
     pub fn build(self) -> Result<Credential> {
         let service_account_key =
             serde_json::from_value::<ServiceAccountKey>(self.service_account_key)
-                .map_err(CredentialError::non_retryable)?;
+                .map_err(errors::non_retryable)?;
         let token_provider = ServiceAccountTokenProvider {
             service_account_key,
             restrictions: self.restrictions,
@@ -354,13 +340,7 @@ impl ServiceAccountTokenProvider {
                 return Err(Self::unexpected_private_key_error(other));
             }
         };
-<<<<<<< HEAD
-        let sk = pk.map_err(CredentialError::non_retryable)?;
-
-=======
         let sk = pk.map_err(errors::non_retryable)?;
-        //TODO(#679) add support for ECDSA
->>>>>>> f8258730766e23b09d482e4ee22130c8904a7866
         sk.choose_scheme(&[rustls::SignatureScheme::RSA_PKCS1_SHA256])
             .ok_or_else(|| errors::non_retryable_from_str("Unable to choose RSA_PKCS1_SHA256 signing scheme as it is not supported by current signer"))
     }
@@ -392,7 +372,7 @@ where
         if let Some(project) = &self.quota_project_id {
             headers.push((
                 HeaderName::from_static(QUOTA_PROJECT_KEY),
-                HeaderValue::from_str(project).map_err(CredentialError::non_retryable)?,
+                HeaderValue::from_str(project).map_err(errors::non_retryable)?,
             ));
         }
         Ok(headers)
