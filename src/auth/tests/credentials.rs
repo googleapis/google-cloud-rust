@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use google_cloud_auth::credentials::mds::Builder;
+use google_cloud_auth::credentials::mds::Builder as MdsBuilder;
+use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBuilder;
 use google_cloud_auth::credentials::testing::test_credentials;
 use google_cloud_auth::credentials::{
     ApiKeyOptions, Credential, CredentialTrait, create_access_token_credential,
@@ -20,6 +21,7 @@ use google_cloud_auth::credentials::{
 };
 use google_cloud_auth::errors::CredentialError;
 use google_cloud_auth::token::Token;
+use serde_json::json;
 
 type Result<T> = std::result::Result<T, CredentialError>;
 
@@ -181,10 +183,10 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_mds_credential_from_builder() -> Result<()> {
+    async fn get_mds_credentials_from_builder() -> Result<()> {
         let test_quota_project = "test-quota-project";
         let test_universe_domain = "test-universe-domain";
-        let mdcs = Builder::default()
+        let mdcs = MdsBuilder::default()
             .quota_project_id(test_quota_project)
             .universe_domain(test_universe_domain)
             .build();
@@ -192,6 +194,25 @@ mod test {
         assert!(fmt.contains("MDSCredential"));
         assert!(fmt.contains(test_quota_project));
         assert!(fmt.contains(test_universe_domain));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn get_service_account_credentials_from_builder() -> Result<()> {
+        let test_quota_project = "test-quota-project";
+        let service_account_info_json = json!({
+            "client_email": "test-client-email",
+            "private_key_id": "test-private-key-id",
+            "private_key": "",
+            "project_id": "test-project-id",
+            "universe_domain": "test-universe-domain",
+        });
+        let service_account = ServiceAccountBuilder::new(service_account_info_json)
+            .with_quota_project_id(test_quota_project)
+            .build()?;
+        let fmt = format!("{:?}", service_account);
+        assert!(fmt.contains("ServiceAccountCredential"));
+        assert!(fmt.contains(test_quota_project));
         Ok(())
     }
 }
