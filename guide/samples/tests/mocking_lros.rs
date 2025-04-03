@@ -24,9 +24,35 @@ use longrunning::model::operation::Result as OperationResult;
 use longrunning::model::{GetOperationRequest, Operation};
 use speech::model::{BatchRecognizeRequest, BatchRecognizeResponse, OperationMetadata};
 
+// Example application code that is under test
+mod my_application {
+    use super::*;
+
+    // ANCHOR: auto-fn
+    // An example application function that automatically polls.
+    //
+    // It starts an LRO, awaits the result, and processes it.
+    pub async fn my_automatic_poller(
+        client: &speech::client::Speech,
+        project_id: &str,
+    ) -> Result<Option<wkt::Duration>> {
+        use speech::Poller;
+        client
+            .batch_recognize(format!(
+                "projects/{project_id}/locations/global/recognizers/_"
+            ))
+            .poller()
+            .until_done()
+            .await
+            .map(|r| r.total_billed_duration)
+    }
+    // ANCHOR_END: auto-fn
+}
+
 // ANCHOR: all
 #[cfg(test)]
 mod test {
+    use super::my_application::*;
     use super::*;
 
     // ANCHOR: mockall-macro
@@ -52,26 +78,6 @@ mod test {
             .set_total_billed_duration(expected_duration())
     }
     // ANCHOR_END: expected-response
-
-    // ANCHOR: auto-fn
-    // An example application function that automatically polls.
-    //
-    // It starts an LRO, awaits the result, and processes it.
-    async fn my_automatic_poller(
-        client: &speech::client::Speech,
-        project_id: &str,
-    ) -> Result<Option<wkt::Duration>> {
-        use speech::Poller;
-        client
-            .batch_recognize(format!(
-                "projects/{project_id}/locations/global/recognizers/_"
-            ))
-            .poller()
-            .until_done()
-            .await
-            .map(|r| r.total_billed_duration)
-    }
-    // ANCHOR_END: auto-fn
 
     // ANCHOR: finished-op
     fn make_finished_operation(response: &BatchRecognizeResponse) -> Result<Operation> {
