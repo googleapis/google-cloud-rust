@@ -16,7 +16,7 @@ use gax::error::rpc;
 
 fn to_gax_status(status: tonic::Status) -> rpc::Status {
     let code = rpc::Code::from(status.code() as i32);
-    // TODO(#...) - also convert the details
+    // TODO(#1699) - also convert the details
     rpc::Status::default()
         .set_code(code as i32)
         .set_message(status.message())
@@ -49,7 +49,6 @@ mod test {
     #[test_case(tonic::Code::Unavailable, rpc::Code::Unavailable)]
     #[test_case(tonic::Code::DataLoss, rpc::Code::DataLoss)]
     #[test_case(tonic::Code::Unauthenticated, rpc::Code::Unauthenticated)]
-
     fn check_code(input: tonic::Code, want: rpc::Code) {
         let got = to_gax_status(tonic::Status::new(input, "test-only"));
         assert_eq!(got.code, want as i32);
