@@ -72,7 +72,8 @@ jobs:
         run: |
           set -e
           rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
-          rustup component add clippy rustfmt
+          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup component add clippy
       - run: rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
       - name: Display Cargo version
         run: cargo version
