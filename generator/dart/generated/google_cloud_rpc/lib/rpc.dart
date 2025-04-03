@@ -27,6 +27,8 @@ import 'package:google_cloud_gax/common.dart';
 import 'package:google_cloud_gax/src/json_helpers.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
 
+part 'src/rpc.p.dart';
+
 /// Describes the cause of the error with structured details.
 ///
 /// Example of an error when contacting the "pubsub.googleapis.com" API when it

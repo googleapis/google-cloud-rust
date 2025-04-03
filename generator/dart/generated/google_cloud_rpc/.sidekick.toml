@@ -18,3 +18,5 @@ service-config = 'google/rpc/rpc_publish.yaml'
 
 [codec]
 copyright-year = '2025'
+part-file = "src/rpc.p.dart"
+dev-dependencies = "test"

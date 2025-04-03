@@ -81,7 +81,7 @@ class Any extends Message {
   ///   ...
   /// }
   /// ```
-  T unpackFrom<T, S>(T Function(S) decoder) {
+  T unpackFrom<T extends Message, S>(T Function(S) decoder) {
     final name = typeName;
 
     if (_customEncodedTypes.contains(name)) {
