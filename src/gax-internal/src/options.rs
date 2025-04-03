@@ -14,12 +14,12 @@
 
 pub use auth::credentials::Credential as Credentials;
 
-/// The client configuration for [crate::http::ReqwestClient] and [crate::grpc::Client].
+// The client configuration for [crate::http::ReqwestClient] and [crate::grpc::Client].
 pub type ClientConfig = gax::client_builder::internal::ClientConfig<Credentials>;
 
 pub(crate) const LOGGING_VAR: &str = "GOOGLE_CLOUD_RUST_LOGGING";
 
-/// Returns true if the environment or client configuration enables tracing.
+// Returns true if the environment or client configuration enables tracing.
 pub fn tracing_enabled(config: &ClientConfig) -> bool {
     if config.tracing {
         return true;
