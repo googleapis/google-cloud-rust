@@ -23,6 +23,8 @@ use std::pin::Pin;
 /// should not use any types contained within.
 #[doc(hidden)]
 pub mod internal {
+    use super::*;
+
     /// Describes a type that can be iterated over asynchronously when used with
     /// [super::Paginator].
     pub trait PageableResponse {
@@ -35,19 +37,49 @@ pub mod internal {
         /// Returns the next page token.
         fn next_page_token(&self) -> String;
     }
+
+    /// Creates a new `impl Paginator<T, E>` given the initial page token and a function
+    /// to fetch the next response.
+    pub fn new_paginator<T, E, F>(
+        seed_token: String,
+        execute: impl Fn(String) -> F + Clone + Send + 'static,
+    ) -> impl Paginator<T, E>
+    where
+        T: internal::PageableResponse,
+        F: Future<Output = Result<T, E>> + Send + 'static,
+    {
+        PaginatorImpl::new(seed_token, execute)
+    }
 }
 
 /// An adapter that converts list RPCs as defined by [AIP-4233](https://google.aip.dev/client-libraries/4233)
 /// into a [futures::Stream] that can be iterated over in an async fashion.
+pub trait Paginator<T, E>
+where
+    T: internal::PageableResponse,
+{
+    /// Creates a new [ItemPaginator] from an existing [Paginator].
+    fn items(self) -> impl ItemPaginator<T, E>;
+
+    /// Returns the next mutation of the wrapped stream.
+    fn next(&mut self) -> impl Future<Output = Option<Result<T, E>>>;
+
+    #[cfg(feature = "unstable-stream")]
+    /// Convert the paginator to a stream.
+    ///
+    /// This API is gated by the `unstable-stream` feature.
+    fn into_stream(self) -> impl futures::Stream<Item = Result<T, E>> + Unpin;
+}
+
 #[pin_project]
-pub struct Paginator<T, E> {
+struct PaginatorImpl<T, E> {
     #[pin]
     stream: Pin<Box<dyn Stream<Item = Result<T, E>> + Send>>,
 }
 
 type ControlFlow = std::ops::ControlFlow<(), String>;
 
-impl<T, E> Paginator<T, E>
+impl<T, E> PaginatorImpl<T, E>
 where
     T: internal::PageableResponse,
 {
@@ -85,14 +117,19 @@ where
             stream: Box::pin(stream),
         }
     }
+}
 
+impl<T, E> Paginator<T, E> for PaginatorImpl<T, E>
+where
+    T: internal::PageableResponse,
+{
     /// Creates a new [ItemPaginator] from an existing [Paginator].
-    pub fn items(self) -> ItemPaginator<T, E> {
-        ItemPaginator::new(self)
+    fn items(self) -> impl ItemPaginator<T, E> {
+        ItemPaginatorImpl::new(self)
     }
 
     /// Returns the next mutation of the wrapped stream.
-    pub async fn next(&mut self) -> Option<Result<T, E>> {
+    async fn next(&mut self) -> Option<Result<T, E>> {
         self.stream.next().await
     }
 
@@ -100,7 +137,7 @@ where
     /// Convert the paginator to a stream.
     ///
     /// This API is gated by the `unstable-stream` feature.
-    pub fn into_stream(self) -> impl futures::Stream<Item = Result<T, E>> + Unpin {
+    fn into_stream(self) -> impl futures::Stream<Item = Result<T, E>> + Unpin {
         Box::pin(unfold(Some(self), move |state| async move {
             if let Some(mut paginator) = state {
                 if let Some(pr) = paginator.next().await {
@@ -112,42 +149,65 @@ where
     }
 }
 
-impl<T, E> std::fmt::Debug for Paginator<T, E> {
+impl<T, E> std::fmt::Debug for PaginatorImpl<T, E> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("Paginator").finish()
     }
 }
 
-/// An adapter that converts a [Paginator] into a stream of individual page
-/// items.
-#[pin_project]
-pub struct ItemPaginator<T, E>
+pub trait ItemPaginator<T, E>
 where
     T: internal::PageableResponse,
 {
-    #[pin]
-    stream: Paginator<T, E>,
-    current_items: Option<std::vec::IntoIter<T::PageItem>>,
-}
-
-impl<T, E> ItemPaginator<T, E>
-where
-    T: internal::PageableResponse,
-{
-    /// Creates a new [ItemPaginator] from an existing [Paginator].
-    fn new(paginator: Paginator<T, E>) -> Self {
-        Self {
-            stream: paginator,
-            current_items: None,
-        }
-    }
-
     /// Returns the next mutation of the wrapped stream.
     ///
     /// Enable the `unstable-stream` feature to interact with a [`futures::stream::Stream`].
     ///
     /// [`futures::stream::Stream`]: https://docs.rs/futures/latest/futures/stream/trait.Stream.html
-    pub async fn next(&mut self) -> Option<Result<T::PageItem, E>> {
+    fn next(&mut self) -> impl Future<Output = Option<Result<T::PageItem, E>>>;
+
+    #[cfg(feature = "unstable-stream")]
+    /// Convert the paginator to a stream.
+    ///
+    /// This API is gated by the `unstable-stream` feature.
+    fn into_stream(self) -> impl futures::Stream<Item = Result<T::PageItem, E>> + Unpin;
+}
+
+/// An adapter that converts a [Paginator] into a stream of individual page
+/// items.
+#[pin_project]
+struct ItemPaginatorImpl<T, E>
+where
+    T: internal::PageableResponse,
+{
+    #[pin]
+    stream: PaginatorImpl<T, E>,
+    current_items: Option<std::vec::IntoIter<T::PageItem>>,
+}
+
+impl<T, E> ItemPaginatorImpl<T, E>
+where
+    T: internal::PageableResponse,
+{
+    /// Creates a new [ItemPaginator] from an existing [Paginator].
+    fn new(paginator: PaginatorImpl<T, E>) -> Self {
+        Self {
+            stream: paginator,
+            current_items: None,
+        }
+    }
+}
+
+impl<T, E> ItemPaginator<T, E> for ItemPaginatorImpl<T, E>
+where
+    T: internal::PageableResponse,
+{
+    /// Returns the next mutation of the wrapped stream.
+    ///
+    /// Enable the `unstable-stream` feature to interact with a [`futures::stream::Stream`].
+    ///
+    /// [`futures::stream::Stream`]: https://docs.rs/futures/latest/futures/stream/trait.Stream.html
+    async fn next(&mut self) -> Option<Result<T::PageItem, E>> {
         loop {
             if let Some(ref mut iter) = self.current_items {
                 if let Some(item) = iter.next() {
@@ -172,7 +232,7 @@ where
     /// Convert the paginator to a stream.
     ///
     /// This API is gated by the `unstable-stream` feature.
-    pub fn into_stream(self) -> impl Stream<Item = Result<T::PageItem, E>> + Unpin {
+    fn into_stream(self) -> impl Stream<Item = Result<T::PageItem, E>> + Unpin {
         Box::pin(unfold(Some(self), move |state| async move {
             if let Some(mut paginator) = state {
                 if let Some(pr) = paginator.next().await {
@@ -249,7 +309,7 @@ mod tests {
         fn list_rpc_stream(
             &self,
             req: TestRequest,
-        ) -> Paginator<TestResponse, Box<dyn std::error::Error>> {
+        ) -> impl Paginator<TestResponse, Box<dyn std::error::Error>> {
             let client = self.clone();
             let tok = req.page_token.clone();
             let execute = move |token| {
@@ -258,7 +318,7 @@ mod tests {
                 req.page_token = token;
                 async move { client.list_rpc(req).await }
             };
-            Paginator::new(tok, execute)
+            new_paginator(tok, execute)
         }
     }
 
@@ -293,13 +353,12 @@ mod tests {
         let execute = move |token: String| {
             let expected_token = tokens.clone().lock().unwrap().pop_front().unwrap();
             assert_eq!(token, expected_token);
-            let resp = state.clone().lock().unwrap().pop_front().unwrap();
-            async move { Ok(resp) }
+            let resp: TestResponse = state.clone().lock().unwrap().pop_front().unwrap();
+            async move { Ok::<_, Box<dyn std::error::Error>>(resp) }
         };
 
         let mut resps = vec![];
-        let mut paginator: Paginator<TestResponse, Box<dyn std::error::Error>> =
-            Paginator::new(seed, execute);
+        let mut paginator = new_paginator(seed, execute);
         while let Some(resp) = paginator.next().await {
             if let Ok(resp) = resp {
                 resps.push(resp)
@@ -354,7 +413,7 @@ mod tests {
     async fn test_paginator_error() {
         let execute = |_| async { Err::<TestResponse, Box<dyn std::error::Error>>("err".into()) };
 
-        let mut paginator = Paginator::new(String::new(), execute);
+        let mut paginator = new_paginator(String::new(), execute);
         let mut count = 0;
         while let Some(resp) = paginator.next().await {
             match resp {
