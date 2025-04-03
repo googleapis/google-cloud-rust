@@ -14,18 +14,20 @@
 
 //! Examples showing how to simulate LROs in tests.
 
+use gax::Result;
+use gax::error::Error;
+use google_cloud_gax as gax;
+use google_cloud_longrunning as longrunning;
+use google_cloud_speech_v2 as speech;
+use google_cloud_wkt as wkt;
+use longrunning::model::operation::Result as OperationResult;
+use longrunning::model::{GetOperationRequest, Operation};
+use speech::model::{BatchRecognizeRequest, BatchRecognizeResponse, OperationMetadata};
+
 // ANCHOR: all
 #[cfg(test)]
 mod test {
-    use gax::Result;
-    use gax::error::Error;
-    use google_cloud_gax as gax;
-    use google_cloud_longrunning as longrunning;
-    use google_cloud_speech_v2 as speech;
-    use google_cloud_wkt as wkt;
-    use longrunning::model::operation::Result as OperationResult;
-    use longrunning::model::{GetOperationRequest, Operation};
-    use speech::model::{BatchRecognizeRequest, BatchRecognizeResponse, OperationMetadata};
+    use super::*;
 
     // ANCHOR: mockall-macro
     mockall::mock! {
@@ -82,6 +84,15 @@ mod test {
         Ok(operation)
     }
     // ANCHOR_END: finished-op
+
+    // ANCHOR: partial-op
+    fn make_partial_operation(progress: i32) -> Result<Operation> {
+        let metadata = OperationMetadata::new().set_progress_percent(progress);
+        let any = wkt::Any::try_from(&metadata).map_err(Error::serde)?;
+        let operation = Operation::new().set_metadata(Some(any));
+        Ok(operation)
+    }
+    // ANCHOR_END: partial-op
 
     #[tokio::test]
     async fn automatic_polling() -> Result<()> {
@@ -165,15 +176,6 @@ mod test {
         unreachable!("loop should exit via the `Completed` branch.");
     }
     // ANCHOR_END: manual-fn
-
-    // ANCHOR: partial-op
-    fn make_partial_operation(progress: i32) -> Result<Operation> {
-        let metadata = OperationMetadata::new().set_progress_percent(progress);
-        let any = wkt::Any::try_from(&metadata).map_err(Error::serde)?;
-        let operation = Operation::new().set_metadata(Some(any));
-        Ok(operation)
-    }
-    // ANCHOR_END: partial-op
 
     #[tokio::test]
     async fn manual_polling_with_metadata() -> Result<()> {
