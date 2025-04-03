@@ -87,7 +87,7 @@ use serde_json::Value;
 use std::sync::Arc;
 use time::OffsetDateTime;
 
-const DEFAULT_SCOPES: [&str; 1] = ["https://www.googleapis.com/auth/cloud-platform"];
+const DEFAULT_SCOPE: &str = "https://www.googleapis.com/auth/cloud-platform";
 
 pub(crate) fn creds_from(js: Value) -> Result<Credential> {
     Builder::new(js).build()
@@ -149,7 +149,7 @@ impl Builder {
         Self {
             service_account_key,
             restrictions: ServiceAccountRestrictions::Scopes(
-                DEFAULT_SCOPES.into_iter().map(|s| s.into()).collect(),
+                [DEFAULT_SCOPE].map(str::to_string).to_vec(),
             ),
             quota_project_id: None,
         }
@@ -161,7 +161,14 @@ impl Builder {
     /// that is, a service(s).
     /// Only one of audience or scopes can be specified for a credential.
     /// Setting the audience will replace any previously configured scopes.
-    /// The value should be https://{SERVICE}/. (e.g. `https://pubsub.googleapis.com/`)
+    /// The value should be `https://{SERVICE}/`, e.g., `https://pubsub.googleapis.com/`
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::service_account::Builder;
+    /// let service_account_key = serde_json::json!("{ /* add details here */ }");
+    /// let credentials = Builder::new(service_account_key).with_aud("https://bigtable.googleapis.com/").build();
+    /// ```
     ///
     /// [JWT]: https://google.aip.dev/auth/4111
     pub fn with_aud<V: Into<String>>(mut self, v: V) -> Self {
@@ -178,11 +185,23 @@ impl Builder {
     /// `scopes` define the *permissions being requested* for this specific session
     /// when interacting with a service. For example, `https://www.googleapis.com/auth/devstorage.read_write`.
     /// IAM permissions, on the other hand, define the *underlying capabilities*
-    /// the service account possesses within a system. For example, storage.buckets.delete.
-    /// IAM permissions are typically more fine-grained than OAuth scopes.
+    /// the service account possesses within a system. For example, `storage.buckets.delete`.
+    /// When a token generated with specific scopes is used, the request must be permitted
+    /// by both the service account's underlying IAM permissions and the scopes requested
+    /// for the token. Therefore, scopes act as an additional restriction on what the token
+    /// can be used for. Please see relevant section in [service account authorization] to learn
+    /// more about scopes and IAM permissions.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::service_account::Builder;
+    /// let service_account_key = serde_json::json!("{ /* add details here */ }");
+    /// let credentials = Builder::new(service_account_key).with_scopes(vec!["https://www.googleapis.com/auth/pubsub"]).build();
+    /// ```
     ///
     /// [JWT]: https://google.aip.dev/auth/4111
     /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
+    /// [service account authorization]: https://cloud.google.com/compute/docs/access/service-accounts#authorization
     pub fn with_scopes<I, S>(mut self, scopes: I) -> Self
     where
         I: IntoIterator<Item = S>,
@@ -207,6 +226,17 @@ impl Builder {
     }
 
     /// Returns a [Credential] instance with the configured settings.
+    ///
+    /// # Errors
+    ///
+    /// Returns a [CredentialError] if the `service_account_key`
+    /// provided to [`Builder::new`] cannot be successfully deserialized into the
+    /// expected format for a service account key. This typically happens if the
+    /// JSON value is malformed or missing required fields. For more information,
+    /// on the expected format for a service account key, consult the
+    /// relevant section in the [service account keys] guide.
+    ///
+    /// [creating service account keys]: https://cloud.google.com/iam/docs/keys-create-delete#creating
     pub fn build(self) -> Result<Credential> {
         let service_account_key =
             serde_json::from_value::<ServiceAccountKey>(self.service_account_key)
@@ -604,7 +634,7 @@ mod test {
 
         let claims = b64_decode_to_json(captures["claims"].to_string());
         assert_eq!(claims["iss"], service_account_key["client_email"]);
-        assert_eq!(claims["scope"], DEFAULT_SCOPES.join(" "));
+        assert_eq!(claims["scope"], DEFAULT_SCOPE);
         assert!(claims["iat"].is_number());
         assert!(claims["exp"].is_number());
         assert_eq!(claims["sub"], service_account_key["client_email"]);
