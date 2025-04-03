@@ -20,12 +20,12 @@ library;
 import 'dart:io';
 
 import 'package:google_cloud_language_v2/language.dart';
-
+import 'package:google_cloud_rpc/rpc.dart';
 import 'package:googleapis_auth/auth_io.dart' as auth;
 
 void main(List<String> args) async {
   if (args.isEmpty) {
-    print('usage: dart example/language.dart <api-key>');
+    print('usage: dart bin/language_api.dart <api-key>');
     exit(1);
   }
 
@@ -38,18 +38,25 @@ void main(List<String> args) async {
     type: Document$Type.plainText,
   );
 
-  final result = await service.analyzeSentiment(
-    AnalyzeSentimentRequest(document: document),
-  );
+  try {
+    final result = await service.analyzeSentiment(
+      AnalyzeSentimentRequest(document: document),
+    );
 
-  print('result: ${result}');
-  print('documentSentiment: ${result.documentSentiment}');
+    print('result: ${result}');
+    print('documentSentiment: ${result.documentSentiment}');
 
-  for (final sentence in result.sentences!) {
-    print('');
-    print('sentence:');
-    print('  text: ${sentence.text}');
-    print('  sentiment: ${sentence.sentiment}');
+    for (final sentence in result.sentences!) {
+      print('');
+      print('sentence:');
+      print('  text: ${sentence.text}');
+      print('  sentiment: ${sentence.sentiment}');
+    }
+  } on Status catch (error) {
+    print('error: $error');
+    for (final detail in error.detailsAsMessages) {
+      print('  detail: $detail');
+    }
   }
 
   client.close();
