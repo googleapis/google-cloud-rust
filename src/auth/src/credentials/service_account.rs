@@ -138,7 +138,7 @@ pub struct Builder {
 }
 
 impl Builder {
-    /// Creates a new builder using [service_account_key] json value.
+    /// Creates a new builder using [service_account_key] JSON value.
     /// By default, the builder is configured with [cloud-platform] scope.
     /// This can be overridden using [with_aud][Builder::with_aud]
     /// or [with_scopes][Builder::with_scopes] methods.
@@ -177,7 +177,7 @@ impl Builder {
     ///
     /// `scopes` define what an application can do on behalf of a user after the
     /// user grants permission. IAM permissions define what a service account or
-    ///  user can do within a system .
+    ///  user can do within a system.
     ///
     /// [JWT]: https://google.aip.dev/auth/4111
     /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
