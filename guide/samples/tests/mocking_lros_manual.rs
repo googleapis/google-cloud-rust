@@ -31,30 +31,6 @@ use speech::model::{BatchRecognizeRequest, BatchRecognizeResponse, OperationMeta
 mod my_application {
     use super::*;
 
-    // ANCHOR_END: manual-all
-    // ANCHOR_END: error-all
-    // ANCHOR: auto-fn
-    // An example application function that automatically polls.
-    //
-    // It starts an LRO, awaits the result, and processes it.
-    pub async fn my_automatic_poller(
-        client: &speech::client::Speech,
-        project_id: &str,
-    ) -> Result<Option<wkt::Duration>> {
-        use speech::Poller;
-        client
-            .batch_recognize(format!(
-                "projects/{project_id}/locations/global/recognizers/_"
-            ))
-            .poller()
-            .until_done()
-            .await
-            .map(|r| r.total_billed_duration)
-    }
-    // ANCHOR_END: auto-fn
-    // ANCHOR_END: auto-all
-
-    // ANCHOR: manual-all
     // ANCHOR: error-all
     // ANCHOR: manual-fn
     pub struct BatchRecognizeResult {
@@ -169,34 +145,6 @@ mod test {
     }
     // ANCHOR_END: partial-op
 
-    // ANCHOR_END: manual-all
-    // ANCHOR_END: error-all
-    // ANCHOR: auto-all
-    #[tokio::test]
-    async fn automatic_polling() -> Result<()> {
-        // Create a mock, and set expectations on it.
-        // ANCHOR: auto-mock-expectations
-        let mut mock = MockSpeech::new();
-        mock.expect_batch_recognize()
-            .return_once(|_, _| make_finished_operation(&expected_response()));
-        // ANCHOR_END: auto-mock-expectations
-
-        // ANCHOR: auto-client-call
-        // Create a client, implemented by our mock.
-        let client = speech::client::Speech::from_stub(mock);
-
-        // Call our function which automatically polls.
-        let billed_duration = my_automatic_poller(&client, "my-project").await?;
-
-        // Verify the final result of the LRO.
-        assert_eq!(billed_duration, expected_duration());
-        // ANCHOR_END: auto-client-call
-
-        Ok(())
-    }
-    // ANCHOR_END: auto-all
-
-    // ANCHOR: manual-all
     #[tokio::test]
     async fn manual_polling_with_metadata() -> Result<()> {
         // ANCHOR: manual-mock-expectations
@@ -234,47 +182,6 @@ mod test {
 
         Ok(())
     }
-    // ANCHOR_END: manual-all
-
-    // ANCHOR: error-all
-    #[tokio::test]
-    async fn simulating_errors() -> Result<()> {
-        let mut seq = mockall::Sequence::new();
-        let mut mock = MockSpeech::new();
-        mock.expect_batch_recognize()
-            .once()
-            .in_sequence(&mut seq)
-            .returning(|_, _| make_partial_operation(25));
-        mock.expect_get_operation()
-            .once()
-            .in_sequence(&mut seq)
-            .returning(|_, _| make_partial_operation(50));
-        mock.expect_get_operation()
-            .once()
-            .in_sequence(&mut seq)
-            .returning(|_, _| make_partial_operation(75));
-        // ANCHOR: error
-        mock.expect_get_operation()
-            .once()
-            .in_sequence(&mut seq)
-            .returning(|_, _|
-                // This time, return an error.
-                Err(Error::other("fail")));
-        // ANCHOR_END: error
-
-        // Create a client, implemented by our mock.
-        let client = speech::client::Speech::from_stub(mock);
-
-        // Call our function which manually polls.
-        let result = my_manual_poller(&client, "my-project").await;
-
-        // Verify the partial metadata updates, and the final result.
-        assert_eq!(result.progress_updates, [25, 50, 75]);
-        assert!(result.billed_duration.is_err());
-
-        Ok(())
-    }
-    // ANCHOR: auto-all
 }
 // ANCHOR_END: auto-all
 // ANCHOR_END: manual-all
