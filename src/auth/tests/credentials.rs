@@ -16,7 +16,7 @@ use google_cloud_auth::credentials::mds::Builder as MdsBuilder;
 use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBuilder;
 use google_cloud_auth::credentials::testing::test_credentials;
 use google_cloud_auth::credentials::{
-    ApiKeyOptions, Credential, CredentialTrait, create_access_token_credential,
+    ApiKeyOptions, Credential, CredentialsTrait, create_access_token_credential,
     create_api_key_credential,
 };
 use google_cloud_auth::errors::CredentialError;
@@ -144,7 +144,7 @@ mod test {
         #[derive(Debug)]
         Credential {}
 
-        impl CredentialTrait for Credential {
+        impl CredentialsTrait for Credential {
             async fn get_token(&self) -> Result<Token>;
             async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>>;
             async fn get_universe_domain(&self) -> Option<String>;

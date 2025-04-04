@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::credentials::dynamic::CredentialTrait;
+use crate::credentials::dynamic::CredentialsTrait;
 use crate::credentials::{Credential, QUOTA_PROJECT_KEY, Result};
 use crate::errors;
 use crate::token::{Token, TokenProvider};
@@ -109,7 +109,7 @@ where
 }
 
 #[async_trait::async_trait]
-impl<T> CredentialTrait for ApiKeyCredential<T>
+impl<T> CredentialsTrait for ApiKeyCredential<T>
 where
     T: TokenProvider,
 {

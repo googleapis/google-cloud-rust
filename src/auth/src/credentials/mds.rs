@@ -50,7 +50,7 @@
 //! [gke-link]: https://cloud.google.com/kubernetes-engine
 //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 
-use crate::credentials::dynamic::CredentialTrait;
+use crate::credentials::dynamic::CredentialsTrait;
 use crate::credentials::{Credential, DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY, Result};
 use crate::errors::{self, CredentialError, is_retryable};
 use crate::token::{Token, TokenProvider};
@@ -171,7 +171,7 @@ impl Builder {
 }
 
 #[async_trait::async_trait]
-impl<T> CredentialTrait for MDSCredential<T>
+impl<T> CredentialsTrait for MDSCredential<T>
 where
     T: TokenProvider,
 {

@@ -19,7 +19,7 @@ pub use api_key_credential::create_api_key_credential;
 
 pub mod mds;
 pub mod service_account;
-pub(crate) mod user_credential;
+pub(crate) mod user_credentials;
 
 use crate::Result;
 use crate::errors::{self, CredentialError};
@@ -30,7 +30,7 @@ use std::sync::Arc;
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
-/// An implementation of [crate::credentials::CredentialTrait].
+/// An implementation of [crate::credentials::CredentialsTrait].
 ///
 /// Represents a [Credential] used to obtain auth [Token][crate::token::Token]s
 /// and the corresponding request headers.
@@ -73,12 +73,12 @@ pub struct Credential {
     // They also need to derive `Clone`, as the
     // `gax::http_client::ReqwestClient`s which hold them derive `Clone`. So a
     // `Box` will not do.
-    inner: Arc<dyn dynamic::CredentialTrait>,
+    inner: Arc<dyn dynamic::CredentialsTrait>,
 }
 
 impl<T> std::convert::From<T> for Credential
 where
-    T: crate::credentials::CredentialTrait + Send + Sync + 'static,
+    T: crate::credentials::CredentialsTrait + Send + Sync + 'static,
 {
     fn from(value: T) -> Self {
         Self {
@@ -141,7 +141,7 @@ impl Credential {
 /// [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 /// [Google Compute Engine]: https://cloud.google.com/products/compute
 /// [Google Kubernetes Engine]: https://cloud.google.com/kubernetes-engine
-pub trait CredentialTrait: std::fmt::Debug {
+pub trait CredentialsTrait: std::fmt::Debug {
     /// Asynchronously retrieves a token.
     ///
     /// Returns a [Token][crate::token::Token] for the current credentials.
@@ -165,9 +165,9 @@ pub(crate) mod dynamic {
     use super::Result;
     use super::{HeaderName, HeaderValue};
 
-    /// A dyn-compatible, crate-private version of `CredentialTrait`.
+    /// A dyn-compatible, crate-private version of `CredentialsTrait`.
     #[async_trait::async_trait]
-    pub trait CredentialTrait: Send + Sync + std::fmt::Debug {
+    pub trait CredentialsTrait: Send + Sync + std::fmt::Debug {
         /// Asynchronously retrieves a token.
         ///
         /// Returns a [Token][crate::token::Token] for the current credentials.
@@ -189,11 +189,11 @@ pub(crate) mod dynamic {
         }
     }
 
-    /// The public CredentialTrait implements the dyn-compatible CredentialTrait.
+    /// The public CredentialsTrait implements the dyn-compatible CredentialsTrait.
     #[async_trait::async_trait]
-    impl<T> CredentialTrait for T
+    impl<T> CredentialsTrait for T
     where
-        T: super::CredentialTrait + Send + Sync,
+        T: super::CredentialsTrait + Send + Sync,
     {
         async fn get_token(&self) -> Result<crate::token::Token> {
             T::get_token(self).await
@@ -266,7 +266,7 @@ pub async fn create_access_token_credential() -> Result<Credential> {
         .ok_or_else(|| errors::non_retryable_from_str("Failed to parse Application Default Credentials (ADC). `type` field is not a string.")
         )?;
     match cred_type {
-        "authorized_user" => user_credential::creds_from(js),
+        "authorized_user" => user_credentials::creds_from(js),
         "service_account" => service_account::creds_from(js),
         _ => Err(errors::non_retryable_from_str(format!(
             "Unimplemented credential type: {cred_type}"
@@ -349,7 +349,7 @@ fn adc_well_known_path() -> Option<String> {
 pub mod testing {
     use crate::Result;
     use crate::credentials::Credential;
-    use crate::credentials::dynamic::CredentialTrait;
+    use crate::credentials::dynamic::CredentialsTrait;
     use crate::token::Token;
     use http::header::{HeaderName, HeaderValue};
     use std::sync::Arc;
@@ -367,7 +367,7 @@ pub mod testing {
     struct TestCredential;
 
     #[async_trait::async_trait]
-    impl CredentialTrait for TestCredential {
+    impl CredentialsTrait for TestCredential {
         async fn get_token(&self) -> Result<Token> {
             Ok(Token {
                 token: "test-only-token".to_string(),
@@ -399,7 +399,7 @@ pub mod testing {
     struct ErrorCredentials(bool);
 
     #[async_trait::async_trait]
-    impl CredentialTrait for ErrorCredentials {
+    impl CredentialsTrait for ErrorCredentials {
         async fn get_token(&self) -> Result<Token> {
             Err(super::CredentialError::from_str(self.0, "test-only"))
         }

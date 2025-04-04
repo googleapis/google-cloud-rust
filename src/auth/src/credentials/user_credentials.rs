@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::credentials::dynamic::CredentialTrait;
+use crate::credentials::dynamic::CredentialsTrait;
 use crate::credentials::{Credential, QUOTA_PROJECT_KEY, Result};
 use crate::errors::{self, CredentialError, is_retryable};
 use crate::token::{Token, TokenProvider};
@@ -39,7 +39,7 @@ pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
     let cached_token_provider = TokenCache::new(token_provider);
 
     Ok(Credential {
-        inner: Arc::new(UserCredential {
+        inner: Arc::new(UserCredentials {
             token_provider: cached_token_provider,
             quota_project_id: au.quota_project_id,
         }),
@@ -112,11 +112,11 @@ impl TokenProvider for UserTokenProvider {
     }
 }
 
-/// Data model for a UserCredential
+/// Data model for a UserCredentials
 ///
 /// See: https://cloud.google.com/docs/authentication#user-accounts
 #[derive(Debug)]
-pub(crate) struct UserCredential<T>
+pub(crate) struct UserCredentials<T>
 where
     T: TokenProvider,
 {
@@ -125,7 +125,7 @@ where
 }
 
 #[async_trait::async_trait]
-impl<T> CredentialTrait for UserCredential<T>
+impl<T> CredentialsTrait for UserCredentials<T>
 where
     T: TokenProvider,
 {
@@ -299,7 +299,7 @@ mod test {
             .times(1)
             .return_once(|| Ok(expected_clone));
 
-        let uc = UserCredential {
+        let uc = UserCredentials {
             token_provider: mock,
             quota_project_id: None,
         };
@@ -314,7 +314,7 @@ mod test {
             .times(1)
             .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
-        let uc = UserCredential {
+        let uc = UserCredentials {
             token_provider: mock,
             quota_project_id: None,
         };
@@ -333,7 +333,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token().times(1).return_once(|| Ok(token));
 
-        let uc = UserCredential {
+        let uc = UserCredentials {
             token_provider: mock,
             quota_project_id: None,
         };
@@ -356,7 +356,7 @@ mod test {
             .times(1)
             .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
-        let uc = UserCredential {
+        let uc = UserCredentials {
             token_provider: mock,
             quota_project_id: None,
         };
@@ -375,7 +375,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token().times(1).return_once(|| Ok(token));
 
-        let uc = UserCredential {
+        let uc = UserCredentials {
             token_provider: mock,
             quota_project_id: Some("test-project".to_string()),
         };
@@ -523,7 +523,7 @@ mod test {
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
         };
-        let uc = UserCredential {
+        let uc = UserCredentials {
             token_provider,
             quota_project_id: None,
         };
@@ -603,7 +603,7 @@ mod test {
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
         };
-        let uc = UserCredential {
+        let uc = UserCredentials {
             token_provider,
             quota_project_id: None,
         };
@@ -631,7 +631,7 @@ mod test {
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
         };
-        let uc = UserCredential {
+        let uc = UserCredentials {
             token_provider,
             quota_project_id: None,
         };
@@ -658,7 +658,7 @@ mod test {
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
         };
-        let uc = UserCredential {
+        let uc = UserCredentials {
             token_provider,
             quota_project_id: None,
         };
@@ -685,7 +685,7 @@ mod test {
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
         };
-        let uc = UserCredential {
+        let uc = UserCredentials {
             token_provider,
             quota_project_id: None,
         };

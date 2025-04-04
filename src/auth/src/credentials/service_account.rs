@@ -72,7 +72,7 @@
 mod jws;
 
 use crate::credentials::QUOTA_PROJECT_KEY;
-use crate::credentials::dynamic::CredentialTrait;
+use crate::credentials::dynamic::CredentialsTrait;
 use crate::credentials::{Credential, Result};
 use crate::errors::{self, CredentialError};
 use crate::token::{Token, TokenProvider};
@@ -386,7 +386,7 @@ impl ServiceAccountTokenProvider {
 }
 
 #[async_trait::async_trait]
-impl<T> CredentialTrait for ServiceAccountCredential<T>
+impl<T> CredentialsTrait for ServiceAccountCredential<T>
 where
     T: TokenProvider,
 {
