@@ -14,7 +14,7 @@
 
 //! Implements the common features of all gRPC-based client.
 
-use auth::credentials::Credential;
+use auth::credentials::Credentials;
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
 use gax::error::Error;
