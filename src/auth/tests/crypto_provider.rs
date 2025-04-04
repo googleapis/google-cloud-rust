@@ -23,7 +23,7 @@ mod test {
     // TODO(#1442) : We should use auth's factory function specifically for
     // service account credentials when it is available, instead of using the
     // generic ADC factory function with delicately crafted json.
-    async fn test_service_account_credentials() -> Credential {
+    async fn test_service_account_credentials() -> Credentials {
         let contents = r#"{
             "type": "service_account",
             "project_id": "test-project-id",

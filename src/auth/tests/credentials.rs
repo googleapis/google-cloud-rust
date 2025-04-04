@@ -16,7 +16,7 @@ use google_cloud_auth::credentials::mds::Builder as MdsBuilder;
 use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBuilder;
 use google_cloud_auth::credentials::testing::test_credentials;
 use google_cloud_auth::credentials::{
-    ApiKeyOptions, Credential, CredentialsTrait, create_access_token_credential,
+    ApiKeyOptions, Credentials, CredentialsTrait, create_access_token_credential,
     create_api_key_credentials,
 };
 use google_cloud_auth::errors::CredentialError;
@@ -165,7 +165,7 @@ mod test {
         mock.expect_get_headers().return_once(|| Ok(Vec::new()));
         mock.expect_get_universe_domain().return_once(|| None);
 
-        let creds = Credential::from(mock);
+        let creds = Credentials::from(mock);
         assert_eq!(creds.get_token().await?.token, "test-token");
         assert!(creds.get_headers().await?.is_empty());
         assert_eq!(creds.get_universe_domain().await, None);

@@ -48,7 +48,7 @@ mod info {
 #[derive(Clone)]
 pub struct {{Codec.Name}} {
     inner: tonic::client::Grpc<tonic::transport::Channel>,
-    cred: auth::credentials::Credential,
+    cred: auth::credentials::Credentials,
     retry_policy: Option<Arc<dyn gax::retry_policy::RetryPolicy>>,
     backoff_policy: Option<Arc<dyn gax::backoff_policy::BackoffPolicy>>,
     retry_throttler: gax::retry_throttler::SharedRetryThrottler,
@@ -83,7 +83,7 @@ impl {{Codec.Name}} {
         Ok(tonic::client::Grpc::new(conn))
     }
 
-    async fn make_credentials(config: &gaxi::options::ClientConfig) -> Result<auth::credentials::Credential> {
+    async fn make_credentials(config: &gaxi::options::ClientConfig) -> Result<auth::credentials::Credentials> {
         if let Some(c) = config.cred.clone() {
             return Ok(c);
         }

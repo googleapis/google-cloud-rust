@@ -31,7 +31,7 @@ pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
 /// An implementation of [crate::credentials::CredentialsTrait].
 ///
-/// Represents a [Credential] used to obtain auth [Token][crate::token::Token]s
+/// Represents a [Credentials] used to obtain auth [Token][crate::token::Token]s
 /// and the corresponding request headers.
 ///
 /// In general, [Credentials][credentials-link] are "digital object that provide
@@ -63,7 +63,7 @@ pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 /// [Google Compute Engine]: https://cloud.google.com/products/compute
 /// [Google Kubernetes Engine]: https://cloud.google.com/kubernetes-engine
 #[derive(Clone, Debug)]
-pub struct Credential {
+pub struct Credentials {
     // We use an `Arc` to hold the inner implementation.
     //
     // Credentials may be shared across threads (`Send + Sync`), so an `Rc`
@@ -75,7 +75,7 @@ pub struct Credential {
     inner: Arc<dyn dynamic::CredentialsTrait>,
 }
 
-impl<T> std::convert::From<T> for Credential
+impl<T> std::convert::From<T> for Credentials
 where
     T: crate::credentials::CredentialsTrait + Send + Sync + 'static,
 {
@@ -86,7 +86,7 @@ where
     }
 }
 
-impl Credential {
+impl Credentials {
     pub async fn get_token(&self) -> Result<crate::token::Token> {
         self.inner.get_token().await
     }
@@ -100,7 +100,7 @@ impl Credential {
     }
 }
 
-/// Represents a [Credential] used to obtain auth
+/// Represents a [Credentials] used to obtain auth
 /// [Token][crate::token::Token]s and the corresponding request headers.
 ///
 /// In general, [Credentials][credentials-link] are "digital object that
@@ -131,7 +131,7 @@ impl Credential {
 /// # Notes
 ///
 /// Application developers who directly use the Auth SDK can use this trait,
-/// along with [crate::credentials::Credential::from()] to mock the credentials.
+/// along with [crate::credentials::Credentials::from()] to mock the credentials.
 /// Application developers who use the Google Cloud Rust SDK directly should not
 /// need this functionality.
 ///
@@ -150,7 +150,7 @@ pub trait CredentialsTrait: std::fmt::Debug {
     /// Asynchronously constructs the auth headers.
     ///
     /// Different auth tokens are sent via different headers. The
-    /// [Credential] constructs the headers (and header values) that should be
+    /// [Credentials] constructs the headers (and header values) that should be
     /// sent with a request.
     ///
     /// The underlying implementation refreshes the token as needed.
@@ -176,13 +176,13 @@ pub(crate) mod dynamic {
         /// Asynchronously constructs the auth headers.
         ///
         /// Different auth tokens are sent via different headers. The
-        /// [Credential] constructs the headers (and header values) that should be
+        /// [Credentials] constructs the headers (and header values) that should be
         /// sent with a request.
         ///
         /// The underlying implementation refreshes the token as needed.
         async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>>;
 
-        /// Retrieves the universe domain associated with the credential, if any.
+        /// Retrieves the universe domain associated with the credentials, if any.
         async fn get_universe_domain(&self) -> Option<String> {
             Some("googleapis.com".to_string())
         }
@@ -252,7 +252,7 @@ pub(crate) mod dynamic {
 /// [gce-link]: https://cloud.google.com/products/compute
 /// [gcloud auth application-default]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default
 /// [gke-link]: https://cloud.google.com/kubernetes-engine
-pub async fn create_access_token_credential() -> Result<Credential> {
+pub async fn create_access_token_credential() -> Result<Credentials> {
     let contents = match load_adc()? {
         AdcContents::Contents(contents) => contents,
         AdcContents::FallbackToMds => return Ok(mds::new()),
@@ -268,7 +268,7 @@ pub async fn create_access_token_credential() -> Result<Credential> {
         "authorized_user" => user_credentials::creds_from(js),
         "service_account" => service_account::creds_from(js),
         _ => Err(errors::non_retryable_from_str(format!(
-            "Unimplemented credential type: {cred_type}"
+            "Unimplemented credentials type: {cred_type}"
         ))),
     }
 }
@@ -347,7 +347,7 @@ fn adc_well_known_path() -> Option<String> {
 /// may find it useful.
 pub mod testing {
     use crate::Result;
-    use crate::credentials::Credential;
+    use crate::credentials::Credentials;
     use crate::credentials::dynamic::CredentialsTrait;
     use crate::token::Token;
     use http::header::{HeaderName, HeaderValue};
@@ -356,17 +356,17 @@ pub mod testing {
     /// A simple credentials implementation to use in tests where authentication does not matter.
     ///
     /// Always returns a "Bearer" token, with "test-only-token" as the value.
-    pub fn test_credentials() -> Credential {
-        Credential {
-            inner: Arc::from(TestCredential {}),
+    pub fn test_credentials() -> Credentials {
+        Credentials {
+            inner: Arc::from(TestCredentials {}),
         }
     }
 
     #[derive(Debug)]
-    struct TestCredential;
+    struct TestCredentials;
 
     #[async_trait::async_trait]
-    impl CredentialsTrait for TestCredential {
+    impl CredentialsTrait for TestCredentials {
         async fn get_token(&self) -> Result<Token> {
             Ok(Token {
                 token: "test-only-token".to_string(),
@@ -388,8 +388,8 @@ pub mod testing {
     /// A simple credentials implementation to use in tests.
     ///
     /// Always return an error in `get_token()` and `get_headers()`.
-    pub fn error_credentials(retryable: bool) -> Credential {
-        Credential {
+    pub fn error_credentials(retryable: bool) -> Credentials {
+        Credentials {
             inner: Arc::from(ErrorCredentials(retryable)),
         }
     }

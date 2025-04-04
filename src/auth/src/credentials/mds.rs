@@ -34,11 +34,11 @@
 //!
 //! ```
 //! # use google_cloud_auth::credentials::mds::Builder;
-//! # use google_cloud_auth::credentials::Credential;
+//! # use google_cloud_auth::credentials::Credentials;
 //! # use google_cloud_auth::errors::CredentialError;
 //! # tokio_test::block_on(async {
-//! let credential: Credential = Builder::default().quota_project_id("my-quota-project").build();
-//! let token = credential.get_token().await?;
+//! let credentials: Credentials = Builder::default().quota_project_id("my-quota-project").build();
+//! let token = credentials.get_token().await?;
 //! println!("Token: {}", token.token);
 //! # Ok::<(), CredentialError>(())
 //! # });
@@ -51,7 +51,7 @@
 //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 
 use crate::credentials::dynamic::CredentialsTrait;
-use crate::credentials::{Credential, DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY, Result};
+use crate::credentials::{Credentials, DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY, Result};
 use crate::errors::{self, CredentialError, is_retryable};
 use crate::token::{Token, TokenProvider};
 use async_trait::async_trait;
@@ -66,7 +66,7 @@ const METADATA_FLAVOR_VALUE: &str = "Google";
 const METADATA_FLAVOR: &str = "metadata-flavor";
 const METADATA_ROOT: &str = "http://metadata.google.internal/";
 
-pub(crate) fn new() -> Credential {
+pub(crate) fn new() -> Credentials {
     Builder::default().build()
 }
 
@@ -80,7 +80,7 @@ where
     token_provider: T,
 }
 
-/// Creates [Credential] instances backed by the [Metadata Service].
+/// Creates [Credentials] instances backed by the [Metadata Service].
 ///
 /// While the Google Cloud client libraries for Rust default to credentials
 /// backed by the metadata service, some applications may need to:
@@ -149,8 +149,8 @@ impl Builder {
         self
     }
 
-    /// Returns a [Credential] instance with the configured settings.
-    pub fn build(self) -> Credential {
+    /// Returns a [Credentials] instance with the configured settings.
+    pub fn build(self) -> Credentials {
         let endpoint = self.endpoint.clone().unwrap_or(METADATA_ROOT.to_string());
 
         let token_provider = MDSAccessTokenProvider::builder()
@@ -164,7 +164,7 @@ impl Builder {
             token_provider: cached_token_provider,
             universe_domain: self.universe_domain,
         };
-        Credential {
+        Credentials {
             inner: Arc::new(mdsc),
         }
     }

@@ -66,14 +66,14 @@ where
 
 pub fn builder(
     endpoint: impl Into<String>,
-) -> gax::client_builder::ClientBuilder<Factory, auth::credentials::Credential> {
+) -> gax::client_builder::ClientBuilder<Factory, auth::credentials::Credentials> {
     gax::client_builder::internal::new_builder(Factory(endpoint.into()))
 }
 
 pub struct Factory(String);
 impl gax::client_builder::internal::ClientFactory for Factory {
     type Client = gaxi::grpc::Client;
-    type Credentials = auth::credentials::Credential;
+    type Credentials = auth::credentials::Credentials;
     async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
         Self::Client::new(config, &self.0).await
     }

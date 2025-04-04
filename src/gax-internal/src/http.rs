@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use auth::credentials::{Credential, create_access_token_credential};
+use auth::credentials::{Credentials, create_access_token_credential};
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
 use gax::error::Error;
@@ -30,7 +30,7 @@ use std::sync::Arc;
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {
     inner: reqwest::Client,
-    cred: Credential,
+    cred: Credentials,
     endpoint: String,
     retry_policy: Option<Arc<dyn RetryPolicy>>,
     backoff_policy: Option<Arc<dyn BackoffPolicy>>,

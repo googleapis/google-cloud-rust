@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::credentials::dynamic::CredentialsTrait;
-use crate::credentials::{Credential, QUOTA_PROJECT_KEY, Result};
+use crate::credentials::{Credentials, QUOTA_PROJECT_KEY, Result};
 use crate::errors::{self, CredentialError, is_retryable};
 use crate::token::{Token, TokenProvider};
 use crate::token_cache::TokenCache;
@@ -24,7 +24,7 @@ use std::time::Duration;
 
 const OAUTH2_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
 
-pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
+pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credentials> {
     let au = serde_json::from_value::<AuthorizedUser>(js).map_err(errors::non_retryable)?;
 
     let endpoint = au.token_uri.unwrap_or_else(|| OAUTH2_ENDPOINT.to_string());
@@ -38,7 +38,7 @@ pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
 
     let cached_token_provider = TokenCache::new(token_provider);
 
-    Ok(Credential {
+    Ok(Credentials {
         inner: Arc::new(UserCredentials {
             token_provider: cached_token_provider,
             quota_project_id: au.quota_project_id,

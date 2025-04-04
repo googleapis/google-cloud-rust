@@ -21,7 +21,7 @@
 //!
 //! This crate contains types and functions used to authenticate applications
 //! on Google Cloud.  The SDK clients consume an implementation of
-//! [credentials::Credential] and use these credentials to authenticate RPCs
+//! [credentials::Credentials] and use these credentials to authenticate RPCs
 //! issued by the application.
 //!
 //! [Authentication methods at Google] is a good introduction on the topic of
