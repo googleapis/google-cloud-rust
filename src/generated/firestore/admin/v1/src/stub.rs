@@ -211,6 +211,82 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
+    /// Implements [super::client::FirestoreAdmin::create_user_creds].
+    fn create_user_creds(
+        &self,
+        _req: crate::model::CreateUserCredsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::UserCreds>> + Send {
+        std::future::ready::<crate::Result<crate::model::UserCreds>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::FirestoreAdmin::get_user_creds].
+    fn get_user_creds(
+        &self,
+        _req: crate::model::GetUserCredsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::UserCreds>> + Send {
+        std::future::ready::<crate::Result<crate::model::UserCreds>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::FirestoreAdmin::list_user_creds].
+    fn list_user_creds(
+        &self,
+        _req: crate::model::ListUserCredsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListUserCredsResponse>> + Send
+    {
+        std::future::ready::<crate::Result<crate::model::ListUserCredsResponse>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::FirestoreAdmin::enable_user_creds].
+    fn enable_user_creds(
+        &self,
+        _req: crate::model::EnableUserCredsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::UserCreds>> + Send {
+        std::future::ready::<crate::Result<crate::model::UserCreds>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::FirestoreAdmin::disable_user_creds].
+    fn disable_user_creds(
+        &self,
+        _req: crate::model::DisableUserCredsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::UserCreds>> + Send {
+        std::future::ready::<crate::Result<crate::model::UserCreds>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::FirestoreAdmin::reset_user_password].
+    fn reset_user_password(
+        &self,
+        _req: crate::model::ResetUserPasswordRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::UserCreds>> + Send {
+        std::future::ready::<crate::Result<crate::model::UserCreds>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::FirestoreAdmin::delete_user_creds].
+    fn delete_user_creds(
+        &self,
+        _req: crate::model::DeleteUserCredsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
+        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    }
+
     /// Implements [super::client::FirestoreAdmin::get_backup].
     fn get_backup(
         &self,

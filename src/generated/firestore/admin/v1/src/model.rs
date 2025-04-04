@@ -1973,6 +1973,302 @@ impl wkt::message::Message for DeleteDatabaseMetadata {
 }
 
 /// The request for
+/// [FirestoreAdmin.CreateUserCreds][google.firestore.admin.v1.FirestoreAdmin.CreateUserCreds].
+///
+/// [google.firestore.admin.v1.FirestoreAdmin.CreateUserCreds]: crate::client::FirestoreAdmin::create_user_creds
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateUserCredsRequest {
+    /// Required. A parent name of the form
+    /// `projects/{project_id}/databases/{database_id}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Required. The user creds to create.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub user_creds: std::option::Option<crate::model::UserCreds>,
+
+    /// Required. The ID to use for the user creds, which will become the final
+    /// component of the user creds's resource name.
+    ///
+    /// This value should be 4-63 characters. Valid characters are /[a-z][0-9]-/
+    /// with first character a letter and the last a letter or a number. Must not
+    /// be UUID-like /[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}/.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub user_creds_id: std::string::String,
+}
+
+impl CreateUserCredsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateUserCredsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [user_creds][crate::model::CreateUserCredsRequest::user_creds].
+    pub fn set_user_creds<T: std::convert::Into<std::option::Option<crate::model::UserCreds>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.user_creds = v.into();
+        self
+    }
+
+    /// Sets the value of [user_creds_id][crate::model::CreateUserCredsRequest::user_creds_id].
+    pub fn set_user_creds_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.user_creds_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateUserCredsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.firestore.admin.v1.CreateUserCredsRequest"
+    }
+}
+
+/// The request for
+/// [FirestoreAdmin.GetUserCreds][google.firestore.admin.v1.FirestoreAdmin.GetUserCreds].
+///
+/// [google.firestore.admin.v1.FirestoreAdmin.GetUserCreds]: crate::client::FirestoreAdmin::get_user_creds
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetUserCredsRequest {
+    /// Required. A name of the form
+    /// `projects/{project_id}/databases/{database_id}/userCreds/{user_creds_id}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+}
+
+impl GetUserCredsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetUserCredsRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetUserCredsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.firestore.admin.v1.GetUserCredsRequest"
+    }
+}
+
+/// The request for
+/// [FirestoreAdmin.ListUserCreds][google.firestore.admin.v1.FirestoreAdmin.ListUserCreds].
+///
+/// [google.firestore.admin.v1.FirestoreAdmin.ListUserCreds]: crate::client::FirestoreAdmin::list_user_creds
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListUserCredsRequest {
+    /// Required. A parent database name of the form
+    /// `projects/{project_id}/databases/{database_id}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+}
+
+impl ListUserCredsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListUserCredsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListUserCredsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.firestore.admin.v1.ListUserCredsRequest"
+    }
+}
+
+/// The response for
+/// [FirestoreAdmin.ListUserCreds][google.firestore.admin.v1.FirestoreAdmin.ListUserCreds].
+///
+/// [google.firestore.admin.v1.FirestoreAdmin.ListUserCreds]: crate::client::FirestoreAdmin::list_user_creds
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListUserCredsResponse {
+    /// The user creds for the database.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub user_creds: std::vec::Vec<crate::model::UserCreds>,
+}
+
+impl ListUserCredsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [user_creds][crate::model::ListUserCredsResponse::user_creds].
+    pub fn set_user_creds<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::UserCreds>,
+    {
+        use std::iter::Iterator;
+        self.user_creds = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListUserCredsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.firestore.admin.v1.ListUserCredsResponse"
+    }
+}
+
+/// The request for
+/// [FirestoreAdmin.EnableUserCreds][google.firestore.admin.v1.FirestoreAdmin.EnableUserCreds].
+///
+/// [google.firestore.admin.v1.FirestoreAdmin.EnableUserCreds]: crate::client::FirestoreAdmin::enable_user_creds
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct EnableUserCredsRequest {
+    /// Required. A name of the form
+    /// `projects/{project_id}/databases/{database_id}/userCreds/{user_creds_id}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+}
+
+impl EnableUserCredsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::EnableUserCredsRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for EnableUserCredsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.firestore.admin.v1.EnableUserCredsRequest"
+    }
+}
+
+/// The request for
+/// [FirestoreAdmin.DisableUserCreds][google.firestore.admin.v1.FirestoreAdmin.DisableUserCreds].
+///
+/// [google.firestore.admin.v1.FirestoreAdmin.DisableUserCreds]: crate::client::FirestoreAdmin::disable_user_creds
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DisableUserCredsRequest {
+    /// Required. A name of the form
+    /// `projects/{project_id}/databases/{database_id}/userCreds/{user_creds_id}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+}
+
+impl DisableUserCredsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DisableUserCredsRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DisableUserCredsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.firestore.admin.v1.DisableUserCredsRequest"
+    }
+}
+
+/// The request for
+/// [FirestoreAdmin.ResetUserPassword][google.firestore.admin.v1.FirestoreAdmin.ResetUserPassword].
+///
+/// [google.firestore.admin.v1.FirestoreAdmin.ResetUserPassword]: crate::client::FirestoreAdmin::reset_user_password
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ResetUserPasswordRequest {
+    /// Required. A name of the form
+    /// `projects/{project_id}/databases/{database_id}/userCreds/{user_creds_id}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+}
+
+impl ResetUserPasswordRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ResetUserPasswordRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ResetUserPasswordRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.firestore.admin.v1.ResetUserPasswordRequest"
+    }
+}
+
+/// The request for
+/// [FirestoreAdmin.DeleteUserCreds][google.firestore.admin.v1.FirestoreAdmin.DeleteUserCreds].
+///
+/// [google.firestore.admin.v1.FirestoreAdmin.DeleteUserCreds]: crate::client::FirestoreAdmin::delete_user_creds
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteUserCredsRequest {
+    /// Required. A name of the form
+    /// `projects/{project_id}/databases/{database_id}/userCreds/{user_creds_id}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+}
+
+impl DeleteUserCredsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteUserCredsRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteUserCredsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.firestore.admin.v1.DeleteUserCredsRequest"
+    }
+}
+
+/// The request for
 /// [FirestoreAdmin.CreateBackupSchedule][google.firestore.admin.v1.FirestoreAdmin.CreateBackupSchedule].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.CreateBackupSchedule]: crate::client::FirestoreAdmin::create_backup_schedule
@@ -5253,6 +5549,236 @@ impl WeeklyRecurrence {
 impl wkt::message::Message for WeeklyRecurrence {
     fn typename() -> &'static str {
         "type.googleapis.com/google.firestore.admin.v1.WeeklyRecurrence"
+    }
+}
+
+/// A Cloud Firestore User Creds.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UserCreds {
+    /// Identifier. The resource name of the UserCreds.
+    /// Format:
+    /// `projects/{project}/databases/{database}/userCreds/{user_creds}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Output only. The time the user creds were created.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time the user creds were last updated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Whether the user creds are enabled or disabled. Defaults to
+    /// ENABLED on creation.
+    pub state: crate::model::user_creds::State,
+
+    /// Output only. The plaintext server-generated password for the user creds.
+    /// Only populated in responses for CreateUserCreds and ResetUserPassword.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub secure_password: std::string::String,
+
+    /// Identity associated with this User Creds.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub user_creds_identity: std::option::Option<crate::model::user_creds::UserCredsIdentity>,
+}
+
+impl UserCreds {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::UserCreds::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::UserCreds::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::UserCreds::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::UserCreds::state].
+    pub fn set_state<T: std::convert::Into<crate::model::user_creds::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [secure_password][crate::model::UserCreds::secure_password].
+    pub fn set_secure_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.secure_password = v.into();
+        self
+    }
+
+    /// Sets the value of `user_creds_identity`.
+    pub fn set_user_creds_identity<
+        T: std::convert::Into<std::option::Option<crate::model::user_creds::UserCredsIdentity>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.user_creds_identity = v.into();
+        self
+    }
+
+    /// The value of [user_creds_identity][crate::model::UserCreds::user_creds_identity]
+    /// if it holds a `ResourceIdentity`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_resource_identity(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::user_creds::ResourceIdentity>> {
+        #[allow(unreachable_patterns)]
+        self.user_creds_identity.as_ref().and_then(|v| match v {
+            crate::model::user_creds::UserCredsIdentity::ResourceIdentity(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [user_creds_identity][crate::model::UserCreds::user_creds_identity]
+    /// to hold a `ResourceIdentity`.
+    ///
+    /// Note that all the setters affecting `user_creds_identity` are
+    /// mutually exclusive.
+    pub fn set_resource_identity<
+        T: std::convert::Into<std::boxed::Box<crate::model::user_creds::ResourceIdentity>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.user_creds_identity = std::option::Option::Some(
+            crate::model::user_creds::UserCredsIdentity::ResourceIdentity(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for UserCreds {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.firestore.admin.v1.UserCreds"
+    }
+}
+
+/// Defines additional types related to [UserCreds].
+pub mod user_creds {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Describes a Resource Identity principal.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct ResourceIdentity {
+        /// Output only. Principal identifier string.
+        /// See: <https://cloud.google.com/iam/docs/principal-identifiers>
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub principal: std::string::String,
+    }
+
+    impl ResourceIdentity {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [principal][crate::model::user_creds::ResourceIdentity::principal].
+        pub fn set_principal<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.principal = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ResourceIdentity {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.firestore.admin.v1.UserCreds.ResourceIdentity"
+        }
+    }
+
+    /// The state of the user creds (ENABLED or DISABLED).
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
+
+    impl State {
+        /// The default value. Should not be used.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The user creds are enabled.
+        pub const ENABLED: State = State::new(1);
+
+        /// The user creds are disabled.
+        pub const DISABLED: State = State::new(2);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ENABLED"),
+                2 => std::borrow::Cow::Borrowed("DISABLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "ENABLED" => std::option::Option::Some(Self::ENABLED),
+                "DISABLED" => std::option::Option::Some(Self::DISABLED),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+
+    /// Identity associated with this User Creds.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum UserCredsIdentity {
+        /// Resource Identity descriptor.
+        ResourceIdentity(std::boxed::Box<crate::model::user_creds::ResourceIdentity>),
     }
 }
 
