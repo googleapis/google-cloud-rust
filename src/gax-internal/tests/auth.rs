@@ -120,9 +120,12 @@ mod test {
     async fn auth_error_non_retryable() -> Result<()> {
         let (endpoint, _server) = echo_server::start().await?;
         let mut mock = MockCredentials::new();
-        mock.expect_get_headers()
-            .times(1)
-            .returning(|| Err(CredentialsError::from_str(false, "mock non-retryable error")));
+        mock.expect_get_headers().times(1).returning(|| {
+            Err(CredentialsError::from_str(
+                false,
+                "mock non-retryable error",
+            ))
+        });
 
         let client = echo_server::builder(endpoint)
             .with_credentials(Credentials::from(mock))
