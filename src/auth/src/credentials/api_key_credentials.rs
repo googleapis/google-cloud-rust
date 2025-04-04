@@ -55,7 +55,7 @@ impl ApiKeyOptions {
 ///
 /// [API key]: https://cloud.google.com/docs/authentication/api-keys-use
 /// [principal]: https://cloud.google.com/docs/authentication#principal
-pub async fn create_api_key_credential<T: Into<String>>(
+pub async fn create_api_key_credentials<T: Into<String>>(
     api_key: T,
     o: ApiKeyOptions,
 ) -> Result<Credential> {
@@ -149,10 +149,10 @@ mod test {
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_api_key_credential_basic() {
+    async fn create_api_key_credentials_basic() {
         let _e = ScopedEnv::remove("GOOGLE_CLOUD_QUOTA_PROJECT");
 
-        let creds = create_api_key_credential("test-api-key", ApiKeyOptions::default())
+        let creds = create_api_key_credentials("test-api-key", ApiKeyOptions::default())
             .await
             .unwrap();
         let token = creds.get_token().await.unwrap();
@@ -179,11 +179,11 @@ mod test {
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_api_key_credential_with_options() {
+    async fn create_api_key_credentials_with_options() {
         let _e = ScopedEnv::remove("GOOGLE_CLOUD_QUOTA_PROJECT");
 
         let options = ApiKeyOptions::default().set_quota_project("qp-option");
-        let creds = create_api_key_credential("test-api-key", options)
+        let creds = create_api_key_credentials("test-api-key", options)
             .await
             .unwrap();
         let headers: Vec<HV> = HV::from(creds.get_headers().await.unwrap());
@@ -207,10 +207,10 @@ mod test {
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_api_key_credential_with_env() {
+    async fn create_api_key_credentials_with_env() {
         let _e = ScopedEnv::set("GOOGLE_CLOUD_QUOTA_PROJECT", "qp-env");
         let options = ApiKeyOptions::default().set_quota_project("qp-option");
-        let creds = create_api_key_credential("test-api-key", options)
+        let creds = create_api_key_credentials("test-api-key", options)
             .await
             .unwrap();
         let headers: Vec<HV> = HV::from(creds.get_headers().await.unwrap());
