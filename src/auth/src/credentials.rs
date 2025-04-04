@@ -12,10 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod api_key_credential;
+mod api_key_credentials;
 // Export API Key factory function and options
-pub use api_key_credential::ApiKeyOptions;
-pub use api_key_credential::create_api_key_credential;
+pub use api_key_credentials::{ApiKeyOptions, create_api_key_credentials};
 
 pub mod mds;
 pub mod service_account;
